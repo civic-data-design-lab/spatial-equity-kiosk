@@ -54,7 +54,7 @@ export default function App({}) {
       data: _NEIGHBORHOODS,
       stroked: true,
       filled: true,
-      getFillColor: [255, 255, 255, 255],
+      getFillColor: [255, 255, 255, 0],
       lineWidthUnits: "pixels",
       getLineColor: [0, 0, 0, 255],
       getLineWidth: 1.5,
@@ -89,9 +89,9 @@ export default function App({}) {
       style={{ zIndex: -1, backgroundColor: "black" }}
     >
       <Map
-        // reuseMaps
-        // mapStyle={mapStyle}
-        // preventStyleDiffing={true}
+        reuseMaps
+        mapStyle={mapStyle}
+        preventStyleDiffing={true}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
       />
     </DeckGL>

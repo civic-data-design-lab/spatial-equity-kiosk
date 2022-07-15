@@ -44,5 +44,5 @@ body {
 .chapters:hover {
   background-color: black;
   color: white;
-
+  border-right: 2px solid white;
 }
