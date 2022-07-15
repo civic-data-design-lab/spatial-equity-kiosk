@@ -1,7 +1,6 @@
-import React, { useState } from "react";
 import DeckGL from "@deck.gl/react";
-import { PolygonLayer } from "@deck.gl/layers";
-import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
+// import { PolygonLayer } from "@deck.gl/layers";
+// import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer } from "@deck.gl/layers";
 
@@ -12,8 +11,8 @@ const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const mapStyle = "mapbox://styles/mitcivicdata/cl5mjm8u1000o14s2n2uv7kwm";
 
-const BUILDINGS =
-  "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/buildings.json"; // eslint-disable-line
+// const BUILDINGS =
+//   "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/buildings.json"; // eslint-disable-line
 
 // Viewport settings
 const INITIAL_VIEW_STATE = {
@@ -25,31 +24,31 @@ const INITIAL_VIEW_STATE = {
   bearing: 0,
 };
 
-const ambientLight = new AmbientLight({
-  color: [255, 255, 255],
-  intensity: 1.0,
-});
+// const ambientLight = new AmbientLight({
+//   color: [255, 255, 255],
+//   intensity: 1.0,
+// });
 
-const pointLight = new PointLight({
-  color: [255, 255, 255],
-  intensity: 2.0,
-  position: [-74.05, 40.7, 8000],
-});
+// const pointLight = new PointLight({
+//   color: [255, 255, 255],
+//   intensity: 2.0,
+//   position: [-74.05, 40.7, 8000],
+// });
 
-const lightingEffect = new LightingEffect({ ambientLight, pointLight });
+// const lightingEffect = new LightingEffect({ ambientLight, pointLight });
 
-const material = {
-  ambient: 0.1,
-  diffuse: 0.6,
-  shininess: 32,
-  specularColor: [60, 64, 70],
-};
+// const material = {
+//   ambient: 0.1,
+//   diffuse: 0.6,
+//   shininess: 32,
+//   specularColor: [60, 64, 70],
+// };
 
-const theme = {
-  buildingColor: [74, 80, 87],
-  material,
-  effects: [lightingEffect],
-};
+// const theme = {
+//   buildingColor: [74, 80, 87],
+//   material,
+//   effects: [lightingEffect],
+// };
 
 export default function App({}) {
   const layers = [
@@ -57,31 +56,31 @@ export default function App({}) {
       id: "neighborhoods",
       data: _NEIGHBORHOODS,
       // Styles
-      stroked: true,
+      // stroked: true,
       filled: true,
-      getFillColor: [30, 80, 120, 25],
-      lineWidthUnits: "pixels",
-      getLineColor: [235, 255, 0, 255],
-      getLineWidth: 2,
+      getFillColor: [30, 80, 120, 0],
+      // lineWidthUnits: "pixels",
+      // getLineColor: [235, 255, 0, 255],
+      // getLineWidth: 2,
       pickable: true,
       autoHighlight: true,
-      highlightColor: [235, 255, 0, 255],
+      highlightColor: [235, 255, 0, 225],
       onClick: (info) => {
         console.log("HI");
       },
     }),
 
-    new PolygonLayer({
-      id: "buildings",
-      data: BUILDINGS,
-      extruded: true,
-      wireframe: false,
-      opacity: 0.5,
-      getPolygon: (f) => f.polygon,
-      getElevation: (f) => f.height,
-      getFillColor: theme.buildingColor,
-      material: theme.material,
-    }),
+    // new PolygonLayer({
+    //   id: "buildings",
+    //   data: BUILDINGS,
+    //   extruded: true,
+    //   wireframe: false,
+    //   opacity: 0.5,
+    //   getPolygon: (f) => f.polygon,
+    //   getElevation: (f) => f.height,
+    //   getFillColor: theme.buildingColor,
+    //   material: theme.material,
+    // }),
   ];
 
   return (
