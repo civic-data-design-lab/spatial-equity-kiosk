@@ -7,7 +7,6 @@ function App() {
     <div className="App">
       <Map />
       <Sidebar />
-      <div id="frame" />
     </div>
   );
 }

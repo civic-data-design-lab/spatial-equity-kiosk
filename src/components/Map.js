@@ -11,8 +11,6 @@ import "mapbox-gl/dist/mapbox-gl.css";
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const mapStyle = "mapbox://styles/mitcivicdata/cl5mjm8u1000o14s2n2uv7kwm";
-// const mapStyle =
-//   "https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json";
 
 // Viewport settings
 const INITIAL_VIEW_STATE = {
@@ -57,7 +55,7 @@ export default function App({}) {
       data: _NEIGHBORHOODS,
       stroked: true,
       filled: true,
-      getFillColor: [255, 255, 255, 0],
+      getFillColor: [255, 255, 255, 255],
       lineWidthUnits: "pixels",
       getLineColor: [0, 0, 0, 255],
       getLineWidth: 1.5,
@@ -91,12 +89,12 @@ export default function App({}) {
       getCursor={() => "crosshair"}
       style={{ zIndex: -1, backgroundColor: "black" }}
     >
-      <Map
+      {/* <Map
         reuseMaps
         mapStyle={mapStyle}
         preventStyleDiffing={true}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-      />
+      /> */}
     </DeckGL>
   );
 }
