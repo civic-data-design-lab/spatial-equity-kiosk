@@ -9,7 +9,9 @@ import _BUILDINGS from "../data/buildings.json";
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-const mapStyle = "mapbox://styles/mitcivicdata/cl5mjm8u1000o14s2n2uv7kwm";
+// const mapStyle = "mapbox://styles/mitcivicdata/cl5mjm8u1000o14s2n2uv7kwm";
+const mapStyle =
+  "https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json";
 
 // Viewport settings
 const INITIAL_VIEW_STATE = {
