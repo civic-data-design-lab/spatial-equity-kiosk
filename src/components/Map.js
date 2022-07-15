@@ -4,14 +4,12 @@ import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer } from "@deck.gl/layers";
 import _NEIGHBORHOODS from "../data/neighborhoods.geojson";
+import _BUILDINGS from "../data/buildings.json";
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const mapStyle = "mapbox://styles/mitcivicdata/cl5mjm8u1000o14s2n2uv7kwm";
-
-const BUILDINGS =
-  "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/buildings.json"; // eslint-disable-line
 
 // Viewport settings
 const INITIAL_VIEW_STATE = {
@@ -54,13 +52,12 @@ export default function App({}) {
     new GeoJsonLayer({
       id: "neighborhoods",
       data: _NEIGHBORHOODS,
-      // Styles
-      // stroked: true,
+      stroked: true,
       filled: true,
       getFillColor: [30, 80, 120, 0],
-      // lineWidthUnits: "pixels",
-      // getLineColor: [235, 255, 0, 255],
-      // getLineWidth: 2,
+      lineWidthUnits: "pixels",
+      getLineColor: [0, 0, 0, 255],
+      getLineWidth: 1.5,
       pickable: true,
       autoHighlight: true,
       highlightColor: [235, 255, 0, 225],
@@ -71,10 +68,10 @@ export default function App({}) {
 
     new PolygonLayer({
       id: "buildings",
-      data: BUILDINGS,
+      data: _BUILDINGS,
       extruded: true,
       wireframe: false,
-      opacity: 0.5,
+      opacity: 0.8,
       getPolygon: (f) => f.polygon,
       getElevation: (f) => f.height,
       getFillColor: theme.buildingColor,
@@ -92,9 +89,9 @@ export default function App({}) {
       style={{ zIndex: -1 }}
     >
       <Map
-        reuseMaps
+        // reuseMaps
         mapStyle={mapStyle}
-        preventStyleDiffing={true}
+        // preventStyleDiffing={true}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
       />
     </DeckGL>
