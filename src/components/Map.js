@@ -3,7 +3,6 @@ import DeckGL from "@deck.gl/react";
 // import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer } from "@deck.gl/layers";
-
 import _NEIGHBORHOODS from "../data/neighborhoods.geojson";
 
 // Set your mapbox access token here
