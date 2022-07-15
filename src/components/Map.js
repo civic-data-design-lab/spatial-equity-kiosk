@@ -13,8 +13,8 @@ const mapStyle = "mapbox://styles/mitcivicdata/cl5mjm8u1000o14s2n2uv7kwm";
 
 // Viewport settings
 const INITIAL_VIEW_STATE = {
-  longitude: -73.9712,
-  latitude: 40.7831,
+  longitude: -74.3102,
+  latitude: 40.7131,
   zoom: 10,
   minZoom: 10,
   pitch: 0,
@@ -54,7 +54,7 @@ export default function App({}) {
       data: _NEIGHBORHOODS,
       stroked: true,
       filled: true,
-      getFillColor: [30, 80, 120, 0],
+      getFillColor: [255, 255, 255, 255],
       lineWidthUnits: "pixels",
       getLineColor: [0, 0, 0, 255],
       getLineWidth: 1.5,
@@ -86,11 +86,11 @@ export default function App({}) {
       layers={layers}
       // view={new GlobeView()}
       getCursor={() => "crosshair"}
-      style={{ zIndex: -1 }}
+      style={{ zIndex: -1, backgroundColor: "black" }}
     >
       <Map
         // reuseMaps
-        mapStyle={mapStyle}
+        // mapStyle={mapStyle}
         // preventStyleDiffing={true}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
       />
