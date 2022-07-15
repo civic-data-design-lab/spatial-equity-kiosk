@@ -5,13 +5,14 @@ import { Map } from "react-map-gl";
 import { GeoJsonLayer } from "@deck.gl/layers";
 import _NEIGHBORHOODS from "../data/neighborhoods.geojson";
 import _BUILDINGS from "../data/buildings.json";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-// const mapStyle = "mapbox://styles/mitcivicdata/cl5mjm8u1000o14s2n2uv7kwm";
-const mapStyle =
-  "https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json";
+const mapStyle = "mapbox://styles/mitcivicdata/cl5mjm8u1000o14s2n2uv7kwm";
+// const mapStyle =
+//   "https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json";
 
 // Viewport settings
 const INITIAL_VIEW_STATE = {
