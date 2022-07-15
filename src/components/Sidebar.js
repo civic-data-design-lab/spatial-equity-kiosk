@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import Container from "react-bootstrap/Container";
-import Offcanvas from "react-bootstrap/Offcanvas";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Sidebar() {
