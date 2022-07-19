@@ -1,10 +1,12 @@
 import DeckGL from "@deck.gl/react";
 import { PolygonLayer } from "@deck.gl/layers";
+import { ScreenGridLayer } from "@deck.gl/aggregation-layers";
 import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer } from "@deck.gl/layers";
 import _NEIGHBORHOODS from "../data/neighborhoods.geojson";
 import _BUILDINGS from "../data/buildings.json";
+import _NYC_POVERTY from "../data/PovertyPointsLight.json";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 // Set your mapbox access token here
@@ -21,6 +23,15 @@ const INITIAL_VIEW_STATE = {
   pitch: 0,
   bearing: 0,
 };
+
+const colorRange = [
+  [55, 40, 45, 30],
+  [120, 45, 45, 155],
+  [220, 45, 45],
+  [114, 64, 128],
+  [28, 27, 128],
+  [0, 0, 0],
+];
 
 const ambientLight = new AmbientLight({
   color: [255, 255, 255],
@@ -55,7 +66,7 @@ export default function App({}) {
       data: _NEIGHBORHOODS,
       stroked: true,
       filled: true,
-      getFillColor: [255, 255, 255, 255],
+      getFillColor: [255, 255, 255, 0],
       lineWidthUnits: "pixels",
       getLineColor: [0, 0, 0, 255],
       getLineWidth: 1.5,
@@ -63,7 +74,7 @@ export default function App({}) {
       autoHighlight: true,
       highlightColor: [235, 255, 0, 225],
       onClick: (info) => {
-        console.log("HI");
+        console.log("you can add a popup here");
       },
     }),
 
@@ -78,6 +89,17 @@ export default function App({}) {
       getFillColor: theme.buildingColor,
       material: theme.material,
     }),
+
+    new ScreenGridLayer({
+      id: "grid",
+      data: _NYC_POVERTY.features,
+      opacity: 1,
+      getPosition: (d) => d.geometry.coordinates,
+      cellSizePixels: 12,
+      colorRange: colorRange,
+      gpuAggregation: true,
+      aggregation: "SUM",
+    }),
   ];
 
   return (
@@ -85,16 +107,15 @@ export default function App({}) {
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
       layers={layers}
-      // view={new GlobeView()}
       getCursor={() => "crosshair"}
       style={{ zIndex: -1, backgroundColor: "black" }}
     >
-      {/* <Map
+      <Map
         reuseMaps
         mapStyle={mapStyle}
         preventStyleDiffing={true}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-      /> */}
+      />
     </DeckGL>
   );
 }
