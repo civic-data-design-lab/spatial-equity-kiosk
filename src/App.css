@@ -21,6 +21,13 @@ body {
   width: 100vw;
 }
 
+
+:root {
+  --health: #F93080;
+  --environment: #179F4E;
+  --infrastructure: #146FD1;
+}
+
 #root {
   height: 100%;
   width: 100%;
@@ -34,17 +41,30 @@ body {
   overflow-x: hidden;
 }
 
+.collapse {
+  position: relative;
+  left: 0;
+  transition: left 1s;
+  z-index: 2;
+}
+
 .sidebar-header {
   font-size: 20px;
   font-weight: bold;
   border: 1px solid black;
-  padding: 1em;
+  padding: 1rem;
   overflow-y: auto;
   height: 100%;
 }
 
 .sidebar-body {
   font-size: 16px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.collapsed {
+  left: calc(-25vw + 1px);
 }
 
 .chapters {
@@ -53,6 +73,7 @@ body {
   padding: 1em;
   transition-duration: 0.5s;
   word-wrap: normal;
+  height: calc(100% / 3);
 }
 
 .chapters:hover {
@@ -85,6 +106,31 @@ body {
 
 .carousel-indicators .active {
   background-color: #000 !important;
+}
+
+#collapse-content {
+  margin: 0;
+  padding: 0;
+}
+
+#issues-column {
+  left: 25vw;
+  border-bottom: 1px solid black;
+}
+
+.issues-health:hover {
+  background-color: var(--health);
+  color: black;
+}
+
+.issues-environment:hover {
+  background-color: var(--environment);
+  color: black;
+}
+
+.issues-infrastructure:hover {
+  background-color: var(--infrastructure);
+  color: black;
 }
 
 
