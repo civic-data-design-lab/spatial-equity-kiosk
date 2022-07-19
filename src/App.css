@@ -3,12 +3,6 @@
   src: url(./fonts/Inter-VariableFont_slnt,wght.ttf);
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .collapsing {
-        transition-property: width, visibility;
-        transition-duration: .35s;
-    }
-}
 
 h1, h2, h3, h4, h5, h6, p {
   font-weight: 500;
@@ -83,8 +77,6 @@ body {
 }
 
 
-
-
 .carousel-inner {
   height: 100%;
 }
@@ -132,6 +124,8 @@ body {
   background-color: var(--infrastructure);
   color: black;
 }
+
+
 
 
 

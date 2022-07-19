@@ -11,6 +11,7 @@ import AccordionItem from "react-bootstrap/AccordionItem";
 export default function Sidebar() {
 
   const [open, setOpen] = useState(true);
+  const [collapseIssues, setCollapseIssues] = useState(false)
 
   return (
     <div className="d-flex flex-row sidebar h-100">
@@ -46,30 +47,29 @@ export default function Sidebar() {
         </div>
       </div>
 
-        <Accordion className={"col-3 position-absolute d-flex flex-column h-100"} id={"issues-column"}>
-            <AccordionItem eventKey="0">
-            <AccordionBody className="chapters issues-health">
+        <div className={"col-3 position-absolute d-flex flex-column h-100"} id={"issues-column"}>
+            <div className={"chapters issues-health"}
+                onClick={()=>{setCollapseIssues(true)}}>
             <h5>Health</h5>
-            <h5>Text explanation about “health”. Felis donec et odio pellentesque.
+            <h5 className={`${collapseIssues? "collapse-issues":""} issues-text`}>Text explanation about “health”. Felis donec et odio pellentesque.
                 Elit at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.
                 Vel turpis nunc eget lorem dolor sed viverra. </h5>
-            </AccordionBody>
-            </AccordionItem>
-            <AccordionItem eventKey="1">
-        <AccordionBody className="chapters issues-environment">
+            </div>
+
+        <div className={"chapters issues-environment"}
+            onClick={()=>{setCollapseIssues(true)}}>
             <h5>Environment</h5>
-            <h5>Text explanation about “environment”. Turpis egestas pretium aenean pharetra magna.
+            <h5 className={`${collapseIssues? "collapse-issues":""} issues-text`}>Text explanation about “environment”. Turpis egestas pretium aenean pharetra magna.
                 Sed odio morbi quis commodo odio aenean sed adipiscing.</h5>
-        </AccordionBody>
-            </AccordionItem>
-            <AccordionItem eventKey={"2"}>
-        <AccordionBody className="chapters issues-infrastructure">
+        </div>
+
+        <div className={"chapters issues-infrastructure"}
+            onClick={()=>{setCollapseIssues(true)}}>
             <h5>Infrastructure</h5>
-            <h5>Text explanation about “infrastructure” Excepteur sint occaecat cupidatat non proident,
+            <h5 className={`${collapseIssues? "collapse-issues":""}`}>Text explanation about “infrastructure” Excepteur sint occaecat cupidatat non proident,
                 sunt in culpa qui officia deserunt mollit anim id est laborum.</h5>
-        </AccordionBody>
-                </AccordionItem>
-        </Accordion>
+        </div>
+        </div>
 
     </div>
   );
