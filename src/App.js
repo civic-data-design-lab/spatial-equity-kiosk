@@ -213,7 +213,7 @@ function App() {
                 <Col className={"d-flex flex-column col-6 h-100 p-0 black-border"}>
                     {selectedChapter === 1 && <HomeCarousel/>}
                     {selectedChapter !== 1  && (selectedSpecificIssue ? <IssueSection selectedSpecificIssue={selectedSpecificIssue}/> : null)}
-                    <div className={`${selectedChapter !== 1  && selectedSpecificIssue ? "invisible" : "visible"} map-container`}><Map/></div>
+                    <div className={`${selectedChapter === 1 || (selectedChapter !== 1  && selectedSpecificIssue) ? "invisible" : "visible"} map-container`}><Map/></div>
                 </Col>
 
 
