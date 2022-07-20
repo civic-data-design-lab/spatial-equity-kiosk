@@ -12,7 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import IssueSection from "./components/IssueSection";
-import Map from "react-map-gl";
+import Map from "./components/Map";
 
 
 function App() {
