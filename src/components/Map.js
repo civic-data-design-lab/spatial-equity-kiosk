@@ -1,10 +1,16 @@
 import DeckGL from "@deck.gl/react";
 import { PolygonLayer } from "@deck.gl/layers";
+import { ScreenGridLayer } from "@deck.gl/aggregation-layers";
 import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer } from "@deck.gl/layers";
-import _NEIGHBORHOODS from "../data/neighborhoods.geojson";
+import _NEIGHBORHOODS from "../data/neighborhood_tabluation.json";
+import _DISTRICTS from "../data/council_districts.geojson";
 import _BUILDINGS from "../data/buildings.json";
+import _NYC_POVERTY from "../data/poverty_points_light.json";
+import "mapbox-gl/dist/mapbox-gl.css";
+
+console.log(_NEIGHBORHOODS.features[0].properties.NTAName);
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -20,6 +26,15 @@ const INITIAL_VIEW_STATE = {
   pitch: 0,
   bearing: 0,
 };
+
+const colorRange = [
+  [55, 40, 45, 30],
+  [120, 45, 45, 155],
+  [220, 45, 45],
+  [114, 64, 128],
+  [28, 27, 128],
+  [0, 0, 0],
+];
 
 const ambientLight = new AmbientLight({
   color: [255, 255, 255],
@@ -50,19 +65,30 @@ const theme = {
 export default function App({}) {
   const layers = [
     new GeoJsonLayer({
-      id: "neighborhoods",
-      data: _NEIGHBORHOODS,
+      id: "council-districts",
+      data: _DISTRICTS,
       stroked: true,
       filled: true,
-      getFillColor: [255, 255, 255, 0],
+      getFillColor: [255, 10, 50, 0],
       lineWidthUnits: "pixels",
       getLineColor: [0, 0, 0, 255],
-      getLineWidth: 1.5,
+      getLineWidth: 2,
+    }),
+
+    new GeoJsonLayer({
+      id: "neighborhoods",
+      data: _NEIGHBORHOODS.features,
+      stroked: true,
+      filled: true,
+      getFillColor: [255, 10, 50, 0],
+      lineWidthUnits: "pixels",
+      getLineColor: [0, 0, 0, 100],
+      getLineWidth: 2,
       pickable: true,
       autoHighlight: true,
       highlightColor: [235, 255, 0, 225],
       onClick: (info) => {
-        console.log("HI");
+        console.log(_NEIGHBORHOODS.features[info.index].properties.NTAName);
       },
     }),
 
@@ -77,6 +103,17 @@ export default function App({}) {
       getFillColor: theme.buildingColor,
       material: theme.material,
     }),
+
+    new ScreenGridLayer({
+      id: "grid",
+      data: _NYC_POVERTY.features,
+      opacity: 1,
+      getPosition: (d) => d.geometry.coordinates,
+      cellSizePixels: 12,
+      colorRange: colorRange,
+      gpuAggregation: true,
+      aggregation: "SUM",
+    }),
   ];
 
   return (
@@ -84,7 +121,6 @@ export default function App({}) {
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
       layers={layers}
-      // view={new GlobeView()}
       getCursor={() => "crosshair"}
       style={{ zIndex: -1, backgroundColor: "black" }}
     >
