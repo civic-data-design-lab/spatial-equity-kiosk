@@ -4,13 +4,14 @@ import { ScreenGridLayer } from "@deck.gl/aggregation-layers";
 import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer } from "@deck.gl/layers";
-import _NEIGHBORHOODS from "../data/neighborhood_tabluation.json";
+import { scaleThreshold, scaleLinear } from "d3-scale";
+import { max } from "d3-array";
+
+import _NEIGHBORHOODS from "../data/neighborhood_tabulation.json";
 import _DISTRICTS from "../data/council_districts.geojson";
 import _BUILDINGS from "../data/buildings.json";
 import _NYC_POVERTY from "../data/poverty_points_light.json";
 import "mapbox-gl/dist/mapbox-gl.css";
-
-console.log(_NEIGHBORHOODS.features[0].properties.NTAName);
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -27,6 +28,16 @@ const INITIAL_VIEW_STATE = {
   bearing: 0,
 };
 
+//used for wireframe - ignore
+// const INITIAL_VIEW_STATE = {
+//   longitude: -73.9405,
+//   latitude: 40.77,
+//   zoom: 13.5,
+//   minZoom: 10,
+//   pitch: 0,
+//   bearing: 0,
+// };
+
 const colorRange = [
   [55, 40, 45, 30],
   [120, 45, 45, 155],
@@ -35,6 +46,38 @@ const colorRange = [
   [28, 27, 128],
   [0, 0, 0],
 ];
+
+const COLOR_SCALE = scaleThreshold()
+  .domain([0, 0.3, 0.5, 0.7, 0.75, 0.8, 0.85, 0.9, 1])
+  .range([
+    [103, 0, 31],
+    [152, 0, 67],
+    [206, 18, 86],
+    [231, 41, 138],
+    [201, 148, 199],
+    [223, 101, 176],
+    [212, 185, 218],
+    [231, 225, 239],
+    [247, 244, 249],
+    [0, 0, 0, 0], //null item
+  ]);
+
+//  ---------------------------------------------------------------------------------------------------------------------
+// Example - feel free to delete after familiarizing yourself with color ramps
+// // get array of car free values
+// const value_list = [];
+// for (let i = 0; i < _NEIGHBORHOODS.features.length; i++) {
+//   value_list.push(_NEIGHBORHOODS.features[i].properties.F__car_fre);
+// }
+
+// // D3 remap values into linear color domain
+// const COLOR_SCALE = scaleLinear()
+//   .domain([0, max(value_list)])
+//   .range([
+//     [0, 0, 0],
+//     [255, 255, 255],
+//   ]);
+// ---------------------------------------------------------------------------------------------------------------------
 
 const ambientLight = new AmbientLight({
   color: [255, 255, 255],
@@ -65,30 +108,41 @@ const theme = {
 export default function App({}) {
   const layers = [
     new GeoJsonLayer({
-      id: "council-districts",
-      data: _DISTRICTS,
-      stroked: true,
-      filled: true,
-      getFillColor: [255, 10, 50, 0],
-      lineWidthUnits: "pixels",
-      getLineColor: [0, 0, 0, 255],
-      getLineWidth: 2,
-    }),
-
-    new GeoJsonLayer({
       id: "neighborhoods",
       data: _NEIGHBORHOODS.features,
       stroked: true,
       filled: true,
-      getFillColor: [255, 10, 50, 0],
+      getFillColor: (f) => COLOR_SCALE(f.properties.F__car_fre),
       lineWidthUnits: "pixels",
-      getLineColor: [0, 0, 0, 100],
+      getLineColor: [0, 0, 0, 255],
       getLineWidth: 2,
+      opacity: 0.33,
+      pickable: true,
+      onClick: (info) => {
+        console.log(_NEIGHBORHOODS.features[info.index].properties.NTAName);
+        console.log(_NEIGHBORHOODS.features[info.index].properties.F__car_fre);
+        console.log(
+          COLOR_SCALE(_NEIGHBORHOODS.features[info.index].properties.F__car_fre)
+        );
+      },
+    }),
+
+    new GeoJsonLayer({
+      id: "council-districts",
+      data: _DISTRICTS,
+      stroked: true,
+      filled: true,
+      getFillColor: [255, 255, 255, 0],
+      lineWidthUnits: "pixels",
+      getLineColor: [0, 0, 0, 255],
+      lineWidthUnits: "meters",
+      getLineWidth: 50,
+      lineWidthMinPixels: 1,
       pickable: true,
       autoHighlight: true,
       highlightColor: [235, 255, 0, 225],
-      onClick: (info) => {
-        console.log(_NEIGHBORHOODS.features[info.index].properties.NTAName);
+      onHover: (info) => {
+        // console.log(info);
       },
     }),
 
