@@ -16,6 +16,10 @@ h1, h2, h3, h4, h5, h6, p {
   margin: 0 !important;
 }
 
+.invisible { visibility: hidden}
+
+.visibility { visibility: visible}
+
 body {
   font-family: 'Inter';
   overflow: hidden;
@@ -233,8 +237,20 @@ body {
   color: #BBBBBB;
 }
 
+.carousel {
+  z-index: 1;
+  background-color: white;
+}
+
 
 .issue-section {
+  z-index: 1;
   padding: 1.5rem;
   background-color: white;
+}
+
+#deckgl-wrapper {
+  background-color: black;
+  left: 50% !important;
+  width: 50% !important;
 }

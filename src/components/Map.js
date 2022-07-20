@@ -176,7 +176,6 @@ export default function App({}) {
       controller={true}
       layers={layers}
       getCursor={() => "crosshair"}
-      style={{ zIndex: -1, backgroundColor: "black" }}
     >
       <Map
         reuseMaps
