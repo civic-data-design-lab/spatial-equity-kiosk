@@ -16,7 +16,7 @@ function App() {
             <Col className={"col-6 h-100 pe-0"}>
                 <Sidebar />
             </Col>
-            <Col className={"d-flex flex-column col-6 h-100 p-0"}>
+            <Col className={"d-flex flex-column col-6 h-100 p-0 black-border"}>
                 <HomeCarousel/>
             </Col>
         </Row>
