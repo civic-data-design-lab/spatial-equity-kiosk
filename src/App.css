@@ -35,13 +35,6 @@ body {
   overflow-x: hidden;
 }
 
-.collapse {
-  position: relative;
-  left: 0;
-  transition: left 1s;
-  z-index: 2;
-}
-
 .sidebar-header {
   font-size: 20px;
   font-weight: bold;
@@ -54,7 +47,11 @@ body {
 .sidebar-body {
   font-size: 16px;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  position: relative;
+  left: 0;
+  transition: left 1s;
+  z-index: 2;
 }
 
 .collapsed {
@@ -62,20 +59,25 @@ body {
 }
 
 .chapters {
-  border: 1px solid black;
-  background-color: white;
   padding: 1em;
-  transition-duration: 0.5s;
+  border: 1px solid black;
+  transition: background-color 0.5s;
   word-wrap: normal;
-  height: calc(100% / 3);
 }
 
-.chapters:hover {
+.thirds {
+  min-height: calc(100vh / 3) !important;
+}
+
+.chapters-unselected {
+  background-color: white;
+}
+
+.chapters:hover, .chapters-selected {
   background-color: black;
   color: white;
   #border-right: 2px solid white;
 }
-
 
 .carousel-inner {
   height: 100%;
@@ -110,22 +112,61 @@ body {
   border-bottom: 1px solid black;
 }
 
-.issues-health:hover {
+.issues-health:hover, .issues-health-active {
   background-color: var(--health);
   color: black;
 }
 
-.issues-environment:hover {
+.issues-environment:hover, .issues-environment-active {
   background-color: var(--environment);
   color: black;
 }
 
-.issues-infrastructure:hover {
+.issues-infrastructure:hover, .issues-infrastructure-active {
   background-color: var(--infrastructure);
   color: black;
 }
 
+.issues-text {
+  opacity: 1;
+  transition: opacity 1s;
+}
 
+.accordion-content {
+  padding: 1em;
+}
 
+.issues-chapters {
+  min-height: calc(100vh / 3);
+  padding: 1em;
+  border: 1px solid black;
+  word-wrap: normal;
+  transition: background-color 0.5s, min-height 0.4s;
+}
 
+.invis {
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  font-size: 0;
+  transition: max-height 0.5s;
+}
 
+.vis {
+  position: static;
+  max-height: 100vh;
+  opacity: 1;
+  font-size: 1.25rem;
+  transition: max-height 0.5s linear, font-size 0.05s 0.25s, opacity 0.25s 0.3s;
+}
+
+.collapse-issue {
+  min-height: 0;
+}
+
+.collapse-text {
+  font-size: inherit;
+  margin: 0;
+}
