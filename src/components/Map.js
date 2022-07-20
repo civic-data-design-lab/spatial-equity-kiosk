@@ -4,10 +4,13 @@ import { ScreenGridLayer } from "@deck.gl/aggregation-layers";
 import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer } from "@deck.gl/layers";
-import _NEIGHBORHOODS from "../data/neighborhoods.geojson";
+import _NEIGHBORHOODS from "../data/neighborhood_tabluation.json";
+import _DISTRICTS from "../data/council_districts.geojson";
 import _BUILDINGS from "../data/buildings.json";
-import _NYC_POVERTY from "../data/PovertyPointsLight.json";
+import _NYC_POVERTY from "../data/poverty_points_light.json";
 import "mapbox-gl/dist/mapbox-gl.css";
+
+console.log(_NEIGHBORHOODS.features[0].properties.NTAName);
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -62,19 +65,30 @@ const theme = {
 export default function App({}) {
   const layers = [
     new GeoJsonLayer({
-      id: "neighborhoods",
-      data: _NEIGHBORHOODS,
+      id: "council-districts",
+      data: _DISTRICTS,
       stroked: true,
       filled: true,
-      getFillColor: [255, 255, 255, 0],
+      getFillColor: [255, 10, 50, 0],
       lineWidthUnits: "pixels",
       getLineColor: [0, 0, 0, 255],
-      getLineWidth: 1.5,
+      getLineWidth: 2,
+    }),
+
+    new GeoJsonLayer({
+      id: "neighborhoods",
+      data: _NEIGHBORHOODS.features,
+      stroked: true,
+      filled: true,
+      getFillColor: [255, 10, 50, 0],
+      lineWidthUnits: "pixels",
+      getLineColor: [0, 0, 0, 100],
+      getLineWidth: 2,
       pickable: true,
       autoHighlight: true,
       highlightColor: [235, 255, 0, 225],
       onClick: (info) => {
-        console.log("you can add a popup here");
+        console.log(_NEIGHBORHOODS.features[info.index].properties.NTAName);
       },
     }),
 
