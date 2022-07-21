@@ -1,18 +1,66 @@
 import "./App.css";
+import React, {useState, useEffect} from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 
-// import Sidebar from "./components/Sidebar";
 import HomeCarousel from "./components/HomeCarousel";
-
-import React, {useState} from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import IssueSection from "./components/IssueSection";
+import IssueSelection from "./components/IssueSelection";
 import Map from "./components/Map";
+import MapToggle from "./components/MapToggle"
+
+const issues = {
+    issues_data: {
+        health: {
+            specific_issues_ID: [1, 2],
+            issue_description: "Health Description"
+        },
+        environment: {
+            specific_issues_ID: [3, 4],
+            issue_description: "Environment Description"
+        },
+        infrastructure: {
+            specific_issues_ID: [5, 6],
+            issue_description: "Infrasctructure Description"
+        },
+    },
+    specific_issues_data: {
+        1: {
+            specific_issue_ID: 1,
+            specific_issue_name: "Issue #1",
+            specific_issue_description: "Issue #1 Description"
+        },
+        2: {
+            specific_issue_ID: 2,
+            specific_issue_name: "Issue #2",
+            specific_issue_description: "Issue #2 Description"
+        },
+        3: {
+            specific_issue_ID: 3,
+            specific_issue_name: "Issue #3",
+            specific_issue_description: "Issue #3 Description"
+        },
+        4: {
+            specific_issue_ID: 4,
+            specific_issue_name: "Issue #4",
+            specific_issue_description: "Issue #4 Description"
+        },
+        5: {
+            specific_issue_ID: 5,
+            specific_issue_name: "Issue #5",
+            specific_issue_description: "Issue #5 Description"
+        },
+        6: {
+            specific_issue_ID: 6,
+            specific_issue_name: "Issue #6",
+            specific_issue_description: "Issue #6 Description"
+        }
+    },
+}
 
 
 function App() {
@@ -22,6 +70,39 @@ function App() {
     const [selectedChapter, setSelectedChapter] = useState(1)
     const [selectedIssue, setSelectedIssue] = useState(null)
     const [selectedSpecificIssue, setSelectedSpecificIssue] = useState(null)
+    const [showMap, setShowMap] = useState(true)
+    const [showToggle, setShowToggle] = useState(true)
+
+
+
+    // use useEffect to determine showMap and showToggle
+    // if showToggle is false => use selectedChapter, selectedIssue and selected SpecificIssue to determing
+    // else default to shopMap value (i.e. toggle decisions should take priority)
+    useEffect(()=>{
+        const newShowToggle = selectedChapter === 2 && selectedSpecificIssue
+        setShowToggle(newShowToggle)
+        if (!newShowToggle && selectedChapter === 2) {
+            setShowMap(true)
+        }
+    })
+
+
+
+
+    const getIssues = (issue) => {
+        return issues.issues_data[issue].specific_issues_ID.map((ID) => {
+            return <IssueSelection
+                issueName={issues.specific_issues_data[ID].specific_issue_name}
+                key={ID}
+                issueID={ID}
+                selectedSpecificIssue={selectedSpecificIssue}
+                setSelectedSpecificIssue={setSelectedSpecificIssue}
+                issueType={issue}
+                resetMap={setShowMap}
+            />
+        })
+
+    }
 
 
     return (
@@ -105,27 +186,7 @@ function App() {
                                 <div>
                                     <h5>Select an issue to explore</h5>
                                     <div className={"col"}>
-                                        <div className={"row issues-arrow-row"}
-                                             onClick={()=>{
-                                                 if (selectedSpecificIssue !== 1) {
-                                                     setSelectedSpecificIssue(1)
-                                                 } else {
-                                                     setSelectedSpecificIssue(null)
-                                                 }
-                                             }}>
-                                            <div className={`${selectedSpecificIssue === 1 ? 'issues-arrow-active' : ''} col-2 issues-arrow health`}><FontAwesomeIcon
-                                                icon={faArrowRight}/>
-                                            </div>
-                                            <div className={"col-10 no-padding"}><p className={"mb-2"}>Issue #1</p>
-                                            </div>
-                                        </div>
-                                        <div className={"row issues-arrow-row"}>
-                                            <div className={"col-2 issues-arrow health"}><FontAwesomeIcon
-                                                icon={faArrowRight}/>
-                                            </div>
-                                            <div className={"col-10 no-padding"}><p className={"mb-2"}>Issue #2</p>
-                                            </div>
-                                        </div>
+                                        {getIssues("health")}
                                     </div>
                                 </div>
                             </div>
@@ -155,12 +216,7 @@ function App() {
                                 <div>
                                     <h5>Select an issue to explore</h5>
                                     <div className={"col"}>
-                                        <div className={"row issues-arrow-row"}>
-                                            <div className={"col-2 issues-arrow environment"}><FontAwesomeIcon
-                                                icon={faArrowRight}/>
-                                            </div>
-                                            <div className={"col-10 no-padding"}><p>Issue #1</p></div>
-                                        </div>
+                                        {getIssues("environment")}
                                     </div>
                                 </div>
                             </div>
@@ -189,11 +245,7 @@ function App() {
                                 <div>
                                     <h5>Select an issue to explore</h5>
                                     <div className={"col"}>
-                                        <div className={"row issues-arrow-row"}>
-                                            <div className={"col-2 issues-arrow infrastructure"}><FontAwesomeIcon
-                                                icon={faArrowRight}/></div>
-                                            <div className={"col-10 no-padding"}><p>Issue #1</p></div>
-                                        </div>
+                                        {getIssues("infrastructure")}
                                     </div>
                                 </div>
                             </div>
@@ -212,11 +264,19 @@ function App() {
                 </Col>
                 <Col className={"d-flex flex-column col-6 h-100 p-0 black-border"}>
                     {selectedChapter === 1 && <HomeCarousel/>}
-                    {selectedChapter !== 1  && (selectedSpecificIssue ? <IssueSection selectedSpecificIssue={selectedSpecificIssue}/> : null)}
-                    <div className={`${selectedChapter === 1 || (selectedChapter !== 1  && selectedSpecificIssue) ? "invisible" : "visible"} map-container`}><Map/></div>
+                    {selectedChapter !== 1 && (selectedSpecificIssue ?
+                        <IssueSection
+                            selectedSpecificIssueName={issues.specific_issues_data[selectedSpecificIssue].specific_issue_name}
+                            selectedSpecificIssueDescription={issues.specific_issues_data[selectedSpecificIssue].specific_issue_description}/>
+                        : null)}
+                    <div
+                        className={`${showMap ? 'raise-map visible' : 'invisible'} map-container`}>
+                        <Map/>
+                    </div>
+
+                    <MapToggle showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}/>
+
                 </Col>
-
-
             </Row>
         </Container>
     );
