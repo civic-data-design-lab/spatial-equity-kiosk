@@ -81,7 +81,7 @@ function App() {
     useEffect(()=>{
         const newShowToggle = selectedChapter === 2 && selectedSpecificIssue
         setShowToggle(newShowToggle)
-        if (!newShowToggle && selectedChapter === 2) {
+        if (!selectedSpecificIssue) {
             setShowMap(true)
         }
     })

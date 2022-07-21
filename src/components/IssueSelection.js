@@ -8,12 +8,13 @@ export default function IssueSelection({issueName, issueID, selectedSpecificIssu
     return (
         <div className={"row issues-arrow-row"}
              onClick={() => {
-                 resetMap(false)
                  if (selectedSpecificIssue !== issueID) {
                      setSelectedSpecificIssue(issueID)
+                     resetMap(false)
 
                  } else {
                      setSelectedSpecificIssue(null)
+                     resetMap(true)
                  }
              }}>
             <div className={`${selectedSpecificIssue === issueID ? 'issues-arrow-active' : ''} col-2 issues-arrow ${issueType}`}>
