@@ -48,7 +48,8 @@ const colorRange = [
 ];
 
 const COLOR_SCALE = scaleThreshold()
-  .domain([0, 0.3, 0.5, 0.7, 0.75, 0.8, 0.85, 0.9, 1])
+  // .domain([0, 0.3, 0.5, 0.7, 0.75, 0.8, 0.85, 0.9, 1]) //unequal bins
+  .domain([0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]) //equal bins with shifted basepoint
   .range([
     [103, 0, 31],
     [152, 0, 67],
@@ -158,16 +159,16 @@ export default function App({}) {
       material: theme.material,
     }),
 
-    new ScreenGridLayer({
-      id: "grid",
-      data: _NYC_POVERTY.features,
-      opacity: 1,
-      getPosition: (d) => d.geometry.coordinates,
-      cellSizePixels: 12,
-      colorRange: colorRange,
-      gpuAggregation: true,
-      aggregation: "SUM",
-    }),
+    // new ScreenGridLayer({
+    //   id: "grid",
+    //   data: _NYC_POVERTY.features,
+    //   opacity: 1,
+    //   getPosition: (d) => d.geometry.coordinates,
+    //   cellSizePixels: 12,
+    //   colorRange: colorRange,
+    //   gpuAggregation: true,
+    //   aggregation: "SUM",
+    // }),
   ];
 
   return (
