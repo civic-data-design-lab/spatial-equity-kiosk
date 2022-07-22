@@ -1,17 +1,23 @@
 import "./App.css";
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
+
 
 import HomeCarousel from "./components/HomeCarousel";
-import IssueSection from "./components/IssueSection";
-import IssueSelection from "./components/IssueSelection";
 import Map from "./components/Map";
 import MapToggle from "./components/MapToggle"
+import IssueSection from "./components/IssueSection";
+import IssueSelection from "./components/IssueSelection";
+import CommunitiesSection from "./components/CommunitiesSection";
+import CommunitySearchBar from "./components/CommunitySearchBar"
+
 
 const issues = {
     issues_data: {
@@ -62,36 +68,50 @@ const issues = {
     },
 }
 
+const communities = {
+    "Queens 1":
+        {
+            bolded_text: "Queens 1",
+            remaining_text: "Astoria, Astoria Heights, Queensbridge, Dutch Kills, Long Island City, Ravenswood, Rikers Island (BX), Steinway"
+        },
+    "Queens 2":
+        {
+            bolded_text: "Queens 2",
+            remaining_text: "Blissville, Hunters Point, Long Island City, Sunnyside, Sunnyside Gardens, Woodside"
+        },
+    "Queens 3":
+        {
+            bolded_text: "Queens 3",
+            remaining_text: "East Elmhurst, Jackson Heights, North Corona"
+        },
+    "Queens 4":
+        {
+            bolded_text: "Queens 4",
+            remaining_text: "Corona, Corona Heights, Elmhurst, Lefrak City"
+        }
+}
+
 
 function App() {
 
     const [open, setOpen] = useState(true);
     const [whichOnTop, setWhichOnTop] = useState(2)
+    const [showMap, setShowMap] = useState(false)
+    const [showToggle, setShowToggle] = useState(false)
     const [selectedChapter, setSelectedChapter] = useState(1)
     const [selectedIssue, setSelectedIssue] = useState(null)
     const [selectedSpecificIssue, setSelectedSpecificIssue] = useState(null)
-    const [showMap, setShowMap] = useState(false)
-    const [showToggle, setShowToggle] = useState(false)
+    const [communitySearch, setCommunitySearch] = useState(null);
 
 
-
-    // use useEffect to determine showMap and showToggle
-    // if showToggle is false => use selectedChapter, selectedIssue and selected SpecificIssue to determing
-    // else default to shopMap value (i.e. toggle decisions should take priority)
-    useEffect(()=>{
+/*    useEffect(() => {
         console.log("selectedChapter ", selectedChapter)
         console.log("selectedIssue ", selectedIssue)
         console.log("selectedSpecficIssue ", selectedSpecificIssue)
         console.log("showMap ", showMap)
         console.log("show toggle ", showToggle)
-        //const newShowToggle = (selectedChapter === 2 && selectedSpecificIssue)
-        //setShowToggle(newShowToggle)
-        //if (!selectedSpecificIssue) {
-        //    setShowMap(true)
-        //}
-    })
-
-
+        console.log("community search ", communitySearch)
+    })*/
 
 
     const getIssues = (issue) => {
@@ -107,7 +127,26 @@ function App() {
                 setShowToggle={setShowToggle}
             />
         })
+    }
 
+    const getSearchItems = (communities) => {
+        let searchItems = []
+        for (let [key, value] of Object.entries(communities)) {
+            searchItems.push(
+                <div key={key} className={`${communitySearch && communitySearch.startsWith(key) ? "search-item-active" : "search-item-inactive" } col search-item p-2`}
+                     onClick={()=>{setCommunitySearch(key.concat(" ",value.remaining_text))}}
+                >
+                    <div className={"row w-100 p-0 m-0"}>
+                        <div className={"col-10 m-0 p-0"}>
+                            <span style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
+                        </div>
+                        <div className={`${communitySearch && communitySearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
+                            <FontAwesomeIcon icon={faArrowRight}/></div>
+                    </div>
+                </div>
+            )
+        }
+        return searchItems
     }
 
 
@@ -161,6 +200,8 @@ function App() {
                                     setSelectedChapter(3)
                                     setSelectedIssue(null)
                                     setSelectedSpecificIssue(null)
+                                    setShowMap(false)
+                                    setShowToggle(true)
                                 }}>
                                 <h5>Explore Spatial Equity by</h5>
                                 <h1>Community Profiles</h1>
@@ -274,26 +315,28 @@ function App() {
                             className={`${whichOnTop === 3 ? "" : "d-none"} col-3 position-absolute d-flex flex-column h-100`}
                             id={"community-column"}>
                             <h5>Explore Community</h5>
-                            <input type={"search"} className={"community-search"}
-                                   placeholder={"Search for a District, Neighborhood, or Address"}/>
+                            <CommunitySearchBar communitySearch={communitySearch} setCommunitySearch={setCommunitySearch}>
+                                {getSearchItems(communities)}
+                            </CommunitySearchBar>
+
 
                         </div>
                     </div>
                 </Col>
                 <Col className={"d-flex flex-column col-6 h-100 p-0 black-border"}>
                     {selectedChapter === 1 && <HomeCarousel/>}
-                    {selectedChapter !== 1 && (selectedSpecificIssue ?
+                    {selectedChapter === 2 && (selectedSpecificIssue ?
                         <IssueSection
                             selectedSpecificIssueName={issues.specific_issues_data[selectedSpecificIssue].specific_issue_name}
                             selectedSpecificIssueDescription={issues.specific_issues_data[selectedSpecificIssue].specific_issue_description}/>
                         : null)}
+                    {selectedChapter === 3 && <CommunitiesSection/>}
+
                     <div
                         className={`${showMap ? 'raise-map visible' : 'invisible'} map-container`}>
                         <Map/>
                     </div>
-
                     <MapToggle showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}/>
-
                 </Col>
             </Row>
         </Container>

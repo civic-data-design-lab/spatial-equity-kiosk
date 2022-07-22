@@ -20,7 +20,7 @@ const mapStyle = "mapbox://styles/mitcivicdata/cl5mjm8u1000o14s2n2uv7kwm";
 
 // Viewport settings
 const INITIAL_VIEW_STATE = {
-  longitude: -74.3102,
+  longitude: -73.9000,
   latitude: 40.7131,
   zoom: 10,
   minZoom: 10,
