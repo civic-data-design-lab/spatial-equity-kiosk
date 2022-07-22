@@ -2,7 +2,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 
 
-export default function IssueSelection({issueName, issueID, selectedSpecificIssue, setSelectedSpecificIssue, issueType, resetMap}) {
+export default function IssueSelection({issueName, issueID, selectedSpecificIssue, setSelectedSpecificIssue, issueType,
+                                           setShowMap, setShowToggle}) {
 
 
     return (
@@ -10,11 +11,13 @@ export default function IssueSelection({issueName, issueID, selectedSpecificIssu
              onClick={() => {
                  if (selectedSpecificIssue !== issueID) {
                      setSelectedSpecificIssue(issueID)
-                     resetMap(false)
+                     setShowMap(false)
+                     setShowToggle(true)
 
                  } else {
                      setSelectedSpecificIssue(null)
-                     resetMap(true)
+                     setShowMap(true)
+                     setShowToggle(false)
                  }
              }}>
             <div className={`${selectedSpecificIssue === issueID ? 'issues-arrow-active' : ''} col-2 issues-arrow ${issueType}`}>

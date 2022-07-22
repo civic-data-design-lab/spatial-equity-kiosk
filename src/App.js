@@ -70,8 +70,8 @@ function App() {
     const [selectedChapter, setSelectedChapter] = useState(1)
     const [selectedIssue, setSelectedIssue] = useState(null)
     const [selectedSpecificIssue, setSelectedSpecificIssue] = useState(null)
-    const [showMap, setShowMap] = useState(true)
-    const [showToggle, setShowToggle] = useState(true)
+    const [showMap, setShowMap] = useState(false)
+    const [showToggle, setShowToggle] = useState(false)
 
 
 
@@ -79,11 +79,16 @@ function App() {
     // if showToggle is false => use selectedChapter, selectedIssue and selected SpecificIssue to determing
     // else default to shopMap value (i.e. toggle decisions should take priority)
     useEffect(()=>{
-        const newShowToggle = selectedChapter === 2 && selectedSpecificIssue
-        setShowToggle(newShowToggle)
-        if (!selectedSpecificIssue) {
-            setShowMap(true)
-        }
+        console.log("selectedChapter ", selectedChapter)
+        console.log("selectedIssue ", selectedIssue)
+        console.log("selectedSpecficIssue ", selectedSpecificIssue)
+        console.log("showMap ", showMap)
+        console.log("show toggle ", showToggle)
+        //const newShowToggle = (selectedChapter === 2 && selectedSpecificIssue)
+        //setShowToggle(newShowToggle)
+        //if (!selectedSpecificIssue) {
+        //    setShowMap(true)
+        //}
     })
 
 
@@ -98,7 +103,8 @@ function App() {
                 selectedSpecificIssue={selectedSpecificIssue}
                 setSelectedSpecificIssue={setSelectedSpecificIssue}
                 issueType={issue}
-                resetMap={setShowMap}
+                setShowMap={setShowMap}
+                setShowToggle={setShowToggle}
             />
         })
 
@@ -128,6 +134,9 @@ function App() {
                                     setOpen(true)
                                     setSelectedChapter(1)
                                     setSelectedIssue(null)
+                                    setSelectedSpecificIssue(null)
+                                    setShowMap(false)
+                                    setShowToggle(false)
                                 }}>
                                 <h5>What is</h5>
                                 <h1>Spatial Equity</h1>
@@ -138,6 +147,8 @@ function App() {
                                     setOpen(false)
                                     setWhichOnTop(2)
                                     setSelectedChapter(2)
+                                    setShowMap(true)
+                                    setShowToggle(false)
                                 }}>
                                 <h5>Explore Spatial Equity by</h5>
                                 <h1>Issues in NYC</h1>
@@ -149,6 +160,7 @@ function App() {
                                     setWhichOnTop(3)
                                     setSelectedChapter(3)
                                     setSelectedIssue(null)
+                                    setSelectedSpecificIssue(null)
                                 }}>
                                 <h5>Explore Spatial Equity by</h5>
                                 <h1>Community Profiles</h1>
@@ -162,6 +174,8 @@ function App() {
                                 className={`${selectedIssue === 1 ? 'issues-health-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-health issues-chapters`}
                                 onClick={() => {
                                     setSelectedSpecificIssue(null)
+                                    setShowMap(true)
+                                    setShowToggle(false)
                                     if (selectedIssue !== 1) {
                                         setSelectedIssue(1)
                                     } else {
@@ -195,6 +209,8 @@ function App() {
                                 className={`${selectedIssue === 2 ? 'issues-environment-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-environment issues-chapters`}
                                 onClick={() => {
                                     setSelectedSpecificIssue(null)
+                                    setShowMap(true)
+                                    setShowToggle(false)
                                     if (selectedIssue !== 2) {
                                         setSelectedIssue(2)
                                     } else {
@@ -224,6 +240,8 @@ function App() {
                                 className={`${selectedIssue === 3 ? 'issues-infrastructure-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-infrastructure issues-chapters`}
                                 onClick={() => {
                                     setSelectedSpecificIssue(null)
+                                    setShowMap(true)
+                                    setShowToggle(false)
                                     if (selectedIssue !== 3) {
                                         setSelectedIssue(3)
                                     } else {
