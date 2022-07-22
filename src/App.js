@@ -17,6 +17,7 @@ import IssueSection from "./components/IssueSection";
 import IssueSelection from "./components/IssueSelection";
 import CommunitiesSection from "./components/CommunitiesSection";
 import CommunitySearchBar from "./components/CommunitySearchBar"
+import IssueDropDown from "./components/IssueDropDown";
 
 
 const issues = {
@@ -104,14 +105,14 @@ function App() {
     const [communitySearch, setCommunitySearch] = useState(null);
 
 
-/*    useEffect(() => {
+    useEffect(() => {
         console.log("selectedChapter ", selectedChapter)
         console.log("selectedIssue ", selectedIssue)
         console.log("selectedSpecficIssue ", selectedSpecificIssue)
         console.log("showMap ", showMap)
         console.log("show toggle ", showToggle)
         console.log("community search ", communitySearch)
-    })*/
+    })
 
 
     const getIssues = (issue) => {
@@ -134,7 +135,7 @@ function App() {
         for (let [key, value] of Object.entries(communities)) {
             searchItems.push(
                 <div key={key} className={`${communitySearch && communitySearch.startsWith(key) ? "search-item-active" : "search-item-inactive" } col search-item p-2`}
-                     onClick={()=>{setCommunitySearch(key.concat(" ",value.remaining_text))}}
+                     onMouseDown={()=>{setCommunitySearch(key)}}
                 >
                     <div className={"row w-100 p-0 m-0"}>
                         <div className={"col-10 m-0 p-0"}>
@@ -314,10 +315,20 @@ function App() {
                         <div
                             className={`${whichOnTop === 3 ? "" : "d-none"} col-3 position-absolute d-flex flex-column h-100`}
                             id={"community-column"}>
-                            <h5>Explore Community</h5>
-                            <CommunitySearchBar communitySearch={communitySearch} setCommunitySearch={setCommunitySearch}>
-                                {getSearchItems(communities)}
-                            </CommunitySearchBar>
+                            <div className={"community-chapter"}>
+                                <h5>Explore Community</h5>
+                                <CommunitySearchBar communitySearch={communitySearch} setCommunitySearch={setCommunitySearch}>
+                                    {getSearchItems(communities)}
+                                </CommunitySearchBar>
+                            </div>
+                            <div className={"community-chapter"}>
+                                <IssueDropDown/>
+
+                            </div>
+                            <div className={"community-chapter"}>
+
+                            </div>
+
 
 
                         </div>
