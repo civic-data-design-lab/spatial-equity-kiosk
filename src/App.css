@@ -260,9 +260,9 @@ body {
 
 .community-dropdown {
   position: absolute;
-  overflow-y: auto;
   height: fit-content;
-  max-height: 70%;
+  max-height: calc(100vh / 5);
+  overflow-y: auto;
   border: 1.5px solid black;
   border-top: none;
   -ms-overflow-style: none;  /* IE and Edge */
@@ -294,11 +294,15 @@ body {
   height: 100%;
   aspect-ratio: 1;
   color: white;
-  right: 0;
+  right: 1rem;
 }
 
+
+
 .select-issue-menu {
-  height: fit-content;
+  height: calc(100vh / 6);
+  overflow: auto;
+  position: absolute;
 }
 
 .select-issue-item {
@@ -335,7 +339,7 @@ body {
 .community-chapter {
   height: calc(100% / 3);
   padding: 1rem 1.5rem;
-  border: 1px solid black;
+  position: relative;
 }
 
 

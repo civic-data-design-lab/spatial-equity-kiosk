@@ -21,6 +21,7 @@ import IssueDropDown from "./components/IssueDropDown";
 
 
 const issues = {
+    all_issues_id: [1, 2, 3, 4, 5, 6],
     issues_data: {
         health: {
             specific_issues_ID: [1, 2],
@@ -39,32 +40,39 @@ const issues = {
         1: {
             specific_issue_ID: 1,
             specific_issue_name: "Issue #1",
-            specific_issue_description: "Issue #1 Description"
+            specific_issue_description: "Issue #1 Description",
+            issue_type_ID: 1
         },
         2: {
             specific_issue_ID: 2,
             specific_issue_name: "Issue #2",
-            specific_issue_description: "Issue #2 Description"
+            specific_issue_description: "Issue #2 Description",
+            issue_type_ID: 1
+
         },
         3: {
             specific_issue_ID: 3,
             specific_issue_name: "Issue #3",
-            specific_issue_description: "Issue #3 Description"
+            specific_issue_description: "Issue #3 Description",
+            issue_type_ID: 2
         },
         4: {
             specific_issue_ID: 4,
             specific_issue_name: "Issue #4",
-            specific_issue_description: "Issue #4 Description"
+            specific_issue_description: "Issue #4 Description",
+            issue_type_ID: 2
         },
         5: {
             specific_issue_ID: 5,
             specific_issue_name: "Issue #5",
-            specific_issue_description: "Issue #5 Description"
+            specific_issue_description: "Issue #5 Description",
+            issue_type_ID: 3
         },
         6: {
             specific_issue_ID: 6,
             specific_issue_name: "Issue #6",
-            specific_issue_description: "Issue #6 Description"
+            specific_issue_description: "Issue #6 Description",
+            issue_type_ID: 3
         }
     },
 }
@@ -112,6 +120,20 @@ function App() {
         console.log("showMap ", showMap)
         console.log("show toggle ", showToggle)
         console.log("community search ", communitySearch)
+        console.log("-------------------------------------------")
+
+        if (!selectedSpecificIssue) {
+            setSelectedIssue(1)
+            setSelectedSpecificIssue(1)
+        }
+
+        if (!selectedSpecificIssue) {
+            setSelectedSpecificIssue(1)
+        }
+
+        if (selectedSpecificIssue && selectedChapter > 1) {
+            setShowToggle(true)
+        }
     })
 
 
@@ -134,14 +156,18 @@ function App() {
         let searchItems = []
         for (let [key, value] of Object.entries(communities)) {
             searchItems.push(
-                <div key={key} className={`${communitySearch && communitySearch.startsWith(key) ? "search-item-active" : "search-item-inactive" } col search-item p-2`}
-                     onMouseDown={()=>{setCommunitySearch(key)}}
+                <div key={key}
+                     className={`${communitySearch && communitySearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
+                     onMouseDown={() => {
+                         setCommunitySearch(key)
+                     }}
                 >
                     <div className={"row w-100 p-0 m-0"}>
                         <div className={"col-10 m-0 p-0"}>
                             <span style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
                         </div>
-                        <div className={`${communitySearch && communitySearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
+                        <div
+                            className={`${communitySearch && communitySearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
                             <FontAwesomeIcon icon={faArrowRight}/></div>
                     </div>
                 </div>
@@ -173,8 +199,6 @@ function App() {
                                 onClick={() => {
                                     setOpen(true)
                                     setSelectedChapter(1)
-                                    setSelectedIssue(null)
-                                    setSelectedSpecificIssue(null)
                                     setShowMap(false)
                                     setShowToggle(false)
                                 }}>
@@ -187,8 +211,6 @@ function App() {
                                     setOpen(false)
                                     setWhichOnTop(2)
                                     setSelectedChapter(2)
-                                    setShowMap(true)
-                                    setShowToggle(false)
                                 }}>
                                 <h5>Explore Spatial Equity by</h5>
                                 <h1>Issues in NYC</h1>
@@ -199,9 +221,6 @@ function App() {
                                     setOpen(false)
                                     setWhichOnTop(3)
                                     setSelectedChapter(3)
-                                    setSelectedIssue(null)
-                                    setSelectedSpecificIssue(null)
-                                    setShowMap(false)
                                     setShowToggle(true)
                                 }}>
                                 <h5>Explore Spatial Equity by</h5>
@@ -215,7 +234,7 @@ function App() {
                             <div
                                 className={`${selectedIssue === 1 ? 'issues-health-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-health issues-chapters`}
                                 onClick={() => {
-                                    setSelectedSpecificIssue(null)
+                                    // setSelectedSpecificIssue(null)
                                     setShowMap(true)
                                     setShowToggle(false)
                                     if (selectedIssue !== 1) {
@@ -250,7 +269,7 @@ function App() {
                             <div
                                 className={`${selectedIssue === 2 ? 'issues-environment-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-environment issues-chapters`}
                                 onClick={() => {
-                                    setSelectedSpecificIssue(null)
+                                    // setSelectedSpecificIssue(null)
                                     setShowMap(true)
                                     setShowToggle(false)
                                     if (selectedIssue !== 2) {
@@ -281,7 +300,7 @@ function App() {
                             <div
                                 className={`${selectedIssue === 3 ? 'issues-infrastructure-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-infrastructure issues-chapters`}
                                 onClick={() => {
-                                    setSelectedSpecificIssue(null)
+                                    // setSelectedSpecificIssue(null)
                                     setShowMap(true)
                                     setShowToggle(false)
                                     if (selectedIssue !== 3) {
@@ -315,22 +334,30 @@ function App() {
                         <div
                             className={`${whichOnTop === 3 ? "" : "d-none"} col-3 position-absolute d-flex flex-column h-100`}
                             id={"community-column"}>
-                            <div className={"community-chapter"}>
+                            <div className={`${communitySearch ? "black-border" : "border-none"} community-chapter`}>
                                 <h5>Explore Community</h5>
-                                <CommunitySearchBar communitySearch={communitySearch} setCommunitySearch={setCommunitySearch}>
+                                <CommunitySearchBar communitySearch={communitySearch}
+                                                    setCommunitySearch={setCommunitySearch}>
                                     {getSearchItems(communities)}
                                 </CommunitySearchBar>
-                            </div>
-                            <div className={"community-chapter"}>
-                                <IssueDropDown/>
+
+                                <CommunitySearchBar communitySearch={communitySearch}
+                                                    setCommunitySearch={setCommunitySearch}>
+                                    {getSearchItems(communities)}
+                                </CommunitySearchBar>
 
                             </div>
-                            <div className={"community-chapter"}>
+                            <div className={`${communitySearch ? "d-flex flex-basis" : "d-none"} community-chapter black-border`}>
+                                <IssueDropDown issues={issues} setSelectedIssue={setSelectedIssue}
+                                               setSelectedSpecificIssue={setSelectedSpecificIssue}
+                                               communitySearch={communitySearch}
+                                               selectedSpecificIssue={selectedSpecificIssue}
+                                />
 
                             </div>
+                            <div className={`${communitySearch ? "d-flex flex-basis" : "d-none" } community-chapter black-border`}>
 
-
-
+                            </div>
                         </div>
                     </div>
                 </Col>
@@ -341,7 +368,7 @@ function App() {
                             selectedSpecificIssueName={issues.specific_issues_data[selectedSpecificIssue].specific_issue_name}
                             selectedSpecificIssueDescription={issues.specific_issues_data[selectedSpecificIssue].specific_issue_description}/>
                         : null)}
-                    {selectedChapter === 3 && <CommunitiesSection/>}
+                    {selectedChapter === 3 && <CommunitiesSection communitySearch={communitySearch}/>}
 
                     <div
                         className={`${showMap ? 'raise-map visible' : 'invisible'} map-container`}>

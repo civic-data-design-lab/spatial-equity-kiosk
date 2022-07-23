@@ -11,14 +11,15 @@ export default function IssueSelection({issueName, issueID, selectedSpecificIssu
              onClick={() => {
                  if (selectedSpecificIssue !== issueID) {
                      setSelectedSpecificIssue(issueID)
-                     setShowMap(false)
+                     // setShowMap(false)
                      setShowToggle(true)
+                 }
 
-                 } else {
+                 /*else {
                      setSelectedSpecificIssue(null)
                      setShowMap(true)
                      setShowToggle(false)
-                 }
+                 }*/
              }}>
             <div className={`${selectedSpecificIssue === issueID ? 'issues-arrow-active' : ''} col-2 issues-arrow ${issueType}`}>
                 <FontAwesomeIcon
