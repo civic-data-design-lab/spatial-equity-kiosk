@@ -16,7 +16,8 @@ import MapToggle from "./components/MapToggle"
 import IssueSection from "./components/IssueSection";
 import IssueSelection from "./components/IssueSelection";
 import CommunitiesSection from "./components/CommunitiesSection";
-import CommunitySearchBar from "./components/CommunitySearchBar"
+import CommunitySearchBar from "./components/CommunitySearchBar";
+import CompareSearchBar from "./components/CompareSearchBar";
 import IssueDropDown from "./components/IssueDropDown";
 
 
@@ -111,6 +112,7 @@ function App() {
     const [selectedIssue, setSelectedIssue] = useState(null)
     const [selectedSpecificIssue, setSelectedSpecificIssue] = useState(null)
     const [communitySearch, setCommunitySearch] = useState(null);
+    const [compareSearch, setCompareSearch] = useState(null);
 
 
     useEffect(() => {
@@ -134,6 +136,7 @@ function App() {
         if (selectedSpecificIssue && selectedChapter > 1) {
             setShowToggle(true)
         }
+
     })
 
 
@@ -152,26 +155,57 @@ function App() {
         })
     }
 
-    const getSearchItems = (communities) => {
+    const getSearchItems = (communities, forSearch) => {
         let searchItems = []
-        for (let [key, value] of Object.entries(communities)) {
-            searchItems.push(
-                <div key={key}
-                     className={`${communitySearch && communitySearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
-                     onMouseDown={() => {
-                         setCommunitySearch(key)
-                     }}
-                >
-                    <div className={"row w-100 p-0 m-0"}>
-                        <div className={"col-10 m-0 p-0"}>
-                            <span style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
+        switch(forSearch) {
+            case true:
+                for (let [key, value] of Object.entries(communities)) {
+                    if (key !== compareSearch) {
+                        searchItems.push(
+                        <div key={key}
+                             className={`${communitySearch && communitySearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
+                             onMouseDown={() => {
+                                 setCommunitySearch(key)
+                             }}
+                        >
+                            <div className={"row w-100 p-0 m-0"}>
+                                <div className={"col-10 m-0 p-0"}>
+                                    <span style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
+                                </div>
+                                <div
+                                    className={`${communitySearch && communitySearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
+                                    <FontAwesomeIcon icon={faArrowRight}/></div>
+                            </div>
                         </div>
-                        <div
-                            className={`${communitySearch && communitySearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
-                            <FontAwesomeIcon icon={faArrowRight}/></div>
-                    </div>
-                </div>
-            )
+
+                    )
+                    }
+                }
+                break;
+            case false:
+                for (let [key, value] of Object.entries(communities)) {
+                    if (key !== communitySearch) {
+                        searchItems.push(
+                        <div key={key}
+                             className={`${compareSearch && compareSearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
+                             onMouseDown={() => {
+                                 setCompareSearch(key)
+                             }}
+                        >
+                            <div className={"row w-100 p-0 m-0"}>
+                                <div className={"col-10 m-0 p-0"}>
+                                    <span style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
+                                </div>
+                                <div
+                                    className={`${compareSearch && compareSearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
+                                    <FontAwesomeIcon icon={faArrowRight}/></div>
+                            </div>
+                        </div>
+
+                    )
+                    }
+                }
+
         }
         return searchItems
     }
@@ -336,18 +370,24 @@ function App() {
                             id={"community-column"}>
                             <div className={`${communitySearch ? "black-border" : "border-none"} community-chapter`}>
                                 <h5>Explore Community</h5>
-                                <CommunitySearchBar communitySearch={communitySearch}
-                                                    setCommunitySearch={setCommunitySearch}>
-                                    {getSearchItems(communities)}
+                                <CommunitySearchBar toggleValue={communitySearch}
+                                                    communitySearch={communitySearch}
+                                                    callBack={setCommunitySearch}>
+                                    {getSearchItems(communities, true)}
                                 </CommunitySearchBar>
 
-                                <CommunitySearchBar communitySearch={communitySearch}
-                                                    setCommunitySearch={setCommunitySearch}>
-                                    {getSearchItems(communities)}
-                                </CommunitySearchBar>
+                                {communitySearch && <CommunitySearchBar toggleValue={compareSearch}
+                                                                        communitySearch={communitySearch}
+                                                                        callBack={setCompareSearch}
+                                                                        forSearch={false}
+                                >
+                                    {getSearchItems(communities, false)}
+                                </CommunitySearchBar>}
+
 
                             </div>
-                            <div className={`${communitySearch ? "d-flex flex-basis" : "d-none"} community-chapter black-border`}>
+                            <div
+                                className={`${communitySearch ? "d-flex flex-basis" : "d-none"} community-chapter black-border`}>
                                 <IssueDropDown issues={issues} setSelectedIssue={setSelectedIssue}
                                                setSelectedSpecificIssue={setSelectedSpecificIssue}
                                                communitySearch={communitySearch}
@@ -355,7 +395,8 @@ function App() {
                                 />
 
                             </div>
-                            <div className={`${communitySearch ? "d-flex flex-basis" : "d-none" } community-chapter black-border`}>
+                            <div
+                                className={`${communitySearch ? "d-flex flex-basis" : "d-none"} community-chapter black-border`}>
 
                             </div>
                         </div>

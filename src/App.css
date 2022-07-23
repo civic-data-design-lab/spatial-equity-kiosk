@@ -175,6 +175,7 @@ body {
   border: 1px solid black;
   word-wrap: normal;
   transition: background-color 0.5s, min-height 0.4s;
+  cursor: pointer;
 }
 
 .invis {
@@ -261,12 +262,20 @@ body {
 .community-dropdown {
   position: absolute;
   height: fit-content;
-  max-height: calc(100vh / 5);
   overflow-y: auto;
   border: 1.5px solid black;
   border-top: none;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+  z-index: 1;
+}
+
+.shorter {
+  max-height: calc(100vh / 7);
+}
+
+.longer {
+  max-height: calc(100vh / 3);;
 }
 
 .community-dropdown::-webkit-scrollbar {
@@ -315,12 +324,17 @@ body {
   color: white;
 }
 
+.select-issue-toggle {
+  cursor: pointer;
+}
+
 
 
 ::placeholder {
   padding: 4px;
   font-size: .75em;
   color: #BBBBBB;
+  font-style: normal;
 }
 
 .carousel {
@@ -339,7 +353,6 @@ body {
 .community-chapter {
   height: calc(100% / 3);
   padding: 1rem 1.5rem;
-  position: relative;
 }
 
 

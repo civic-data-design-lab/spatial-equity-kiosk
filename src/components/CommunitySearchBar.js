@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 
 
-export default function CommunitySearchBar({communitySearch, setCommunitySearch,
+export default function CommunitySearchBar({toggleValue, callBack, communitySearch, forSearch=true,
                                                children}) {
     const [value, setValue] = useState('');
     const [focus, setFocus] = useState(false)
@@ -20,23 +20,23 @@ export default function CommunitySearchBar({communitySearch, setCommunitySearch,
 
     return (
         <>
-            <div className={"d-flex flex-row align-items-center mt-2 position-relative community-search-container"}>
+            <div className={"d-flex flex-row align-items-center mt-3 position-relative community-search-container"}>
                 <input type={"search"}
-                       className={`${communitySearch ? "community-search-active" : ""} community-search w-100`}
-                   placeholder={"Search for a District, Neighborhood, or Address"}
+                   className={`${toggleValue ? "community-search-active" : ""} community-search w-100`}
+                   placeholder={forSearch ? "Search for a District, Neighborhood, or Address" : "Compare Communities"}
                    onFocus={(e)=>{setFocus(true)}}
                    onBlur={(e)=>{setFocus(false)}}
                    onChange={(e) =>{
-                       setCommunitySearch("")
+                       callBack("")
                        setValue(e.target.value)}}
-                   value={communitySearch || value}
+                   value={toggleValue || value}
             />
             <div className={`${!focus ? "d-flex" : "d-none"} valid-search-container flex-row align-items-center`}>
                 <FontAwesomeIcon icon={faArrowRight} className={"valid-search"}/>
             </div>
             </div>
-            {focus && getSearchItems().length>0 && <div className={"position-relative h-100"}>
-                <ul className="list-unstyled community-dropdown">
+            {focus && getSearchItems().length>0 && <div className={"position-relative h-0"}>
+                <ul className={`list-unstyled community-dropdown ${communitySearch ? "shorter" : "longer"}`}>
                 { getSearchItems() }
             </ul>
             </div>}
