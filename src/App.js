@@ -17,89 +17,14 @@ import IssueSection from "./components/IssueSection";
 import IssueSelection from "./components/IssueSelection";
 import CommunitiesSection from "./components/CommunitiesSection";
 import CommunitySearchBar from "./components/CommunitySearchBar";
-import CompareSearchBar from "./components/CompareSearchBar";
 import IssueDropDown from "./components/IssueDropDown";
 
+import _ISSUES from "./texts/issues.json";
+import _COMMUNITIES from "./texts/communities.json";
 
-const issues = {
-    all_issues_id: [1, 2, 3, 4, 5, 6],
-    issues_data: {
-        health: {
-            specific_issues_ID: [1, 2],
-            issue_description: "Health Description"
-        },
-        environment: {
-            specific_issues_ID: [3, 4],
-            issue_description: "Environment Description"
-        },
-        infrastructure: {
-            specific_issues_ID: [5, 6],
-            issue_description: "Infrasctructure Description"
-        },
-    },
-    specific_issues_data: {
-        1: {
-            specific_issue_ID: 1,
-            specific_issue_name: "Issue #1",
-            specific_issue_description: "Issue #1 Description",
-            issue_type_ID: 1
-        },
-        2: {
-            specific_issue_ID: 2,
-            specific_issue_name: "Issue #2",
-            specific_issue_description: "Issue #2 Description",
-            issue_type_ID: 1
+const issues = _ISSUES;
 
-        },
-        3: {
-            specific_issue_ID: 3,
-            specific_issue_name: "Issue #3",
-            specific_issue_description: "Issue #3 Description",
-            issue_type_ID: 2
-        },
-        4: {
-            specific_issue_ID: 4,
-            specific_issue_name: "Issue #4",
-            specific_issue_description: "Issue #4 Description",
-            issue_type_ID: 2
-        },
-        5: {
-            specific_issue_ID: 5,
-            specific_issue_name: "Issue #5",
-            specific_issue_description: "Issue #5 Description",
-            issue_type_ID: 3
-        },
-        6: {
-            specific_issue_ID: 6,
-            specific_issue_name: "Issue #6",
-            specific_issue_description: "Issue #6 Description",
-            issue_type_ID: 3
-        }
-    },
-}
-
-const communities = {
-    "Queens 1":
-        {
-            bolded_text: "Queens 1",
-            remaining_text: "Astoria, Astoria Heights, Queensbridge, Dutch Kills, Long Island City, Ravenswood, Rikers Island (BX), Steinway"
-        },
-    "Queens 2":
-        {
-            bolded_text: "Queens 2",
-            remaining_text: "Blissville, Hunters Point, Long Island City, Sunnyside, Sunnyside Gardens, Woodside"
-        },
-    "Queens 3":
-        {
-            bolded_text: "Queens 3",
-            remaining_text: "East Elmhurst, Jackson Heights, North Corona"
-        },
-    "Queens 4":
-        {
-            bolded_text: "Queens 4",
-            remaining_text: "Corona, Corona Heights, Elmhurst, Lefrak City"
-        }
-}
+const communities = _COMMUNITIES
 
 
 function App() {
@@ -122,6 +47,7 @@ function App() {
         console.log("showMap ", showMap)
         console.log("show toggle ", showToggle)
         console.log("community search ", communitySearch)
+        console.log("compare search ", compareSearch)
         console.log("-------------------------------------------")
 
         if (!selectedSpecificIssue) {
@@ -135,6 +61,10 @@ function App() {
 
         if (selectedSpecificIssue && selectedChapter > 1) {
             setShowToggle(true)
+        }
+
+        if (!communitySearch) {
+            setCompareSearch(null)
         }
 
     })
@@ -157,28 +87,28 @@ function App() {
 
     const getSearchItems = (communities, forSearch) => {
         let searchItems = []
-        switch(forSearch) {
+        switch (forSearch) {
             case true:
                 for (let [key, value] of Object.entries(communities)) {
                     if (key !== compareSearch) {
                         searchItems.push(
-                        <div key={key}
-                             className={`${communitySearch && communitySearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
-                             onMouseDown={() => {
-                                 setCommunitySearch(key)
-                             }}
-                        >
-                            <div className={"row w-100 p-0 m-0"}>
-                                <div className={"col-10 m-0 p-0"}>
-                                    <span style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
+                            <div key={key}
+                                 className={`${communitySearch && communitySearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
+                                 onMouseDown={() => {
+                                     setCommunitySearch(key)
+                                 }}
+                            >
+                                <div className={"row w-100 p-0 m-0"}>
+                                    <div className={"col-10 m-0 p-0"}>
+                                        <span
+                                            style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
+                                    </div>
+                                    <div
+                                        className={`${communitySearch && communitySearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
+                                        <FontAwesomeIcon icon={faArrowRight}/></div>
                                 </div>
-                                <div
-                                    className={`${communitySearch && communitySearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
-                                    <FontAwesomeIcon icon={faArrowRight}/></div>
                             </div>
-                        </div>
-
-                    )
+                        )
                     }
                 }
                 break;
@@ -186,23 +116,23 @@ function App() {
                 for (let [key, value] of Object.entries(communities)) {
                     if (key !== communitySearch) {
                         searchItems.push(
-                        <div key={key}
-                             className={`${compareSearch && compareSearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
-                             onMouseDown={() => {
-                                 setCompareSearch(key)
-                             }}
-                        >
-                            <div className={"row w-100 p-0 m-0"}>
-                                <div className={"col-10 m-0 p-0"}>
-                                    <span style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
+                            <div key={key}
+                                 className={`${compareSearch && compareSearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
+                                 onMouseDown={() => {
+                                     setCompareSearch(key)
+                                 }}
+                            >
+                                <div className={"row w-100 p-0 m-0"}>
+                                    <div className={"col-10 m-0 p-0"}>
+                                        <span
+                                            style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
+                                    </div>
+                                    <div
+                                        className={`${compareSearch && compareSearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
+                                        <FontAwesomeIcon icon={faArrowRight}/></div>
                                 </div>
-                                <div
-                                    className={`${compareSearch && compareSearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
-                                    <FontAwesomeIcon icon={faArrowRight}/></div>
                             </div>
-                        </div>
-
-                    )
+                        )
                     }
                 }
 
@@ -268,7 +198,6 @@ function App() {
                             <div
                                 className={`${selectedIssue === 1 ? 'issues-health-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-health issues-chapters`}
                                 onClick={() => {
-                                    // setSelectedSpecificIssue(null)
                                     setShowMap(true)
                                     setShowToggle(false)
                                     if (selectedIssue !== 1) {
@@ -303,9 +232,6 @@ function App() {
                             <div
                                 className={`${selectedIssue === 2 ? 'issues-environment-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-environment issues-chapters`}
                                 onClick={() => {
-                                    // setSelectedSpecificIssue(null)
-                                    setShowMap(true)
-                                    setShowToggle(false)
                                     if (selectedIssue !== 2) {
                                         setSelectedIssue(2)
                                     } else {
@@ -334,9 +260,6 @@ function App() {
                             <div
                                 className={`${selectedIssue === 3 ? 'issues-infrastructure-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-infrastructure issues-chapters`}
                                 onClick={() => {
-                                    // setSelectedSpecificIssue(null)
-                                    setShowMap(true)
-                                    setShowToggle(false)
                                     if (selectedIssue !== 3) {
                                         setSelectedIssue(3)
                                     } else {
@@ -364,11 +287,11 @@ function App() {
                             </div>
                         </div>
 
-
                         <div
                             className={`${whichOnTop === 3 ? "" : "d-none"} col-3 position-absolute d-flex flex-column h-100`}
                             id={"community-column"}>
-                            <div className={`${communitySearch ? "black-border" : "border-none"} community-chapter`}>
+                            <div
+                                className={`${communitySearch ? "community-height" : "full-height"} flex-grow-1 community-padding black-border`}>
                                 <h5>Explore Community</h5>
                                 <CommunitySearchBar toggleValue={communitySearch}
                                                     communitySearch={communitySearch}
@@ -387,16 +310,18 @@ function App() {
 
                             </div>
                             <div
-                                className={`${communitySearch ? "d-flex flex-basis" : "d-none"} community-chapter black-border`}>
-                                <IssueDropDown issues={issues} setSelectedIssue={setSelectedIssue}
-                                               setSelectedSpecificIssue={setSelectedSpecificIssue}
-                                               communitySearch={communitySearch}
-                                               selectedSpecificIssue={selectedSpecificIssue}
-                                />
+                                className={`${communitySearch ? "community-height community-padding  flex-grow-1 black-border" : "no-height border-none"} `}>
+                                <div className={`${communitySearch ? "" : "d-none"}`}>
+                                    <IssueDropDown issues={issues} setSelectedIssue={setSelectedIssue}
+                                                   setSelectedSpecificIssue={setSelectedSpecificIssue}
+                                                   communitySearch={communitySearch}
+                                                   selectedSpecificIssue={selectedSpecificIssue}
+                                    />
+                                </div>
 
                             </div>
                             <div
-                                className={`${communitySearch ? "d-flex flex-basis" : "d-none"} community-chapter black-border`}>
+                                className={`${communitySearch ? "community-height community-padding  flex-grow-1 black-border" : "no-height border-none"} `}>
 
                             </div>
                         </div>

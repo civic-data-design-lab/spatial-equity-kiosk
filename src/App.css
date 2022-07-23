@@ -50,8 +50,9 @@ body {
 }
 
 .black-border {
-  border: 1px solid black
+  border: 1px solid black;
 }
+
 
 .sidebar {
   #border: 1px solid black;
@@ -349,12 +350,24 @@ body {
   background-color: white;
 }
 
-
-.community-chapter {
-  height: calc(100% / 3);
+.community-padding {
   padding: 1rem 1.5rem;
 }
 
+.community-height {
+  height: calc(100% / 3);
+  transition: height 0.5s;
+}
+
+.full-height {
+  height: 100%;
+  transition: height 1s;
+}
+
+.no-height {
+  height: 0;
+  transition: height 1s;
+}
 
 #deckgl-wrapper {
   background-color: black;

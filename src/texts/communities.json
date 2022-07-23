@@ -1,0 +1,22 @@
+{
+    "Queens 1":
+        {
+            "bolded_text": "Queens 1",
+            "remaining_text": "Astoria, Astoria Heights, Queensbridge, Dutch Kills, Long Island City, Ravenswood, Rikers Island (BX), Steinway"
+        },
+    "Queens 2":
+        {
+            "bolded_text": "Queens 2",
+            "remaining_text": "Blissville, Hunters Point, Long Island City, Sunnyside, Sunnyside Gardens, Woodside"
+        },
+    "Queens 3":
+        {
+            "bolded_text": "Queens 3",
+            "remaining_text": "East Elmhurst, Jackson Heights, North Corona"
+        },
+    "Queens 4":
+        {
+            "bolded_text": "Queens 4",
+            "remaining_text": "Corona, Corona Heights, Elmhurst, Lefrak City"
+        }
+}
