@@ -33,7 +33,7 @@ function App() {
     const [whichOnTop, setWhichOnTop] = useState(2)
     const [showMap, setShowMap] = useState(false)
     const [showToggle, setShowToggle] = useState(false)
-    const [selectedChapter, setSelectedChapter] = useState(1)
+    const [selectedChapter, setSelectedChapter] = useState(null)
     const [selectedIssue, setSelectedIssue] = useState(null)
     const [selectedSpecificIssue, setSelectedSpecificIssue] = useState(null)
     const [communitySearch, setCommunitySearch] = useState(null);
@@ -159,7 +159,7 @@ function App() {
                         </div>
                         <div className={`${open ? "" : "collapsed"} sidebar-body d-flex flex-column col-6`}>
                             <div
-                                className={`${selectedChapter === 1 ? "chapters-selected" : "chapters-unselected"} chapters thirds`}
+                                className={`${selectedChapter === 1  ? "chapters-selected" : (!selectedChapter ? "no-chapters-selected" : "chapters-unselected")} chapters thirds`}
                                 onClick={() => {
                                     setOpen(true)
                                     setSelectedChapter(1)
@@ -170,7 +170,7 @@ function App() {
                                 <h1>Spatial Equity</h1>
                             </div>
                             <div
-                                className={`${selectedChapter === 2 ? "chapters-selected" : "chapters-unselected"} chapters thirds`}
+                                className={`${selectedChapter === 2  ? "chapters-selected" : (!selectedChapter ? "no-chapters-selected" : "chapters-unselected")} chapters thirds`}
                                 onClick={() => {
                                     setOpen(false)
                                     setWhichOnTop(2)
@@ -180,7 +180,7 @@ function App() {
                                 <h1>Issues in NYC</h1>
                             </div>
                             <div
-                                className={`${selectedChapter === 3 ? "chapters-selected" : "chapters-unselected"} chapters thirds`}
+                                className={`${selectedChapter === 3  ? "chapters-selected" : (!selectedChapter ? "no-chapters-selected" : "chapters-unselected")} chapters thirds`}
                                 onClick={() => {
                                     setOpen(false)
                                     setWhichOnTop(3)

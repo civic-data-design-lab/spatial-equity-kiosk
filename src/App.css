@@ -94,8 +94,16 @@ body {
   min-height: calc(100vh / 3) !important;
 }
 
+.no-chapters-selected {
+  background-color: white;
+  color: black;
+  transition: color 0.5s;
+}
+
 .chapters-unselected {
   background-color: white;
+  color: #54545473;
+  transition: color 0.5s;
 }
 
 .chapters:hover, .chapters-selected {
@@ -205,7 +213,6 @@ body {
 .collapse-text {
   font-size: inherit;
   margin: 0;
-  font-size: 18px;
 }
 
 .issues-arrow {
