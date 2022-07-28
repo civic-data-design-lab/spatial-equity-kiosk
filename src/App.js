@@ -10,6 +10,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 
 
+import Nav from "./components/Nav";
 import HomeCarousel from "./components/HomeCarousel";
 import Map from "./components/Map";
 import MapToggle from "./components/MapToggle"
@@ -142,7 +143,15 @@ function App() {
 
 
     return (
-        <Container fluid className={"h-100 p-0"}>
+
+        <Container fluid className={"black-border h-100 p-0 m-0"}>
+            <Nav selectedChapter={selectedChapter} setSelectedChapter={setSelectedChapter}/>
+
+        </Container>
+
+
+
+        /*<Container fluid className={"h-100 p-0"}>
             <Row className={"h-100 no-padding no-margin"}>
                 <Col className={"col-6 h-100 no-padding no-margin"}>
                     <div className="d-flex flex-row sidebar h-100">
@@ -343,7 +352,7 @@ function App() {
                     <MapToggle showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}/>
                 </Col>
             </Row>
-        </Container>
+        </Container>*/
     );
 }
 
