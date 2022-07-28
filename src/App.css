@@ -55,28 +55,25 @@ body {
 }
 
 .nav-chapters {
-  min-height: var(--third-height);
+  flex-grow: 1;
   padding: 1.5rem;
-  transition: min-height 1s;
+  transition: flex 1s, background-color 0.5s, color 0.5s;
 }
 
 .nav-chapters:hover {
   background-color: black;
   color: white;
-  transition: background-color 0.5s, color 0.5s;
 }
 
 .expanded-nav {
-  flex-grow: 1;
   background-color: black;
   color: white;
+  flex-grow: 2;
 }
 
 .collapsed-nav {
   height: fit-content;
-  min-height: 0;
-
-}
+flex-grow: 0}
 
 .nav-title {
   opacity: 1;

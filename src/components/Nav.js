@@ -30,13 +30,13 @@ function Nav({
                 </div>
 
 
-                {/*<div className={`${selectedChapter === 1 ? "" : "d-none"}`}>*/}
-                {/*    <p>Introduction text to issues in New York City. Elit at imperdiet dui accumsan sit amet.*/}
-                {/*        Diam donec adipiscing tristique risus nec feugiat in. Vel turpis nunc eget lorem dolor sed*/}
-                {/*        viverra.*/}
-                {/*        Elit at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat*/}
-                {/*        in. </p>*/}
-                {/*</div>*/}
+                <div className={`${selectedChapter === 1 ? "" : "d-none"}`}>
+                    <p>Introduction text to issues in New York City. Elit at imperdiet dui accumsan sit amet.
+                        Diam donec adipiscing tristique risus nec feugiat in. Vel turpis nunc eget lorem dolor sed
+                        viverra.
+                        Elit at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat
+                        in. </p>
+                </div>
             </div>
 
 
@@ -61,13 +61,13 @@ function Nav({
                 </div>
 
 
-                {/*<div className={`${selectedChapter === 2 ? "" : "d-none"}`}>*/}
-                {/*    <p>Introduction text to issues in New York City. Elit at imperdiet dui accumsan sit amet.*/}
-                {/*        Diam donec adipiscing tristique risus nec feugiat in. Vel turpis nunc eget lorem dolor sed*/}
-                {/*        viverra.*/}
-                {/*        Elit at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat*/}
-                {/*        in. </p>*/}
-                {/*</div>*/}
+                <div className={`${selectedChapter === 2 ? "" : "d-none"}`}>
+                    <p>Introduction text to issues in New York City. Elit at imperdiet dui accumsan sit amet.
+                        Diam donec adipiscing tristique risus nec feugiat in. Vel turpis nunc eget lorem dolor sed
+                        viverra.
+                        Elit at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat
+                        in. </p>
+                </div>
             </div>
 
 
@@ -92,13 +92,13 @@ function Nav({
                 </div>
 
 
-                {/*<div className={`${selectedChapter === 3 ? "" : "d-none"}`}>*/}
-                {/*    <p>Introduction text to issues in New York City. Elit at imperdiet dui accumsan sit amet.*/}
-                {/*        Diam donec adipiscing tristique risus nec feugiat in. Vel turpis nunc eget lorem dolor sed*/}
-                {/*        viverra.*/}
-                {/*        Elit at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat*/}
-                {/*        in. </p>*/}
-                {/*</div>*/}
+                <div className={`${selectedChapter === 3 ? "" : "d-none"}`}>
+                    <p>Introduction text to issues in New York City. Elit at imperdiet dui accumsan sit amet.
+                        Diam donec adipiscing tristique risus nec feugiat in. Vel turpis nunc eget lorem dolor sed
+                        viverra.
+                        Elit at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat
+                        in. </p>
+                </div>
             </div>
 
 
