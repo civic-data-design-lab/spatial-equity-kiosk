@@ -19,12 +19,16 @@
             "specific_issue_ID": 1,
             "specific_issue_name": "Issue #1",
             "specific_issue_description": "Issue #1 Description",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "To find space to plant more trees in your neighborhood, pay attention to how public space is used in your neighborhood. Here are a few ideas:\n\nBuild a “micro-forest” by installing a midblock curb extension that replaces one parking space with three street trees on any block. This solution will cool air temperatures, mitigate flooding, remove pollution from the air, and calm reckless driving by narrowing the roadway.\nCreate a “clean air block” by replacing one lane of a roadway with street trees in an area with high air pollution rates. One street tree can remove the equivalent of 11,000 miles of car emissions fr",
             "issue_type_ID": 1
         },
         "2": {
             "specific_issue_ID": 2,
             "specific_issue_name": "Issue #2",
             "specific_issue_description": "Issue #2 Description",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
             "issue_type_ID": 1
 
         },
@@ -32,24 +36,32 @@
             "specific_issue_ID": 3,
             "specific_issue_name": "Issue #3",
             "specific_issue_description": "Issue #3 Description",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
             "issue_type_ID": 2
         },
         "4": {
             "specific_issue_ID": 4,
             "specific_issue_name": "Issue #4",
             "specific_issue_description": "Issue #4 Description",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
             "issue_type_ID": 2
         },
         "5": {
             "specific_issue_ID": 5,
             "specific_issue_name": "Issue #5",
             "specific_issue_description": "Issue #5 Description",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
             "issue_type_ID": 3
         },
         "6": {
             "specific_issue_ID": 6,
             "specific_issue_name": "Issue #6",
             "specific_issue_description": "Issue #6 Description",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
             "issue_type_ID": 3
         }
     }

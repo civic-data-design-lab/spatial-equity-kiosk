@@ -3,28 +3,23 @@ import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 
 
 import Nav from "./components/Nav";
-import HomeCarousel from "./components/HomeCarousel";
-import Map from "./components/Map";
-import MapToggle from "./components/MapToggle"
-import IssueSection from "./components/IssueSection";
-import IssueSelection from "./components/IssueSelection";
-import CommunitiesSection from "./components/CommunitiesSection";
-import CommunitySearchBar from "./components/CommunitySearchBar";
-import IssueDropDown from "./components/IssueDropDown";
+import Content from "./components/Content";
+import Map from "./components/Map"
 
+
+import _ISSUE_CATEGORIES from "./texts/issue_categories.json"
 import _ISSUES from "./texts/issues.json";
 import _COMMUNITIES from "./texts/communities.json";
 
-const issues = _ISSUES;
 
+const issue_categories = _ISSUE_CATEGORIES
+const issues = _ISSUES;
 const communities = _COMMUNITIES
 
 
@@ -39,6 +34,7 @@ function App() {
     const [selectedSpecificIssue, setSelectedSpecificIssue] = useState(null)
     const [communitySearch, setCommunitySearch] = useState(null);
     const [compareSearch, setCompareSearch] = useState(null);
+    const [boundary, setBoundary] = useState("community");
 
 
     useEffect(() => {
@@ -51,14 +47,14 @@ function App() {
         console.log("compare search ", compareSearch)
         console.log("-------------------------------------------")
 
-        if (!selectedSpecificIssue) {
+        /*if (!selectedSpecificIssue) {
             setSelectedIssue(1)
             setSelectedSpecificIssue(1)
         }
 
         if (!selectedSpecificIssue) {
             setSelectedSpecificIssue(1)
-        }
+        }*/
 
         if (selectedSpecificIssue && selectedChapter > 1) {
             setShowToggle(true)
@@ -71,81 +67,34 @@ function App() {
     })
 
 
-    const getIssues = (issue) => {
-        return issues.issues_data[issue].specific_issues_ID.map((ID) => {
-            return <IssueSelection
-                issueName={issues.specific_issues_data[ID].specific_issue_name}
-                key={ID}
-                issueID={ID}
-                selectedSpecificIssue={selectedSpecificIssue}
-                setSelectedSpecificIssue={setSelectedSpecificIssue}
-                issueType={issue}
-                setShowMap={setShowMap}
-                setShowToggle={setShowToggle}
-            />
-        })
-    }
 
-    const getSearchItems = (communities, forSearch) => {
-        let searchItems = []
-        switch (forSearch) {
-            case true:
-                for (let [key, value] of Object.entries(communities)) {
-                    if (key !== compareSearch) {
-                        searchItems.push(
-                            <div key={key}
-                                 className={`${communitySearch && communitySearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
-                                 onMouseDown={() => {
-                                     setCommunitySearch(key)
-                                 }}
-                            >
-                                <div className={"row w-100 p-0 m-0"}>
-                                    <div className={"col-10 m-0 p-0"}>
-                                        <span
-                                            style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
-                                    </div>
-                                    <div
-                                        className={`${communitySearch && communitySearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
-                                        <FontAwesomeIcon icon={faArrowRight}/></div>
-                                </div>
-                            </div>
-                        )
-                    }
-                }
-                break;
-            case false:
-                for (let [key, value] of Object.entries(communities)) {
-                    if (key !== communitySearch) {
-                        searchItems.push(
-                            <div key={key}
-                                 className={`${compareSearch && compareSearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
-                                 onMouseDown={() => {
-                                     setCompareSearch(key)
-                                 }}
-                            >
-                                <div className={"row w-100 p-0 m-0"}>
-                                    <div className={"col-10 m-0 p-0"}>
-                                        <span
-                                            style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
-                                    </div>
-                                    <div
-                                        className={`${compareSearch && compareSearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
-                                        <FontAwesomeIcon icon={faArrowRight}/></div>
-                                </div>
-                            </div>
-                        )
-                    }
-                }
-
-        }
-        return searchItems
-    }
 
 
     return (
 
-        <Container fluid className={"black-border h-100 p-0 m-0"}>
-            <Nav selectedChapter={selectedChapter} setSelectedChapter={setSelectedChapter}/>
+        <Container fluid className={"black-border h-100 p-0 m-0 d-flex flex-row"}>
+            <Nav selectedChapter={selectedChapter} setSelectedChapter={setSelectedChapter}
+                 selectedIssue={selectedIssue} issue_categories={issue_categories}
+                 boundary={boundary} setBoundary={setBoundary}
+                 selectedSpecificIssue={selectedSpecificIssue}
+                 issues={issues}
+                 setSelectedIssue={setSelectedIssue}
+                 communities={communities}
+                 communitySearch={communitySearch}
+                 compareSearch={compareSearch}
+                 setCommunitySearch={setCommunitySearch}
+                 setCompareSearch={setCompareSearch}
+            />
+            <Content selectedChapter={selectedChapter} issues={issues}
+                     selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue}
+                     selectedSpecificIssue={selectedSpecificIssue} setSelectedSpecificIssue={setSelectedSpecificIssue}
+                     boundary={boundary}
+                     showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}
+            />
+
+            <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>
+                <Map/>
+            </div>
 
         </Container>
 
@@ -154,52 +103,7 @@ function App() {
         /*<Container fluid className={"h-100 p-0"}>
             <Row className={"h-100 no-padding no-margin"}>
                 <Col className={"col-6 h-100 no-padding no-margin"}>
-                    <div className="d-flex flex-row sidebar h-100">
-                        <div className="sidebar-header d-flex flex-column justify-content-between">
-                            <h3>NYC Spatial Equity Tool</h3>
-                            <p>
-                                Introduction text. Text on what Spatial Equity is.
-                                Text about the tool. What are the purposes? For whom is it made for?
-                                Introduction text. Text on what Spatial Equity is. Text about the tool.
-                                What are the purposes? For whom is it made for?Introduction text.
-                                Text on what Spatial Equity is. Text about the tool. What are the purposes?
-                                For whom is it made for?
-                            </p>
-                        </div>
-                        <div className={`${open ? "" : "collapsed"} sidebar-body d-flex flex-column col-6`}>
-                            <div
-                                className={`${selectedChapter === 1  ? "chapters-selected" : (!selectedChapter ? "no-chapters-selected" : "chapters-unselected")} chapters thirds`}
-                                onClick={() => {
-                                    setOpen(true)
-                                    setSelectedChapter(1)
-                                    setShowMap(false)
-                                    setShowToggle(false)
-                                }}>
-                                <h5>What is</h5>
-                                <h1>Spatial Equity</h1>
-                            </div>
-                            <div
-                                className={`${selectedChapter === 2  ? "chapters-selected" : (!selectedChapter ? "no-chapters-selected" : "chapters-unselected")} chapters thirds`}
-                                onClick={() => {
-                                    setOpen(false)
-                                    setWhichOnTop(2)
-                                    setSelectedChapter(2)
-                                }}>
-                                <h5>Explore Spatial Equity by</h5>
-                                <h1>Issues in NYC</h1>
-                            </div>
-                            <div
-                                className={`${selectedChapter === 3  ? "chapters-selected" : (!selectedChapter ? "no-chapters-selected" : "chapters-unselected")} chapters thirds`}
-                                onClick={() => {
-                                    setOpen(false)
-                                    setWhichOnTop(3)
-                                    setSelectedChapter(3)
-                                    setShowToggle(true)
-                                }}>
-                                <h5>Explore Spatial Equity by</h5>
-                                <h1>Community Profiles</h1>
-                            </div>
-                        </div>
+
 
                         <div
                             className={`${whichOnTop === 2 ? "" : "d-none"} col-3 position-absolute d-flex flex-column h-100`}

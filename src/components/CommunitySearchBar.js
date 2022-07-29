@@ -24,6 +24,7 @@ export default function CommunitySearchBar({toggleValue, callBack, communitySear
                 <input type={"search"}
                    className={`${toggleValue ? "community-search-active" : ""} community-search w-100`}
                    placeholder={forSearch ? "Search for a District, Neighborhood, or Address" : "Compare Communities"}
+                   onClick={(e)=>{e.stopPropagation()}}
                    onFocus={(e)=>{setFocus(true)}}
                    onBlur={(e)=>{setFocus(false)}}
                    onChange={(e) =>{

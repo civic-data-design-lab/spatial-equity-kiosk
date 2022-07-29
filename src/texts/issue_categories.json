@@ -1,0 +1,14 @@
+{
+    "labels": {
+        "1": "Health",
+        "2": "Environment",
+        "3": "Infrastructure"
+    },
+
+    "descriptions": {
+        "1": "Text explanation about “health”. Felis donec et odio pellentesque. Elit at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in. Vel turpis nunc eget lorem dolor sed viverra.",
+        "2": "Text explanation about “environment”. Turpis egestas pretium aenean pharetra magna. Sed odio morbi quis commodo odio aenean sed adipiscing.",
+        "3": "Text explanation about “infrastructure” Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    }
+
+}

@@ -8,6 +8,11 @@
   --environment: #179F4E;
   --infrastructure: #146FD1;
   --third-height: calc(100vh / 3);
+  --quarter-height:calc(100vh / 4)
+}
+
+.quarter {
+  height: var(--quarter-height);
 }
 
 .health {
@@ -22,7 +27,9 @@
   color: var(--infrastructure)
 }
 
-
+.bold {
+  font-weight: bold;
+}
 
 
 h1, h2, h3, h4, h5, h6, p {
@@ -31,7 +38,6 @@ h1, h2, h3, h4, h5, h6, p {
 
 /*TODO: remove no-padding and no-margin, use css class*/
 .no-padding {padding: 0 !important;}
-
 .no-margin {margin: 0 !important;}
 
 
@@ -41,7 +47,6 @@ body {
   height: 100vh;
   width: 100vw;
 }
-
 
 
 #root {
@@ -54,15 +59,34 @@ body {
   border: 1px solid black;
 }
 
+.transition-font {
+  transition: font-size 1s;
+}
+
 .nav-chapters {
   flex-grow: 1;
-  padding: 1.5rem;
+  padding: 1em;
   transition: flex 1s, background-color 0.5s, color 0.5s;
 }
 
 .nav-chapters:hover {
   background-color: black;
   color: white;
+}
+
+.nav-chapters-content {
+  max-height: 0;
+  opacity: 0;
+}
+
+.nav-chapters-text {
+  pointer-events: none;
+}
+
+.nav-chapters-content-expanded {
+  max-height: calc(100vh - 2.75rem - 3vw - 3rem);
+  opacity: 1;
+  transition: max-height 1s, opacity 1s;
 }
 
 .expanded-nav {
@@ -73,7 +97,8 @@ body {
 
 .collapsed-nav {
   height: fit-content;
-flex-grow: 0}
+  flex-grow: 0
+}
 
 .nav-title {
   opacity: 1;
@@ -92,21 +117,113 @@ flex-grow: 0}
   font-size: inherit;
 }
 
+.middle-column {
+  transition: width 1s;
+}
 
-.sidebar {
-  #border: 1px solid black;
+.collapsed-middle-column {
+  width: 0;
+  overflow: hidden;
+}
+
+
+
+
+.dropdown-body {
+  width: 100%;
+  max-height: 80%;
+  height: fit-content;
+  overflow: auto;
+  border: 1.5px solid black;
   background-color: white;
-  #overflow-x: hidden;
 }
 
-.sidebar-header {
-  font-size: 20px;
-  font-weight: bold;
-  border: 1px solid black;
-  padding: 1rem;
-  overflow-y: auto;
-  height: 100%;
+.dropdown-item:hover, .dropdown-item-active {
+  background-color: black !important;
+  color: white !important;
 }
+
+.boundary-toggle {
+  display: grid;
+  border: 1px solid white;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 1rem;
+}
+
+.boundary-toggle-item-active {
+  background-color: white;
+  color: black;
+}
+
+.boundary-toggle-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  border: 1px solid white;
+  padding: 0.25rem;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.issues-tile-container {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.issues-tile-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.issues-tile-body {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  overflow: scroll;
+}
+
+.issues-tile-text-container {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+}
+
+
+.issues-tile-ranking-invis {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: max-height 1s, opacity 0.5s ;
+}
+
+.issues-tile-ranking-vis {
+  max-height: 10rem;
+  opacity: 1;
+  transition: max-height 1s, opacity 0.5s 0.5s;
+}
+
+.ranking-button {
+  margin-top: 0.5rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .sidebar-body {
   font-size: 16px;
@@ -132,6 +249,8 @@ flex-grow: 0}
 .thirds {
   min-height: calc(100vh / 3) !important;
 }
+
+
 
 .no-chapters-selected {
   background-color: white;
@@ -180,30 +299,16 @@ flex-grow: 0}
 }
 
 #issues-column {
-  left: 25vw;
   border: 1px solid black;
 }
 
 #community-column {
   left: 25vw;
   border: 1px solid black;
-  #padding: 1.5em;
+  #padding: 1em;
 }
 
-.issues-health:hover, .issues-health-active {
-  background-color: var(--health);
-  color: black;
-}
 
-.issues-environment:hover, .issues-environment-active {
-  background-color: var(--environment);
-  color: black;
-}
-
-.issues-infrastructure:hover, .issues-infrastructure-active {
-  background-color: var(--infrastructure);
-  color: black;
-}
 
 .issues-text {
   opacity: 1;
@@ -218,12 +323,35 @@ flex-grow: 0}
 }
 
 .issues-chapters {
-  min-height: calc(100vh / 3);
+  min-height: calc(100vh / 4);
   padding: 1em;
   border: 1px solid black;
   word-wrap: normal;
   transition: background-color 0.5s, min-height 0.4s;
   cursor: pointer;
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.demographics-chapter {
+  padding: 1em;
+  border: 1px solid black;
+  word-wrap: normal;
+  transition: background-color 0.5s, min-height 0.4s;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.issues-chapters:hover, .issues-chapters-active, .demographics-chapter:hover, .demographics-chapter-active {
+  background-color: black;
+  color: white;
 }
 
 .invis {
@@ -286,7 +414,7 @@ flex-grow: 0}
 }
 
 .community-search-container {
-  height: 1.5em;
+  height: 2em;
 }
 
 
@@ -421,19 +549,55 @@ flex-grow: 0}
   width: 50% !important;
 }
 
-.raise-map {
-  z-index: 1;
+#toggle-container {
+  z-index: 3;
+}
+
+.show-map {
+  z-index: 2;
+}
+
+.hide-map {
+  z-index: 0;
+  visibility: hidden;
+}
+
+.share {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.share-icons {
+  background-color: white;
+  padding: 0.5rem;
+  z-index: 6;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5rem;
+  border-radius: 5px;
+}
+
+.toggle-share-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  row-gap: 1.5rem;
 }
 
 
 .switch-container {
-  position: absolute;
+  #position: absolute;
   top: 1.5rem;
   right: 1.5rem;
-  z-index: 2;
+  z-index: 4;
   column-gap: 8px;
   background-color: white;
   padding: 8px;
+  align-items: center;
 }
 
 
@@ -464,6 +628,11 @@ flex-grow: 0}
   background-color: #ffffff;
   transition: .4s;
   border: 2px solid black
+}
+
+.active-slider {
+  background-color: black;
+  transition: background-color 0.4s;
 }
 
 .slider:before {
