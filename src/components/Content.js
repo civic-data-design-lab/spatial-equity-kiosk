@@ -23,7 +23,7 @@ export default function Content({
     return (
         <div className={"col-9 d-flex flex-row"}>
 
-            <div className={`h-100 black-border ${(selectedChapter === 2) || (selectedChapter === 3 && communitySearch && showMap) ? "col-4" : selectedChapter === 3 && communitySearch && !showMap ? "col-6" : "collapsed-middle-column"} middle-column`}>
+            <div className={`middle-column h-100 black-border ${(selectedChapter === 2) || (selectedChapter === 3 && communitySearch && showMap) ? "col-4" : selectedChapter === 3 && communitySearch && !showMap ? "col-6" : "collapsed-middle-column"} middle-column`}>
                 {((selectedChapter === 2) || (selectedChapter === 3 && communitySearch && showMap)) && <IssuesMiddleColumn
                     selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue} issues={issues}
                     selectedSpecificIssue={selectedSpecificIssue} setSelectedSpecificIssue={setSelectedSpecificIssue} />}

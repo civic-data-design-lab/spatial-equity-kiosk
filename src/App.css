@@ -698,6 +698,7 @@ input:checked + .slider:before {
   height: 100%;
   row-gap: 1.5em;
   overflow: auto;
+  background-color: white;
 }
 
 .issues-card-container {
@@ -783,5 +784,10 @@ input:checked + .slider:before {
   color: black;
   padding: 0.25rem 0.5rem;
   right: 0;
+}
+
+.middle-column {
+  z-index: 3;
+  background-color: white;
 }
 
