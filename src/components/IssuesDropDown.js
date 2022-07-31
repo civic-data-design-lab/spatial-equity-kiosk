@@ -10,11 +10,17 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
 
     useEffect(() => {
 
+        let changed = false
         items.map((item)=>{
             if (item.specific_issue_ID === currentValue) {
                 setToggleText(item.specific_issue_name)
+                changed = true
             }
         })
+
+        if (!changed) {
+            setToggleText("Select an issue to explore")
+        }
 
     })
 
@@ -44,7 +50,12 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                                     onMouseDown={() => {
                                         setShowDropdownItems(false)
                                         setToggleText(item.specific_issue_name)
-                                        setValue(item.specific_issue_ID)
+                                        if (currentValue === item.specific_issue_ID) {
+                                            setValue(false)
+                                            setToggleText("Select an issue to explore")
+                                        } else {
+                                            setValue(item.specific_issue_ID)
+                                        }
                                     }}
                                 >
                                     {item.specific_issue_name}

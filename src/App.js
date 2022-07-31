@@ -45,6 +45,7 @@ function App() {
         console.log("show toggle ", showToggle)
         console.log("community search ", communitySearch)
         console.log("compare search ", compareSearch)
+        console.log("boundary ", boundary)
         console.log("-------------------------------------------")
 
         /*if (!selectedSpecificIssue) {
@@ -84,12 +85,17 @@ function App() {
                  compareSearch={compareSearch}
                  setCommunitySearch={setCommunitySearch}
                  setCompareSearch={setCompareSearch}
+                 setShowMap={setShowMap}
+                 setSelectedSpecificIssue={setSelectedSpecificIssue}
             />
             <Content selectedChapter={selectedChapter} issues={issues}
                      selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue}
                      selectedSpecificIssue={selectedSpecificIssue} setSelectedSpecificIssue={setSelectedSpecificIssue}
                      boundary={boundary}
                      showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}
+                     communitySearch={communitySearch}
+                     compareSearch={compareSearch}
+                     communities={communities}
             />
 
             <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>

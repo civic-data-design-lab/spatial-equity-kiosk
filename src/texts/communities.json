@@ -2,21 +2,29 @@
     "Queens 1":
         {
             "bolded_text": "Queens 1",
-            "remaining_text": "Astoria, Astoria Heights, Queensbridge, Dutch Kills, Long Island City, Ravenswood, Rikers Island (BX), Steinway"
+            "remaining_text": "Astoria, Astoria Heights, Queensbridge, Dutch Kills, Long Island City, Ravenswood, Rikers Island (BX), Steinway",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [1, 2, 3]
         },
     "Queens 2":
         {
             "bolded_text": "Queens 2",
-            "remaining_text": "Blissville, Hunters Point, Long Island City, Sunnyside, Sunnyside Gardens, Woodside"
+            "remaining_text": "Blissville, Hunters Point, Long Island City, Sunnyside, Sunnyside Gardens, Woodside",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [2, 3, 4]
         },
     "Queens 3":
         {
             "bolded_text": "Queens 3",
-            "remaining_text": "East Elmhurst, Jackson Heights, North Corona"
+            "remaining_text": "East Elmhurst, Jackson Heights, North Corona",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [3, 4, 5]
         },
     "Queens 4":
         {
             "bolded_text": "Queens 4",
-            "remaining_text": "Corona, Corona Heights, Elmhurst, Lefrak City"
+            "remaining_text": "Corona, Corona Heights, Elmhurst, Lefrak City",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
         }
 }

@@ -22,7 +22,7 @@ export default function CommunitySearchBar({toggleValue, callBack, communitySear
         <>
             <div className={"d-flex flex-row align-items-center mt-3 position-relative community-search-container"}>
                 <input type={"search"}
-                   className={`${toggleValue ? "community-search-active" : ""} community-search w-100`}
+                   className={`community-search w-100`}
                    placeholder={forSearch ? "Search for a District, Neighborhood, or Address" : "Compare Communities"}
                    onClick={(e)=>{e.stopPropagation()}}
                    onFocus={(e)=>{setFocus(true)}}
@@ -36,8 +36,8 @@ export default function CommunitySearchBar({toggleValue, callBack, communitySear
                 <FontAwesomeIcon icon={faArrowRight} className={"valid-search"}/>
             </div>
             </div>
-            {focus && getSearchItems().length>0 && <div className={"position-relative h-0"}>
-                <ul className={`list-unstyled community-dropdown ${communitySearch ? "shorter" : "longer"}`}>
+            {focus && getSearchItems().length>0 && <div>
+                <ul className={`list-unstyled community-dropdown`}>
                 { getSearchItems() }
             </ul>
             </div>}

@@ -9,15 +9,19 @@ function Nav({
                  boundary,
                  setBoundary,
                  selectedSpecificIssue,
+                 setSelectedSpecificIssue,
                  issues,
                  setSelectedIssue,
                  communities,
                  communitySearch,
                  compareSearch,
                  setCommunitySearch,
-                 setCompareSearch
+                 setCompareSearch,
+                 setShowMap
 
              }) {
+
+
 
 
     return (
@@ -26,8 +30,11 @@ function Nav({
             <div className={`nav-chapters black-border d-flex flex-column justify-content-between
              ${!selectedChapter ? "" : (selectedChapter === 1 ? "expanded-nav" : "collapsed-nav")}`}
                  onClick={() => {
+                     setSelectedIssue(null)
+                     setSelectedSpecificIssue(null)
                      if (selectedChapter !== 1) {
                          setSelectedChapter(1)
+                         setShowMap(false)
                      } else {
                          setSelectedChapter(null)
                      }
@@ -61,6 +68,8 @@ function Nav({
              ${!selectedChapter ? "" : (selectedChapter === 2 ? "expanded-nav" : "collapsed-nav")}
              `}
                  onClick={() => {
+                     setSelectedIssue(null)
+                     setSelectedSpecificIssue(null)
                      if (selectedChapter !== 2) {
                          setSelectedChapter(2)
                      } else {
@@ -98,6 +107,8 @@ function Nav({
              ${!selectedChapter ? "" : (selectedChapter === 3 ? "expanded-nav" : "collapsed-nav")}
              `}
                  onClick={() => {
+                     setSelectedIssue(null)
+                     setSelectedSpecificIssue(null)
                      if (selectedChapter !== 3) {
                          setSelectedChapter(3)
                      } else {
@@ -117,7 +128,7 @@ function Nav({
 
 
                 <div
-                    className={`${selectedChapter === 3 && selectedIssue ? "nav-chapters-content-expanded" : ""} h-100 nav-chapters-content d-flex flex-column`}>
+                    className={`${selectedChapter === 3 ? "nav-chapters-content-expanded" : ""} h-100 nav-chapters-content d-flex flex-column`}>
                     <div className={`${selectedChapter === 3 ? "" : "nav-chapters-text"}`}>
                         <BoundaryToggle boundary={boundary} setBoundary={setBoundary}/>
                     </div>
