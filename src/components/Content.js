@@ -3,6 +3,7 @@ import IssuesMiddleColumn from "./IssuesMiddleColumn";
 import IssuesTileView from "./IssuesTileView";
 import CommunityRightColumn from "./CommunityRightColumn";
 import CommunityMiddleColumn from "./CommunityMiddleColumn";
+import About from "./About";
 
 export default function Content({
                                     selectedChapter,
@@ -37,6 +38,10 @@ export default function Content({
             </div>
 
             <div className={`h-100 black-border flex-grow-1 `}>
+
+
+
+
                 {selectedChapter === 2 && <IssuesTileView
                     selectedSpecificIssue={selectedSpecificIssue} issues={issues}
                     showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}
@@ -52,6 +57,8 @@ export default function Content({
                     showToggle={showToggle}
 
                 />}
+
+                {selectedChapter === 4 && <About issues={issues}/>}
 
             </div>
 

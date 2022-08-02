@@ -29,7 +29,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
 
             <div className={"dropdown-container"}
             >
-                <div className={"dropdown-bar d-flex flex-row justify-content-between align-items-center mb-2"}
+                <div className={"dropdown-bar d-flex flex-row justify-content-between align-items-center mb-0"}
                      onMouseDown={() => {
                          setShowDropdownItems(!showDropdownItems)
                      }}

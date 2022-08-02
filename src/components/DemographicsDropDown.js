@@ -21,7 +21,7 @@ export default function DemographicsDropDown({currentValue = null, items=null, s
 
             <div className={"dropdown-container"}
             >
-                <div className={"dropdown-bar d-flex flex-row justify-content-between align-items-center mb-2"}
+                <div className={"dropdown-bar d-flex flex-row justify-content-between align-items-center"}
                      onMouseDown={() => {
                          setShowDropdownItems(!showDropdownItems)
                      }}

@@ -67,7 +67,7 @@ export default function IssuesMiddleColumn({
                     <IssuesDropDown items={health_issues}
                                     currentValue={selectedSpecificIssue}
                                     setValue={setSelectedSpecificIssue}/>
-                    <p>{selectedSpecificIssue && !showDemographics && getRankingNarrative(health_issues)}</p>
+                    <p className={"mt-3"}>{selectedSpecificIssue && !showDemographics && getRankingNarrative(health_issues)}</p>
                 </div>
             </div>
 
@@ -90,7 +90,7 @@ export default function IssuesMiddleColumn({
                     <IssuesDropDown items={environment_issues}
                                     currentValue={selectedSpecificIssue}
                                     setValue={setSelectedSpecificIssue}/>
-                    <p>{selectedSpecificIssue && !showDemographics && getRankingNarrative(environment_issues)}</p>
+                    <p className={"mt-3"}>{selectedSpecificIssue && !showDemographics && getRankingNarrative(environment_issues)}</p>
                 </div>
             </div>
             <div
@@ -112,7 +112,7 @@ export default function IssuesMiddleColumn({
                     <IssuesDropDown items={infrastructure_issues}
                                     currentValue={selectedSpecificIssue}
                                     setValue={setSelectedSpecificIssue}/>
-                    <p>{selectedSpecificIssue && !showDemographics && getRankingNarrative(infrastructure_issues)}</p>
+                    <p className={"mt-3"}>{selectedSpecificIssue && !showDemographics && getRankingNarrative(infrastructure_issues)}</p>
                 </div>
             </div>
 

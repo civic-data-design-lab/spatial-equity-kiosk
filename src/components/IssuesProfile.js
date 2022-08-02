@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
 
-export default function IssueProfile({issues, selectedSpecificIssue}) {
+export default function IssueProfile({issues, selectedSpecificIssue, rankingProse=false}) {
 
     const [expand, setExpand] = useState(false)
 
@@ -16,6 +16,11 @@ export default function IssueProfile({issues, selectedSpecificIssue}) {
 
     return (
         <div className={"issues-tile-text-container"}>
+
+            {rankingProse ? <div className={"issues-tile-prose issues-tile-text"}>
+                <p className={"m-0"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
+            </div> : null}
+
             <div className={"issues-tile-ranking issues-tile-text"}>
                 <h5 className={"issues-tile-heading bold"}>
                     Least Performing Districts

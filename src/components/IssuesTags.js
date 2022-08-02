@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faMinus} from "@fortawesome/free-solid-svg-icons";
 import IssuesCard from "./IssuesCard";
 
-export default function IssuesTags({issues, leastPerforming, setSelectedSpecificIssue}) {
+export default function IssuesTags({issues, leastPerforming, setSelectedSpecificIssue, selectedSpecificIssue}) {
 
 
     const [moreIssues, setMoreIssues] = useState([])
@@ -18,8 +18,12 @@ export default function IssuesTags({issues, leastPerforming, setSelectedSpecific
         <div className={"more-issues-container"}>
             {moreIssues.length>0 && <div className={"d-flex flex-column row-gap"}>
                 {moreIssues.map((issue)=>{
-                    return <IssuesCard selectedSpecificIssue={issue}
+                    return (
+                        <div className={selectedSpecificIssue && selectedSpecificIssue!==issue ? "opacity-50":""}>
+                        <IssuesCard selectedSpecificIssue={selectedSpecificIssue} specificIssue={issue}
                             issues={issues} setSelectedSpecificIssue={setSelectedSpecificIssue}/>
+                            </div>
+                    )
                 })}
             </div>}
 

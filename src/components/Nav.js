@@ -1,5 +1,7 @@
 import BoundaryToggle from "./BoundaryToggle";
 import CommunityNav from "./CommunityNav";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSquareFacebook, faTwitter, faInstagram, faLinkedinIn} from "@fortawesome/free-brands-svg-icons";
 
 function Nav({
                  selectedChapter,
@@ -135,6 +137,54 @@ function Nav({
                     <CommunityNav communities={communities} communitySearch={communitySearch}
                                   compareSearch={compareSearch} setCommunitySearch={setCommunitySearch}
                                   setCompareSearch={setCompareSearch}/>
+                </div>
+            </div>
+
+
+            <div className={`nav-chapters black-border d-flex flex-column justify-content-between
+             ${!selectedChapter ? "flex-grow-0 about-collapsed" : (selectedChapter === 4 ? "expanded-nav" : "about-collapsed collapsed-nav flex-grow-0")}`}
+                 onClick={() => {
+                     setSelectedIssue(null)
+                     setSelectedSpecificIssue(null)
+                     if (selectedChapter !== 4) {
+                         setSelectedChapter(4)
+                         setShowMap(false)
+                     } else {
+                         setSelectedChapter(null)
+                     }
+                 }}
+            >
+                <div>
+                    <div
+                        className={`nav-title ${ selectedChapter !== 4 ? '' : 'collapse-nav-title'}`}>
+                        <h6 className="collapse-text">About / Contact</h6>
+                    </div>
+
+                    <p className={`${selectedChapter === 4 ? "h1" : "collapse-nav-title"} transition-font`}>NYC Spatial Equity Tool</p>
+                </div>
+
+
+                <div
+                    className={`${selectedChapter === 4 ? "nav-chapters-content-expanded" : ""} nav-chapters-content d-flex flex-column justify-content-end`}>
+                    <div className={"nav-chapters-text"}>
+                        <h5>Contact</h5>
+                        <p className={"mb-0"}>111 John Street, Suite 260</p>
+                        <p>New York, NY 10038</p>
+                        <p>(212) 629-8080</p>
+                        <p>info@transalt.org</p>
+                        <div className={`${selectedChapter !== 4 ? "pe-none" : "pe-auto"} mb-3 d-flex flex-row col-gap`} >
+                            <div onClick={(e)=>{e.stopPropagation()}}><a target="_blank" href={`//www.twitter.com/transalt`}><FontAwesomeIcon icon={faSquareFacebook}/></a></div>
+                            <div onClick={(e)=>{e.stopPropagation()}}><a target="_blank" href={`//www.twitter.com/transalt`}><FontAwesomeIcon icon={faInstagram}/></a></div>
+                            <div onClick={(e)=>{e.stopPropagation()}}><a target="_blank" href={`//www.instagram.com/transportationalternatives/`}><FontAwesomeIcon icon={faTwitter}/></a></div>
+                            <div onClick={(e)=>{e.stopPropagation()}}><a target="_blank" href={`//www.linkedin.com/company/transportation-alternatives`}><FontAwesomeIcon icon={faLinkedinIn}/></a></div>
+                        </div>
+                        <button className={`${selectedChapter !== 4 ? "pe-none" : ""} about-button`}
+                                onClick={(e)=>{
+                                   e.stopPropagation()
+                                   console.log("clicked")
+                                }}
+                        ><small>Stay Tuned</small></button>
+                    </div>
                 </div>
             </div>
 
