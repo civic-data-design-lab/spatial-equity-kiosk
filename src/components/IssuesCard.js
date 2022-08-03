@@ -2,23 +2,30 @@ import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleInfo, faArrowsUpDownLeftRight} from "@fortawesome/free-solid-svg-icons";
 
-export default function IssuesCard({issues, selectedSpecificIssue, setSelectedSpecificIssue, specificIssue, setModal, modalVersion=false}) {
+export default function IssuesCard({
+                                       issues,
+                                       selectedSpecificIssue,
+                                       setSelectedSpecificIssue,
+                                       specificIssue,
+                                       setModal,
+                                       modalVersion = false
+                                   }) {
 
     const [showInfo, setShowInfo] = useState(false)
 
     const getIssueName = () => {
-        return issues.specific_issues_data[specificIssue].specific_issue_name|| null
+        return issues.specific_issues_data[specificIssue].specific_issue_name || null
     }
 
-    return(
+    return (
         <div className={"issues-card-container"}
-            onClick={()=>{
-                if (selectedSpecificIssue === specificIssue) {
-                    setSelectedSpecificIssue(null)
-                } else {
-                    setSelectedSpecificIssue(specificIssue)
-                }
-            }}
+             onClick={() => {
+                 if (selectedSpecificIssue === specificIssue) {
+                     setSelectedSpecificIssue(null)
+                 } else {
+                     setSelectedSpecificIssue(specificIssue)
+                 }
+             }}
         >
             <div className={"issues-card-header"}>
                 <div className={"issues-card-title-container col-gap"}>
@@ -27,15 +34,19 @@ export default function IssuesCard({issues, selectedSpecificIssue, setSelectedSp
                 </div>
                 <div className={"issues-card-button-container col-gap"}>
                     <div
-                        onMouseEnter={()=>{setShowInfo(true)}}
-                        onMouseLeave={()=>{setShowInfo(false)}}
+                        onMouseEnter={() => {
+                            setShowInfo(true)
+                        }}
+                        onMouseLeave={() => {
+                            setShowInfo(false)
+                        }}
                     >
                         <FontAwesomeIcon icon={faCircleInfo}/>
                         <div className={`${showInfo ? "" : "d-none"} position-absolute info-tooltip`}>
                             <p className={"m-0"}>{issues.specific_issues_data[specificIssue].specific_issue_source}</p>
                         </div>
                     </div>
-                    <FontAwesomeIcon icon={faArrowsUpDownLeftRight} onClick={(e)=>{
+                    <FontAwesomeIcon icon={faArrowsUpDownLeftRight} onClick={(e) => {
                         e.stopPropagation()
                         if (modalVersion) {
                             setModal(null)

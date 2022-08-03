@@ -14,7 +14,7 @@ export default function CommunityNav({
 
     const [addCompare, setAddCompare] = useState(false)
 
-    useEffect(()=>{
+    useEffect(() => {
         if (!communitySearch) {
             setAddCompare(false)
         }
@@ -117,7 +117,8 @@ export default function CommunityNav({
                         setAddCompare(!addCompare)
                     }}
                 >
-                    {!addCompare ? <FontAwesomeIcon icon={faPlus} width={32}/> : <FontAwesomeIcon icon={faMinus} width={32}/>}
+                    {!addCompare ? <FontAwesomeIcon icon={faPlus} width={32}/> :
+                        <FontAwesomeIcon icon={faMinus} width={32}/>}
                     <p className={"m-0"}>Compare Communities</p>
                 </div>
             </div>

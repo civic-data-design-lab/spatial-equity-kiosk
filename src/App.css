@@ -1,3 +1,4 @@
+/* Definitions */
 @font-face {
     font-family: 'Inter';
     src: url(./fonts/Inter-VariableFont_slnt,wght.ttf);
@@ -7,32 +8,13 @@
     --health: #F93080;
     --environment: #179F4E;
     --infrastructure: #146FD1;
+    /*TODO: remove these*/
     --third-height: calc(100vh / 3);
-    --quarter-height: calc(100vh / 4)
+    --quarter-height: calc(100vh / 4);
 }
 
 
-
-/* unvisited link */
-a:link {
-  color: white;
-}
-
-/* visited link */
-a:visited {
-  color: white;
-}
-
-/* mouse over link */
-a:hover {
-  color: gray !important;
-}
-
-/* selected link */
-a:active {
-  color: gray !important;
-}
-
+/* Utility */
 .standard-padding {
     padding: 1em;
 }
@@ -45,8 +27,12 @@ a:active {
     column-gap: 1rem;
 }
 
-.rw-gap {
+.row-gap {
     row-gap: 1rem;
+}
+
+.small-text {
+    font-size: 0.75rem;
 }
 
 .underline {
@@ -54,49 +40,61 @@ a:active {
     text-decoration-thickness: 1px;
 }
 
-
+/*TODO: remove this*/
 .quarter {
     height: var(--quarter-height);
-}
-
-.health {
-    color: var(--health);
-}
-
-.environment {
-    color: var(--environment)
-}
-
-.infrastructure {
-    color: var(--infrastructure)
 }
 
 .bold {
     font-weight: bold;
 }
 
-
-h1, h2, h3, h4, h5, h6, p {
-    font-weight: 500;
+.block-border {
+    border-block: 2px solid black;
 }
 
-/*TODO: remove no-padding and no-margin, use css class*/
-.no-padding {
-    padding: 0 !important;
+.no-top-border {
+    border-top: none !important;
 }
 
-.no-margin {
-    margin: 0 !important;
+.no-left-border {
+    border-left: none !important;
+}
+
+.no-right-border{
+    border-right: none !important;
+}
+
+.top-border {
+    border-top: 2px solid black !important;
+}
+
+.bottom-border {
+    border-bottom: 2px solid black;
+}
+
+.no-pointer {
+    pointer-events: none;
+}
+
+.full-height {
+    height: 100%;
+    transition: height 1s;
+}
+
+.no-height {
+    height: 0;
+    transition: height 1s;
 }
 
 
+/* Document */
 body {
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif;
     overflow: hidden;
     height: 100vh;
     width: 100vw;
 }
-
 
 #root {
     height: 100%;
@@ -104,25 +102,40 @@ body {
     overflow: hidden;
 }
 
-.black-border {
-    border: 1px solid black;
+h1, h2, h3, h4, h5, h6, p {
+    font-weight: 500;
 }
 
-.block-border {
-  border-block: 2px solid black;
-}
-
-.transition-font {
-    transition: font-size 1s;
-}
-
-.nav-chapters {
+small {
     height: fit-content;
+}
+
+
+/* Links */
+a:link {
+    color: white;
+}
+
+a:visited {
+    color: white;
+}
+
+a:hover {
+    color: gray !important;
+}
+
+a:active {
+    color: gray !important;
+}
+
+
+/* Navigation Bar */
+.nav-chapters {
     flex-grow: 1;
     padding: 1em 1.5em;
     transition: flex 1s, background-color 0.5s, color 0.5s;
-    border-left: 2px solid black;
-    border-right: 2px solid black;
+    border: 2px solid black;
+    border-top: none;
 }
 
 .nav-chapters:hover {
@@ -130,9 +143,16 @@ body {
     color: white;
 }
 
+.expanded-nav {
+    background-color: black;
+    color: white;
+    flex-grow: 2 !important;
+    padding: 1em 1.5em !important;
+}
 
-.about-collapsed {
-    padding: 0.5em 1em;
+.collapsed-nav {
+    height: fit-content;
+    flex-grow: 0;
 }
 
 .nav-chapters-content {
@@ -140,46 +160,15 @@ body {
     opacity: 0;
 }
 
-.nav-chapters-text {
-    pointer-events: none;
-}
-
-
-.about-button {
-    background: white;
-    color: black;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
-    padding: 0.25em 1.5em;
-    border-radius: 5px;
-    pointer-events: auto;
-    border: 1px solid black;
-    transition: background-color 0.5s, color 0.5s, border 0.5s;
-}
-
-.about-button:hover {
-    color: white;
-    background-color: black;
-    border: 1px solid white;
-}
-
-
 .nav-chapters-content-expanded {
     max-height: calc(100vh - 2.75rem - 3vw - 3rem);
     opacity: 1;
     transition: max-height 1s, opacity 1s;
 }
 
-.expanded-nav {
-    background-color: black;
-    color: white;
-    flex-grow: 2;
-}
-
-.collapsed-nav {
-    height: fit-content;
-    flex-grow: 0;
+.transition-font {
+    transition: font-size 1s;
+    white-space: pre-line;
 }
 
 .nav-title {
@@ -190,299 +179,73 @@ body {
 .collapse-nav-title {
     margin: 0;
     padding: 0;
-    opacity: 0;
     height: 0;
+    opacity: 0;
     visibility: hidden;
 }
 
 .collapse-text {
-    font-size: inherit;
+    font-size: 1.1em;
+    margin: 0;
 }
 
-.middle-column {
-    transition: width 1s;
-    background-color: white;
-    z-index: 3;
-    border-right: 2px solid black;
-    opacity: 1;
+
+/* About */
+.about-collapsed {
+    flex-grow: 0;
+    padding: 0.5em 1em;
 }
 
-.collapsed-middle-column {
-    width: 0;
-    overflow: hidden;
-    border: none;
+.about-button {
+    background: white;
+    color: black;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    padding: 0.25em 1.5em;
+    border-radius: 5px;
+    pointer-events: auto;
+    border: 2px solid black;
+    transition: background-color 0.5s, color 0.5s, border 0.5s;
 }
 
+.about-button:hover {
+    color: white;
+    background-color: black;
+    border: 2px solid white;
+}
+
+
+
+/* Dropdown */
 .dropdown-bar {
     border: 1px solid black;
     padding: 0.5rem;
 }
-
 
 .dropdown-body {
     width: 100%;
     max-height: 40vh;
     height: fit-content;
     overflow: auto;
-    border: 1.5px solid black;
     border-top: none;
     background-color: white;
-    #box-shadow: 0 0 0 1.5px black;
 }
 
 .dropdown-item {
-  background-color: white !important;
+    background-color: white !important;
+    border: 1px solid black !important;
+    border-top: none !important;
 }
-
 
 .dropdown-item:hover, .dropdown-item-active {
     background-color: black !important;
     color: white !important;
 }
 
-.boundary-toggle {
-    display: grid;
-    border: 1px solid white;
-    grid-template-columns: 1fr 1fr;
-    margin-bottom: 0.5rem;
-    #box-shadow: 0 0 0 1.5px white;
-
-}
-
-.boundary-toggle-item-active {
-    background-color: white;
-    color: black;
-}
-
-.boundary-toggle-item {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    #border: 1px solid white;
-    padding: 0.25rem;
-    transition: background-color 0.5s, color 0.5s;
-    align-items: center;
-    height: 100%;
-}
-
-.issues-tile-container {
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-}
-
-.issues-tile-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    align-items: center;
-    width: 100%;
-    padding: 0.5rem;
-}
-
-.issues-tile-body {
-    padding: 1rem;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    overflow: hidden;
-}
-
-.issues-tile-text-container {
-    display: flex;
-    flex-direction: column;
-    row-gap: 1.5rem;
-
-}
 
 
-.issues-tile-ranking-invis {
-    max-height: 0;
-    opacity: 0;
-    pointer-events: none;
-    transition: max-height 1s, opacity 0.5s;
-}
-
-.issues-tile-ranking-vis {
-    max-height: 100vh;
-    opacity: 1;
-    transition: max-height 1s, opacity 0.5s 0.5s;
-}
-
-.ranking-button {
-    margin-top: 0.5rem;
-}
-
-
-.sidebar-body {
-    font-size: 16px;
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    position: relative;
-    left: 0;
-    transition: left 1s;
-    z-index: 2;
-}
-
-.collapsed {
-    left: calc(-25vw + 1px);
-}
-
-.chapters {
-    padding: 1em;
-    border: 1px solid black;
-    transition: background-color 0.5s;
-    word-wrap: normal;
-}
-
-.thirds {
-    min-height: calc(100vh / 3) !important;
-}
-
-
-.no-chapters-selected {
-    background-color: white;
-    color: black;
-    transition: color 0.5s;
-}
-
-.chapters-unselected {
-    background-color: white;
-    color: #54545473;
-    transition: color 0.5s;
-}
-
-.chapters:hover, .chapters-selected {
-    background-color: black;
-    color: white;
-    #border-right: 2px solid white;
-}
-
-.carousel-inner {
-    height: 100%;
-}
-
-.carousel-item {
-    height: 100%;
-}
-
-
-.carousel-indicators [data-bs-target] {
-    border-radius: 50%;
-    height: 10px !important;
-    width: 10px !important;
-    opacity: 1 !important;
-    border: 1px solid black !important;
-    transition-timing-function: ease-in;
-
-}
-
-.carousel-indicators .active {
-    background-color: #000 !important;
-}
-
-#collapse-content {
-    margin: 0;
-    padding: 0;
-}
-
-#issues-column {
-    border: 1px solid black;
-}
-
-#community-column {
-    left: 25vw;
-    border: 1px solid black;
-    #padding: 1em;
-}
-
-
-.issues-text {
-    opacity: 1;
-    transition: opacity 1s;
-}
-
-
-.accordion-content {
-    padding: 1em;
-    #border: 1px solid black;
-
-}
-
-.issues-chapters {
-    min-height: calc(100vh / 4);
-    padding: 1em;
-    word-wrap: normal;
-    transition: background-color 0.5s, min-height 0.4s;
-    cursor: pointer;
-    background-color: white;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-bottom: 2px solid black;
-}
-
-.demographics-chapter {
-    padding: 1em;
-    #border: 1px solid black;
-    word-wrap: normal;
-    transition: background-color 0.5s, min-height 0.4s;
-    cursor: pointer;
-    background-color: white;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.issues-chapters:hover, .issues-chapters-active, .demographics-chapter:hover, .demographics-chapter-active {
-    background-color: black;
-    color: white;
-}
-
-.invis {
-    max-height: 0;
-    margin: 0;
-    padding: 0;
-    opacity: 0;
-    pointer-events: none;
-    font-size: 0;
-    transition: max-height 0.5s;
-    border: none;
-}
-
-.vis {
-    position: static;
-    max-height: 100vh;
-    opacity: 1;
-    font-size: 1.25rem;
-    transition: max-height 0.5s linear, font-size 0.05s 0.25s, opacity 0.25s 0.3s;
-}
-
-.collapse-issue {
-    min-height: 0;
-}
-
-.collapse-text {
-    font-size: inherit;
-    margin: 0;
-}
-
-.issues-arrow {
-    opacity: 0;
-    transition: opacity 0.25s;
-}
-
-.issues-arrow-row {
-    cursor: pointer;
-}
-
-.issues-arrow-row:hover .issues-arrow, .issues-arrow-active {
-    opacity: 1;
-}
-
+/* Searchbar */
 [type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
     appearance: none;
@@ -524,18 +287,16 @@ body {
 
 .add-community-btn {
     background-color: black;
-    #border: 1.5px solid white;
     border: 1px solid white;
     width: 100%;
     padding: 0.25rem;
 }
 
-
 .community-search {
     height: 100%;
     padding: 4px;
     border-radius: 0;
-    border: 1.5px solid white;
+    border: 1px solid white;
     outline: none;
     font-style: italic;
     font-weight: bold;
@@ -552,13 +313,11 @@ body {
     height: fit-content;
     max-height: 25vh;
     overflow-y: auto;
-    border: 1.5px solid white;
     border-top: none;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     z-index: 1;
     padding: 0;
-    #box-shadow: 0 2px 0 white;
 }
 
 .shorter {
@@ -573,11 +332,10 @@ body {
     display: none;
 }
 
-
 .search-item {
     font-size: 11px;
-    border-left: 2px solid white;
-    border-right: 2px solid white;
+    border: 2px solid white;
+    border-top: none;
 }
 
 .search-item-inactive {
@@ -598,28 +356,6 @@ body {
     right: 1rem;
 }
 
-
-.select-issue-menu {
-    height: calc(100vh / 6);
-    overflow: auto;
-    position: absolute;
-}
-
-.select-issue-item {
-    padding: 1em;
-    cursor: pointer;
-}
-
-.select-issue-item:hover, .select-issue-item-active {
-    background-color: black;
-    color: white;
-}
-
-.select-issue-toggle {
-    cursor: pointer;
-}
-
-
 ::placeholder {
     padding: 4px;
     font-size: .75em;
@@ -627,43 +363,214 @@ body {
     font-style: normal;
 }
 
-.carousel {
-    z-index: 1;
+
+
+/* Middle Column */
+.middle-column {
+    transition: width 1s, opacity 0.75s 0.25s;
     background-color: white;
+    z-index: 3;
+    border: 2px solid black;
+    border-left: none;
+    opacity: 1;
+}
+
+.collapsed-middle-column {
+    width: 0;
+    overflow: hidden;
+    border-right: none;
+    opacity: 0;
 }
 
 
-.issue-section {
-    z-index: 1;
-    padding: 1.5rem;
+
+/* Boundary Toggle */
+.boundary-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 0.5rem;
+
+}
+
+.boundary-toggle-item-active {
     background-color: white;
+    color: black;
 }
 
-.community-padding {
-    padding: 1rem 1.5rem;
-}
-
-.community-height {
-    height: calc(100% / 3);
-    transition: height 0.5s;
-}
-
-.full-height {
+.boundary-toggle-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    padding: 0.25rem;
+    transition: background-color 0.5s, color 0.5s;
+    align-items: center;
     height: 100%;
-    transition: height 1s;
+    border: 1px solid white;
 }
 
-.no-height {
-    height: 0;
-    transition: height 1s;
+
+
+/* Issue Tiles */
+.issues-tile-container {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
 }
 
+.issues-tile-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem;
+    height: 2em;
+}
+
+.issues-tile-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow: hidden;
+    column-gap: 1em;
+}
+
+.issues-tile-text-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+
+}
+
+.issues-tile-ranking-invis {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 1s, opacity 0.5s;
+}
+
+.issues-tile-ranking-vis {
+    max-height: 100vh;
+    opacity: 1;
+    transition: max-height 1s, opacity 0.5s 0.5s;
+}
+
+.ranking-button {
+    margin-top: 0.5rem;
+}
+
+.issue-tile-viz {
+    width: 50%;
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+/* Issues Column */
+.issues-chapters {
+    min-height: calc(100vh / 4);
+    padding: 1em;
+    word-wrap: normal;
+    transition: background-color 0.5s, min-height 0.4s;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+}
+
+.issues-chapters:hover, .issues-chapters-active, .demographics-chapter:hover, .demographics-chapter-active {
+    background-color: black;
+    color: white;
+}
+
+.demographics-chapter {
+    padding: 1em;
+    word-wrap: normal;
+    transition: background-color 0.5s, min-height 0.4s;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.invis {
+    max-height: 0;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    font-size: 0;
+    transition: max-height 0.5s;
+    border: none;
+}
+
+.vis {
+    position: static;
+    max-height: 100vh;
+    opacity: 1;
+    font-size: 1.25rem;
+    transition: max-height 0.5s linear, font-size 0.05s 0.25s, opacity 0.25s 0.3s;
+}
+
+.collapse-issue {
+    min-height: 0;
+}
+
+.issues-arrow {
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+
+.issues-arrow-row {
+    cursor: pointer;
+}
+
+.issues-arrow-row:hover .issues-arrow, .issues-arrow-active {
+    opacity: 1;
+}
+
+
+
+/* Community Column */
+.community-profile-container {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+    background-color: white;
+}
+
+
+
+/* Right Column */
+#right-column {
+    border: 2px solid black;
+    border-left: none;
+}
+
+
+
+/* Map */
 #deckgl-wrapper {
     background-color: black;
+    border-block: 2px solid black;
     left: 50% !important;
     width: 50% !important;
 }
 
+
+
+/* Map Toggle */
 #toggle-container {
     z-index: 3;
 }
@@ -677,6 +584,26 @@ body {
     visibility: hidden;
 }
 
+.map-toggle-container {
+     margin-left: 1rem;
+     width: 4em;
+     height: 2em;
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+ }
+
+.map-toggle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: color 0.5s, background-color 0.5s;
+    border: 2px solid black;
+}
+
+
+
+/* Share Button */
 .share {
     display: flex;
     flex-direction: row;
@@ -703,30 +630,11 @@ body {
     row-gap: 1.5rem;
 }
 
-.map-toggle-container {
-    border: 2px solid black;
-    margin-left: 1rem;
-    width: 4em;
-    height: 2em;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
 
-.community-profile-container {
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    row-gap: 1.5em;
-    overflow: auto;
-    background-color: white;
-}
-
+/* Issue Cards */
 .issues-card-container {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
-    #box-shadow: 0 0 0 1px black;
 }
 
 .issues-card-container:hover {
@@ -746,6 +654,7 @@ body {
 .issues-card-body {
     padding: 0.25em 0.75em;
     background-color: white;
+    border: 1px solid black;
 }
 
 .issues-card-title-container {
@@ -760,14 +669,9 @@ body {
     align-items: center;
 }
 
-.row-gap {
-    row-gap: 1rem;
-}
 
-.small-text {
-    font-size: 0.75rem;
-}
 
+/* Issue Tags */
 .issue-tags-container {
     display: flex;
     flex-direction: row;
@@ -776,13 +680,11 @@ body {
     row-gap: 0.5rem;
 }
 
-
 .issues-tag {
     display: flex;
     flex-direction: row;
     align-items: center;
     border: 1px solid black;
-    #max-width: 30%;
     padding: 0.25rem 0.5rem;
 }
 
@@ -796,42 +698,9 @@ body {
     color: black;
 }
 
-.more-issues-container {
-    display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
-}
-
-.info-tooltip {
-    border: 1px solid black;
-    background-color: white;
-    color: black;
-    padding: 0.25rem 0.5rem;
-    right: 0;
-}
 
 
-
-.map-toggle-transition {
-    transition: color 0.5s, background-color 0.5s;
-}
-
-#right-column{
-  border-right: 2px solid black;
-}
-
-.no-left-border {
-  border-left: none !important;
-}
-
-.top-border {
-  border-top: 2px solid black;
-}
-
-small {
-  height: fit-content;
-}
-
+/* Modal */
 .modal-background {
     position: fixed;
     left: 0;
@@ -852,13 +721,18 @@ small {
 }
 
 
-.issue-tile-viz {
-    width: 50%;
-    flex: 0 0 50%;
+
+/* Misc */
+.more-issues-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    row-gap: 1rem;
 }
 
-
-
+.info-tooltip {
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+    padding: 0.25rem 0.5rem;
+    right: 0;
+}

@@ -19,7 +19,10 @@ export default function CommunityProfile({
 
     return (
         <div className={"community-profile-container"}>
-            <div>
+            <div className={"issues-tile-header"}>
+
+            </div>
+            <div className={"standard-padding"}>
                 <h5 className={"mb-3"}>Least Performing Issues</h5>
 
                 <div className={"d-flex flex-column row-gap"}>
@@ -34,7 +37,7 @@ export default function CommunityProfile({
                 </div>
             </div>
 
-            <div>
+            <div className={"standard-padding"}>
                 <h5 className={"mb-3"}>More Issues</h5>
 
                 <IssuesTags issues={issues} leastPerforming={communities[communitySearch].least_performing_issues}
@@ -49,8 +52,8 @@ export default function CommunityProfile({
                 <div className="modal-background">
                     <div className={"modal-card"}>
                         <IssuesCard selectedSpecificIssue={selectedSpecificIssue}
-                                        setSelectedSpecificIssue={setSelectedSpecificIssue}
-                                        issues={issues} specificIssue={modal} setModal={setModal}
+                                    setSelectedSpecificIssue={setSelectedSpecificIssue}
+                                    issues={issues} specificIssue={modal} setModal={setModal}
                                     modalVersion={true}
                         />
                     </div>

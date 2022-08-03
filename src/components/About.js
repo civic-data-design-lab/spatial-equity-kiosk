@@ -39,25 +39,26 @@ export default function About({issues}) {
                             Nisl purus in mollis nunc sed id semper. Expand to see data sources and methodology.
                         </p>
                         <div>
-                            <p><span><strong>Methodology: </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>
+                            <p><span><strong>Methodology: </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+                            </p>
                         </div>
                         <div className={`${expand ? "issues-tile-ranking-vis" : "issues-tile-ranking-invis"}`}>
-                            {issues.all_issues_id.map((ID)=>{
-                                return(
+                            {issues.all_issues_id.map((ID) => {
+                                return (
                                     <div>
                                         <strong>{issues.specific_issues_data[ID].specific_issue_name}</strong>
                                         <p>{issues.specific_issues_data[ID].specific_issue_source}</p>
                                     </div>
                                 )
                             })}
-                    </div>
+                        </div>
 
-                    <div className={"d-flex flex-row justify-content-center ranking-button"}
-                         onClick={() => {
-                             setExpand(!expand)
-                         }}>
-                        {expand ? <FontAwesomeIcon icon={faChevronUp}/> : <FontAwesomeIcon icon={faChevronDown}/>}
-                    </div>
+                        <div className={"d-flex flex-row justify-content-center ranking-button"}
+                             onClick={() => {
+                                 setExpand(!expand)
+                             }}>
+                            {expand ? <FontAwesomeIcon icon={faChevronUp}/> : <FontAwesomeIcon icon={faChevronDown}/>}
+                        </div>
                     </div>
 
 

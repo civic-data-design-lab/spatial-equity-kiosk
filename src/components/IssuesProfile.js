@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
 
-export default function IssueProfile({issues, selectedSpecificIssue, rankingProse=false}) {
+export default function IssueProfile({issues, selectedSpecificIssue, rankingProse = false}) {
 
     const [expand, setExpand] = useState(false)
 

@@ -9,18 +9,18 @@ import MapToggle from "./MapToggle";
 import React from "react";
 
 export default function CommunityRightColumn({
-                                                communitySearch,
-                                                compareSearch,
-                                                selectedSpecificIssue,
-                                                issues,
-                                                showMap, setShowMap, showToggle
+                                                 communitySearch,
+                                                 compareSearch,
+                                                 selectedSpecificIssue,
+                                                 issues,
+                                                 showMap, setShowMap, showToggle
                                              }) {
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log("community serch is ", communitySearch)
     })
 
-    return(
+    return (
         <>
             {!communitySearch && <div className={"d-flex flex-row align-items-center h-100 p-5 col-gap"}>
                 <FontAwesomeIcon icon={faArrowLeft}/>
@@ -29,9 +29,9 @@ export default function CommunityRightColumn({
 
             {communitySearch && !selectedSpecificIssue &&
                 <div className={"d-flex flex-row align-items-center h-100 p-5 col-gap"}>
-                <FontAwesomeIcon icon={faArrowLeft}/>
-                <p className={"m-0"}>Click on a card to learn more about the issue</p>
-            </div>
+                    <FontAwesomeIcon icon={faArrowLeft}/>
+                    <p className={"m-0"}>Click on a card to learn more about the issue</p>
+                </div>
             }
 
             {communitySearch && selectedSpecificIssue &&
@@ -44,11 +44,12 @@ export default function CommunityRightColumn({
                             <div id={"toggle-container"}>
                                 <MapToggle showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}/>
                             </div>
-                    </div>
-                    </div>
-                        <div className={"standard-padding overflow-scroll"}>
-                            <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue} rankingProse={true}/>
                         </div>
+                    </div>
+                    <div className={"standard-padding overflow-scroll"}>
+                        <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue}
+                                      rankingProse={true}/>
+                    </div>
                 </div>}
 
         </>

@@ -11,7 +11,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
     useEffect(() => {
 
         let changed = false
-        items.map((item)=>{
+        items.map((item) => {
             if (item.specific_issue_ID === currentValue) {
                 setToggleText(item.specific_issue_name)
                 changed = true
@@ -41,7 +41,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                 </div>
 
                 <div
-                    className={`${showDropdownItems ? "d-block" : "d-none"} dropdown-body position-absolute black-border w-100`}>
+                    className={`${showDropdownItems ? "d-block" : "d-none"} dropdown-body position-absolute w-100`}>
                     {
                         items.map((item) => {
                             return (

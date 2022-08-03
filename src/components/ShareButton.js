@@ -7,19 +7,19 @@ export default function ShareButton({showMap}) {
 
     const [clicked, setClicked] = useState(false)
 
-    useEffect(()=>{
+    useEffect(() => {
         if (showMap) {
             setClicked(false)
         }
     })
 
 
-    return(
+    return (
         <>
             <div className={"share"}>
                 <small className={"m-0"}>Share</small>
                 <div
-                    onClick={()=>{
+                    onClick={() => {
                         setClicked(!clicked)
                     }}
                 >

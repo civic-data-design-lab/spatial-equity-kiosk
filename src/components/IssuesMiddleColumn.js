@@ -15,37 +15,34 @@ export default function IssuesMiddleColumn({
 
     const [showDemographics, setShowDemographics] = useState(false);
 
-     const health_issues = issues.issues_data["health"].specific_issues_ID.map((id_)=>{
+    const health_issues = issues.issues_data["health"].specific_issues_ID.map((id_) => {
         return issues.specific_issues_data[id_]
     })
 
-    const environment_issues = issues.issues_data["environment"].specific_issues_ID.map((id_)=>{
+    const environment_issues = issues.issues_data["environment"].specific_issues_ID.map((id_) => {
         return issues.specific_issues_data[id_]
     })
 
-    const infrastructure_issues = issues.issues_data["infrastructure"].specific_issues_ID.map((id_)=>{
+    const infrastructure_issues = issues.issues_data["infrastructure"].specific_issues_ID.map((id_) => {
         return issues.specific_issues_data[id_]
     })
 
     const getRankingNarrative = (items) => {
-         const possible_keys = items.map((item) => {
+        const possible_keys = items.map((item) => {
             return item.specific_issue_ID
         })
 
         if (possible_keys.includes(selectedSpecificIssue)) {
-            return <p className={"ranking-narrative"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
+            return <p
+                className={"ranking-narrative"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
         }
     }
-
-
-
-
 
 
     return (
         <div className={"d-flex flex-column h-100"}>
             <div
-                className={`${selectedIssue === 1 ? 'issues-chapters-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
+                className={`${selectedIssue === 1 ? 'issues-chapters-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-chapters top-border`}
                 onClick={() => {
                     /*setShowMap(true)
                     setShowToggle(false)*/
@@ -62,7 +59,7 @@ export default function IssuesMiddleColumn({
                 </h5>
             </div>
 
-            <div className={`${selectedIssue === 1 ? 'vis' : 'invis'} accordion-content flex-grow-1`}>
+            <div className={`${selectedIssue === 1 ? 'vis' : 'invis'} standard-padding flex-grow-1`}>
                 <div className={"h-100 position-relative"}>
                     <IssuesDropDown items={health_issues}
                                     currentValue={selectedSpecificIssue}
@@ -72,7 +69,7 @@ export default function IssuesMiddleColumn({
             </div>
 
             <div
-                className={`${selectedIssue === 2 ? 'issues-chapters-active' : (selectedIssue === 1? "top-border":"")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
+                className={`${selectedIssue === 2 ? 'issues-chapters-active' : (selectedIssue === 1 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
                     if (selectedIssue !== 2) {
                         setSelectedIssue(2)
@@ -85,7 +82,7 @@ export default function IssuesMiddleColumn({
                 <h5 className={`${selectedIssue ? "invis" : "vis"}`}>Environment imperdiet dui accumsan sit amet. Diam
                     donec adipiscing.</h5>
             </div>
-            <div className={`${selectedIssue === 2 ? 'vis' : 'invis'} accordion-content flex-grow-1`}>
+            <div className={`${selectedIssue === 2 ? 'vis' : 'invis'} standard-padding flex-grow-1`}>
                 <div className={"h-100 position-relative"}>
                     <IssuesDropDown items={environment_issues}
                                     currentValue={selectedSpecificIssue}
@@ -94,7 +91,8 @@ export default function IssuesMiddleColumn({
                 </div>
             </div>
             <div
-className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue === 2? "top-border":"")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}                onClick={() => {
+                className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue === 2 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
+                onClick={() => {
                     if (selectedIssue !== 3) {
                         setSelectedIssue(3)
                     } else {
@@ -106,7 +104,7 @@ className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue ==
                 <h5 className={`${selectedIssue ? "invis" : "vis"}`}>Infrastructure imperdiet dui accumsan sit amet.
                     Diam donec adipiscing.</h5>
             </div>
-            <div className={`${selectedIssue === 3 ? 'vis' : 'invis'} accordion-content flex-grow-1`}>
+            <div className={`${selectedIssue === 3 ? 'vis' : 'invis'} standard-padding flex-grow-1`}>
                 <div className={"h-100 position-relative"}>
                     <IssuesDropDown items={infrastructure_issues}
                                     currentValue={selectedSpecificIssue}
@@ -116,7 +114,7 @@ className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue ==
             </div>
 
             <div
-                className={`${showDemographics ? 'demographics-chapter-active' : ''} ${!showDemographics && !selectedIssue ? "quarter" : ""} ${selectedIssue === 3? "top-border":""} demographics-chapter`}
+                className={`${showDemographics ? 'demographics-chapter-active bottom-border' : ''} ${!showDemographics && !selectedIssue ? "quarter" : ""} ${selectedIssue === 3 ? "top-border" : ""} demographics-chapter`}
                 onClick={() => {
                     if (selectedIssue) {
                         setShowDemographics(!showDemographics)
@@ -129,7 +127,7 @@ className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue ==
                 <h5 className={`${!selectedIssue ? "vis" : "invis"}`}>Demographics imperdiet dui accumsan sit amet. Diam
                     donec adipiscing.</h5>
             </div>
-            <div className={`${showDemographics ? 'vis' : 'invis'} accordion-content flex-grow-1`}>
+            <div className={`${showDemographics ? 'vis' : 'invis'} standard-padding flex-grow-1`}>
                 <div className={"h-100 position-relative"}>
                     <DemographicsDropDown/>
 

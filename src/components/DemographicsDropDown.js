@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 
 
-export default function DemographicsDropDown({currentValue = null, items=null, setValue = null}) {
+export default function DemographicsDropDown({currentValue = null, items = null, setValue = null}) {
 
     const demographics = {
         1: "Race & Ethnicity",
@@ -13,7 +13,6 @@ export default function DemographicsDropDown({currentValue = null, items=null, s
 
     const [showDropdownItems, setShowDropdownItems] = useState(false)
     const [toggleText, setToggleText] = useState("Select a demographic to explore")
-
 
 
     return (

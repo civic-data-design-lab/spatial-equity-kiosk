@@ -24,12 +24,10 @@ function Nav({
              }) {
 
 
-
-
     return (
 
         <div className={"col-3 h-100 d-flex flex-column"}>
-            <div className={`nav-chapters d-flex flex-column justify-content-between
+            <div className={`nav-chapters d-flex flex-column justify-content-between top-border
              ${!selectedChapter ? "" : (selectedChapter === 1 ? "expanded-nav" : "collapsed-nav")}`}
                  onClick={() => {
                      setSelectedIssue(null)
@@ -55,7 +53,7 @@ function Nav({
 
                 <div
                     className={`${selectedChapter === 1 ? "nav-chapters-content-expanded" : ""} nav-chapters-content `}>
-                    <div className={"nav-chapters-text"}>
+                    <div className={"no-pointer"}>
                         <p>Introduction text to issues in New York City. Elit at imperdiet dui accumsan sit amet.
                             Diam donec adipiscing tristique risus nec feugiat in. Vel turpis nunc eget lorem dolor sed
                             viverra.
@@ -66,10 +64,11 @@ function Nav({
             </div>
 
 
-            <div className={`nav-chapters block-border d-flex flex-column
+            <div className={`nav-chapters d-flex flex-column
              ${!selectedChapter ? "" : (selectedChapter === 2 ? "expanded-nav" : "collapsed-nav")}
              `}
                  onClick={() => {
+                     setShowMap(false)
                      setSelectedIssue(null)
                      setSelectedSpecificIssue(null)
                      if (selectedChapter !== 2) {
@@ -86,19 +85,19 @@ function Nav({
                 <div>
                     <div
                         className={`nav-title ${selectedChapter && selectedChapter !== 2 ? 'collapse-nav-title' : ''}`}>
-                        <h5>Explore Spatial Equity by</h5>
+                        <h5 className={"collapse-text"}>Explore Spatial Equity by</h5>
                     </div>
 
-                    <p className={`${selectedChapter && selectedChapter !== 2 ? "h5 m-0" : "h1"}`}>Issues in NYC</p>
+                    <p className={`${selectedChapter && selectedChapter !== 2 ? "h5 m-0" : "h1"} transition-font`}>Issues in NYC</p>
                 </div>
 
 
                 <div
                     className={`${selectedChapter === 2 && selectedIssue ? "nav-chapters-content-expanded" : ""} h-100 nav-chapters-content d-flex flex-column justify-content-between`}>
-                    <div className={`${selectedChapter === 2 ? "" : "nav-chapters-text"}`}>
+                    <div className={`${selectedChapter === 2 ? "" : "no-pointer"}`}>
                         <BoundaryToggle boundary={boundary} setBoundary={setBoundary}/>
                     </div>
-                    <div className={"nav-chapters-text"}>
+                    <div className={"no-pointer"}>
                         <p className={"bold"}>{issue_categories.labels[selectedIssue]}</p>
                         <p>{issue_categories.descriptions[selectedIssue]}</p>
                     </div>
@@ -121,17 +120,18 @@ function Nav({
                 <div>
                     <div
                         className={`nav-title ${selectedChapter && selectedChapter !== 3 ? 'collapse-nav-title' : ''}`}>
-                        <h5>Explore Spatial Equity by</h5>
+                        <h5 className={"collapse-text"}>Explore Spatial Equity by</h5>
                     </div>
 
-                    <p className={`${selectedChapter && selectedChapter !== 3 ? "h5 m-0" : "h1"}`}>Community
-                        Profiles</p>
+                    <p className={`${selectedChapter && selectedChapter !== 3 ? "h5 m-0" : "h1"} transition-font`}>
+                        {`Community ${selectedChapter && selectedChapter !== 3 ? "" : "\n"} Profiles`}
+                    </p>
                 </div>
 
 
                 <div
                     className={`${selectedChapter === 3 ? "nav-chapters-content-expanded" : ""} h-100 nav-chapters-content d-flex flex-column`}>
-                    <div className={`${selectedChapter === 3 ? "" : "nav-chapters-text"}`}>
+                    <div className={`${selectedChapter === 3 ? "" : "no-pointer"}`}>
                         <BoundaryToggle boundary={boundary} setBoundary={setBoundary}/>
                     </div>
                     <CommunityNav communities={communities} communitySearch={communitySearch}
@@ -141,8 +141,8 @@ function Nav({
             </div>
 
 
-            <div className={`nav-chapters black-border d-flex flex-column justify-content-between
-             ${!selectedChapter ? "flex-grow-0 about-collapsed" : (selectedChapter === 4 ? "expanded-nav" : "about-collapsed collapsed-nav flex-grow-0")}`}
+            <div className={`nav-chapters d-flex flex-column justify-content-between about-collapsed
+             ${!selectedChapter ? "" : (selectedChapter === 4 ? "expanded-nav" : "collapsed-nav")}`}
                  onClick={() => {
                      setSelectedIssue(null)
                      setSelectedSpecificIssue(null)
@@ -156,32 +156,49 @@ function Nav({
             >
                 <div>
                     <div
-                        className={`nav-title ${ selectedChapter !== 4 ? '' : 'collapse-nav-title'}`}>
+                        className={`nav-title ${selectedChapter !== 4 ? '' : 'collapse-nav-title'}`}>
                         <h6 className="collapse-text">About / Contact</h6>
                     </div>
 
-                    <p className={`${selectedChapter === 4 ? "h1" : "collapse-nav-title"} transition-font`}>NYC Spatial Equity Tool</p>
+                    <p className={`${selectedChapter === 4 ? "h1" : "collapse-nav-title"} transition-font m-0`}>
+                        NYC Spatial <br/> Equity Tool
+                    </p>
                 </div>
 
 
                 <div
                     className={`${selectedChapter === 4 ? "nav-chapters-content-expanded" : ""} nav-chapters-content d-flex flex-column justify-content-end`}>
-                    <div className={"nav-chapters-text"}>
+                    <div className={"no-pointer"}>
                         <h5>Contact</h5>
                         <p className={"mb-0"}>111 John Street, Suite 260</p>
                         <p>New York, NY 10038</p>
                         <p>(212) 629-8080</p>
                         <p>info@transalt.org</p>
-                        <div className={`${selectedChapter !== 4 ? "pe-none" : "pe-auto"} mb-3 d-flex flex-row col-gap`} >
-                            <div onClick={(e)=>{e.stopPropagation()}}><a target="_blank" href={`//www.twitter.com/transalt`}><FontAwesomeIcon icon={faSquareFacebook}/></a></div>
-                            <div onClick={(e)=>{e.stopPropagation()}}><a target="_blank" href={`//www.twitter.com/transalt`}><FontAwesomeIcon icon={faInstagram}/></a></div>
-                            <div onClick={(e)=>{e.stopPropagation()}}><a target="_blank" href={`//www.instagram.com/transportationalternatives/`}><FontAwesomeIcon icon={faTwitter}/></a></div>
-                            <div onClick={(e)=>{e.stopPropagation()}}><a target="_blank" href={`//www.linkedin.com/company/transportation-alternatives`}><FontAwesomeIcon icon={faLinkedinIn}/></a></div>
+                        <div
+                            className={`${selectedChapter !== 4 ? "pe-none" : "pe-auto"} mb-3 d-flex flex-row col-gap`}>
+                            <div onClick={(e) => {
+                                e.stopPropagation()
+                            }}><a target="_blank" href={`//www.twitter.com/transalt`}><FontAwesomeIcon
+                                icon={faSquareFacebook}/></a></div>
+                            <div onClick={(e) => {
+                                e.stopPropagation()
+                            }}><a target="_blank" href={`//www.twitter.com/transalt`}><FontAwesomeIcon
+                                icon={faInstagram}/></a></div>
+                            <div onClick={(e) => {
+                                e.stopPropagation()
+                            }}><a target="_blank"
+                                  href={`//www.instagram.com/transportationalternatives/`}><FontAwesomeIcon
+                                icon={faTwitter}/></a></div>
+                            <div onClick={(e) => {
+                                e.stopPropagation()
+                            }}><a target="_blank"
+                                  href={`//www.linkedin.com/company/transportation-alternatives`}><FontAwesomeIcon
+                                icon={faLinkedinIn}/></a></div>
                         </div>
                         <button className={`${selectedChapter !== 4 ? "pe-none" : ""} about-button`}
-                                onClick={(e)=>{
-                                   e.stopPropagation()
-                                   console.log("clicked")
+                                onClick={(e) => {
+                                    e.stopPropagation()
+                                    console.log("clicked")
                                 }}
                         ><small>Stay Tuned</small></button>
                     </div>

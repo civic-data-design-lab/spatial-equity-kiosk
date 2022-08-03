@@ -6,7 +6,7 @@ import CommunitySearchBar from "./CommunitySearchBar";
 
 
 export default function CompareSearchBar({toggleValue, callBack, searchItems, communitySearch}) {
-    return(
+    return (
         <CommunitySearchBar toggleValue={toggleValue} callBack={callBack} communitySearch={communitySearch}>
             {searchItems}
         </CommunitySearchBar>
