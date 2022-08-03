@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faMinus} from "@fortawesome/free-solid-svg-icons";
 import IssuesCard from "./IssuesCard";
 
-export default function IssuesTags({issues, leastPerforming, setSelectedSpecificIssue, selectedSpecificIssue}) {
+export default function IssuesTags({issues, leastPerforming, setSelectedSpecificIssue, selectedSpecificIssue, setModal}) {
 
 
     const [moreIssues, setMoreIssues] = useState([])
@@ -21,7 +21,7 @@ export default function IssuesTags({issues, leastPerforming, setSelectedSpecific
                     return (
                         <div className={selectedSpecificIssue && selectedSpecificIssue!==issue ? "opacity-50":""}>
                         <IssuesCard selectedSpecificIssue={selectedSpecificIssue} specificIssue={issue}
-                            issues={issues} setSelectedSpecificIssue={setSelectedSpecificIssue}/>
+                            issues={issues} setSelectedSpecificIssue={setSelectedSpecificIssue} setModal={setModal}/>
                             </div>
                     )
                 })}

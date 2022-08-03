@@ -15,6 +15,7 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
     }
 
     return (
+
         <div className={"issues-tile-text-container"}>
 
             {rankingProse ? <div className={"issues-tile-prose issues-tile-text"}>

@@ -9,7 +9,7 @@ export default function BoundaryToggle({setBoundary, boundary}) {
                      setBoundary("community")
                  }}
             ><small>Community District</small></div>
-            <div className={`w-100 boundary-toggle-item ${boundary === "council" ? "boundary-toggle-item-active" : ""}`}
+            <div className={`boundary-toggle-item ${boundary === "council" ? "boundary-toggle-item-active" : ""}`}
                  onClick={(e) => {
                      e.stopPropagation()
                      setBoundary("council")

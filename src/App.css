@@ -11,6 +11,8 @@
     --quarter-height: calc(100vh / 4)
 }
 
+
+
 /* unvisited link */
 a:link {
   color: white;
@@ -106,6 +108,10 @@ body {
     border: 1px solid black;
 }
 
+.block-border {
+  border-block: 2px solid black;
+}
+
 .transition-font {
     transition: font-size 1s;
 }
@@ -115,6 +121,8 @@ body {
     flex-grow: 1;
     padding: 1em 1.5em;
     transition: flex 1s, background-color 0.5s, color 0.5s;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
 }
 
 .nav-chapters:hover {
@@ -193,11 +201,16 @@ body {
 
 .middle-column {
     transition: width 1s;
+    background-color: white;
+    z-index: 3;
+    border-right: 2px solid black;
+    opacity: 1;
 }
 
 .collapsed-middle-column {
     width: 0;
     overflow: hidden;
+    border: none;
 }
 
 .dropdown-bar {
@@ -214,7 +227,13 @@ body {
     border: 1.5px solid black;
     border-top: none;
     background-color: white;
+    #box-shadow: 0 0 0 1.5px black;
 }
+
+.dropdown-item {
+  background-color: white !important;
+}
+
 
 .dropdown-item:hover, .dropdown-item-active {
     background-color: black !important;
@@ -226,6 +245,8 @@ body {
     border: 1px solid white;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 0.5rem;
+    #box-shadow: 0 0 0 1.5px white;
+
 }
 
 .boundary-toggle-item-active {
@@ -238,9 +259,11 @@ body {
     flex-direction: row;
     justify-content: center;
     width: 100%;
-    border: 1px solid white;
+    #border: 1px solid white;
     padding: 0.25rem;
     transition: background-color 0.5s, color 0.5s;
+    align-items: center;
+    height: 100%;
 }
 
 .issues-tile-container {
@@ -259,16 +282,18 @@ body {
 }
 
 .issues-tile-body {
-    padding: 0.5rem;
-    #display: flex;
-    #flex-direction: row;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
     width: 100%;
+    overflow: hidden;
 }
 
 .issues-tile-text-container {
     display: flex;
     flex-direction: column;
     row-gap: 1.5rem;
+
 }
 
 
@@ -381,13 +406,13 @@ body {
 
 .accordion-content {
     padding: 1em;
-    border: 1px solid black;
+    #border: 1px solid black;
+
 }
 
 .issues-chapters {
     min-height: calc(100vh / 4);
     padding: 1em;
-    border: 1px solid black;
     word-wrap: normal;
     transition: background-color 0.5s, min-height 0.4s;
     cursor: pointer;
@@ -396,11 +421,12 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-bottom: 2px solid black;
 }
 
 .demographics-chapter {
     padding: 1em;
-    border: 1px solid black;
+    #border: 1px solid black;
     word-wrap: normal;
     transition: background-color 0.5s, min-height 0.4s;
     cursor: pointer;
@@ -498,7 +524,8 @@ body {
 
 .add-community-btn {
     background-color: black;
-    border: 1.5px solid white;
+    #border: 1.5px solid white;
+    border: 1px solid white;
     width: 100%;
     padding: 0.25rem;
 }
@@ -530,6 +557,8 @@ body {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     z-index: 1;
+    padding: 0;
+    #box-shadow: 0 2px 0 white;
 }
 
 .shorter {
@@ -547,7 +576,8 @@ body {
 
 .search-item {
     font-size: 11px;
-
+    border-left: 2px solid white;
+    border-right: 2px solid white;
 }
 
 .search-item-inactive {
@@ -673,78 +703,14 @@ body {
     row-gap: 1.5rem;
 }
 
-
-.switch-container {
-    #position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    z-index: 4;
-    column-gap: 8px;
-    background-color: white;
-    padding: 8px;
-    align-items: center;
+.map-toggle-container {
+    border: 2px solid black;
+    margin-left: 1rem;
+    width: 4em;
+    height: 2em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
-
-
-/* The switch - the box around the slider */
-.switch {
-    #display: inline-block;
-    width: 50px;
-    height: 26px;
-    position: relative;
-
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-/* The slider */
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: #ffffff;
-    transition: .4s;
-    border: 2px solid black
-}
-
-.active-slider {
-    background-color: black;
-    transition: background-color 0.4s;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 24px;
-    width: 24px;
-    top: -1px;
-    left: -2px;
-    background-color: white;
-    transition: .4s;
-    border: 2px solid black
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-    border-radius: 34px;
-}
-
-.slider.round:before {
-    border-radius: 50%;
-}
-
 
 .community-profile-container {
     padding: 1em;
@@ -760,6 +726,7 @@ input:checked + .slider:before {
     display: flex;
     flex-direction: column;
     border: 1px solid black;
+    #box-shadow: 0 0 0 1px black;
 }
 
 .issues-card-container:hover {
@@ -778,6 +745,7 @@ input:checked + .slider:before {
 
 .issues-card-body {
     padding: 0.25em 0.75em;
+    background-color: white;
 }
 
 .issues-card-title-container {
@@ -789,6 +757,7 @@ input:checked + .slider:before {
 .issues-card-button-container {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .row-gap {
@@ -841,8 +810,55 @@ input:checked + .slider:before {
     right: 0;
 }
 
-.middle-column {
-    z-index: 3;
-    background-color: white;
+
+
+.map-toggle-transition {
+    transition: color 0.5s, background-color 0.5s;
 }
+
+#right-column{
+  border-right: 2px solid black;
+}
+
+.no-left-border {
+  border-left: none !important;
+}
+
+.top-border {
+  border-top: 2px solid black;
+}
+
+small {
+  height: fit-content;
+}
+
+.modal-background {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 5;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-card {
+    width: 80vw;
+    height: 80vh;
+}
+
+
+.issue-tile-viz {
+    width: 50%;
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
 

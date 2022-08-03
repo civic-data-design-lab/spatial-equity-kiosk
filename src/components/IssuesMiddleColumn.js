@@ -72,7 +72,7 @@ export default function IssuesMiddleColumn({
             </div>
 
             <div
-                className={`${selectedIssue === 2 ? 'issues-chapters-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
+                className={`${selectedIssue === 2 ? 'issues-chapters-active' : (selectedIssue === 1? "top-border":"")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
                     if (selectedIssue !== 2) {
                         setSelectedIssue(2)
@@ -94,8 +94,7 @@ export default function IssuesMiddleColumn({
                 </div>
             </div>
             <div
-                className={`${selectedIssue === 3 ? 'issues-chapters-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
-                onClick={() => {
+className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue === 2? "top-border":"")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}                onClick={() => {
                     if (selectedIssue !== 3) {
                         setSelectedIssue(3)
                     } else {
@@ -117,7 +116,7 @@ export default function IssuesMiddleColumn({
             </div>
 
             <div
-                className={`${showDemographics ? 'demographics-chapter-active' : ''} ${!showDemographics && !selectedIssue ? "quarter" : ""} demographics-chapter`}
+                className={`${showDemographics ? 'demographics-chapter-active' : ''} ${!showDemographics && !selectedIssue ? "quarter" : ""} ${selectedIssue === 3? "top-border":""} demographics-chapter`}
                 onClick={() => {
                     if (selectedIssue) {
                         setShowDemographics(!showDemographics)

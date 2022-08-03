@@ -32,10 +32,10 @@ export default function IssuesTileView({selectedSpecificIssue, issues, showToggl
                     </div>
 
 
-                    <div className={"issues-tile-body row"}>
+                    <div className={"issues-tile-body m-0"}>
 
 
-                        <div className={"col-6 w-50 d-flex flex-column justify-content-between"}>
+                        <div className={"issue-tile-viz"}>
                             <div>
                                 <h5 className={"m-0"}>{getIssueName()}</h5>
                                 <small>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}</small>
@@ -47,7 +47,7 @@ export default function IssuesTileView({selectedSpecificIssue, issues, showToggl
                         </div>
 
 
-                        <div className={"col-6 w-50"}>
+                        <div className={"col-6 w-50 overflow-scroll"}>
                             <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
                         </div>
                     </div>

@@ -35,8 +35,8 @@ export default function CommunityRightColumn({
             }
 
             {communitySearch && selectedSpecificIssue &&
-                <div className={"standard-padding d-flex flex-column rw-gap"}>
-                    <div className={"d-flex flex-row justify-content-end"}>
+                <div className={"standard-padding d-flex flex-column h-100"}>
+                    <div className={"issues-tile-header"}>
                         <div className={"toggle-share-container"}>
                             <div id={"share-container"}>
                                 <ShareButton showMap={showMap}/>
@@ -46,7 +46,9 @@ export default function CommunityRightColumn({
                             </div>
                     </div>
                     </div>
-                    <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue} rankingProse={true}/>
+                        <div className={"standard-padding overflow-scroll"}>
+                            <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue} rankingProse={true}/>
+                        </div>
                 </div>}
 
         </>

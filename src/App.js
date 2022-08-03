@@ -73,7 +73,7 @@ function App() {
 
     return (
 
-        <Container fluid className={"black-border h-100 p-0 m-0 d-flex flex-row"}>
+        <Container fluid className={"h-100 p-0 m-0 d-flex flex-row"}>
             <Nav selectedChapter={selectedChapter} setSelectedChapter={setSelectedChapter}
                  selectedIssue={selectedIssue} issue_categories={issue_categories}
                  boundary={boundary} setBoundary={setBoundary}

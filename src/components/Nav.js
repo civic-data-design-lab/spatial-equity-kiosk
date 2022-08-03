@@ -28,8 +28,8 @@ function Nav({
 
     return (
 
-        <div className={"col-3 h-100 d-flex flex-column black-border"}>
-            <div className={`nav-chapters black-border d-flex flex-column justify-content-between
+        <div className={"col-3 h-100 d-flex flex-column"}>
+            <div className={`nav-chapters d-flex flex-column justify-content-between
              ${!selectedChapter ? "" : (selectedChapter === 1 ? "expanded-nav" : "collapsed-nav")}`}
                  onClick={() => {
                      setSelectedIssue(null)
@@ -66,7 +66,7 @@ function Nav({
             </div>
 
 
-            <div className={`nav-chapters black-border d-flex flex-column
+            <div className={`nav-chapters block-border d-flex flex-column
              ${!selectedChapter ? "" : (selectedChapter === 2 ? "expanded-nav" : "collapsed-nav")}
              `}
                  onClick={() => {
@@ -105,7 +105,7 @@ function Nav({
                 </div>
             </div>
 
-            <div className={`nav-chapters black-border d-flex flex-column
+            <div className={`nav-chapters d-flex flex-column
              ${!selectedChapter ? "" : (selectedChapter === 3 ? "expanded-nav" : "collapsed-nav")}
              `}
                  onClick={() => {

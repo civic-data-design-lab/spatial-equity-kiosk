@@ -33,7 +33,7 @@ export default function DemographicsDropDown({currentValue = null, items=null, s
                 </div>
 
                 <div
-                    className={`${showDropdownItems ? "d-block" : "d-none"} dropdown-body position-absolute black-border w-100`}>
+                    className={`${showDropdownItems ? "d-block" : "d-none"} dropdown-body position-absolute  w-100`}>
                     {
                         Object.keys(demographics).map((key) => {
                             return (
