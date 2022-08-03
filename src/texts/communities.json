@@ -1,4 +1,298 @@
 {
+    "Bronx 1":
+        {
+            "bolded_text": "Bronx 1",
+            "remaining_text": "Melrose, Mott Haven, Port Morris",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [1, 2, 3]
+        },
+    "Bronx 2":
+        {
+            "bolded_text": "Bronx 2",
+            "remaining_text": "Hunts Point, Longwood",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [2, 3, 4]
+        },
+    "Bronx 3":
+        {
+            "bolded_text": "Bronx 3",
+            "remaining_text": "Claremont, Crotona Park East, Melrose, Morrisania",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [3, 4, 5]
+        },
+    "Bronx 4":
+        {
+            "bolded_text": "Bronx 4",
+            "remaining_text": "Concourse, Concourse Village, East Concourse, Highbridge, Mount Eden",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Bronx 5":
+        {
+            "bolded_text": "Bronx 5",
+            "remaining_text": "Fordham, Morris Heights, Mount Hope, University Heights",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Bronx 6":
+        {
+            "bolded_text": "Bronx 6",
+            "remaining_text": "Bathgate, Belmont, Bronx Park South, East Tremont, West Farms",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Bronx 7":
+        {
+            "bolded_text": "Bronx 7",
+            "remaining_text": "Bedford Park, Fordham, Kingsbridge Heights, Norwood, University Heights",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Bronx 8":
+        {
+            "bolded_text": "Bronx 8",
+            "remaining_text": "Fieldston, Kingsbridge, Marble Hill (MN), North Riverdale, Riverdale, Spuyten Duyvil",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Bronx 9":
+        {
+            "bolded_text": "Bronx 9",
+            "remaining_text": "Bronx River, Castle Hill, Clason Point, Harding Park, Parkchester, Soundview, Soundview-Bruckner, Unionport",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Bronx 10":
+        {
+            "bolded_text": "Bronx 10",
+            "remaining_text": "City Island, Co-op City, Country Club, Edgewater Park, Pelham Bay, Schuylerville, Throgs Neck, Westchester Square",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Bronx 11":
+        {
+            "bolded_text": "Bronx 11",
+            "remaining_text": "Allerton, Bronxdale, Indian Village, Morris Park, Pelham Gardens, Pelham Parkway, Van Nest",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Bronx 12":
+        {
+            "bolded_text": "Bronx 12",
+            "remaining_text": "Baychester, Eastchester, Edenwald, Olinville, Wakefield, Williamsbridge, Woodlawn",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 1":
+        {
+            "bolded_text": "Brooklyn 1",
+            "remaining_text": "East Williamsburg, Greenpoint, Northside, Southside, Williamsburg",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [1, 2, 3]
+        },
+    "Brooklyn 2":
+        {
+            "bolded_text": "Brooklyn 2",
+            "remaining_text": "Boerum Hill, Brooklyn Heights, Clinton Hill, Downtown Brooklyn, DUMBO, Fort Greene, Fulton Ferry, Navy Yard, Vinegar Hill",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [2, 3, 4]
+        },
+    "Brooklyn 3":
+        {
+            "bolded_text": "Brooklyn 3",
+            "remaining_text": "Bedford-Stuyvesant, Stuyvesant Heights, Tompkins Park North",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [3, 4, 5]
+        },
+    "Brooklyn 4":
+        {
+            "bolded_text": "Brooklyn 4",
+            "remaining_text": "Bushwick",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 5":
+        {
+            "bolded_text": "Brooklyn 5",
+            "remaining_text": "Broadway Junction, City Line, Cypress Hills, East New York, Highland Park, New Lots, Spring Creek, Starrett City",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 6":
+        {
+            "bolded_text": "Brooklyn 6",
+            "remaining_text": "Carroll Gardens, Cobble Hill, Columbia St, Gowanus, Park Slope, Red Hook",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 7":
+        {
+            "bolded_text": "Brooklyn 7",
+            "remaining_text": "Sunset Park, Windsor Terrace",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 8":
+        {
+            "bolded_text": "Brooklyn 8",
+            "remaining_text": "Crown Heights, Prospect Heights, Weeksville",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 9":
+        {
+            "bolded_text": "Brooklyn 9",
+            "remaining_text": "Crown Heights South, Prospect Lefferts Gardens, Wingate",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 10":
+        {
+            "bolded_text": "Brooklyn 10",
+            "remaining_text": "Bay Ridge, Dyker Heights, Fort Hamilton",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 11":
+        {
+            "bolded_text": "Brooklyn 11",
+            "remaining_text": "Bath Beach, Bensonhurst, Gravesend, Mapleton",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 12":
+        {
+            "bolded_text": "Brooklyn 12",
+            "remaining_text": "Borough Park, Kensington, Ocean Parkway",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 13":
+        {
+            "bolded_text": "Brooklyn 13",
+            "remaining_text": "Brighton Beach, Coney Island, Gravesend, Homecrest, Sea Gate, West Brighton",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [3, 4, 5]
+        },
+    "Brooklyn 14":
+        {
+            "bolded_text": "Brooklyn 14",
+            "remaining_text": "Ditmas Park, Flatbush, Manhattan Terrace, Midwood, Ocean Parkway, Prospect Park South",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 15":
+        {
+            "bolded_text": "Brooklyn 15",
+            "remaining_text": "Gerritsen Beach, Gravesend, Homecrest, Kings Highway, Manhattan Beach, Plumb Beach, Sheepshead Bay",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 16":
+        {
+            "bolded_text": "Brooklyn 16",
+            "remaining_text": "Broadway Junction, Brownsville, Ocean Hill",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 17":
+        {
+            "bolded_text": "Brooklyn 17",
+            "remaining_text": "East Flatbush, Farragut, Flatbush, Northeast Flatbush, Remsen Village, Rugby, Erasmus",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Brooklyn 18":
+        {
+            "bolded_text": "Brooklyn 18",
+            "remaining_text": "Bergen Beach, Canarsie, Flatlands, Georgetown, Marine Park, Mill Basin, Mill Island, Paerdegat Basin",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Manhattan 1":
+        {
+            "bolded_text": "Manhattan 1",
+            "remaining_text": "Battery Park City, Civic Center, Ellis Island, Governors Island, Liberty Island, South Street Seaport, Tribeca, Wall Street, World Trade Center",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [1, 2, 3]
+        },
+    "Manhattan 2":
+        {
+            "bolded_text": "Manhattan 2",
+            "remaining_text": "Greenwich Village, Hudson Square, Little Italy, NoHo, SoHo, South Village, West Village",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [2, 3, 4]
+        },
+    "Manhattan 3":
+        {
+            "bolded_text": "Manhattan 3",
+            "remaining_text": "Chinatown, East Village, Lower East Side, NoHo, Two Bridges",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [3, 4, 5]
+        },
+    "Manhattan 4":
+        {
+            "bolded_text": "Manhattan 4",
+            "remaining_text": "Chelsea, Clinton, Hudson Yards",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Manhattan 5":
+        {
+            "bolded_text": "Manhattan 5",
+            "remaining_text": "Flatiron, Gramercy Park, Herald Square, Midtown, Midtown South, Murray Hill, Times Square, Union Square",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Manhattan 6":
+        {
+            "bolded_text": "Manhattan 6",
+            "remaining_text": "Beekman Place, Gramercy Park, Murray Hill, Peter Cooper Village, Stuyvesant Town, Sutton Place, Tudor City, Turtle Bay",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Manhattan 7":
+        {
+            "bolded_text": "Manhattan 7",
+            "remaining_text": "Lincoln Square, Manhattan Valley, Upper West Side",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Manhattan 8":
+        {
+            "bolded_text": "Manhattan 8",
+            "remaining_text": "Carnegie Hill, Lenox Hill, Roosevelt Island, Upper East Side, Yorkville",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Manhattan 9":
+        {
+            "bolded_text": "Manhattan 9",
+            "remaining_text": "Hamilton Heights, Manhattanville, Morningside Heights, West Harlem",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Manhattan 10":
+        {
+            "bolded_text": "Manhattan 10",
+            "remaining_text": "Central Harlem",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Manhattan 11":
+        {
+            "bolded_text": "Manhattan 11",
+            "remaining_text": "East Harlem, Harlem, Randall's Island Park, Wards Island Park ",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Manhattan 12":
+        {
+            "bolded_text": "Manhattan 12",
+            "remaining_text": "Inwood, Washington Heights",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
     "Queens 1":
         {
             "bolded_text": "Queens 1",
@@ -26,5 +320,96 @@
             "remaining_text": "Corona, Corona Heights, Elmhurst, Lefrak City",
             "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
             "least_performing_issues": [4, 5, 6]
-        }
+        },
+    "Queens 5":
+        {
+            "bolded_text": "Queens 5",
+            "remaining_text": "Glendale, Maspeth, Middle Village, Ridgewood",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Queens 6":
+        {
+            "bolded_text": "Queens 6",
+            "remaining_text": "Forest Hills, Rego Park",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Queens 7":
+        {
+            "bolded_text": "Queens 7",
+            "remaining_text": "Auburndale, Bay Terrace, Beechhurst, Clearview, College Point, Downtown Flushing, East Flushing, Flushing, Malba, Murray Hill, Queensboro Hill, Waldheim, Whitestone",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Queens 8":
+        {
+            "bolded_text": "Queens 8",
+            "remaining_text": "Briarwood, Fresh Meadows, Hillcrest, Holliswood, Jamaica, Jamaica Estates, Jamaica Hills, Kew Gardens Hills, Pomonok, Utopia",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Queens 9":
+        {
+            "bolded_text": "Queens 9",
+            "remaining_text": "Kew Gardens, Ozone Park, Richmond Hill, Woodhaven",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Queens 10":
+        {
+            "bolded_text": "Queens 10",
+            "remaining_text": "Howard Beach, Lindenwood, Old Howard Beach, Ozone Park, South Ozone Park",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Queens 11":
+        {
+            "bolded_text": "Queens 11",
+            "remaining_text": "Auburndale, Bayside, Douglaston, Hollis Hills, Little Neck, Oakland Gardens",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Queens 12":
+        {
+            "bolded_text": "Queens 12",
+            "remaining_text": "Hollis, Jamaica, Jamaica Center, North Springfield Gardens, Rochdale, South Jamaica, St. Albans",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Queens 13":
+        {
+            "bolded_text": "Queens 13",
+            "remaining_text": "Bellaire, Bellerose, Brookville, Cambria Heights, Floral Park, Glen Oaks, Laurelton, New Hyde Park, Queens Village, Rosedale, Springfield Gardens",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Queens 14":
+        {
+            "bolded_text": "Queens 14",
+            "remaining_text": "Arverne, Bayswater, Belle Harbor, Breezy Point, Broad Channel, Edgemere, Far Rockaway, Hammels, Neponsit, Rockaway Park, The Rockaways, Roxbury, Seaside, Somerville",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "Staten Island 1":
+        {
+            "bolded_text": "Staten Island 1",
+            "remaining_text": "Arlington, Castleton Corners, Clifton, Elm Park, Fox Hills, Graniteville, Grymes Hill, Howland Hook, Livingston, Mariner's Harbor, New Brighton, Old Place, Park Hill, Port Ivory, Port Richmond, Randall Manor, Rosebank, Shore Acres, Silver Lake, St. George, Stapleton, Sunnyside, Tompkinsville, Ward Hill, West Brighton, West New Brighton, Westerleigh, Willowbrook",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [1, 2, 3]
+        },
+    "Staten Island 2":
+        {
+            "bolded_text": "Staten Island 2",
+            "remaining_text": "Arrochar, Bloomfield, Bulls Head, Chelsea, Concord, Dongan Hills, Egbertville, Emerson Hill, Grant City, Grasmere, Heartland Village, Lighthouse Hill, Manor Heights, Midland Beach, New Dorp, New Dorp Beach, New Springville, Old Town, South Beach, Todt Hill, Travis, Willowbrook",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [2, 3, 4]
+        },
+    "Staten Island 3":
+        {
+            "bolded_text": "Staten Island 3",
+            "remaining_text": "Annadale, Arden Heights, Bay Terrace, Butler Manor, Charleston, Eltingville, Fresh Kills, Great Kills, Greenridge, Huguenot, Oakwood, Oakwood Beach, Oakwood Heights, Pleasant Plains, Prince's Bay, Richmond Town, Richmond Valley, Rossville, Sandy Ground, Tottenville, Woodrow",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [3, 4, 5]
+        },
 }
