@@ -102,6 +102,7 @@ body {
 
 h1, h2, h3, h4, h5, h6, p {
     font-weight: 500;
+
 }
 
 small {
@@ -145,7 +146,7 @@ a:active {
     background-color: black;
     color: white;
     flex-grow: 2 !important;
-    padding: 1em 1.5em !important;
+    padding: 1.5em 1.5em !important;
 }
 
 .collapsed-nav {
@@ -217,7 +218,7 @@ a:active {
 
 /* Dropdown */
 .dropdown-bar {
-    border: 1px solid black;
+    border: 2px solid black;
     padding: 0.5rem;
     column-gap: 0.5rem;
 }
@@ -233,7 +234,7 @@ a:active {
 
 .dropdown-item {
     background-color: white !important;
-    border: 1px solid black !important;
+    border: 2px solid black !important;
     border-top: none !important;
 }
 
@@ -286,16 +287,16 @@ a:active {
 
 .add-community-btn {
     background-color: black;
-    border: 1px solid white;
+    border: 1.5px solid white;
     width: 100%;
     padding: 0.25rem;
 }
 
 .community-search {
     height: 100%;
-    padding: 4px;
+    padding: 8px;
     border-radius: 0;
-    border: 1px solid white;
+    border: 2px solid white;
     outline: none;
     font-style: italic;
     font-weight: bold;
@@ -388,10 +389,14 @@ a:active {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 0.5rem;
-
 }
 
 .boundary-toggle-item-active {
+    background-color: black;
+    color: White;
+}
+
+.boundary-toggle-item-inactive {
     background-color: white;
     color: black;
 }
@@ -405,7 +410,7 @@ a:active {
     transition: background-color 0.5s, color 0.5s;
     align-items: center;
     height: 100%;
-    border: 1px solid white;
+    border: 1.5px solid white;
 }
 
 
@@ -658,7 +663,7 @@ a:active {
 .issues-card-body {
     padding: 0.25em 0.75em;
     background-color: white;
-    border: 1px solid black;
+    border: 2px solid black;
 }
 
 .issues-card-title-container {
@@ -688,7 +693,7 @@ a:active {
     display: flex;
     flex-direction: row;
     align-items: center;
-    border: 1px solid black;
+    border: 2px solid black;
     padding: 0.25rem 0.5rem;
 }
 
@@ -734,7 +739,7 @@ a:active {
 }
 
 .info-tooltip {
-    border: 1px solid black;
+    border: 2px solid black;
     background-color: white;
     color: black;
     padding: 0.25rem 0.5rem;

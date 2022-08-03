@@ -23,7 +23,9 @@ export default function CommunityProfile({
 
             </div>
             <div className={"standard-padding"}>
-                <h5 className={"mb-3"}>Least Performing Issues</h5>
+                <h5 className={"mb-3"}>Topic of Interests</h5>
+                <p className={"mt-3"}>A few sentences on how these topics of interest were selected. A few sentences on how these topics of interest were selected. </p>
+                
 
                 <div className={"d-flex flex-column row-gap"}>
                     {communities[communitySearch].least_performing_issues.map((issue) => {

@@ -31,19 +31,19 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
                 </h5>
                 <div>
                     <div className={"issues-tile-first-rankings"}>
-                        <p className={"mb-0"}>57/59 - Community District 3</p>
-                        <p className={"mb-0"}>57/59 - Community District 3</p>
-                        <p className={"mb-0"}>57/59 - Community District 3</p>
-                        <p className={"mb-0"}>57/59 - Community District 3</p>
-                        <p className={"mb-0"}>57/59 - Community District 3</p>
+                        <p className={"mb-0"}>59 - Community District 3</p>
+                        <p className={"mb-0"}>58 - Community District 3</p>
+                        <p className={"mb-0"}>57 - Community District 3</p>
+                        <p className={"mb-0"}>56 - Community District 3</p>
+                        <p className={"mb-0"}>55 - Community District 3</p>
                     </div>
 
                     <div className={`${expand ? "issues-tile-ranking-vis" : "issues-tile-ranking-invis"}`}>
-                        <p className={"mb-0"}>57/59 - Community District 4</p>
-                        <p className={"mb-0"}>57/59 - Community District 4</p>
-                        <p className={"mb-0"}>57/59 - Community District 4</p>
-                        <p className={"mb-0"}>57/59 - Community District 4</p>
-                        <p className={"mb-0"}>57/59 - Community District 4</p>
+                        <p className={"mb-0"}>59 - Community District 4</p>
+                        <p className={"mb-0"}>58 - Community District 4</p>
+                        <p className={"mb-0"}>57 - Community District 4</p>
+                        <p className={"mb-0"}>56 - Community District 4</p>
+                        <p className={"mb-0"}>55 - Community District 4</p>
                     </div>
 
                     <div className={"d-flex flex-row justify-content-center ranking-button"}

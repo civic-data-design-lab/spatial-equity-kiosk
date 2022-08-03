@@ -11,7 +11,7 @@ export default function About({issues}) {
             <div className={"thicker-padding d-flex flex-column w-100"}>
                 <div className={"w-100 d-flex flex-row"}>
                     <div className={"col-4 standard-padding"}>
-                        <h3>NYC SPATIAL EQUITY TOOL</h3>
+                        <h3>NYC Spatial Equity Tool</h3>
                     </div>
                     <div className={"col-8 standard-padding"}>
                         <p>

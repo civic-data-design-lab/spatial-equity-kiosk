@@ -1,5 +1,5 @@
 {
-    "all_issues_id": [1, 2, 3, 4, 5, 6],
+    "all_issues_id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
     "issues_data": {
         "health": {
             "specific_issues_ID": [1, 2],
@@ -17,8 +17,8 @@
     "specific_issues_data": {
         "1": {
             "specific_issue_ID": 1,
-            "specific_issue_name": "Issue #1",
-            "specific_issue_units": "(Acres per 100,000 residents)",
+            "specific_issue_name": "Asthma Rates",
+            "specific_issue_units": "(Annual Emergency Department Visits (Adults) Per 10,000 Residents)",
             "specific_issue_description": "Issue #1 Description",
             "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
@@ -28,58 +28,157 @@
         },
         "2": {
             "specific_issue_ID": 2,
-            "specific_issue_name": "Issue #2",
-            "specific_issue_units": "(Acres per 100,000 residents)",
+            "specific_issue_name": "Average Bus Speed",
+            "specific_issue_units": "(Miles Per Hour)",
             "specific_issue_description": "Issue #2 Description",
             "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
-            "issue_type_ID": 1,
+            "issue_type_ID": 3,
             "specific_issue_source": "source name"
 
         },
         "3": {
             "specific_issue_ID": 3,
-            "specific_issue_name": "Issue #3",
-            "specific_issue_units": "(Acres per 100,000 residents)",
+            "specific_issue_name": "Bus Lane and Busway Miles",
+            "specific_issue_units": "(xxx)",
             "specific_issue_description": "Issue #3 Description",
             "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
-            "issue_type_ID": 2,
+            "issue_type_ID": 3,
             "specific_issue_source": "source name"
         },
         "4": {
             "specific_issue_ID": 4,
-            "specific_issue_name": "Issue #4",
-            "specific_issue_units": "(Acres per 100,000 residents)",
+            "specific_issue_name": "City Parks",
+            "specific_issue_units": "(xxx)",
             "specific_issue_description": "Issue #4 Description",
+            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
+            "issue_type_ID": 3,
+            "specific_issue_source": "source name"
+        },
+        "5": {
+            "specific_issue_ID": 5,
+            "specific_issue_name": "Daytime Summer Surface Temperature",
+            "specific_issue_units": "(Temperature Deviation from Mean)",
+            "specific_issue_description": "Issue #5 Description",
             "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 2,
             "specific_issue_source": "source name"
         },
-        "5": {
-            "specific_issue_ID": 5,
-            "specific_issue_name": "Issue #5",
-            "specific_issue_units": "(Acres per 100,000 residents)",
-            "specific_issue_description": "Issue #5 Description",
+        "6": {
+            "specific_issue_ID": 6,
+            "specific_issue_name": "DEP Green Infrastructure",
+            "specific_issue_units": "(Square Feet Per Average City Block Area)",
+            "specific_issue_description": "Issue #6 Description",
+            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
+            "issue_type_ID": 2,
+            "specific_issue_source": "source name"
+        },
+        "7": {
+            "specific_issue_ID": 7,
+            "specific_issue_name": "Noise Pollution",
+            "specific_issue_units": "(Decibels, Averaged)",
+            "specific_issue_description": "Issue #7 Description",
+            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
+            "issue_type_ID": 1,
+            "specific_issue_source": "source name"
+        },
+        "8": {
+            "specific_issue_ID": 8,
+            "specific_issue_name": "Number of Bike Racks",
+            "specific_issue_units": "(Per 10,000 Residents)",
+            "specific_issue_description": "Issue #8 Description",
             "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 3,
             "specific_issue_source": "source name"
         },
-        "6": {
-            "specific_issue_ID": 6,
-            "specific_issue_name": "Issue #6",
-            "specific_issue_units": "(Acres per 100,000 residents)",
-            "specific_issue_description": "Issue #6 Description",
+        "9": {
+            "specific_issue_ID": 9,
+            "specific_issue_name": "Number of City Benches",
+            "specific_issue_units": "(Per 10,000 Residents)",
+            "specific_issue_description": "Issue #9 Description",
             "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 3,
+            "specific_issue_source": "source name"
+        },
+        "10": {
+            "specific_issue_ID": 10,
+            "specific_issue_name": "PM 2.5 Levels",
+            "specific_issue_units": "(Microgram Per Cubic Meter, 2020 Annual Average)",
+            "specific_issue_description": "Issue #10 Description",
+            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
+            "issue_type_ID": 2,
+            "specific_issue_source": "source name"
+        },
+        "11": {
+            "specific_issue_ID": 11,
+            "specific_issue_name": "Protected Bike Lanes",
+            "specific_issue_units": "(Per Mile of Street)",
+            "specific_issue_description": "Issue #11 Description",
+            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
+            "issue_type_ID": 3,
+            "specific_issue_source": "source name"
+        },
+        "12": {
+            "specific_issue_ID": 12,
+            "specific_issue_name": "Traffic Density",
+            "specific_issue_units": "(Million Miles Per Square Kilometer, Annual Vehicle Miles Traveled)",
+            "specific_issue_description": "Issue #12 Description",
+            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
+            "issue_type_ID": 3,
+            "specific_issue_source": "source name"
+        },
+        "13": {
+            "specific_issue_ID": 13,
+            "specific_issue_name": "Traffic Fatalities",
+            "specific_issue_units": "(Per 10,000 residents)",
+            "specific_issue_description": "Issue #13 Description",
+            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
+            "issue_type_ID": 1,
+            "specific_issue_source": "source name"
+        },
+        "14": {
+            "specific_issue_ID": 14,
+            "specific_issue_name": "Traffic Injuries",
+            "specific_issue_units": "(Per 10,000 residents)",
+            "specific_issue_description": "Issue #14 Description",
+            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
+            "issue_type_ID": 1,
+            "specific_issue_source": "source name"
+        },
+        "15": {
+            "specific_issue_ID": 15,
+            "specific_issue_name": "Tree Canopy Cover",
+            "specific_issue_units": "(% of Total Land Area)",
+            "specific_issue_description": "Issue #15 Description",
+            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+            "specific_issue_solutions": "solution",
+            "issue_type_ID": 2,
             "specific_issue_source": "source name"
         }
     }
