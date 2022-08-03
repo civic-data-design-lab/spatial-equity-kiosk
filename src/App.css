@@ -8,9 +8,7 @@
     --health: #F93080;
     --environment: #179F4E;
     --infrastructure: #146FD1;
-    /*TODO: remove these*/
-    --third-height: calc(100vh / 3);
-    --quarter-height: calc(100vh / 4);
+
 }
 
 
@@ -40,10 +38,6 @@
     text-decoration-thickness: 1px;
 }
 
-/*TODO: remove this*/
-.quarter {
-    height: var(--quarter-height);
-}
 
 .bold {
     font-weight: bold;
@@ -65,12 +59,16 @@
     border-right: none !important;
 }
 
+.no-bottom-border{
+    border-bottom: none !important;
+}
+
 .top-border {
     border-top: 2px solid black !important;
 }
 
 .bottom-border {
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid black !important;
 }
 
 .no-pointer {
@@ -473,10 +471,10 @@ a:active {
 
 /* Issues Column */
 .issues-chapters {
-    min-height: calc(100vh / 4);
+    flex-grow: 1;
     padding: 1em;
     word-wrap: normal;
-    transition: background-color 0.5s, min-height 0.4s;
+    transition: background-color 0.5s, color 0.5s, flex 1s;
     cursor: pointer;
     background-color: white;
     color: black;
@@ -486,44 +484,50 @@ a:active {
     border-bottom: 2px solid black;
 }
 
-.issues-chapters:hover, .issues-chapters-active, .demographics-chapter:hover, .demographics-chapter-active {
-    background-color: black;
+.issues-chapters:hover, .issues-chapters-active
+{    background-color: black;
     color: white;
 }
 
-.demographics-chapter {
-    padding: 1em;
-    word-wrap: normal;
-    transition: background-color 0.5s, min-height 0.4s;
-    cursor: pointer;
-    background-color: white;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.accordion-body {
+    height: 0;
+    font-size: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: flex 1s, font-size 1s, height 1s;
+    padding: 0 !important;
 }
 
 .invis {
     max-height: 0;
-    margin: 0;
-    padding: 0;
     opacity: 0;
-    pointer-events: none;
     font-size: 0;
-    transition: max-height 0.5s;
-    border: none;
+    pointer-events: none;
+    visibility: hidden;
+    transition: font-size 1s, opacity 1s, max-height 1s;
+    margin-bottom: 0;
 }
 
 .vis {
-    position: static;
+    height: fit-content;
     max-height: 100vh;
     opacity: 1;
     font-size: 1.25rem;
-    transition: max-height 0.5s linear, font-size 0.05s 0.25s, opacity 0.25s 0.3s;
+    transition: font-size 0.5s, opacity 0.5s 0.5s, max-height 1s;
 }
 
 .collapse-issue {
-    min-height: 0;
+    flex-grow: 0 !important;
+    height: fit-content;
+    border-bottom: 2px solid black;
+}
+
+.expand-issue {
+    flex-grow: 2;
+    font-size: 1rem;
+    opacity: 1;
+    padding: 1rem !important;
+    pointer-events: all;
 }
 
 .issues-arrow {

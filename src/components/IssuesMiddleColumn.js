@@ -59,7 +59,7 @@ export default function IssuesMiddleColumn({
                 </h5>
             </div>
 
-            <div className={`${selectedIssue === 1 ? 'vis' : 'invis'} standard-padding flex-grow-1`}>
+            <div className={`${selectedIssue === 1 ? 'expand-issue' : ''} accordion-body`}>
                 <div className={"h-100 position-relative"}>
                     <IssuesDropDown items={health_issues}
                                     currentValue={selectedSpecificIssue}
@@ -82,7 +82,7 @@ export default function IssuesMiddleColumn({
                 <h5 className={`${selectedIssue ? "invis" : "vis"}`}>Environment imperdiet dui accumsan sit amet. Diam
                     donec adipiscing.</h5>
             </div>
-            <div className={`${selectedIssue === 2 ? 'vis' : 'invis'} standard-padding flex-grow-1`}>
+            <div className={`${selectedIssue === 2 ? 'expand-issue' : ''} accordion-body`}>
                 <div className={"h-100 position-relative"}>
                     <IssuesDropDown items={environment_issues}
                                     currentValue={selectedSpecificIssue}
@@ -104,7 +104,7 @@ export default function IssuesMiddleColumn({
                 <h5 className={`${selectedIssue ? "invis" : "vis"}`}>Infrastructure imperdiet dui accumsan sit amet.
                     Diam donec adipiscing.</h5>
             </div>
-            <div className={`${selectedIssue === 3 ? 'vis' : 'invis'} standard-padding flex-grow-1`}>
+            <div className={`${selectedIssue === 3 ? 'expand-issue' : ''} accordion-body`}>
                 <div className={"h-100 position-relative"}>
                     <IssuesDropDown items={infrastructure_issues}
                                     currentValue={selectedSpecificIssue}
@@ -114,7 +114,7 @@ export default function IssuesMiddleColumn({
             </div>
 
             <div
-                className={`${showDemographics ? 'demographics-chapter-active bottom-border' : ''} ${!showDemographics && !selectedIssue ? "quarter" : ""} ${selectedIssue === 3 ? "top-border" : ""} demographics-chapter`}
+                className={`${selectedIssue ? 'collapse-issue' : ''} ${showDemographics ? "bottom-border" : ""} ${selectedIssue === 3 ? "top-border" : ""} issues-chapters no-bottom-border`}
                 onClick={() => {
                     if (selectedIssue) {
                         setShowDemographics(!showDemographics)
@@ -127,7 +127,7 @@ export default function IssuesMiddleColumn({
                 <h5 className={`${!selectedIssue ? "vis" : "invis"}`}>Demographics imperdiet dui accumsan sit amet. Diam
                     donec adipiscing.</h5>
             </div>
-            <div className={`${showDemographics ? 'vis' : 'invis'} standard-padding flex-grow-1`}>
+            <div className={`${showDemographics ? 'expand-issue' : ''} accordion-body`}>
                 <div className={"h-100 position-relative"}>
                     <DemographicsDropDown/>
 
