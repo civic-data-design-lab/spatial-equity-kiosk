@@ -38,7 +38,7 @@ function App() {
 
 
     useEffect(() => {
-        console.log("selectedChapter ", selectedChapter)
+       /* console.log("selectedChapter ", selectedChapter)
         console.log("selectedIssue ", selectedIssue)
         console.log("selectedSpecficIssue ", selectedSpecificIssue)
         console.log("showMap ", showMap)
@@ -46,7 +46,7 @@ function App() {
         console.log("community search ", communitySearch)
         console.log("compare search ", compareSearch)
         console.log("boundary ", boundary)
-        console.log("-------------------------------------------")
+        console.log("-------------------------------------------")*/
 
         /*if (!selectedSpecificIssue) {
             setSelectedIssue(1)

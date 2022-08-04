@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import IssuesDropDown from "./IssuesDropDown";
 import DemographicsDropDown from "./DemographicsDropDown";
 import Legend from "./Legend";
@@ -39,6 +39,14 @@ export default function IssuesMiddleColumn({
         }
     }
 
+    useEffect(()=>{
+        console.log("in use effect")
+        if (!selectedSpecificIssue) {
+            setShowDemographics(false)
+            console.log(showDemographics)
+        }
+    }, [selectedSpecificIssue])
+
 
     return (
         <div className={"d-flex flex-column h-100"}>
@@ -47,6 +55,7 @@ export default function IssuesMiddleColumn({
                 onClick={() => {
                     /*setShowMap(true)
                     setShowToggle(false)*/
+                    setSelectedSpecificIssue(null)
                     if (selectedIssue !== 1) {
                         setSelectedIssue(1)
                     } else {
@@ -83,6 +92,7 @@ export default function IssuesMiddleColumn({
             <div
                 className={`${selectedIssue === 2 ? 'issues-chapters-active' : (selectedIssue === 1 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
+                    setSelectedSpecificIssue(null)
                     if (selectedIssue !== 2) {
                         setSelectedIssue(2)
                     } else {
@@ -116,6 +126,7 @@ export default function IssuesMiddleColumn({
             <div
                 className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue === 2 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
+                    setSelectedSpecificIssue(null)
                     if (selectedIssue !== 3) {
                         setSelectedIssue(3)
                     } else {
