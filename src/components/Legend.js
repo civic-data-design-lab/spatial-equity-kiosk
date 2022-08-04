@@ -3,7 +3,6 @@ import React from "react";
 export default function Legend({issues, selectedSpecificIssue}) {
     return (
         <>
-            <h5>Data Legend</h5>
             {!selectedSpecificIssue ?
                 <div className={"placeholder-legend"}>
                     <div>square</div>

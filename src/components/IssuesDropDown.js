@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 
 
-export default function IssuesDropDown({currentValue = null, items, setValue = null}) {
+export default function IssuesDropDown({currentValue = null, items, setValue = null, setShowDemographics}) {
 
     const [showDropdownItems, setShowDropdownItems] = useState(false)
     const [toggleText, setToggleText] = useState("Select an issue to explore")
@@ -53,6 +53,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                                         if (currentValue === item.specific_issue_ID) {
                                             setValue(false)
                                             setToggleText("Select an issue to explore")
+                                            setShowDemographics(false)
                                         } else {
                                             setValue(item.specific_issue_ID)
                                         }

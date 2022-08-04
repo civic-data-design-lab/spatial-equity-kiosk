@@ -65,13 +65,16 @@ export default function IssuesMiddleColumn({
                     <div>
                         <IssuesDropDown items={health_issues}
                                         currentValue={selectedSpecificIssue}
-                                        setValue={setSelectedSpecificIssue}/>
+                                        setValue={setSelectedSpecificIssue}
+                                        setShowDemographics={setShowDemographics}
+                        />
                         <p className={"mt-3"}>{selectedSpecificIssue && !showDemographics && getRankingNarrative(health_issues)}</p>
                         {!selectedSpecificIssue &&
                             <p className={"mt-3"}>This is where you will hear about the topic that you select. Topics
                                 include a range of health metrics.</p>}
                     </div>
                     <div>
+                        {(!showDemographics && selectedSpecificIssue) && <h5>Data Legend</h5>}
                         <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
                     </div>
                 </div>
@@ -96,13 +99,16 @@ export default function IssuesMiddleColumn({
                     <div>
                         <IssuesDropDown items={environment_issues}
                                         currentValue={selectedSpecificIssue}
-                                        setValue={setSelectedSpecificIssue}/>
+                                        setValue={setSelectedSpecificIssue}
+                                        setShowDemographics={setShowDemographics}
+                        />
                         <p className={"mt-3"}>{selectedSpecificIssue && !showDemographics && getRankingNarrative(environment_issues)}</p>
                         {!selectedSpecificIssue &&
                             <p className={"mt-3"}>This is where you will hear about the topic that you select. Topics
                                 include a range of environmental metrics.</p>}
                     </div>
                     <div>
+                        {!showDemographics && <h5>Data Legend</h5>}
                         <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
                     </div>
                 </div>
@@ -126,13 +132,16 @@ export default function IssuesMiddleColumn({
                     <div>
                         <IssuesDropDown items={infrastructure_issues}
                                         currentValue={selectedSpecificIssue}
-                                        setValue={setSelectedSpecificIssue}/>
+                                        setValue={setSelectedSpecificIssue}
+                                        setShowDemographics={setShowDemographics}
+                        />
                         <p className={"mt-3"}>{selectedSpecificIssue && !showDemographics && getRankingNarrative(infrastructure_issues)}</p>
                         {!selectedSpecificIssue &&
                             <p className={"mt-3"}>This is where you will hear about the topic that you select. Topics
                                 include a range of infrastructure metrics.</p>}
                     </div>
                     <div>
+                        {!showDemographics && <h5>Data Legend</h5>}
                         <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
                     </div>
                 </div>
@@ -141,7 +150,7 @@ export default function IssuesMiddleColumn({
             <div
                 className={`${selectedIssue ? 'collapse-issue' : ''} ${showDemographics ? "bottom-border issues-chapters-active" : ""} ${selectedIssue === 3 ? "top-border" : ""} issues-chapters no-bottom-border`}
                 onClick={() => {
-                    if (selectedIssue) {
+                    if (selectedSpecificIssue) {
                         setShowDemographics(!showDemographics)
                     }
                 }}>
