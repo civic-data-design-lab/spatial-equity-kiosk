@@ -135,6 +135,7 @@ a:active {
     transition: flex 1s, background-color 0.5s, color 0.5s;
     border: 2px solid black;
     border-top: none;
+    min-height: 0;
 }
 
 .nav-chapters:hover {
@@ -456,7 +457,7 @@ a:active {
 }
 
 .issues-tile-ranking-vis {
-    max-height: 100vh;
+    max-height: 500vh;
     opacity: 1;
     transition: max-height 1s, opacity 0.5s 0.5s;
 }
@@ -744,4 +745,13 @@ a:active {
     color: black;
     padding: 0.25rem 0.5rem;
     right: 0;
+}
+
+
+.placeholder-legend {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: auto;
+    column-gap: 1em;
 }
