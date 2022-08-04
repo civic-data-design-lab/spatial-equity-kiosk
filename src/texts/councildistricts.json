@@ -1,0 +1,359 @@
+{
+    "District 1":
+        {
+            "bolded_text": "District 1",
+            "remaining_text": "Battery Park City, Civic Center, Chinatown, Financial District, Little Italy, the Lower East Side, NoHo, SoHo, South Street Seaport, South Village, TriBeCa & Washington Square",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [1, 2, 3]
+        },
+    "District 2":
+        {
+            "bolded_text": "District 2",
+            "remaining_text": "East Village, Gramercy Park, Kips Bay, Lower East Side, Murray Hill, Rose Hill",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [2, 3, 4]
+        },
+    "District 3":
+        {
+            "bolded_text": "District 3",
+            "remaining_text": "Chelsea, Hell’s Kitchen, Greenwich Village, West SoHo, Hudson Square, Times Square, Garment District, Flatiron, Upper West Side",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [3, 4, 5]
+        },
+    "District 4":
+        {
+            "bolded_text": "District 4",
+            "remaining_text": "Upper East Side, Carnegie Hill, Yorkville, Central Park South, Midtown East, Times Square, Koreatown, Stuyvesant Town and Peter Cooper Village, Waterside Plaza, Tudor City, Turtle Bay, Murray Hill, Sutton Place",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 5":
+        {
+            "bolded_text": "District 5",
+            "remaining_text": "Upper East Side's Yorkville, Lenox Hill, Carnegie Hill, Roosevelt Island, Midtown East, Sutton Place, El Barrio in East Harlem",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 6":
+        {
+            "bolded_text": "District 6",
+            "remaining_text": "Central Park, Lincoln Square, Upper West Side, Clinton",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 7":
+        {
+            "bolded_text": "District 7",
+            "remaining_text": "Manhattan Valley, Manhattanville, Morningside Heights, Hamilton Heights",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 8":
+        {
+            "bolded_text": "District 8",
+            "remaining_text": "El Barrio/East Harlem, Mott Haven, Highbridge, Concourse, Longwood, Port Morris",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 9":
+        {
+            "bolded_text": "District 9",
+            "remaining_text": "Central Harlem, Morningside Heights, Upper West Side, East Harlem",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 10":
+        {
+            "bolded_text": "District 10",
+            "remaining_text": "Washington Heights, Inwood, Marble Hill",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 11":
+        {
+            "bolded_text": "District 11",
+            "remaining_text": "Bedford Park, Kingsbridge, Riverdale, Norwood, Van Cortlandt Village, Wakefield, Woodlawn",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 12":
+        {
+            "bolded_text": "District 12",
+            "remaining_text": "Wakefield, Olinville, Edenwald, Eastchester, Williamsbridge, Baychester, Co-op City",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 13":
+        {
+            "bolded_text": "District 13",
+            "remaining_text": "Allerton, City Island, Country Club, Edgewater Park, Ferry Point, Locust Point, Morris Park, Pelham Bay, Pelham Gardens, Pelham Parkway, Schuylerville, Silver Beach, Spencer Estates, Throggs Neck, Van Nest, Waterbury LaSalle, Westchester Square, Zerega",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [1, 2, 3]
+        },
+    "District 14":
+        {
+            "bolded_text": "District 14",
+            "remaining_text": "Morris Heights, University Heights, Fordham, Kingsbridge",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [2, 3, 4]
+        },
+    "District 15":
+        {
+            "bolded_text": "District 15",
+            "remaining_text": "Bedford Park, Fordham, Mount Hope, Bathgate, Belmont, East Tremont, West Farms, Van Nest, Allerton, Olinville",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [3, 4, 5]
+        },
+    "District 16":
+        {
+            "bolded_text": "District 16",
+            "remaining_text": "Claremont, Concourse, Concourse Village, Highbridge, Morris Heights, Mount Eden, Morrisania",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "BDistrict 17":
+        {
+            "bolded_text": "District 17",
+            "remaining_text": "Concourse Village, Crotona Park East, East Tremont, Hunts Point, Longwood, Melrose, Morrisania, Port Morris, West Farms, North Brother Island, South Brother Island",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 18":
+        {
+            "bolded_text": "District 18",
+            "remaining_text": "Soundview, Castle Hill, Parkchester, Clason Point, Harding Park",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 19":
+        {
+            "bolded_text": "District 19",
+            "remaining_text": "Auburndale, Bay Terrace, Bayside, Beechhurst, College Point, Douglaston, Flushing, Little Neck, Malba, Whitestone",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 20":
+        {
+            "bolded_text": "District 20",
+            "remaining_text": "Flushing, Murray Hill, Queensboro Hill, Mitchell-Linden, Fresh Meadows",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 21":
+        {
+            "bolded_text": "District 21",
+            "remaining_text": "East Elmhurst, Elmhurst, Jackson Heights, and Corona in Queens, including Flushing Meadows Corona Park, Lefrak City and LaGuardia Airport",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 22":
+        {
+            "bolded_text": "District 22",
+            "remaining_text": "Astoria, Rikers Island, East Elmhurst, Jackson Heights, Woodside",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 23":
+        {
+            "bolded_text": "District 23",
+            "remaining_text": "Bayside Hills, Bellerose, Douglaston, Floral Park, Fresh Meadows, Glen Oaks, Hollis, Hollis Hills, Holliswood, Little Neck, New Hyde Park, Oakland Gardens, Queens Village",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 24":
+        {
+            "bolded_text": "District 24",
+            "remaining_text": "Kew Gardens Hills, Pomonok, Electchester, Fresh Meadows, Hillcrest, Jamaica Estates, Briarwood, Parkway Village, Jamaica Hills, Jamaica",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 25":
+        {
+            "bolded_text": "District 25",
+            "remaining_text": "Elmhurst, Jackson Heights",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [3, 4, 5]
+        },
+    "District 26":
+        {
+            "bolded_text": "District 26",
+            "remaining_text": "Sunnyside, Woodside, Long Island City, Astoria, Dutch Kills",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 27":
+        {
+            "bolded_text": "District 27",
+            "remaining_text": "Cambria Heights, Hollis, Jamaica, St. Albans, Queens Village, and Springfield Gardens",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 28":
+        {
+            "bolded_text": "District 28",
+            "remaining_text": "Jamaica, Richmond Hill, Rochdale Village, South Ozone Park",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 29":
+        {
+            "bolded_text": "District 29",
+            "remaining_text": "Rego Park, Forest Hills, Kew Gardens, Richmond Hill",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 30":
+        {
+            "bolded_text": "District 30",
+            "remaining_text": "Glendale, Maspeth, Middle Village, Ridgewood, Woodhaven, and Woodside",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 31":
+        {
+            "bolded_text": "District 31",
+            "remaining_text": "Arverne, Brookville, Edgemere, Far Rockaway, Laurelton, Rosedale, Springfield Gardens",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [1, 2, 3]
+        },
+    "District 32":
+        {
+            "bolded_text": "District 32",
+            "remaining_text": "Belle Harbor, Breezy Point, Broad Channel, Howard Beach, Lindenwood, Neponsit, Ozone Park, Richmond Hill, Rockaway Park, Roxbury, South Ozone Park, West Hamilton Beach, Woodhaven",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [2, 3, 4]
+        },
+    "District 33":
+        {
+            "bolded_text": "District 33",
+            "remaining_text": "Boerum Hill, Brooklyn Heights, Brooklyn Navy Yard, Downtown Brooklyn, Dumbo, Fulton Ferry, Greenpoint, Vinegar Hill, Williamsburg",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [3, 4, 5]
+        },
+    "District 34":
+        {
+            "bolded_text": "District 34",
+            "remaining_text": "Williamsburg, Bushwick, Ridgewood",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 35":
+        {
+            "bolded_text": "District 35",
+            "remaining_text": "Fort Greene, Clinton Hill, Crown Heights, Prospect Heights, Bedford Stuyvesant",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 36":
+        {
+            "bolded_text": "District 36",
+            "remaining_text": "Bedford Stuyvesant, Northern Crown Heights",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 37":
+        {
+            "bolded_text": "District 37",
+            "remaining_text": "Cypress Hills, Bushwick, City Line, Ocean Hill, Brownsville, East New York",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 38":
+        {
+            "bolded_text": "District 38",
+            "remaining_text": "Red Hook, Sunset Park, Greenwood Heights and portions of Windsor Terrace, Dyker Heights, and Boro Park",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 39":
+        {
+            "bolded_text": "District 39",
+            "remaining_text": "Cobble Hill, Carroll Gardens, Columbia Waterfront, Gowanus, Park Slope, Windsor Terrace, Borough Park, Kensington",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 40":
+        {
+            "bolded_text": "District 40",
+            "remaining_text": "Crown Heights, East Flatbush, Flatbush, Kensington, Midwood, Prospect Park South, and Prospect Lefferts Gardens",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 41":
+        {
+            "bolded_text": "District 41",
+            "remaining_text": "Bedford-Stuyvesant, Ocean Hill-Brownsville, East Flatbush, Crown Heights",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 42":
+        {
+            "bolded_text": "District 42",
+            "remaining_text": "East New York, New Lots, Remsen Village, Spring Creek, Starrett City",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 43":
+        {
+            "bolded_text": "District 43",
+            "remaining_text": "Bay Ridge, Dyker Heights, Bensonhurst, Bath Beach",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [1, 2, 3]
+        },
+    "District 44":
+        {
+            "bolded_text": "District 44",
+            "remaining_text": "Bensonhurst, Borough Park, Midwood, Ocean Parkway",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [2, 3, 4]
+        },
+    "District 45":
+        {
+            "bolded_text": "District 45",
+            "remaining_text": "Flatbush, East Flatbush, Midwood, Marine Park, Flatlands, Kensington",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [3, 4, 5]
+        },
+    "District 46":
+        {
+            "bolded_text": "District 46",
+            "remaining_text": "Bergen Beach, Canarsie, Flatlands, Georgetown, Gerritsen Beach, Marine Park, Mill Basin, Mill Island, Sheepshead Bay",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 47":
+        {
+            "bolded_text": "District 47",
+            "remaining_text": "Bensonhurst, Coney Island, Gravesend, Sea Gate",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 48":
+        {
+            "bolded_text": "District 48",
+            "remaining_text": "Brighton Beach, Manhattan Beach, Sheepshead Bay, Homecrest, Trump Village, Luna Park, Brightwater Towers, Midwood",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 49":
+        {
+            "bolded_text": "District 49",
+            "remaining_text": "Arlington, Clifton, Clove Lakes, Concord, Elm Park, Graniteville, Livingston, Mariners Harbor, New Brighton, Port Richmond, Randall Manor, Rosebank, St. George, Snug Harbor, Silver Lake, Stapleton, Sunnyside, West Brighton and Tompkinsville",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 50":
+        {
+            "bolded_text": "District 50",
+            "remaining_text": "Blank Arrochar, Bloomfield, Bulls Head, Castleton Corners, Chelsea, Concord, Dongan Hills, Egbertville, Emerson Hill, Fort Wadsworth, Graniteville, Grant City, Grasmere, Heartland Village, Isle of Meadows, Lighthouse Hill, Manor Heights, Meiers Corners, Midland Beach, New Dorp, New Springville, Oakwood, Ocean Breeze, Old Town, Prall's Island, Richmondtown, Rosebank, Shore Acres, South Beach, Todt Hill, Travis, Westerleigh, and Willowbrook",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        },
+    "District 51":
+        {
+            "bolded_text": "District 51",
+            "remaining_text": "Annadale, Arden Heights, Bay Terrace, Charleston, Eltingville, Great Kills, Greenridge, Heartland Village, Huguenot, New Springville, Pleasant Plains, Prince’s Bay, Richmond Valley, Rossville, Tottenville, Woodrow",
+            "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
+            "least_performing_issues": [4, 5, 6]
+        }
+}
