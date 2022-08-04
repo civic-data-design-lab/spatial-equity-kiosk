@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import IssuesDropDown from "./IssuesDropDown";
 import DemographicsDropDown from "./DemographicsDropDown";
+import Legend from "./Legend";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faChevronUp, faChevronDown} from "@fortawesome/free-solid-svg-icons";
+import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
 
 
 export default function IssuesMiddleColumn({
@@ -38,6 +39,14 @@ export default function IssuesMiddleColumn({
         }
     }
 
+    useEffect(()=>{
+        console.log("in use effect")
+        if (!selectedSpecificIssue) {
+            setShowDemographics(false)
+            console.log(showDemographics)
+        }
+    }, [selectedSpecificIssue])
+
 
     return (
         <div className={"d-flex flex-column h-100"}>
@@ -46,6 +55,7 @@ export default function IssuesMiddleColumn({
                 onClick={() => {
                     /*setShowMap(true)
                     setShowToggle(false)*/
+                    setSelectedSpecificIssue(null)
                     if (selectedIssue !== 1) {
                         setSelectedIssue(1)
                     } else {
@@ -60,17 +70,29 @@ export default function IssuesMiddleColumn({
             </div>
 
             <div className={`${selectedIssue === 1 ? 'expand-issue' : ''} accordion-body`}>
-                <div className={"h-100 position-relative"}>
-                    <IssuesDropDown items={health_issues}
-                                    currentValue={selectedSpecificIssue}
-                                    setValue={setSelectedSpecificIssue}/>
-                    <p className={"mt-3"}>{selectedSpecificIssue && !showDemographics && getRankingNarrative(health_issues)}</p>
+                <div className={"h-100 position-relative d-flex flex-column justify-content-between"}>
+                    <div>
+                        <IssuesDropDown items={health_issues}
+                                        currentValue={selectedSpecificIssue}
+                                        setValue={setSelectedSpecificIssue}
+                                        setShowDemographics={setShowDemographics}
+                        />
+                        <p className={"mt-3"}>{selectedSpecificIssue && !showDemographics && getRankingNarrative(health_issues)}</p>
+                        {!selectedSpecificIssue &&
+                            <p className={"mt-3"}>This is where you will hear about the topic that you select. Topics
+                                include a range of health metrics.</p>}
+                    </div>
+                    <div>
+                        {(!showDemographics && selectedSpecificIssue) && <h5>Data Legend</h5>}
+                        <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
+                    </div>
                 </div>
             </div>
 
             <div
                 className={`${selectedIssue === 2 ? 'issues-chapters-active' : (selectedIssue === 1 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
+                    setSelectedSpecificIssue(null)
                     if (selectedIssue !== 2) {
                         setSelectedIssue(2)
                     } else {
@@ -83,16 +105,28 @@ export default function IssuesMiddleColumn({
                     donec adipiscing.</h5>
             </div>
             <div className={`${selectedIssue === 2 ? 'expand-issue' : ''} accordion-body`}>
-                <div className={"h-100 position-relative"}>
-                    <IssuesDropDown items={environment_issues}
-                                    currentValue={selectedSpecificIssue}
-                                    setValue={setSelectedSpecificIssue}/>
-                    <p className={"mt-3"}>{selectedSpecificIssue && !showDemographics && getRankingNarrative(environment_issues)}</p>
+                <div className={"h-100 position-relative d-flex flex-column justify-content-between"}>
+                    <div>
+                        <IssuesDropDown items={environment_issues}
+                                        currentValue={selectedSpecificIssue}
+                                        setValue={setSelectedSpecificIssue}
+                                        setShowDemographics={setShowDemographics}
+                        />
+                        <p className={"mt-3"}>{selectedSpecificIssue && !showDemographics && getRankingNarrative(environment_issues)}</p>
+                        {!selectedSpecificIssue &&
+                            <p className={"mt-3"}>This is where you will hear about the topic that you select. Topics
+                                include a range of environmental metrics.</p>}
+                    </div>
+                    <div>
+                        {!showDemographics && <h5>Data Legend</h5>}
+                        <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
+                    </div>
                 </div>
             </div>
             <div
                 className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue === 2 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
+                    setSelectedSpecificIssue(null)
                     if (selectedIssue !== 3) {
                         setSelectedIssue(3)
                     } else {
@@ -105,18 +139,29 @@ export default function IssuesMiddleColumn({
                     Diam donec adipiscing.</h5>
             </div>
             <div className={`${selectedIssue === 3 ? 'expand-issue' : ''} accordion-body`}>
-                <div className={"h-100 position-relative"}>
-                    <IssuesDropDown items={infrastructure_issues}
-                                    currentValue={selectedSpecificIssue}
-                                    setValue={setSelectedSpecificIssue}/>
-                    <p className={"mt-3"}>{selectedSpecificIssue && !showDemographics && getRankingNarrative(infrastructure_issues)}</p>
+                <div className={"h-100 position-relative d-flex flex-column justify-content-between"}>
+                    <div>
+                        <IssuesDropDown items={infrastructure_issues}
+                                        currentValue={selectedSpecificIssue}
+                                        setValue={setSelectedSpecificIssue}
+                                        setShowDemographics={setShowDemographics}
+                        />
+                        <p className={"mt-3"}>{selectedSpecificIssue && !showDemographics && getRankingNarrative(infrastructure_issues)}</p>
+                        {!selectedSpecificIssue &&
+                            <p className={"mt-3"}>This is where you will hear about the topic that you select. Topics
+                                include a range of infrastructure metrics.</p>}
+                    </div>
+                    <div>
+                        {!showDemographics && <h5>Data Legend</h5>}
+                        <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
+                    </div>
                 </div>
             </div>
 
             <div
-                className={`${selectedIssue ? 'collapse-issue' : ''} ${showDemographics ? "bottom-border" : ""} ${selectedIssue === 3 ? "top-border" : ""} issues-chapters no-bottom-border`}
+                className={`${selectedIssue ? 'collapse-issue' : ''} ${showDemographics ? "bottom-border issues-chapters-active" : ""} ${selectedIssue === 3 ? "top-border" : ""} issues-chapters no-bottom-border`}
                 onClick={() => {
-                    if (selectedIssue) {
+                    if (selectedSpecificIssue) {
                         setShowDemographics(!showDemographics)
                     }
                 }}>
