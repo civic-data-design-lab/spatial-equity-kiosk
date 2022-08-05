@@ -54,6 +54,7 @@ export default function IssuesMiddleColumn({
                 onClick={() => {
                     /*setShowMap(true)
                     setShowToggle(false)*/
+                    setShowDemographics(false)
                     setSelectedSpecificIssue(null)
                     if (selectedIssue !== 1) {
                         setSelectedIssue(1)
@@ -88,8 +89,7 @@ export default function IssuesMiddleColumn({
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div className={`${selectedIssue && !showDemographics ? "thirds flex-grow-0" : "flex-grow-1"} transition-flex`}>
-                            {!showDemographics && <h6>Data Legend</h6>}
+<div className={`${showDemographics ? "flex-grow-1" : "thirds flex-grow-0"} transition-flex`}>                            {!showDemographics && <h6>Data Legend</h6>}
                             <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
                         </div>
                         <div className={`${!selectedSpecificIssue ? "d-none" : ""} ${selectedIssue && !showDemographics ? "flex-grow-0" : "flex-grow-1"} transition-flex`} >
@@ -106,6 +106,7 @@ export default function IssuesMiddleColumn({
                 className={`${selectedIssue === 2 ? 'issues-chapters-active' : (selectedIssue === 1 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
                     setSelectedSpecificIssue(null)
+                    setShowDemographics(false)
                     if (selectedIssue !== 2) {
                         setSelectedIssue(2)
                     } else {
@@ -140,7 +141,7 @@ export default function IssuesMiddleColumn({
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div className={`${selectedIssue && !showDemographics ? "thirds flex-grow-0" : "flex-grow-1"} transition-flex`}>
+                        <div className={`${showDemographics ? "flex-grow-1" : "thirds flex-grow-0"} transition-flex`}>
                             {!showDemographics && <h6>Data Legend</h6>}
                             <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
                         </div>
@@ -157,6 +158,7 @@ export default function IssuesMiddleColumn({
                 className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue === 2 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
                     setSelectedSpecificIssue(null)
+                    setShowDemographics(false)
                     if (selectedIssue !== 3) {
                         setSelectedIssue(3)
                     } else {
@@ -188,8 +190,7 @@ export default function IssuesMiddleColumn({
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div className={`${selectedIssue && !showDemographics ? "thirds flex-grow-0" : "flex-grow-1"} transition-flex`}>
-                            {!showDemographics && <h6>Data Legend</h6>}
+<div className={`${showDemographics ? "flex-grow-1" : "thirds flex-grow-0"} transition-flex`}>                            {!showDemographics && <h6>Data Legend</h6>}
                             <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
                         </div>
                         <div className={`${!selectedSpecificIssue ? "d-none" : ""} ${selectedIssue && !showDemographics ? "flex-grow-0" : "flex-grow-1"} transition-flex`} >
