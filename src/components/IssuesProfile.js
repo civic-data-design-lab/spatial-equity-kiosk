@@ -30,20 +30,18 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
                     Least Performing Districts
                 </h5>
                 <div>
-                    <div className={"issues-tile-first-rankings"}>
-                        <p className={"mb-0"}>59 - Community District 3</p>
-                        <p className={"mb-0"}>58 - Community District 3</p>
-                        <p className={"mb-0"}>57 - Community District 3</p>
-                        <p className={"mb-0"}>56 - Community District 3</p>
-                        <p className={"mb-0"}>55 - Community District 3</p>
+                    <div className={"issues-tile-first-rankings ranking-chart small-text"}>
+                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
+                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
+                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
+                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
                     </div>
 
-                    <div className={`${expand ? "issues-tile-ranking-vis" : "issues-tile-ranking-invis"}`}>
-                        <p className={"mb-0"}>59 - Community District 4</p>
-                        <p className={"mb-0"}>58 - Community District 4</p>
-                        <p className={"mb-0"}>57 - Community District 4</p>
-                        <p className={"mb-0"}>56 - Community District 4</p>
-                        <p className={"mb-0"}>55 - Community District 4</p>
+                    <div className={`${expand ? "issues-tile-ranking-vis" : "issues-tile-ranking-invis"} ranking-chart small-text`}>
+                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
+                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
+                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
+                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
                     </div>
 
                     <div className={"d-flex flex-row justify-content-center ranking-button"}

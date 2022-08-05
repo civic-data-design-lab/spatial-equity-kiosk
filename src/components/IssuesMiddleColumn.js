@@ -10,7 +10,8 @@ export default function IssuesMiddleColumn({
                                                setSelectedIssue,
                                                selectedSpecificIssue,
                                                setSelectedSpecificIssue,
-                                               demographic, setDemographic
+                                               demographic, setDemographic,
+                                               setCommunitySearch, setCompareSearch
                                            }) {
 
     const [showDemographics, setShowDemographics] = useState(false);
@@ -54,6 +55,8 @@ export default function IssuesMiddleColumn({
                 onClick={() => {
                     /*setShowMap(true)
                     setShowToggle(false)*/
+                    setCommunitySearch(null)
+                    setCompareSearch(null)
                     setShowDemographics(false)
                     setSelectedSpecificIssue(null)
                     if (selectedIssue !== 1) {
@@ -107,6 +110,8 @@ export default function IssuesMiddleColumn({
                 onClick={() => {
                     setSelectedSpecificIssue(null)
                     setShowDemographics(false)
+                    setCommunitySearch(null)
+                    setCompareSearch(null)
                     if (selectedIssue !== 2) {
                         setSelectedIssue(2)
                     } else {
@@ -159,6 +164,8 @@ export default function IssuesMiddleColumn({
                 onClick={() => {
                     setSelectedSpecificIssue(null)
                     setShowDemographics(false)
+                    setCommunitySearch(null)
+                    setCompareSearch(null)
                     if (selectedIssue !== 3) {
                         setSelectedIssue(3)
                     } else {

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRight, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import Slider from "./Carousel";
 
 import CommunitySearchBar from "./CommunitySearchBar";
 
@@ -90,26 +91,56 @@ export default function CommunityNav({
                     {getSearchItems(communities, true)}
                 </CommunitySearchBar>
 
-                {addCompare &&
-                    <CommunitySearchBar toggleValue={compareSearch}
-                                        communitySearch={communitySearch}
-                                        callBack={setCompareSearch}>
-                        {getSearchItems(communities, false)}
-                    </CommunitySearchBar>
+                <CommunitySearchBar toggleValue={compareSearch}
+                                    communitySearch={communitySearch}
+                                    callBack={setCompareSearch}>
+                    {getSearchItems(communities, false)}
+                </CommunitySearchBar>
 
-                }
+
             </div>
 
             <div className={"community-nav-text"}>
 
-                {communitySearch &&
+                {communitySearch && !compareSearch &&
+                    <p className={"m-0 community-description"}><span
+                            className={"underline"}>{communities[communitySearch].bolded_text}</span> {communities[communitySearch].description}
+                    </p>
+                }
+
+                {(compareSearch && communitySearch) && <div onClick={(e) => {
+                    e.stopPropagation()
+                }}>
+                    <Slider>
+                        <div>
+                            <p className={"m-0 community-description"}><span
+                            className={"underline"}>{communities[communitySearch].bolded_text}</span> {communities[communitySearch].description}
+                            </p>
+                            <p className={"m-0 small-font"}>
+                                Neighborhoods: {communities[communitySearch].remaining_text}
+                            </p>
+                        </div>
+
+                        <div>
+                            <p className={"m-0 community-description"}><span
+                            className={"underline"}>{communities[compareSearch].bolded_text}</span> {communities[compareSearch].description}
+                            </p>
+                            <p className={"m-0 small-font"}>
+                                Neighborhoods: {communities[compareSearch].remaining_text}
+                            </p>
+                        </div>
+                    </Slider>
+
+                </div>}
+
+                {/*{communitySearch &&
                     <p className={"m-0 community-description"}><span
                         className={"underline"}>{communities[communitySearch].bolded_text}</span> {communities[communitySearch].description}
                     </p>}
                 {compareSearch &&
                     <p className={"m-0 community-description"}>{communities[compareSearch].bolded_text} {communities[compareSearch].description}</p>}
-
-                <div
+*/}
+                {/*<div
                     className={`${communitySearch ? "" : "d-none"} add-community-btn d-flex flex-row align-items-center`}
                     onClick={(e) => {
                         e.stopPropagation()
@@ -120,7 +151,7 @@ export default function CommunityNav({
                     {!addCompare ? <FontAwesomeIcon icon={faPlus} width={32}/> :
                         <FontAwesomeIcon icon={faMinus} width={32}/>}
                     <p className={"m-0"}>Compare Communities</p>
-                </div>
+                </div>*/}
             </div>
 
 

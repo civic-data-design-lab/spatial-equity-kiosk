@@ -38,12 +38,12 @@ export default function IssuesTileView({selectedSpecificIssue, issues, showToggl
                         <div className={"issue-tile-viz"}>
                             <div>
                                 <h5 className={"m-0"}>{getIssueName()}</h5>
-                                <small>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}</small>
+                                <p className={"m-0 small-font"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}</p>
                             </div>
                             <div>
                                 VISUALIZATION
                             </div>
-                            <small>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}</small>
+                            <p className={"m-0 small-font"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}</p>
                         </div>
 
 

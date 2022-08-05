@@ -790,3 +790,36 @@ a:active {
 .transition-flex {
     transition: flex-grow 1s;
 }
+
+.ranking-chart {
+    display: grid;
+    grid-template-columns: 1fr 3fr 3fr;
+}
+
+
+.carousel-inner {
+  height: 100%;
+}
+
+.carousel-item {
+  height: 100%;
+}
+
+.carousel-inner {
+    padding-bottom: calc(2rem + 10px);
+}
+
+
+.carousel-indicators [data-bs-target] {
+  border-radius: 50%;
+  height: 10px !important;
+  width: 10px !important;
+  opacity: 1 !important;
+  border: 1px solid white !important;
+  transition-timing-function: ease-in;
+
+}
+
+.carousel-indicators .active {
+  background-color: #000 !important;
+}

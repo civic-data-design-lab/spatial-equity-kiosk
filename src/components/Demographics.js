@@ -18,9 +18,6 @@ export default function Demographics({
     const [showDropdownItems, setShowDropdownItems] = useState(false)
     const [toggleText, setToggleText] = useState("Select a demographic to explore")
 
-    useEffect(()=>{
-        console.log("demo ", showDemographics)
-    }, [])
 
 
 

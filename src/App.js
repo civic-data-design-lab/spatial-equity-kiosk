@@ -39,7 +39,7 @@ function App() {
 
 
     useEffect(() => {
-       /* console.log("selectedChapter ", selectedChapter)
+        console.log("selectedChapter ", selectedChapter)
         console.log("selectedIssue ", selectedIssue)
         console.log("selectedSpecficIssue ", selectedSpecificIssue)
         console.log("showMap ", showMap)
@@ -47,9 +47,9 @@ function App() {
         console.log("community search ", communitySearch)
         console.log("compare search ", compareSearch)
         console.log("boundary ", boundary)
-        console.log("-------------------------------------------")*/
+        console.log("-------------------------------------------")
 
-        /*if (!selectedSpecificIssue) {
+       /* if (!selectedSpecificIssue) {
             setSelectedIssue(1)
             setSelectedSpecificIssue(1)
         }
@@ -99,7 +99,7 @@ function App() {
                      compareSearch={compareSearch}
                      communities={communities}
                      demographic={demographic}
-                     setDemographic={setDemographic}
+                     setDemographic={setDemographic} setCommunitySearch={setCommunitySearch} setCompareSearch={setCompareSearch}
             />
 
             <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>
