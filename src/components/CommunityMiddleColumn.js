@@ -15,7 +15,9 @@ export default function CommunityMiddleColumn({
         <>
             {communitySearch && <CommunityProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue}
                                                   communities={communities} communitySearch={communitySearch}
-                                                  setSelectedSpecificIssue={setSelectedSpecificIssue}/>}
+                                                  setSelectedSpecificIssue={setSelectedSpecificIssue}
+                                                  compareSearch={compareSearch}
+            />}
         </>
 
     )

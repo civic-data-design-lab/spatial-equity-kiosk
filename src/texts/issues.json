@@ -2,15 +2,15 @@
     "all_issues_id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
     "issues_data": {
         "health": {
-            "specific_issues_ID": [1, 2],
+            "specific_issues_ID": [1, 2, 7, 13, 14],
             "issue_description": "Health Description"
         },
         "environment": {
-            "specific_issues_ID": [3, 4],
+            "specific_issues_ID": [4, 5, 6 ,10, 15],
             "issue_description": "Environment Description"
         },
         "infrastructure": {
-            "specific_issues_ID": [5, 6],
+            "specific_issues_ID": [3, 8, 9, 11, 12],
             "issue_description": "Infrasctructure Description"
         }
     },
@@ -34,7 +34,7 @@
             "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
-            "issue_type_ID": 3,
+            "issue_type_ID": 1,
             "specific_issue_source": "source name"
 
         },
@@ -57,7 +57,7 @@
             "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
-            "issue_type_ID": 3,
+            "issue_type_ID": 2,
             "specific_issue_source": "source name"
         },
         "5": {

@@ -77,9 +77,9 @@ function Nav({
                          setSelectedChapter(null)
                      }
 
-                     if (selectedSpecificIssue) {
+                     /*if (selectedSpecificIssue) {
                          setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
-                     }
+                     }*/
                  }}
             >
                 <div>

@@ -55,10 +55,10 @@ export default function IssuesMiddleColumn({
                 onClick={() => {
                     /*setShowMap(true)
                     setShowToggle(false)*/
-                    setCommunitySearch(null)
-                    setCompareSearch(null)
+                    //setCommunitySearch(null)
+                    //setCompareSearch(null)
                     setShowDemographics(false)
-                    setSelectedSpecificIssue(null)
+                    //setSelectedSpecificIssue(null)
                     if (selectedIssue !== 1) {
                         setSelectedIssue(1)
                     } else {
@@ -108,10 +108,9 @@ export default function IssuesMiddleColumn({
             <div
                 className={`${selectedIssue === 2 ? 'issues-chapters-active' : (selectedIssue === 1 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
-                    setSelectedSpecificIssue(null)
                     setShowDemographics(false)
-                    setCommunitySearch(null)
-                    setCompareSearch(null)
+                    //setCommunitySearch(null)
+                    //setCompareSearch(null)
                     if (selectedIssue !== 2) {
                         setSelectedIssue(2)
                     } else {
@@ -162,10 +161,10 @@ export default function IssuesMiddleColumn({
             <div
                 className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue === 2 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
-                    setSelectedSpecificIssue(null)
+                    //setSelectedSpecificIssue(null)
                     setShowDemographics(false)
-                    setCommunitySearch(null)
-                    setCompareSearch(null)
+                    //setCommunitySearch(null)
+                    //setCompareSearch(null)
                     if (selectedIssue !== 3) {
                         setSelectedIssue(3)
                     } else {

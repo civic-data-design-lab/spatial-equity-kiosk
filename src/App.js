@@ -66,7 +66,16 @@ function App() {
             setCompareSearch(null)
         }
 
+
     })
+
+    useEffect(()=>{
+        if (selectedSpecificIssue) {
+            setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
+            console.log("open tihs ", issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
+        }
+    }, [selectedSpecificIssue])
+
 
 
 
