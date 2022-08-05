@@ -220,8 +220,8 @@ a:active {
 /* Dropdown */
 .dropdown-bar {
     border: 2px solid black;
-    padding: 0.5rem;
-    column-gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    column-gap: 0.25rem;
 }
 
 .dropdown-body {
@@ -754,4 +754,39 @@ a:active {
     grid-template-columns: 1fr 5fr;
     grid-template-rows: auto;
     column-gap: 1em;
+}
+
+.small-font {
+    font-size: .75em;
+}
+
+.add-demographic-btn {
+    background-color: white;
+    border: 1.5px solid white;
+    width: 100%;
+    padding: 0.25rem;
+    color: black;
+    font-weight: bold;
+}
+
+.expand-demographic {
+    /*height: max(8rem, calc((100vh - 14.75rem) / 3));*/
+    flex-grow: 1;
+    opacity: 1;
+    transition: height 1s, opacity 1s 0.5s;
+}
+
+.collapse-demographic {
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: height 1s 0.5s, opacity 1s;
+}
+
+.thirds {
+    max-height: calc((100vh - 14.75rem) / 3);
+}
+
+.transition-flex {
+    transition: flex-grow 1s;
 }

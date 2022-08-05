@@ -17,7 +17,9 @@ export default function Content({
                                     setShowMap,
                                     communitySearch,
                                     compareSearch,
-                                    communities
+                                    communities,
+                                    demographic,
+                                    setDemographic
                                 }) {
 
 
@@ -30,7 +32,7 @@ export default function Content({
                     <IssuesMiddleColumn
                         selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue} issues={issues}
                         selectedSpecificIssue={selectedSpecificIssue}
-                        setSelectedSpecificIssue={setSelectedSpecificIssue}/>}
+                        setSelectedSpecificIssue={setSelectedSpecificIssue} demographic={demographic} setDemographic={setDemographic}/>}
 
                 {selectedChapter === 3 && <CommunityMiddleColumn
                     communitySearch={communitySearch} compareSearch={compareSearch}

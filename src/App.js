@@ -35,6 +35,7 @@ function App() {
     const [communitySearch, setCommunitySearch] = useState(null);
     const [compareSearch, setCompareSearch] = useState(null);
     const [boundary, setBoundary] = useState("community");
+    const [demographic, setDemographic] = useState(null);
 
 
     useEffect(() => {
@@ -87,6 +88,7 @@ function App() {
                  setCompareSearch={setCompareSearch}
                  setShowMap={setShowMap}
                  setSelectedSpecificIssue={setSelectedSpecificIssue}
+
             />
             <Content selectedChapter={selectedChapter} issues={issues}
                      selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue}
@@ -96,6 +98,8 @@ function App() {
                      communitySearch={communitySearch}
                      compareSearch={compareSearch}
                      communities={communities}
+                     demographic={demographic}
+                     setDemographic={setDemographic}
             />
 
             <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>

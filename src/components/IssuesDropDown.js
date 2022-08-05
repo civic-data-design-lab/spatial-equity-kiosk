@@ -34,7 +34,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                          setShowDropdownItems(!showDropdownItems)
                      }}
                 >
-                    <h5 className={"mb-0"}>{toggleText}</h5>
+                    <p className={"mb-0"}>{toggleText}</p>
 
                     {!showDropdownItems && <FontAwesomeIcon icon={faCaretDown}/>}
                     {showDropdownItems && <FontAwesomeIcon icon={faCaretUp}/>}

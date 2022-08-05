@@ -1,7 +1,7 @@
 import BoundaryToggle from "./BoundaryToggle";
 import CommunityNav from "./CommunityNav";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSquareFacebook, faTwitter, faInstagram, faLinkedinIn} from "@fortawesome/free-brands-svg-icons";
+import {faInstagram, faLinkedinIn, faSquareFacebook, faTwitter} from "@fortawesome/free-brands-svg-icons";
 
 function Nav({
                  selectedChapter,
@@ -19,7 +19,7 @@ function Nav({
                  compareSearch,
                  setCommunitySearch,
                  setCompareSearch,
-                 setShowMap
+                 setShowMap,
 
              }) {
 
