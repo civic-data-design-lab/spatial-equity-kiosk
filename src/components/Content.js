@@ -34,7 +34,7 @@ export default function Content({
                         selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue} issues={issues}
                         selectedSpecificIssue={selectedSpecificIssue}
                         setSelectedSpecificIssue={setSelectedSpecificIssue} demographic={demographic} setDemographic={setDemographic}
-                        setCommunitySearch={setCommunitySearch} setCompareSearch={setCompareSearch}
+                        communitySearch={communitySearch} compareSearch={compareSearch}
                     />}
 
                 {selectedChapter === 3 && <CommunityMiddleColumn

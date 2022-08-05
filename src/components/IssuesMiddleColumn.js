@@ -11,7 +11,8 @@ export default function IssuesMiddleColumn({
                                                selectedSpecificIssue,
                                                setSelectedSpecificIssue,
                                                demographic, setDemographic,
-                                               setCommunitySearch, setCompareSearch
+                                               communitySearch, compareSearch
+
                                            }) {
 
     const [showDemographics, setShowDemographics] = useState(false);
@@ -99,6 +100,7 @@ export default function IssuesMiddleColumn({
                             <Demographics currentValue={demographic} setValue={setDemographic}
                                           selectedSpecificIssue={selectedSpecificIssue}
                                           setShowDemographics={setShowDemographics} showDemographics={showDemographics}
+                                          communitySearch={communitySearch} compareSearch={compareSearch}
                             />
                         </div>
                     </div>
@@ -153,6 +155,7 @@ export default function IssuesMiddleColumn({
                             <Demographics currentValue={demographic} setValue={setDemographic}
                                           selectedSpecificIssue={selectedSpecificIssue}
                                           setShowDemographics={setShowDemographics} showDemographics={showDemographics}
+                                          communitySearch={communitySearch} compareSearch={compareSearch}
                             />
                         </div>
                     </div>
@@ -203,6 +206,7 @@ export default function IssuesMiddleColumn({
                             <Demographics currentValue={demographic} setValue={setDemographic}
                                           selectedSpecificIssue={selectedSpecificIssue}
                                           setShowDemographics={setShowDemographics} showDemographics={showDemographics}
+                                          communitySearch={communitySearch} compareSearch={compareSearch}
                             />
                         </div>
                     </div>

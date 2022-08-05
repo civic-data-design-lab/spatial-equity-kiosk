@@ -68,6 +68,8 @@ function Nav({
              ${!selectedChapter ? "" : (selectedChapter === 2 ? "expanded-nav" : "collapsed-nav")}
              `}
                  onClick={() => {
+                     setCompareSearch(null)
+                     setCommunitySearch(null)
                      setShowMap(false)
                      setSelectedIssue(null)
                      setSelectedSpecificIssue(null)

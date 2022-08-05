@@ -2,11 +2,14 @@ import React, {useState, useEffect} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretDown, faCaretUp, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
+import Slider from "./Carousel";
+
 
 export default function Demographics({
                                          selectedSpecificIssue,
                                          currentValue = null, items = null, setValue = null,
-                                         showDemographics, setShowDemographics
+                                         showDemographics, setShowDemographics,
+                                         compareSearch, communitySearch
                                      }) {
 
     const demographics = {
@@ -75,9 +78,28 @@ export default function Demographics({
 
                     </div>
 
-                {currentValue && <div>
-                    DEMOGRAPHICS VISUALIZATION
-                </div>}
+
+                    {currentValue && !communitySearch && !compareSearch &&
+                    <div>
+                        NYC DEMOGRAPHICS VISUALIZATION
+                    </div>
+                }
+
+                {currentValue && communitySearch && !compareSearch &&
+                    <div>
+                        NYC COMMUNITY VISUALIZATION
+                    </div>
+                }
+
+                {currentValue && communitySearch && compareSearch &&
+                    <Slider>
+                        <div>NYC COMMUNITY #1 VISUALIZATION</div>
+                        <div>NYC COMMUNITY #2 VISUALIZATION</div>
+                    </Slider>
+                }
+
+
+
             </div>
         </>
     )
