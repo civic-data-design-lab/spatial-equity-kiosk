@@ -92,10 +92,12 @@ export default function Demographics({
                 }
 
                 {currentValue && communitySearch && compareSearch &&
-                    <Slider>
+                    <div id={"demographic-slider"}>
+                        <Slider>
                         <div>NYC COMMUNITY #1 VISUALIZATION</div>
                         <div>NYC COMMUNITY #2 VISUALIZATION</div>
                     </Slider>
+                    </div>
                 }
 
 

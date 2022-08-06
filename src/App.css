@@ -55,11 +55,11 @@
     border-left: none !important;
 }
 
-.no-right-border{
+.no-right-border {
     border-right: none !important;
 }
 
-.no-bottom-border{
+.no-bottom-border {
     border-bottom: none !important;
 }
 
@@ -216,7 +216,6 @@ a:active {
 }
 
 
-
 /* Dropdown */
 .dropdown-bar {
     border: 2px solid black;
@@ -231,6 +230,7 @@ a:active {
     overflow: auto;
     border-top: none;
     background-color: white;
+    z-index: 3;
 }
 
 .dropdown-item {
@@ -243,7 +243,6 @@ a:active {
     background-color: black !important;
     color: white !important;
 }
-
 
 
 /* Searchbar */
@@ -365,7 +364,6 @@ a:active {
 }
 
 
-
 /* Middle Column */
 .middle-column {
     transition: width 0.4s ease-out, opacity 0.6s 0.4s;
@@ -382,7 +380,6 @@ a:active {
     border-right: none;
     opacity: 0;
 }
-
 
 
 /* Boundary Toggle */
@@ -413,7 +410,6 @@ a:active {
     height: 100%;
     border: 1.5px solid white;
 }
-
 
 
 /* Issue Tiles */
@@ -472,7 +468,7 @@ a:active {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+
 }
 
 
@@ -491,8 +487,8 @@ a:active {
     border-bottom: 2px solid black;
 }
 
-.issues-chapters:hover, .issues-chapters-active
-{    background-color: black;
+.issues-chapters:hover, .issues-chapters-active {
+    background-color: black;
     color: white;
 }
 
@@ -520,7 +516,8 @@ a:active {
     max-height: 100vh;
     opacity: 1;
     font-size: 1.25rem;
-    transition: font-size 0.3s, opacity 0.8s 0.3s, max-height 1s ease-out;}
+    transition: font-size 0.3s, opacity 0.8s 0.3s, max-height 1s ease-out;
+}
 
 .collapse-issue {
     flex-grow: 0 !important;
@@ -550,7 +547,6 @@ a:active {
 }
 
 
-
 /* Community Column */
 .community-profile-container {
     padding: 1em;
@@ -562,13 +558,11 @@ a:active {
 }
 
 
-
 /* Right Column */
 #right-column {
     border: 2px solid black;
     border-left: none;
 }
-
 
 
 /* Map */
@@ -578,7 +572,6 @@ a:active {
     left: 50% !important;
     width: 50% !important;
 }
-
 
 
 /* Map Toggle */
@@ -596,12 +589,12 @@ a:active {
 }
 
 .map-toggle-container {
-     margin-left: 1rem;
-     width: 4em;
-     height: 2em;
-     display: grid;
-     grid-template-columns: 1fr 1fr;
- }
+    margin-left: 1rem;
+    width: 4em;
+    height: 2em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
 
 .map-toggle {
     display: flex;
@@ -611,7 +604,6 @@ a:active {
     transition: color 0.5s, background-color 0.5s;
     border: 2px solid black;
 }
-
 
 
 /* Share Button */
@@ -681,7 +673,6 @@ a:active {
 }
 
 
-
 /* Issue Tags */
 .issue-tags-container {
     display: flex;
@@ -710,7 +701,6 @@ a:active {
 }
 
 
-
 /* Modal */
 .modal-background {
     position: fixed;
@@ -730,7 +720,6 @@ a:active {
     width: 80vw;
     height: 80vh;
 }
-
 
 
 /* Misc */
@@ -799,11 +788,11 @@ a:active {
 
 
 .carousel-inner {
-  height: 100%;
+    height: 100%;
 }
 
 .carousel-item {
-  height: 100%;
+    height: 100%;
 }
 
 .carousel-inner {
@@ -812,15 +801,31 @@ a:active {
 
 
 .carousel-indicators [data-bs-target] {
-  border-radius: 50%;
-  height: 10px !important;
-  width: 10px !important;
-  opacity: 1 !important;
-  border: 1px solid white !important;
-  transition-timing-function: ease-in;
-
+    border-radius: 50%;
+    height: 10px !important;
+    width: 10px !important;
+    opacity: 1 !important;
+    border: 1px solid white !important;
+    transition-timing-function: ease-in;
 }
 
 .carousel-indicators .active {
-  background-color: #000 !important;
+    background-color: #000 !important;
 }
+
+#demographic-slider .carousel-indicators [data-bs-target] {
+    border-radius: 50%;
+    height: 10px !important;
+    width: 10px !important;
+    opacity: 1 !important;
+    border: 1px solid black !important;
+    transition-timing-function: ease-in;
+}
+
+#demographic-slider .carousel-indicators .active {
+    background-color: #000000 !important;
+}
+
+
+
+

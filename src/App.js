@@ -1,6 +1,7 @@
 import "./App.css";
 import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {useLocation} from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 
@@ -11,6 +12,7 @@ import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import Nav from "./components/Nav";
 import Content from "./components/Content";
 import Map from "./components/Map"
+
 
 
 import _ISSUE_CATEGORIES from "./texts/issue_categories.json"
@@ -36,6 +38,16 @@ function App() {
     const [compareSearch, setCompareSearch] = useState(null);
     const [boundary, setBoundary] = useState("community");
     const [demographic, setDemographic] = useState(null);
+
+    const location = useLocation();
+
+    useEffect(()=>{
+        const queryParams = new URLSearchParams(location.search);
+        for (let pair of queryParams.entries()) {
+            console.log("pairs ", pair)
+        }
+    })
+
 
 
     useEffect(() => {
