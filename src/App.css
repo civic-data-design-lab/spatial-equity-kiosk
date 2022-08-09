@@ -11,7 +11,6 @@
 
 }
 
-
 /* Utility */
 .standard-padding {
     padding: 1em;
@@ -88,6 +87,24 @@
     height: calc(100vh / 4);
 }
 
+/* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+    width: 14px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 7px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background:  rgb(217, 255, 0); 
+  }
+
+
 
 /* Document */
 body {
@@ -143,6 +160,8 @@ a:active {
 
 .nav-chapters:hover {
     background-color: black;
+    outline: 1px solid white;
+    outline-offset: -2px;
     color: white;
 }
 
@@ -494,6 +513,8 @@ a:active {
 .issues-chapters:hover, .issues-chapters-active {
     background-color: black;
     color: white;
+    outline: 1px solid white;
+    outline-offset: -1px;
 }
 
 .accordion-body {
@@ -614,7 +635,7 @@ a:active {
 .share {
     display: flex;
     flex-direction: row;
-    #justify-content: space-between;
+    justify-content: space-between;
     align-items: center;
     column-gap: 0.5rem;
 }
@@ -835,8 +856,8 @@ a:active {
     flex-grow: 1;
     border: 1px solid black;
     padding: 1em;
-    #background-color: white;
-    #color: black;
+    background-color: white;
+    color: black;
     transition: color 0.5s, background-color 0.5s;
 }
 
