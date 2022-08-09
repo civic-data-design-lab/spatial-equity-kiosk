@@ -12,7 +12,8 @@ export default function ShareButton({
                                         setShowMap,
                                         showToggle,
                                         selectedIssue, selectedChapter,
-                                        boundary, demographic
+                                        boundary, demographic,
+                                        showDemographics
                                     }) {
 
     const [clicked, setClicked] = useState(false)
@@ -34,6 +35,7 @@ export default function ShareButton({
         if (selectedSpecificIssue !== null) params.push(`selectedSpecificIssue=${selectedSpecificIssue.toString()}`)
         if (boundary !== null) params.push(`boundary=${boundary.toString()}`)
         if (demographic !== null) params.push(`demographic=${demographic.toString()}`)
+        params.push(`showDemographics=${showDemographics.toString()}`)
 
         let path = window.location.href.split('?')[0]
         path = path.concat("?")

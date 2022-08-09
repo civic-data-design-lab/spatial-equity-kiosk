@@ -24,7 +24,8 @@ export default function Content({
                                     selectedAbout,
                                     setSelectedAbout,
                                     boundary,
-                                    setCommunitySearch, setCompareSearch
+                                    setCommunitySearch, setCompareSearch,
+                                    showDemographics, setShowDemographics
                                 }) {
 
 
@@ -39,6 +40,7 @@ export default function Content({
                         selectedSpecificIssue={selectedSpecificIssue}
                         setSelectedSpecificIssue={setSelectedSpecificIssue} demographic={demographic} setDemographic={setDemographic}
                         communitySearch={communitySearch} compareSearch={compareSearch}
+                        showDemographics={showDemographics} setShowDemographics={setShowDemographics}
                     />}
 
                 {selectedChapter === 3 && <CommunityMiddleColumn
@@ -61,6 +63,7 @@ export default function Content({
                     selectedIssue={selectedIssue} selectedChapter={selectedChapter}
                     communitySearch={communitySearch} compareSearch={compareSearch}
                     boundary={boundary} demographic={demographic}
+                    showDemographics={showDemographics}
 
                 />}
 
@@ -74,6 +77,7 @@ export default function Content({
                     showToggle={showToggle}
                     selectedIssue={selectedIssue} selectedChapter={selectedChapter}
                     boundary={boundary} demographic={demographic}
+                    showDemographics={showDemographics}
                 />}
 
                 {selectedChapter === 4 && <About issues={issues} selectedAbout={selectedAbout}/>}

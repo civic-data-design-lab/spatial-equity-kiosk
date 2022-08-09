@@ -9,7 +9,7 @@ export default function IssuesTileView({
                                            showMap, setShowMap,
                                            selectedIssue, selectedChapter,
                                            communitySearch, compareSearch,
-                                           boundary, demographic
+                                           boundary, demographic, showDemographics
                                        }) {
 
     const [expand, setExpand] = useState(false)
@@ -39,7 +39,7 @@ export default function IssuesTileView({
                                     setShowMap={setShowMap}
                                     showToggle={showToggle}
                                     selectedIssue={selectedIssue} selectedChapter={selectedChapter}
-                                    boundary={boundary} demographic={demographic}
+                                    boundary={boundary} demographic={demographic} showDemographics={showDemographics}
                                 />
                             </div>
                             <div id={"toggle-container"}>

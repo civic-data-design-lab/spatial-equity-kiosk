@@ -12,7 +12,7 @@ export default function CommunityRightColumn({
                                                  issues,
                                                  showMap, setShowMap, showToggle,
                                                  selectedIssue, selectedChapter,
-                                                 boundary, demographic
+                                                 boundary, demographic, showDemographics
                                              }) {
 
     useEffect(() => {
@@ -47,6 +47,7 @@ export default function CommunityRightColumn({
                                              showToggle={showToggle}
                                              selectedIssue={selectedIssue} selectedChapter={selectedChapter}
                                              boundary={boundary} demographic={demographic}
+                                             showDemographics={showDemographics}
                                 />
                             </div>
                             <div id={"toggle-container"}>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretDown, faCaretUp, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
@@ -20,6 +20,12 @@ export default function Demographics({
 
     const [showDropdownItems, setShowDropdownItems] = useState(false)
     const [toggleText, setToggleText] = useState("Select a demographic to explore")
+
+    useEffect(()=>{
+        if (currentValue) {
+            setToggleText(demographics[currentValue])
+        }
+    }, [])
 
 
 

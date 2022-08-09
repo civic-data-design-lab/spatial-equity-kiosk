@@ -13,11 +13,11 @@ export default function IssuesMiddleColumn({
                                                selectedSpecificIssue,
                                                setSelectedSpecificIssue,
                                                demographic, setDemographic,
-                                               communitySearch, compareSearch
+                                               communitySearch, compareSearch,
+                                               showDemographics, setShowDemographics
 
                                            }) {
 
-    const [showDemographics, setShowDemographics] = useState(false);
 
     const health_issues = issues.issues_data["health"].specific_issues_ID.map((id_) => {
         return issues.specific_issues_data[id_]
@@ -41,6 +41,13 @@ export default function IssuesMiddleColumn({
 
         }
     }
+
+    useEffect(()=>{
+        if (!selectedSpecificIssue) {
+            setShowDemographics(false)
+            setDemographic(null)
+        }
+    })
 
 /*    useEffect(() => {
         console.log("in use effect")

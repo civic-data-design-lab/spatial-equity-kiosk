@@ -37,6 +37,7 @@ function App() {
     const [boundary, setBoundary] = useState("community");
     const [demographic, setDemographic] = useState(null);
     const [selectedAbout, setSelectedAbout] = useState(null)
+    const [showDemographics, setShowDemographics] = useState(null);
 
     const location = useLocation();
 
@@ -72,6 +73,8 @@ function App() {
                 case "demographic":
                     setDemographic(pair[1])
                     break
+                case "showDemographics":
+                    setShowDemographics(pair[1]==="true")
             }
 
         }
@@ -158,6 +161,7 @@ function App() {
                      demographic={demographic}
                      setDemographic={setDemographic} setCommunitySearch={setCommunitySearch} setCompareSearch={setCompareSearch}
                      selectedAbout={selectedAbout} setSelectedAbout={setSelectedAbout}
+                     showDemographics={showDemographics} setShowDemographics={setShowDemographics}
             />
 
             <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>
