@@ -26,9 +26,11 @@ export default function IssuesTags({
     return (
         <div className={"more-issues-container"}>
             {moreIssues.length > 0 && <div className={"d-flex flex-column row-gap"}>
-                {moreIssues.map((issue) => {
+                {moreIssues.map((issue, index) => {
                     return (
-                        <div className={selectedSpecificIssue && selectedSpecificIssue !== issue ? "opacity-50" : ""}>
+                        <div
+                            key={index}
+                            className={selectedSpecificIssue && selectedSpecificIssue !== issue ? "opacity-50" : ""}>
                             <IssuesCard selectedSpecificIssue={selectedSpecificIssue} specificIssue={issue}
                                         issues={issues} setSelectedSpecificIssue={setSelectedSpecificIssue}
                                         setModal={setModal}/>
@@ -41,9 +43,10 @@ export default function IssuesTags({
                 {
                     issues.all_issues_id
                         .filter(id => !leastPerforming.includes(id))
-                        .map((id) => {
+                        .map((id, index) => {
                             return (
                                 <div
+                                    key={index}
                                     className={`${moreIssues.includes(id) ? "active-tag" : "inactive-tag"} issues-tag col-gap`}
 
                                     onClick={() => {

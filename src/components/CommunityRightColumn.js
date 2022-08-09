@@ -15,9 +15,6 @@ export default function CommunityRightColumn({
                                                  boundary, demographic, showDemographics
                                              }) {
 
-    useEffect(() => {
-        console.log("community serch is ", communitySearch)
-    })
 
     return (
         <>

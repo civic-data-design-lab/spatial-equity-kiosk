@@ -11,9 +11,6 @@ export default function CommunityProfile({
                                              compareSearch
                                          }) {
 
-    useEffect(() => {
-        console.log("communities", communities)
-    }, [])
 
 
 

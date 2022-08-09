@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCaretDown, faCaretUp, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 
 import Slider from "./Carousel";
 
@@ -21,13 +21,11 @@ export default function Demographics({
     const [showDropdownItems, setShowDropdownItems] = useState(false)
     const [toggleText, setToggleText] = useState("Select a demographic to explore")
 
-    useEffect(()=>{
+    useEffect(() => {
         if (currentValue) {
             setToggleText(demographics[currentValue])
         }
     }, [])
-
-
 
 
     return (
@@ -49,43 +47,45 @@ export default function Demographics({
                 </div>*/}
             </div>
 
-            <div className={`${selectedSpecificIssue && showDemographics ? 'expand-demographic' : 'collapse-demographic' }`}>
-                    <div className={"dropdown-container"}>
-                        <div className={"dropdown-bar d-flex flex-row justify-content-between align-items-center"}
-                             onMouseDown={() => {
-                                 setShowDropdownItems(!showDropdownItems)
-                             }}
-                        >
-                            <p className={"mb-0"}>{toggleText}</p>
+            <div
+                className={`${selectedSpecificIssue && showDemographics ? 'expand-demographic' : 'collapse-demographic'}`}>
+                <div className={"dropdown-container"}>
+                    <div className={"dropdown-bar d-flex flex-row justify-content-between align-items-center"}
+                         onMouseDown={() => {
+                             setShowDropdownItems(!showDropdownItems)
+                         }}
+                    >
+                        <p className={"mb-0"}>{toggleText}</p>
 
-                            {!showDropdownItems && <FontAwesomeIcon icon={faCaretDown}/>}
-                            {showDropdownItems && <FontAwesomeIcon icon={faCaretUp}/>}
-                        </div>
+                        {!showDropdownItems && <FontAwesomeIcon icon={faCaretDown}/>}
+                        {showDropdownItems && <FontAwesomeIcon icon={faCaretUp}/>}
+                    </div>
 
-                        <div
-                            className={`${showDropdownItems ? "d-block" : "d-none"} dropdown-body position-absolute   w-100`}>
-                            {
-                                Object.keys(demographics).map((key) => {
-                                    return (
-                                        <div
-                                            className={`dropdown-item ${currentValue === key ? "dropdown-item-active" : ""}`}
-                                            onMouseDown={() => {
-                                                setShowDropdownItems(false)
-                                                setToggleText(demographics[key])
-                                                setValue(key)
-                                            }}
-                                        >
-                                            {demographics[key]}
-                                        </div>)
+                    <div
+                        className={`${showDropdownItems ? "d-block" : "d-none"} dropdown-body position-absolute   w-100`}>
+                        {
+                            Object.keys(demographics).map((key, index) => {
+                                return (
+                                    <div
+                                        key={index}
+                                        className={`dropdown-item ${currentValue === key ? "dropdown-item-active" : ""}`}
+                                        onMouseDown={() => {
+                                            setShowDropdownItems(false)
+                                            setToggleText(demographics[key])
+                                            setValue(key)
+                                        }}
+                                    >
+                                        {demographics[key]}
+                                    </div>)
 
-                                })}
-
-                        </div>
+                            })}
 
                     </div>
 
+                </div>
 
-                    {currentValue && !communitySearch && !compareSearch &&
+
+                {currentValue && !communitySearch && !compareSearch &&
                     <div>
                         NYC DEMOGRAPHICS VISUALIZATION
                     </div>
@@ -100,12 +100,11 @@ export default function Demographics({
                 {currentValue && communitySearch && compareSearch &&
                     <div id={"demographic-slider"}>
                         <Slider>
-                        <div>NYC COMMUNITY #1 VISUALIZATION</div>
-                        <div>NYC COMMUNITY #2 VISUALIZATION</div>
-                    </Slider>
+                            <div>NYC COMMUNITY #1 VISUALIZATION</div>
+                            <div>NYC COMMUNITY #2 VISUALIZATION</div>
+                        </Slider>
                     </div>
                 }
-
 
 
             </div>

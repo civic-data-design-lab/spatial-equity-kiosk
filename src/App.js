@@ -44,7 +44,6 @@ function App() {
     useEffect(()=>{
         const queryParams = new URLSearchParams(location.search);
         for (let pair of queryParams.entries()) {
-            console.log("pairs ", pair)
             switch (pair[0]) {
                 case "showMap":
                     setShowMap(pair[1] === "true")
@@ -76,16 +75,13 @@ function App() {
                 case "showDemographics":
                     setShowDemographics(pair[1]==="true")
             }
-
         }
-
-        console.log("byee")
-        console.log("set compareSearch ", compareSearch)
     }, [])
 
 
 
     useEffect(() => {
+        /*console.log("HERE ARE THE STATES")
         console.log("selectedChapter ", selectedChapter)
         console.log("selectedIssue ", selectedIssue)
         console.log("selectedSpecficIssue ", selectedSpecificIssue)
@@ -95,7 +91,7 @@ function App() {
         console.log("compare search ", compareSearch)
         console.log("boundary ", boundary)
         console.log("selectedAbout ", selectedAbout)
-        console.log("-------------------------------------------")
+        console.log("-------------------------------------------")*/
 
        /* if (!selectedSpecificIssue) {
             setSelectedIssue(1)
@@ -106,22 +102,15 @@ function App() {
             setSelectedSpecificIssue(1)
         }*/
 
-        console.log("hiii")
-
         if (selectedSpecificIssue && selectedChapter > 1) {
             setShowToggle(true)
         }
-
-
-
-
     })
 
 
     useEffect(()=>{
         if (selectedSpecificIssue) {
             setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
-            console.log("open tihs ", issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
         }
     }, [selectedSpecificIssue])
 
