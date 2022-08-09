@@ -159,7 +159,7 @@ function Nav({
                 <div>
                     <div
                         className={`nav-title ${selectedChapter !== 4 ? '' : 'collapse-nav-title'}`}>
-                        <h5 className="collapse-text">Learn More & Take Action</h5>
+                        <h5 className={"mb-0"}>Learn More & Take Action</h5>
                     </div>
 
                     <p className={`${selectedChapter === 4 ? "h1" : "collapse-nav-title"} transition-font m-0`}>

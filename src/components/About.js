@@ -55,9 +55,10 @@ export default function About({issues, selectedAbout}) {
                                 solutions</p>
 
                             <div className={`${expand ? "issues-tile-ranking-vis" : "issues-tile-ranking-invis"}`}>
-                                {issues.all_issues_id.map((ID) => {
+                                {issues.all_issues_id.map((ID, index) => {
                                     return (
                                         <div
+                                            key={index}
                                             className={`${expand ? "issues-tile-ranking-vis" : "issues-tile-ranking-invis"}`}>
                                             <strong>{issues.specific_issues_data[ID].specific_issue_name}</strong>
                                             <p>{issues.specific_issues_data[ID].specific_issue_solutions}</p>
