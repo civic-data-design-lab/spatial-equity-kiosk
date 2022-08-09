@@ -38,6 +38,8 @@ function App() {
     const [demographic, setDemographic] = useState(null);
     const [selectedAbout, setSelectedAbout] = useState(null)
     const [showDemographics, setShowDemographics] = useState(null);
+    const [moreIssues, setMoreIssues] = useState([]);
+    const [moreIssuesLength, setMoreIssuesLength] = useState(0);
 
     const location = useLocation();
 
@@ -62,18 +64,22 @@ function App() {
                     break;
                 case "communitySearch":
                     setCommunitySearch(pair[1])
-                    break
+                    break;
                 case "compareSearch":
                     setCompareSearch(pair[1])
-                    break
+                    break;
                 case "boundary":
                     setBoundary(pair[1])
-                    break
+                    break;
                 case "demographic":
                     setDemographic(pair[1])
-                    break
+                    break;
                 case "showDemographics":
                     setShowDemographics(pair[1]==="true")
+                    break;
+                case "moreIssues":
+                    setMoreIssues(JSON.parse(pair[1]).map((item)=>{return parseInt(item)}))
+                    setMoreIssuesLength(JSON.parse(pair[1]).map((item)=>{return parseInt(item)}).length)
             }
         }
     }, [])
@@ -151,6 +157,7 @@ function App() {
                      setDemographic={setDemographic} setCommunitySearch={setCommunitySearch} setCompareSearch={setCompareSearch}
                      selectedAbout={selectedAbout} setSelectedAbout={setSelectedAbout}
                      showDemographics={showDemographics} setShowDemographics={setShowDemographics}
+                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
             />
 
             <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>

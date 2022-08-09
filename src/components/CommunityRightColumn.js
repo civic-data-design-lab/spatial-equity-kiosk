@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import IssueProfile from "./IssuesProfile";
@@ -12,7 +12,9 @@ export default function CommunityRightColumn({
                                                  issues,
                                                  showMap, setShowMap, showToggle,
                                                  selectedIssue, selectedChapter,
-                                                 boundary, demographic, showDemographics
+                                                 boundary, demographic, showDemographics,
+                                                 setMoreIssues, moreIssuesLength, moreIssues, setMoreIssuesLength
+
                                              }) {
 
 
@@ -45,6 +47,9 @@ export default function CommunityRightColumn({
                                              selectedIssue={selectedIssue} selectedChapter={selectedChapter}
                                              boundary={boundary} demographic={demographic}
                                              showDemographics={showDemographics}
+                                             moreIssues={moreIssues} setMoreIssues={setMoreIssues}
+                                             moreIssuesLength={moreIssuesLength}
+                                             setMoreIssuesLength={setMoreIssuesLength}
                                 />
                             </div>
                             <div id={"toggle-container"}>

@@ -8,7 +8,7 @@ export default function CommunityProfile({
                                              communities,
                                              communitySearch,
                                              setSelectedSpecificIssue,
-                                             compareSearch
+                                             compareSearch, setMoreIssues, moreIssuesLength, moreIssues, setMoreIssuesLength
                                          }) {
 
 
@@ -28,8 +28,9 @@ export default function CommunityProfile({
 
 
                         <div className={"d-flex flex-column row-gap"}>
-                            {communities[communitySearch].least_performing_issues.map((issue) => {
+                            {communities[communitySearch].least_performing_issues.map((issue, index) => {
                                 return <div
+                                    key={index}
                                     className={selectedSpecificIssue && selectedSpecificIssue !== issue ? "opacity-50" : ""}>
                                     <IssuesCard selectedSpecificIssue={selectedSpecificIssue}
                                                 setSelectedSpecificIssue={setSelectedSpecificIssue}
@@ -46,6 +47,7 @@ export default function CommunityProfile({
                                     communities={communities} setSelectedSpecificIssue={setSelectedSpecificIssue}
                                     selectedSpecificIssue={selectedSpecificIssue}
                                     setModal={setModal}
+                                    moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
                         />
 
                     </div>
@@ -64,6 +66,7 @@ export default function CommunityProfile({
                                     communities={communities} setSelectedSpecificIssue={setSelectedSpecificIssue}
                                     selectedSpecificIssue={selectedSpecificIssue}
                                     setModal={setModal}
+                                    moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
                         />
                     </div>
 

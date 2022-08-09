@@ -835,8 +835,6 @@ a:active {
     flex-grow: 1;
     border: 1px solid black;
     padding: 1em;
-    #background-color: white;
-    #color: black;
     transition: color 0.5s, background-color 0.5s;
 }
 

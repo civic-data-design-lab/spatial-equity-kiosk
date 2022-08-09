@@ -8,19 +8,21 @@ export default function IssuesTags({
                                        leastPerforming,
                                        setSelectedSpecificIssue,
                                        selectedSpecificIssue,
-                                       setModal
+                                       setModal,
+                                       moreIssues,
+                                       setMoreIssues,
+                                       moreIssuesLength, setMoreIssuesLength
                                    }) {
 
 
-    const [moreIssues, setMoreIssues] = useState([])
-    const [moreIssuesLength, setMoreIssuesLength] = useState(0)
 
-    useEffect(() => {
+
+    /*useEffect(() => {
         if (selectedSpecificIssue && !leastPerforming.includes(selectedSpecificIssue)) {
             setMoreIssues([selectedSpecificIssue])
             setMoreIssuesLength(1)
         }
-    }, [])
+    }, [])*/
 
 
     return (
@@ -38,6 +40,7 @@ export default function IssuesTags({
                     )
                 })}
             </div>}
+
 
             <div className={"issue-tags-container"}>
                 {

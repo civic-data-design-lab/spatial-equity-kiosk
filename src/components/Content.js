@@ -25,7 +25,8 @@ export default function Content({
                                     setSelectedAbout,
                                     boundary,
                                     setCommunitySearch, setCompareSearch,
-                                    showDemographics, setShowDemographics
+                                    showDemographics, setShowDemographics,
+    moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength
                                 }) {
 
 
@@ -47,6 +48,7 @@ export default function Content({
                     communitySearch={communitySearch} compareSearch={compareSearch}
                     selectedSpecificIssue={selectedSpecificIssue} issues={issues}
                     communities={communities} setSelectedSpecificIssue={setSelectedSpecificIssue}
+                    moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
                 />}
 
                 {selectedChapter === 4 && <AboutMiddleColumn selectedAbout={selectedAbout} setSelectedAbout={setSelectedAbout}/>}
@@ -64,6 +66,7 @@ export default function Content({
                     communitySearch={communitySearch} compareSearch={compareSearch}
                     boundary={boundary} demographic={demographic}
                     showDemographics={showDemographics}
+                    moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
 
                 />}
 
@@ -78,6 +81,7 @@ export default function Content({
                     selectedIssue={selectedIssue} selectedChapter={selectedChapter}
                     boundary={boundary} demographic={demographic}
                     showDemographics={showDemographics}
+                    moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
                 />}
 
                 {selectedChapter === 4 && <About issues={issues} selectedAbout={selectedAbout}/>}
