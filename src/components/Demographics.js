@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretDown, faCaretUp, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
@@ -35,12 +35,12 @@ export default function Demographics({
                 }}
             >
 
-                <div className={"d-flex flex-row justify-content-between w-100 align-items-center"}>
+                {/*<div className={"d-flex flex-row justify-content-between w-100 align-items-center"}>
                     {!showDemographics ? <p className={"m-0"}>See Demographics</p> :
                         <p className={"m-0"}>Hide Demographics</p>}
                     {!showDemographics ? <FontAwesomeIcon icon={faPlus} width={32}/> :
                         <FontAwesomeIcon icon={faMinus} width={32}/>}
-                </div>
+                </div>*/}
             </div>
 
             <div className={`${selectedSpecificIssue && showDemographics ? 'expand-demographic' : 'collapse-demographic' }`}>

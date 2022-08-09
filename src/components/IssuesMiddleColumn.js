@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 import IssuesDropDown from "./IssuesDropDown";
 import Demographics from "./Demographics";
 import Legend from "./Legend";
-import ShareButton from "./ShareButton";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
 
 
 export default function IssuesMiddleColumn({
@@ -36,7 +37,7 @@ export default function IssuesMiddleColumn({
         })
 
         if (possible_keys.includes(selectedSpecificIssue)) {
-            return <p className={"small-font mt-3"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
+            return <p className={"mt-3"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
 
         }
     }
@@ -60,7 +61,7 @@ export default function IssuesMiddleColumn({
                     //setCommunitySearch(null)
                     //setCompareSearch(null)
                     setShowDemographics(false)
-                    //setSelectedSpecificIssue(null)
+                    setSelectedSpecificIssue(null)
                     if (selectedIssue !== 1) {
                         setSelectedIssue(1)
                     } else {
@@ -94,16 +95,12 @@ export default function IssuesMiddleColumn({
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-<div className={`${showDemographics ? "flex-grow-1" : "thirds flex-grow-0"} transition-flex`}>                            {!showDemographics && <h6>Data Legend</h6>}
+                        <div>
+                            {!showDemographics && <h6>Data Legend</h6>}
                             <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
                         </div>
-                        <div className={`${!selectedSpecificIssue ? "d-none" : ""} ${selectedIssue && !showDemographics ? "flex-grow-0" : "flex-grow-1"} transition-flex`} >
-                            <Demographics currentValue={demographic} setValue={setDemographic}
-                                          selectedSpecificIssue={selectedSpecificIssue}
-                                          setShowDemographics={setShowDemographics} showDemographics={showDemographics}
-                                          communitySearch={communitySearch} compareSearch={compareSearch}
-                            />
-                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -112,6 +109,7 @@ export default function IssuesMiddleColumn({
                 className={`${selectedIssue === 2 ? 'issues-chapters-active' : (selectedIssue === 1 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
                     setShowDemographics(false)
+                    setSelectedSpecificIssue(null)
                     //setCommunitySearch(null)
                     //setCompareSearch(null)
                     if (selectedIssue !== 2) {
@@ -137,10 +135,7 @@ export default function IssuesMiddleColumn({
                     <div className={"d-flex flex-column justify-content-between h-100"}>
                         {((selectedSpecificIssue && !showDemographics) || (!selectedSpecificIssue)) &&
                             <div className={"thirds"}>
-                                {/*TODO: smoother transition*/}
-                                <div className={`${selectedSpecificIssue && !showDemographics ? "" : ""}`}>
-                                    {getRankingNarrative(environment_issues)}
-                                </div>
+                                {selectedSpecificIssue && !showDemographics && getRankingNarrative(environment_issues)}
                                 {!selectedSpecificIssue &&
                                     <p className={"mt-3"}>This is where you will hear about the topic that
                                         you
@@ -148,24 +143,19 @@ export default function IssuesMiddleColumn({
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div className={`${showDemographics ? "flex-grow-1" : "thirds flex-grow-0"} transition-flex`}>
+                        <div>
                             {!showDemographics && <h6>Data Legend</h6>}
                             <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
                         </div>
-                        <div className={`${!selectedSpecificIssue ? "d-none" : ""} ${selectedIssue && !showDemographics ? "flex-grow-0" : "flex-grow-1"} transition-flex`} >
-                            <Demographics currentValue={demographic} setValue={setDemographic}
-                                          selectedSpecificIssue={selectedSpecificIssue}
-                                          setShowDemographics={setShowDemographics} showDemographics={showDemographics}
-                                          communitySearch={communitySearch} compareSearch={compareSearch}
-                            />
-                        </div>
+
+
                     </div>
                 </div>
             </div>
             <div
                 className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue === 2 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
-                    //setSelectedSpecificIssue(null)
+                    setSelectedSpecificIssue(null)
                     setShowDemographics(false)
                     //setCommunitySearch(null)
                     //setCompareSearch(null)
@@ -200,21 +190,17 @@ export default function IssuesMiddleColumn({
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-<div className={`${showDemographics ? "flex-grow-1" : "thirds flex-grow-0"} transition-flex`}>                            {!showDemographics && <h6>Data Legend</h6>}
+                        <div>
+                            {!showDemographics && <h6>Data Legend</h6>}
                             <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
                         </div>
-                        <div className={`${!selectedSpecificIssue ? "d-none" : ""} ${selectedIssue && !showDemographics ? "flex-grow-0" : "flex-grow-1"} transition-flex`} >
-                            <Demographics currentValue={demographic} setValue={setDemographic}
-                                          selectedSpecificIssue={selectedSpecificIssue}
-                                          setShowDemographics={setShowDemographics} showDemographics={showDemographics}
-                                          communitySearch={communitySearch} compareSearch={compareSearch}
-                            />
-                        </div>
+
+
                     </div>
                 </div>
             </div>
 
-            {/*<div
+            <div
                 className={`${selectedIssue ? 'collapse-issue' : ''} ${showDemographics ? "bottom-border issues-chapters-active" : ""} ${selectedIssue === 3 ? "top-border" : ""} issues-chapters no-bottom-border`}
                 onClick={() => {
                     if (selectedSpecificIssue) {
@@ -230,11 +216,15 @@ export default function IssuesMiddleColumn({
             </div>
             <div className={`${showDemographics ? 'expand-issue' : ''} accordion-body`}>
                 <div className={"h-100 position-relative"}>
-                    <DemographicsDropDown/>
+                    <Demographics currentValue={demographic} setValue={setDemographic}
+                                          selectedSpecificIssue={selectedSpecificIssue}
+                                          setShowDemographics={setShowDemographics} showDemographics={showDemographics}
+                                          communitySearch={communitySearch} compareSearch={compareSearch}
+                            />
 
                 </div>
 
-            </div>*/}
+            </div>
 
 
         </div>
