@@ -36,10 +36,8 @@ export default function IssuesMiddleColumn({
         })
 
         if (possible_keys.includes(selectedSpecificIssue)) {
-            return <div>
-                <p className={"small-font mt-3"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
-                <div className={"d-flex flex-row justify-content-end"}><ShareButton/></div>
-            </div>
+            return <p className={"small-font mt-3"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
+
         }
     }
 
@@ -77,7 +75,7 @@ export default function IssuesMiddleColumn({
             </div>
 
             <div className={`${selectedIssue === 1 ? 'expand-issue' : ''} accordion-body`}>
-                <div className={"h-100 position-relative d-flex flex-column row-gap"}>
+                <div className={"h-100 position-relative d-flex flex-column"}>
 
                     <IssuesDropDown items={health_issues}
                                     currentValue={selectedSpecificIssue}
@@ -90,7 +88,7 @@ export default function IssuesMiddleColumn({
                             <div className={"thirds"}>
                                 {selectedSpecificIssue && !showDemographics && getRankingNarrative(health_issues)}
                                 {!selectedSpecificIssue &&
-                                    <p className={"small-font mt-3"}>This is where you will hear about the topic that
+                                    <p className={"mt-3"}>This is where you will hear about the topic that
                                         you
                                         select.
                                         Topics
@@ -128,7 +126,7 @@ export default function IssuesMiddleColumn({
                     donec adipiscing.</h5>
             </div>
             <div className={`${selectedIssue === 2 ? 'expand-issue' : ''} accordion-body`}>
-                <div className={"h-100 position-relative d-flex flex-column row-gap"}>
+                <div className={"h-100 position-relative d-flex flex-column"}>
 
                     <IssuesDropDown items={environment_issues}
                                     currentValue={selectedSpecificIssue}
@@ -144,7 +142,7 @@ export default function IssuesMiddleColumn({
                                     {getRankingNarrative(environment_issues)}
                                 </div>
                                 {!selectedSpecificIssue &&
-                                    <p className={"small-font mt-3"}>This is where you will hear about the topic that
+                                    <p className={"mt-3"}>This is where you will hear about the topic that
                                         you
                                         select.
                                         Topics
@@ -183,7 +181,7 @@ export default function IssuesMiddleColumn({
                     Diam donec adipiscing.</h5>
             </div>
             <div className={`${selectedIssue === 3 ? 'expand-issue' : ''} accordion-body`}>
-                <div className={"h-100 position-relative d-flex flex-column row-gap"}>
+                <div className={"h-100 position-relative d-flex flex-column"}>
 
                     <IssuesDropDown items={infrastructure_issues}
                                     currentValue={selectedSpecificIssue}
@@ -196,7 +194,7 @@ export default function IssuesMiddleColumn({
                             <div className={"thirds"}>
                                 {selectedSpecificIssue && !showDemographics && getRankingNarrative(infrastructure_issues)}
                                 {!selectedSpecificIssue &&
-                                    <p className={"small-font mt-3"}>This is where you will hear about the topic that
+                                    <p className={"mt-3"}>This is where you will hear about the topic that
                                         you
                                         select.
                                         Topics
