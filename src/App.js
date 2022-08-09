@@ -5,14 +5,10 @@ import {useLocation} from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
-
 
 import Nav from "./components/Nav";
 import Content from "./components/Content";
 import Map from "./components/Map"
-
 
 
 import _ISSUE_CATEGORIES from "./texts/issue_categories.json"
@@ -43,7 +39,7 @@ function App() {
 
     const location = useLocation();
 
-    useEffect(()=>{
+    useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         for (let pair of queryParams.entries()) {
             switch (pair[0]) {
@@ -75,15 +71,18 @@ function App() {
                     setDemographic(pair[1])
                     break;
                 case "showDemographics":
-                    setShowDemographics(pair[1]==="true")
+                    setShowDemographics(pair[1] === "true")
                     break;
                 case "moreIssues":
-                    setMoreIssues(JSON.parse(pair[1]).map((item)=>{return parseInt(item)}))
-                    setMoreIssuesLength(JSON.parse(pair[1]).map((item)=>{return parseInt(item)}).length)
+                    setMoreIssues(JSON.parse(pair[1]).map((item) => {
+                        return parseInt(item)
+                    }))
+                    setMoreIssuesLength(JSON.parse(pair[1]).map((item) => {
+                        return parseInt(item)
+                    }).length)
             }
         }
     }, [])
-
 
 
     useEffect(() => {
@@ -99,14 +98,41 @@ function App() {
         console.log("selectedAbout ", selectedAbout)
         console.log("-------------------------------------------")*/
 
-       /* if (!selectedSpecificIssue) {
-            setSelectedIssue(1)
-            setSelectedSpecificIssue(1)
-        }
+        /* if (!selectedSpecificIssue) {
+             setSelectedIssue(1)
+             setSelectedSpecificIssue(1)
+         }
 
-        if (!selectedSpecificIssue) {
-            setSelectedSpecificIssue(1)
-        }*/
+         if (!selectedSpecificIssue) {
+             setSelectedSpecificIssue(1)
+         }*/
+
+        const params = []
+
+        if (showMap !== null) params.push(`showMap=${showMap.toString()}`)
+        if (showToggle !== null) params.push(`showToggle=${showToggle.toString()}`)
+        if (communitySearch !== null) params.push(`communitySearch=${communitySearch}`)
+        if (compareSearch !== null) params.push(`compareSearch=${compareSearch}`)
+        if (selectedChapter !== null) params.push(`selectedChapter=${selectedChapter.toString()}`)
+        if (selectedIssue !== null) params.push(`selectedIssue=${selectedIssue.toString()}`)
+        if (selectedSpecificIssue !== null) params.push(`selectedSpecificIssue=${selectedSpecificIssue.toString()}`)
+        if (boundary !== null) params.push(`boundary=${boundary.toString()}`)
+        if (demographic !== null) params.push(`demographic=${demographic.toString()}`)
+        if (moreIssues.length>0) params.push(`moreIssues=[${moreIssues.toString()}]`)
+        if (showDemographics !== null) params.push(`showDemographics=${showDemographics.toString()}`)
+
+        let path = window.location.href.split('?')[0]
+        path = path.concat("?")
+        params.map((param) => {
+            path = path.concat("&", param)
+        })
+
+
+        if ("undefined" !== typeof window.history.pushState) {
+            window.history.replaceState(null, "", path);
+        } else {
+            window.location.assign(path);
+        }
 
         if (selectedSpecificIssue && selectedChapter > 1) {
             setShowToggle(true)
@@ -114,15 +140,11 @@ function App() {
     })
 
 
-    useEffect(()=>{
+    useEffect(() => {
         if (selectedSpecificIssue) {
             setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
         }
     }, [selectedSpecificIssue])
-
-
-
-
 
 
     return (
@@ -154,10 +176,12 @@ function App() {
                      compareSearch={compareSearch}
                      communities={communities}
                      demographic={demographic}
-                     setDemographic={setDemographic} setCommunitySearch={setCommunitySearch} setCompareSearch={setCompareSearch}
+                     setDemographic={setDemographic} setCommunitySearch={setCommunitySearch}
+                     setCompareSearch={setCompareSearch}
                      selectedAbout={selectedAbout} setSelectedAbout={setSelectedAbout}
                      showDemographics={showDemographics} setShowDemographics={setShowDemographics}
-                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
+                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength}
+                     setMoreIssuesLength={setMoreIssuesLength}
             />
 
             <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>

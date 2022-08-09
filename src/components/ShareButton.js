@@ -37,8 +37,6 @@ export default function ShareButton({
         if (boundary !== null) params.push(`boundary=${boundary.toString()}`)
         if (demographic !== null) params.push(`demographic=${demographic.toString()}`)
         if (moreIssues.length>0) params.push(`moreIssues=[${moreIssues.toString()}]`)
-
-
         params.push(`showDemographics=${showDemographics.toString()}`)
 
         let path = window.location.href.split('?')[0]
@@ -46,7 +44,6 @@ export default function ShareButton({
         params.map((param) => {
             path = path.concat("&", param)
         })
-        console.log(path)
 
         navigator.clipboard.writeText(path)
 
