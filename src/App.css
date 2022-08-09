@@ -38,7 +38,6 @@
     text-decoration-thickness: 1px;
 }
 
-
 .bold {
     font-weight: bold;
 }
@@ -83,6 +82,10 @@
 .no-height {
     height: 0;
     transition: height 1s;
+}
+
+.quarter-height {
+    height: calc(100vh / 4);
 }
 
 
@@ -610,7 +613,7 @@ a:active {
 .share {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    #justify-content: space-between;
     align-items: center;
     column-gap: 0.5rem;
 }
@@ -824,6 +827,20 @@ a:active {
 
 #demographic-slider .carousel-indicators .active {
     background-color: #000000 !important;
+}
+
+.about-chapters {
+    flex-grow: 1;
+    border: 1px solid black;
+    padding: 1em;
+    #background-color: white;
+    #color: black;
+    transition: color 0.5s, background-color 0.5s;
+}
+
+.about-chapters:hover, .about-chapters-active {
+    background-color: black;
+    color: white;
 }
 
 

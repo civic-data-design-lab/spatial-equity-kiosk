@@ -126,7 +126,7 @@ function Nav({
                     </div>
 
                     <p className={`${selectedChapter && selectedChapter !== 3 ? "h5 m-0" : "h1"} transition-font`}>
-                        {`Community ${selectedChapter && selectedChapter !== 3 ? "" : "\n"} Profiles`}
+                        {`Community ${selectedChapter && selectedChapter !== 3 ? "" : ""} Profiles`}
                     </p>
                 </div>
 
@@ -143,8 +143,8 @@ function Nav({
             </div>
 
 
-            <div className={`nav-chapters d-flex flex-column justify-content-between about-collapsed
-             ${!selectedChapter ? "" : (selectedChapter === 4 ? "expanded-nav" : "collapsed-nav")}`}
+            <div className={`nav-chapters d-flex flex-column justify-content-between 
+             ${!selectedChapter ? "flex-grow-0 " : (selectedChapter === 4 ? "expanded-nav" : "collapsed-nav")}`}
                  onClick={() => {
                      setSelectedIssue(null)
                      setSelectedSpecificIssue(null)
@@ -159,11 +159,11 @@ function Nav({
                 <div>
                     <div
                         className={`nav-title ${selectedChapter !== 4 ? '' : 'collapse-nav-title'}`}>
-                        <h6 className="collapse-text">About / Contact</h6>
+                        <h6 className="collapse-text">Learn More & Take Action</h6>
                     </div>
 
                     <p className={`${selectedChapter === 4 ? "h1" : "collapse-nav-title"} transition-font m-0`}>
-                        NYC Spatial <br/> Equity Tool
+                        Learn More & Take Action
                     </p>
                 </div>
 

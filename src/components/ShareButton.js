@@ -69,11 +69,41 @@ export default function ShareButton({
                 </div>
             </div>
             <div className={`${clicked ? "" : "d-none"} position-absolute share-icons`}>
-                <FontAwesomeIcon icon={faSquareFacebook}/>
-                <FontAwesomeIcon icon={faTwitter}/>
-                <FontAwesomeIcon icon={faInstagram}/>
-                <FontAwesomeIcon icon={faLinkedinIn}/>
-                <FontAwesomeIcon icon={faCopy} onClick={copyURL}/>
+                <FontAwesomeIcon icon={faSquareFacebook}
+                                 onClick={
+                                     () => {
+                                         setClicked(false)
+                                     }
+                                 }
+                />
+                <FontAwesomeIcon icon={faTwitter}
+                                 onClick={
+                                     () => {
+                                         setClicked(false)
+                                     }
+                                 }
+                />
+                <FontAwesomeIcon icon={faInstagram}
+                                 onClick={
+                                     () => {
+                                         setClicked(false)
+                                     }
+                                 }
+                />
+                <FontAwesomeIcon icon={faLinkedinIn}
+                                 onClick={
+                                     () => {
+                                         setClicked(false)
+                                     }
+                                 }
+                />
+                <FontAwesomeIcon icon={faCopy} onClick={
+                    (e) => {
+                        e.preventDefault()
+                        setClicked(false)
+                        copyURL()
+                    }
+                }/>
             </div>
 
             {/*<div className={"d-none pe-none position-absolute"} id={"copy-url"}/>*/}

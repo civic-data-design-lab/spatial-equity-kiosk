@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import IssuesDropDown from "./IssuesDropDown";
 import Demographics from "./Demographics";
 import Legend from "./Legend";
+import ShareButton from "./ShareButton";
 
 
 export default function IssuesMiddleColumn({
@@ -35,8 +36,10 @@ export default function IssuesMiddleColumn({
         })
 
         if (possible_keys.includes(selectedSpecificIssue)) {
-            return <p
-                className={"small-font mt-3"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
+            return <div>
+                <p className={"small-font mt-3"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
+                <div className={"d-flex flex-row justify-content-end"}><ShareButton/></div>
+            </div>
         }
     }
 

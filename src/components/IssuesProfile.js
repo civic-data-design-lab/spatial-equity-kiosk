@@ -27,7 +27,7 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
 
             <div className={"issues-tile-ranking issues-tile-text"}>
                 <h5 className={"issues-tile-heading bold"}>
-                    Least Performing Districts
+                    Worst {getIssueName()} by District
                 </h5>
                 <div>
                     <div className={"issues-tile-first-rankings ranking-chart small-text"}>
@@ -56,7 +56,7 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
 
             <div className={"issues-tile-description issues-tile-text"}>
                 <h5 className={"issues-tile-heading bold"}>
-                    {getIssueName()}
+                    About this Indicator
                 </h5>
                 <div>
                     Neighborhoods with fewer street trees are hotter, more polluted, more flood-prone, and have higher
@@ -67,7 +67,7 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
             </div>
             <div className={"issues-tile-solutions issues-tile-text"}>
                 <h5 className={"issues-tile-heading bold"}>
-                    Solutions
+                    Take Action
                 </h5>
                 <div>
                     {getIssueSolutions()}

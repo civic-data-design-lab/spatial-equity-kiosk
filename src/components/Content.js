@@ -4,6 +4,7 @@ import IssuesTileView from "./IssuesTileView";
 import CommunityRightColumn from "./CommunityRightColumn";
 import CommunityMiddleColumn from "./CommunityMiddleColumn";
 import About from "./About";
+import AboutMiddleColumn from "./AboutMiddleColumn";
 
 export default function Content({
                                     selectedChapter,
@@ -20,8 +21,10 @@ export default function Content({
                                     communities,
                                     demographic,
                                     setDemographic,
-    boundary,
-    setCommunitySearch, setCompareSearch
+                                    selectedAbout,
+                                    setSelectedAbout,
+                                    boundary,
+                                    setCommunitySearch, setCompareSearch
                                 }) {
 
 
@@ -29,7 +32,7 @@ export default function Content({
         <div className={"col-9 d-flex flex-row"}>
 
             <div
-                className={`middle-column h-100 ${(selectedChapter === 2) || (selectedChapter === 3 && communitySearch && showMap) ? "col-4 no-top-border" : selectedChapter === 3 && communitySearch && !showMap ? "col-6" : "collapsed-middle-column"}`}>
+                className={`middle-column h-100 ${(selectedChapter === 2 || selectedChapter === 4) || (selectedChapter === 3 && communitySearch && showMap) ? "col-4 no-top-border" : selectedChapter === 3 && communitySearch && !showMap ? "col-6" : "collapsed-middle-column"}`}>
                 {((selectedChapter === 2) || (selectedChapter === 3 && communitySearch && showMap)) &&
                     <IssuesMiddleColumn
                         selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue} issues={issues}
@@ -43,6 +46,8 @@ export default function Content({
                     selectedSpecificIssue={selectedSpecificIssue} issues={issues}
                     communities={communities} setSelectedSpecificIssue={setSelectedSpecificIssue}
                 />}
+
+                {selectedChapter === 4 && <AboutMiddleColumn selectedAbout={selectedAbout} setSelectedAbout={setSelectedAbout}/>}
 
             </div>
 
@@ -69,13 +74,9 @@ export default function Content({
                     showToggle={showToggle}
                     selectedIssue={selectedIssue} selectedChapter={selectedChapter}
                     boundary={boundary} demographic={demographic}
-
-
-
-
                 />}
 
-                {selectedChapter === 4 && <About issues={issues}/>}
+                {selectedChapter === 4 && <About issues={issues} selectedAbout={selectedAbout}/>}
 
             </div>
 
