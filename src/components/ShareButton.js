@@ -49,23 +49,19 @@ export default function ShareButton({
     }
 
 
-    useEffect(() => {
-        if (showMap) {
-            setClicked(false)
-        }
-    })
 
 
     return (
         <>
             <div className={"share"}>
                 <small className={"m-0"}>Share</small>
-                <div
-                    onClick={() => {
-                        setClicked(!clicked)
-                    }}
-                >
-                    <FontAwesomeIcon icon={faSquareShareNodes} className={"fa-2x"}/>
+                <div>
+                    <FontAwesomeIcon icon={faSquareShareNodes} color={"black"} className={"fa-2x"}
+                                     onClick={(e)=>{
+                                         e.preventDefault()
+                                         console.log("clicked share")
+
+                                         setClicked(!clicked)}}/>
                 </div>
             </div>
             <div className={`${clicked ? "" : "d-none"} position-absolute share-icons`}>

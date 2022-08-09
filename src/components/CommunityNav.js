@@ -85,13 +85,13 @@ export default function CommunityNav({
     return (
         <div className={"community-nav-container d-flex flex-column justify-content-between h-100"}>
             <div className={"position-relative"}>
-                <CommunitySearchBar toggleValue={communitySearch}
+                <CommunitySearchBar toggleValue={communities[communitySearch].bolded_text}
                                     communitySearch={communitySearch}
                                     callBack={setCommunitySearch}>
                     {getSearchItems(communities, true)}
                 </CommunitySearchBar>
 
-                <CommunitySearchBar toggleValue={compareSearch}
+                <CommunitySearchBar toggleValue={communities[compareSearch].bolded_text}
                                     communitySearch={communitySearch}
                                     callBack={setCompareSearch}>
                     {getSearchItems(communities, false)}

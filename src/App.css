@@ -634,6 +634,7 @@ a:active {
     flex-direction: row;
     align-items: center;
     row-gap: 1.5rem;
+    z-index: 3;
 }
 
 
