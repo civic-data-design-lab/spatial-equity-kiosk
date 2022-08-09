@@ -1,19 +1,18 @@
-import Reach, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
-
-import CommunityProfile from "./CommunityProfile";
 import IssueProfile from "./IssuesProfile";
 import ShareButton from "./ShareButton";
 import MapToggle from "./MapToggle";
-import React from "react";
 
 export default function CommunityRightColumn({
                                                  communitySearch,
                                                  compareSearch,
                                                  selectedSpecificIssue,
                                                  issues,
-                                                 showMap, setShowMap, showToggle
+                                                 showMap, setShowMap, showToggle,
+                                                 selectedIssue, selectedChapter,
+                                                 boundary, demographic
                                              }) {
 
     useEffect(() => {
@@ -39,7 +38,16 @@ export default function CommunityRightColumn({
                     <div className={"issues-tile-header"}>
                         <div className={"toggle-share-container"}>
                             <div id={"share-container"}>
-                                <ShareButton showMap={showMap}/>
+                                <ShareButton showMap={showMap}
+                                             communitySearch={communitySearch}
+                                             compareSearch={compareSearch}
+                                             selectedSpecificIssue={selectedSpecificIssue}
+                                             issues={issues}
+                                             setShowMap={setShowMap}
+                                             showToggle={showToggle}
+                                             selectedIssue={selectedIssue} selectedChapter={selectedChapter}
+                                             boundary={boundary} demographic={demographic}
+                                />
                             </div>
                             <div id={"toggle-container"}>
                                 <MapToggle showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}/>

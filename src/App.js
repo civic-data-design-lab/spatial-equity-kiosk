@@ -27,8 +27,6 @@ const communities = _COMMUNITIES
 
 function App() {
 
-    const [open, setOpen] = useState(true);
-    const [whichOnTop, setWhichOnTop] = useState(2)
     const [showMap, setShowMap] = useState(false)
     const [showToggle, setShowToggle] = useState(false)
     const [selectedChapter, setSelectedChapter] = useState(null)
@@ -45,13 +43,46 @@ function App() {
         const queryParams = new URLSearchParams(location.search);
         for (let pair of queryParams.entries()) {
             console.log("pairs ", pair)
+            switch (pair[0]) {
+                case "showMap":
+                    setShowMap(pair[1] === "true")
+                    break;
+                case "showToggle":
+                    setShowToggle(pair[1] === "true")
+                    break;
+                case "selectedChapter":
+                    setSelectedChapter(parseInt(pair[1]))
+                    break;
+                case "selectedIssue":
+                    setSelectedIssue(parseInt(pair[1]))
+                    break;
+                case "selectedSpecificIssue":
+                    setSelectedSpecificIssue(parseInt(pair[1]))
+                    break;
+                case "communitySearch":
+                    setCommunitySearch(pair[1])
+                    break
+                case "compareSearch":
+                    setCompareSearch(pair[1])
+                    break
+                case "boundary":
+                    setBoundary(pair[1])
+                    break
+                case "demographic":
+                    setDemographic(pair[1])
+                    break
+            }
+
         }
-    })
+
+        console.log("byee")
+        console.log("set compareSearch ", compareSearch)
+    }, [])
 
 
 
     useEffect(() => {
-        console.log("selectedChapter ", selectedChapter)
+        /*console.log("selectedChapter ", selectedChapter)
         console.log("selectedIssue ", selectedIssue)
         console.log("selectedSpecficIssue ", selectedSpecificIssue)
         console.log("showMap ", showMap)
@@ -61,25 +92,26 @@ function App() {
         console.log("boundary ", boundary)
         console.log("-------------------------------------------")
 
-       /* if (!selectedSpecificIssue) {
+       /!* if (!selectedSpecificIssue) {
             setSelectedIssue(1)
             setSelectedSpecificIssue(1)
         }
 
         if (!selectedSpecificIssue) {
             setSelectedSpecificIssue(1)
-        }*/
+        }*!/
+
+        console.log("hiii")*/
 
         if (selectedSpecificIssue && selectedChapter > 1) {
             setShowToggle(true)
         }
 
-        if (!communitySearch) {
-            setCompareSearch(null)
-        }
+
 
 
     })
+
 
     useEffect(()=>{
         if (selectedSpecificIssue) {
@@ -111,6 +143,8 @@ function App() {
                  setSelectedSpecificIssue={setSelectedSpecificIssue}
 
             />
+
+
             <Content selectedChapter={selectedChapter} issues={issues}
                      selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue}
                      selectedSpecificIssue={selectedSpecificIssue} setSelectedSpecificIssue={setSelectedSpecificIssue}

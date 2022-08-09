@@ -13,13 +13,13 @@ export default function CommunityNav({
                                          setCompareSearch
                                      }) {
 
-    const [addCompare, setAddCompare] = useState(false)
 
-    useEffect(() => {
+    useEffect(()=>{
         if (!communitySearch) {
-            setAddCompare(false)
+            setCompareSearch(null)
         }
     })
+
 
 
     const getSearchItems = (communities, forSearch) => {

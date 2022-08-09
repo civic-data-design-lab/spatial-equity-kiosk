@@ -1,11 +1,53 @@
 import React, {useEffect, useState} from "react"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSquareFacebook, faTwitter, faInstagram, faLinkedinIn} from "@fortawesome/free-brands-svg-icons";
+import {faInstagram, faLinkedinIn, faSquareFacebook, faTwitter} from "@fortawesome/free-brands-svg-icons";
 import {faCopy, faSquareShareNodes} from "@fortawesome/free-solid-svg-icons";
 
-export default function ShareButton({showMap}) {
+export default function ShareButton({
+                                        showMap,
+                                        communitySearch,
+                                        compareSearch,
+                                        selectedSpecificIssue,
+                                        issues,
+                                        setShowMap,
+                                        showToggle,
+                                        selectedIssue, selectedChapter,
+                                        boundary, demographic
+                                    }) {
 
     const [clicked, setClicked] = useState(false)
+
+    /*    const props = [showMap, showToggle, communitySearch, compareSearch,
+             selectedChapter, selectedIssue, selectedSpecificIssue, boundary, demographic].filter((prop)=>prop!==null)
+        console.log("props ", props)*/
+
+
+    const copyURL = () => {
+        const params = []
+
+        if (showMap !== null) params.push(`showMap=${showMap.toString()}`)
+        if (showToggle !== null) params.push(`showToggle=${showToggle.toString()}`)
+        if (communitySearch !== null) params.push(`communitySearch=${communitySearch}`)
+        if (compareSearch !== null) params.push(`compareSearch=${compareSearch}`)
+        if (selectedChapter !== null) params.push(`selectedChapter=${selectedChapter.toString()}`)
+        if (selectedIssue !== null) params.push(`selectedIssue=${selectedIssue.toString()}`)
+        if (selectedSpecificIssue !== null) params.push(`selectedSpecificIssue=${selectedSpecificIssue.toString()}`)
+        if (boundary !== null) params.push(`boundary=${boundary.toString()}`)
+        if (demographic !== null) params.push(`demographic=${demographic.toString()}`)
+
+        let path = window.location.href.split('?')[0]
+        path = path.concat("?")
+        params.map((param) => {
+            path = path.concat("&", param)
+        })
+        console.log(path)
+
+        navigator.clipboard.writeText(path)
+
+        // let elt = document.getElementById("copy-url")
+        // elt.textContent = path;
+    }
+
 
     useEffect(() => {
         if (showMap) {
@@ -31,8 +73,10 @@ export default function ShareButton({showMap}) {
                 <FontAwesomeIcon icon={faTwitter}/>
                 <FontAwesomeIcon icon={faInstagram}/>
                 <FontAwesomeIcon icon={faLinkedinIn}/>
-                <FontAwesomeIcon icon={faCopy}/>
+                <FontAwesomeIcon icon={faCopy} onClick={copyURL}/>
             </div>
+
+            {/*<div className={"d-none pe-none position-absolute"} id={"copy-url"}/>*/}
 
         </>
     )

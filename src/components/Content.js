@@ -20,6 +20,7 @@ export default function Content({
                                     communities,
                                     demographic,
                                     setDemographic,
+    boundary,
     setCommunitySearch, setCompareSearch
                                 }) {
 
@@ -52,6 +53,10 @@ export default function Content({
                 {selectedChapter === 2 && <IssuesTileView
                     selectedSpecificIssue={selectedSpecificIssue} issues={issues}
                     showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}
+                    selectedIssue={selectedIssue} selectedChapter={selectedChapter}
+                    communitySearch={communitySearch} compareSearch={compareSearch}
+                    boundary={boundary} demographic={demographic}
+
                 />}
 
                 {selectedChapter === 3 && <CommunityRightColumn
@@ -62,6 +67,11 @@ export default function Content({
                     showMap={showMap}
                     setShowMap={setShowMap}
                     showToggle={showToggle}
+                    selectedIssue={selectedIssue} selectedChapter={selectedChapter}
+                    boundary={boundary} demographic={demographic}
+
+
+
 
                 />}
 

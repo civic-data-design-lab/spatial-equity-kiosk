@@ -3,7 +3,14 @@ import MapToggle from "./MapToggle";
 import ShareButton from "./ShareButton";
 import IssueProfile from "./IssuesProfile";
 
-export default function IssuesTileView({selectedSpecificIssue, issues, showToggle, showMap, setShowMap}) {
+export default function IssuesTileView({
+                                           selectedSpecificIssue,
+                                           issues, showToggle,
+                                           showMap, setShowMap,
+                                           selectedIssue, selectedChapter,
+                                           communitySearch, compareSearch,
+                                           boundary, demographic
+                                       }) {
 
     const [expand, setExpand] = useState(false)
 
@@ -23,7 +30,17 @@ export default function IssuesTileView({selectedSpecificIssue, issues, showToggl
                     <div className={"issues-tile-header"}>
                         <div className={"toggle-share-container"}>
                             <div id={"share-container"}>
-                                <ShareButton showMap={showMap}/>
+                                <ShareButton
+                                    showMap={showMap}
+                                    communitySearch={communitySearch}
+                                    compareSearch={compareSearch}
+                                    selectedSpecificIssue={selectedSpecificIssue}
+                                    issues={issues}
+                                    setShowMap={setShowMap}
+                                    showToggle={showToggle}
+                                    selectedIssue={selectedIssue} selectedChapter={selectedChapter}
+                                    boundary={boundary} demographic={demographic}
+                                />
                             </div>
                             <div id={"toggle-container"}>
                                 <MapToggle showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}/>

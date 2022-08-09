@@ -16,7 +16,10 @@ export default function IssuesTags({
     const [moreIssuesLength, setMoreIssuesLength] = useState(0)
 
     useEffect(() => {
-        // console.log("more issues ", moreIssues)
+        if (selectedSpecificIssue && !leastPerforming.includes(selectedSpecificIssue)) {
+            setMoreIssues([selectedSpecificIssue])
+            setMoreIssuesLength(1)
+        }
     }, [])
 
 

@@ -8,20 +8,20 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
     const [showDropdownItems, setShowDropdownItems] = useState(false)
     const [toggleText, setToggleText] = useState("Select an issue to explore")
 
-    useEffect(() => {
 
+
+    useEffect(() => {
         let changed = false
+        console.log("items ", items)
         items.map((item) => {
             if (item.specific_issue_ID === currentValue) {
                 setToggleText(item.specific_issue_name)
                 changed = true
             }
         })
-
         if (!changed) {
             setToggleText("Select an issue to explore")
         }
-
     })
 
     return (
