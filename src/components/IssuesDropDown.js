@@ -3,6 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 
 
+
 export default function IssuesDropDown({currentValue = null, items, setValue = null, setShowDemographics}) {
 
     const [showDropdownItems, setShowDropdownItems] = useState(false)
@@ -26,7 +27,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
     return (
         <>
 
-            <div className={"dropdown-container"}
+            <div className={"dropdown-container mb-3"}
             >
                 <div className={"dropdown-bar d-flex flex-row justify-content-between align-items-center mb-0"}
                      onMouseDown={() => {

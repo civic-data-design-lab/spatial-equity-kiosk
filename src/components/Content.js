@@ -25,7 +25,8 @@ export default function Content({
                                     boundary,
                                     setCommunitySearch, setCompareSearch,
                                     showDemographics, setShowDemographics,
-    moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength
+    moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength, councils,
+    mapDemographics, setMapDemographics
                                 }) {
 
 
@@ -41,6 +42,8 @@ export default function Content({
                         setSelectedSpecificIssue={setSelectedSpecificIssue} demographic={demographic} setDemographic={setDemographic}
                         communitySearch={communitySearch} compareSearch={compareSearch}
                         showDemographics={showDemographics} setShowDemographics={setShowDemographics}
+                        mapDemographics={mapDemographics} setMapDemographics={setMapDemographics} boundary={boundary}
+                        communities={communities} councils={councils}
                     />}
 
                 {selectedChapter === 3 && <CommunityMiddleColumn
@@ -48,6 +51,7 @@ export default function Content({
                     selectedSpecificIssue={selectedSpecificIssue} issues={issues}
                     communities={communities} setSelectedSpecificIssue={setSelectedSpecificIssue}
                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
+                    boundary={boundary} councils={councils}
                 />}
 
 

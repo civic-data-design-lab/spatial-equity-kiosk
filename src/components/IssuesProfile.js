@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
 import Table from "react-bootstrap/Table";
 
-export default function IssueProfile({issues, selectedSpecificIssue, rankingProse = false}) {
+export default function IssueProfile({issues, selectedSpecificIssue, rankingProse = false, boundary}) {
 
     const [expand, setExpand] = useState(false)
 
@@ -30,16 +30,18 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
                 <h5 className={"issues-tile-heading bold"}>
                     Worst {getIssueName()} by District
                 </h5>
-                <div>
+                <div className={"small-font"}>
                     <Table bordered>
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Data Layers</th>
-                            <th>Source</th>
+                            <th>{boundary.charAt(0).toUpperCase() + boundary.slice(1)} District</th>
+                            <th>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_name} {issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}</th>
                         </tr>
                         </thead>
                         <tbody>
+
+                        {/*TODO: populate chart with ranking data*/}
                         {issues.all_issues_id.slice(0, 5).map((id, index) => {
                             return <tr key={index}>
                                 <td>{issues.specific_issues_data[id].specific_issue_ID}</td>

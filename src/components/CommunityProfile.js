@@ -8,7 +8,8 @@ export default function CommunityProfile({
                                              communities,
                                              communitySearch,
                                              setSelectedSpecificIssue,
-                                             compareSearch, setMoreIssues, moreIssuesLength, moreIssues, setMoreIssuesLength
+                                             compareSearch, setMoreIssues, moreIssuesLength, moreIssues, setMoreIssuesLength,
+                                             boundary, councils
                                          }) {
 
 
@@ -21,14 +22,15 @@ export default function CommunityProfile({
             <div className={"issues-tile-header"}></div>
             {!compareSearch ? <>
                     <div className={"standard-padding"}>
-                        {<h5 className={"mb-3"}>Topic of Interests - {communities[communitySearch].bolded_text}</h5>}
+                        {<h5 className={"mb-3"}>Topic of Interests - {boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text}</h5>}
                         <p className={"mt-3"}>A few sentences on how these topics of interest were selected. A few sentences
                             on
                             how these topics of interest were selected. </p>
 
 
                         <div className={"d-flex flex-column row-gap"}>
-                            {communities[communitySearch].least_performing_issues.map((issue, index) => {
+                            {boundary === "community" ?
+                                communities[communitySearch].least_performing_issues.map((issue, index) => {
                                 return <div
                                     key={index}
                                     className={selectedSpecificIssue && selectedSpecificIssue !== issue ? "opacity-50" : ""}>
@@ -36,16 +38,28 @@ export default function CommunityProfile({
                                                 setSelectedSpecificIssue={setSelectedSpecificIssue}
                                                 issues={issues} specificIssue={issue} setModal={setModal}/>
                                 </div>
-                            })}
+                            }) :
+                                councils[communitySearch].least_performing_issues.map((issue, index) => {
+                                return <div
+                                    key={index}
+                                    className={selectedSpecificIssue && selectedSpecificIssue !== issue ? "opacity-50" : ""}>
+                                    <IssuesCard selectedSpecificIssue={selectedSpecificIssue}
+                                                setSelectedSpecificIssue={setSelectedSpecificIssue}
+                                                issues={issues} specificIssue={issue} setModal={setModal}/>
+                                </div>
+                            })
+
+                            }
                         </div>
                     </div>
 
                     <div className={"standard-padding"}>
                         <h5 className={"mb-3"}>More Issues</h5>
 
-                        <IssuesTags issues={issues} leastPerforming={communities[communitySearch].least_performing_issues}
-                                    communities={communities} setSelectedSpecificIssue={setSelectedSpecificIssue}
+                        <IssuesTags issues={issues} leastPerforming={boundary === "community" ? communities[communitySearch].least_performing_issues : councils[communitySearch].least_performing_issues}
+                                    setSelectedSpecificIssue={setSelectedSpecificIssue}
                                     selectedSpecificIssue={selectedSpecificIssue}
+                                    councils={councils}
                                     setModal={setModal}
                                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
                         />
@@ -56,13 +70,13 @@ export default function CommunityProfile({
                 <>
                     <div className={"standard-padding"}>
                         {<h5 className={"mb-3"}>Topic of Interests
-                            - {communities[communitySearch].bolded_text} & {communities[compareSearch].bolded_text}</h5>}
+                            - {boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text} & {boundary === "community" ? communities[compareSearch].bolded_text : councils[compareSearch].bolded_text}</h5>}
                         <p className={"mt-3"}>A few sentences on how these topics of interest were selected. A few
                             sentences on
                             how these topics of interest were selected. </p>
 
                         <IssuesTags issues={issues}
-                                    leastPerforming={communities[communitySearch].least_performing_issues}
+                                    leastPerforming={boundary === "community" ? communities[communitySearch].least_performing_issues : councils[communitySearch].least_performing_issues}
                                     communities={communities} setSelectedSpecificIssue={setSelectedSpecificIssue}
                                     selectedSpecificIssue={selectedSpecificIssue}
                                     setModal={setModal}

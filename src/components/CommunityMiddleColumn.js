@@ -10,7 +10,7 @@ export default function CommunityMiddleColumn({
                                                   selectedSpecificIssue,
                                                   communities,
                                                   setSelectedSpecificIssue,
-    moreIssuesLength, setMoreIssues, moreIssues, setMoreIssuesLength
+    moreIssuesLength, setMoreIssues, moreIssues, setMoreIssuesLength, boundary, councils
                                               }) {
     return (
         <>
@@ -19,6 +19,7 @@ export default function CommunityMiddleColumn({
                                                   setSelectedSpecificIssue={setSelectedSpecificIssue}
                                                   compareSearch={compareSearch}
                                                   moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
+                                                  boundary={boundary} councils={councils}
             />}
         </>
 

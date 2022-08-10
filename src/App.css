@@ -905,6 +905,21 @@ a:active {
     border: 1px solid white;
 }
 
+.form-check-input:checked {
+    background-color: black !important;
+    border-color: black !important;
+    border-color: black !important;
+}
+
+.form-check-input[type=checkbox] {
+    border-radius: 0 !important;
+}
+
+.form-check-input:focus {
+    border: 1px solid black !important;
+    box-shadow: 0 0 0 !important;
+}
+
 
 
 

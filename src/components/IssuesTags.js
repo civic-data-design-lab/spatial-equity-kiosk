@@ -11,7 +11,7 @@ export default function IssuesTags({
                                        setModal,
                                        moreIssues,
                                        setMoreIssues,
-                                       moreIssuesLength, setMoreIssuesLength
+                                       moreIssuesLength, setMoreIssuesLength, boundary, councils
                                    }) {
 
 

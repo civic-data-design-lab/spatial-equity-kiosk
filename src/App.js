@@ -11,14 +11,16 @@ import Content from "./components/Content";
 import Map from "./components/Map"
 
 
-import _ISSUE_CATEGORIES from "./texts/issue_categories.json"
+import _ISSUE_CATEGORIES from "./texts/issue_categories.json";
 import _ISSUES from "./texts/issues.json";
 import _COMMUNITIES from "./texts/communities.json";
+import _COUNCILS from "./texts/councildistricts.json";
 
 
-const issue_categories = _ISSUE_CATEGORIES
+const issue_categories = _ISSUE_CATEGORIES;
 const issues = _ISSUES;
-const communities = _COMMUNITIES
+const communities = _COMMUNITIES;
+const councils = _COUNCILS;
 
 
 function App() {
@@ -30,12 +32,13 @@ function App() {
     const [selectedSpecificIssue, setSelectedSpecificIssue] = useState(null)
     const [communitySearch, setCommunitySearch] = useState(null);
     const [compareSearch, setCompareSearch] = useState(null);
-    const [boundary, setBoundary] = useState("community");
+    const [boundary, setBoundary] = useState("council");
     const [demographic, setDemographic] = useState(null);
     const [selectedAbout, setSelectedAbout] = useState(null)
     const [showDemographics, setShowDemographics] = useState(null);
     const [moreIssues, setMoreIssues] = useState([]);
     const [moreIssuesLength, setMoreIssuesLength] = useState(0);
+    const [mapDemographics, setMapDemographics] = useState(false)
 
     const location = useLocation();
 
@@ -137,7 +140,12 @@ function App() {
         if (selectedSpecificIssue && selectedChapter > 1) {
             setShowToggle(true)
         }
+
+        if (selectedChapter === 3 && !communitySearch) {
+            setShowMap(false)
+        }
     })
+
 
 
     useEffect(() => {
@@ -163,6 +171,9 @@ function App() {
                  setCompareSearch={setCompareSearch}
                  setShowMap={setShowMap}
                  setSelectedSpecificIssue={setSelectedSpecificIssue}
+                 councils={councils}
+                 setMoreIssues={setMoreIssues}
+                 setMoreIssuesLength={setMoreIssuesLength}
 
             />
 
@@ -182,6 +193,7 @@ function App() {
                      showDemographics={showDemographics} setShowDemographics={setShowDemographics}
                      moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength}
                      setMoreIssuesLength={setMoreIssuesLength}
+                     councils={councils} mapDemographics={mapDemographics} setMapDemographics={setMapDemographics}
             />
 
             <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>

@@ -10,7 +10,8 @@ export default function CommunityNav({
                                          communities, communitySearch,
                                          compareSearch,
                                          setCommunitySearch,
-                                         setCompareSearch
+                                         setCompareSearch,
+                                         boundary, councils
                                      }) {
 
 
@@ -22,11 +23,17 @@ export default function CommunityNav({
 
 
 
-    const getSearchItems = (communities, forSearch) => {
+    const getSearchItems = (forSearch, boundary) => {
         let searchItems = []
-        switch (forSearch) {
+        let boundaryData
+        if (boundary === "community") {
+            boundaryData = communities
+        } else {
+            boundaryData = councils
+        }
+            switch (forSearch) {
             case true:
-                for (let [key, value] of Object.entries(communities)) {
+                for (let [key, value] of Object.entries(boundaryData)) {
                     if (key !== compareSearch) {
                         searchItems.push(
                             <div key={key}
@@ -55,7 +62,7 @@ export default function CommunityNav({
                 }
                 break;
             case false:
-                for (let [key, value] of Object.entries(communities)) {
+                for (let [key, value] of Object.entries(boundaryData)) {
                     if (key !== communitySearch) {
                         searchItems.push(
                             <div key={key}
@@ -77,24 +84,24 @@ export default function CommunityNav({
                         )
                     }
                 }
-
         }
+
         return searchItems
     }
 
     return (
         <div className={"community-nav-container d-flex flex-column justify-content-between h-100"}>
             <div className={"position-relative"}>
-                <CommunitySearchBar toggleValue={communitySearch ? communities[communitySearch].bolded_text : null}
+                <CommunitySearchBar toggleValue={communitySearch ? (boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text) : null}
                                     communitySearch={communitySearch}
                                     callBack={setCommunitySearch}>
-                    {getSearchItems(communities, true)}
+                    {getSearchItems(true, boundary)}
                 </CommunitySearchBar>
 
-                <CommunitySearchBar toggleValue={compareSearch ? communities[compareSearch].bolded_text : null}
+                <CommunitySearchBar toggleValue={compareSearch ? (boundary === "community" ? communities[compareSearch].bolded_text : councils[compareSearch].bolded_text ) : null}
                                     communitySearch={communitySearch}
                                     callBack={setCompareSearch}>
-                    {getSearchItems(communities, false)}
+                    {getSearchItems(false, boundary)}
                 </CommunitySearchBar>
 
 
@@ -104,7 +111,7 @@ export default function CommunityNav({
 
                 {communitySearch && !compareSearch &&
                     <p className={"m-0 community-description"}><span
-                            className={"underline"}>{communities[communitySearch].bolded_text}</span> {communities[communitySearch].description}
+                            className={"underline"}>{boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text}</span> {boundary === "community" ? communities[communitySearch].description : councils[communitySearch].description}
                     </p>
                 }
 
@@ -114,19 +121,19 @@ export default function CommunityNav({
                     <Slider>
                         <div>
                             <p className={"m-0 community-description"}><span
-                            className={"underline"}>{communities[communitySearch].bolded_text}</span> {communities[communitySearch].description}
+                            className={"underline"}>{boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text}</span> {boundary ==="community" ? communities[communitySearch].description : councils[communitySearch].description}
                             </p>
                             <p className={"m-0 small-font"}>
-                                Neighborhoods: {communities[communitySearch].remaining_text}
+                                Neighborhoods: {boundary === "community" ? communities[communitySearch].remaining_text : councils[communitySearch].remaining_text}
                             </p>
                         </div>
 
                         <div>
                             <p className={"m-0 community-description"}><span
-                            className={"underline"}>{communities[compareSearch].bolded_text}</span> {communities[compareSearch].description}
+                            className={"underline"}>{boundary === "community" ? communities[compareSearch].bolded_text : councils[compareSearch].bolded_text}</span> {boundary ==="community" ? communities[compareSearch].description : councils[compareSearch].description}
                             </p>
                             <p className={"m-0 small-font"}>
-                                Neighborhoods: {communities[compareSearch].remaining_text}
+                                Neighborhoods: {boundary === "community" ? communities[compareSearch].remaining_text : councils[compareSearch].remaining_text}
                             </p>
                         </div>
                     </Slider>

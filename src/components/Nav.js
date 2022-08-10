@@ -20,7 +20,8 @@ function Nav({
                  setCommunitySearch,
                  setCompareSearch,
                  setShowMap,
-
+                 councils,
+                 setMoreIssues, setMoreIssuesLength
              }) {
 
 
@@ -32,6 +33,8 @@ function Nav({
                  onClick={() => {
                      setSelectedIssue(null)
                      setSelectedSpecificIssue(null)
+                     setMoreIssuesLength(0)
+                     setMoreIssues([])
                      if (selectedChapter !== 1) {
                          setSelectedChapter(1)
                          setShowMap(false)
@@ -73,6 +76,8 @@ function Nav({
                      setShowMap(false)
                      setSelectedIssue(null)
                      setSelectedSpecificIssue(null)
+                     setMoreIssuesLength(0)
+                     setMoreIssues([])
                      if (selectedChapter !== 2) {
                          setSelectedChapter(2)
                      } else {
@@ -97,7 +102,7 @@ function Nav({
                 <div
                     className={`${selectedChapter === 2 && selectedIssue ? "nav-chapters-content-expanded" : ""} h-100 nav-chapters-content d-flex flex-column justify-content-between`}>
                     <div className={`${selectedChapter === 2 ? "" : "no-pointer"}`}>
-                        <BoundaryToggle boundary={boundary} setBoundary={setBoundary}/>
+                        <BoundaryToggle boundary={boundary} setBoundary={setBoundary} setCompareSearch={setCompareSearch} setCommunitySearch={setCommunitySearch}/>
                     </div>
                     <div className={"no-pointer"}>
                         <p className={"bold"}>{issue_categories.labels[selectedIssue]}</p>
@@ -134,11 +139,11 @@ function Nav({
                 <div
                     className={`${selectedChapter === 3 ? "nav-chapters-content-expanded" : ""} h-100 nav-chapters-content d-flex flex-column`}>
                     <div className={`${selectedChapter === 3 ? "" : "no-pointer"}`}>
-                        <BoundaryToggle boundary={boundary} setBoundary={setBoundary}/>
+                        <BoundaryToggle boundary={boundary} setBoundary={setBoundary} setCompareSearch={setCompareSearch} setCommunitySearch={setCommunitySearch}/>
                     </div>
                     <CommunityNav communities={communities} communitySearch={communitySearch}
                                   compareSearch={compareSearch} setCommunitySearch={setCommunitySearch}
-                                  setCompareSearch={setCompareSearch}/>
+                                  setCompareSearch={setCompareSearch} boundary={boundary} councils={councils}/>
                 </div>
             </div>
 
@@ -148,6 +153,8 @@ function Nav({
                  onClick={() => {
                      setSelectedIssue(null)
                      setSelectedSpecificIssue(null)
+                     setMoreIssuesLength(0)
+                     setMoreIssues([])
                      if (selectedChapter !== 4) {
                          setSelectedChapter(4)
                          setShowMap(false)

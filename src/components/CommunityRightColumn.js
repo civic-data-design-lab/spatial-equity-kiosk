@@ -59,7 +59,7 @@ export default function CommunityRightColumn({
                     </div>
                     <div className={"standard-padding overflow-scroll"}>
                         <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue}
-                                      rankingProse={true}/>
+                                      rankingProse={true} boundary={boundary}/>
                     </div>
                 </div>}
 

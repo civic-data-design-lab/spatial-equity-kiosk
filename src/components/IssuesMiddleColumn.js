@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import IssuesDropDown from "./IssuesDropDown";
 import Demographics from "./Demographics";
 import Legend from "./Legend";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
+import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
 
 export default function IssuesMiddleColumn({
@@ -14,7 +14,9 @@ export default function IssuesMiddleColumn({
                                                setSelectedSpecificIssue,
                                                demographic, setDemographic,
                                                communitySearch, compareSearch,
-                                               showDemographics, setShowDemographics
+                                               showDemographics, setShowDemographics,
+                                               mapDemographics, setMapDemographics, boundary,
+                                               communities, councils
 
                                            }) {
 
@@ -37,25 +39,26 @@ export default function IssuesMiddleColumn({
         })
 
         if (possible_keys.includes(selectedSpecificIssue)) {
-            return <p className={"mt-3"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
+            return <p
+                className={"mt-3"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
 
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         if (!selectedSpecificIssue) {
             setShowDemographics(false)
             setDemographic(null)
         }
     })
 
-/*    useEffect(() => {
-        console.log("in use effect")
-        if (!selectedSpecificIssue) {
-            setShowDemographics(false)
-            console.log(showDemographics)
-        }
-    }, [selectedSpecificIssue])*/
+    /*    useEffect(() => {
+            console.log("in use effect")
+            if (!selectedSpecificIssue) {
+                setShowDemographics(false)
+                console.log(showDemographics)
+            }
+        }, [selectedSpecificIssue])*/
 
 
     return (
@@ -215,8 +218,8 @@ export default function IssuesMiddleColumn({
                     }
                 }}>
                 <div className={'d-flex flex-row justify-content-between align-items-center'}>
-                    <h5 className={`${showDemographics ? 'mb-0' : 'mb-0'}`}>Demographics</h5>
-                    {showDemographics ? <FontAwesomeIcon icon={faChevronUp}/> : <FontAwesomeIcon icon={faChevronDown}/>}
+                    <h5 className={`${showDemographics ? 'mb-0' : 'mb-0'}`}>{showDemographics ? "Hide Demographics" : "Show Demographics"}</h5>
+                    {showDemographics ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}
                 </div>
                 <h5 className={`${!selectedIssue ? "vis" : "invis"}`}>Demographics imperdiet dui accumsan sit amet. Diam
                     donec adipiscing.</h5>
@@ -224,10 +227,12 @@ export default function IssuesMiddleColumn({
             <div className={`${showDemographics ? 'expand-issue' : ''} accordion-body`}>
                 <div className={"h-100 position-relative"}>
                     <Demographics currentValue={demographic} setValue={setDemographic}
-                                          selectedSpecificIssue={selectedSpecificIssue}
-                                          setShowDemographics={setShowDemographics} showDemographics={showDemographics}
-                                          communitySearch={communitySearch} compareSearch={compareSearch}
-                            />
+                                  selectedSpecificIssue={selectedSpecificIssue}
+                                  setShowDemographics={setShowDemographics} showDemographics={showDemographics}
+                                  communitySearch={communitySearch} compareSearch={compareSearch}
+                                  mapDemographics={mapDemographics} setMapDemographics={setMapDemographics}
+                                  boundary={boundary} communities={communities} councils={councils}
+                    />
 
                 </div>
 
