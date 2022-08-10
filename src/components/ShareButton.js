@@ -25,27 +25,9 @@ export default function ShareButton({
 
 
     const copyURL = () => {
-        const params = []
 
-        if (showMap !== null) params.push(`showMap=${showMap.toString()}`)
-        if (showToggle !== null) params.push(`showToggle=${showToggle.toString()}`)
-        if (communitySearch !== null) params.push(`communitySearch=${communitySearch}`)
-        if (compareSearch !== null) params.push(`compareSearch=${compareSearch}`)
-        if (selectedChapter !== null) params.push(`selectedChapter=${selectedChapter.toString()}`)
-        if (selectedIssue !== null) params.push(`selectedIssue=${selectedIssue.toString()}`)
-        if (selectedSpecificIssue !== null) params.push(`selectedSpecificIssue=${selectedSpecificIssue.toString()}`)
-        if (boundary !== null) params.push(`boundary=${boundary.toString()}`)
-        if (demographic !== null) params.push(`demographic=${demographic.toString()}`)
-        if (moreIssues.length>0) params.push(`moreIssues=[${moreIssues.toString()}]`)
-        params.push(`showDemographics=${showDemographics.toString()}`)
 
-        let path = window.location.href.split('?')[0]
-        path = path.concat("?")
-        params.map((param) => {
-            path = path.concat("&", param)
-        })
-
-        navigator.clipboard.writeText(path)
+        navigator.clipboard.writeText(window.location.href)
 
         // let elt = document.getElementById("copy-url")
         // elt.textContent = path;

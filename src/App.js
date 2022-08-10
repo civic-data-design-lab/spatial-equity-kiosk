@@ -83,6 +83,8 @@ function App() {
                     setMoreIssuesLength(JSON.parse(pair[1]).map((item) => {
                         return parseInt(item)
                     }).length)
+                case "mapDemographics":
+                    setMapDemographics(pair[1] === "true")
             }
         }
     }, [])
@@ -123,6 +125,7 @@ function App() {
         if (demographic !== null) params.push(`demographic=${demographic.toString()}`)
         if (moreIssues.length>0) params.push(`moreIssues=[${moreIssues.toString()}]`)
         if (showDemographics !== null) params.push(`showDemographics=${showDemographics.toString()}`)
+        if (mapDemographics !== null) params.push(`mapDemographics=${mapDemographics.toString()}`)
 
         let path = window.location.href.split('?')[0]
         path = path.concat("?")
