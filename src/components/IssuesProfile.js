@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
+import Table from "react-bootstrap/Table";
 
 export default function IssueProfile({issues, selectedSpecificIssue, rankingProse = false}) {
 
@@ -30,19 +31,38 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
                     Worst {getIssueName()} by District
                 </h5>
                 <div>
-                    <div className={"issues-tile-first-rankings ranking-chart small-text"}>
-                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
-                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
-                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
-                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
-                    </div>
+                    <Table bordered>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Data Layers</th>
+                            <th>Source</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {issues.all_issues_id.slice(0, 5).map((id, index) => {
+                            return <tr key={index}>
+                                <td>{issues.specific_issues_data[id].specific_issue_ID}</td>
+                                <td>{issues.specific_issues_data[id].specific_issue_name}</td>
+                                <td>{issues.specific_issues_data[id].specific_issue_source}</td>
+                            </tr>
+                        })}
 
-                    <div className={`${expand ? "issues-tile-ranking-vis" : "issues-tile-ranking-invis"} ranking-chart small-text`}>
-                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
-                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
-                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
-                        <p className={"m-0"}>59th</p> <p className={"m-0"}>Community District 1</p> <p className={"m-0"}>Data 1</p>
-                    </div>
+
+                                {expand && issues.all_issues_id.slice(5).map((id, index) => {
+
+                                    return <tr key={index}>
+                                        <td>{issues.specific_issues_data[id].specific_issue_ID}</td>
+                                        <td>{issues.specific_issues_data[id].specific_issue_name}</td>
+                                        <td>{issues.specific_issues_data[id].specific_issue_source}</td>
+                                    </tr>
+
+                                }
+
+                            )}
+
+                        </tbody>
+                    </Table>
 
                     <div className={"d-flex flex-row justify-content-center ranking-button"}
                          onClick={() => {
