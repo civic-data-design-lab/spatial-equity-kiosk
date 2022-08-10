@@ -207,7 +207,6 @@ function Nav({
                         <button className={`${selectedChapter !== 4 ? "pe-none" : ""} about-button`}
                                 onClick={(e) => {
                                     e.stopPropagation()
-                                    console.log("clicked")
                                 }}
                         ><small>Stay Tuned</small></button>
                     </div>

@@ -44,7 +44,6 @@ export default function ShareButton({
                     <FontAwesomeIcon icon={faSquareShareNodes} color={"black"} className={"fa-2x"}
                                      onClick={(e)=>{
                                          e.preventDefault()
-                                         console.log("clicked share")
 
                                          setClicked(!clicked)}}/>
                 </div>
