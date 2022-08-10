@@ -1,15 +1,16 @@
+import { useState, useCallback } from "react";
 import DeckGL from "@deck.gl/react";
-import { PolygonLayer } from "@deck.gl/layers";
-import { ScreenGridLayer } from "@deck.gl/aggregation-layers";
 import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
-import { Map, LogoControl } from "react-map-gl";
-import { GeoJsonLayer } from "@deck.gl/layers";
-import { scaleThreshold, scaleLinear } from "d3-scale";
+import { Map } from "react-map-gl";
+import { GeoJsonLayer, TextLayer } from "@deck.gl/layers";
+import { scaleThreshold, scaleQuantile } from "d3-scale";
+import { DataFilterExtension, MaskExtension } from "@deck.gl/extensions";
 import { max } from "d3-array";
 
 import _NEIGHBORHOODS from "../data/neighborhood_tabulation.json";
 import _DISTRICTS from "../data/council_districts.geojson";
 import _NYC_POVERTY from "../data/poverty_points_light.json";
+import _NEIGHBORHOOD_NAMES from "../data/neighborhood_names.json";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 // Set your mapbox access token here
@@ -25,61 +26,54 @@ const INITIAL_VIEW_STATE = {
   latitude: 40.7131,
   zoom: 10,
   minZoom: 10,
-  maxZoom: 12.5,
+  maxZoom: 13,
   pitch: 0,
   bearing: 0,
 };
 
-//used for wireframe - ignore
-// const INITIAL_VIEW_STATE = {
-//   longitude: -73.9405,
-//   latitude: 40.77,
-//   zoom: 13.5,
-//   minZoom: 10,
-//   pitch: 0,
-//   bearing: 0,
-// };
-
-const colorRange = [
-  [55, 40, 45, 30],
-  [120, 45, 45, 155],
-  [220, 45, 45],
-  [114, 64, 128],
-  [28, 27, 128],
-  [0, 0, 0],
-];
-
-const COLOR_SCALE = scaleThreshold()
-  // .domain([0, 0.3, 0.5, 0.7, 0.75, 0.8, 0.85, 0.9, 1]) //unequal bins
-  .domain([0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]) //equal bins with shifted basepoint
-  .range([
-    [103, 0, 31],
-    [152, 0, 67],
-    [206, 18, 86],
-    [231, 41, 138],
-    [201, 148, 199],
-    [223, 101, 176],
-    [212, 185, 218],
-    [231, 225, 239],
-    [247, 244, 249],
-    [0, 0, 0, 0], //null item
-  ]);
+const value_list = [];
+const binSize = 5;
+const binCount = 10;
+const bin_list = [];
 
 //  ---------------------------------------------------------------------------------------------------------------------
-// Example - feel free to delete after familiarizing yourself with color ramps
 // // get array of car free values
-// const value_list = [];
-// for (let i = 0; i < _NEIGHBORHOODS.features.length; i++) {
-//   value_list.push(_NEIGHBORHOODS.features[i].properties.F__car_fre);
-// }
 
-// // D3 remap values into linear color domain
-// const COLOR_SCALE = scaleLinear()
-//   .domain([0, max(value_list)])
+for (let i = 0; i < _NEIGHBORHOODS.features.length; i++) {
+  let floatValue = parseFloat(_NEIGHBORHOODS.features[i].properties.F__car_fre);
+  if (isNaN(floatValue) === false) {
+    value_list.push(floatValue);
+  }
+}
+
+for (let i = 0; i < binSize; i++) {
+  let threshold = (max(value_list) / binSize) * (i + 1);
+  bin_list.push(Math.round(threshold * 100) / 100);
+}
+
+console.log(bin_list);
+
+// const COLOR_SCALE = scaleThreshold()
+//   .domain(bin_list)
 //   .range([
-//     [0, 0, 0],
-//     [255, 255, 255],
+//     [233, 50, 128],
+//     [230, 87, 149],
+//     [237, 109, 159],
+//     [244, 151, 192],
+//     [248, 198, 220],
+//     [0, 0, 0, 0], //null item
 //   ]);
+
+// console.log(value_list);
+const COLOR_SCALE = scaleQuantile()
+  .domain(value_list)
+  .range([
+    [233, 50, 128],
+    [230, 87, 149],
+    [237, 109, 159],
+    [244, 151, 192],
+    [248, 198, 220],
+  ]);
 // ---------------------------------------------------------------------------------------------------------------------
 
 const ambientLight = new AmbientLight({
@@ -93,34 +87,39 @@ const pointLight = new PointLight({
   position: [-74.05, 40.7, 8000],
 });
 
-const lightingEffect = new LightingEffect({ ambientLight, pointLight });
-
-const material = {
-  ambient: 0.1,
-  diffuse: 0.6,
-  shininess: 32,
-  specularColor: [60, 64, 70],
-};
-
-const theme = {
-  buildingColor: [74, 80, 87],
-  material,
-  effects: [lightingEffect],
-};
+const dataFilter = new DataFilterExtension({
+  filterSize: 1,
+  // Enable for higher precision, e.g. 1 second granularity
+  // See DataFilterExtension documentation for how to pick precision
+  fp64: false,
+});
 
 export default function App({}) {
+  //   ---------------------------------------------------------------------------------------------------------------------
+  // 5 bin color ramp
+  const [colorBins, setColorBins] = useState([]);
+  const [zoomOpacity, setZoomOpacity] = useState(1);
+  // ---------------------------------------------------------------------------------------------------------------------
+
   const layers = [
     new GeoJsonLayer({
       id: "neighborhoods",
       data: _NEIGHBORHOODS.features,
       stroked: true,
       filled: true,
-      getFillColor: (f) => COLOR_SCALE(f.properties.F__car_fre),
+      getFillColor: (f) =>
+        f.properties.F__car_fre === "#DIV/0!"
+          ? [0, 0, 0, 0]
+          : COLOR_SCALE(f.properties.F__car_fre),
       lineWidthUnits: "pixels",
       getLineColor: [0, 0, 0, 255],
-      getLineWidth: 2,
-      opacity: 0.33,
+      getLineWidth: 0,
+      opacity: 1,
+
+      // interactivity
       pickable: true,
+      autoHighlight: true,
+      highlightColor: [235, 255, 0, 225],
       onClick: (info) => {
         console.log(_NEIGHBORHOODS.features[info.index].properties.NTAName);
         console.log(_NEIGHBORHOODS.features[info.index].properties.F__car_fre);
@@ -140,14 +139,41 @@ export default function App({}) {
       lineWidthUnits: "meters",
       getLineWidth: 50,
       lineWidthMinPixels: 1,
-      pickable: true,
-      autoHighlight: true,
-      highlightColor: [235, 255, 0, 225],
-      onHover: (info) => {
-        // console.log(info);
-      },
+      // pickable: true,
+      // onHover: (info) => {
+      //   // console.log(info);
+      // },
+    }),
+
+    new TextLayer({
+      id: "neighborhood-names",
+      data: _NEIGHBORHOOD_NAMES.features,
+      characterSet: "auto",
+      sizeUnits: "meters",
+      fontFamily: "Roboto",
+      fontWeight: "1000",
+      getColor: (d) => [255, 255, 255, 255],
+      getText: (d) => d.properties.NTAName.toUpperCase(),
+      getPosition: (x) => x.geometry.coordinates,
+      getSize: (d) => 75,
+      // wordBreak: "break-all",
+      maxWidth: 600,
+      background: true,
+      getBackgroundColor: [0, 0, 0],
+      backgroundPadding: [3, 3],
+      opacity: zoomOpacity,
     }),
   ];
+
+  const onViewStateChange = useCallback(({ viewState }) => {
+    console.log(viewState.zoom);
+    console.log(zoomOpacity);
+    if (viewState.zoom > 12.25) {
+      setZoomOpacity(1);
+    } else {
+      setZoomOpacity(0);
+    }
+  }, []);
 
   return (
     <DeckGL
@@ -155,6 +181,7 @@ export default function App({}) {
       controller={true}
       layers={layers}
       getCursor={() => "crosshair"}
+      onViewStateChange={onViewStateChange}
     >
       <Map
         reuseMaps
