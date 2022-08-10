@@ -166,8 +166,6 @@ export default function App({}) {
   ];
 
   const onViewStateChange = useCallback(({ viewState }) => {
-    console.log(viewState.zoom);
-    console.log(zoomOpacity);
     if (viewState.zoom > 12.25) {
       setZoomOpacity(1);
     } else {
