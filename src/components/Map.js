@@ -80,7 +80,7 @@ for (let i = 0; i < binSize; i++) {
   bin_list.push(Math.round(threshold * 100) / 100);
 }
 
-const COLOR_SCALE = scaleThreshold().domain(bin_list).range(envRamp);
+const COLOR_SCALE = scaleThreshold().domain(bin_list).range(healthRamp);
 
 // ---------------------------------------------------------------------------------------------------------------------
 
