@@ -3,34 +3,12 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInstagram, faLinkedinIn, faSquareFacebook, faTwitter} from "@fortawesome/free-brands-svg-icons";
 import {faCopy, faSquareShareNodes} from "@fortawesome/free-solid-svg-icons";
 
-export default function ShareButton({
-                                        showMap,
-                                        communitySearch,
-                                        compareSearch,
-                                        selectedSpecificIssue,
-                                        issues,
-                                        setShowMap,
-                                        showToggle,
-                                        selectedIssue, selectedChapter,
-                                        boundary, demographic,
-                                        showDemographics,
-                                        moreIssues
-                                    }) {
+export default function ShareButton({}) {
 
     const [clicked, setClicked] = useState(false)
 
-    /*    const props = [showMap, showToggle, communitySearch, compareSearch,
-             selectedChapter, selectedIssue, selectedSpecificIssue, boundary, demographic].filter((prop)=>prop!==null)
-        console.log("props ", props)*/
-
-
     const copyURL = () => {
-
-
         navigator.clipboard.writeText(window.location.href)
-
-        // let elt = document.getElementById("copy-url")
-        // elt.textContent = path;
     }
 
 
@@ -60,6 +38,8 @@ export default function ShareButton({
                                  onClick={
                                      () => {
                                          setClicked(false)
+                                         const currentURL = window.location.href;
+                                         window.open(`https://twitter.com/intent/tweet?text=@twitter look at this:&url=${currentURL}`)
                                      }
                                  }
                 />
@@ -85,9 +65,6 @@ export default function ShareButton({
                     }
                 }/>
             </div>
-
-            {/*<div className={"d-none pe-none position-absolute"} id={"copy-url"}/>*/}
-
         </>
     )
 }

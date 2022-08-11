@@ -23,6 +23,7 @@ const communities = _COMMUNITIES;
 const councils = _COUNCILS;
 
 
+
 function App() {
 
     const [showMap, setShowMap] = useState(false)
@@ -46,44 +47,44 @@ function App() {
         const queryParams = new URLSearchParams(location.search);
         for (let pair of queryParams.entries()) {
             switch (pair[0]) {
-                case "showMap":
+                case "swM":
                     setShowMap(pair[1] === "true")
                     break;
-                case "showToggle":
+                case "swT":
                     setShowToggle(pair[1] === "true")
                     break;
-                case "selectedChapter":
+                case "sdC":
                     setSelectedChapter(parseInt(pair[1]))
                     break;
-                case "selectedIssue":
+                case "sdI":
                     setSelectedIssue(parseInt(pair[1]))
                     break;
-                case "selectedSpecificIssue":
+                case "sdS":
                     setSelectedSpecificIssue(parseInt(pair[1]))
                     break;
-                case "communitySearch":
+                case "ctS":
                     setCommunitySearch(pair[1])
                     break;
-                case "compareSearch":
+                case "cpS":
                     setCompareSearch(pair[1])
                     break;
-                case "boundary":
+                case "b":
                     setBoundary(pair[1])
                     break;
-                case "demographic":
+                case "d":
                     setDemographic(pair[1])
                     break;
-                case "showDemographics":
+                case "swD":
                     setShowDemographics(pair[1] === "true")
                     break;
-                case "moreIssues":
+                case "mI":
                     setMoreIssues(JSON.parse(pair[1]).map((item) => {
                         return parseInt(item)
                     }))
                     setMoreIssuesLength(JSON.parse(pair[1]).map((item) => {
                         return parseInt(item)
                     }).length)
-                case "mapDemographics":
+                case "mD":
                     setMapDemographics(pair[1] === "true")
             }
         }
@@ -114,18 +115,18 @@ function App() {
 
         const params = []
 
-        if (showMap !== null) params.push(`showMap=${showMap.toString()}`)
-        if (showToggle !== null) params.push(`showToggle=${showToggle.toString()}`)
-        if (communitySearch !== null) params.push(`communitySearch=${communitySearch}`)
-        if (compareSearch !== null) params.push(`compareSearch=${compareSearch}`)
-        if (selectedChapter !== null) params.push(`selectedChapter=${selectedChapter.toString()}`)
-        if (selectedIssue !== null) params.push(`selectedIssue=${selectedIssue.toString()}`)
-        if (selectedSpecificIssue !== null) params.push(`selectedSpecificIssue=${selectedSpecificIssue.toString()}`)
-        if (boundary !== null) params.push(`boundary=${boundary.toString()}`)
-        if (demographic !== null) params.push(`demographic=${demographic.toString()}`)
-        if (moreIssues.length>0) params.push(`moreIssues=[${moreIssues.toString()}]`)
-        if (showDemographics !== null) params.push(`showDemographics=${showDemographics.toString()}`)
-        if (mapDemographics !== null) params.push(`mapDemographics=${mapDemographics.toString()}`)
+        if (showMap !== null) params.push(`swM=${showMap.toString()}`)
+        if (showToggle !== null) params.push(`swT=${showToggle.toString()}`)
+        if (communitySearch !== null) params.push(`ctS=${communitySearch}`)
+        if (compareSearch !== null) params.push(`cpS=${compareSearch}`)
+        if (selectedChapter !== null) params.push(`sdC=${selectedChapter.toString()}`)
+        if (selectedIssue !== null) params.push(`sdI=${selectedIssue.toString()}`)
+        if (selectedSpecificIssue !== null) params.push(`sdS=${selectedSpecificIssue.toString()}`)
+        if (boundary !== null) params.push(`b=${boundary.toString()}`)
+        if (demographic !== null) params.push(`d=${demographic.toString()}`)
+        if (moreIssues.length>0) params.push(`mI=[${moreIssues.toString()}]`)
+        if (showDemographics !== null) params.push(`swD=${showDemographics.toString()}`)
+        if (mapDemographics !== null) params.push(`mD=${mapDemographics.toString()}`)
 
         let path = window.location.href.split('?')[0]
         path = path.concat("?")
