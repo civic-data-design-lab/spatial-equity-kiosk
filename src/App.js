@@ -40,6 +40,7 @@ function App() {
     const [moreIssues, setMoreIssues] = useState([]);
     const [moreIssuesLength, setMoreIssuesLength] = useState(0);
     const [mapDemographics, setMapDemographics] = useState(false)
+    const [addCompare, setAddCompare] = useState(false)
 
     const location = useLocation();
 
@@ -84,8 +85,13 @@ function App() {
                     setMoreIssuesLength(JSON.parse(pair[1]).map((item) => {
                         return parseInt(item)
                     }).length)
+                    break;
                 case "mD":
                     setMapDemographics(pair[1] === "true")
+                    break;
+                case "aC":
+                    setAddCompare(pair[1]==="true")
+                    break;
             }
         }
     }, [])
@@ -127,6 +133,7 @@ function App() {
         if (moreIssues.length>0) params.push(`mI=[${moreIssues.toString()}]`)
         if (showDemographics !== null) params.push(`swD=${showDemographics.toString()}`)
         if (mapDemographics !== null) params.push(`mD=${mapDemographics.toString()}`)
+        if (addCompare !== null) params.push(`aC=${addCompare.toString()}`)
 
         let path = window.location.href.split('?')[0]
         path = path.concat("?")
@@ -141,7 +148,7 @@ function App() {
             window.location.assign(path);
         }
 
-        if (selectedSpecificIssue && selectedChapter > 1) {
+        if ((selectedChapter === 3 && communitySearch) || (selectedChapter === 2)) {
             setShowToggle(true)
         }
 
@@ -178,6 +185,7 @@ function App() {
                  councils={councils}
                  setMoreIssues={setMoreIssues}
                  setMoreIssuesLength={setMoreIssuesLength}
+                 addCompare={addCompare} setAddCompare={setAddCompare}
 
             />
 

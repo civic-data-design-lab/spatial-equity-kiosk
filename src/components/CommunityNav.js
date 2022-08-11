@@ -11,10 +11,11 @@ export default function CommunityNav({
                                          compareSearch,
                                          setCommunitySearch,
                                          setCompareSearch,
-                                         boundary, councils
+                                         boundary, councils,
+                                         addCompare, setAddCompare
                                      }) {
 
-    const [addCompare, setAddCompare] = useState(false)
+
 
 
     useEffect(() => {

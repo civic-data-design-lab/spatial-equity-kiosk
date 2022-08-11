@@ -2,6 +2,9 @@ import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretRight} from "@fortawesome/free-solid-svg-icons";
 import Table from 'react-bootstrap/Table';
+import {default as _CDDL} from "../img/cddl_logo.svg";
+import {default as _LCAU} from "../img/Logo_LCAU logo .svg"
+import {default as _MIT} from "../img/MIT-logo-black54x28.svg"
 
 
 export default function About({issues, selectedAbout}) {
@@ -254,6 +257,12 @@ export default function About({issues, selectedAbout}) {
                                     design, to new audiences. </p>
 
                                 <p> Civic Data Design Lab Team: </p>
+                            </div>
+
+                            <div className={"d-flex flex-row align-items-center col-gap"}>
+                                    <img src={_CDDL} height={30}/>
+                                    <img src={_LCAU} height={50}/>
+                                    <img src={_MIT} height={30}/>
                             </div>
 
 
