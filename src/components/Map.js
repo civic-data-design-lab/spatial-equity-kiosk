@@ -2,15 +2,16 @@ import { useState, useCallback } from "react";
 import DeckGL from "@deck.gl/react";
 import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
 import { Map } from "react-map-gl";
-import { GeoJsonLayer, TextLayer } from "@deck.gl/layers";
+import { GeoJsonLayer, TextLayer, ScatterplotLayer } from "@deck.gl/layers";
 import { scaleThreshold, scaleQuantile } from "d3-scale";
-import { DataFilterExtension, MaskExtension } from "@deck.gl/extensions";
+import { MaskExtension } from "@deck.gl/extensions";
 import { max } from "d3-array";
 
-import _NEIGHBORHOODS from "../data/neighborhood_tabulation.json";
+import _NEIGHBORHOODS from "../data/nta_scores.json";
 import _DISTRICTS from "../data/council_districts.geojson";
-import _NYC_POVERTY from "../data/poverty_points_light.json";
+// import _NYC_POVERTY from "../data/poverty_points_light.json";
 import _NEIGHBORHOOD_NAMES from "../data/neighborhood_names.json";
+import _ETHNICITY from "../data/ethnicity.json";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 // Set your mapbox access token here
@@ -20,86 +21,94 @@ const mapStyle = "mapbox://styles/mitcivicdata/cl6fa3jro002d14qxp2nu9wng"; //ton
 // const mapStyle = "mapbox://styles/mitcivicdata/cl6f8enp0001x14rrqcztxlxv"; //toon
 // const mapStyle = "mapbox://styles/mitcivicdata/cl6f9a8b0002b14qx1hs0ehq6"; //grey natural
 
-// Viewport settings
+// Map Viewport settings
+const zoomMin = 10.5;
+const zoomMax = 13;
+
 const INITIAL_VIEW_STATE = {
   longitude: -73.9,
   latitude: 40.7131,
   zoom: 10,
-  minZoom: 10,
-  maxZoom: 13,
+  minZoom: zoomMin,
+  maxZoom: zoomMax,
   pitch: 0,
   bearing: 0,
 };
 
-const value_list = [];
+const rampValues = [];
 const binSize = 5;
-const binCount = 10;
 const bin_list = [];
 
 //  ---------------------------------------------------------------------------------------------------------------------
-// // get array of car free values
 
 for (let i = 0; i < _NEIGHBORHOODS.features.length; i++) {
-  let floatValue = parseFloat(_NEIGHBORHOODS.features[i].properties.F__car_fre);
+  let floatValue = parseFloat(_NEIGHBORHOODS.features[i].properties.F18_AsthmR);
   if (isNaN(floatValue) === false) {
-    value_list.push(floatValue);
+    rampValues.push(floatValue);
   }
 }
 
+// color ramps
+// health pink
+const healthRamp = [
+  [248, 198, 220],
+  [244, 151, 192],
+  [237, 109, 159],
+  [230, 87, 149],
+  [233, 50, 128],
+];
+const envRamp = [
+  [187, 241, 209],
+  [129, 228, 170],
+  [97, 210, 143],
+  [59, 172, 105],
+  [23, 159, 78],
+];
+
+const infraRamp = [
+  [166, 202, 240],
+  [128, 178, 233],
+  [91, 157, 227],
+  [55, 135, 221],
+  [20, 111, 209],
+];
+// const COLOR_SCALE = scaleQuantile().domain(rampValues).range(healthRamp);
+
+// // get array of car free values
+
 for (let i = 0; i < binSize; i++) {
-  let threshold = (max(value_list) / binSize) * (i + 1);
+  let threshold = (max(rampValues) / binSize) * (i + 1);
   bin_list.push(Math.round(threshold * 100) / 100);
 }
-
 console.log(bin_list);
+const COLOR_SCALE = scaleThreshold().domain(bin_list).range(healthRamp);
 
-// const COLOR_SCALE = scaleThreshold()
-//   .domain(bin_list)
-//   .range([
-//     [233, 50, 128],
-//     [230, 87, 149],
-//     [237, 109, 159],
-//     [244, 151, 192],
-//     [248, 198, 220],
-//     [0, 0, 0, 0], //null item
-//   ]);
-
-// console.log(value_list);
-const COLOR_SCALE = scaleQuantile()
-  .domain(value_list)
-  .range([
-    [233, 50, 128],
-    [230, 87, 149],
-    [237, 109, 159],
-    [244, 151, 192],
-    [248, 198, 220],
-  ]);
 // ---------------------------------------------------------------------------------------------------------------------
 
-const ambientLight = new AmbientLight({
-  color: [255, 255, 255],
-  intensity: 1.0,
-});
-
-const pointLight = new PointLight({
-  color: [255, 255, 255],
-  intensity: 2.0,
-  position: [-74.05, 40.7, 8000],
-});
-
-const dataFilter = new DataFilterExtension({
-  filterSize: 1,
-  // Enable for higher precision, e.g. 1 second granularity
-  // See DataFilterExtension documentation for how to pick precision
-  fp64: false,
-});
-
 export default function App({}) {
-  //   ---------------------------------------------------------------------------------------------------------------------
-  // 5 bin color ramp
-  const [colorBins, setColorBins] = useState([]);
-  const [zoomOpacity, setZoomOpacity] = useState(1);
-  // ---------------------------------------------------------------------------------------------------------------------
+  // map hooks
+  const [zoomToggle, setzoomToggle] = useState(1);
+  const [zoomRamp, setzoomRamp] = useState(1);
+  const [colorRamp, setcolorRamp] = useState(1);
+
+  // changes on map move or zoom
+  const onViewStateChange = useCallback(({ viewState }) => {
+    // ramp in/out based on zoom level
+    const ramp =
+      0 + ((viewState.zoom - zoomMin) * (0.85 - 0)) / (zoomMax - zoomMin);
+    setzoomRamp(ramp);
+
+    const cRamp =
+      0 + ((viewState.zoom - zoomMin) * (175 - 0)) / (zoomMax - zoomMin);
+    setcolorRamp([50, 50, 50, cRamp]); // set color ramp to cRamp value
+
+    // toggle based on zoom level
+    if (viewState.zoom > 12.5) {
+      setzoomToggle(1);
+    } else {
+      setzoomToggle(0);
+    }
+  }, []);
 
   const layers = [
     new GeoJsonLayer({
@@ -108,23 +117,23 @@ export default function App({}) {
       stroked: true,
       filled: true,
       getFillColor: (f) =>
-        f.properties.F__car_fre === "#DIV/0!"
+        // f.properties.F18_AsthmR === "#DIV/0!"
+        isNaN(parseFloat(f.properties.F18_AsthmR))
           ? [0, 0, 0, 0]
-          : COLOR_SCALE(f.properties.F__car_fre),
+          : COLOR_SCALE(f.properties.F18_AsthmR),
       lineWidthUnits: "pixels",
-      getLineColor: [0, 0, 0, 255],
-      getLineWidth: 0,
-      opacity: 1,
+      getLineColor: colorRamp,
+      getLineWidth: 2,
+      opacity: 0.85,
 
       // interactivity
-      pickable: true,
-      autoHighlight: true,
-      highlightColor: [235, 255, 0, 225],
       onClick: (info) => {
         console.log(_NEIGHBORHOODS.features[info.index].properties.NTAName);
-        console.log(_NEIGHBORHOODS.features[info.index].properties.F__car_fre);
         console.log(
-          COLOR_SCALE(_NEIGHBORHOODS.features[info.index].properties.F__car_fre)
+          parseFloat(_NEIGHBORHOODS.features[info.index].properties.F18_AsthmR)
+        );
+        console.log(
+          COLOR_SCALE(_NEIGHBORHOODS.features[info.index].properties.F18_AsthmR)
         );
       },
     }),
@@ -139,10 +148,26 @@ export default function App({}) {
       lineWidthUnits: "meters",
       getLineWidth: 50,
       lineWidthMinPixels: 1,
-      // pickable: true,
-      // onHover: (info) => {
-      //   // console.log(info);
-      // },
+      pickable: true,
+      autoHighlight: true,
+      highlightColor: [217, 255, 0, 215],
+    }),
+
+    new ScatterplotLayer({
+      id: "ethnicity",
+      data: _ETHNICITY.features,
+      stroked: false,
+      filled: true,
+      radiusScale: 6,
+      radiusMinPixels: 1,
+      radiusMaxPixels: 100,
+      lineWidthMinPixels: 1,
+      getPosition: (d) => d.geometry.coordinates,
+      getRadius: 5,
+      // getFillColor: (d) => d.properties.ethnicity,
+      getFillColor: (d) =>
+        d.properties.EthnicityCode === "1" ? [0, 0, 255] : [255, 0, 0],
+      // getFillColor: (d) => [0, 0, 0],
     }),
 
     new TextLayer({
@@ -161,22 +186,14 @@ export default function App({}) {
       background: true,
       getBackgroundColor: [0, 0, 0],
       backgroundPadding: [3, 3],
-      opacity: zoomOpacity,
+      opacity: zoomToggle,
     }),
   ];
-
-  const onViewStateChange = useCallback(({ viewState }) => {
-    if (viewState.zoom > 12.25) {
-      setZoomOpacity(1);
-    } else {
-      setZoomOpacity(0);
-    }
-  }, []);
 
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
-      controller={true}
+      controller={{ dragRotate: false }}
       layers={layers}
       getCursor={() => "crosshair"}
       onViewStateChange={onViewStateChange}
