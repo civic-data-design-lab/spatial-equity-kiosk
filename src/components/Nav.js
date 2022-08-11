@@ -95,7 +95,7 @@ function Nav({
                         <h5 className={"collapse-text"}>Explore Spatial Equity by</h5>
                     </div>
 
-                    <p className={`${selectedChapter && selectedChapter !== 2 ? "h5 m-0" : "h1"} transition-font`}>Issues in NYC</p>
+                    <p className={`${selectedChapter && selectedChapter !== 2 ? "h5 m-0" : "h1"} transition-font`}>Citywide Data</p>
                 </div>
 
 

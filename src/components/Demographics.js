@@ -16,10 +16,18 @@ export default function Demographics({
                                          boundary, communities, councils
                                      }) {
 
+
+    // TODO: update demographics drop down
     const demographics = {
         1: "Race & Ethnicity",
         2: "Poverty Level",
-        3: "Commute to Work"
+        3: "Bike to Work",
+        4: "Car-free",
+        5: "Take Public Transit to Work",
+        6: "Drive Alone to Work",
+        7: "Transit, Biked or Walked (Total)",
+        8: "Walk to Work"
+
     }
 
     const [showDropdownItems, setShowDropdownItems] = useState(false)

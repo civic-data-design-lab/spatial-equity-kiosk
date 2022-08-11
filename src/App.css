@@ -158,6 +158,9 @@ a:active {
     min-height: 0;
 }
 
+
+
+
 .nav-chapters:hover {
     background-color: black;
     outline: 1px solid white;
@@ -247,7 +250,7 @@ a:active {
 
 .dropdown-body {
     width: 100%;
-    max-height: 40vh;
+    max-height: 25vh;
     height: fit-content;
     overflow: auto;
     border-top: none;
@@ -596,6 +599,7 @@ a:active {
     border-block: 2px solid black;
     left: 50% !important;
     width: 50% !important;
+    height: 100% !important;
 }
 
 
@@ -903,6 +907,36 @@ a:active {
     background-color: black;
     color: white;
     border: 1px solid white;
+}
+
+.form-check-input:checked {
+    background-color: black !important;
+    border-color: black !important;
+    border-color: black !important;
+}
+
+.form-check-input[type=checkbox] {
+    border-radius: 0 !important;
+}
+
+.form-check-input:focus {
+    border: 1px solid black !important;
+    box-shadow: 0 0 0 !important;
+}
+
+.typewriter-container {
+    font-size: calc(1.325rem + .9vw);
+    font-weight: 500;
+}
+
+.Typewriter__wrapper {
+    text-decoration-line: underline !important;
+}
+
+/*TODO: print preview*/
+
+@media print{
+
 }
 
 

@@ -14,6 +14,7 @@ export default function IssuesTags({
                                        moreIssuesLength, setMoreIssuesLength, boundary, councils
                                    }) {
 
+    // TODO: all tags when communitySearch && compareSearch
 
 
 
