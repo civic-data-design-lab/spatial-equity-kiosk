@@ -11,7 +11,9 @@ export default function IssuesTags({
                                        setModal,
                                        moreIssues,
                                        setMoreIssues,
-                                       moreIssuesLength, setMoreIssuesLength, boundary, councils
+                                       setMoreIssuesLength,
+                                       compareSearch, communitySearch
+
                                    }) {
 
     // TODO: all tags when communitySearch && compareSearch
@@ -43,7 +45,9 @@ export default function IssuesTags({
             </div>}
 
 
-            <div className={"issue-tags-container"}>
+            {!(communitySearch && compareSearch) ?
+
+                <div className={"issue-tags-container"}>
                 {
                     issues.all_issues_id
                         .filter(id => !leastPerforming.includes(id))
@@ -78,7 +82,44 @@ export default function IssuesTags({
 
                 }
 
+            </div> :
+
+                <div className={"issue-tags-container"}>
+                {
+                    issues.all_issues_id
+                        .map((id, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className={`${moreIssues.includes(id) ? "active-tag" : "inactive-tag"} issues-tag col-gap`}
+
+                                    onClick={() => {
+                                        if (!moreIssues.includes(id)) {
+                                            let newMoreIssues = moreIssues
+                                            newMoreIssues.push(id)
+                                            setMoreIssues(newMoreIssues)
+                                            setMoreIssuesLength(moreIssues + 1)
+
+                                        } else {
+                                            let newMoreIssues = moreIssues
+                                            newMoreIssues = newMoreIssues.filter(issue => issue !== id)
+                                            setMoreIssues(newMoreIssues)
+                                            setMoreIssuesLength(moreIssues - 1)
+                                        }
+                                    }}
+                                >
+                                    <p className={"m-0"}>{issues.specific_issues_data[id].specific_issue_name}</p>
+                                    {moreIssues.includes(id) ? <FontAwesomeIcon icon={faMinus}/> :
+                                        <FontAwesomeIcon icon={faPlus}/>}
+                                </div>
+                            )
+                        })
+
+
+                }
+
             </div>
+            }
 
 
         </div>)

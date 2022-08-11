@@ -62,6 +62,7 @@ export default function CommunityProfile({
                                     councils={councils}
                                     setModal={setModal}
                                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
+                                    compareSearch={compareSearch} communitySearch={communitySearch}
                         />
 
                     </div>
@@ -81,6 +82,7 @@ export default function CommunityProfile({
                                     selectedSpecificIssue={selectedSpecificIssue}
                                     setModal={setModal}
                                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
+                                    compareSearch={compareSearch} communitySearch={communitySearch}
                         />
                     </div>
 
@@ -101,6 +103,7 @@ export default function CommunityProfile({
                                     setSelectedSpecificIssue={setSelectedSpecificIssue}
                                     issues={issues} specificIssue={modal} setModal={setModal}
                                     modalVersion={true}
+
                         />
                     </div>
                 </div>}
