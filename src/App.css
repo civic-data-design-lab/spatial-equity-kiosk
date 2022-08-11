@@ -90,13 +90,13 @@
 /* Scrollbar */
 /* width */
 ::-webkit-scrollbar {
-    width: 14px;
+    width: 12px;
   }
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: black;
-    border-radius: 7px;
+    /* border-radius: 7px; */
   }
   
   /* Handle on hover */
