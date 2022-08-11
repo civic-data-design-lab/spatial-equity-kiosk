@@ -18,7 +18,7 @@ export default function Legend({ issues, selectedSpecificIssue }) {
         </div>
       ) : (
         <div>
-          Asthma Rates/100,000 People
+          Age-Adjusted Asthma Rate per 10,000 Residents
           <div className={"placeholder-legend"}>
             <div style={{ color: "rgb(248, 198, 220)" }}>■</div>
             <div>0-66</div>

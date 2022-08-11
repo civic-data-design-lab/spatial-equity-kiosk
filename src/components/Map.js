@@ -8,7 +8,8 @@ import { MaskExtension } from "@deck.gl/extensions";
 import { max } from "d3-array";
 
 import _NEIGHBORHOODS from "../data/nta_scores.json";
-import _DISTRICTS from "../data/council_districts.geojson";
+import _DISTRICTS from "../data/council_districts.geojson"; //community districts
+import _CDTA from "../data/cdta.json"; //council districts
 // import _NYC_POVERTY from "../data/poverty_points_light.json";
 import _NEIGHBORHOOD_NAMES from "../data/neighborhood_names.json";
 import _ETHNICITY from "../data/ethnicity.json";
@@ -40,7 +41,7 @@ const binSize = 5;
 const bin_list = [];
 
 //  ---------------------------------------------------------------------------------------------------------------------
-
+// Create Color Scales
 for (let i = 0; i < _NEIGHBORHOODS.features.length; i++) {
   let floatValue = parseFloat(_NEIGHBORHOODS.features[i].properties.F18_AsthmR);
   if (isNaN(floatValue) === false) {
@@ -49,7 +50,6 @@ for (let i = 0; i < _NEIGHBORHOODS.features.length; i++) {
 }
 
 // color ramps
-// health pink
 const healthRamp = [
   [248, 198, 220],
   [244, 151, 192],
@@ -73,15 +73,14 @@ const infraRamp = [
   [20, 111, 209],
 ];
 // const COLOR_SCALE = scaleQuantile().domain(rampValues).range(healthRamp);
-
 // // get array of car free values
 
 for (let i = 0; i < binSize; i++) {
   let threshold = (max(rampValues) / binSize) * (i + 1);
   bin_list.push(Math.round(threshold * 100) / 100);
 }
-console.log(bin_list);
-const COLOR_SCALE = scaleThreshold().domain(bin_list).range(healthRamp);
+
+const COLOR_SCALE = scaleThreshold().domain(bin_list).range(envRamp);
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -116,11 +115,15 @@ export default function App({}) {
       data: _NEIGHBORHOODS.features,
       stroked: true,
       filled: true,
-      getFillColor: (f) =>
-        // f.properties.F18_AsthmR === "#DIV/0!"
-        isNaN(parseFloat(f.properties.F18_AsthmR))
-          ? [0, 0, 0, 0]
-          : COLOR_SCALE(f.properties.F18_AsthmR),
+      getFillColor: (f) => {
+        if (isNaN(parseFloat(f.properties.F18_AsthmR))) {
+          return [0, 0, 0, 0];
+        } else if (parseFloat(f.properties.F18_AsthmR) == 0) {
+          return [50, 50, 50, 0];
+        } else {
+          return COLOR_SCALE(f.properties.F18_AsthmR);
+        }
+      },
       lineWidthUnits: "pixels",
       getLineColor: colorRamp,
       getLineWidth: 2,
@@ -138,8 +141,64 @@ export default function App({}) {
       },
     }),
 
+    // new ScatterplotLayer({
+    //   id: "ethnicity",
+    //   data: _ETHNICITY.features,
+    //   stroked: false,
+    //   filled: true,
+    //   radiusScale: 6,
+    //   radiusMinPixels: 1,
+    //   radiusMaxPixels: 100,
+    //   lineWidthMinPixels: 1,
+    //   getPosition: (d) => d.geometry.coordinates,
+    //   getRadius: 3,
+    //   // opacity: 0.8 - zoomRamp,
+    //   // getFillColor: (d) => {
+    //   //   if (d.properties.EthnicityCode == "1") {
+    //   //     return [244, 133, 0, 255]; // hispanic
+    //   //   }
+    //   //   if (d.properties.EthnicityCode == "2") {
+    //   //     return [29, 168, 39, 255]; // white
+    //   //   }
+    //   //   if (d.properties.EthnicityCode == "3") {
+    //   //     return [80, 128, 234, 255]; // black
+    //   //   }
+    //   //   if (d.properties.EthnicityCode == "4") {
+    //   //     return [252, 186, 3, 255]; // indigenous
+    //   //   }
+    //   //   if (d.properties.EthnicityCode == "5") {
+    //   //     return [252, 75, 56, 255]; // asian
+    //   //   }
+    //   //   if (d.properties.EthnicityCode == "6") {
+    //   //     return [232, 91, 23]; // other
+    //   //   }
+    //   // },
+    //   getFillColor: (d) => {
+    //     let color;
+    //     switch (d.properties.EthnicityCode) {
+    //       case "1":
+    //         color = [244, 133, 0, 255]; // hispanic
+    //         break;
+    //       case "2":
+    //         return [29, 168, 39, 255]; // white
+    //         break;
+    //       case "3":
+    //         return [80, 128, 234, 255]; // black
+    //         break;
+    //       case "4":
+    //         return [252, 186, 3, 255]; // indigenous
+    //         break;
+    //       case "5":
+    //         return [252, 75, 56, 255]; // asian
+    //         break;
+    //     }
+    //     return color;
+    //   },
+    // }),
+
     new GeoJsonLayer({
       id: "council-districts",
+      data: _CDTA, //council districts
       data: _DISTRICTS,
       stroked: true,
       filled: true,
@@ -151,23 +210,6 @@ export default function App({}) {
       pickable: true,
       autoHighlight: true,
       highlightColor: [217, 255, 0, 215],
-    }),
-
-    new ScatterplotLayer({
-      id: "ethnicity",
-      data: _ETHNICITY.features,
-      stroked: false,
-      filled: true,
-      radiusScale: 6,
-      radiusMinPixels: 1,
-      radiusMaxPixels: 100,
-      lineWidthMinPixels: 1,
-      getPosition: (d) => d.geometry.coordinates,
-      getRadius: 5,
-      // getFillColor: (d) => d.properties.ethnicity,
-      getFillColor: (d) =>
-        d.properties.EthnicityCode === "1" ? [0, 0, 255] : [255, 0, 0],
-      // getFillColor: (d) => [0, 0, 0],
     }),
 
     new TextLayer({
