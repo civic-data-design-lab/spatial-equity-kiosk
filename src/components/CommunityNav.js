@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight, faPlus, faMinus} from "@fortawesome/free-solid-svg-icons";
 import Slider from "./Carousel";
 
 import CommunitySearchBar from "./CommunitySearchBar";
@@ -14,13 +14,14 @@ export default function CommunityNav({
                                          boundary, councils
                                      }) {
 
+    const [addCompare, setAddCompare] = useState(false)
 
-    useEffect(()=>{
+
+    useEffect(() => {
         if (!communitySearch) {
             setCompareSearch(null)
         }
     })
-
 
 
     const getSearchItems = (forSearch, boundary) => {
@@ -31,7 +32,7 @@ export default function CommunityNav({
         } else {
             boundaryData = councils
         }
-            switch (forSearch) {
+        switch (forSearch) {
             case true:
                 for (let [key, value] of Object.entries(boundaryData)) {
                     if (key !== compareSearch) {
@@ -92,17 +93,35 @@ export default function CommunityNav({
     return (
         <div className={"community-nav-container d-flex flex-column justify-content-between h-100"}>
             <div className={"position-relative"}>
-                <CommunitySearchBar toggleValue={communitySearch ? (boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text) : null}
-                                    communitySearch={communitySearch}
-                                    callBack={setCommunitySearch}>
+                <CommunitySearchBar
+                    toggleValue={communitySearch ? (boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text) : null}
+                    communitySearch={communitySearch}
+                    callBack={setCommunitySearch}>
                     {getSearchItems(true, boundary)}
                 </CommunitySearchBar>
 
-                <CommunitySearchBar toggleValue={compareSearch ? (boundary === "community" ? communities[compareSearch].bolded_text : councils[compareSearch].bolded_text ) : null}
-                                    communitySearch={communitySearch}
-                                    callBack={setCompareSearch}>
-                    {getSearchItems(false, boundary)}
-                </CommunitySearchBar>
+                {communitySearch && addCompare &&
+                    <CommunitySearchBar
+                        toggleValue={compareSearch ? (boundary === "community" ? communities[compareSearch].bolded_text : councils[compareSearch].bolded_text) : null}
+                        communitySearch={communitySearch}
+                        callBack={setCompareSearch}>
+                        {getSearchItems(false, boundary)}
+                    </CommunitySearchBar>
+                }
+
+                {communitySearch &&
+                    <div
+                    className={`${communitySearch ? "" : "d-none"} mt-3 add-community-btn d-flex flex-row align-items-center justify-content-between`}
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        setCompareSearch(null)
+                        setAddCompare(!addCompare)
+                    }}
+                >
+                        {!addCompare ? <p className={"m-0"}>Compare Communities</p> : <p className={"m-0"}>Remove Community</p>}
+                        {!addCompare ? <FontAwesomeIcon icon={faPlus} width={32}/> : <FontAwesomeIcon icon={faMinus} width={32}/>}
+                    </div>
+                }
 
 
             </div>
@@ -111,7 +130,7 @@ export default function CommunityNav({
 
                 {communitySearch && !compareSearch &&
                     <p className={"m-0 community-description"}><span
-                            className={"underline"}>{boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text}</span> {boundary === "community" ? communities[communitySearch].description : councils[communitySearch].description}
+                        className={"underline"}>{boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text}</span> {boundary === "community" ? communities[communitySearch].description : councils[communitySearch].description}
                     </p>
                 }
 
@@ -121,7 +140,7 @@ export default function CommunityNav({
                     <Slider>
                         <div>
                             <p className={"m-0 community-description"}><span
-                            className={"underline"}>{boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text}</span> {boundary ==="community" ? communities[communitySearch].description : councils[communitySearch].description}
+                                className={"underline"}>{boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text}</span> {boundary === "community" ? communities[communitySearch].description : councils[communitySearch].description}
                             </p>
                             <p className={"m-0 small-font"}>
                                 Neighborhoods: {boundary === "community" ? communities[communitySearch].remaining_text : councils[communitySearch].remaining_text}
@@ -130,7 +149,7 @@ export default function CommunityNav({
 
                         <div>
                             <p className={"m-0 community-description"}><span
-                            className={"underline"}>{boundary === "community" ? communities[compareSearch].bolded_text : councils[compareSearch].bolded_text}</span> {boundary ==="community" ? communities[compareSearch].description : councils[compareSearch].description}
+                                className={"underline"}>{boundary === "community" ? communities[compareSearch].bolded_text : councils[compareSearch].bolded_text}</span> {boundary === "community" ? communities[compareSearch].description : councils[compareSearch].description}
                             </p>
                             <p className={"m-0 small-font"}>
                                 Neighborhoods: {boundary === "community" ? communities[compareSearch].remaining_text : councils[compareSearch].remaining_text}
@@ -156,7 +175,7 @@ export default function CommunityNav({
                     }}
                 >
                     {!addCompare ? <FontAwesomeIcon icon={faPlus} width={32}/> :
-                        <FontAwesomeIcon icon={faMinus} width={32}/>}
+
                     <p className={"m-0"}>Compare Communities</p>
                 </div>*/}
             </div>
