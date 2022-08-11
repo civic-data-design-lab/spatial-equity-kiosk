@@ -35,54 +35,6 @@ const INITIAL_VIEW_STATE = {
   bearing: 0,
 };
 
-const rampValues = [];
-const binSize = 5;
-const bin_list = [];
-
-//  ---------------------------------------------------------------------------------------------------------------------
-// Create Color Scales
-for (let i = 0; i < _NEIGHBORHOODS.features.length; i++) {
-  let floatValue = parseFloat(_NEIGHBORHOODS.features[i].properties.F18_AsthmR);
-  if (isNaN(floatValue) === false) {
-    rampValues.push(floatValue);
-  }
-}
-
-// color ramps
-const healthRamp = [
-  [248, 198, 220],
-  [244, 151, 192],
-  [237, 109, 159],
-  [230, 87, 149],
-  [233, 50, 128],
-];
-const envRamp = [
-  [187, 241, 209],
-  [129, 228, 170],
-  [97, 210, 143],
-  [59, 172, 105],
-  [23, 159, 78],
-];
-
-const infraRamp = [
-  [166, 202, 240],
-  [128, 178, 233],
-  [91, 157, 227],
-  [55, 135, 221],
-  [20, 111, 209],
-];
-// const COLOR_SCALE = scaleQuantile().domain(rampValues).range(healthRamp);
-// // get array of car free values
-
-for (let i = 0; i < binSize; i++) {
-  let threshold = (max(rampValues) / binSize) * (i + 1);
-  bin_list.push(Math.round(threshold * 100) / 100);
-}
-
-const COLOR_SCALE = scaleThreshold().domain(bin_list).range(healthRamp);
-
-// ---------------------------------------------------------------------------------------------------------------------
-
 export default function App({
   selectedIssue,
   selectedSpecificIssue,
@@ -91,6 +43,68 @@ export default function App({
   mapDemographics,
   demographic,
 }) {
+  //select issue
+  const rampValues = [];
+  const binSize = 5;
+  const bin_list = [];
+
+  //  ---------------------------------------------------------------------------------------------------------------------
+  // Create Color Scales
+  for (let i = 0; i < _NEIGHBORHOODS.features.length; i++) {
+    let floatValue = parseFloat(
+      _NEIGHBORHOODS.features[i].properties.F18_AsthmR
+    );
+    if (isNaN(floatValue) === false) {
+      rampValues.push(floatValue);
+    }
+  }
+
+  for (let i = 0; i < binSize; i++) {
+    let threshold = (max(rampValues) / binSize) * (i + 1);
+    bin_list.push(Math.round(threshold * 100) / 100);
+  }
+
+  // color ramps
+  const healthRamp = [
+    [248, 198, 220],
+    [244, 151, 192],
+    [237, 109, 159],
+    [230, 87, 149],
+    [233, 50, 128],
+  ];
+  const envRamp = [
+    [187, 241, 209],
+    [129, 228, 170],
+    [97, 210, 143],
+    [59, 172, 105],
+    [23, 159, 78],
+  ];
+  const infraRamp = [
+    [166, 202, 240],
+    [128, 178, 233],
+    [91, 157, 227],
+    [55, 135, 221],
+    [20, 111, 209],
+  ];
+
+  // select color ramp
+  const selectedRamp =
+    selectedIssue === 1
+      ? healthRamp
+      : selectedIssue === 2
+      ? envRamp
+      : infraRamp;
+
+  const COLOR_SCALE = scaleThreshold().domain(bin_list).range(selectedRamp); //fix this so it updates on change
+
+  // ---------------------------------------------------------------------------------------------------------------------
+
+  // change selected metric
+  let selectedMetric;
+  console.log(selectedSpecificIssue);
+  if (selectedSpecificIssue === 1) {
+  }
+
   // change selected boundary
   let selectedBoundary;
   if (boundary === "council") {
@@ -100,8 +114,7 @@ export default function App({
     selectedBoundary = _COMMUNITY_BOARDS;
   }
 
-  // change selected demographic
-  // console.log(demographic);
+  // change selected demographic ------------ UPDATE WITH EXTENSIVE DEMOGRAPHIC LIST
   let toggleEthnicity = false;
   let togglePoverty = false;
   let toggleCommute = false;

@@ -201,7 +201,14 @@ function App() {
             />
 
             <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>
-                <Map/>
+                <Map
+                selectedIssue={selectedIssue}
+                selectedSpecificIssue={selectedSpecificIssue}
+                boundary={boundary}
+                showDemographics={showDemographics}
+                mapDemographics={mapDemographics}
+                demographic={demographic}
+                />
             </div>
 
         </Container>
