@@ -16,10 +16,11 @@ export default function IssuesMiddleColumn({
                                                communitySearch, compareSearch,
                                                showDemographics, setShowDemographics,
                                                mapDemographics, setMapDemographics, boundary,
-                                               communities, councils
+                                               communities, councils,
+                                               legendBins
 
                                            }) {
-
+                                            // console.log(legendBins)
 
     const health_issues = issues.issues_data["health"].specific_issues_ID.map((id_) => {
         return issues.specific_issues_data[id_]
@@ -107,7 +108,7 @@ export default function IssuesMiddleColumn({
                             </div>}
                         <div>
                             {!showDemographics && <h6>Data Legend</h6>}
-                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
+                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins}/>
                         </div>
 
 

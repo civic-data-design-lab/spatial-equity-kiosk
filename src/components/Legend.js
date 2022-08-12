@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function Legend({ issues, selectedSpecificIssue }) {
+export default function Legend({ issues, selectedSpecificIssue, legendBins }) {
+  // console.log(issues);
+  console.log(legendBins);
   return (
     <>
       {!selectedSpecificIssue ? (
@@ -18,7 +20,10 @@ export default function Legend({ issues, selectedSpecificIssue }) {
         </div>
       ) : (
         <div>
-          Age-Adjusted Asthma Rate per 10,000 Residents
+          {
+            issues.specific_issues_data[selectedSpecificIssue]
+              .specific_issue_units
+          }
           <div className={"placeholder-legend"}>
             <div style={{ color: "rgb(248, 198, 220)" }}>■</div>
             <div>0-66</div>
@@ -35,4 +40,17 @@ export default function Legend({ issues, selectedSpecificIssue }) {
       )}
     </>
   );
+}
+
+{
+  /* <div style={{ color: "rgb(248, 198, 220)" }}>■</div>
+<div>0-{legendBins[0]}</div>
+<div style={{ color: "rgb(244, 151, 192)" }}>■</div>
+<div>{legendBins[0]}-{legendBins[1]}</div>
+<div style={{ color: "rgb(237, 109, 159)" }}>■</div>
+<div>{legendBins[1]}-{legendBins[2]}</div>
+<div style={{ color: "rgb(230, 87, 149)" }}>■</div>
+<div>{legendBins[2]}-{legendBins[3]}</div>
+<div style={{ color: "rgb(233, 50, 128)" }}>■</div>
+<div>{legendBins[3]}-{legendBins[4]}</div> */
 }

@@ -1,5 +1,5 @@
 // dependencies
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import DeckGL from "@deck.gl/react";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer, TextLayer, ScatterplotLayer } from "@deck.gl/layers";
@@ -8,7 +8,7 @@ import { MaskExtension } from "@deck.gl/extensions";
 import { max } from "d3-array";
 
 // data
-import _ISSUES from "../texts/issues.json";
+// import _ISSUES from "../texts/issues.json";
 import _NEIGHBORHOODS from "../data/nta_scores.json";
 import _COUNCIL_DISTRICTS from "../data/council_districts.geojson"; //council districts
 import _COMMUNITY_BOARDS from "../data/community_boards.json"; //community boards
@@ -28,6 +28,29 @@ const mapStyle = "mapbox://styles/mitcivicdata/cl6fa3jro002d14qxp2nu9wng"; //ton
 const zoomMin = 10.5;
 const zoomMax = 13;
 
+// color ramps
+const healthRamp = [
+  [248, 198, 220],
+  [244, 151, 192],
+  [237, 109, 159],
+  [230, 87, 149],
+  [233, 50, 128],
+];
+const envRamp = [
+  [187, 241, 209],
+  [129, 228, 170],
+  [97, 210, 143],
+  [59, 172, 105],
+  [23, 159, 78],
+];
+const infraRamp = [
+  [166, 202, 240],
+  [128, 178, 233],
+  [91, 157, 227],
+  [55, 135, 221],
+  [20, 111, 209],
+];
+
 const INITIAL_VIEW_STATE = {
   longitude: -73.9,
   latitude: 40.7131,
@@ -38,29 +61,40 @@ const INITIAL_VIEW_STATE = {
   bearing: 0,
 };
 
-export default function App({
+export default function DeckMap({
+  issues,
   selectedIssue,
   selectedSpecificIssue,
   boundary,
   showDemographics,
   mapDemographics,
   demographic,
+  legendBins,
+  setLegendBins,
 }) {
+  // map hooks
+  const [hoverInfo, setHoverInfo] = useState();
+  const [zoomToggle, setzoomToggle] = useState(1);
+  const [zoomRamp, setzoomRamp] = useState(1);
+  const [colorRamp, setcolorRamp] = useState(1);
+
   //select issue
   const rampValues = [];
   const binSize = 5;
   const bin_list = [];
+  // const selectedRamp = healthRamp;
 
   // change selected metric
   let selectedMetric;
   if (selectedSpecificIssue !== null) {
     if (selectedSpecificIssue !== false) {
       selectedMetric =
-        _ISSUES.specific_issues_data[selectedSpecificIssue].json_id;
+        issues.specific_issues_data[selectedSpecificIssue].json_id;
     }
   }
 
-  //  ---------------------------------------------------------------------------------------------------------------------
+  useMemo(() => {}, [selectedMetric, selectedSpecificIssue]);
+
   // Create Color Scales
   for (let i = 0; i < _NEIGHBORHOODS.features.length; i++) {
     let floatValue = parseFloat(
@@ -76,40 +110,33 @@ export default function App({
     bin_list.push(Math.round(threshold * 100) / 100);
   }
 
-  // color ramps
-  const healthRamp = [
-    [248, 198, 220],
-    [244, 151, 192],
-    [237, 109, 159],
-    [230, 87, 149],
-    [233, 50, 128],
-  ];
-  const envRamp = [
-    [187, 241, 209],
-    [129, 228, 170],
-    [97, 210, 143],
-    [59, 172, 105],
-    [23, 159, 78],
-  ];
-  const infraRamp = [
-    [166, 202, 240],
-    [128, 178, 233],
-    [91, 157, 227],
-    [55, 135, 221],
-    [20, 111, 209],
-  ];
+  // console.log("legend bins", legendBins);
 
-  // select color ramp
+  useEffect(() => {
+    if (bin_list.length > 0) {
+      setLegendBins(bin_list);
+    }
+  }, [selectedSpecificIssue]);
+
   const selectedRamp =
     selectedIssue === 1
       ? healthRamp
       : selectedIssue === 2
       ? envRamp
       : infraRamp;
+  //  ---------------------------------------------------------------------------------------------------------------------
 
   // console.log(bin_list);
-  const COLOR_SCALE = scaleThreshold().domain(bin_list).range(selectedRamp);
 
+  // if (legendBins !== bin_list) {
+  //
+  //
+  // }
+
+  // select color ramp
+
+  let COLOR_SCALE = scaleThreshold().domain(bin_list).range(selectedRamp); //equal bins
+  // const COLOR_SCALE = scaleQuantile().domain(rampValues).range(selectedRamp); //quantile
   // ---------------------------------------------------------------------------------------------------------------------
 
   // change selected boundary
@@ -155,12 +182,6 @@ export default function App({
     toggleCommute = true;
   }
 
-  // map hooks
-  // const [hoverInfo, setHoverInfo] = useState;
-  const [zoomToggle, setzoomToggle] = useState(1);
-  const [zoomRamp, setzoomRamp] = useState(1);
-  const [colorRamp, setcolorRamp] = useState(1);
-
   // Change properties based on camera move and zoom --------------------------------------------------------------
   const onViewStateChange = useCallback(({ viewState }) => {
     // ramp in/out based on zoom level
@@ -187,9 +208,6 @@ export default function App({
       data: _NEIGHBORHOODS.features,
       stroked: false,
       filled: true,
-      pickable: true,
-      autoHighlight: true,
-      highlightColor: [217, 255, 0, 215],
       getFillColor: (f) => {
         if (isNaN(parseFloat(f.properties[selectedMetric]))) {
           return [0, 0, 0, 0];
@@ -203,6 +221,10 @@ export default function App({
       // getLineColor: colorRamp,
       // getLineWidth: 2,
       opacity: 0.85,
+
+      pickable: true,
+      autoHighlight: true,
+      highlightColor: [217, 255, 0, 215],
 
       // update triggers
       updateTriggers: {
@@ -257,6 +279,8 @@ export default function App({
           case "5":
             return [252, 75, 56, 255]; // asian
             break;
+          default:
+          // do nothing
         }
         return color;
       },
@@ -272,8 +296,7 @@ export default function App({
       lineWidthUnits: "meters",
       getLineWidth: 50,
       lineWidthMinPixels: 1,
-
-      // onHover: (info) => setHoverInfo(info),
+      onHover: (info) => setHoverInfo(info),
     }),
 
     new TextLayer({
@@ -304,6 +327,7 @@ export default function App({
       getCursor={() => "crosshair"}
       onViewStateChange={onViewStateChange}
     >
+      {/* WIP tooltip not sure whats wrong  */}
       {/* {hoverInfo.object && (
         <div
           style={{
