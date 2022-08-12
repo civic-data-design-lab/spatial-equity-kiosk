@@ -36,8 +36,8 @@ function App() {
   const [mapDemographics, setMapDemographics] = useState(false);
   const [addCompare, setAddCompare] = useState(false);
   const [legendBins, setLegendBins] = useState();
+  const [colorRamps, setColorRamps] = useState();
   const location = useLocation();
-
 
 
   useEffect(() => {
@@ -223,6 +223,7 @@ function App() {
         mapDemographics={mapDemographics}
         setMapDemographics={setMapDemographics}
         legendBins={legendBins}
+        colorRamps={colorRamps}
       />
 
       <div className={`${showMap ? "show-map" : "hide-map"} map-container`}>
@@ -236,6 +237,8 @@ function App() {
         demographic={demographic}
         legendBins={legendBins}
         setLegendBins={setLegendBins}
+        colorRamps = {colorRamps}
+        setColorRamps = {setColorRamps}
         />
       </div>
     </Container>

@@ -71,6 +71,8 @@ export default function DeckMap({
   demographic,
   legendBins,
   setLegendBins,
+  colorRamps,
+  setColorRamps,
 }) {
   // map hooks
   const [hoverInfo, setHoverInfo] = useState();
@@ -110,20 +112,22 @@ export default function DeckMap({
     bin_list.push(Math.round(threshold * 100) / 100);
   }
 
-  // console.log("legend bins", legendBins);
-
-  useEffect(() => {
-    if (bin_list.length > 0) {
-      setLegendBins(bin_list);
-    }
-  }, [selectedSpecificIssue]);
-
+  // pick color ramp
   const selectedRamp =
     selectedIssue === 1
       ? healthRamp
       : selectedIssue === 2
       ? envRamp
       : infraRamp;
+
+  // set legend scale and color
+  useEffect(() => {
+    if (bin_list.length > 0) {
+      setLegendBins(bin_list);
+      setColorRamps(selectedRamp);
+    }
+  }, [selectedSpecificIssue]);
+
   //  ---------------------------------------------------------------------------------------------------------------------
 
   // console.log(bin_list);

@@ -27,7 +27,7 @@ export default function Content({
                                     showDemographics, setShowDemographics,
     moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength, councils,
     mapDemographics, setMapDemographics,
-    legendBins
+    legendBins, colorRamps
                                 }) {
 
 
@@ -46,6 +46,7 @@ export default function Content({
                         mapDemographics={mapDemographics} setMapDemographics={setMapDemographics} boundary={boundary}
                         communities={communities} councils={councils}
                         legendBins={legendBins}
+                        colorRamps={colorRamps}
                     />}
 
                 {selectedChapter === 3 && <CommunityMiddleColumn
