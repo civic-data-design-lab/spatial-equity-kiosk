@@ -1,3 +1,4 @@
+// dependencies
 import { useState, useCallback } from "react";
 import DeckGL from "@deck.gl/react";
 import { Map } from "react-map-gl";
@@ -6,6 +7,8 @@ import { scaleThreshold, scaleQuantile } from "d3-scale";
 import { MaskExtension } from "@deck.gl/extensions";
 import { max } from "d3-array";
 
+// data
+import _ISSUES from "../texts/issues.json";
 import _NEIGHBORHOODS from "../data/nta_scores.json";
 import _COUNCIL_DISTRICTS from "../data/council_districts.geojson"; //council districts
 import _COMMUNITY_BOARDS from "../data/community_boards.json"; //community boards
@@ -48,11 +51,20 @@ export default function App({
   const binSize = 5;
   const bin_list = [];
 
+  // change selected metric
+  let selectedMetric;
+  if (selectedSpecificIssue !== null) {
+    if (selectedSpecificIssue !== false) {
+      selectedMetric =
+        _ISSUES.specific_issues_data[selectedSpecificIssue].json_id;
+    }
+  }
+
   //  ---------------------------------------------------------------------------------------------------------------------
   // Create Color Scales
   for (let i = 0; i < _NEIGHBORHOODS.features.length; i++) {
     let floatValue = parseFloat(
-      _NEIGHBORHOODS.features[i].properties.F18_AsthmR
+      _NEIGHBORHOODS.features[i].properties[selectedMetric]
     );
     if (isNaN(floatValue) === false) {
       rampValues.push(floatValue);
@@ -95,15 +107,10 @@ export default function App({
       ? envRamp
       : infraRamp;
 
-  const COLOR_SCALE = scaleThreshold().domain(bin_list).range(selectedRamp); //fix this so it updates on change
+  // console.log(bin_list);
+  const COLOR_SCALE = scaleThreshold().domain(bin_list).range(selectedRamp);
 
   // ---------------------------------------------------------------------------------------------------------------------
-
-  // change selected metric
-  let selectedMetric;
-  console.log(selectedSpecificIssue);
-  if (selectedSpecificIssue === 1) {
-  }
 
   // change selected boundary
   let selectedBoundary;
@@ -149,6 +156,7 @@ export default function App({
   }
 
   // map hooks
+  // const [hoverInfo, setHoverInfo] = useState;
   const [zoomToggle, setzoomToggle] = useState(1);
   const [zoomRamp, setzoomRamp] = useState(1);
   const [colorRamp, setcolorRamp] = useState(1);
@@ -179,13 +187,16 @@ export default function App({
       data: _NEIGHBORHOODS.features,
       stroked: false,
       filled: true,
+      pickable: true,
+      autoHighlight: true,
+      highlightColor: [217, 255, 0, 215],
       getFillColor: (f) => {
-        if (isNaN(parseFloat(f.properties.F18_AsthmR))) {
+        if (isNaN(parseFloat(f.properties[selectedMetric]))) {
           return [0, 0, 0, 0];
-        } else if (parseFloat(f.properties.F18_AsthmR) == 0) {
+        } else if (parseFloat(f.properties[selectedMetric]) == 0) {
           return [50, 50, 50, 0];
         } else {
-          return COLOR_SCALE(f.properties.F18_AsthmR);
+          return COLOR_SCALE(f.properties[selectedMetric]);
         }
       },
       lineWidthUnits: "pixels",
@@ -193,14 +204,25 @@ export default function App({
       // getLineWidth: 2,
       opacity: 0.85,
 
+      // update triggers
+      updateTriggers: {
+        getFillColor: [selectedMetric],
+      },
+
       // interactivity
       onClick: (info) => {
         console.log(_NEIGHBORHOODS.features[info.index].properties.NTAName);
         console.log(
-          parseFloat(_NEIGHBORHOODS.features[info.index].properties.F18_AsthmR)
+          selectedMetric +
+            ":" +
+            parseFloat(
+              _NEIGHBORHOODS.features[info.index].properties[selectedMetric]
+            )
         );
         console.log(
-          COLOR_SCALE(_NEIGHBORHOODS.features[info.index].properties.F18_AsthmR)
+          COLOR_SCALE(
+            _NEIGHBORHOODS.features[info.index].properties[selectedMetric]
+          )
         );
       },
     }),
@@ -242,8 +264,6 @@ export default function App({
 
     new GeoJsonLayer({
       id: "council-districts",
-      // data: _COMMUNITY_BOARDS, //COMMUNITY BOARDS
-      // data: _COUNCIL_DISTRICTS, //COUNCIL DISTRICTS
       data: selectedBoundary,
       stroked: true,
       filled: true,
@@ -252,9 +272,8 @@ export default function App({
       lineWidthUnits: "meters",
       getLineWidth: 50,
       lineWidthMinPixels: 1,
-      pickable: true,
-      autoHighlight: true,
-      highlightColor: [217, 255, 0, 215],
+
+      // onHover: (info) => setHoverInfo(info),
     }),
 
     new TextLayer({
@@ -285,6 +304,19 @@ export default function App({
       getCursor={() => "crosshair"}
       onViewStateChange={onViewStateChange}
     >
+      {/* {hoverInfo.object && (
+        <div
+          style={{
+            position: "absolute",
+            zIndex: 1,
+            pointerEvents: "none",
+            left: hoverInfo.x,
+            top: hoverInfo.y,
+          }}
+        >
+          {hoverInfo.object.message}
+        </div>
+      )} */}
       <Map
         reuseMaps
         mapStyle={mapStyle}
