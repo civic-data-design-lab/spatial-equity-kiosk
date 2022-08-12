@@ -66,7 +66,7 @@ export default function CommunityRightColumn({
                         </div>
                     </div>
                     <div className={"d-flex flex-row col-gap prompt"}>
-                        <FontAwesomeIcon icon={faArrowLeft}/>
+                        <FontAwesomeIcon icon={faArrowLeft} className={"fa-lg"}/>
                         <h5 className={"m-0"}>Click on a card to learn more about the issue</h5>
                     </div>
                 </div>
