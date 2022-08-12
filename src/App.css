@@ -613,8 +613,8 @@ a:active {
 }
 
 .hide-map {
-    z-index: 0;
-    visibility: hidden;
+    z-index: -1;
+    #visibility: hidden;
 }
 
 .map-toggle-container {
@@ -931,6 +931,27 @@ a:active {
 
 .Typewriter__wrapper {
     text-decoration-line: underline !important;
+}
+
+
+.transparent-bg {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+}
+
+.white-bg {
+    background-color: white;
+}
+
+.prompt {
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(50%, -50%);
+    width: 30%;
+
+
 }
 
 /*TODO: print preview*/

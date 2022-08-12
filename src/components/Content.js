@@ -57,7 +57,7 @@ export default function Content({
 
             </div>
 
-            <div className={`h-100 flex-grow-1 ${!selectedChapter || selectedChapter === 1 ? "no-left-border" : ""}`}
+            <div className={`h-100 flex-grow-1 ${!selectedChapter || selectedChapter === 1 ? "no-left-border" : ""} ${selectedChapter && communitySearch && !selectedSpecificIssue ? "transparent-bg" : "white-bg"}`}
                  id="right-column">
 
 

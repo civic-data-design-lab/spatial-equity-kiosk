@@ -155,6 +155,7 @@ function App() {
         if (selectedChapter === 3 && !communitySearch) {
             setShowMap(false)
         }
+
     })
 
 
