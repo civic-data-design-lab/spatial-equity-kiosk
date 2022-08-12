@@ -32,7 +32,7 @@ export default function CommunitySearchBar({
                 for (const v of res.data.features) {
                     // console.log(v.center[0].toFixed(3) + " " + v.center[1].toFixed(3), v.place_name);
                     resItems.push(
-                        <div key={v}
+                        <div key={v.id}
                              className={`${false ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
                         >
                             <div className={"row w-100 p-0 m-0"}>
