@@ -6,7 +6,6 @@ export default function Legend({
   legendBins,
   colorRamps,
 }) {
-  console.log("rgb(" + colorRamps[0].toString() + ")");
   return (
     <>
       {!selectedSpecificIssue ? (
