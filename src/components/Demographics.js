@@ -60,7 +60,7 @@ export default function Demographics({
             </div>*/}
 
             <div
-                className={`${selectedSpecificIssue && showDemographics ? 'expand-demographic' : 'collapse-demographic'}`}>
+                className={`${showDemographics ? 'expand-demographic' : 'collapse-demographic'}`}>
                 <div className={"dropdown-container mb-3"}>
                     <div className={"dropdown-bar d-flex flex-row justify-content-between align-items-center"}
                          onMouseDown={() => {

@@ -57,7 +57,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                                             setShowDemographics(false)
                                         } else {
                                             setValue(item.specific_issue_ID)
-                                            //setShowDemographics(true)
+                                            setShowDemographics(true)
                                         }
                                     }}
                                 >

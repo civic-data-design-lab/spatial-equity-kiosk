@@ -48,8 +48,8 @@ export default function IssuesMiddleColumn({
 
     useEffect(() => {
         if (!selectedSpecificIssue) {
-            setShowDemographics(false)
-            setDemographic(null)
+            //setShowDemographics(false)
+            //setDemographic(null)
         }
     })
 
@@ -65,23 +65,23 @@ export default function IssuesMiddleColumn({
     return (
         <div className={"d-flex flex-column h-100"}>
             <div
-                className={`${selectedIssue === 1 ? 'issues-chapters-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-chapters top-border`}
+                className={`${selectedIssue === 1 ? 'issues-chapters-active' : ''} ${selectedIssue || showDemographics ? "collapse-issue" : ""} issues-chapters top-border`}
                 onClick={() => {
                     /*setShowMap(true)
                     setShowToggle(false)*/
                     //setCommunitySearch(null)
                     //setCompareSearch(null)
-                    setShowDemographics(false)
+                    //setShowDemographics(false)
                     setSelectedSpecificIssue(null)
                     if (selectedIssue !== 1) {
                         setSelectedIssue(1)
                     } else {
                         setSelectedIssue(null)
-                        setShowDemographics(null)
+                        //setShowDemographics(null)
                     }
                 }}>
                 <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Health</h5>
-                <h5 className={`${selectedIssue ? "invis" : "vis"}`}>Health issues imperdiet dui accumsan sit amet. Diam
+                <h5 className={`${selectedIssue || showDemographics ? "invis" : "vis"}`}>Health issues imperdiet dui accumsan sit amet. Diam
                     donec adipiscing.
                 </h5>
             </div>
@@ -117,9 +117,9 @@ export default function IssuesMiddleColumn({
             </div>
 
             <div
-                className={`${selectedIssue === 2 ? 'issues-chapters-active' : (selectedIssue === 1 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
+                className={`${selectedIssue === 2 ? 'issues-chapters-active' : (selectedIssue === 1 ? "top-border" : "")} ${selectedIssue || showDemographics ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
-                    setShowDemographics(false)
+                    //setShowDemographics(false)
                     setSelectedSpecificIssue(null)
                     //setCommunitySearch(null)
                     //setCompareSearch(null)
@@ -127,11 +127,11 @@ export default function IssuesMiddleColumn({
                         setSelectedIssue(2)
                     } else {
                         setSelectedIssue(null)
-                        setShowDemographics(null)
+                        //setShowDemographics(null)
                     }
                 }}>
                 <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Environment</h5>
-                <h5 className={`${selectedIssue ? "invis" : "vis"}`}>Environment imperdiet dui accumsan sit amet. Diam
+                <h5 className={`${selectedIssue || showDemographics ? "invis" : "vis"}`}>Environment imperdiet dui accumsan sit amet. Diam
                     donec adipiscing.</h5>
             </div>
             <div className={`${selectedIssue === 2 ? 'expand-issue' : ''} accordion-body`}>
@@ -164,21 +164,21 @@ export default function IssuesMiddleColumn({
                 </div>
             </div>
             <div
-                className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue === 2 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
+                className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue === 2 ? "top-border" : "")} ${selectedIssue || showDemographics ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
                     setSelectedSpecificIssue(null)
-                    setShowDemographics(false)
+                    //setShowDemographics(false)
                     //setCommunitySearch(null)
                     //setCompareSearch(null)
                     if (selectedIssue !== 3) {
                         setSelectedIssue(3)
                     } else {
                         setSelectedIssue(null)
-                        setShowDemographics(null)
+                        //setShowDemographics(null)
                     }
                 }}>
                 <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Infrastructure</h5>
-                <h5 className={`${selectedIssue ? "invis" : "vis"}`}>Infrastructure imperdiet dui accumsan sit amet.
+                <h5 className={`${selectedIssue || showDemographics ? "invis" : "vis"}`}>Infrastructure imperdiet dui accumsan sit amet.
                     Diam donec adipiscing.</h5>
             </div>
             <div className={`${selectedIssue === 3 ? 'expand-issue' : ''} accordion-body`}>
@@ -212,17 +212,17 @@ export default function IssuesMiddleColumn({
             </div>
 
             <div
-                className={`${selectedIssue ? 'collapse-issue' : ''} ${showDemographics ? "bottom-border issues-chapters-active" : ""} ${selectedIssue === 3 ? "top-border" : ""} issues-chapters no-bottom-border`}
+                className={`${selectedIssue || showDemographics ? 'collapse-issue' : ''} ${showDemographics ? "bottom-border issues-chapters-active" : ""} ${selectedIssue === 3 ? "top-border" : ""} issues-chapters no-bottom-border`}
                 onClick={() => {
-                    if (selectedSpecificIssue) {
-                        setShowDemographics(!showDemographics)
-                    }
+                    //if (selectedSpecificIssue ) {
+                    setShowDemographics(!showDemographics)
+                    //}
                 }}>
                 <div className={'d-flex flex-row justify-content-between align-items-center'}>
                     <h5 className={`${showDemographics ? 'mb-0' : 'mb-0'}`}>{showDemographics ? "Hide Demographics" : "Show Demographics"}</h5>
                     {showDemographics ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}
                 </div>
-                <h5 className={`${!selectedIssue ? "vis" : "invis"}`}>Demographics imperdiet dui accumsan sit amet. Diam
+                <h5 className={`${!showDemographics ? "vis" : "invis"}`}>Demographics imperdiet dui accumsan sit amet. Diam
                     donec adipiscing.</h5>
             </div>
             <div className={`${showDemographics ? 'expand-issue' : ''} accordion-body`}>
