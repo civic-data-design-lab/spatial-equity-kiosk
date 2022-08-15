@@ -27,12 +27,12 @@ export default function CommunitySearchBar({
                 },
             })
             .then((res) => {
-                console.log(res.data.features);
+                // console.log(res.data.features);
                 let resItems = []
                 for (const v of res.data.features) {
                     // console.log(v.center[0].toFixed(3) + " " + v.center[1].toFixed(3), v.place_name);
                     resItems.push(
-                        <div key={v}
+                        <div key={v.id}
                              className={`${false ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
                         >
                             <div className={"row w-100 p-0 m-0"}>
@@ -62,14 +62,6 @@ export default function CommunitySearchBar({
     }, [value]); // monitor at inputValues
 
     const getSearchItems = () => {
-        console.log(React.Children.toArray(children).filter(
-            (child) =>
-                !value ||
-                child.props.children.props.children[0].props.children[0].props.children.toLowerCase().includes(value.toLowerCase()) ||
-                child.props.children.props.children[0].props.children[2].toLowerCase().includes(value.toLowerCase())
-        ));
-        
-
         return React.Children.toArray(children).filter(
             (child) =>
                 !value ||
@@ -94,7 +86,6 @@ export default function CommunitySearchBar({
                            setFocus(false)
                        }}
                        onKeyUp={(e)=>{
-                            console.log(e.keyCode)
                             if (e.keyCode == 13) forwardGeocoding(value);
                         }}
                        onChange={(e) => {

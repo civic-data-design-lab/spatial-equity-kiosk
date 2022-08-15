@@ -17,10 +17,10 @@ export default function IssuesMiddleColumn({
                                                showDemographics, setShowDemographics,
                                                mapDemographics, setMapDemographics, boundary,
                                                communities, councils,
-                                               legendBins
+                                               legendBins, colorRamps
 
                                            }) {
-                                            // console.log(legendBins)
+                                        
 
     const health_issues = issues.issues_data["health"].specific_issues_ID.map((id_) => {
         return issues.specific_issues_data[id_]
@@ -108,7 +108,7 @@ export default function IssuesMiddleColumn({
                             </div>}
                         <div>
                             {!showDemographics && <h6>Data Legend</h6>}
-                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins}/>
+                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} />
                         </div>
 
 
@@ -156,7 +156,8 @@ export default function IssuesMiddleColumn({
                             </div>}
                         <div>
                             {!showDemographics && <h6>Data Legend</h6>}
-                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
+                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps}   />
+                            
                         </div>
 
 
@@ -203,7 +204,7 @@ export default function IssuesMiddleColumn({
                             </div>}
                         <div>
                             {!showDemographics && <h6>Data Legend</h6>}
-                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
+                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} />
                         </div>
 
 
