@@ -99,7 +99,7 @@ export default function IssuesMiddleColumn({
                         {((selectedSpecificIssue && !showDemographics) || (!selectedSpecificIssue)) &&
                             <div className={"thirds"}>
                                 {selectedSpecificIssue && !showDemographics && getRankingNarrative(health_issues)}
-                                {!selectedSpecificIssue &&
+                                {!selectedSpecificIssue && !showDemographics &&
                                     <p className={"mt-3"}>This is where you will hear about the topic that
                                         you
                                         select.
@@ -147,7 +147,7 @@ export default function IssuesMiddleColumn({
                         {((selectedSpecificIssue && !showDemographics) || (!selectedSpecificIssue)) &&
                             <div className={"thirds"}>
                                 {selectedSpecificIssue && !showDemographics && getRankingNarrative(environment_issues)}
-                                {!selectedSpecificIssue &&
+                                {!selectedSpecificIssue  && !showDemographics &&
                                     <p className={"mt-3"}>This is where you will hear about the topic that
                                         you
                                         select.
@@ -195,7 +195,7 @@ export default function IssuesMiddleColumn({
                         {((selectedSpecificIssue && !showDemographics) || (!selectedSpecificIssue)) &&
                             <div className={"thirds"}>
                                 {selectedSpecificIssue && !showDemographics && getRankingNarrative(infrastructure_issues)}
-                                {!selectedSpecificIssue &&
+                                {!selectedSpecificIssue  && !showDemographics &&
                                     <p className={"mt-3"}>This is where you will hear about the topic that
                                         you
                                         select.
