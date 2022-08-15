@@ -74,9 +74,31 @@ export default function IssuesTileView({
                 </div>
             }
 
-            {!selectedSpecificIssue && <div
-                className={"col-12 h-100 issues-tile-container d-flex flex-row justify-content-center align-items-center"}>
-                PLACEHOLDER IMAGE
+            {!selectedSpecificIssue &&
+                <div className={"col-12 h-100 issues-tile-container"}>
+
+                <div className={"issues-tile-header"}>
+                        <div className={"toggle-share-container"}>
+                            <div id={"share-container"}>
+                                <ShareButton
+                                    showMap={showMap}
+                                    communitySearch={communitySearch}
+                                    compareSearch={compareSearch}
+                                    selectedSpecificIssue={selectedSpecificIssue}
+                                    issues={issues}
+                                    setShowMap={setShowMap}
+                                    showToggle={showToggle}
+                                    selectedIssue={selectedIssue} selectedChapter={selectedChapter}
+                                    boundary={boundary} demographic={demographic} showDemographics={showDemographics}
+                                    moreIssues={moreIssues} setMoreIssues={setMoreIssues}
+                                    moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
+                                />
+                            </div>
+                            <div id={"toggle-container"}>
+                                <MapToggle showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}/>
+                            </div>
+                        </div>
+                    </div>
             </div>}
         </>
     )

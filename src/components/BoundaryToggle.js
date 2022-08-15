@@ -25,7 +25,7 @@ export default function BoundaryToggle({setBoundary, boundary, setCompareSearch,
                      }
                      setBoundary("community")
                  }}
-            ><small>Community District</small></div>
+            ><small>Community Board</small></div>
         </div>
 
     )

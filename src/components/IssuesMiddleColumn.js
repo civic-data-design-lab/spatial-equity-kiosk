@@ -223,7 +223,7 @@ export default function IssuesMiddleColumn({
                     <h5 className={`${showDemographics ? 'mb-0' : 'mb-0'}`}>{showDemographics ? "Hide Demographics" : "Show Demographics"}</h5>
                     {showDemographics ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}
                 </div>
-                <h5 className={`${!showDemographics ? "vis" : "invis"}`}>Demographics imperdiet dui accumsan sit amet. Diam
+                <h5 className={`${!showDemographics && !selectedIssue ? "vis" : "invis"}`}>Demographics imperdiet dui accumsan sit amet. Diam
                     donec adipiscing.</h5>
             </div>
             <div className={`${showDemographics ? 'expand-issue' : ''} accordion-body`}>
