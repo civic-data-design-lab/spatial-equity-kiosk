@@ -103,12 +103,15 @@ export default function DeckMap({
     selectedBoundary = _COMMUNITY_BOARDS;
   }
 
-  // change selected metric
+  // change selected metric and declare whether metric is good or bad at high values
   let selectedMetric;
+  let metricGoodBad;
   if (selectedSpecificIssue !== null) {
     if (selectedSpecificIssue !== false) {
       selectedMetric =
         issues.specific_issues_data[selectedSpecificIssue].json_id;
+      metricGoodBad =
+        issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
     }
   }
 
@@ -152,24 +155,28 @@ export default function DeckMap({
     }
   }, [selectedSpecificIssue, zoomRamp, selectedBoundary]);
 
-  // get low performers
+  // get low performers --------------------------------------------------------------------
+
   const setPerformanceBar = [];
   for (let i = 0; i < mapScale.features.length; i++) {
-    setPerformanceBar.push(
-      parseFloat(mapScale.features[i].properties[selectedMetric])
-    );
+    if (mapScale.features[i].properties[selectedMetric] != 0) {
+      setPerformanceBar.push(
+        parseFloat(mapScale.features[i].properties[selectedMetric])
+      );
+    }
   }
   setPerformanceBar.sort(function (a, b) {
-    return b - a;
+    // return the sorted list of values depending if you want the highest scores or lowest scores of a given metric
+    if (typeof metricGoodBad == "number") {
+      return issues.specific_issues_data[selectedSpecificIssue].good_or_bad == 1
+        ? b - a // highest scores
+        : a - b; // lowest scores
+    }
   });
+  const underperformers = setPerformanceBar[4]; //get the 5 worst performing values
 
-  const underperformers = setPerformanceBar[4];
-  // console.log(
-  //   selectedMetric + "array",
-  //   setPerformanceBar,
-  //   "bar",
-  //   underperformers
-  // );
+  // -----------------------------------------------------------------------------------------
+
   // color threshold
   let COLOR_SCALE = scaleThreshold().domain(bin_list).range(selectedRamp); //equal bins
   // const COLOR_SCALE = scaleQuantile().domain(rampValues).range(selectedRamp); //quantile
@@ -243,9 +250,11 @@ export default function DeckMap({
         let fillValue = parseFloat(f.properties[selectedMetric]);
         if (isNaN(fillValue)) {
           return [0, 0, 0, 0];
-        } else if (fillValue == 0) {
-          return [50, 50, 50, 0];
-        } else {
+        }
+        // else if (fillValue == 0) {
+        //   return [50, 50, 50, 0];
+        // }
+        else {
           return COLOR_SCALE(f.properties[selectedMetric]);
         }
       },
@@ -285,9 +294,11 @@ export default function DeckMap({
         let fillValue = parseFloat(f.properties[selectedMetric]);
         if (isNaN(fillValue)) {
           return [0, 0, 0, 0];
-        } else if (fillValue == 0) {
-          return [50, 50, 50, 0];
-        } else {
+        }
+        // else if (fillValue == 0) {
+        //   return [50, 50, 50, 0];
+        // }
+        else {
           // return [255, 0, 0, 255];
           return COLOR_SCALE(f.properties[selectedMetric]);
         }
@@ -307,16 +318,16 @@ export default function DeckMap({
       filled: true,
       stroked: true,
 
-      getFillColor: (f) => {
-        let fillValue = parseFloat(f.properties[selectedMetric]);
-        return fillValue >= underperformers ? [0, 0, 0, 255] : [0, 0, 0, 0];
-      },
-
+      getFillColor: (f) => [0, 0, 0, 255],
       lineWidthUnits: "meters",
       lineWidthMinPixels: 1,
       getLineWidth: (w) => {
         let strokeValue = parseFloat(w.properties[selectedMetric]);
-        return strokeValue >= underperformers ? 100 : 0;
+        if (metricGoodBad == 1) {
+          return strokeValue >= underperformers ? 100 : 0;
+        } else {
+          return strokeValue <= underperformers ? 100 : 0;
+        }
       },
 
       opacity: choroplethOpacity,
@@ -328,7 +339,11 @@ export default function DeckMap({
       fillPatternMapping: _FILL_PATTERN,
       getFillPattern: (f) => {
         let fillValue = parseFloat(f.properties[selectedMetric]);
-        return fillValue >= underperformers ? "hatch-pattern" : "hatch-solid";
+        if (metricGoodBad == 1) {
+          return fillValue >= underperformers ? "hatch-pattern" : "hatch-solid";
+        } else {
+          return fillValue <= underperformers ? "hatch-pattern" : "hatch-solid";
+        }
       },
       getFillPatternScale: 10,
       getFillPatternOffset: [0, 0],
@@ -358,6 +373,9 @@ export default function DeckMap({
 
       onClick: (info) => {
         console.log(selectedBoundary.features[info.index].properties.CounDist);
+        console.log(
+          selectedBoundary.features[info.index].properties[selectedMetric]
+        );
       },
     }),
 

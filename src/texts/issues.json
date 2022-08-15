@@ -24,6 +24,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "To find space to plant more trees in your neighborhood, pay attention to how public space is used in your neighborhood. Here are a few ideas:\n\nBuild a “micro-forest” by installing a midblock curb extension that replaces one parking space with three street trees on any block. This solution will cool air temperatures, mitigate flooding, remove pollution from the air, and calm reckless driving by narrowing the roadway.\nCreate a “clean air block” by replacing one lane of a roadway with street trees in an area with high air pollution rates. One street tree can remove the equivalent of 11,000 miles of car emissions fr",
             "issue_type_ID": 1,
+            "good_or_bad": 1,
             "json_id": "F18_AsthmR",
             "specific_issue_source": "source name source name source name"
             
@@ -37,6 +38,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 3,
+            "good_or_bad": 0,
             "json_id": "F27_BusSpe",
             "specific_issue_source": "source name"
         },
@@ -49,6 +51,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 3,
+            "good_or_bad": 0,
             "json_id": "F25_BusLan",
             "specific_issue_source": "source name"
         },
@@ -61,6 +64,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 2,
+            "good_or_bad": 0,
             "json_id": "F26_ParkAc",
             "specific_issue_source": "source name"
         },
@@ -73,6 +77,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 2,
+            "good_or_bad": 1,
             "json_id": "F14_TmpDev",
             "specific_issue_source": "source name"
         },
@@ -85,6 +90,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 2,
+            "good_or_bad": 0,
             "json_id": "F17_GreInf",
             "specific_issue_source": "source name"
         },
@@ -97,6 +103,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 1,
+            "good_or_bad": 1,
             "json_id": "F19_Noise_",
             "specific_issue_source": "source name"
         },
@@ -109,6 +116,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 3,
+            "good_or_bad": 0,
             "json_id": "F22_BikRac",
             "specific_issue_source": "source name"
         },
@@ -121,6 +129,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 3,
+            "good_or_bad": 0,
             "json_id": "F23_CtyBea",
             "specific_issue_source": "source name"
         },
@@ -133,6 +142,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 2,
+            "good_or_bad": 1,
             "json_id": "F15_PM25Me",
             "specific_issue_source": "source name"
         },
@@ -145,6 +155,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 3,
+            "good_or_bad": 0,
             "json_id": "F24_BikLan",
             "specific_issue_source": "source name"
         },
@@ -157,6 +168,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 3,
+            "good_or_bad": 1,
             "json_id": "F28_Trf_De",
             "specific_issue_source": "source name"
         },
@@ -169,6 +181,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 1,
+            "good_or_bad": 1,
             "json_id": "F20_TrfKil",
             "specific_issue_source": "source name"
         },
@@ -181,6 +194,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 1,
+            "good_or_bad": 1,
             "json_id": "F21_TrfInj",
             "specific_issue_source": "source name"
         },
@@ -193,6 +207,7 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 2,
+            "good_or_bad": 0,
             "json_id": "F16_TreCan",
             "specific_issue_source": "source name"
         }
