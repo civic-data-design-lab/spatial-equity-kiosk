@@ -110,7 +110,7 @@ export default function CommunityNav({
                     </CommunitySearchBar>
                 }
 
-                {communitySearch &&
+                {communitySearch && !addCompare &&
                     <div
                     className={`${communitySearch ? "" : "d-none"} mt-3 add-community-btn d-flex flex-row align-items-center justify-content-between`}
                     onClick={(e) => {

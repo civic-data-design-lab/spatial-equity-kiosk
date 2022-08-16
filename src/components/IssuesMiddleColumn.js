@@ -47,8 +47,8 @@ export default function IssuesMiddleColumn({
     }
 
     useEffect(() => {
-        if (!selectedSpecificIssue) {
-            //setShowDemographics(false)
+        if (!selectedIssue) {
+            setShowDemographics(false)
             //setDemographic(null)
         }
     })

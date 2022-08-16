@@ -2,7 +2,7 @@ export default function BoundaryToggle({setBoundary, boundary, setCompareSearch,
 
 
     return (
-        <div className={`w-100 boundary-toggle`}>
+        <div className={`w-100 boundary-toggle`} style={{cursor:"pointer"}}>
 
             <div className={`boundary-toggle-item ${boundary === "council" ? "boundary-toggle-item-active" : "boundary-toggle-item-inactive"} no-right-border small-font`}
                  onClick={(e) => {

@@ -40,9 +40,6 @@ export default function CommunitySearchBar({
                                     <span
                                         style={{fontWeight: 'bold'}}>{v.center[0].toFixed(3) + " " + v.center[1].toFixed(3)}</span>  {v.place_name}
                                 </div>
-                                <div
-                                    className={`${false ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
-                                    <FontAwesomeIcon icon={faArrowRight}/></div>
                             </div>
                         </div>
                     )
@@ -72,7 +69,9 @@ export default function CommunitySearchBar({
 
     return (
         <>
-            <div className={"d-flex flex-row align-items-center mt-3 position-relative community-search-container"}>
+            <div className={"d-flex flex-row align-items-center mt-3 position-relative community-search-container"}
+                 id={`${!forSearch ? "remove-community" : ""}`}
+            >
                 <input type={"search"}
                        className={`community-search w-100`}
                        placeholder={forSearch ? "Search for a District, Neighborhood, or Address" : "Compare Communities"}
@@ -94,9 +93,6 @@ export default function CommunitySearchBar({
                        }}
                        value={toggleValue || value}
                 />
-                <div className={`${!focus ? "d-flex" : "d-none"} valid-search-container flex-row align-items-center`}>
-                    <FontAwesomeIcon icon={faArrowRight} className={"valid-search"}/>
-                </div>
             </div>
             {/* {focus && getSearchItems().length > 0 && <div>
                 <ul className={`list-unstyled community-dropdown`}>

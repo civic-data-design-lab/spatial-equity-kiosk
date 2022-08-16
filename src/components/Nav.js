@@ -32,8 +32,8 @@ function Nav({
              ${!selectedChapter ? "" : (selectedChapter === 1 ? "expanded-nav" : "collapsed-nav")}
              ${selectedChapter === 2? "bottom-highlight" : ""}`}
                  onClick={() => {
-                     setSelectedIssue(null)
-                     setSelectedSpecificIssue(null)
+                     //setSelectedIssue(null)
+                     //setSelectedSpecificIssue(null)
                      setMoreIssuesLength(0)
                      setMoreIssues([])
                      if (selectedChapter !== 1) {
@@ -72,11 +72,11 @@ function Nav({
              ${!selectedChapter ? "" : (selectedChapter === 2 ? "expanded-nav" : "collapsed-nav")}
              ${selectedChapter === 3 ? "bottom-highlight" : ""}`}
                  onClick={() => {
-                     setCompareSearch(null)
-                     setCommunitySearch(null)
+                     //setCompareSearch(null)
+                     //setCommunitySearch(null)
                      setShowMap(false)
-                     setSelectedIssue(null)
-                     setSelectedSpecificIssue(null)
+                     //setSelectedIssue(null)
+                     //setSelectedSpecificIssue(null)
                      setMoreIssuesLength(0)
                      setMoreIssues([])
                      if (selectedChapter !== 2) {
@@ -116,8 +116,8 @@ function Nav({
              ${!selectedChapter ? "" : (selectedChapter === 3 ? "expanded-nav" : "collapsed-nav")}
              ${selectedChapter === 4? "bottom-highlight":""}`}
                  onClick={() => {
-                     setSelectedIssue(null)
-                     setSelectedSpecificIssue(null)
+                     //setSelectedIssue(null)
+                     //setSelectedSpecificIssue(null)
                      if (selectedChapter !== 3) {
                          setSelectedChapter(3)
                      } else {
@@ -151,11 +151,11 @@ function Nav({
             </div>
 
 
-            <div className={`nav-chapters d-flex flex-column justify-content-between 
+            <div className={`nav-chapters d-flex flex-column justify-content-between no-bottom-border
              ${!selectedChapter ? "flex-grow-0 " : (selectedChapter === 4 ? "expanded-nav" : "collapsed-nav")}`}
                  onClick={() => {
-                     setSelectedIssue(null)
-                     setSelectedSpecificIssue(null)
+                     //setSelectedIssue(null)
+                     //setSelectedSpecificIssue(null)
                      setMoreIssuesLength(0)
                      setMoreIssues([])
                      if (selectedChapter !== 4) {
