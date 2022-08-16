@@ -257,6 +257,7 @@ export default function DeckMap({
   }, []);
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
 
+  // 05 MAP LAYERS ----------------------------------------------------------------------------------------------
   const layers = [
     new GeoJsonLayer({
       id: "neighborhoods",
@@ -393,51 +394,9 @@ export default function DeckMap({
     }),
 
     new GeoJsonLayer({
-      id: "administrative-boundaries",
-      data: selectedBoundary,
-      stroked: true,
-      filled: true,
-      getFillColor: [255, 255, 255, 0],
-      getLineColor: (f) => {
-        if (
-          boundary == "council" ||
-          (boundary == "community" && f.properties.Data_YN == "Y")
-        ) {
-          return [0, 0, 0, 255];
-        }
-        return [0, 0, 0, 0];
-      },
-      lineWidthUnits: "meters",
-      getLineWidth: (w) => {
-        if (
-          boundary == "council" ||
-          (boundary == "community" && w.properties.Data_YN == "Y")
-        ) {
-          return 50;
-        }
-        return 0;
-      },
-      lineWidthMinPixels: 1,
-      pickable: true,
-      autoHighlight: true,
-      highlightColor: [217, 255, 0, 215],
-      onClick: (info) => {
-        if (boundary == "council") {
-          console.log(
-            selectedBoundary.features[info.index].properties.CounDist
-          );
-        }
-        console.log(
-          selectedMetric,
-          selectedBoundary.features[info.index].properties[selectedMetric]
-        );
-      },
-    }),
-
-    new GeoJsonLayer({
       id: "demographics-choropleth",
       data: selectedBoundary,
-      stroked: true,
+      stroked: false,
       filled: true,
       getFillColor: (f) => {
         let fillValue = parseFloat(f.properties[selectedDemographic]);
@@ -446,11 +405,8 @@ export default function DeckMap({
             return [0, 0, 0, 0];
           }
         }
-        // return COLOR_SCALE(fillValue);
         return DEMO_COLOR_SCALE(fillValue);
       },
-      getLineColor: (f) => {},
-      getLineWidth: (w) => {},
       lineWidthMinPixels: 1,
 
       opacity: choroplethOpacity,
@@ -501,6 +457,48 @@ export default function DeckMap({
       },
     }),
 
+    new GeoJsonLayer({
+      id: "administrative-boundaries",
+      data: selectedBoundary,
+      stroked: true,
+      filled: true,
+      getFillColor: [255, 255, 255, 0],
+      getLineColor: (f) => {
+        if (
+          boundary == "council" ||
+          (boundary == "community" && f.properties.Data_YN == "Y")
+        ) {
+          return [0, 0, 0, 255];
+        }
+        return [0, 0, 0, 0];
+      },
+      lineWidthUnits: "meters",
+      getLineWidth: (w) => {
+        if (
+          boundary == "council" ||
+          (boundary == "community" && w.properties.Data_YN == "Y")
+        ) {
+          return 50;
+        }
+        return 0;
+      },
+      lineWidthMinPixels: 1,
+      pickable: true,
+      autoHighlight: true,
+      highlightColor: [217, 255, 0, 215],
+      onClick: (info) => {
+        if (boundary == "council") {
+          console.log(
+            selectedBoundary.features[info.index].properties.CounDist
+          );
+        }
+        console.log(
+          selectedMetric,
+          selectedBoundary.features[info.index].properties[selectedMetric]
+        );
+      },
+    }),
+
     new TextLayer({
       id: "administrative-text-info",
       data: selectedBoundary.features,
@@ -536,6 +534,7 @@ export default function DeckMap({
       opacity: zoomToggle,
     }),
   ];
+  // 05 MAP LAYERS END ----------------------------------------------------------------------------------------------------
 
   return (
     <DeckGL
