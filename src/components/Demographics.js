@@ -13,7 +13,7 @@ export default function Demographics({
                                          showDemographics, setShowDemographics,
                                          compareSearch, communitySearch,
                                          mapDemographics, setMapDemographics,
-                                         boundary, communities, councils
+                                         boundary, communities, councils, selectedChapter
                                      }) {
 
 
@@ -97,7 +97,7 @@ export default function Demographics({
                 </div>
 
 
-                {currentValue && !communitySearch && !compareSearch &&
+                {currentValue && selectedChapter===2 &&
                     <div>
                         <div className={"d-flex flex-row justify-content-between"}>
                             <p className={"m-0"}>New York City</p>
@@ -117,7 +117,7 @@ export default function Demographics({
                     </div>
                 }
 
-                {currentValue && communitySearch && !compareSearch &&
+                {currentValue && communitySearch && !compareSearch && selectedChapter===3 &&
                     <div>
                         <div className={"d-flex flex-row justify-content-between"}>
                             <p className={"m-0"}>{boundary === "council" ? councils[communitySearch].bolded_text : communities[communitySearch].bolded_text}</p>
@@ -138,7 +138,7 @@ export default function Demographics({
 
                 }
 
-                {currentValue && communitySearch && compareSearch &&
+                {currentValue && communitySearch && compareSearch && selectedChapter===3 &&
                     <div id={"demographic-slider"}>
                         <Slider>
                             <div>

@@ -18,6 +18,7 @@ export default function IssuesMiddleColumn({
                                                mapDemographics, setMapDemographics, boundary,
                                                communities, councils,
                                                legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers,
+                                                selectedChapter
 
                                            }) {
 
@@ -245,6 +246,7 @@ export default function IssuesMiddleColumn({
                                   communitySearch={communitySearch} compareSearch={compareSearch}
                                   mapDemographics={mapDemographics} setMapDemographics={setMapDemographics}
                                   boundary={boundary} communities={communities} councils={councils}
+                                  selectedChapter={selectedChapter}
                     />
 
                 </div>

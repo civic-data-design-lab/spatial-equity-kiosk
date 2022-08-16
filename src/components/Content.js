@@ -48,7 +48,7 @@ export default function Content({
                         legendBins={legendBins}
                         colorRamps={colorRamps}
                         toggleUnderperformers={toggleUnderperformers}
-                        setToggleUnderperformers={setToggleUnderperformers}
+                        setToggleUnderperformers={setToggleUnderperformers} selectedChapter={selectedChapter}
                     />}
 
                 {selectedChapter === 3 && <CommunityMiddleColumn
