@@ -107,6 +107,7 @@ function App() {
         console.log("compare search ", compareSearch)
         console.log("boundary ", boundary)
         console.log("selectedAbout ", selectedAbout)
+
         console.log("-------------------------------------------")*/
 
     /* if (!selectedSpecificIssue) {
@@ -118,6 +119,7 @@ function App() {
              setSelectedSpecificIssue(1)
          }*/
 
+    console.log('show demographics ', showDemographics)
     const params = [];
 
     if (showMap !== null) params.push(`swM=${showMap.toString()}`);

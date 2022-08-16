@@ -30,7 +30,7 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
                 <h5 className={"issues-tile-heading bold"}>
                     Worst {getIssueName()} by District
                 </h5>
-                <div className={"small-font"}>
+                <div className={"smaller-font"}>
                     <Table bordered>
                         <thead>
                         <tr>

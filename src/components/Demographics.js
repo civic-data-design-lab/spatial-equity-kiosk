@@ -87,7 +87,7 @@ export default function Demographics({
                                             setValue(key)
                                         }}
                                     >
-                                        {demographics[key]}
+                                        <p className={"small-font m-0"}>{demographics[key]}</p>
                                     </div>)
 
                             })}

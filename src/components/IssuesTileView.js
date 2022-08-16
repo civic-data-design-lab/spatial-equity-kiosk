@@ -57,7 +57,7 @@ export default function IssuesTileView({
 
                         <div className={"issue-tile-viz"}>
                             <div>
-                                <h5 className={"m-0"}>{getIssueName()}</h5>
+                                <h5 className={"m-0 bold"}>{getIssueName()}</h5>
                                 <p className={"m-0 small-font"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}</p>
                             </div>
                             <div>

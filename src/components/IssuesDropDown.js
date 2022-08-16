@@ -61,7 +61,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                                         }
                                     }}
                                 >
-                                    {item.specific_issue_name}
+                                    <p className={"small-font mb-0"}>{item.specific_issue_name}</p>
                                 </div>)
 
                         })}

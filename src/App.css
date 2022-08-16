@@ -4,12 +4,13 @@
     src: url(./fonts/Inter-VariableFont_slnt,wght.ttf);
 }
 
+
 :root {
     --health: #F93080;
     --environment: #179F4E;
     --infrastructure: #146FD1;
-
 }
+
 
 /* Utility */
 .standard-padding {
@@ -152,7 +153,7 @@ a:active {
 .nav-chapters {
     flex-grow: 1;
     padding: 1em 1.5em;
-    transition: flex 1s, background-color 0.5s, color 0.5s;
+    transition: flex 1s, background-color 0.5s, color 0.5s, border-bottom-color 0.5s;
     border: 2px solid black;
     border-top: none;
     min-height: 0;
@@ -163,8 +164,8 @@ a:active {
 
 .nav-chapters:hover {
     background-color: black;
-    outline: 1px solid white;
-    outline-offset: -2px;
+    /*outline: 1px solid white;
+    outline-offset: -2px;*/
     color: white;
 }
 
@@ -173,6 +174,7 @@ a:active {
     color: white;
     flex-grow: 2 !important;
     padding: 1.5em 1.5em !important;
+    border-bottom-color: white;
 }
 
 .collapsed-nav {
@@ -262,6 +264,11 @@ a:active {
     background-color: white !important;
     border: 2px solid black !important;
     border-top: none !important;
+    padding-right: 1em !important;
+}
+
+.break-text {
+    word-wrap: break-word !important;
 }
 
 .dropdown-item:hover, .dropdown-item-active {
@@ -412,6 +419,7 @@ a:active {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 0.5rem;
+
 }
 
 .boundary-toggle-item-active {
@@ -461,7 +469,8 @@ a:active {
     width: 100%;
     overflow: hidden;
     column-gap: 1em;
-    height: calc(100vh - 6em);
+    height: calc(100vh - 4em);
+    padding-bottom: 0;
 }
 
 .issues-tile-text-container {
@@ -503,7 +512,7 @@ a:active {
     flex-grow: 1;
     padding: 1em;
     word-wrap: normal;
-    transition: background-color 0.5s, color 0.5s, flex 1s;
+    transition: background-color 0.5s, color 0.5s, flex 1s, border-bottom-color 0.5s;
     cursor: pointer;
     background-color: white;
     color: black;
@@ -511,13 +520,15 @@ a:active {
     flex-direction: column;
     justify-content: space-between;
     border-bottom: 2px solid black;
+    border-left: 1px solid white;
 }
 
 .issues-chapters:hover, .issues-chapters-active {
     background-color: black;
     color: white;
-    outline: 1px solid white;
-    outline-offset: -1px;
+    border-bottom: 2px solid white;
+    /*outline: 1px solid white;
+    outline-offset: -1px;*/
 }
 
 .accordion-body {
@@ -771,13 +782,18 @@ a:active {
 .placeholder-legend {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1fr 6fr;
     grid-template-rows: auto;
     column-gap: 1em;
+    align-items: center;
 }
 
 .small-font {
     font-size: .75em;
+}
+
+.smaller-font {
+    font-size: .6em;
 }
 
 .add-demographic-btn {
@@ -953,6 +969,27 @@ a:active {
 
 
 }
+
+.bottom-highlight:hover {
+    border-bottom-color: white !important;
+}
+
+.some-height {
+    max-height: 100vh;
+    font-size: 1.25rem;
+    opacity: 1;
+}
+
+.no-height {
+    max-height: 0;
+    font-size: 0;
+    opacity: 0;
+}
+
+.transition-height {
+    transition: max-height 0.5s, font-size 0.5s, opacity 0.5s;
+}
+
 
 /*TODO: print preview*/
 

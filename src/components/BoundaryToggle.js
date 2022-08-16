@@ -4,7 +4,7 @@ export default function BoundaryToggle({setBoundary, boundary, setCompareSearch,
     return (
         <div className={`w-100 boundary-toggle`}>
 
-            <div className={`boundary-toggle-item ${boundary === "council" ? "boundary-toggle-item-active" : "boundary-toggle-item-inactive"} no-right-border`}
+            <div className={`boundary-toggle-item ${boundary === "council" ? "boundary-toggle-item-active" : "boundary-toggle-item-inactive"} no-right-border small-font`}
                  onClick={(e) => {
                      e.stopPropagation()
                      if (boundary !== "council") {
@@ -14,9 +14,9 @@ export default function BoundaryToggle({setBoundary, boundary, setCompareSearch,
                      setBoundary("council")
 
                  }}
-            ><small>Council District</small></div>
+            >Council District</div>
 
-            <div className={`boundary-toggle-item ${boundary === "community" ? "boundary-toggle-item-active" : "boundary-toggle-item-inactive"} no-left-border`}
+            <div className={`boundary-toggle-item ${boundary === "community" ? "boundary-toggle-item-active" : "boundary-toggle-item-inactive"} no-left-border small-font`}
                  onClick={(e) => {
                      e.stopPropagation()
                      if (boundary !== "community") {
@@ -25,7 +25,7 @@ export default function BoundaryToggle({setBoundary, boundary, setCompareSearch,
                      }
                      setBoundary("community")
                  }}
-            ><small>Community Board</small></div>
+            >Community Board</div>
         </div>
 
     )
