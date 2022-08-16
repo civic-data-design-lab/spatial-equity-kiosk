@@ -19,8 +19,8 @@ export default function Legend({
 
   // button statement
   const buttonStatement = toggleUnderperformers
-    ? "Hide " + administrativeBoundary + " in need"
-    : "Show " + administrativeBoundary + " in need";
+    ? "Highlight " + administrativeBoundary + " in need"
+    : "Remove highlight on " + administrativeBoundary + " in need";
 
   return (
     <>
