@@ -12,7 +12,6 @@ import { max } from "d3-array";
 import _NEIGHBORHOODS from "../data/nta_scores.json";
 import _COUNCIL_DISTRICTS from "../data/council_districts.json"; //council districts
 import _COMMUNITY_BOARDS from "../data/community_boards.json"; //community boards
-// import _NYC_POVERTY from "../data/poverty_points_light.json";
 import _NEIGHBORHOOD_NAMES from "../data/neighborhood_names.json";
 import _ETHNICITY from "../data/ethnicity.json";
 import _FILL_PATTERN from "../data/fill_pattern.json";
@@ -67,6 +66,10 @@ const INITIAL_VIEW_STATE = {
   bearing: 0,
 };
 
+// view state constraints
+const LONGITUDE_RANGE = [-74.15, -73.8];
+const LATITUDE_RANGE = [40.6, 40.8];
+
 export default function DeckMap({
   issues,
   selectedIssue,
@@ -79,6 +82,8 @@ export default function DeckMap({
   setLegendBins,
   colorRamps,
   setColorRamps,
+  toggleUnderperformers,
+  setToggleUnderperformers,
 }) {
   // map hooks
   const [hoverInfo, setHoverInfo] = useState();
@@ -131,8 +136,6 @@ export default function DeckMap({
       rampValues.push(floatValue);
     }
   }
-
-  // console.log(_COUNCIL_DISTRICTS.features[3].properties[selectedMetric]);
 
   for (let i = 0; i < binSize; i++) {
     let threshold = (max(rampValues) / binSize) * (i + 1);
@@ -217,7 +220,16 @@ export default function DeckMap({
 
   // Change properties based on camera move and zoom --------------------------------------------------------------
   const onViewStateChange = useCallback(({ viewState }) => {
-    // console.log(viewState.zoom);
+    // set constraints on view state
+    viewState.longitude = Math.min(
+      LONGITUDE_RANGE[1],
+      Math.max(LONGITUDE_RANGE[0], viewState.longitude)
+    );
+    viewState.latitude = Math.min(
+      LATITUDE_RANGE[1],
+      Math.max(LATITUDE_RANGE[0], viewState.latitude)
+    );
+
     // ramp in/out based on zoom level
     const ramp =
       0 + ((viewState.zoom - zoomMin) * (0.85 - 0)) / (zoomMax - zoomMin);
@@ -323,11 +335,14 @@ export default function DeckMap({
       lineWidthMinPixels: 1,
       getLineWidth: (w) => {
         let strokeValue = parseFloat(w.properties[selectedMetric]);
-        if (metricGoodBad == 1) {
-          return strokeValue >= underperformers ? 100 : 0;
-        } else {
-          return strokeValue <= underperformers ? 100 : 0;
+        if (toggleUnderperformers === true) {
+          if (metricGoodBad == 1) {
+            return strokeValue >= underperformers ? 100 : 0;
+          } else {
+            return strokeValue <= underperformers ? 100 : 0;
+          }
         }
+        return 0;
       },
 
       opacity: choroplethOpacity,
@@ -339,11 +354,18 @@ export default function DeckMap({
       fillPatternMapping: _FILL_PATTERN,
       getFillPattern: (f) => {
         let fillValue = parseFloat(f.properties[selectedMetric]);
-        if (metricGoodBad == 1) {
-          return fillValue >= underperformers ? "hatch-pattern" : "hatch-solid";
-        } else {
-          return fillValue <= underperformers ? "hatch-pattern" : "hatch-solid";
+        if (toggleUnderperformers === true) {
+          if (metricGoodBad == 1) {
+            return fillValue >= underperformers
+              ? "hatch-pattern"
+              : "hatch-solid";
+          } else {
+            return fillValue <= underperformers
+              ? "hatch-pattern"
+              : "hatch-solid";
+          }
         }
+        return "hatch-solid";
       },
       getFillPatternScale: 10,
       getFillPatternOffset: [0, 0],
@@ -351,9 +373,8 @@ export default function DeckMap({
       extensions: [new FillStyleExtension({ pattern: true })],
 
       updateTriggers: {
-        getFillColor: [selectedMetric],
-        getLineWidth: [selectedMetric],
-        getFillPattern: [selectedMetric],
+        getLineWidth: [selectedMetric, toggleUnderperformers],
+        getFillPattern: [selectedMetric, toggleUnderperformers],
       },
     }),
 

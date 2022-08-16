@@ -163,8 +163,8 @@ a:active {
 
 .nav-chapters:hover {
     background-color: black;
-    outline: 1px solid white;
-    outline-offset: -2px;
+    /* outline: 1px solid white; */
+    /* outline-offset: -2px; */
     color: white;
 }
 
@@ -516,8 +516,8 @@ a:active {
 .issues-chapters:hover, .issues-chapters-active {
     background-color: black;
     color: white;
-    outline: 1px solid white;
-    outline-offset: -1px;
+    /* outline: 1px solid white; */
+    /* outline-offset: -1px; */
 }
 
 .accordion-body {

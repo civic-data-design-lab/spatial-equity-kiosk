@@ -5,7 +5,23 @@ export default function Legend({
   selectedSpecificIssue,
   legendBins,
   colorRamps,
+  toggleUnderperformers,
+  setToggleUnderperformers,
+  boundary,
 }) {
+  // toggle areas in need
+  const handleClick = (event) => {
+    setToggleUnderperformers(!toggleUnderperformers);
+  };
+
+  const administrativeBoundary =
+    boundary === "council" ? "Council Districts" : "Community Boards";
+
+  // button statement
+  const buttonStatement = toggleUnderperformers
+    ? "Hide " + administrativeBoundary + " in need"
+    : "Show " + administrativeBoundary + " in need";
+
   return (
     <>
       {!selectedSpecificIssue ? (
@@ -57,6 +73,20 @@ export default function Legend({
               {legendBins[3]} - {legendBins[4]}
             </div>
           </div>
+          <input
+            type="checkbox"
+            className="form-check-input"
+            onClick={handleClick}
+          ></input>
+          <a>{buttonStatement}</a>
+          {/* <div
+            className={
+              toggleUnderperformers
+                ? "boundary-toggle-item-active"
+                : "boundary-toggle-item-inactive"
+            }
+            onClick={handleClick}
+          ></div> */}
         </div>
       )}
     </>

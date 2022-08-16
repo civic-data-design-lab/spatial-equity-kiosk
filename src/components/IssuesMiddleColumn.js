@@ -17,7 +17,7 @@ export default function IssuesMiddleColumn({
                                                showDemographics, setShowDemographics,
                                                mapDemographics, setMapDemographics, boundary,
                                                communities, councils,
-                                               legendBins, colorRamps
+                                               legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers,
 
                                            }) {
                                         
@@ -108,7 +108,8 @@ export default function IssuesMiddleColumn({
                             </div>}
                         <div>
                             {!showDemographics && <h6>Data Legend</h6>}
-                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} />
+                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
+                            setToggleUnderperformers={setToggleUnderperformers} boundary={boundary} />
                         </div>
 
 
@@ -156,7 +157,8 @@ export default function IssuesMiddleColumn({
                             </div>}
                         <div>
                             {!showDemographics && <h6>Data Legend</h6>}
-                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps}   />
+                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
+                            setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}   />
                             
                         </div>
 
@@ -204,7 +206,8 @@ export default function IssuesMiddleColumn({
                             </div>}
                         <div>
                             {!showDemographics && <h6>Data Legend</h6>}
-                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} />
+                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
+                            setToggleUnderperformers={setToggleUnderperformers} boundary={boundary} />
                         </div>
 
 
