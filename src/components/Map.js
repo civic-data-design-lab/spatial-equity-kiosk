@@ -245,7 +245,7 @@ export default function DeckMap({
     setLayerColorRamp([50, 50, 50, cRamp]); // set color ramp to cRamp value
 
     // 04.3 toggle based on zoom level
-    if (viewState.zoom > 12.5) {
+    if (viewState.zoom > 12.25) {
       setzoomToggle(1);
       setinverseZoomToggle(0);
       sethandleLegend(0);
@@ -284,6 +284,40 @@ export default function DeckMap({
       updateTriggers: {
         getFillColor: [selectedMetric],
       },
+    }),
+
+    new GeoJsonLayer({
+      id: "neighborhood-demographics",
+      data: _NEIGHBORHOODS.features,
+      stroked: false,
+      filled: true,
+      getFillColor: (f) => {
+        let fillValue = parseFloat(f.properties[selectedDemographic]);
+        if (f.properties.AnsUnt_YN == "Y") {
+          if (isNaN(fillValue)) {
+            return [0, 0, 0, 0];
+          } else {
+            return DEMO_COLOR_SCALE(fillValue);
+          }
+        }
+        return [0, 0, 0, 0];
+      },
+      lineWidthMinPixels: 1,
+
+      opacity: choroplethOpacity,
+      visible: zoomToggle == 1 ? toggleDemChoropleth : 0,
+
+      updateTriggers: {
+        getLineWidth: [selectedDemographic],
+        getFillColor: [selectedDemographic],
+      },
+
+      // pickable: true,
+      // autoHighlight: true,
+      // highlightColor: [217, 255, 0, 215],
+      // onClick: (info) => {
+      //   console.log(_NEIGHBORHOODS.features[info.index].properties.AnsUnt_YN);
+      // },
     }),
 
     new GeoJsonLayer({
@@ -394,7 +428,7 @@ export default function DeckMap({
     }),
 
     new GeoJsonLayer({
-      id: "demographics-choropleth",
+      id: "administrative-demographics",
       data: selectedBoundary,
       stroked: false,
       filled: true,
@@ -410,7 +444,7 @@ export default function DeckMap({
       lineWidthMinPixels: 1,
 
       opacity: choroplethOpacity,
-      visible: toggleDemChoropleth,
+      visible: zoomToggle == 0 ? toggleDemChoropleth : 0,
 
       updateTriggers: {
         getLineWidth: [selectedDemographic],
@@ -418,7 +452,6 @@ export default function DeckMap({
       },
     }),
 
-    // race ethnicity
     new ScatterplotLayer({
       id: "ethnicity",
       data: _ETHNICITY.features,
