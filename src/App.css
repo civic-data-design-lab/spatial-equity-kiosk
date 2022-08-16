@@ -164,8 +164,6 @@ a:active {
 
 .nav-chapters:hover {
     background-color: black;
-    /*outline: 1px solid white;
-    outline-offset: -2px;*/
     color: white;
 }
 
@@ -527,8 +525,6 @@ a:active {
     background-color: black;
     color: white;
     border-bottom: 2px solid white;
-    /*outline: 1px solid white;
-    outline-offset: -1px;*/
 }
 
 .accordion-body {

@@ -37,8 +37,8 @@ function App() {
   const [addCompare, setAddCompare] = useState(false);
   const [legendBins, setLegendBins] = useState();
   const [colorRamps, setColorRamps] = useState();
+  const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
   const location = useLocation();
-
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -226,21 +226,25 @@ function App() {
         setMapDemographics={setMapDemographics}
         legendBins={legendBins}
         colorRamps={colorRamps}
+        toggleUnderperformers={toggleUnderperformers}
+        setToggleUnderperformers={setToggleUnderperformers}
       />
 
       <div className={`${showMap ? "show-map" : "hide-map"} map-container`}>
         <Map
-        issues={issues}
-        selectedIssue={selectedIssue}
-        selectedSpecificIssue={selectedSpecificIssue}
-        boundary={boundary}
-        showDemographics={showDemographics}
-        mapDemographics={mapDemographics}
-        demographic={demographic}
-        legendBins={legendBins}
-        setLegendBins={setLegendBins}
-        colorRamps = {colorRamps}
-        setColorRamps = {setColorRamps}
+          issues={issues}
+          selectedIssue={selectedIssue}
+          selectedSpecificIssue={selectedSpecificIssue}
+          boundary={boundary}
+          showDemographics={showDemographics}
+          mapDemographics={mapDemographics}
+          demographic={demographic}
+          legendBins={legendBins}
+          setLegendBins={setLegendBins}
+          colorRamps={colorRamps}
+          setColorRamps={setColorRamps}
+          toggleUnderperformers={toggleUnderperformers}
+          setToggleUnderperformers={setToggleUnderperformers}
         />
       </div>
     </Container>
