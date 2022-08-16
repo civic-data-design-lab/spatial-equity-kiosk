@@ -107,13 +107,10 @@ export default function IssuesMiddleColumn({
                                         include a range of health metrics.</p>}
                             </div>}
                         <div>
-
                             {!showDemographics && <p className={"small-font m-0"}>Data Legend</p>}
                             <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary} />
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -158,7 +155,6 @@ export default function IssuesMiddleColumn({
                                         include a range of health metrics.</p>}
                             </div>}
                         <div>
-
                             {!showDemographics && <p className={"small-font m-0"}>Data Legend</p>}
                             <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}   />
@@ -208,8 +204,6 @@ export default function IssuesMiddleColumn({
                                         include a range of health metrics.</p>}
                             </div>}
                         <div>
-
-
                             {!showDemographics && <p className={"small-font m-0"}>Data Legend</p>}
                             <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary} />

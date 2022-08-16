@@ -13,11 +13,13 @@ import _ISSUE_CATEGORIES from "./texts/issue_categories.json";
 import _ISSUES from "./texts/issues.json";
 import _COMMUNITIES from "./texts/communities.json";
 import _COUNCILS from "./texts/councildistricts.json";
+import _DEMOGRAPHICS from "./texts/demographics.json";
 
 const issue_categories = _ISSUE_CATEGORIES;
 const issues = _ISSUES;
 const communities = _COMMUNITIES;
 const councils = _COUNCILS;
+const demoLookup = _DEMOGRAPHICS;
 
 function App() {
   const [showMap, setShowMap] = useState(false);
@@ -245,6 +247,7 @@ function App() {
           setColorRamps={setColorRamps}
           toggleUnderperformers={toggleUnderperformers}
           setToggleUnderperformers={setToggleUnderperformers}
+          demoLookup={demoLookup}
         />
       </div>
     </Container>
