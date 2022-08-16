@@ -18,9 +18,7 @@ export default function Legend({
     boundary === "council" ? "Council Districts" : "Community Boards";
 
   // button statement
-  const buttonStatement = toggleUnderperformers
-    ? "Highlight " + administrativeBoundary + " in need"
-    : "Remove highlight on " + administrativeBoundary + " in need";
+  const buttonStatement = `Highlight ${administrativeBoundary} in need`;
 
   return (
     <>
