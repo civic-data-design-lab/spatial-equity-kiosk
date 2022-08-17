@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight, faMinus} from "@fortawesome/free-solid-svg-icons";
 
 import axios from "axios";
 
@@ -11,7 +11,7 @@ const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 export default function CommunitySearchBar({
                                                toggleValue, callBack, communitySearch, forSearch = true,
-                                               children
+                                               children, setAddCompare=null
                                            }) {
     const [value, setValue] = useState('');
     const [focus, setFocus] = useState(false)
@@ -93,6 +93,14 @@ export default function CommunitySearchBar({
                        }}
                        value={toggleValue || value}
                 />
+                <div className={`${!forSearch ? "position-absolute" : "d-none"} remove-community-btn`}
+                     onClick={(e)=>{
+                         e.stopPropagation()
+                         setAddCompare(false)
+                     }}
+                >
+                    <FontAwesomeIcon icon={faMinus} width={32}/>
+                </div>
             </div>
             {/* {focus && getSearchItems().length > 0 && <div>
                 <ul className={`list-unstyled community-dropdown`}>

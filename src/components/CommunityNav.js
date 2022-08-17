@@ -104,7 +104,7 @@ export default function CommunityNav({
                 {communitySearch && addCompare &&
                     <CommunitySearchBar
                         toggleValue={compareSearch ? (boundary === "community" ? communities[compareSearch].bolded_text : councils[compareSearch].bolded_text) : null}
-                        communitySearch={communitySearch}
+                        communitySearch={communitySearch} forSearch={false} setAddCompare={setAddCompare}
                         callBack={setCompareSearch}>
                         {getSearchItems(false, boundary)}
                     </CommunitySearchBar>
