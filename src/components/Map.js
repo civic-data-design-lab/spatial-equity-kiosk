@@ -9,7 +9,7 @@ import { max } from "d3-array";
 
 // data
 // import _ISSUES from "../texts/issues.json";
-import _NEIGHBORHOODS from "../data/nta_scores.json";
+import _NEIGHBORHOODS from "../data/neighborhoods.json";
 import _COUNCIL_DISTRICTS from "../data/council_districts.json"; //council districts
 import _COMMUNITY_BOARDS from "../data/community_boards.json"; //community boards
 import _NEIGHBORHOOD_NAMES from "../data/neighborhood_names.json";
@@ -48,6 +48,18 @@ const INITIAL_VIEW_STATE = {
 };
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
+
+// Tooltip old
+// function getTooltip({ object }) {
+//   console.log(object);
+
+//   // return object && object.properties.CDTA2020;
+//   if (object) {
+//     return `\
+//     Week of ${object}
+//     ${object.properties.CDTA2020} per 100K residents`;
+//   }
+// }
 
 export default function DeckMap({
   issues,
@@ -95,10 +107,10 @@ export default function DeckMap({
   // METRIC CONFIG -----------------------------------------------------
 
   // select metric to display
-  let selectedMetric;
+  let selectedMetric; // MAKE THIS A STATE AT THE APP LEVEL FOR OPTIMIZATION
   let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
   if (selectedSpecificIssue !== null) {
-    if (selectedSpecificIssue !== false) {
+    if (typeof selectedSpecificIssue == "number") {
       selectedMetric =
         issues.specific_issues_data[selectedSpecificIssue].json_id;
       metricGoodBad =
@@ -186,7 +198,7 @@ export default function DeckMap({
 
   // 03.1 toggle demographics on off and pick which to display
   if (showDemographics && mapDemographics) {
-    selectedDemographic = demoLookup[demographic].name;
+    selectedDemographic = demoLookup[demographic].lookup;
     if (demographic === "1" && toggleScatterPlot === false) {
       toggleScatterPlot = true;
     } else if (parseFloat(demographic) > 1 && toggleDemChoropleth === false) {
@@ -257,7 +269,38 @@ export default function DeckMap({
   }, []);
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
 
-  // 05 MAP LAYERS ----------------------------------------------------------------------------------------------
+  // 05 TOOLTIP ----------------------------------------------------------------------------------------------
+  const getTooltip = (info) => {
+    if (info.object) {
+      const obj = info.object;
+      const tooltipBounds =
+        boundary == "community" ? "Community Board" : "Council District";
+      const boundaryName =
+        boundary == "community"
+          ? obj.properties.CDTA2020
+          : obj.properties.CounDist;
+      if (
+        boundary == "council" ||
+        (boundary == "community" && obj.properties.Data_YN == "Y")
+      ) {
+        return `\
+      ${tooltipBounds} ${boundaryName}
+      ${
+        typeof selectedSpecificIssue == "number"
+          ? issues.specific_issues_data[selectedSpecificIssue]
+              .specific_issue_name
+          : ""
+      } ${selectedMetric != null ? obj.properties[selectedMetric] : ""}
+      ${selectedDemographic != null ? demoLookup[demographic].name : ""} ${
+          selectedDemographic != null ? obj.properties[selectedDemographic] : ""
+        }`;
+      }
+    }
+  };
+
+  // 05 TOOLTIP END ----------------------------------------------------------------------------------------------
+
+  // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
   const layers = [
     new GeoJsonLayer({
       id: "neighborhoods",
@@ -345,7 +388,6 @@ export default function DeckMap({
       opacity: choroplethOpacity,
       visible: inverseZoomToggle,
 
-      onHover: (info) => setHoverInfo(info),
       updateTriggers: {
         getFillColor: [selectedMetric],
       },
@@ -518,7 +560,12 @@ export default function DeckMap({
       lineWidthMinPixels: 1,
       pickable: true,
       autoHighlight: true,
-      highlightColor: [217, 255, 0, 215],
+      highlightColor: (info) => {
+        if (boundary == "community" && info.object.properties.Data_YN == "N") {
+          return [0, 0, 0, 0];
+        }
+        return [217, 255, 0, 215];
+      },
       onClick: (info) => {
         if (boundary == "council") {
           console.log(
@@ -530,26 +577,6 @@ export default function DeckMap({
           selectedBoundary.features[info.index].properties[selectedMetric]
         );
       },
-    }),
-
-    new TextLayer({
-      id: "administrative-text-info",
-      data: selectedBoundary.features,
-      characterSet: "auto",
-      sizeUnits: "meters",
-      fontFamily: "Roboto",
-      fontWeight: "1000",
-      getColor: [255, 0, 0, 255],
-      // getText: (d) => d.properties.CounDist,
-      getText: (d) => "YES",
-      getPosition: (x) => [x.properties.longitude, x.properties.latitude],
-      getSize: 100,
-      // wordBreak: "break-all",
-      // maxWidth: 600,
-      // background: true,
-      // getBackgroundColor: [0, 0, 0],
-      // backgroundPadding: [3, 3],
-      // opacity: zoomToggle,
     }),
 
     new TextLayer({
@@ -567,7 +594,7 @@ export default function DeckMap({
       opacity: zoomToggle,
     }),
   ];
-  // 05 MAP LAYERS END ----------------------------------------------------------------------------------------------------
+  // 06 MAP LAYERS END ----------------------------------------------------------------------------------------------------
 
   return (
     <DeckGL
@@ -576,21 +603,9 @@ export default function DeckMap({
       layers={layers}
       getCursor={() => "crosshair"}
       onViewStateChange={onViewStateChange}
+      getTooltip={getTooltip}
+      // style={{ mixBlendMode: "multiply" }}
     >
-      {/* WIP tooltip not sure whats wrong  */}
-      {/* {hoverInfo.object && (
-        <div
-          style={{
-            position: "absolute",
-            zIndex: 1,
-            pointerEvents: "none",
-            left: hoverInfo.x,
-            top: hoverInfo.y,
-          }}
-        >
-          {hoverInfo.object.message}
-        </div>
-      )} */}
       <Map
         reuseMaps
         mapStyle={mapStyle}
