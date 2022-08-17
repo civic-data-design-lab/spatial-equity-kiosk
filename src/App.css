@@ -618,6 +618,37 @@ a:active {
     height: 100% !important;
 }
 
+.map-tooltip > *{
+    padding: 10px;
+}
+
+.map-tooltip-header{
+    background-color: black;
+    color: white;
+}
+
+.tooltip-grid{
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    grid-gap: 1px;
+    justify-items: left;
+}
+
+
+.tooltip-info:last-child{
+    padding-top: 0px;
+}
+
+.map-tooltip-text {
+    color: white;
+}
+
+.ethnicity-list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 
 /* Map Toggle */
 #toggle-container {

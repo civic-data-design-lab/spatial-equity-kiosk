@@ -1,0 +1,26 @@
+{
+    "Hispanic": {
+        "deckFormat": [244, 133, 0, 255],
+        "htmlFormat": "rgb(244, 133, 0)"
+    },
+    "White": {
+        "deckFormat": [29, 168, 39, 255],
+        "htmlFormat": "rgb(29, 168, 39)"
+    },
+    "Black": {
+        "deckFormat": [80, 128, 234, 255],
+        "htmlFormat": "rgb(80, 128, 234)"
+    },
+    "Indigenous": {
+        "deckFormat": [128, 63, 138],
+        "htmlFormat": "rgb(128, 63, 138)"
+    },
+    "Asian": {
+        "deckFormat": [252, 75, 56, 255],
+        "htmlFormat": "rgb(252, 75, 56)"
+    },
+    "Other": {
+        "deckFormat": [128, 63, 138],
+        "htmlFormat": "rgb(128, 63, 138)"
+    } 
+}
