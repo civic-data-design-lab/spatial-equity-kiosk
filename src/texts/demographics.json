@@ -1,6 +1,7 @@
 {
   "default": {
     "name": "",
+    "lookup": "",
     "colorRamp": [
       [248, 198, 220],
       [244, 151, 192],
@@ -10,7 +11,8 @@
     ]
   },
   "1": {
-    "name": "ethnicity",
+    "name": "Race and Ethnicity",
+    "lookup": "",
     "colorRamp": [
       [248, 198, 220],
       [244, 151, 192],
@@ -20,7 +22,8 @@
     ]
   },
   "2": {
-    "name": "poverty",
+    "name": "Below the Poverty Line",
+    "lookup": "F12_Pvt10k",
     "colorRamp": [
       [187, 241, 209],
       [129, 228, 170],
@@ -30,7 +33,8 @@
     ]
   },
   "3": {
-    "name": "F6_bike",
+    "name": "Bike to Work",
+    "lookup": "F6_bike",
     "colorRamp": [
       [255, 255, 204],
       [161, 218, 180],
@@ -40,7 +44,8 @@
     ]
   },
   "4": {
-    "name": "F7_CarFree",
+    "name": "Car Free",
+    "lookup": "F7_CarFree",
     "colorRamp": [
       [240, 249, 232],
       [186, 228, 188],
@@ -50,7 +55,8 @@
     ]
   },
   "5": {
-    "name": "F8_PubTran",
+    "name": "Public Transit to Work",
+    "lookup": "F8_PubTran",
     "colorRamp": [
       [254, 240, 217],
       [253, 204, 138],
@@ -60,7 +66,8 @@
     ]
   },
   "6": {
-    "name": "F9_DrvAlon",
+    "name": "Drive Alone to Work",
+    "lookup": "F9_DrvAlon",
     "colorRamp": [
       [246, 239, 247],
       [189, 201, 225],
@@ -70,7 +77,8 @@
     ]
   },
   "7": {
-    "name": "F10_TrsBkW",
+    "name": "Transit, Walk, or Bike",
+    "lookup": "F10_TrsBkW",
     "colorRamp": [
       [254, 235, 226],
       [251, 180, 185],
@@ -80,7 +88,8 @@
     ]
   },
   "8": {
-    "name": "F11_Walk",
+    "name": "Walk",
+    "lookup": "F11_Walk",
     "colorRamp": [
       [254, 237, 222],
       [253, 190, 133],
