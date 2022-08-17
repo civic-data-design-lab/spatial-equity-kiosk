@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRight, faPlus, faMinus} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 import Slider from "./Carousel";
 
 import CommunitySearchBar from "./CommunitySearchBar";
@@ -14,8 +14,6 @@ export default function CommunityNav({
                                          boundary, councils,
                                          addCompare, setAddCompare
                                      }) {
-
-
 
 
     useEffect(() => {
@@ -112,15 +110,17 @@ export default function CommunityNav({
 
                 {communitySearch && !addCompare &&
                     <div
-                    className={`${communitySearch ? "" : "d-none"} mt-3 add-community-btn d-flex flex-row align-items-center justify-content-between`}
-                    onClick={(e) => {
-                        e.stopPropagation()
-                        setCompareSearch(null)
-                        setAddCompare(!addCompare)
-                    }}
-                >
-                        {!addCompare ? <p className={"m-0"}>Compare Communities</p> : <p className={"m-0"}>Remove Community</p>}
-                        {!addCompare ? <FontAwesomeIcon icon={faPlus} width={32}/> : <FontAwesomeIcon icon={faMinus} width={32}/>}
+                        className={`${communitySearch ? "" : "d-none"} mt-3 add-community-btn d-flex flex-row align-items-center justify-content-between`}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            setCompareSearch(null)
+                            setAddCompare(!addCompare)
+                        }}
+                    >
+                        {!addCompare ? <p className={"m-0"}>Compare Communities</p> :
+                            <p className={"m-0"}>Remove Community</p>}
+                        {!addCompare ? <FontAwesomeIcon icon={faPlus} width={32}/> :
+                            <FontAwesomeIcon icon={faMinus} width={32}/>}
                     </div>
                 }
 
@@ -130,9 +130,15 @@ export default function CommunityNav({
             <div className={"community-nav-text"}>
 
                 {communitySearch && !compareSearch &&
-                    <p className={"m-0 community-description"}><span
-                        className={"underline"}>{boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text}</span> {boundary === "community" ? communities[communitySearch].description : councils[communitySearch].description}
-                    </p>
+                    <>
+                        <p className={"m-0 community-description"}><span
+                            className={"underline"}>{boundary === "community" ? communities[communitySearch].bolded_text : councils[communitySearch].bolded_text}</span> {boundary === "community" ? communities[communitySearch].description : councils[communitySearch].description}
+                        </p>
+
+                        <p className={"m-0 small-font"}>
+                            Neighborhoods: {boundary === "community" ? communities[communitySearch].remaining_text : councils[communitySearch].remaining_text}
+                        </p>
+                    </>
                 }
 
                 {(compareSearch && communitySearch) && <div onClick={(e) => {

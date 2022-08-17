@@ -97,6 +97,7 @@ export default function CommunitySearchBar({
                      onClick={(e)=>{
                          e.stopPropagation()
                          setAddCompare(false)
+                         callBack(null)
                      }}
                 >
                     <FontAwesomeIcon icon={faMinus} width={32}/>
