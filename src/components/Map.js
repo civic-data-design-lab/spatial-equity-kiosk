@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect, useMemo } from "react";
 import DeckGL from "@deck.gl/react";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer, TextLayer, ScatterplotLayer } from "@deck.gl/layers";
+import { FlyToInterpolator, LinearInterpolator } from "@deck.gl/core";
 import { scaleThreshold, scaleQuantile } from "d3-scale";
 import { MaskExtension, FillStyleExtension } from "@deck.gl/extensions";
 import { max } from "d3-array";
@@ -79,13 +80,22 @@ export default function DeckMap({
   toggleUnderperformers,
   setToggleUnderperformers,
   demoLookup,
+  selectedChapter,
+  setSelectedChapter,
+  communitySearch,
+  addCompare,
+  setAddCompare,
+  setCommunitySearch,
+  setCompareSearch,
+  setShowMap,
+  communities,
+  councils,
 }) {
   // map hooks
-  const [hoverInfo, setHoverInfo] = useState();
+  const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
+  const [pickObject, setPickObject] = useState([]);
   const [zoomToggle, setzoomToggle] = useState(1);
   const [inverseZoomToggle, setinverseZoomToggle] = useState(1);
-  const [zoomRamp, setzoomRamp] = useState(1);
-  const [layerColorRamp, setLayerColorRamp] = useState(1);
   const [handleLegend, sethandleLegend] = useState(0);
 
   // SELECT BOUNDARY ------------------------------------------------------------
@@ -157,7 +167,7 @@ export default function DeckMap({
       setLegendBins(binList);
       setColorRamps(selectedRamp);
     }
-  }, [selectedSpecificIssue, zoomRamp, selectedBoundary]);
+  }, [selectedSpecificIssue, zoomToggle, selectedBoundary]);
 
   // 01.4 Color Scale function
   let COLOR_SCALE = scaleThreshold().domain(binList).range(selectedRamp); //equal bins
@@ -241,6 +251,7 @@ export default function DeckMap({
 
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
   const onViewStateChange = useCallback(({ viewState }) => {
+    setViewState(viewState);
     // 04.1 set constraints on view state
     viewState.longitude = Math.min(
       LONGITUDE_RANGE[1],
@@ -250,15 +261,10 @@ export default function DeckMap({
       LATITUDE_RANGE[1],
       Math.max(LATITUDE_RANGE[0], viewState.latitude)
     );
+    // max zoom
+    viewState.zoom = Math.min(zoomMax, Math.max(zoomMin, viewState.zoom));
 
     // 04.2 ramp in/out based on zoom level
-    const ramp =
-      0 + ((viewState.zoom - zoomMin) * (0.85 - 0)) / (zoomMax - zoomMin);
-    setzoomRamp(ramp);
-
-    const cRamp =
-      0 + ((viewState.zoom - zoomMin) * (175 - 0)) / (zoomMax - zoomMin);
-    setLayerColorRamp([50, 50, 50, cRamp]); // set color ramp to cRamp value
 
     // 04.3 toggle based on zoom level
     if (viewState.zoom > 12.25) {
@@ -283,6 +289,13 @@ export default function DeckMap({
         boundary == "community"
           ? obj.properties.CDTA2020
           : obj.properties.CounDist;
+      const neighborhoodList =
+        boundary == "council"
+          ? councils[String(obj.properties.CounDist)].remaining_text
+          : boundary == "community" && obj.properties.Data_YN == "Y"
+          ? communities[obj.properties.CDTA2020].remaining_text
+          : null;
+
       if (
         boundary == "council" ||
         (boundary == "community" && obj.properties.Data_YN == "Y")
@@ -296,10 +309,12 @@ export default function DeckMap({
               background: "white",
               color: "black",
               padding: "0px",
+              maxWidth: "250px",
             },
             html: `\
           <!-- select metric -->
           <div class=map-tooltip-header>${tooltipBounds} <strong>${boundaryName}</strong></div>
+          <div class=map-tooltip-neighborhoods>${neighborhoodList}</div>
           <div class=tooltip-info>${
             typeof selectedSpecificIssue == "number"
               ? issues.specific_issues_data[selectedSpecificIssue]
@@ -416,13 +431,6 @@ export default function DeckMap({
         getLineWidth: [selectedDemographic],
         getFillColor: [selectedDemographic],
       },
-
-      // pickable: true,
-      // autoHighlight: true,
-      // highlightColor: [217, 255, 0, 215],
-      // onClick: (info) => {
-      //   console.log(_NEIGHBORHOODS.features[info.index].properties.AnsUnt_YN);
-      // },
     }),
 
     new GeoJsonLayer({
@@ -506,7 +514,7 @@ export default function DeckMap({
             return ethnicityColors.Black.deckFormat; // black
             break;
           case "4":
-            return ethnicityColors.Other.deckFormat; // indigenous
+            return ethnicityColors.Indigenous.deckFormat; // indigenous
             break;
           case "5":
             return ethnicityColors.Asian.deckFormat; // asian
@@ -588,8 +596,8 @@ export default function DeckMap({
       extensions: [new FillStyleExtension({ pattern: true })],
 
       updateTriggers: {
-        getLineWidth: [selectedMetric, toggleUnderperformers],
-        getFillPattern: [selectedMetric, toggleUnderperformers],
+        getLineWidth: [selectedMetric, zoomToggle, toggleUnderperformers],
+        getFillPattern: [selectedMetric, zoomToggle, toggleUnderperformers],
       },
     }),
 
@@ -627,7 +635,38 @@ export default function DeckMap({
         }
         return [217, 255, 0, 215];
       },
-      onClick: (info) => {},
+      onClick: (info) => {
+        const obj = info.object;
+
+        // change selected boundary
+        const lookup =
+          boundary == "council"
+            ? String(obj.properties.CounDist)
+            : boundary == "community" && obj.properties.Data_YN == "Y"
+            ? obj.properties.CDTA2020
+            : null;
+
+        if (
+          (boundary == "community" && obj.properties.Data_YN == "Y") ||
+          boundary == "council"
+        ) {
+          setSelectedChapter(3);
+          if (communitySearch == null || addCompare == false) {
+            setCommunitySearch(lookup);
+          } else {
+            setCompareSearch(lookup);
+          }
+
+          // animate view
+          setViewState({
+            longitude: info.coordinate[0],
+            latitude: info.coordinate[1],
+            zoom: zoomMax - 0.5,
+            transitionDuration: 500,
+            transitionInerpolator: new LinearInterpolator(),
+          });
+        }
+      },
       parameters: {},
     }),
 
@@ -655,11 +694,13 @@ export default function DeckMap({
 
   return (
     <DeckGL
-      initialViewState={INITIAL_VIEW_STATE}
+      // initialViewState={INITIAL_VIEW_STATE}
+      viewState={viewState}
+      // onViewStateChange={}
+      onViewStateChange={onViewStateChange}
       controller={{ dragRotate: false }}
       layers={layers}
       getCursor={() => "crosshair"}
-      onViewStateChange={onViewStateChange}
       getTooltip={getTooltip}
       // style={{ mixBlendMode: "multiply" }}
       // _pickable={isMobile ? false : true}
