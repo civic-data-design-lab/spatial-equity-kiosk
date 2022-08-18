@@ -121,7 +121,6 @@ function App() {
              setSelectedSpecificIssue(1)
          }*/
 
-    console.log('show demographics ', showDemographics)
     const params = [];
 
     if (showMap !== null) params.push(`swM=${showMap.toString()}`);

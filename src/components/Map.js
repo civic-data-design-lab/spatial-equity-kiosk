@@ -17,8 +17,23 @@ import _ETHNICITY from "../data/ethnicity.json";
 import _FILL_PATTERN from "../data/fill_pattern.json";
 import _HATCH_ATLAS from "../data/hatch_pattern.png";
 import _CHAPTER_COLORS from "../data/chapter_colors.json";
+import _ETHNICITY_COLORS from "../data/ethnicity_colors.json";
 
 import "mapbox-gl/dist/mapbox-gl.css";
+
+//check if mobile
+let isMobile = false; //initiate as false
+// device detection
+if (
+  /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
+    navigator.userAgent
+  ) ||
+  /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(
+    navigator.userAgent.substr(0, 4)
+  )
+) {
+  isMobile = true;
+}
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -48,18 +63,6 @@ const INITIAL_VIEW_STATE = {
 };
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
-
-// Tooltip old
-// function getTooltip({ object }) {
-//   console.log(object);
-
-//   // return object && object.properties.CDTA2020;
-//   if (object) {
-//     return `\
-//     Week of ${object}
-//     ${object.properties.CDTA2020} per 100K residents`;
-//   }
-// }
 
 export default function DeckMap({
   issues,
@@ -190,6 +193,7 @@ export default function DeckMap({
 
   // 03 DEMOGRAPHICS ----------------------------------------------------------------------------------------------
   //variables for scale thresholds
+  const ethnicityColors = _ETHNICITY_COLORS;
   let selectedDemographic;
   let toggleScatterPlot = false; //scatter plot viz
   let toggleDemChoropleth = false; //standard choropleth viz but for demographics
@@ -283,17 +287,75 @@ export default function DeckMap({
         boundary == "council" ||
         (boundary == "community" && obj.properties.Data_YN == "Y")
       ) {
-        return `\
-      ${tooltipBounds} ${boundaryName}
-      ${
-        typeof selectedSpecificIssue == "number"
-          ? issues.specific_issues_data[selectedSpecificIssue]
-              .specific_issue_name
-          : ""
-      } ${selectedMetric != null ? obj.properties[selectedMetric] : ""}
-      ${selectedDemographic != null ? demoLookup[demographic].name : ""} ${
-          selectedDemographic != null ? obj.properties[selectedDemographic] : ""
-        }`;
+        // return the tooltip for the selected boundary with selected metric and selected demographic
+        return (
+          obj && {
+            className: "map-tooltip",
+            style: {
+              border: "1px solid black",
+              background: "white",
+              color: "black",
+              padding: "0px",
+            },
+            html: `\
+          <!-- select metric -->
+          <div class=map-tooltip-header>${tooltipBounds} <strong>${boundaryName}</strong></div>
+          <div class=tooltip-info>${
+            typeof selectedSpecificIssue == "number"
+              ? issues.specific_issues_data[selectedSpecificIssue]
+                  .specific_issue_name
+              : ""
+          } ${
+              selectedMetric != null ? obj.properties[selectedMetric] : ""
+            }</div>
+          <!-- select demographic -->
+          <div class=tooltip-info>
+          ${selectedDemographic != null ? demoLookup[demographic].name : ""} ${
+              selectedDemographic != null
+                ? demographic !== "1"
+                  ? obj.properties[selectedDemographic]
+                  : `\
+                  <div class=tooltip-grid>
+                    <div style="color:${
+                      ethnicityColors.Hispanic.htmlFormat
+                    }">■</div>
+                    <div>${
+                      obj.properties.Hispanic ? obj.properties.Hispanic : ""
+                    }</div>
+                    <div>Hispanic</div>
+                    <div style="color:${
+                      ethnicityColors.White.htmlFormat
+                    }">■</div>
+                    <div>${
+                      obj.properties.White ? obj.properties.White : ""
+                    }</div>
+                    <div>White</div>
+                    <div style="color:${
+                      ethnicityColors.Black.htmlFormat
+                    }">■</div>
+                    <div>${
+                      obj.properties.Black ? obj.properties.Black : ""
+                    }</div>
+                    <div>Black</div>
+                    <div style="color:${
+                      ethnicityColors.Asian.htmlFormat
+                    }">■</div>
+                    <div>${
+                      obj.properties.Asian ? obj.properties.Asian : ""
+                    }</div>
+                    <div>Asian</div>
+                    <div style="color:${
+                      ethnicityColors.Other.htmlFormat
+                    }">■</div>
+                    <div>${
+                      obj.properties.Other ? obj.properties.Other : ""
+                    }</div>
+                    <div>Other</div>
+                  </div>`
+                : ""
+            }</div>`,
+          }
+        );
       }
     }
   };
@@ -394,6 +456,68 @@ export default function DeckMap({
     }),
 
     new GeoJsonLayer({
+      id: "administrative-demographics",
+      data: selectedBoundary,
+      stroked: false,
+      filled: true,
+      getFillColor: (f) => {
+        let fillValue = parseFloat(f.properties[selectedDemographic]);
+        if (boundary == "community") {
+          if (f.properties.Data_YN == "N") {
+            return [0, 0, 0, 0];
+          }
+        }
+        return DEMO_COLOR_SCALE(fillValue);
+      },
+      lineWidthMinPixels: 1,
+
+      opacity: choroplethOpacity,
+      visible: zoomToggle == 0 ? toggleDemChoropleth : 0,
+
+      updateTriggers: {
+        getLineWidth: [selectedDemographic],
+        getFillColor: [selectedDemographic],
+      },
+    }),
+
+    new ScatterplotLayer({
+      id: "ethnicity",
+      data: _ETHNICITY.features,
+      stroked: false,
+      filled: true,
+      radiusScale: 6,
+      radiusMinPixels: 1,
+      radiusMaxPixels: 100,
+      lineWidthMinPixels: 1,
+      getPosition: (d) => d.geometry.coordinates,
+      getRadius: 3,
+      opacity: 0.75,
+      visible: toggleScatterPlot,
+      getFillColor: (d) => {
+        let color;
+        switch (d.properties.EthnicityCode) {
+          case "1":
+            color = ethnicityColors.Hispanic.deckFormat; // hispanic
+            break;
+          case "2":
+            return ethnicityColors.White.deckFormat; // white
+            break;
+          case "3":
+            return ethnicityColors.Black.deckFormat; // black
+            break;
+          case "4":
+            return ethnicityColors.Other.deckFormat; // indigenous
+            break;
+          case "5":
+            return ethnicityColors.Asian.deckFormat; // asian
+            break;
+          default:
+            return ethnicityColors.Other.deckFormat; // other
+        }
+        return color;
+      },
+    }),
+    new GeoJsonLayer({
       id: "administrative-choropleth-highlights",
       data: selectedBoundary,
       filled: true,
@@ -470,69 +594,6 @@ export default function DeckMap({
     }),
 
     new GeoJsonLayer({
-      id: "administrative-demographics",
-      data: selectedBoundary,
-      stroked: false,
-      filled: true,
-      getFillColor: (f) => {
-        let fillValue = parseFloat(f.properties[selectedDemographic]);
-        if (boundary == "community") {
-          if (f.properties.Data_YN == "N") {
-            return [0, 0, 0, 0];
-          }
-        }
-        return DEMO_COLOR_SCALE(fillValue);
-      },
-      lineWidthMinPixels: 1,
-
-      opacity: choroplethOpacity,
-      visible: zoomToggle == 0 ? toggleDemChoropleth : 0,
-
-      updateTriggers: {
-        getLineWidth: [selectedDemographic],
-        getFillColor: [selectedDemographic],
-      },
-    }),
-
-    new ScatterplotLayer({
-      id: "ethnicity",
-      data: _ETHNICITY.features,
-      stroked: false,
-      filled: true,
-      radiusScale: 6,
-      radiusMinPixels: 1,
-      radiusMaxPixels: 100,
-      lineWidthMinPixels: 1,
-      getPosition: (d) => d.geometry.coordinates,
-      getRadius: 3,
-      opacity: 0.75,
-      visible: toggleScatterPlot,
-      getFillColor: (d) => {
-        let color;
-        switch (d.properties.EthnicityCode) {
-          case "1":
-            color = [244, 133, 0, 255]; // hispanic
-            break;
-          case "2":
-            return [29, 168, 39, 255]; // white
-            break;
-          case "3":
-            return [80, 128, 234, 255]; // black
-            break;
-          case "4":
-            return [252, 186, 3, 255]; // indigenous
-            break;
-          case "5":
-            return [252, 75, 56, 255]; // asian
-            break;
-          default:
-          // do nothing
-        }
-        return color;
-      },
-    }),
-
-    new GeoJsonLayer({
       id: "administrative-boundaries",
       data: selectedBoundary,
       stroked: true,
@@ -566,17 +627,8 @@ export default function DeckMap({
         }
         return [217, 255, 0, 215];
       },
-      onClick: (info) => {
-        if (boundary == "council") {
-          console.log(
-            selectedBoundary.features[info.index].properties.CounDist
-          );
-        }
-        console.log(
-          selectedMetric,
-          selectedBoundary.features[info.index].properties[selectedMetric]
-        );
-      },
+      onClick: (info) => {},
+      parameters: {},
     }),
 
     new TextLayer({
@@ -596,6 +648,11 @@ export default function DeckMap({
   ];
   // 06 MAP LAYERS END ----------------------------------------------------------------------------------------------------
 
+  const divStyle = {
+    color: "red",
+    border: "3px solid white",
+  };
+
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
@@ -605,6 +662,7 @@ export default function DeckMap({
       onViewStateChange={onViewStateChange}
       getTooltip={getTooltip}
       // style={{ mixBlendMode: "multiply" }}
+      // _pickable={isMobile ? false : true}
     >
       <Map
         reuseMaps
