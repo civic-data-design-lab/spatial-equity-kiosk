@@ -432,13 +432,14 @@ a:active {
 .boundary-toggle-item-active {
     background-color: black;
     color: White;
-    transition: background-color 0.5s, color 0.5s;
+    /*transition: background-color 0.5s, color 0.5s;*/
+    cursor: auto;
 }
 
 .boundary-toggle-item-inactive {
     background-color: white;
     color: black;
-    transition: background-color 0.5s, color 0.5s;
+    /*transition: background-color 0.5s, color 0.5s;*/
 }
 
 .boundary-toggle-item {
@@ -450,7 +451,14 @@ a:active {
     align-items: center;
     height: 100%;
     border: 1.5px solid white;
+    /*transition: background-color 0.5s, color 0.5s;*/
 }
+
+/*.boundary-toggle-item:hover {
+    background-color: black;
+    color: white;
+    transition: background-color 0.5s, color 0.5s;
+}*/
 
 
 /* Issue Tiles */
@@ -463,7 +471,7 @@ a:active {
 .issues-tile-header {
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     width: 100%;
     padding: 0.5rem;
