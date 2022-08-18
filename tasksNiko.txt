@@ -5,7 +5,6 @@ Legend Middle Column:
     - demographic buildup of transportation methods
     
 Tooltip
-	- add community names to tooltip
     -"3rd worst out of 82"
 	-ranking sytem on toolbar
 

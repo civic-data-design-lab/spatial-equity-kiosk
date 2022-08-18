@@ -6,7 +6,7 @@ import { GeoJsonLayer, TextLayer, ScatterplotLayer } from "@deck.gl/layers";
 import { FlyToInterpolator, LinearInterpolator } from "@deck.gl/core";
 import { scaleThreshold, scaleQuantile } from "d3-scale";
 import { MaskExtension, FillStyleExtension } from "@deck.gl/extensions";
-import { max } from "d3-array";
+import { max, min } from "d3-array";
 
 // data
 // import _ISSUES from "../texts/issues.json";
@@ -50,7 +50,7 @@ const choroplethOpacity = 0.85;
 const healthRamp = _CHAPTER_COLORS.health;
 const envRamp = _CHAPTER_COLORS.env;
 const infraRamp = _CHAPTER_COLORS.infra;
-const binSize = 5; // number of bins in the color ramp
+const binSize = 6; // number of bins in the color ramp
 
 // map starting position and view state constraints
 const INITIAL_VIEW_STATE = {
@@ -122,10 +122,15 @@ export default function DeckMap({
   // select metric to display
   let selectedMetric; // MAKE THIS A STATE AT THE APP LEVEL FOR OPTIMIZATION
   let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
-  if (selectedSpecificIssue !== null) {
-    if (typeof selectedSpecificIssue == "number") {
+
+  if (selectedSpecificIssue != null) {
+    if (
+      typeof selectedSpecificIssue == "number" &&
+      isNaN(selectedSpecificIssue) === false
+    ) {
       selectedMetric =
         issues.specific_issues_data[selectedSpecificIssue].json_id;
+
       metricGoodBad =
         issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
     }
@@ -151,14 +156,31 @@ export default function DeckMap({
       mapScale.features[i].properties[selectedMetric]
     );
     if (isNaN(floatValue) === false) {
-      selectedMetricArray.push(floatValue);
+      if (
+        boundary === "council" ||
+        (boundary === "community" &&
+          mapScale.features[i].properties.Data_YN === "Y") ||
+        zoomToggle == 1
+      ) {
+        selectedMetricArray.push(floatValue);
+      }
     }
   }
 
   // 01.2 break the metric array into bins and get the bin list
+  // MAKE THIS FUNCTION BETTER!!
+  // for (let i = 0; i < binSize; i++) {
+  //   const threshold = (max(selectedMetricArray) / binSize) * (i + 1);
+  //   binList.push(Math.round(threshold * 100) / 100);
+  // }
+
   for (let i = 0; i < binSize; i++) {
-    let threshold = (max(selectedMetricArray) / binSize) * (i + 1);
-    binList.push(Math.round(threshold * 100) / 100);
+    const threshold =
+      (max(selectedMetricArray) - min(selectedMetricArray)) / binSize;
+
+    binList.push(
+      Math.round((threshold * i + min(selectedMetricArray)) * 100) / 100
+    );
   }
 
   // 01.3 set legend scale and color
@@ -170,7 +192,24 @@ export default function DeckMap({
   }, [selectedSpecificIssue, zoomToggle, selectedBoundary]);
 
   // 01.4 Color Scale function
+  selectedMetricArray.sort(function (a, b) {
+    return a - b;
+  });
+
+  // console.log(
+  //   "selectedMetricArray",
+  //   selectedMetricArray,
+  //   "binList",
+  //   binList,
+  //   "selectedRamp",
+  //   selectedRamp
+  // );
+
+  // console.log(binList);
+
   let COLOR_SCALE = scaleThreshold().domain(binList).range(selectedRamp); //equal bins
+  // const COLOR_SCALE = scaleQuantile().domain(binList).range(selectedRamp); //quantile bins
+
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 
   // 02 IDENTIFY NEIGHBORHOODS IN NEED ---------------------------------------------------------------------------
@@ -251,8 +290,9 @@ export default function DeckMap({
 
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
   const onViewStateChange = useCallback(({ viewState }) => {
-    setViewState(viewState);
+    // setViewState(viewState);
     // 04.1 set constraints on view state
+
     viewState.longitude = Math.min(
       LONGITUDE_RANGE[1],
       Math.max(LONGITUDE_RANGE[0], viewState.longitude)
@@ -664,6 +704,8 @@ export default function DeckMap({
             zoom: zoomMax - 0.5,
             transitionDuration: 500,
             transitionInerpolator: new LinearInterpolator(),
+            //  transitionEasing: d3.easeCubic,
+            //  transitionEasing: (t) => {-(cos(PI * x) - 1) / 2},
           });
         }
       },
@@ -694,11 +736,13 @@ export default function DeckMap({
 
   return (
     <DeckGL
-      // initialViewState={INITIAL_VIEW_STATE}
-      viewState={viewState}
-      // onViewStateChange={}
+      // viewState={viewState}
+      initialViewState={viewState}
       onViewStateChange={onViewStateChange}
-      controller={{ dragRotate: false }}
+      controller={{
+        dragRotate: false,
+        doubleClickZoom: false,
+      }}
       layers={layers}
       getCursor={() => "crosshair"}
       getTooltip={getTooltip}

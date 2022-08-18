@@ -838,10 +838,15 @@ a:active {
 .placeholder-legend {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 6fr;
+    grid-template-columns: 1fr 1fr 1fr 7fr;
     grid-template-rows: auto;
     column-gap: 1em;
     align-items: center;
+}
+
+.legend-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .small-font {

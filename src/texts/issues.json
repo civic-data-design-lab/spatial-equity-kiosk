@@ -26,6 +26,7 @@
             "issue_type_ID": 1,
             "good_or_bad": 1,
             "json_id": "F18_AsthmR",
+            "highlight_statement": "highest asthma rates in the city" ,
             "specific_issue_source": "source name source name source name"
             
         },
@@ -40,6 +41,7 @@
             "issue_type_ID": 3,
             "good_or_bad": 0,
             "json_id": "F27_BusSpe",
+            "highlight_statement": "slowest bus speeds in the city" ,
             "specific_issue_source": "source name"
         },
         "3": {
@@ -53,6 +55,7 @@
             "issue_type_ID": 3,
             "good_or_bad": 0,
             "json_id": "F25_BusLan",
+            "highlight_statement": "least bus lane and busway miles in the city" ,
             "specific_issue_source": "source name"
         },
         "4": {
@@ -66,6 +69,7 @@
             "issue_type_ID": 2,
             "good_or_bad": 0,
             "json_id": "F26_ParkAc",
+            "highlight_statement": "the least parks in the city" ,
             "specific_issue_source": "source name"
         },
         "5": {
@@ -79,6 +83,7 @@
             "issue_type_ID": 2,
             "good_or_bad": 1,
             "json_id": "F14_TmpDev",
+            "highlight_statement": "highest daytime temperatures in the city" ,
             "specific_issue_source": "source name"
         },
         "6": {
@@ -92,6 +97,7 @@
             "issue_type_ID": 2,
             "good_or_bad": 0,
             "json_id": "F17_GreInf",
+            "highlight_statement": "the least green infrastructure in the city" ,
             "specific_issue_source": "source name"
         },
         "7": {
@@ -105,6 +111,7 @@
             "issue_type_ID": 1,
             "good_or_bad": 1,
             "json_id": "F19_Noise_",
+            "highlight_statement": "highest noise pollution in the city" ,
             "specific_issue_source": "source name"
         },
         "8": {
@@ -118,6 +125,7 @@
             "issue_type_ID": 3,
             "good_or_bad": 0,
             "json_id": "F22_BikRac",
+            "highlight_statement": "the least bike racks in the city" ,
             "specific_issue_source": "source name"
         },
         "9": {
@@ -131,6 +139,7 @@
             "issue_type_ID": 3,
             "good_or_bad": 0,
             "json_id": "F23_CtyBea",
+            "highlight_statement": "the least city benches in the city" ,
             "specific_issue_source": "source name"
         },
         "10": {
@@ -144,6 +153,7 @@
             "issue_type_ID": 2,
             "good_or_bad": 1,
             "json_id": "F15_PM25Me",
+            "highlight_statement": "highest pollution levels in the city" ,
             "specific_issue_source": "source name"
         },
         "11": {
@@ -157,6 +167,7 @@
             "issue_type_ID": 3,
             "good_or_bad": 0,
             "json_id": "F24_BikLan",
+            "highlight_statement": "the least bike lanes in the city" ,
             "specific_issue_source": "source name"
         },
         "12": {
@@ -170,6 +181,7 @@
             "issue_type_ID": 3,
             "good_or_bad": 1,
             "json_id": "F28_Trf_De",
+            "highlight_statement": "the greatest traffic in the city" ,
             "specific_issue_source": "source name"
         },
         "13": {
@@ -183,6 +195,7 @@
             "issue_type_ID": 1,
             "good_or_bad": 1,
             "json_id": "F20_TrfKil",
+            "highlight_statement": "the greatest frequency of traffic fatalities in the city" ,
             "specific_issue_source": "source name"
         },
         "14": {
@@ -196,6 +209,7 @@
             "issue_type_ID": 1,
             "good_or_bad": 1,
             "json_id": "F21_TrfInj",
+            "highlight_statement": "the greatest frequency of traffic injuries in the city" ,
             "specific_issue_source": "source name"
         },
         "15": {
@@ -209,6 +223,7 @@
             "issue_type_ID": 2,
             "good_or_bad": 0,
             "json_id": "F16_TreCan",
+            "highlight_statement": "the least tree canopy cover in the city" ,
             "specific_issue_source": "source name"
         }
     }
