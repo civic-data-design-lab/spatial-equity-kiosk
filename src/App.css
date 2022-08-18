@@ -210,7 +210,7 @@ a:active {
 }
 
 .collapse-text {
-    font-size: 1.1em;
+    #font-size: 1.1em;
     margin: 0;
 }
 
@@ -432,11 +432,13 @@ a:active {
 .boundary-toggle-item-active {
     background-color: black;
     color: White;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .boundary-toggle-item-inactive {
     background-color: white;
     color: black;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .boundary-toggle-item {
@@ -445,7 +447,6 @@ a:active {
     justify-content: center;
     width: 100%;
     padding: 0.25rem;
-    transition: background-color 0.5s, color 0.5s;
     align-items: center;
     height: 100%;
     border: 1.5px solid white;
@@ -835,6 +836,8 @@ a:active {
 .transition-flex {
     transition: flex-grow 1s;
 }
+
+
 
 .ranking-chart {
     display: grid;
