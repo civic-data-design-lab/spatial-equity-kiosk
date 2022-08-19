@@ -1,6 +1,4 @@
 Legend Middle Column:
-    -confirm the legend is working (daytime summer surface temperature should have negative values) (also maybe use prebaked legend)
-	-change language on checkbox from "need" to most polluted, etc
     - color of the search bar color
     - demographic buildup of transportation methods
     
@@ -9,10 +7,8 @@ Tooltip
 	-ranking sytem on toolbar
 
 Map
-    - environment cholopleth - coded colors need to change (non biased color)
     - revert to original scroll method and figure out how to update viewstate that way.
     - make zones clickable and indicate that they are clicked
-    - maybe make daytime summer surface temperature a bivariate heatmap?
 
 General
     - introduction text should always be available on Spatial Equity chapter?
