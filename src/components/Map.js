@@ -168,16 +168,9 @@ export default function DeckMap({
   }
 
   // 01.2 break the metric array into bins and get the bin list
-  // MAKE THIS FUNCTION BETTER!!
-  // for (let i = 0; i < binSize; i++) {
-  //   const threshold = (max(selectedMetricArray) / binSize) * (i + 1);
-  //   binList.push(Math.round(threshold * 100) / 100);
-  // }
-
   for (let i = 0; i < binSize; i++) {
     const threshold =
       (max(selectedMetricArray) - min(selectedMetricArray)) / binSize;
-
     binList.push(
       Math.round((threshold * i + min(selectedMetricArray)) * 100) / 100
     );
@@ -270,9 +263,17 @@ export default function DeckMap({
   }
 
   // 03.3 break the demographic array into bins and get the bin list
+  // for (let i = 0; i < binSize; i++) {
+  //   let threshold = (max(selectedDemoArray) / binSize) * (i + 1);
+  //   demoBinList.push(Math.round(threshold * 100) / 100);
+  // }
+
   for (let i = 0; i < binSize; i++) {
-    let threshold = (max(selectedDemoArray) / binSize) * (i + 1);
-    demoBinList.push(Math.round(threshold * 100) / 100);
+    const threshold =
+      (max(selectedDemoArray) - min(selectedDemoArray)) / binSize;
+    demoBinList.push(
+      Math.round((threshold * i + min(selectedDemoArray)) * 100) / 100
+    );
   }
 
   // 03.4 select the color ramp from the json lookup for demographics and create a default to "1" to avoid errors
@@ -374,37 +375,27 @@ export default function DeckMap({
                     <div style="color:${
                       ethnicityColors.Hispanic.htmlFormat
                     }">■</div>
-                    <div>${
-                      obj.properties.Hispanic ? obj.properties.Hispanic : ""
-                    }</div>
+                    <div>${Math.round(obj.properties.P_Hispanic * 100)}%</div>
                     <div>Hispanic</div>
                     <div style="color:${
                       ethnicityColors.White.htmlFormat
                     }">■</div>
-                    <div>${
-                      obj.properties.White ? obj.properties.White : ""
-                    }</div>
+                    <div>${Math.round(obj.properties.P_White * 100)}%</div>
                     <div>White</div>
                     <div style="color:${
                       ethnicityColors.Black.htmlFormat
                     }">■</div>
-                    <div>${
-                      obj.properties.Black ? obj.properties.Black : ""
-                    }</div>
+                    <div>${Math.round(obj.properties.P_Black * 100)}%</div>
                     <div>Black</div>
                     <div style="color:${
                       ethnicityColors.Asian.htmlFormat
                     }">■</div>
-                    <div>${
-                      obj.properties.Asian ? obj.properties.Asian : ""
-                    }</div>
+                    <div>${Math.round(obj.properties.P_Asian * 100)}%</div>
                     <div>Asian</div>
                     <div style="color:${
                       ethnicityColors.Other.htmlFormat
                     }">■</div>
-                    <div>${
-                      obj.properties.Other ? obj.properties.Other : ""
-                    }</div>
+                    <div>${Math.round(obj.properties.P_Other * 100)}%</div>
                     <div>Other</div>
                   </div>`
                 : ""
