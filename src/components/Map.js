@@ -86,6 +86,7 @@ export default function DeckMap({
   addCompare,
   setAddCompare,
   setCommunitySearch,
+  compareSearch,
   setCompareSearch,
   setShowMap,
   communities,
@@ -93,7 +94,7 @@ export default function DeckMap({
 }) {
   // map hooks
   const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
-  const [pickObject, setPickObject] = useState([]);
+  const [mapSelection, setMapSelection] = useState([]);
   const [zoomToggle, setzoomToggle] = useState(1);
   const [inverseZoomToggle, setinverseZoomToggle] = useState(1);
   const [handleLegend, sethandleLegend] = useState(0);
@@ -158,9 +159,10 @@ export default function DeckMap({
     if (isNaN(floatValue) === false) {
       if (
         boundary === "council" ||
-        (boundary === "community" &&
+        (zoomToggle == 0 &&
+          boundary === "community" &&
           mapScale.features[i].properties.Data_YN === "Y") ||
-        zoomToggle == 1
+        (zoomToggle == 1 && mapScale.features[i].properties.AnsUnt_YN === "Y")
       ) {
         selectedMetricArray.push(floatValue);
       }
@@ -185,9 +187,11 @@ export default function DeckMap({
   }, [selectedSpecificIssue, zoomToggle, selectedBoundary]);
 
   // 01.4 Color Scale function
-  selectedMetricArray.sort(function (a, b) {
-    return a - b;
-  });
+
+  // Troubleshooting ------------------------------------------------------------
+  // selectedMetricArray.sort(function (a, b) {
+  //   return a - b;
+  // });
 
   // console.log(
   //   "selectedMetricArray",
@@ -199,6 +203,8 @@ export default function DeckMap({
   // );
 
   // console.log(binList);
+
+  // Troubleshooting end ------------------------------------------------------------
 
   let COLOR_SCALE = scaleThreshold().domain(binList).range(selectedRamp); //equal bins
   // const COLOR_SCALE = scaleQuantile().domain(binList).range(selectedRamp); //quantile bins
@@ -477,11 +483,12 @@ export default function DeckMap({
         }
         if (isNaN(fillValue)) {
           return [0, 0, 0, 0];
-        }
-        // else if (fillValue == 0) {
-        //   return [50, 50, 50, 0];
-        // }
-        else {
+        } else if (
+          mapSelection[0] == f.id ||
+          (mapSelection[1] == f.id && addCompare == true)
+        ) {
+          return [0, 0, 255, 255];
+        } else {
           // return [255, 0, 0, 255];
           return COLOR_SCALE(f.properties[selectedMetric]);
         }
@@ -490,7 +497,7 @@ export default function DeckMap({
       visible: inverseZoomToggle,
 
       updateTriggers: {
-        getFillColor: [selectedMetric],
+        getFillColor: [selectedMetric, mapSelection, addCompare],
       },
     }),
 
@@ -682,10 +689,30 @@ export default function DeckMap({
           boundary == "council"
         ) {
           setSelectedChapter(3);
+          // console.log(
+          //   mapSelection.includes(info.index),
+          //   "info index",
+          //   info.index,
+          //   "mapselection",
+          //   mapSelection
+          // );
           if (communitySearch == null || addCompare == false) {
             setCommunitySearch(lookup);
-          } else {
+            if (mapSelection.includes(info.index) == false) {
+              setMapSelection([info.index]);
+            }
+          } else if (mapSelection.includes(info.index) == false) {
             setCompareSearch(lookup);
+            setMapSelection([mapSelection[0], info.index]);
+          }
+
+          // RESUME HERE - MAKE CLICKING THE SAME BOUNDARY TOGGLE OFF
+          if (mapSelection.includes(info.index) == true) {
+            setMapSelection(mapSelection.filter((x) => x != info.index));
+            // CLEAR COMPARE SEARCH AND UPDATE MAP SELECTION
+            if (mapSelection.length == 1) {
+              setCompareSearch(null);
+            }
           }
 
           // animate view
