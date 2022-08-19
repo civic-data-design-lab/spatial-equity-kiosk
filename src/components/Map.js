@@ -3,9 +3,10 @@ import { useState, useCallback, useEffect, useMemo } from "react";
 import DeckGL from "@deck.gl/react";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer, TextLayer, ScatterplotLayer } from "@deck.gl/layers";
+import { FlyToInterpolator, LinearInterpolator } from "@deck.gl/core";
 import { scaleThreshold, scaleQuantile } from "d3-scale";
 import { MaskExtension, FillStyleExtension } from "@deck.gl/extensions";
-import { max } from "d3-array";
+import { max, min } from "d3-array";
 
 // data
 // import _ISSUES from "../texts/issues.json";
@@ -49,7 +50,7 @@ const choroplethOpacity = 0.85;
 const healthRamp = _CHAPTER_COLORS.health;
 const envRamp = _CHAPTER_COLORS.env;
 const infraRamp = _CHAPTER_COLORS.infra;
-const binSize = 5; // number of bins in the color ramp
+const binSize = 6; // number of bins in the color ramp
 
 // map starting position and view state constraints
 const INITIAL_VIEW_STATE = {
@@ -79,13 +80,22 @@ export default function DeckMap({
   toggleUnderperformers,
   setToggleUnderperformers,
   demoLookup,
+  selectedChapter,
+  setSelectedChapter,
+  communitySearch,
+  addCompare,
+  setAddCompare,
+  setCommunitySearch,
+  setCompareSearch,
+  setShowMap,
+  communities,
+  councils,
 }) {
   // map hooks
-  const [hoverInfo, setHoverInfo] = useState();
+  const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
+  const [pickObject, setPickObject] = useState([]);
   const [zoomToggle, setzoomToggle] = useState(1);
   const [inverseZoomToggle, setinverseZoomToggle] = useState(1);
-  const [zoomRamp, setzoomRamp] = useState(1);
-  const [layerColorRamp, setLayerColorRamp] = useState(1);
   const [handleLegend, sethandleLegend] = useState(0);
 
   // SELECT BOUNDARY ------------------------------------------------------------
@@ -112,10 +122,15 @@ export default function DeckMap({
   // select metric to display
   let selectedMetric; // MAKE THIS A STATE AT THE APP LEVEL FOR OPTIMIZATION
   let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
-  if (selectedSpecificIssue !== null) {
-    if (typeof selectedSpecificIssue == "number") {
+
+  if (selectedSpecificIssue != null) {
+    if (
+      typeof selectedSpecificIssue == "number" &&
+      isNaN(selectedSpecificIssue) === false
+    ) {
       selectedMetric =
         issues.specific_issues_data[selectedSpecificIssue].json_id;
+
       metricGoodBad =
         issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
     }
@@ -141,14 +156,24 @@ export default function DeckMap({
       mapScale.features[i].properties[selectedMetric]
     );
     if (isNaN(floatValue) === false) {
-      selectedMetricArray.push(floatValue);
+      if (
+        boundary === "council" ||
+        (boundary === "community" &&
+          mapScale.features[i].properties.Data_YN === "Y") ||
+        zoomToggle == 1
+      ) {
+        selectedMetricArray.push(floatValue);
+      }
     }
   }
 
   // 01.2 break the metric array into bins and get the bin list
   for (let i = 0; i < binSize; i++) {
-    let threshold = (max(selectedMetricArray) / binSize) * (i + 1);
-    binList.push(Math.round(threshold * 100) / 100);
+    const threshold =
+      (max(selectedMetricArray) - min(selectedMetricArray)) / binSize;
+    binList.push(
+      Math.round((threshold * i + min(selectedMetricArray)) * 100) / 100
+    );
   }
 
   // 01.3 set legend scale and color
@@ -157,10 +182,27 @@ export default function DeckMap({
       setLegendBins(binList);
       setColorRamps(selectedRamp);
     }
-  }, [selectedSpecificIssue, zoomRamp, selectedBoundary]);
+  }, [selectedSpecificIssue, zoomToggle, selectedBoundary]);
 
   // 01.4 Color Scale function
+  selectedMetricArray.sort(function (a, b) {
+    return a - b;
+  });
+
+  // console.log(
+  //   "selectedMetricArray",
+  //   selectedMetricArray,
+  //   "binList",
+  //   binList,
+  //   "selectedRamp",
+  //   selectedRamp
+  // );
+
+  // console.log(binList);
+
   let COLOR_SCALE = scaleThreshold().domain(binList).range(selectedRamp); //equal bins
+  // const COLOR_SCALE = scaleQuantile().domain(binList).range(selectedRamp); //quantile bins
+
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 
   // 02 IDENTIFY NEIGHBORHOODS IN NEED ---------------------------------------------------------------------------
@@ -221,9 +263,17 @@ export default function DeckMap({
   }
 
   // 03.3 break the demographic array into bins and get the bin list
+  // for (let i = 0; i < binSize; i++) {
+  //   let threshold = (max(selectedDemoArray) / binSize) * (i + 1);
+  //   demoBinList.push(Math.round(threshold * 100) / 100);
+  // }
+
   for (let i = 0; i < binSize; i++) {
-    let threshold = (max(selectedDemoArray) / binSize) * (i + 1);
-    demoBinList.push(Math.round(threshold * 100) / 100);
+    const threshold =
+      (max(selectedDemoArray) - min(selectedDemoArray)) / binSize;
+    demoBinList.push(
+      Math.round((threshold * i + min(selectedDemoArray)) * 100) / 100
+    );
   }
 
   // 03.4 select the color ramp from the json lookup for demographics and create a default to "1" to avoid errors
@@ -241,7 +291,9 @@ export default function DeckMap({
 
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
   const onViewStateChange = useCallback(({ viewState }) => {
+    // setViewState(viewState);
     // 04.1 set constraints on view state
+
     viewState.longitude = Math.min(
       LONGITUDE_RANGE[1],
       Math.max(LONGITUDE_RANGE[0], viewState.longitude)
@@ -250,15 +302,10 @@ export default function DeckMap({
       LATITUDE_RANGE[1],
       Math.max(LATITUDE_RANGE[0], viewState.latitude)
     );
+    // max zoom
+    viewState.zoom = Math.min(zoomMax, Math.max(zoomMin, viewState.zoom));
 
     // 04.2 ramp in/out based on zoom level
-    const ramp =
-      0 + ((viewState.zoom - zoomMin) * (0.85 - 0)) / (zoomMax - zoomMin);
-    setzoomRamp(ramp);
-
-    const cRamp =
-      0 + ((viewState.zoom - zoomMin) * (175 - 0)) / (zoomMax - zoomMin);
-    setLayerColorRamp([50, 50, 50, cRamp]); // set color ramp to cRamp value
 
     // 04.3 toggle based on zoom level
     if (viewState.zoom > 12.25) {
@@ -283,6 +330,13 @@ export default function DeckMap({
         boundary == "community"
           ? obj.properties.CDTA2020
           : obj.properties.CounDist;
+      const neighborhoodList =
+        boundary == "council"
+          ? councils[String(obj.properties.CounDist)].remaining_text
+          : boundary == "community" && obj.properties.Data_YN == "Y"
+          ? communities[obj.properties.CDTA2020].remaining_text
+          : null;
+
       if (
         boundary == "council" ||
         (boundary == "community" && obj.properties.Data_YN == "Y")
@@ -296,10 +350,12 @@ export default function DeckMap({
               background: "white",
               color: "black",
               padding: "0px",
+              maxWidth: "250px",
             },
             html: `\
           <!-- select metric -->
           <div class=map-tooltip-header>${tooltipBounds} <strong>${boundaryName}</strong></div>
+          <div class=map-tooltip-neighborhoods>${neighborhoodList}</div>
           <div class=tooltip-info>${
             typeof selectedSpecificIssue == "number"
               ? issues.specific_issues_data[selectedSpecificIssue]
@@ -319,37 +375,27 @@ export default function DeckMap({
                     <div style="color:${
                       ethnicityColors.Hispanic.htmlFormat
                     }">■</div>
-                    <div>${
-                      obj.properties.Hispanic ? obj.properties.Hispanic : ""
-                    }</div>
+                    <div>${Math.round(obj.properties.P_Hispanic * 100)}%</div>
                     <div>Hispanic</div>
                     <div style="color:${
                       ethnicityColors.White.htmlFormat
                     }">■</div>
-                    <div>${
-                      obj.properties.White ? obj.properties.White : ""
-                    }</div>
+                    <div>${Math.round(obj.properties.P_White * 100)}%</div>
                     <div>White</div>
                     <div style="color:${
                       ethnicityColors.Black.htmlFormat
                     }">■</div>
-                    <div>${
-                      obj.properties.Black ? obj.properties.Black : ""
-                    }</div>
+                    <div>${Math.round(obj.properties.P_Black * 100)}%</div>
                     <div>Black</div>
                     <div style="color:${
                       ethnicityColors.Asian.htmlFormat
                     }">■</div>
-                    <div>${
-                      obj.properties.Asian ? obj.properties.Asian : ""
-                    }</div>
+                    <div>${Math.round(obj.properties.P_Asian * 100)}%</div>
                     <div>Asian</div>
                     <div style="color:${
                       ethnicityColors.Other.htmlFormat
                     }">■</div>
-                    <div>${
-                      obj.properties.Other ? obj.properties.Other : ""
-                    }</div>
+                    <div>${Math.round(obj.properties.P_Other * 100)}%</div>
                     <div>Other</div>
                   </div>`
                 : ""
@@ -416,13 +462,6 @@ export default function DeckMap({
         getLineWidth: [selectedDemographic],
         getFillColor: [selectedDemographic],
       },
-
-      // pickable: true,
-      // autoHighlight: true,
-      // highlightColor: [217, 255, 0, 215],
-      // onClick: (info) => {
-      //   console.log(_NEIGHBORHOODS.features[info.index].properties.AnsUnt_YN);
-      // },
     }),
 
     new GeoJsonLayer({
@@ -506,7 +545,7 @@ export default function DeckMap({
             return ethnicityColors.Black.deckFormat; // black
             break;
           case "4":
-            return ethnicityColors.Other.deckFormat; // indigenous
+            return ethnicityColors.Indigenous.deckFormat; // indigenous
             break;
           case "5":
             return ethnicityColors.Asian.deckFormat; // asian
@@ -588,8 +627,8 @@ export default function DeckMap({
       extensions: [new FillStyleExtension({ pattern: true })],
 
       updateTriggers: {
-        getLineWidth: [selectedMetric, toggleUnderperformers],
-        getFillPattern: [selectedMetric, toggleUnderperformers],
+        getLineWidth: [selectedMetric, zoomToggle, toggleUnderperformers],
+        getFillPattern: [selectedMetric, zoomToggle, toggleUnderperformers],
       },
     }),
 
@@ -627,7 +666,40 @@ export default function DeckMap({
         }
         return [217, 255, 0, 215];
       },
-      onClick: (info) => {},
+      onClick: (info) => {
+        const obj = info.object;
+
+        // change selected boundary
+        const lookup =
+          boundary == "council"
+            ? String(obj.properties.CounDist)
+            : boundary == "community" && obj.properties.Data_YN == "Y"
+            ? obj.properties.CDTA2020
+            : null;
+
+        if (
+          (boundary == "community" && obj.properties.Data_YN == "Y") ||
+          boundary == "council"
+        ) {
+          setSelectedChapter(3);
+          if (communitySearch == null || addCompare == false) {
+            setCommunitySearch(lookup);
+          } else {
+            setCompareSearch(lookup);
+          }
+
+          // animate view
+          setViewState({
+            longitude: info.coordinate[0],
+            latitude: info.coordinate[1],
+            zoom: zoomMax - 0.5,
+            transitionDuration: 500,
+            transitionInerpolator: new LinearInterpolator(),
+            //  transitionEasing: d3.easeCubic,
+            //  transitionEasing: (t) => {-(cos(PI * x) - 1) / 2},
+          });
+        }
+      },
       parameters: {},
     }),
 
@@ -655,11 +727,15 @@ export default function DeckMap({
 
   return (
     <DeckGL
-      initialViewState={INITIAL_VIEW_STATE}
-      controller={{ dragRotate: false }}
+      // viewState={viewState}
+      initialViewState={viewState}
+      onViewStateChange={onViewStateChange}
+      controller={{
+        dragRotate: false,
+        doubleClickZoom: false,
+      }}
       layers={layers}
       getCursor={() => "crosshair"}
-      onViewStateChange={onViewStateChange}
       getTooltip={getTooltip}
       // style={{ mixBlendMode: "multiply" }}
       // _pickable={isMobile ? false : true}

@@ -247,6 +247,17 @@ function App() {
           toggleUnderperformers={toggleUnderperformers}
           setToggleUnderperformers={setToggleUnderperformers}
           demoLookup={demoLookup}
+          selectedChapter={selectedChapter}
+          setSelectedChapter={setSelectedChapter}
+          communitySearch={communitySearch}
+          setCommunitySearch={setCommunitySearch}
+          addCompare={addCompare}
+          setAddCompare={setAddCompare}
+          compareSearch={compareSearch}
+          setCompareSearch={setCompareSearch}
+          setShowMap={setShowMap}
+          communities={communities}
+          councils={councils}
         />
       </div>
     </Container>
