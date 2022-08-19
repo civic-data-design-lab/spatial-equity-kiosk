@@ -1,4 +1,5 @@
 import React from "react";
+import Toggle from "./Toggle";
 import { max, min } from "d3-array";
 
 export default function Legend({
@@ -111,12 +112,10 @@ export default function Legend({
             </div>
             <div className={"m-0"}>{cleanNumbers[4]}+</div>
           </div>
-          <input
-            type="checkbox"
-            className="form-check-input"
-            onClick={handleClick}
-          ></input>
-          <a> {buttonStatement}</a>
+
+          <Toggle textOff={buttonStatement} textOn={buttonStatement} value={toggleUnderperformers} callback={setToggleUnderperformers}/>
+
+
           {/* <div
             className={
               toggleUnderperformers

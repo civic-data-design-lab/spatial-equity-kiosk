@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 
 
 import Slider from "./Carousel";
+import Toggle from "./Toggle";
 
 
 export default function Demographics({
@@ -102,16 +103,9 @@ export default function Demographics({
                         <div className={"d-flex flex-row justify-content-between"}>
                             <p className={"m-0"}>New York City</p>
                             <div className={"d-flex flex-row align-items-center col-gap"}>
-                                <p className={"small-font m-0"}>Show on Map</p>
-                                <Form>
-                                    <Form.Check
-                                        type={'checkbox'}
-                                        id={`checkbox`}
-                                        checked={mapDemographics}
-                                        onChange={(e)=>{
-                                            setMapDemographics(e.target.checked)}}
-                                    />
-                                </Form>
+                                <Toggle value={mapDemographics} callback={setMapDemographics}
+                                        textOff={"Show on map"}
+                                        textOn={"Show on map"}/>
                             </div>
                         </div>
                     </div>
@@ -122,16 +116,9 @@ export default function Demographics({
                         <div className={"d-flex flex-row justify-content-between"}>
                             <p className={"m-0"}>{boundary === "council" ? councils[communitySearch].bolded_text : communities[communitySearch].bolded_text}</p>
                             <div className={"d-flex flex-row align-items-center col-gap"}>
-                                <p className={"small-font m-0"}>Show on Map</p>
-                                <Form>
-                                    <Form.Check
-                                        type={'checkbox'}
-                                        id={`checkbox`}
-                                        checked={mapDemographics}
-                                        onChange={(e)=>{
-                                            setMapDemographics(e.target.checked)}}
-                                    />
-                                </Form>
+                                <Toggle value={mapDemographics} callback={setMapDemographics}
+                                        textOff={"Show on map"}
+                                        textOn={"Show on map"}/>
                             </div>
                         </div>
                     </div>
@@ -145,34 +132,20 @@ export default function Demographics({
                                 <div className={"d-flex flex-row justify-content-between"}>
                                     <p className={"m-0"}>{boundary === "council" ? councils[communitySearch].bolded_text : communities[communitySearch].bolded_text}</p>
                                     <div className={"d-flex flex-row align-items-center col-gap"}>
-                                        <p className={"small-font m-0"}>Show on Map</p>
-                                        <Form>
-                                            <Form.Check
-                                                type={'checkbox'}
-                                                id={`checkbox`}
-                                                checked={mapDemographics}
-                                                onChange={(e)=>{
-                                                    setMapDemographics(e.target.checked)}}
-                                            />
-                                        </Form>
-                                    </div>
+                                <Toggle value={mapDemographics} callback={setMapDemographics}
+                                        textOff={"Show on map"}
+                                        textOn={"Show on map"}/>
+                            </div>
                                 </div>
                             </div>
                             <div>
                                 <div className={"d-flex flex-row justify-content-between"}>
                                     <p className={"m-0"}>{boundary === "council" ? councils[compareSearch].bolded_text : communities[compareSearch].bolded_text}</p>
                                     <div className={"d-flex flex-row align-items-center col-gap"}>
-                                        <p className={"small-font m-0"}>Show on Map</p>
-                                        <Form>
-                                            <Form.Check
-                                                type={'checkbox'}
-                                                id={`checkbox`}
-                                                checked={mapDemographics}
-                                                onChange={(e)=>{
-                                                    setMapDemographics(e.target.checked)}}
-                                            />
-                                        </Form>
-                                    </div>
+                                <Toggle value={mapDemographics} callback={setMapDemographics}
+                                        textOff={"Show on map"}
+                                        textOn={"Show on map"}/>
+                            </div>
                                 </div>
                             </div>
                         </Slider>
