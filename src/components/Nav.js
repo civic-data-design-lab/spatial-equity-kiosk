@@ -74,7 +74,7 @@ function Nav({
                  onClick={() => {
                      //setCompareSearch(null)
                      //setCommunitySearch(null)
-                     setShowMap(false)
+                     //setShowMap(false)
                      //setSelectedIssue(null)
                      //setSelectedSpecificIssue(null)
                      setMoreIssuesLength(0)
