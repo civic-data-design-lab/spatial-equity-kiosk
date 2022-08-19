@@ -58,11 +58,11 @@ function Nav({
                 <div
                     className={`${selectedChapter === 1 ? "nav-chapters-content-expanded" : ""} nav-chapters-content `}>
                     <div className={"no-pointer"}>
-                        <p>Introduction text to issues in New York City. Elit at imperdiet dui accumsan sit amet.
+                        <h5>Introduction text to issues in New York City. Elit at imperdiet dui accumsan sit amet.
                             Diam donec adipiscing tristique risus nec feugiat in. Vel turpis nunc eget lorem dolor sed
                             viverra.
                             Elit at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat
-                            in. </p>
+                            in. </h5>
                     </div>
                 </div>
             </div>
