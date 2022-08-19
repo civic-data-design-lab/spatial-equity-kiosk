@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
 import Table from "react-bootstrap/Table";
+
+import rankings from "../data/rankings.json";
 
 export default function IssueProfile({issues, selectedSpecificIssue, rankingProse = false, boundary}) {
 
@@ -14,6 +16,8 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
     const getIssueSolutions = () => {
         return issues.specific_issues_data[selectedSpecificIssue].specific_issue_solutions || null
     }
+
+
 
     return (
 
@@ -42,26 +46,22 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
                         <tbody>
 
                         {/*TODO: populate chart with ranking data*/}
-                        {issues.all_issues_id.slice(0, 5).map((id, index) => {
+                        {rankings[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id].slice(0, 5).map((entry, index) => {
                             return <tr key={index}>
-                                <td>{issues.specific_issues_data[id].specific_issue_ID}</td>
-                                <td>{issues.specific_issues_data[id].specific_issue_name}</td>
-                                <td>{issues.specific_issues_data[id].specific_issue_source}</td>
+                                <td>{entry.rank}</td>
+                                <td>{entry.community}</td>
+                                <td>{entry.data}</td>
                             </tr>
                         })}
 
 
-                                {expand && issues.all_issues_id.slice(5).map((id, index) => {
-
-                                    return <tr key={index}>
-                                        <td>{issues.specific_issues_data[id].specific_issue_ID}</td>
-                                        <td>{issues.specific_issues_data[id].specific_issue_name}</td>
-                                        <td>{issues.specific_issues_data[id].specific_issue_source}</td>
-                                    </tr>
-
-                                }
-
-                            )}
+                                {expand && rankings[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id].slice(5).map((entry, index) => {
+                            return <tr key={index}>
+                                <td>{entry.rank}</td>
+                                <td>{entry.community}</td>
+                                <td>{entry.data}</td>
+                            </tr>
+                        })}
 
                         </tbody>
                     </Table>

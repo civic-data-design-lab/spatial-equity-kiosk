@@ -3,6 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRight, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 import Slider from "./Carousel";
 
+
 import CommunitySearchBar from "./CommunitySearchBar";
 
 
