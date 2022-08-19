@@ -14,7 +14,8 @@ export default function CommunityRightColumn({
                                                  showMap, setShowMap, showToggle,
                                                  selectedIssue, selectedChapter,
                                                  boundary, demographic, showDemographics,
-                                                 setMoreIssues, moreIssuesLength, moreIssues, setMoreIssuesLength
+                                                 setMoreIssues, moreIssuesLength, moreIssues, setMoreIssuesLength,
+    setSelectedSpecificIssue
 
                                              }) {
 
@@ -99,7 +100,8 @@ export default function CommunityRightColumn({
                     </div>
                     <div className={"standard-padding overflow-scroll"}>
                         <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue}
-                                      rankingProse={true} boundary={boundary}/>
+                                      rankingProse={true} boundary={boundary} setSelectedSpecificIssue={setSelectedSpecificIssue}
+                        />
                     </div>
                 </div>}
 

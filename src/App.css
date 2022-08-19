@@ -133,11 +133,11 @@ small {
 
 /* Links */
 a:link {
-    color: white;
+    color: inherit;
 }
 
 a:visited {
-    color: white;
+    color: inherit;
 }
 
 a:hover {
@@ -147,6 +147,21 @@ a:hover {
 a:active {
     color: gray !important;
 }
+
+
+.Health {
+    color: #F93080;
+}
+
+.Environment {
+    color: #179F4E;
+}
+
+.Infrastructure {
+    color: #146FD1;
+}
+
+
 
 
 /* Navigation Bar */

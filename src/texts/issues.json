@@ -1,230 +1,2018 @@
 {
-    "all_issues_id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    "issues_data": {
-        "health": {
-            "specific_issues_ID": [1, 7, 13, 14],
-            "issue_description": "Health Description"
-        },
-        "environment": {
-            "specific_issues_ID": [4, 5, 6 ,10, 15],
-            "issue_description": "Environment Description"
-        },
-        "infrastructure": {
-            "specific_issues_ID": [2, 3, 8, 9, 11, 12],
-            "issue_description": "Infrasctructure Description"
-        }
+  "all_issues_id": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "issues_data": {
+    "health": {
+      "specific_issues_ID": [
+        1,
+        7,
+        13,
+        14
+      ],
+      "issue_description": "Health Description"
     },
-    "specific_issues_data": {
-        "1": {
-            "specific_issue_ID": 1,
-            "specific_issue_name": "Asthma Rates",
-            "specific_issue_units": "Annual Emergency Department Visits (Adults) Per 10,000 Residents",
-            "specific_issue_description": "Issue #1 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "To find space to plant more trees in your neighborhood, pay attention to how public space is used in your neighborhood. Here are a few ideas:\n\nBuild a “micro-forest” by installing a midblock curb extension that replaces one parking space with three street trees on any block. This solution will cool air temperatures, mitigate flooding, remove pollution from the air, and calm reckless driving by narrowing the roadway.\nCreate a “clean air block” by replacing one lane of a roadway with street trees in an area with high air pollution rates. One street tree can remove the equivalent of 11,000 miles of car emissions fr",
-            "issue_type_ID": 1,
-            "good_or_bad": 1,
-            "json_id": "F18_AsthmR",
-            "highlight_statement": "highest asthma rates in the city" ,
-            "specific_issue_source": "source name source name source name"
-            
-        },
-        "2": {
-            "specific_issue_ID": 2,
-            "specific_issue_name": "Average Bus Speed",
-            "specific_issue_units": "Miles Per Hour",
-            "specific_issue_description": "Issue #2 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 3,
-            "good_or_bad": 0,
-            "json_id": "F27_BusSpe",
-            "highlight_statement": "slowest bus speeds in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "3": {
-            "specific_issue_ID": 3,
-            "specific_issue_name": "Bus Lane and Busway Miles",
-            "specific_issue_units": "Bus Miles per Road Mile",
-            "specific_issue_description": "Issue #3 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 3,
-            "good_or_bad": 0,
-            "json_id": "F25_BusLan",
-            "highlight_statement": "least bus lane and busway miles in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "4": {
-            "specific_issue_ID": 4,
-            "specific_issue_name": "City Parks",
-            "specific_issue_units": "City Parks in District per 1,000 residents (acres)",
-            "specific_issue_description": "Issue #4 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 2,
-            "good_or_bad": 0,
-            "json_id": "F26_ParkAc",
-            "highlight_statement": "the least parks in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "5": {
-            "specific_issue_ID": 5,
-            "specific_issue_name": "Daytime Summer Surface Temperature",
-            "specific_issue_units": "Temperature Deviation from Mean",
-            "specific_issue_description": "Issue #5 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 2,
-            "good_or_bad": 1,
-            "json_id": "F14_TmpDev",
-            "highlight_statement": "highest daytime temperatures in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "6": {
-            "specific_issue_ID": 6,
-            "specific_issue_name": "DEP Green Infrastructure",
-            "specific_issue_units": "Square Feet Per Average City Block Area",
-            "specific_issue_description": "Issue #6 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 2,
-            "good_or_bad": 0,
-            "json_id": "F17_GreInf",
-            "highlight_statement": "the least green infrastructure in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "7": {
-            "specific_issue_ID": 7,
-            "specific_issue_name": "Noise Pollution",
-            "specific_issue_units": "Decibels, Averaged",
-            "specific_issue_description": "Issue #7 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 1,
-            "good_or_bad": 1,
-            "json_id": "F19_Noise_",
-            "highlight_statement": "highest noise pollution in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "8": {
-            "specific_issue_ID": 8,
-            "specific_issue_name": "Number of Bike Racks",
-            "specific_issue_units": "Per 10,000 Residents",
-            "specific_issue_description": "Issue #8 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 3,
-            "good_or_bad": 0,
-            "json_id": "F22_BikRac",
-            "highlight_statement": "the least bike racks in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "9": {
-            "specific_issue_ID": 9,
-            "specific_issue_name": "Number of City Benches",
-            "specific_issue_units": "Per 10,000 Residents",
-            "specific_issue_description": "Issue #9 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 3,
-            "good_or_bad": 0,
-            "json_id": "F23_CtyBea",
-            "highlight_statement": "the least city benches in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "10": {
-            "specific_issue_ID": 10,
-            "specific_issue_name": "PM 2.5 Levels",
-            "specific_issue_units": "Microgram Per Cubic Meter, 2020 Annual Average",
-            "specific_issue_description": "Issue #10 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 2,
-            "good_or_bad": 1,
-            "json_id": "F15_PM25Me",
-            "highlight_statement": "highest pollution levels in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "11": {
-            "specific_issue_ID": 11,
-            "specific_issue_name": "Protected Bike Lanes",
-            "specific_issue_units": "Per Mile of Street",
-            "specific_issue_description": "Issue #11 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 3,
-            "good_or_bad": 0,
-            "json_id": "F24_BikLan",
-            "highlight_statement": "the least bike lanes in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "12": {
-            "specific_issue_ID": 12,
-            "specific_issue_name": "Traffic Density",
-            "specific_issue_units": "Million Miles Per Square Kilometer, Annual Vehicle Miles Traveled",
-            "specific_issue_description": "Issue #12 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 3,
-            "good_or_bad": 1,
-            "json_id": "F28_Trf_De",
-            "highlight_statement": "the greatest traffic in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "13": {
-            "specific_issue_ID": 13,
-            "specific_issue_name": "Traffic Fatalities",
-            "specific_issue_units": "Per 10,000 residents",
-            "specific_issue_description": "Issue #13 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 1,
-            "good_or_bad": 1,
-            "json_id": "F20_TrfKil",
-            "highlight_statement": "the greatest frequency of traffic fatalities in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "14": {
-            "specific_issue_ID": 14,
-            "specific_issue_name": "Traffic Injuries",
-            "specific_issue_units": "Per 10,000 residents",
-            "specific_issue_description": "Issue #14 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 1,
-            "good_or_bad": 1,
-            "json_id": "F21_TrfInj",
-            "highlight_statement": "the greatest frequency of traffic injuries in the city" ,
-            "specific_issue_source": "source name"
-        },
-        "15": {
-            "specific_issue_ID": 15,
-            "specific_issue_name": "Tree Canopy Cover",
-            "specific_issue_units": "% of Total Land Area",
-            "specific_issue_description": "Issue #15 Description",
-            "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
-            "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
-            "specific_issue_solutions": "solution",
-            "issue_type_ID": 2,
-            "good_or_bad": 0,
-            "json_id": "F16_TreCan",
-            "highlight_statement": "the least tree canopy cover in the city" ,
-            "specific_issue_source": "source name"
-        }
+    "environment": {
+      "specific_issues_ID": [
+        4,
+        5,
+        6,
+        10,
+        15
+      ],
+      "issue_description": "Environment Description"
+    },
+    "infrastructure": {
+      "specific_issues_ID": [
+        2,
+        3,
+        8,
+        9,
+        11,
+        12
+      ],
+      "issue_description": "Infrasctructure Description"
     }
+  },
+  "specific_issues_data": {
+    "1": {
+      "specific_issue_ID": 1,
+      "specific_issue_name": "Asthma Rates",
+      "specific_issue_units": "Annual Emergency Department Visits (Adults) Per 10,000 Residents",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 1,
+      "good_or_bad": 1,
+      "json_id": "F18_AsthmR",
+      "highlight_statement": "highest asthma rates in the city",
+      "specific_issue_source": "source name source name source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "2": {
+      "specific_issue_ID": 2,
+      "specific_issue_name": "Average Bus Speed",
+      "specific_issue_units": "Miles Per Hour",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 3,
+      "good_or_bad": 0,
+      "json_id": "F27_BusSpe",
+      "highlight_statement": "slowest bus speeds in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "3": {
+      "specific_issue_ID": 3,
+      "specific_issue_name": "Bus Lane and Busway Miles",
+      "specific_issue_units": "Bus Miles per Road Mile",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 3,
+      "good_or_bad": 0,
+      "json_id": "F25_BusLan",
+      "highlight_statement": "least bus lane and busway miles in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "4": {
+      "specific_issue_ID": 4,
+      "specific_issue_name": "City Parks",
+      "specific_issue_units": "City Parks in District per 1,000 residents (acres)",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 2,
+      "good_or_bad": 0,
+      "json_id": "F26_ParkAc",
+      "highlight_statement": "the least parks in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "5": {
+      "specific_issue_ID": 5,
+      "specific_issue_name": "Daytime Summer Surface Temperature",
+      "specific_issue_units": "Temperature Deviation from Mean",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 2,
+      "good_or_bad": 1,
+      "json_id": "F14_TmpDev",
+      "highlight_statement": "highest daytime temperatures in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "6": {
+      "specific_issue_ID": 6,
+      "specific_issue_name": "DEP Green Infrastructure",
+      "specific_issue_units": "Square Feet Per Average City Block Area",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 2,
+      "good_or_bad": 0,
+      "json_id": "F17_GreInf",
+      "highlight_statement": "the least green infrastructure in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "7": {
+      "specific_issue_ID": 7,
+      "specific_issue_name": "Noise Pollution",
+      "specific_issue_units": "Decibels, Averaged",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 1,
+      "good_or_bad": 1,
+      "json_id": "F19_Noise_",
+      "highlight_statement": "highest noise pollution in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "8": {
+      "specific_issue_ID": 8,
+      "specific_issue_name": "Number of Bike Racks",
+      "specific_issue_units": "Per 10,000 Residents",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 3,
+      "good_or_bad": 0,
+      "json_id": "F22_BikRac",
+      "highlight_statement": "the least bike racks in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "9": {
+      "specific_issue_ID": 9,
+      "specific_issue_name": "Number of City Benches",
+      "specific_issue_units": "Per 10,000 Residents",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 3,
+      "good_or_bad": 0,
+      "json_id": "F23_CtyBea",
+      "highlight_statement": "the least city benches in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "10": {
+      "specific_issue_ID": 10,
+      "specific_issue_name": "PM 2.5 Levels",
+      "specific_issue_units": "Microgram Per Cubic Meter, 2020 Annual Average",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 2,
+      "good_or_bad": 1,
+      "json_id": "F15_PM25Me",
+      "highlight_statement": "highest pollution levels in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "11": {
+      "specific_issue_ID": 11,
+      "specific_issue_name": "Protected Bike Lanes",
+      "specific_issue_units": "Per Mile of Street",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 3,
+      "good_or_bad": 0,
+      "json_id": "F24_BikLan",
+      "highlight_statement": "the least bike lanes in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "12": {
+      "specific_issue_ID": 12,
+      "specific_issue_name": "Traffic Density",
+      "specific_issue_units": "Million Miles Per Square Kilometer, Annual Vehicle Miles Traveled",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 3,
+      "good_or_bad": 1,
+      "json_id": "F28_Trf_De",
+      "highlight_statement": "the greatest traffic in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "13": {
+      "specific_issue_ID": 13,
+      "specific_issue_name": "Traffic Fatalities",
+      "specific_issue_units": "Per 10,000 residents",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 1,
+      "good_or_bad": 1,
+      "json_id": "F20_TrfKil",
+      "highlight_statement": "the greatest frequency of traffic fatalities in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "14": {
+      "specific_issue_ID": 14,
+      "specific_issue_name": "Traffic Injuries",
+      "specific_issue_units": "Per 10,000 residents",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 1,
+      "good_or_bad": 1,
+      "json_id": "F21_TrfInj",
+      "highlight_statement": "the greatest frequency of traffic injuries in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    },
+    "15": {
+      "specific_issue_ID": 15,
+      "specific_issue_name": "Tree Canopy Cover",
+      "specific_issue_units": "% of Total Land Area",
+      "specific_issue_description": [
+        {
+          "text": "Asthma is a chronic lung disease. Air pollution generated by car traffic both ",
+          "hyperlink": "causes and exacerbates asthma",
+          "source": "https://www.nature.com/articles/jes201351"
+        },
+        {
+          "text": ". Asthma interferes with the ability to breathe, exercise, play, work, and sleep, and can lead to school and work absences, permanent narrowing of bronchial tubes, and life-threatening attacks requiring hospitalization. ",
+          "hyperlink": "More than one in 10",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/asthma/asthma-triggers-fact-sheet.pdf"
+        },
+        {
+          "text": " New York children have asthma. Low-income Black and Latino neighborhoods have ",
+          "hyperlink": "higher asthma rates",
+          "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief126.pdf"
+        },
+        {
+          "text": ". Neighborhoods with ",
+          "hyperlink": "larger tree canopies",
+          "source": "https://www.acs.org/content/acs/en/pressroom/presspacs/2012/acs-presspac-august-29-2012/green-plants-reduce-pollution-on-city-streets-up-to-eight-times-more-than-previously-believed.html"
+        },
+        {
+          "text": " and lower traffic volume have ",
+          "hyperlink": "lower asthma rates",
+          "source": "https://www.mdpi.com/1660-4601/18/7/3487/pdf"
+        },
+        {
+          "text": "."
+        }
+      ],
+      "specific_issue_sentence": "A sentence description about the issue consequat mauris nunc.",
+      "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "specific_issue_solutions": {
+        "base_text": [
+          {
+            "text": "To reduce asthma rates in your neighborhood, pay attention to the design and use of public spaces in your neighborhood. Here are a few ways you can improve spatial equity:"
+          }
+        ],
+        "solutions_list": [
+          [
+            {
+              "text": "Create a “clean air ",
+              "hyperlink": "school street",
+              "source": "https://nyc25x25.org/illustrated.html#school"
+            },
+            {
+              "text": "” to reduce childhood asthma rates by converting one block outside a school in your district into a car-free pedestrian space. In New York City, restricting car access more than halved air pollution both following the pedestrianization of ",
+              "hyperlink": "Times Square",
+              "source": "https://gothamist.com/news/times-squares-pedestrian-plazas-made-air-quality-better"
+            },
+            {
+              "text": " and of Park Avenue during ",
+              "hyperlink": "“summer streets”",
+              "source": "https://pubmed.ncbi.nlm.nih.gov/21429643/"
+            },
+            {
+              "text": ". In London, car-free “school streets” reduced vehicle-related air pollution ",
+              "hyperlink": "by 74 percent",
+              "source": "https://drive.google.com/file/d/1UVVmMxxgFBlKSgE-h9sZn3s4sP7wKWmC/view"
+            },
+            {
+              "text": "."
+            }
+          ],
+          [
+            {
+              "text": "Designate a “crisis zone” in districts with high asthma rates and low tree cover. Narrow streets, insert curb extensions, and depave 10 percent of all parking spots to create space for extensive tree planting in these districts. One tree can remove ",
+              "hyperlink": "11,000 miles of car emissions",
+              "source": "https://www.milliontreesnyc.org/html/urban_forest/urban_forest_benefits.shtml"
+            },
+            {
+              "text": " annually, equivalent to $5.60 in benefits for every dollar that New York City spends planting trees."
+            }
+          ],
+          [
+            {
+              "text": "Launch a “driving alternatives” initiative to shift trips out of cars and trucks in high asthma districts, including the installation of ",
+              "hyperlink": "busways",
+              "source": "https://www.nydailynews.com/new-york/ny-busway-14th-st-service-increase-20191120-tpr4hesqpnasxby3oselbphzsy-story.html"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "metered parking",
+              "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
+            },
+            {
+              "text": " on high-traffic streets and the creation of ",
+              "hyperlink": "electric cargo bike delivery hubs",
+              "source": "https://www.theguardian.com/world/2021/aug/05/cargo-bikes-deliver-faster-and-cleaner-than-vans-study-finds"
+            },
+            {
+              "text": ". Researchers have found that ",
+              "hyperlink": "decreasing traffic density",
+              "source": "https://jamanetwork.com/journals/jama/fullarticle/193572"
+            },
+            {
+              "text": " and ",
+              "hyperlink": "increasing alternatives to car trips",
+              "source": "https://www.nature.com/articles/s41370-022-00423-y"
+            },
+            {
+              "text": " can reduce ",
+              "hyperlink": "air pollution",
+              "source": "https://www.ub.edu/irea/working_papers/2015/201519.pdf"
+            },
+            {
+              "text": " and asthma hospitalizations. After Stockholm reduced traffic volumes with a congestion toll, ",
+              "hyperlink": "asthma rates fell more than 50 percent",
+              "source": "https://www.nber.org/system/files/working_papers/w24410/w24410.pdf"
+            },
+            {
+              "text": "."
+            }
+          ]
+        ]
+      },
+      "issue_type_ID": 2,
+      "good_or_bad": 0,
+      "json_id": "F16_TreCan",
+      "highlight_statement": "the least tree canopy cover in the city",
+      "specific_issue_source": "source name",
+      "related": [
+        1,
+        2,
+        3
+      ]
+    }
+  }
 }

@@ -74,6 +74,7 @@ export default function Content({
                     boundary={boundary} demographic={demographic}
                     showDemographics={showDemographics}
                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
+                    setSelectedSpecificIssue={setSelectedSpecificIssue}
 
                 />}
 
@@ -88,6 +89,7 @@ export default function Content({
                     selectedIssue={selectedIssue} selectedChapter={selectedChapter}
                     boundary={boundary} demographic={demographic}
                     showDemographics={showDemographics}
+                    setSelectedSpecificIssue={setSelectedSpecificIssue}
                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
                 />}
 
