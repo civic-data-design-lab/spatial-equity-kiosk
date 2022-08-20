@@ -34,6 +34,13 @@ export default function CommunityProfile({
 
     }, [])
 
+    useEffect(()=>{
+        console.log("selectedSpec ", selectedSpecificIssue)
+        console.log("more issues ", moreIssues)
+    })
+
+
+
 
 
     const [modal, setModal] = useState(null)

@@ -21,7 +21,6 @@ export default function IssueProfile({
     }
 
     const getHyperlinkText = (texts) => {
-        console.log("class name ", categories.labels[issues.specific_issues_data[selectedSpecificIssue].issue_type_ID])
         return <p>
             {texts.map((texts)=>{
                 return <>{texts.text}{texts.hyperlink && <span className={`${categories.labels[issues.specific_issues_data[selectedSpecificIssue].issue_type_ID]}`}><a className={`hyperlink ${categories.labels[issues.specific_issues_data[selectedSpecificIssue].issue_type_ID]}`} href={texts.source} target="_blank">{texts.hyperlink}</a></span>}</>

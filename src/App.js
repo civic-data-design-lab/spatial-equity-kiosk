@@ -170,6 +170,17 @@ function App() {
     }
   }, [selectedSpecificIssue]);
 
+  useEffect(() => {
+    if (selectedSpecificIssue) {
+      if (!moreIssues.includes(selectedSpecificIssue)) {
+        let newMore = moreIssues
+        newMore.push(selectedSpecificIssue)
+        setMoreIssues(newMore)
+        setMoreIssuesLength(moreIssuesLength+1)
+      }
+    }
+  }, [selectedSpecificIssue]);
+
   return (
     <Container fluid className={"h-100 p-0 m-0 d-flex flex-row"}>
       <Nav
