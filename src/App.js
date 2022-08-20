@@ -42,6 +42,28 @@ function App() {
   const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
   const location = useLocation();
 
+  // map hooks
+  
+  // map starting position and view state constraints
+// Map Viewport settings
+  const zoomMin = 10.5;
+  const zoomMax = 13;
+
+  const [viewState, setViewState] = useState({
+    longitude: -73.9,
+    latitude: 40.7131,
+    zoom: 10,
+    minZoom: zoomMin,
+    maxZoom: zoomMax,
+    pitch: 0,
+    bearing: 0,
+  });
+
+  const [mapSelection, setMapSelection] = useState([]);
+  const [zoomToggle, setzoomToggle] = useState(1);
+  const [inverseZoomToggle, setinverseZoomToggle] = useState(1);
+  const [handleLegend, sethandleLegend] = useState(0);
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     for (let pair of queryParams.entries()) {
@@ -269,6 +291,18 @@ function App() {
           setShowMap={setShowMap}
           communities={communities}
           councils={councils}
+          viewState={viewState} 
+          setViewState={setViewState}
+          mapSelection={mapSelection} 
+          setMapSelection={setMapSelection}
+          zoomToggle={zoomToggle} 
+          setzoomToggle={setzoomToggle}
+          inverseZoomToggle={inverseZoomToggle} 
+          setinverseZoomToggle={setinverseZoomToggle}
+          handleLegend={handleLegend} 
+          sethandleLegend={sethandleLegend}
+          zoomMin={zoomMin}
+          zoomMax={zoomMax}
         />
       </div>
     </Container>

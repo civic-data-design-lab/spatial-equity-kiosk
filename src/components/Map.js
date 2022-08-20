@@ -19,6 +19,7 @@ import _FILL_PATTERN from "../data/fill_pattern.json";
 import _HATCH_ATLAS from "../data/hatch_pattern.png";
 import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _ETHNICITY_COLORS from "../data/ethnicity_colors.json";
+import _RANKINGS from "../data/rankings.json";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -41,10 +42,6 @@ const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const mapStyle = "mapbox://styles/mitcivicdata/cl6fa3jro002d14qxp2nu9wng"; //toner
 
-// Map Viewport settings
-const zoomMin = 10.5;
-const zoomMax = 13;
-
 // color ramps
 const choroplethOpacity = 0.85;
 const healthRamp = _CHAPTER_COLORS.health;
@@ -52,16 +49,6 @@ const envRamp = _CHAPTER_COLORS.env;
 const infraRamp = _CHAPTER_COLORS.infra;
 const binSize = 6; // number of bins in the color ramp
 
-// map starting position and view state constraints
-const INITIAL_VIEW_STATE = {
-  longitude: -73.9,
-  latitude: 40.7131,
-  zoom: 10,
-  minZoom: zoomMin,
-  maxZoom: zoomMax,
-  pitch: 0,
-  bearing: 0,
-};
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
 
@@ -91,13 +78,21 @@ export default function DeckMap({
   setShowMap,
   communities,
   councils,
+  viewState,
+  setViewState,
+  mapSelection,
+  setMapSelection,
+  zoomToggle,
+  setzoomToggle,
+  inverseZoomToggle,
+  setinverseZoomToggle,
+  handleLegend,
+  sethandleLegend,
+  zoomMin,
+  zoomMax,
 }) {
   // map hooks
-  const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
-  const [mapSelection, setMapSelection] = useState([]);
-  const [zoomToggle, setzoomToggle] = useState(1);
-  const [inverseZoomToggle, setinverseZoomToggle] = useState(1);
-  const [handleLegend, sethandleLegend] = useState(0);
+  const [highlightFeature, sethighlightFeature] = useState(null);
 
   // SELECT BOUNDARY ------------------------------------------------------------
   let selectedBoundary;
@@ -328,7 +323,11 @@ export default function DeckMap({
 
   // 05 TOOLTIP ----------------------------------------------------------------------------------------------
   const getTooltip = (info) => {
-    if (info.object) {
+    if (
+      info.object &&
+      ((boundary == "community" && info.object.properties.Data_YN == "Y") ||
+        boundary == "council")
+    ) {
       const obj = info.object;
       const tooltipBounds =
         boundary == "community" ? "Community Board" : "Council District";
@@ -336,17 +335,36 @@ export default function DeckMap({
         boundary == "community"
           ? obj.properties.CDTA2020
           : obj.properties.CounDist;
+
+      // update auto highlight
+      sethighlightFeature(info.index);
+      // console.log(highlightFeature);
+
+      const metricCheck = _RANKINGS[boundary][selectedMetric] ? true : false;
+
+      const maxRanking = metricCheck
+        ? _RANKINGS[boundary][selectedMetric].length
+        : "";
+      const ranking = metricCheck
+        ? _RANKINGS[boundary][selectedMetric].find(
+            (t) => t.community_ID == boundaryName
+          ).rank
+        : "";
+
+      // maxRanking -
+      // (_RANKINGS[boundary][selectedMetric].find(
+      //   (t) => t.community_ID == boundaryName
+      // ).rank -
+      //   1);
+
       const neighborhoodList =
         boundary == "council"
           ? councils[String(obj.properties.CounDist)].remaining_text
-          : boundary == "community" && obj.properties.Data_YN == "Y"
+          : boundary == "community"
           ? communities[obj.properties.CDTA2020].remaining_text
           : null;
 
-      if (
-        boundary == "council" ||
-        (boundary == "community" && obj.properties.Data_YN == "Y")
-      ) {
+      if (boundary == "council" || boundary == "community") {
         // return the tooltip for the selected boundary with selected metric and selected demographic
         return (
           obj && {
@@ -361,15 +379,28 @@ export default function DeckMap({
             html: `\
           <!-- select metric -->
           <div class=map-tooltip-header>${tooltipBounds} <strong>${boundaryName}</strong></div>
-          <div class=map-tooltip-neighborhoods>${neighborhoodList}</div>
-          <div class=tooltip-info>${
-            typeof selectedSpecificIssue == "number"
-              ? issues.specific_issues_data[selectedSpecificIssue]
-                  .specific_issue_name
-              : ""
-          } ${
-              selectedMetric != null ? obj.properties[selectedMetric] : ""
+          <div class=map-tooltip-subinfo>${neighborhoodList}</div>
+          <div>
+            <div class=map-tooltip-info>${
+              metricCheck
+                ? `Ranking in ${
+                    typeof selectedSpecificIssue == "number"
+                      ? issues.specific_issues_data[selectedSpecificIssue]
+                          .specific_issue_name
+                      : ""
+                  }—`
+                : ""
             }</div>
+            <div class=map-tooltip-info><a class=map-tooltip-ranking>${
+              metricCheck ? `${ranking} / ${maxRanking}` : ""
+            } </a><a class=map-tooltip-subinfo>${
+              metricCheck
+                ? `(${
+                    selectedMetric != null ? obj.properties[selectedMetric] : ""
+                  })`
+                : ""
+            }  </a></div>
+          </div>
           <!-- select demographic -->
           <div class=tooltip-info>
           ${selectedDemographic != null ? demoLookup[demographic].name : ""} ${
@@ -483,11 +514,6 @@ export default function DeckMap({
         }
         if (isNaN(fillValue)) {
           return [0, 0, 0, 0];
-        } else if (
-          mapSelection[0] == f.id ||
-          (mapSelection[1] == f.id && addCompare == true)
-        ) {
-          return [0, 0, 255, 255];
         } else {
           // return [255, 0, 0, 255];
           return COLOR_SCALE(f.properties[selectedMetric]);
@@ -650,7 +676,11 @@ export default function DeckMap({
           boundary == "council" ||
           (boundary == "community" && f.properties.Data_YN == "Y")
         ) {
-          return [0, 0, 0, 255];
+          if (f.id == highlightFeature) {
+            return [0, 0, 0, 255];
+          } else {
+            return [67, 67, 67, 100];
+          }
         }
         return [0, 0, 0, 0];
       },
@@ -660,6 +690,9 @@ export default function DeckMap({
           boundary == "council" ||
           (boundary == "community" && w.properties.Data_YN == "Y")
         ) {
+          if (w.id == highlightFeature) {
+            return 100;
+          }
           return 50;
         }
         return 0;
@@ -671,7 +704,8 @@ export default function DeckMap({
         if (boundary == "community" && info.object.properties.Data_YN == "N") {
           return [0, 0, 0, 0];
         }
-        return [217, 255, 0, 215];
+        return [0, 0, 0, 50];
+        // return [217, 255, 0, 215];
       },
       onClick: (info) => {
         const obj = info.object;
@@ -688,46 +722,89 @@ export default function DeckMap({
           (boundary == "community" && obj.properties.Data_YN == "Y") ||
           boundary == "council"
         ) {
+          // change chapter
           setSelectedChapter(3);
-          // console.log(
-          //   mapSelection.includes(info.index),
-          //   "info index",
-          //   info.index,
-          //   "mapselection",
-          //   mapSelection
-          // );
+
+          // add clicked object to chapter 3 searchbar and highlight single selection on map
           if (communitySearch == null || addCompare == false) {
-            setCommunitySearch(lookup);
-            if (mapSelection.includes(info.index) == false) {
-              setMapSelection([info.index]);
-            }
-          } else if (mapSelection.includes(info.index) == false) {
-            setCompareSearch(lookup);
-            setMapSelection([mapSelection[0], info.index]);
-          }
+            // animate view
+            setViewState({
+              longitude: info.coordinate[0],
+              latitude: info.coordinate[1],
+              zoom: zoomMax - 0.5,
+              transitionDuration: 500,
+              transitionInerpolator: new LinearInterpolator(),
+              // transitionEasing: easeCubic,
+            });
 
-          // RESUME HERE - MAKE CLICKING THE SAME BOUNDARY TOGGLE OFF
-          if (mapSelection.includes(info.index) == true) {
-            setMapSelection(mapSelection.filter((x) => x != info.index));
-            // CLEAR COMPARE SEARCH AND UPDATE MAP SELECTION
-            if (mapSelection.length == 1) {
-              setCompareSearch(null);
+            if (communitySearch == lookup) {
+              setCommunitySearch(null);
+              if (mapSelection.includes(info.index) == true) {
+                setMapSelection([null]);
+              }
+            } else {
+              setCommunitySearch(lookup);
+              if (mapSelection.includes(info.index) == false) {
+                setMapSelection([info.index]);
+              }
             }
           }
-
-          // animate view
-          setViewState({
-            longitude: info.coordinate[0],
-            latitude: info.coordinate[1],
-            zoom: zoomMax - 0.5,
-            transitionDuration: 500,
-            transitionInerpolator: new LinearInterpolator(),
-            //  transitionEasing: d3.easeCubic,
-            //  transitionEasing: (t) => {-(cos(PI * x) - 1) / 2},
-          });
+          // double selection functionality
+          else {
+            if (mapSelection.includes(info.index)) {
+              setMapSelection(mapSelection.filter((x) => x != info.index));
+              if (compareSearch == lookup) {
+                setCompareSearch(null);
+              } else if (communitySearch == lookup) {
+                setCommunitySearch(compareSearch);
+                setCompareSearch(null);
+              }
+            } else {
+              setCompareSearch(lookup);
+              setMapSelection([mapSelection[0], info.index]);
+            }
+          }
         }
       },
-      parameters: {},
+      updateTriggers: {
+        getLineColor: [highlightFeature],
+        getLineWidth: [highlightFeature],
+      },
+    }),
+
+    new GeoJsonLayer({
+      id: "administrative-selected",
+      data: selectedBoundary,
+      filled: false,
+      stroked: true,
+
+      getLineColor: (f) => {
+        if (
+          (boundary == "council" &&
+            (f.properties.CounDist == communitySearch ||
+              f.properties.CounDist == compareSearch)) ||
+          (boundary == "community" &&
+            f.properties.Data_YN == "Y" &&
+            (f.properties.CDTA2020 == communitySearch ||
+              f.properties.CDTA2020 == compareSearch))
+        ) {
+          return [255, 255, 255, 255];
+        }
+        return [0, 0, 0, 0];
+      },
+
+      getLineWidth: (f) => {
+        return 100;
+      },
+      updateTriggers: {
+        getLineColor: [
+          selectedMetric,
+          mapSelection,
+          addCompare,
+          communitySearch,
+          compareSearch,
+        ],
+      },
     }),
 
     new TextLayer({

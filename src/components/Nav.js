@@ -21,7 +21,7 @@ function Nav({
                  setCompareSearch,
                  setShowMap,
                  councils,
-                 setMoreIssues, setMoreIssuesLength, addCompare, setAddCompare
+                 setMoreIssues, setMoreIssuesLength, addCompare, setAddCompare,
              }) {
 
 

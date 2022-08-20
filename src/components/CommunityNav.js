@@ -13,7 +13,7 @@ export default function CommunityNav({
                                          setCommunitySearch,
                                          setCompareSearch,
                                          boundary, councils,
-                                         addCompare, setAddCompare
+                                         addCompare, setAddCompare,
                                      }) {
 
 

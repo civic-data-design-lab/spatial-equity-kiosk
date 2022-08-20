@@ -35,8 +35,8 @@ export default function CommunityProfile({
     }, [])
 
     useEffect(()=>{
-        console.log("selectedSpec ", selectedSpecificIssue)
-        console.log("more issues ", moreIssues)
+        // console.log("selectedSpec ", selectedSpecificIssue)
+        // console.log("more issues ", moreIssues)
     })
 
 

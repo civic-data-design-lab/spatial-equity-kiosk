@@ -11,7 +11,7 @@ const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 export default function CommunitySearchBar({
                                                toggleValue, callBack, communitySearch, forSearch = true,
-                                               children, setAddCompare=null
+                                               children, setAddCompare=null,
                                            }) {
     const [value, setValue] = useState('');
     const [focus, setFocus] = useState(false)
