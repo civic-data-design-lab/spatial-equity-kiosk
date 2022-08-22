@@ -207,6 +207,12 @@ function App() {
     }
   }, [selectedSpecificIssue]);
 
+  useEffect(()=>{
+    if (!selectedChapter) {
+      setShowMap(false)
+    }
+  })
+
   return (
     <Container fluid className={"h-100 p-0 m-0 d-flex flex-row"}>
       <Nav
