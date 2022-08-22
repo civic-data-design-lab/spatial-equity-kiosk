@@ -41,6 +41,7 @@ function Nav({
                          setShowMap(false)
                      } else {
                          setSelectedChapter(null)
+                         setShowMap(false)
                      }
                  }}
             >
@@ -83,6 +84,7 @@ function Nav({
                          setSelectedChapter(2)
                      } else {
                          setSelectedChapter(null)
+                         setShowMap(false)
                      }
 
                      /*if (selectedSpecificIssue) {
@@ -122,6 +124,7 @@ function Nav({
                          setSelectedChapter(3)
                      } else {
                          setSelectedChapter(null)
+                         setShowMap(false)
                      }
                  }}
             >
@@ -163,6 +166,7 @@ function Nav({
                          setShowMap(false)
                      } else {
                          setSelectedChapter(null)
+                         setShowMap(false)
                      }
                  }}
             >
