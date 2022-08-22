@@ -114,7 +114,7 @@ export default function Demographics({
                 {currentValue && communitySearch && !compareSearch && selectedChapter===3 &&
                     <div>
                         <div className={"d-flex flex-row justify-content-between"}>
-                            <p className={"m-0"}>{boundary === "council" ? councils[communitySearch].bolded_text : communities[communitySearch].bolded_text}</p>
+                            <p className={"m-0"}>{(councils[communitySearch] && councils[communitySearch].bolded_text) || (communities[communitySearch] && communities[communitySearch].bolded_text)}</p>
                             <div className={"d-flex flex-row align-items-center col-gap"}>
                                 <Toggle value={mapDemographics} callback={setMapDemographics}
                                         textOff={"Show on map"}
@@ -130,7 +130,7 @@ export default function Demographics({
                         <Slider>
                             <div>
                                 <div className={"d-flex flex-row justify-content-between"}>
-                                    <p className={"m-0"}>{boundary === "council" ? councils[communitySearch].bolded_text : communities[communitySearch].bolded_text}</p>
+                                    <p className={"m-0"}>{(councils[communitySearch] && councils[communitySearch].bolded_text) || (communities[communitySearch] && communities[communitySearch].bolded_text)}</p>
                                     <div className={"d-flex flex-row align-items-center col-gap"}>
                                 <Toggle value={mapDemographics} callback={setMapDemographics}
                                         textOff={"Show on map"}
@@ -140,7 +140,7 @@ export default function Demographics({
                             </div>
                             <div>
                                 <div className={"d-flex flex-row justify-content-between"}>
-                                    <p className={"m-0"}>{boundary === "council" ? councils[compareSearch].bolded_text : communities[compareSearch].bolded_text}</p>
+                                    <p className={"m-0"}>{(councils[compareSearch] && councils[compareSearch].bolded_text) || (communities[compareSearch] && communities[compareSearch].bolded_text)}</p>
                                     <div className={"d-flex flex-row align-items-center col-gap"}>
                                 <Toggle value={mapDemographics} callback={setMapDemographics}
                                         textOff={"Show on map"}
