@@ -15,8 +15,6 @@ export default function Legend({
 }) {
   // toggle areas in need
 
-  console.log(legendBins[1]);
-
   const administrativeBoundary =
     boundary === "council" ? "Council Districts" : "Community Boards";
 

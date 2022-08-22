@@ -46,6 +46,7 @@ function App() {
   const [toggleBike, setToggleBike] = useState(false);
   const [toggleWalk, setToggleWalk] = useState(false);
   const [dataScale, setdataScale] = useState(false);
+  const [highlightFeature, sethighlightFeature] = useState(null);
 
   // map hooks
 
@@ -240,6 +241,9 @@ function App() {
         setMoreIssuesLength={setMoreIssuesLength}
         addCompare={addCompare}
         setAddCompare={setAddCompare}
+        highlightFeature={highlightFeature}
+        sethighlightFeature={sethighlightFeature}
+        
       />
 
       <Content
@@ -329,6 +333,8 @@ function App() {
           setCoordinateLookup={setCoordinateLookup}
           dataScale={dataScale}
           setdataScale={setdataScale}
+          highlightFeature={highlightFeature}
+          sethighlightFeature={sethighlightFeature}
         />
       </div>
     </Container>

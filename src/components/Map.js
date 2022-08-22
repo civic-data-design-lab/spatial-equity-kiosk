@@ -90,10 +90,10 @@ export default function DeckMap({
   sethandleLegend,
   zoomMin,
   zoomMax,
+  highlightFeature,
+  sethighlightFeature,
 }) {
   // map hooks
-  const [highlightFeature, sethighlightFeature] = useState(null);
-
   const dataScale = "q";
 
   // SELECT BOUNDARY ------------------------------------------------------------
@@ -738,8 +738,8 @@ export default function DeckMap({
           if (communitySearch == null || addCompare == false) {
             // animate view
             setViewState({
-              longitude: info.coordinate[0],
-              latitude: info.coordinate[1],
+              longitude: obj.properties.X_Cent,
+              latitude: obj.properties.Y_Cent,
               zoom: zoomMax - 0.5,
               transitionDuration: 500,
               transitionInerpolator: new LinearInterpolator(),
