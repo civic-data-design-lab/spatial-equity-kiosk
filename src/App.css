@@ -148,6 +148,10 @@ a:active {
     color: gray !important;
 }
 
+.Black {
+    color: black;
+}
+
 
 .Health {
     color: #F93080;
@@ -258,10 +262,27 @@ a:active {
 
 /* Dropdown */
 .dropdown-bar {
-    border: 2px solid black;
     padding: 0.25rem 0.5rem;
     column-gap: 0.25rem;
 }
+
+.dropdown-bar-black {
+    border: 2px solid black;
+}
+
+.dropdown-bar-Health {
+    border: 2px solid #F93080;
+}
+
+.dropdown-bar-Environment {
+    border: 2px solid #179F4E;
+}
+
+.dropdown-bar-Infrastructure {
+    border: 2px solid #146FD1;;
+}
+
+
 
 .dropdown-body {
     width: 100%;

@@ -8,8 +8,8 @@ export default function BoundaryToggle({setBoundary, boundary, setCompareSearch,
                  onClick={(e) => {
                      e.stopPropagation()
                      if (boundary !== "council") {
-                         setCommunitySearch(null)
-                         setCompareSearch(null)
+                         //setCommunitySearch(null)
+                         //setCompareSearch(null)
                      }
                      setBoundary("council")
 
@@ -20,8 +20,8 @@ export default function BoundaryToggle({setBoundary, boundary, setCompareSearch,
                  onClick={(e) => {
                      e.stopPropagation()
                      if (boundary !== "community") {
-                         setCommunitySearch(null)
-                         setCompareSearch(null)
+                         //setCommunitySearch(null)
+                         //setCompareSearch(null)
                      }
                      setBoundary("community")
                  }}

@@ -121,7 +121,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    /*console.log("HERE ARE THE STATES")
+    console.log("HERE ARE THE STATES")
         console.log("selectedChapter ", selectedChapter)
         console.log("selectedIssue ", selectedIssue)
         console.log("selectedSpecficIssue ", selectedSpecificIssue)
@@ -132,7 +132,7 @@ function App() {
         console.log("boundary ", boundary)
         console.log("selectedAbout ", selectedAbout)
 
-        console.log("-------------------------------------------")*/
+        console.log("-------------------------------------------")
 
     /* if (!selectedSpecificIssue) {
              setSelectedIssue(1)
@@ -232,6 +232,7 @@ function App() {
       <Content
         selectedChapter={selectedChapter}
         issues={issues}
+        issue_categories={issue_categories}
         selectedIssue={selectedIssue}
         setSelectedIssue={setSelectedIssue}
         selectedSpecificIssue={selectedSpecificIssue}

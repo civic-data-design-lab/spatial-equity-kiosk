@@ -18,7 +18,7 @@ export default function IssuesMiddleColumn({
                                                mapDemographics, setMapDemographics, boundary,
                                                communities, councils,
                                                legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers,
-                                                selectedChapter
+                                                selectedChapter, issue_categories
 
                                            }) {
 
@@ -94,6 +94,8 @@ export default function IssuesMiddleColumn({
                                     currentValue={selectedSpecificIssue}
                                     setValue={setSelectedSpecificIssue}
                                     setShowDemographics={setShowDemographics}
+                                    issues={issues}
+                                    issue_categories={issue_categories}
                     />
 
                     <div className={"d-flex flex-column justify-content-between h-100"}>
@@ -141,6 +143,7 @@ export default function IssuesMiddleColumn({
                                     currentValue={selectedSpecificIssue}
                                     setValue={setSelectedSpecificIssue}
                                     setShowDemographics={setShowDemographics}
+                                    issues={issues} issue_categories={issue_categories}
                     />
 
                     <div
@@ -191,6 +194,7 @@ export default function IssuesMiddleColumn({
                                     currentValue={selectedSpecificIssue}
                                     setValue={setSelectedSpecificIssue}
                                     setShowDemographics={setShowDemographics}
+                                    issues={issues} issue_categories={issue_categories}
                     />
 
                     <div className={"d-flex flex-column justify-content-between h-100"}>

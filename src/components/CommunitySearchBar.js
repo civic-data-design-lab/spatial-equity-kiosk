@@ -6,8 +6,6 @@ import axios from "axios";
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
-// axios.defaults.baseURL = process.env.APP_SERVER_BASE_URL;
-
 
 export default function CommunitySearchBar({
                                                toggleValue, callBack, communitySearch, forSearch = true,

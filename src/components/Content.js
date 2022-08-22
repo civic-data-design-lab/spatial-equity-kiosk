@@ -27,7 +27,7 @@ export default function Content({
                                     showDemographics, setShowDemographics,
     moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength, councils,
     mapDemographics, setMapDemographics,
-    legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers
+    legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers, issue_categories
                                 }) {
 
 
@@ -49,6 +49,7 @@ export default function Content({
                         colorRamps={colorRamps}
                         toggleUnderperformers={toggleUnderperformers}
                         setToggleUnderperformers={setToggleUnderperformers} selectedChapter={selectedChapter}
+                        issue_categories={issue_categories}
                     />}
 
                 {selectedChapter === 3 && <CommunityMiddleColumn
