@@ -25,9 +25,10 @@ export default function Content({
                                     boundary,
                                     setCommunitySearch, setCompareSearch,
                                     showDemographics, setShowDemographics,
-    moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength, councils,
-    mapDemographics, setMapDemographics,
-    legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers, issue_categories
+                                    moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength, councils,
+                                    mapDemographics, setMapDemographics,
+                                    legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers, issue_categories,
+                                    toggleTransit, toggleBike, toggleWalk, setToggleTransit, setToggleBike, setToggleWalk
                                 }) {
 
 
@@ -50,6 +51,9 @@ export default function Content({
                         toggleUnderperformers={toggleUnderperformers}
                         setToggleUnderperformers={setToggleUnderperformers} selectedChapter={selectedChapter}
                         issue_categories={issue_categories}
+                        toggleTransit={toggleTransit}  setToggleTransit={setToggleTransit}
+                        toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
+                        toggleBike={toggleBike} setToggleBike={setToggleBike}
                     />}
 
                 {selectedChapter === 3 && <CommunityMiddleColumn

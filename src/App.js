@@ -41,6 +41,9 @@ function App() {
   const [colorRamps, setColorRamps] = useState();
   const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
   const location = useLocation();
+  const [toggleTransit, setToggleTransit] = useState(false);
+  const [toggleBike, setToggleBike] = useState(false);
+  const [toggleWalk, setToggleWalk] = useState(false);
 
   // map hooks
   
@@ -121,7 +124,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("HERE ARE THE STATES")
+   /* console.log("HERE ARE THE STATES")
         console.log("selectedChapter ", selectedChapter)
         console.log("selectedIssue ", selectedIssue)
         console.log("selectedSpecficIssue ", selectedSpecificIssue)
@@ -131,8 +134,9 @@ function App() {
         console.log("compare search ", compareSearch)
         console.log("boundary ", boundary)
         console.log("selectedAbout ", selectedAbout)
+        console.log("demographic", demographic)
 
-        console.log("-------------------------------------------")
+        console.log("-------------------------------------------")*/
 
     /* if (!selectedSpecificIssue) {
              setSelectedIssue(1)
@@ -227,6 +231,7 @@ function App() {
         setMoreIssuesLength={setMoreIssuesLength}
         addCompare={addCompare}
         setAddCompare={setAddCompare}
+
       />
 
       <Content
@@ -263,6 +268,9 @@ function App() {
         colorRamps={colorRamps}
         toggleUnderperformers={toggleUnderperformers}
         setToggleUnderperformers={setToggleUnderperformers}
+        toggleTransit={toggleTransit} setToggleTransit={setToggleTransit}
+        toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
+        toggleBike={toggleBike} setToggleBike={setToggleBike}
       />
 
       <div className={`${showMap ? "show-map" : "hide-map"} map-container`}>

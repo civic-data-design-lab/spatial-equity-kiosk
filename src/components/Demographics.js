@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
+
 import Form from 'react-bootstrap/Form';
-
-
 import Slider from "./Carousel";
 import Toggle from "./Toggle";
 
@@ -14,7 +13,8 @@ export default function Demographics({
                                          showDemographics, setShowDemographics,
                                          compareSearch, communitySearch,
                                          mapDemographics, setMapDemographics,
-                                         boundary, communities, councils, selectedChapter
+                                         boundary, communities, councils, selectedChapter,
+    toggleWalk, toggleTransit, toggleBike, setToggleWalk, setToggleTransit, setToggleBike
                                      }) {
 
 
@@ -33,12 +33,63 @@ export default function Demographics({
 
     const [showDropdownItems, setShowDropdownItems] = useState(false)
     const [toggleText, setToggleText] = useState("Select a demographic to explore")
+    const [demographic, setDemographic] = useState(null)
 
     useEffect(() => {
         if (currentValue) {
             setToggleText(demographics[currentValue])
         }
+
     }, [])
+
+
+
+    const getTransitToggles = () => {
+        if (currentValue === "7") {
+            return (
+                <div className={"transit-toggle"}>
+                            <div>
+                                <Form>
+                                    <Form.Check
+                                        type={'checkbox'}
+                                        id={`checkbox`}
+                                        checked={toggleTransit}
+                                        label={"T"}
+                                        onChange={(e) => {
+                                            setToggleTransit(e.target.checked)
+                                        }}
+                                    />
+                                </Form>
+                            </div>
+                            <div>
+                                <Form>
+                                    <Form.Check
+                                        type={'checkbox'}
+                                        id={`checkbox`}
+                                        label={"B"}
+                                        checked={toggleBike}
+                                        onChange={(e) => {
+                                            setToggleBike(e.target.checked)
+                                        }}
+                                    />
+                                </Form></div>
+                            <div>
+                                <Form>
+                                    <Form.Check
+                                        type={'checkbox'}
+                                        id={`checkbox`}
+                                        label={"W"}
+                                        checked={toggleWalk}
+                                        onChange={(e) => {
+                                            setToggleWalk(e.target.checked)
+                                        }}
+                                    />
+                                </Form>
+                            </div>
+                        </div>
+            )
+        }
+    }
 
 
     return (
@@ -63,10 +114,11 @@ export default function Demographics({
             <div
                 className={`${showDemographics ? 'expand-demographic' : 'collapse-demographic'}`}>
                 <div className={"dropdown-container mb-3"}>
-                    <div className={"dropdown-bar dropdown-bar-black d-flex flex-row justify-content-between align-items-center"}
-                         onMouseDown={() => {
-                             setShowDropdownItems(!showDropdownItems)
-                         }}
+                    <div
+                        className={"dropdown-bar dropdown-bar-black d-flex flex-row justify-content-between align-items-center"}
+                        onMouseDown={() => {
+                            setShowDropdownItems(!showDropdownItems)
+                        }}
                     >
                         <p className={"mb-0"}>{toggleText}</p>
 
@@ -98,7 +150,7 @@ export default function Demographics({
                 </div>
 
 
-                {currentValue && selectedChapter===2 &&
+                {currentValue && selectedChapter === 2 &&
                     <div>
                         <div className={"d-flex flex-row justify-content-between"}>
                             <p className={"m-0"}>New York City</p>
@@ -108,10 +160,15 @@ export default function Demographics({
                                         textOn={"Show on map"}/>
                             </div>
                         </div>
+
+                        {getTransitToggles()}
+
+
+
                     </div>
                 }
 
-                {currentValue && communitySearch && !compareSearch && selectedChapter===3 &&
+                {currentValue && communitySearch && !compareSearch && selectedChapter === 3 &&
                     <div>
                         <div className={"d-flex flex-row justify-content-between"}>
                             <p className={"m-0"}>{(councils[communitySearch] && councils[communitySearch].bolded_text) || (communities[communitySearch] && communities[communitySearch].bolded_text)}</p>
@@ -121,34 +178,39 @@ export default function Demographics({
                                         textOn={"Show on map"}/>
                             </div>
                         </div>
+
+                        {getTransitToggles()}
+
+
+
                     </div>
 
                 }
 
-                {currentValue && communitySearch && compareSearch && selectedChapter===3 &&
+                {currentValue && communitySearch && compareSearch && selectedChapter === 3 &&
                     <div id={"demographic-slider"}>
                         <Slider>
                             <div>
                                 <div className={"d-flex flex-row justify-content-between"}>
                                     <p className={"m-0"}>{(councils[communitySearch] && councils[communitySearch].bolded_text) || (communities[communitySearch] && communities[communitySearch].bolded_text)}</p>
-                                    <div className={"d-flex flex-row align-items-center col-gap"}>
-                                <Toggle value={mapDemographics} callback={setMapDemographics}
-                                        textOff={"Show on map"}
-                                        textOn={"Show on map"}/>
-                            </div>
                                 </div>
                             </div>
                             <div>
                                 <div className={"d-flex flex-row justify-content-between"}>
                                     <p className={"m-0"}>{(councils[compareSearch] && councils[compareSearch].bolded_text) || (communities[compareSearch] && communities[compareSearch].bolded_text)}</p>
-                                    <div className={"d-flex flex-row align-items-center col-gap"}>
-                                <Toggle value={mapDemographics} callback={setMapDemographics}
-                                        textOff={"Show on map"}
-                                        textOn={"Show on map"}/>
-                            </div>
                                 </div>
                             </div>
                         </Slider>
+                        <div className={"slider-demo-toggle"}>
+                            <div className={"d-flex flex-row align-items-center col-gap"}>
+                                <Toggle value={mapDemographics} callback={setMapDemographics}
+                                    textOff={"Show on map"}
+                                    textOn={"Show on map"}/>
+                            </div>
+                        </div>
+
+                        {getTransitToggles()}
+
                     </div>
                 }
 

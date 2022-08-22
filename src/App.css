@@ -960,6 +960,10 @@ a:active {
     background-color: #000 !important;
 }
 
+#demographic-slider {
+    position: relative !important;
+}
+
 #demographic-slider .carousel-indicators [data-bs-target] {
     border-radius: 50%;
     height: 10px !important;
@@ -967,6 +971,7 @@ a:active {
     opacity: 1 !important;
     border: 1px solid black !important;
     transition-timing-function: ease-in;
+
 }
 
 #demographic-slider .carousel-indicators .active {
@@ -1160,6 +1165,21 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.slider-demo-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: white;
+}
+
+.transit-toggle {
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.5rem;
+   justify-content: center;
+
 }
 
 

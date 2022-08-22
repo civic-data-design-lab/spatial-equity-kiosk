@@ -18,7 +18,10 @@ export default function IssuesMiddleColumn({
                                                mapDemographics, setMapDemographics, boundary,
                                                communities, councils,
                                                legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers,
-                                                selectedChapter, issue_categories
+                                                selectedChapter, issue_categories,
+                                                toggleWalk, setToggleWalk,
+                                                toggleTransit, setToggleTransit,
+                                                toggleBike, setToggleBike
 
                                            }) {
 
@@ -251,6 +254,9 @@ export default function IssuesMiddleColumn({
                                   mapDemographics={mapDemographics} setMapDemographics={setMapDemographics}
                                   boundary={boundary} communities={communities} councils={councils}
                                   selectedChapter={selectedChapter}
+                                  toggleTransit={toggleTransit} setToggleTransit={setToggleTransit}
+                                  toggleBike={toggleBike} setToggleBike={setToggleBike}
+                                  toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
                     />
 
                 </div>
