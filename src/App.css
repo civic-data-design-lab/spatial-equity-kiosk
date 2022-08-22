@@ -7,7 +7,7 @@
 
 :root {
     --health: #F93080;
-    --environment: #179F4E;
+    --environment: #54278F;
     --infrastructure: #146FD1;
 }
 
@@ -158,7 +158,7 @@ a:active {
 }
 
 .Environment {
-    color: #179F4E;
+    color: #54278F;
 }
 
 .Infrastructure {
@@ -275,7 +275,7 @@ a:active {
 }
 
 .dropdown-bar-Environment {
-    border: 2px solid #179F4E;
+    border: 2px solid #54278F;
 }
 
 .dropdown-bar-Infrastructure {
