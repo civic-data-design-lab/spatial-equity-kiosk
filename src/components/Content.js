@@ -28,7 +28,8 @@ export default function Content({
                                     moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength, councils,
                                     mapDemographics, setMapDemographics,
                                     legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers, issue_categories,
-                                    toggleTransit, toggleBike, toggleWalk, setToggleTransit, setToggleBike, setToggleWalk
+                                    toggleTransit, toggleBike, toggleWalk, setToggleTransit, setToggleBike, setToggleWalk, dataScale,
+                                    setdataScale,
                                 }) {
 
 
@@ -54,6 +55,7 @@ export default function Content({
                         toggleTransit={toggleTransit}  setToggleTransit={setToggleTransit}
                         toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
                         toggleBike={toggleBike} setToggleBike={setToggleBike}
+                        dataScale={dataScale} setdataScale={setdataScale}
                     />}
 
                 {selectedChapter === 3 && <CommunityMiddleColumn

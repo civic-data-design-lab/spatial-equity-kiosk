@@ -4,7 +4,7 @@ import DeckGL from "@deck.gl/react";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer, TextLayer, ScatterplotLayer } from "@deck.gl/layers";
 import { FlyToInterpolator, LinearInterpolator } from "@deck.gl/core";
-import { scaleThreshold, scaleQuantile } from "d3-scale";
+import { scaleThreshold, scaleQuantile, scaleQuantize } from "d3-scale";
 import { MaskExtension, FillStyleExtension } from "@deck.gl/extensions";
 import { max, min } from "d3-array";
 
@@ -47,7 +47,7 @@ const choroplethOpacity = 0.85;
 const healthRamp = _CHAPTER_COLORS.health;
 const envRamp = _CHAPTER_COLORS.env;
 const infraRamp = _CHAPTER_COLORS.infra;
-const binSize = 6; // number of bins in the color ramp
+const binSize = 5; // number of bins in the color ramp
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
@@ -93,6 +93,8 @@ export default function DeckMap({
 }) {
   // map hooks
   const [highlightFeature, sethighlightFeature] = useState(null);
+
+  const dataScale = "q";
 
   // SELECT BOUNDARY ------------------------------------------------------------
   let selectedBoundary;
@@ -164,45 +166,43 @@ export default function DeckMap({
     }
   }
 
+  selectedMetricArray.sort(function (a, b) {
+    return a - b;
+  });
+
+  const uniqueValueArray = [...new Set(selectedMetricArray)];
+  // console.log(selectedMetricArray, uniqueValueArray);
+
   // 01.2 break the metric array into bins and get the bin list
   for (let i = 0; i < binSize; i++) {
-    const threshold =
-      (max(selectedMetricArray) - min(selectedMetricArray)) / binSize;
-    binList.push(
-      Math.round((threshold * i + min(selectedMetricArray)) * 100) / 100
-    );
+    if (dataScale === "equal") {
+      const threshold =
+        (max(selectedMetricArray) - min(selectedMetricArray)) / (binSize + 1);
+      binList.push(
+        Math.round((threshold * (i + 1) + min(selectedMetricArray)) * 100) / 100
+      );
+    } else {
+      const interval = Math.floor(
+        (uniqueValueArray.length / binSize) * (i + 1)
+      );
+      // quantile breaks
+      binList.push(uniqueValueArray[interval]);
+    }
   }
 
   // 01.3 set legend scale and color
   useEffect(() => {
     if (binList.length > 0) {
-      setLegendBins(binList);
+      setLegendBins([uniqueValueArray[0], binList]);
       setColorRamps(selectedRamp);
     }
   }, [selectedSpecificIssue, zoomToggle, selectedBoundary]);
 
   // 01.4 Color Scale function
-
-  // Troubleshooting ------------------------------------------------------------
-  // selectedMetricArray.sort(function (a, b) {
-  //   return a - b;
-  // });
-
-  // console.log(
-  //   "selectedMetricArray",
-  //   selectedMetricArray,
-  //   "binList",
-  //   binList,
-  //   "selectedRamp",
-  //   selectedRamp
-  // );
-
-  // console.log(binList);
-
-  // Troubleshooting end ------------------------------------------------------------
-
-  let COLOR_SCALE = scaleThreshold().domain(binList).range(selectedRamp); //equal bins
-  // const COLOR_SCALE = scaleQuantile().domain(binList).range(selectedRamp); //quantile bins
+  const COLOR_SCALE =
+    dataScale == "equal"
+      ? scaleThreshold().domain(binList).range(selectedRamp)
+      : scaleQuantile().domain(uniqueValueArray).range(selectedRamp); //quantile bins
 
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 
@@ -357,6 +357,13 @@ export default function DeckMap({
       // ).rank -
       //   1);
 
+      // console.log(
+      //   obj,
+      //   COLOR_SCALE(
+      //     _NEIGHBORHOODS.features[info.index].properties[selectedMetric]
+      //   )
+      // );
+
       const neighborhoodList =
         boundary == "council"
           ? councils[String(obj.properties.CounDist)].remaining_text
@@ -436,7 +443,11 @@ export default function DeckMap({
                     <div>Other</div>
                   </div>`
                 : ""
-            }</div>`,
+            }</div><div>
+            ${COLOR_SCALE(
+              selectedBoundary.features[info.index].properties[selectedMetric]
+            )}
+            </div>`,
           }
         );
       }
@@ -507,12 +518,11 @@ export default function DeckMap({
       filled: true,
       getFillColor: (f) => {
         let fillValue = parseFloat(f.properties[selectedMetric]);
-        if (boundary == "community") {
-          if (f.properties.Data_YN == "N") {
-            return [0, 0, 0, 0];
-          }
-        }
-        if (isNaN(fillValue)) {
+
+        if (
+          isNaN(fillValue) ||
+          (boundary == "community" && f.properties.Data_YN == "N")
+        ) {
           return [0, 0, 0, 0];
         } else {
           // return [255, 0, 0, 255];
@@ -705,7 +715,6 @@ export default function DeckMap({
           return [0, 0, 0, 0];
         }
         return [0, 0, 0, 50];
-        // return [217, 255, 0, 215];
       },
       onClick: (info) => {
         const obj = info.object;
@@ -775,7 +784,7 @@ export default function DeckMap({
     new GeoJsonLayer({
       id: "administrative-selected",
       data: selectedBoundary,
-      filled: false,
+      filled: true,
       stroked: true,
 
       getLineColor: (f) => {
@@ -788,7 +797,22 @@ export default function DeckMap({
             (f.properties.CDTA2020 == communitySearch ||
               f.properties.CDTA2020 == compareSearch))
         ) {
-          return [255, 255, 255, 255];
+          return selectedSpecificIssue ? [255, 255, 255, 255] : [127, 255, 0];
+        }
+        return [0, 0, 0, 0];
+      },
+
+      getFillColor: (f) => {
+        if (
+          (boundary == "council" &&
+            (f.properties.CounDist == communitySearch ||
+              f.properties.CounDist == compareSearch)) ||
+          (boundary == "community" &&
+            f.properties.Data_YN == "Y" &&
+            (f.properties.CDTA2020 == communitySearch ||
+              f.properties.CDTA2020 == compareSearch))
+        ) {
+          return selectedSpecificIssue ? [0, 0, 0, 0] : [0, 0, 0, 125];
         }
         return [0, 0, 0, 0];
       },
@@ -798,6 +822,13 @@ export default function DeckMap({
       },
       updateTriggers: {
         getLineColor: [
+          selectedMetric,
+          mapSelection,
+          addCompare,
+          communitySearch,
+          compareSearch,
+        ],
+        getFillColor: [
           selectedMetric,
           mapSelection,
           addCompare,

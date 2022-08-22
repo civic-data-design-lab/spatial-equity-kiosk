@@ -1,14 +1,18 @@
 Legend Middle Column:
-    - color of the search bar color
     - demographic buildup of transportation methods
 
 Map
     - revert to original scroll method and figure out how to update viewstate that way. (WIP works but get non-breaking error)
+    - maybe get scale quantile to work
+    - demographic legend
 
 General
     - introduction text should always be available on Spatial Equity chapter?
 
-Kelly - switching between community and council should not reset the community profiles. mapSelection (array) needs to be added to the URL
+
+Requested:
+
+Kelly - switching between community and council should not reset the community profiles.
 - when compare profiles is on, switching between the two demographic profiles should not slider the slider
 
 Ziyi- calculate centroid of all CD and CDTA

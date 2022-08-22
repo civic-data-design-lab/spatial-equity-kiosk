@@ -40,15 +40,17 @@ function App() {
   const [legendBins, setLegendBins] = useState();
   const [colorRamps, setColorRamps] = useState();
   const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
+  const [coordinateLookup, setCoordinateLookup] = useState(null);
   const location = useLocation();
   const [toggleTransit, setToggleTransit] = useState(false);
   const [toggleBike, setToggleBike] = useState(false);
   const [toggleWalk, setToggleWalk] = useState(false);
+  const [dataScale, setdataScale] = useState(false);
 
   // map hooks
-  
+
   // map starting position and view state constraints
-// Map Viewport settings
+  // Map Viewport settings
   const zoomMin = 10.5;
   const zoomMax = 13;
 
@@ -124,7 +126,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-   /* console.log("HERE ARE THE STATES")
+    /* console.log("HERE ARE THE STATES")
         console.log("selectedChapter ", selectedChapter)
         console.log("selectedIssue ", selectedIssue)
         console.log("selectedSpecficIssue ", selectedSpecificIssue)
@@ -199,14 +201,20 @@ function App() {
   useEffect(() => {
     if (selectedSpecificIssue) {
       if (!moreIssues.includes(selectedSpecificIssue)) {
-        let newMore = moreIssues
-        newMore.push(selectedSpecificIssue)
-        setMoreIssues(newMore)
-        setMoreIssuesLength(moreIssuesLength+1)
+        let newMore = moreIssues;
+        newMore.push(selectedSpecificIssue);
+        setMoreIssues(newMore);
+        setMoreIssuesLength(moreIssuesLength + 1);
       }
     }
   }, [selectedSpecificIssue]);
 
+
+  useEffect(() => {
+    if (!selectedChapter) {
+      setShowMap(false);
+    }
+  });
 
   return (
     <Container fluid className={"h-100 p-0 m-0 d-flex flex-row"}>
@@ -232,7 +240,6 @@ function App() {
         setMoreIssuesLength={setMoreIssuesLength}
         addCompare={addCompare}
         setAddCompare={setAddCompare}
-
       />
 
       <Content
@@ -269,9 +276,14 @@ function App() {
         colorRamps={colorRamps}
         toggleUnderperformers={toggleUnderperformers}
         setToggleUnderperformers={setToggleUnderperformers}
-        toggleTransit={toggleTransit} setToggleTransit={setToggleTransit}
-        toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
-        toggleBike={toggleBike} setToggleBike={setToggleBike}
+        toggleTransit={toggleTransit}
+        setToggleTransit={setToggleTransit}
+        toggleWalk={toggleWalk}
+        setToggleWalk={setToggleWalk}
+        toggleBike={toggleBike}
+        setToggleBike={setToggleBike}
+        dataScale={dataScale}
+        setdataScale={setdataScale}
       />
 
       <div className={`${showMap ? "show-map" : "hide-map"} map-container`}>
@@ -301,18 +313,22 @@ function App() {
           setShowMap={setShowMap}
           communities={communities}
           councils={councils}
-          viewState={viewState} 
+          viewState={viewState}
           setViewState={setViewState}
-          mapSelection={mapSelection} 
+          mapSelection={mapSelection}
           setMapSelection={setMapSelection}
-          zoomToggle={zoomToggle} 
+          zoomToggle={zoomToggle}
           setzoomToggle={setzoomToggle}
-          inverseZoomToggle={inverseZoomToggle} 
+          inverseZoomToggle={inverseZoomToggle}
           setinverseZoomToggle={setinverseZoomToggle}
-          handleLegend={handleLegend} 
+          handleLegend={handleLegend}
           sethandleLegend={sethandleLegend}
           zoomMin={zoomMin}
           zoomMax={zoomMax}
+          coordinateLookup={coordinateLookup}
+          setCoordinateLookup={setCoordinateLookup}
+          dataScale={dataScale}
+          setdataScale={setdataScale}
         />
       </div>
     </Container>
