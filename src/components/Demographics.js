@@ -22,13 +22,9 @@ export default function Demographics({
     const demographics = {
         1: "Race & Ethnicity",
         2: "Poverty Level",
-        3: "Bike to Work",
-        4: "Car-free",
-        5: "Take Public Transit to Work",
-        6: "Drive Alone to Work",
-        7: "Transit, Biked or Walked (Total)",
-        8: "Walk to Work"
-
+        3: "Car-free",
+        4: "Take Public Transit to Work",
+        5: "Transit, Biked or Walked (Total)"
     }
 
     const [showDropdownItems, setShowDropdownItems] = useState(false)
@@ -45,14 +41,15 @@ export default function Demographics({
 
 
     const getTransitToggles = () => {
-        if (currentValue === "7") {
+        if (currentValue === "5") {
             return (
                 <div className={"transit-toggle"}>
                             <div>
                                 <Form>
                                     <Form.Check
+                                        inline
                                         type={'checkbox'}
-                                        id={`checkbox`}
+                                        id={`transit-check`}
                                         checked={toggleTransit}
                                         label={"Transit"}
                                         onChange={(e) => {
@@ -64,8 +61,9 @@ export default function Demographics({
                             <div>
                                 <Form>
                                     <Form.Check
+                                        inline
                                         type={'checkbox'}
-                                        id={`checkbox`}
+                                        id={`bike-check`}
                                         label={"Bike"}
                                         checked={toggleBike}
                                         onChange={(e) => {
@@ -76,8 +74,9 @@ export default function Demographics({
                             <div>
                                 <Form>
                                     <Form.Check
+                                        inline
                                         type={'checkbox'}
-                                        id={`checkbox`}
+                                        id={`walk-check`}
                                         label={"Walk"}
                                         checked={toggleWalk}
                                         onChange={(e) => {

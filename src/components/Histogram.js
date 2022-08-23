@@ -76,7 +76,7 @@ const DonutChart = (colorRamps) => {
             .enter()
             .append('rect')
             .attr('height', barHeight - barPadding)
-            .attr('value', d => { console.log(xscale(d)) })
+            //.attr('value', d => { console.log(xscale(d)) })
             .attr('width', d => xscale(d))
             .attr('y', (d, i) => yscale(i + 0.5))
             .attr('x', margin.left)
@@ -163,7 +163,7 @@ const DonutChart = (colorRamps) => {
                 ycood = Math.min(ycood, yscale(data.length + 0.5));
 
                 // console.log(pt);
-                console.log(Math.floor(yscale.invert(ycood) - 0.5));
+                //console.log(Math.floor(yscale.invert(ycood) - 0.5));
 
                 d3.select("#mouseLine")
                     // .transition()

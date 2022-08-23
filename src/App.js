@@ -146,6 +146,8 @@ function App() {
 
              console.log("-------------------------------------------")*/
 
+        console.log("legendBins ", legendBins)
+
         /* if (!selectedSpecificIssue) {
                  setSelectedIssue(1)
                  setSelectedSpecificIssue(1)
@@ -215,43 +217,19 @@ function App() {
         }
     }, [selectedSpecificIssue]);
 
-    useEffect(() => {
-        if (!selectedChapter) {
-            setShowMap(false);
-        }
-    });
+
+
+
 
 
     useEffect(() => {
         window.addEventListener("mouseup", () => {
             setMouseDown(false)
         })
-
-
-        /*window.addEventListener("mousemove", (e) => {
-            if (mouseDown) {
-                let div = document.getElementById("assistive-touch-div")
-                const mousePos = {x: e.clientX, y: e.clientY};
-                div.style.left = (mousePos.x + offset.x) + 'px';
-                div.style.top = (mousePos.y + offset.y) + 'px';
-            }
-
-        })*/
-
         return () => {
             window.removeEventListener('keydown', () => {
                 setMouseDown(false);
             })
-
-            /*window.removeEventListener("mousemove", (e) => {
-            if (mouseDown) {
-                let div = document.getElementById("assistive-touch-div")
-                const mousePos = {x: e.clientX, y: e.clientY};
-                div.style.left = (mousePos.x + offset.x) + 'px';
-                div.style.top = (mousePos.y + offset.y) + 'px';
-            }
-
-        })*/
         };
     }, [])
 
@@ -266,10 +244,7 @@ function App() {
         div.style.left = ``;
         div.style.transform = `translate(0px, 0px)`;
 
-        //div.style.transition = `transform 0.5s, left 0s, top 0s, height 0.5s 0.5s, width 0.5s 0.5s`;
 
-        console.log("triggered expand")
-        console.log(document.getElementById("assistive-touch-div").style)
 
     }
 
@@ -281,8 +256,6 @@ function App() {
         div.style.transform = `translate(${offsetLeft}px, ${offsetTop}px)`;
         div.style.top = ``;
         div.style.left = ``;
-        console.log("triggered collapse");
-        console.log(document.getElementById("assistive-touch-div").style)
 
     }
 
@@ -425,8 +398,6 @@ function App() {
                             onMouseMove={(e) => {
                                 e.preventDefault()
                                 if (mouseDown) {
-                                    console.log("dragging")
-                                    console.log(document.getElementById("assistive-touch-div").style)
                                     setMouseMove(true)
                                     let div = document.getElementById("assistive-touch-div")
                                     const mousePos = {x: e.clientX, y: e.clientY};
@@ -440,8 +411,6 @@ function App() {
 
                                 setMouseDown(false)
                                 if (!mouseMove) {
-                                    console.log("click")
-                                    console.log(document.getElementById("assistive-touch-div").style)
                                     if (!openAssist) {
                                         expandAssist()
                                     } else {

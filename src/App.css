@@ -1180,7 +1180,6 @@ input:checked + .slider:before {
 .transit-toggle {
     display: flex;
     flex-direction: row;
-    column-gap: 0.5rem;
    justify-content: center;
 
 }
