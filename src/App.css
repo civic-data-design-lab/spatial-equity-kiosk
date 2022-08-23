@@ -102,10 +102,8 @@
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background:  rgb(217, 255, 0); 
+    background:  rgb(127, 255, 0); 
   }
-
-
 
 /* Document */
 body {
