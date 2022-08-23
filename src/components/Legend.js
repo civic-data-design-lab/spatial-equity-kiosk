@@ -1,6 +1,6 @@
 import React from "react";
+import {max, min} from "d3-array";
 import Toggle from "./Toggle";
-import { max, min } from "d3-array";
 
 export default function Legend({
   issues,
@@ -110,6 +110,13 @@ export default function Legend({
             </div>
             <div className={"m-0"}>{cleanNumbers[3]}+</div>
           </div>
+
+
+         {/* <div
+              onClick={() => {
+                setToggleUnderperformers(!toggleUnderperformers)
+              }}
+          >{buttonStatement}</div>*/}
 
           <Toggle
             textOff={buttonStatement}
