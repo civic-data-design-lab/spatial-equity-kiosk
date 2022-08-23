@@ -48,6 +48,8 @@ function App() {
   const [dataScale, setdataScale] = useState(false);
   const [highlightFeature, sethighlightFeature] = useState(null);
 
+  const [coordinates, setCoordiantes] = useState([-73.20310023, 43.3213123]);
+
   // map hooks
 
   // map starting position and view state constraints
@@ -139,7 +141,7 @@ function App() {
         console.log("selectedAbout ", selectedAbout)
         console.log("demographic", demographic)
 
-        console.log("-------------------------------------------")*/
+        console.log("-------------------------------------------")
 
     /* if (!selectedSpecificIssue) {
              setSelectedIssue(1)
@@ -335,6 +337,9 @@ function App() {
           setdataScale={setdataScale}
           highlightFeature={highlightFeature}
           sethighlightFeature={sethighlightFeature}
+          toggleTransit={toggleTransit}
+          toggleBike={toggleBike}
+          toggleWalk={toggleWalk}
         />
       </div>
     </Container>
