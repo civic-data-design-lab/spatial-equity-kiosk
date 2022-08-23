@@ -747,6 +747,11 @@ a:active {
     cursor: pointer;
 }
 
+.share-icon {
+    height: 2rem;
+    width: 2rem;
+}
+
 .share-icons {
     background-color: white;
     padding: 0.5rem;
@@ -1183,24 +1188,25 @@ input:checked + .slider:before {
 }
 
 #assistive-touch-div {
-    top:0;
-    left: 0;
+    /*top:0;
+    left: 0;*/
+    transition: transform 0.5s, left 0s, top 0s, height 0.5s 0.2s, width 0.5s 0.2s, background-color 1s, color 1s;
     position: absolute;
 }
 
 .assistive-touch {
-    background-color: black;
-    color: white;
     padding: 7px;
     display: flex;
     flex-direction: column;
     row-gap: 0;
     justify-content: space-between;
-    transition: width 1s, height 1s;
     margin: 0!important;
+
 }
 
 .assistive-touch-grow {
+    background-color: white;
+    color: black;
     width: 100vw;
     height: 100vh;
     border-radius: 0px;
@@ -1208,6 +1214,8 @@ input:checked + .slider:before {
 }
 
 .assistive-touch-shrink {
+    background-color: black;
+    color: white;
     border-radius: 10px;
     height: 56px;
     width: 56px;

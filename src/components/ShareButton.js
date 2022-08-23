@@ -3,6 +3,7 @@ import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInstagram, faLinkedinIn, faSquareFacebook, faTwitter} from "@fortawesome/free-brands-svg-icons";
 import {faCopy, faSquareShareNodes} from "@fortawesome/free-solid-svg-icons";
+import {default as _SHARE} from "../img/share.svg";
 
 export default function ShareButton({}) {
 
@@ -39,8 +40,8 @@ export default function ShareButton({}) {
         <>
             <div className={"share"}>
                 <small className={"m-0"}>Share</small>
-                <div>
-                    <FontAwesomeIcon icon={faSquareShareNodes} color={"black"} className={"fa-2x"}
+                <div className={"share-icon"}>
+                    <img src={_SHARE}
                                      onClick={(e) => {
                                          e.preventDefault()
 
