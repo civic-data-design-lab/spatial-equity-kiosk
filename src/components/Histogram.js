@@ -1,5 +1,6 @@
-import React, { Component, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import { text } from "d3";
 
 const getRgb = (color) => {
     let [r, g, b] = Array.from(color);
@@ -36,8 +37,10 @@ const DonutChart = (colorRamps) => {
         console.log(data);
 
         // svg attr
-        const width = 375;
+        const width = 500;
         const height = 1200;
+        const widthChart = 400;
+        const textWidth = 50;
 
 
         const margin = {
@@ -54,17 +57,18 @@ const DonutChart = (colorRamps) => {
         // scales of chart
         let xscale = d3.scaleLinear()
             .domain([0, d3.max(data)])
-            .range([margin.left, width - margin.right])
+            .range([0, widthChart - margin.right - margin.left])
 
         let yscale = d3.scaleLinear()
             .domain([0, data.length])
-            .range([margin.top, height - margin.right])
+            .range([margin.top, height - margin.bottom])
 
         // build SVG
         let svg = d3.select(ref.current)
             .attr('height', height)
             .attr('width', width)
 
+        // draw Chart
         svg.select('g')
             .attr('class', 'rect')
             .selectAll('rect')
@@ -72,6 +76,7 @@ const DonutChart = (colorRamps) => {
             .enter()
             .append('rect')
             .attr('height', barHeight - barPadding)
+            .attr('value', d => { console.log(xscale(d)) })
             .attr('width', d => xscale(d))
             .attr('y', (d, i) => yscale(i + 0.5))
             .attr('x', margin.left)
@@ -79,8 +84,55 @@ const DonutChart = (colorRamps) => {
             .attr("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps.colorRamps[0], colorRamps.colorRamps[colorRamps.colorRamps.length - 1], i / data.length)))
             .attr('value', d => d)
 
+        // draw Lines
+        svg.append('line')
+            .attr('x1', margin.left)
+            .attr('y1', yscale(0.5))
+            .attr('x2', width - margin.right)
+            .attr('y2', yscale(0.5))
+            .style('stroke', 'black')
+            .style('stroke-width', 2);
+
+        svg.append('line')
+            .attr('x1', margin.left)
+            .attr('y1', yscale(data.length + 0.5))
+            .attr('x2', width - margin.right)
+            .attr('y2', yscale(data.length + 0.5))
+            .style('stroke', 'black')
+            .style('stroke-width', 2);
+
+        svg.select('#minText')
+            .attr('x', width - margin.right - textWidth)
+            .attr('y', yscale(0.5) + 15)
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .text('Min ' + d3.min(data));
+
+        svg.select('#maxText')
+            .attr('x', width - margin.right - textWidth)
+            .attr('y', yscale(data.length + 0.5) - 5)
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .text('Max ' + d3.max(data));
+
+
+        svg.select('#maxText')
+            .attr('x', width - margin.right - svg.select('#maxText').node().getBoundingClientRect().width);
+
+        svg.select('#minText')
+            .attr('x', width - margin.right - svg.select('#minText').node().getBoundingClientRect().width);
+
+
     }, []);
-    return <svg ref={ref}><g /></svg>;
+    return (
+        <svg ref={ref}>
+            <g />
+            <text id="maxText" />
+            <text id="minText" />
+        </svg>
+    );
 };
 
 export default DonutChart;
