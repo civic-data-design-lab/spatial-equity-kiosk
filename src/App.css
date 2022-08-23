@@ -1182,6 +1182,53 @@ input:checked + .slider:before {
 
 }
 
+#assistive-touch-div {
+}
+
+.assistive-touch {
+    background-color: black;
+    color: white;
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0;
+    justify-content: space-between;
+    transition: width 1s, height 1s;
+}
+
+.assistive-touch-grow {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0px;
+    border: 2px solid black;
+}
+
+.assistive-touch-shrink {
+    border-radius: 10px;
+    height: 56px;
+    width: 56px;
+    border: 2px solid white;
+}
+
+.assistive-touch-text {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 12.1px;
+}
+
+.menu-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #146FD1;
+}
+
 
 
 /*TODO: print preview*/
