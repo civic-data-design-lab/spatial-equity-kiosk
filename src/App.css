@@ -1183,6 +1183,9 @@ input:checked + .slider:before {
 }
 
 #assistive-touch-div {
+    top:0;
+    left: 0;
+    position: absolute;
 }
 
 .assistive-touch {
@@ -1194,6 +1197,7 @@ input:checked + .slider:before {
     row-gap: 0;
     justify-content: space-between;
     transition: width 1s, height 1s;
+    margin: 0!important;
 }
 
 .assistive-touch-grow {
