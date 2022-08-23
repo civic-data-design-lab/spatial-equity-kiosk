@@ -15,7 +15,7 @@ export default function CommunityProfile({
 
     useEffect(()=>{
         if (boundary === "community") {
-            if (selectedSpecificIssue && communitySearch && ((!communities[communitySearch].least_performing_issues.includes(selectedSpecificIssue) && !moreIssues.includes(selectedSpecificIssue)) || (!councils[communitySearch].least_performing_issues.includes(selectedSpecificIssue) && !moreIssues.includes(selectedSpecificIssue)))) {
+            if (selectedSpecificIssue && communitySearch && ((communities[communitySearch] && !communities[communitySearch].least_performing_issues.includes(selectedSpecificIssue) && !moreIssues.includes(selectedSpecificIssue)) || (councils[communitySearch] && !councils[communitySearch].least_performing_issues.includes(selectedSpecificIssue) && !moreIssues.includes(selectedSpecificIssue)))) {
                 let newMoreIssues = moreIssues;
                 newMoreIssues.push(selectedSpecificIssue);
                 setMoreIssues(newMoreIssues)

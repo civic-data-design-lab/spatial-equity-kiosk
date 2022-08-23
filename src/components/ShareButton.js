@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInstagram, faLinkedinIn, faSquareFacebook, faTwitter} from "@fortawesome/free-brands-svg-icons";
-import {faCopy, faSquareShareNodes} from "@fortawesome/free-solid-svg-icons";
+import {faCopy} from "@fortawesome/free-solid-svg-icons";
 import {default as _SHARE} from "../img/share.svg";
 
 export default function ShareButton({}) {
