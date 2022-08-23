@@ -4,7 +4,7 @@ import DeckGL from "@deck.gl/react";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer, TextLayer, ScatterplotLayer } from "@deck.gl/layers";
 import { FlyToInterpolator, LinearInterpolator } from "@deck.gl/core";
-import { scaleThreshold, scaleQuantile } from "d3-scale";
+import { scaleThreshold, scaleQuantile, scaleQuantize } from "d3-scale";
 import { MaskExtension, FillStyleExtension } from "@deck.gl/extensions";
 import { max, min } from "d3-array";
 
@@ -47,7 +47,7 @@ const choroplethOpacity = 0.85;
 const healthRamp = _CHAPTER_COLORS.health;
 const envRamp = _CHAPTER_COLORS.env;
 const infraRamp = _CHAPTER_COLORS.infra;
-const binSize = 6; // number of bins in the color ramp
+const binSize = 5; // number of bins in the color ramp
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
@@ -90,9 +90,14 @@ export default function DeckMap({
   sethandleLegend,
   zoomMin,
   zoomMax,
+  highlightFeature,
+  sethighlightFeature,
+  toggleTransit,
+  toggleBike,
+  toggleWalk,
 }) {
   // map hooks
-  const [highlightFeature, sethighlightFeature] = useState(null);
+  const dataScale = "q";
 
   // SELECT BOUNDARY ------------------------------------------------------------
   let selectedBoundary;
@@ -164,45 +169,47 @@ export default function DeckMap({
     }
   }
 
+  // create a new sorted array for the quantile, but dont modify existing array
+  const sortedSelectedMetricArray = [...selectedMetricArray].sort(function (
+    a,
+    b
+  ) {
+    return a - b;
+  });
+
+  const uniqueValueArray = [...new Set(sortedSelectedMetricArray)];
+  // console.log(selectedMetricArray, uniqueValueArray);
+
   // 01.2 break the metric array into bins and get the bin list
   for (let i = 0; i < binSize; i++) {
-    const threshold =
-      (max(selectedMetricArray) - min(selectedMetricArray)) / binSize;
-    binList.push(
-      Math.round((threshold * i + min(selectedMetricArray)) * 100) / 100
-    );
+    if (dataScale === "equal") {
+      const threshold =
+        (max(selectedMetricArray) - min(selectedMetricArray)) / (binSize + 1);
+      binList.push(
+        Math.round((threshold * (i + 1) + min(selectedMetricArray)) * 100) / 100
+      );
+    } else {
+      const interval = Math.floor(
+        (uniqueValueArray.length / binSize) * (i + 1)
+      );
+      // quantile breaks
+      binList.push(uniqueValueArray[interval]);
+    }
   }
 
   // 01.3 set legend scale and color
   useEffect(() => {
     if (binList.length > 0) {
-      setLegendBins(binList);
+      setLegendBins([uniqueValueArray[0], binList]);
       setColorRamps(selectedRamp);
     }
   }, [selectedSpecificIssue, zoomToggle, selectedBoundary]);
 
   // 01.4 Color Scale function
-
-  // Troubleshooting ------------------------------------------------------------
-  // selectedMetricArray.sort(function (a, b) {
-  //   return a - b;
-  // });
-
-  // console.log(
-  //   "selectedMetricArray",
-  //   selectedMetricArray,
-  //   "binList",
-  //   binList,
-  //   "selectedRamp",
-  //   selectedRamp
-  // );
-
-  // console.log(binList);
-
-  // Troubleshooting end ------------------------------------------------------------
-
-  let COLOR_SCALE = scaleThreshold().domain(binList).range(selectedRamp); //equal bins
-  // const COLOR_SCALE = scaleQuantile().domain(binList).range(selectedRamp); //quantile bins
+  const COLOR_SCALE =
+    dataScale == "equal"
+      ? scaleThreshold().domain(binList).range(selectedRamp)
+      : scaleQuantile().domain(uniqueValueArray).range(selectedRamp); //quantile bins
 
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 
@@ -258,23 +265,57 @@ export default function DeckMap({
 
   // 03.2 get an array of all the values for the selected demographic
   for (let i = 0; i < selectedBoundary.features.length; i++) {
-    selectedDemoArray.push(
-      parseFloat(selectedBoundary.features[i].properties[selectedDemographic])
-    );
+    if (selectedDemographic == "F10_TrsBkW") {
+      let transportationBreakdown = [];
+      // check which transportation toggles are on and add them to the list
+      if (toggleTransit) {
+        transportationBreakdown.push(
+          selectedBoundary.features[i].properties["F8_PubTran"]
+        );
+      }
+      if (toggleBike) {
+        transportationBreakdown.push(
+          selectedBoundary.features[i].properties["F6_bike"]
+        );
+      }
+      if (toggleWalk) {
+        transportationBreakdown.push(
+          selectedBoundary.features[i].properties["F11_Walk"]
+        );
+      }
+
+      const transportationAggregation = transportationBreakdown.reduce(
+        (a, b) => a + b,
+        0
+      );
+
+      selectedDemoArray.push(transportationAggregation);
+    } else {
+      selectedDemoArray.push(
+        parseFloat(selectedBoundary.features[i].properties[selectedDemographic])
+      );
+    }
   }
 
-  // 03.3 break the demographic array into bins and get the bin list
-  // for (let i = 0; i < binSize; i++) {
-  //   let threshold = (max(selectedDemoArray) / binSize) * (i + 1);
-  //   demoBinList.push(Math.round(threshold * 100) / 100);
-  // }
+  const sortedSelectedDemoArray = [...selectedDemoArray].sort(function (a, b) {
+    return a - b;
+  });
 
+  const uniqueDemoArray = [...new Set(sortedSelectedDemoArray)];
+
+  // 03.3 break the demographic array into bins and get the bin list
   for (let i = 0; i < binSize; i++) {
-    const threshold =
-      (max(selectedDemoArray) - min(selectedDemoArray)) / binSize;
-    demoBinList.push(
-      Math.round((threshold * i + min(selectedDemoArray)) * 100) / 100
-    );
+    if (dataScale === "equal") {
+      const threshold =
+        (max(selectedDemoArray) - min(selectedDemoArray)) / (binSize + 1);
+      demoBinList.push(
+        Math.round((threshold * (i + 1) + min(selectedDemoArray)) * 100) / 100
+      );
+    } else {
+      const interval = Math.floor((uniqueDemoArray.length / binSize) * (i + 1));
+      //  quantile breaks
+      demoBinList.push(uniqueDemoArray[interval]);
+    }
   }
 
   // 03.4 select the color ramp from the json lookup for demographics and create a default to "1" to avoid errors
@@ -284,9 +325,10 @@ export default function DeckMap({
       : demoLookup["default"].colorRamp;
 
   // 03.4 function for demographics scale
-  let DEMO_COLOR_SCALE = scaleThreshold()
-    .domain(demoBinList)
-    .range(selectedDemoRamp); //equal bins
+  const DEMO_COLOR_SCALE =
+    dataScale == "equal"
+      ? scaleThreshold().domain(demoBinList).range(selectedDemoRamp)
+      : scaleQuantile().domain(uniqueDemoArray).range(selectedDemoRamp);
 
   // 03 DEMOGRAPHICS END ----------------------------------------------------------------------------------------------
 
@@ -351,12 +393,6 @@ export default function DeckMap({
           ).rank
         : "";
 
-      // maxRanking -
-      // (_RANKINGS[boundary][selectedMetric].find(
-      //   (t) => t.community_ID == boundaryName
-      // ).rank -
-      //   1);
-
       const neighborhoodList =
         boundary == "council"
           ? councils[String(obj.properties.CounDist)].remaining_text
@@ -366,6 +402,7 @@ export default function DeckMap({
 
       if (boundary == "council" || boundary == "community") {
         // return the tooltip for the selected boundary with selected metric and selected demographic
+
         return (
           obj && {
             className: "map-tooltip",
@@ -374,7 +411,7 @@ export default function DeckMap({
               background: "white",
               color: "black",
               padding: "0px",
-              maxWidth: "250px",
+              // maxWidth: "250px",
             },
             html: `\
           <!-- select metric -->
@@ -406,7 +443,9 @@ export default function DeckMap({
           ${selectedDemographic != null ? demoLookup[demographic].name : ""} ${
               selectedDemographic != null
                 ? demographic !== "1"
-                  ? obj.properties[selectedDemographic]
+                  ? demographic !== "7"
+                    ? obj.properties[selectedDemographic]
+                    : (selectedDemoArray[info.index] * 100).toFixed(0) + "%"
                   : `\
                   <div class=tooltip-grid>
                     <div style="color:${
@@ -436,7 +475,13 @@ export default function DeckMap({
                     <div>Other</div>
                   </div>`
                 : ""
-            }</div>`,
+            }</div>
+            <!-- <div>
+            ${COLOR_SCALE(
+              selectedBoundary.features[info.index].properties[selectedMetric]
+            )}
+            </div> -->
+            `,
           }
         );
       }
@@ -480,7 +525,10 @@ export default function DeckMap({
       stroked: false,
       filled: true,
       getFillColor: (f) => {
-        let fillValue = parseFloat(f.properties[selectedDemographic]);
+        let fillValue =
+          selectedDemographic !== "F10_TrsBkW"
+            ? parseFloat(f.properties[selectedDemographic])
+            : selectedDemoArray[f.id];
         if (f.properties.AnsUnt_YN == "Y") {
           if (isNaN(fillValue)) {
             return [0, 0, 0, 0];
@@ -507,12 +555,10 @@ export default function DeckMap({
       filled: true,
       getFillColor: (f) => {
         let fillValue = parseFloat(f.properties[selectedMetric]);
-        if (boundary == "community") {
-          if (f.properties.Data_YN == "N") {
-            return [0, 0, 0, 0];
-          }
-        }
-        if (isNaN(fillValue)) {
+        if (
+          isNaN(fillValue) ||
+          (boundary == "community" && f.properties.Data_YN == "N")
+        ) {
           return [0, 0, 0, 0];
         } else {
           // return [255, 0, 0, 255];
@@ -533,7 +579,16 @@ export default function DeckMap({
       stroked: false,
       filled: true,
       getFillColor: (f) => {
-        let fillValue = parseFloat(f.properties[selectedDemographic]);
+        let fillValue =
+          selectedDemographic !== "F10_TrsBkW"
+            ? parseFloat(f.properties[selectedDemographic])
+            : selectedDemoArray[f.id];
+
+        // console.log(f.id);
+        // console.log(selectedDemoArray[f.id]);
+
+        // subfiltering for transportation mode demographics:
+
         if (boundary == "community") {
           if (f.properties.Data_YN == "N") {
             return [0, 0, 0, 0];
@@ -547,8 +602,18 @@ export default function DeckMap({
       visible: zoomToggle == 0 ? toggleDemChoropleth : 0,
 
       updateTriggers: {
-        getLineWidth: [selectedDemographic],
-        getFillColor: [selectedDemographic],
+        getLineWidth: [
+          selectedDemographic,
+          toggleTransit,
+          toggleBike,
+          toggleWalk,
+        ],
+        getFillColor: [
+          selectedDemographic,
+          toggleTransit,
+          toggleBike,
+          toggleWalk,
+        ],
       },
     }),
 
@@ -705,7 +770,6 @@ export default function DeckMap({
           return [0, 0, 0, 0];
         }
         return [0, 0, 0, 50];
-        // return [217, 255, 0, 215];
       },
       onClick: (info) => {
         const obj = info.object;
@@ -729,8 +793,8 @@ export default function DeckMap({
           if (communitySearch == null || addCompare == false) {
             // animate view
             setViewState({
-              longitude: info.coordinate[0],
-              latitude: info.coordinate[1],
+              longitude: obj.properties.X_Cent,
+              latitude: obj.properties.Y_Cent,
               zoom: zoomMax - 0.5,
               transitionDuration: 500,
               transitionInerpolator: new LinearInterpolator(),
@@ -775,7 +839,7 @@ export default function DeckMap({
     new GeoJsonLayer({
       id: "administrative-selected",
       data: selectedBoundary,
-      filled: false,
+      filled: true,
       stroked: true,
 
       getLineColor: (f) => {
@@ -788,7 +852,22 @@ export default function DeckMap({
             (f.properties.CDTA2020 == communitySearch ||
               f.properties.CDTA2020 == compareSearch))
         ) {
-          return [255, 255, 255, 255];
+          return selectedSpecificIssue ? [255, 255, 255, 255] : [127, 255, 0];
+        }
+        return [0, 0, 0, 0];
+      },
+
+      getFillColor: (f) => {
+        if (
+          (boundary == "council" &&
+            (f.properties.CounDist == communitySearch ||
+              f.properties.CounDist == compareSearch)) ||
+          (boundary == "community" &&
+            f.properties.Data_YN == "Y" &&
+            (f.properties.CDTA2020 == communitySearch ||
+              f.properties.CDTA2020 == compareSearch))
+        ) {
+          return selectedSpecificIssue ? [0, 0, 0, 0] : [0, 0, 0, 125];
         }
         return [0, 0, 0, 0];
       },
@@ -798,6 +877,13 @@ export default function DeckMap({
       },
       updateTriggers: {
         getLineColor: [
+          selectedMetric,
+          mapSelection,
+          addCompare,
+          communitySearch,
+          compareSearch,
+        ],
+        getFillColor: [
           selectedMetric,
           mapSelection,
           addCompare,

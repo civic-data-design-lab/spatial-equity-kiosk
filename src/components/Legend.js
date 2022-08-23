@@ -10,11 +10,10 @@ export default function Legend({
   toggleUnderperformers,
   setToggleUnderperformers,
   boundary,
+  dataScale,
+  setdataScale,
 }) {
   // toggle areas in need
-  const handleClick = (event) => {
-    setToggleUnderperformers(!toggleUnderperformers);
-  };
 
   const administrativeBoundary =
     boundary === "council" ? "Council Districts" : "Community Boards";
@@ -25,12 +24,13 @@ export default function Legend({
 
   // button statement
   const buttonStatement = `Highlight ${administrativeBoundary} with the ${impactStatement}.`;
+  const buttonStatement2 = dataScale ? `Equal Bins` : "Equal Counts";
 
-  let cleanNumbers = isNaN(legendBins[0])
+  let cleanNumbers = isNaN(legendBins[1][0])
     ? ""
-    : min(legendBins) >= 10
-    ? legendBins.map((d) => Math.round(d))
-    : legendBins;
+    : min(legendBins[1]) >= 10
+    ? legendBins[1].map((d) => Math.round(d))
+    : legendBins[1];
 
   return (
     <>
@@ -64,11 +64,9 @@ export default function Legend({
             >
               ■
             </div>
-            <div className={"m-0"}>
-              {cleanNumbers[0] < 0 ? cleanNumbers[0] : 0}
-            </div>
+            <div className={"m-0"}>{legendBins[0] < 0 ? legendBins[0] : 0}</div>
             <div>→</div>
-            <div className={"m-0"}>{cleanNumbers[1]}</div>
+            <div className={"m-0"}>{cleanNumbers[0]}</div>
             <div
               style={{
                 color: `rgb(${colorRamps[1].toString()})`,
@@ -77,9 +75,9 @@ export default function Legend({
             >
               ■
             </div>
-            <div className={"m-0"}>{cleanNumbers[1]}</div>
+            <div className={"m-0"}>{cleanNumbers[0]}</div>
             <div>→</div>
-            <div className={"m-0"}>{cleanNumbers[2]}</div>
+            <div className={"m-0"}>{cleanNumbers[1]}</div>
             <div
               style={{
                 color: `rgb(${colorRamps[2].toString()})`,
@@ -88,9 +86,9 @@ export default function Legend({
             >
               ■
             </div>
-            <div className={"m-0"}>{cleanNumbers[2]}</div>
+            <div className={"m-0"}>{cleanNumbers[1]}</div>
             <div>→</div>
-            <div className={"m-0"}>{cleanNumbers[3]}</div>
+            <div className={"m-0"}>{cleanNumbers[2]}</div>
             <div
               style={{
                 color: `rgb(${colorRamps[3].toString()})`,
@@ -99,9 +97,9 @@ export default function Legend({
             >
               ■
             </div>
-            <div className={"m-0"}>{cleanNumbers[3]}</div>
+            <div className={"m-0"}>{cleanNumbers[2]}</div>
             <div>→</div>
-            <div className={"m-0"}>{cleanNumbers[4]}</div>
+            <div className={"m-0"}>{cleanNumbers[3]}</div>
             <div
               style={{
                 color: `rgb(${colorRamps[4].toString()})`,
@@ -110,11 +108,22 @@ export default function Legend({
             >
               ■
             </div>
-            <div className={"m-0"}>{cleanNumbers[4]}+</div>
+            <div className={"m-0"}>{cleanNumbers[3]}+</div>
           </div>
 
-          <Toggle textOff={buttonStatement} textOn={buttonStatement} value={toggleUnderperformers} callback={setToggleUnderperformers}/>
+          <Toggle
+            textOff={buttonStatement}
+            textOn={buttonStatement}
+            value={toggleUnderperformers}
+            callback={setToggleUnderperformers}
+          />
 
+          {/* <Toggle
+            textOff={buttonStatement2}
+            textOn={buttonStatement2}
+            value={dataScale}
+            callback={setdataScale}
+          /> */}
 
           {/* <div
             className={

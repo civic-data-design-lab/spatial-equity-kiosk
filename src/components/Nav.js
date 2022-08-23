@@ -21,7 +21,7 @@ function Nav({
                  setCompareSearch,
                  setShowMap,
                  councils,
-                 setMoreIssues, setMoreIssuesLength, addCompare, setAddCompare,
+                 setMoreIssues, setMoreIssuesLength, addCompare, setAddCompare,        
              }) {
 
 
@@ -43,6 +43,8 @@ function Nav({
                          setSelectedChapter(null)
                          setShowMap(false)
                      }
+                     setCommunitySearch(null)
+                    setCompareSearch(null)
                  }}
             >
                 <div>
@@ -86,6 +88,8 @@ function Nav({
                          setSelectedChapter(null)
                          setShowMap(false)
                      }
+                     setCommunitySearch(null)
+                    setCompareSearch(null)
 
                      /*if (selectedSpecificIssue) {
                          setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
@@ -126,6 +130,8 @@ function Nav({
                          setSelectedChapter(null)
                          setShowMap(false)
                      }
+                     setCommunitySearch(null)
+                    setCompareSearch(null)
                  }}
             >
                 <div>
@@ -168,6 +174,8 @@ function Nav({
                          setSelectedChapter(null)
                          setShowMap(false)
                      }
+                     setCommunitySearch(null)
+                    setCompareSearch(null)
                  }}
             >
                 <div>

@@ -23,6 +23,7 @@ const councils = _COUNCILS;
 const demoLookup = _DEMOGRAPHICS;
 
 function App() {
+
     const [showMap, setShowMap] = useState(false);
     const [showToggle, setShowToggle] = useState(false);
     const [selectedChapter, setSelectedChapter] = useState(null);
@@ -41,16 +42,20 @@ function App() {
     const [legendBins, setLegendBins] = useState();
     const [colorRamps, setColorRamps] = useState();
     const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
+    const [coordinateLookup, setCoordinateLookup] = useState(null);
     const location = useLocation();
     const [toggleTransit, setToggleTransit] = useState(false);
     const [toggleBike, setToggleBike] = useState(false);
     const [toggleWalk, setToggleWalk] = useState(false);
+    const [dataScale, setdataScale] = useState(false);
+    const [highlightFeature, sethighlightFeature] = useState(null);
     const [openAssist, setOpenAssist] = useState(false);
+    const [coordinates, setCoordiantes] = useState([-73.20310023, 43.3213123]);
 
     // map hooks
 
     // map starting position and view state constraints
-// Map Viewport settings
+    // Map Viewport settings
     const zoomMin = 10.5;
     const zoomMax = 13;
 
@@ -68,7 +73,6 @@ function App() {
     const [zoomToggle, setzoomToggle] = useState(1);
     const [inverseZoomToggle, setinverseZoomToggle] = useState(1);
     const [handleLegend, sethandleLegend] = useState(0);
-
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
@@ -125,6 +129,7 @@ function App() {
             }
         }
     }, []);
+
 
     useEffect(() => {
         /* console.log("HERE ARE THE STATES")
@@ -209,6 +214,13 @@ function App() {
             }
         }
     }, [selectedSpecificIssue]);
+
+    useEffect(() => {
+        if (!selectedChapter) {
+            setShowMap(false);
+        }
+    });
+
 
     useEffect(() => {
         window.addEventListener("mouseup", () => {
@@ -300,6 +312,7 @@ function App() {
                         addCompare={addCompare} setAddCompare={setAddCompare}
                         issues={issues} communities={communities} councils={councils}
                         issue_categories={issue_categories}
+                        highlightFeature={highlightFeature} sethighlightFeature={sethighlightFeature}
 
                     />
 
@@ -327,33 +340,57 @@ function App() {
                         toggleTransit={toggleTransit} setToggleTransit={setToggleTransit}
                         toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
                         toggleBike={toggleBike} setToggleBike={setToggleBike}
+                        dataScale={dataScale} setdataScale={setdataScale}
                     />
 
                     <div className={`${showMap ? "show-map" : "hide-map"} map-container`}>
                         <Map
                             issues={issues}
-                            selectedIssue={selectedIssue} selectedSpecificIssue={selectedSpecificIssue}
+                            selectedIssue={selectedIssue}
+                            selectedSpecificIssue={selectedSpecificIssue}
                             boundary={boundary}
                             showDemographics={showDemographics}
                             mapDemographics={mapDemographics}
                             demographic={demographic}
-                            legendBins={legendBins} setLegendBins={setLegendBins}
-                            colorRamps={colorRamps} setColorRamps={setColorRamps}
+                            legendBins={legendBins}
+                            setLegendBins={setLegendBins}
+                            colorRamps={colorRamps}
+                            setColorRamps={setColorRamps}
                             toggleUnderperformers={toggleUnderperformers}
                             setToggleUnderperformers={setToggleUnderperformers}
                             demoLookup={demoLookup}
-                            selectedChapter={selectedChapter} setSelectedChapter={setSelectedChapter}
-                            communitySearch={communitySearch} setCommunitySearch={setCommunitySearch}
-                            addCompare={addCompare} setAddCompare={setAddCompare}
-                            compareSearch={compareSearch} setCompareSearch={setCompareSearch}
+                            selectedChapter={selectedChapter}
+                            setSelectedChapter={setSelectedChapter}
+                            communitySearch={communitySearch}
+                            setCommunitySearch={setCommunitySearch}
+                            addCompare={addCompare}
+                            setAddCompare={setAddCompare}
+                            compareSearch={compareSearch}
+                            setCompareSearch={setCompareSearch}
                             setShowMap={setShowMap}
-                            communities={communities} councils={councils}
-                            viewState={viewState} setViewState={setViewState}
-                            mapSelection={mapSelection} setMapSelection={setMapSelection}
-                            zoomToggle={zoomToggle} setzoomToggle={setzoomToggle}
-                            inverseZoomToggle={inverseZoomToggle} setinverseZoomToggle={setinverseZoomToggle}
-                            handleLegend={handleLegend} sethandleLegend={sethandleLegend}
-                            zoomMin={zoomMin} zoomMax={zoomMax}
+                            communities={communities}
+                            councils={councils}
+                            viewState={viewState}
+                            setViewState={setViewState}
+                            mapSelection={mapSelection}
+                            setMapSelection={setMapSelection}
+                            zoomToggle={zoomToggle}
+                            setzoomToggle={setzoomToggle}
+                            inverseZoomToggle={inverseZoomToggle}
+                            setinverseZoomToggle={setinverseZoomToggle}
+                            handleLegend={handleLegend}
+                            sethandleLegend={sethandleLegend}
+                            zoomMin={zoomMin}
+                            zoomMax={zoomMax}
+                            coordinateLookup={coordinateLookup}
+                            setCoordinateLookup={setCoordinateLookup}
+                            dataScale={dataScale}
+                            setdataScale={setdataScale}
+                            highlightFeature={highlightFeature}
+                            sethighlightFeature={sethighlightFeature}
+                            toggleTransit={toggleTransit}
+                            toggleBike={toggleBike}
+                            toggleWalk={toggleWalk}
                         />
                     </div>
                 </Container>

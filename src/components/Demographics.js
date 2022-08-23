@@ -54,7 +54,7 @@ export default function Demographics({
                                         type={'checkbox'}
                                         id={`checkbox`}
                                         checked={toggleTransit}
-                                        label={"T"}
+                                        label={"Transit"}
                                         onChange={(e) => {
                                             setToggleTransit(e.target.checked)
                                         }}
@@ -66,7 +66,7 @@ export default function Demographics({
                                     <Form.Check
                                         type={'checkbox'}
                                         id={`checkbox`}
-                                        label={"B"}
+                                        label={"Bike"}
                                         checked={toggleBike}
                                         onChange={(e) => {
                                             setToggleBike(e.target.checked)
@@ -78,7 +78,7 @@ export default function Demographics({
                                     <Form.Check
                                         type={'checkbox'}
                                         id={`checkbox`}
-                                        label={"W"}
+                                        label={"Walk"}
                                         checked={toggleWalk}
                                         onChange={(e) => {
                                             setToggleWalk(e.target.checked)
