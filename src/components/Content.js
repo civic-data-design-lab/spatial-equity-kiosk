@@ -81,7 +81,7 @@ export default function Content({
                     boundary={boundary} demographic={demographic}
                     showDemographics={showDemographics}
                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
-                    setSelectedSpecificIssue={setSelectedSpecificIssue}
+                    setSelectedSpecificIssue={setSelectedSpecificIssue} colorRamps={colorRamps}
 
                 />}
 

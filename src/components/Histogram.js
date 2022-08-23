@@ -1,0 +1,64 @@
+import React, { Component, useEffect, useRef } from "react";
+import * as d3 from "d3";
+
+const DonutChart = (colorRamps) => {
+    const ref = useRef();
+    useEffect(() => {
+        const data = ([
+            42358, 98745, 36186, 20817, 68199, 57303, 27330, 21467, 23958, 86923,
+            20881, 32462, 47504, 76660, 111284, 10824, 19879, 28216, 26133, 66290,
+            23684, 11035, 25084, 130028, 22654, 69009, 49598, 11765, 14387, 13512,
+            15558, 24364, 11138, 22206, 18541, 20679, 64235, 114357, 111314, 36500,
+            26879, 23008, 21960, 89437, 31784, 49608, 20314, 81281, 32459, 102158,
+            124121,
+        ]).sort(d3.ascending);
+        console.log(data);
+
+        // svg attr
+        const width = 375;
+        const height = 1200;
+
+
+        const margin = {
+            top: 30,
+            left: 30,
+            bottom: 30,
+            right: 30,
+        }
+
+        // histogram bars attr
+        const barPadding = 0;
+        const barHeight = (height - margin.top - margin.bottom) / data.length;
+
+        // scales of chart
+        let xscale = d3.scaleLinear()
+            .domain([0, d3.max(data)])
+            .range([margin.left, width - margin.right])
+
+        let yscale = d3.scaleLinear()
+            .domain([0, data.length])
+            .range([margin.top, height - margin.right])
+
+        // build SVG
+        let svg = d3.select(ref.current)
+            .attr('height', height)
+            .attr('width', width)
+
+        svg.select('g')
+            .attr('class', 'rect')
+            .selectAll('rect')
+            .data(data)
+            .enter()
+            .append('rect')
+            .attr('height', barHeight - barPadding)
+            .attr('width', d => xscale(d))
+            .attr('y', (d, i) => yscale(i + 0.5))
+            .attr('x', margin.left)
+            .attr("fill", (d, i) => d3.rgb(...colorRamps.colorRamps[Math.floor(colorRamps.colorRamps.length * i / data.length)]))
+            .attr('value', d => d)
+
+    }, []);
+    return <svg ref={ref}><g /></svg>;
+};
+
+export default DonutChart;
