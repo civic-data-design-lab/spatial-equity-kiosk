@@ -1,6 +1,27 @@
 import React, { Component, useEffect, useRef } from "react";
 import * as d3 from "d3";
 
+const getRgb = (color) => {
+    let [r, g, b] = Array.from(color);
+    return {
+        r,
+        g,
+        b
+    }
+}
+
+const colorInterpolate = (colorA, colorB, intval) => {
+    const rgbA = getRgb(colorA);
+    const rgbB = getRgb(colorB);
+    const colorVal = (prop) =>
+        Math.round(rgbA[prop] * (1 - intval) + rgbB[prop] * intval);
+    return [
+        colorVal('r'),
+        colorVal('g'),
+        colorVal('b'),
+    ]
+}
+
 const DonutChart = (colorRamps) => {
     const ref = useRef();
     useEffect(() => {
@@ -54,7 +75,8 @@ const DonutChart = (colorRamps) => {
             .attr('width', d => xscale(d))
             .attr('y', (d, i) => yscale(i + 0.5))
             .attr('x', margin.left)
-            .attr("fill", (d, i) => d3.rgb(...colorRamps.colorRamps[Math.floor(colorRamps.colorRamps.length * i / data.length)]))
+            // .attr("fill", (d, i) => d3.rgb(...colorRamps.colorRamps[Math.floor(colorRamps.colorRamps.length * i / data.length)]))
+            .attr("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps.colorRamps[0], colorRamps.colorRamps[colorRamps.colorRamps.length - 1], i / data.length)))
             .attr('value', d => d)
 
     }, []);
