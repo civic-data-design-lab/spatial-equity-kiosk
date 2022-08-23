@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { text } from "d3";
+import { text, mouse } from "d3";
 
 const getRgb = (color) => {
     let [r, g, b] = Array.from(color);
@@ -34,7 +34,7 @@ const DonutChart = (colorRamps) => {
             26879, 23008, 21960, 89437, 31784, 49608, 20314, 81281, 32459, 102158,
             124121,
         ]).sort(d3.ascending);
-        console.log(data);
+        // console.log(data);
 
         // svg attr
         const width = 500;
@@ -101,6 +101,14 @@ const DonutChart = (colorRamps) => {
             .style('stroke', 'black')
             .style('stroke-width', 2);
 
+        svg.select('#mouseLine')
+            .attr('x1', margin.left)
+            .attr('y1', yscale(data.length / 2 + 0.5))
+            .attr('x2', width - margin.right)
+            .attr('y2', yscale(data.length / 2 + 0.5))
+            .style('stroke', 'black')
+            .style('stroke-width', 4);
+
         svg.select('#minText')
             .attr('x', width - margin.right - textWidth)
             .attr('y', yscale(0.5) + 15)
@@ -117,6 +125,22 @@ const DonutChart = (colorRamps) => {
             .attr("fill", "#000000")
             .text('Max ' + d3.max(data));
 
+        svg.select('#mouseTextUp')
+            .attr('x', width - margin.right - textWidth)
+            .attr('y', yscale(data.length / 2 + 0.5) - 5)
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .text('AA');
+
+        svg.select('#mouseTextDown')
+            .attr('x', width - margin.right - textWidth)
+            .attr('y', yscale(data.length / 2 + 0.5) + 15)
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .text('BB');
+
 
         svg.select('#maxText')
             .attr('x', width - margin.right - svg.select('#maxText').node().getBoundingClientRect().width);
@@ -125,12 +149,50 @@ const DonutChart = (colorRamps) => {
             .attr('x', width - margin.right - svg.select('#minText').node().getBoundingClientRect().width);
 
 
+        d3.select('#histBg')
+            .attr('height', height)
+            .attr('width', width - margin.left - margin.right)
+            .attr('y', 0)
+            .attr('x', margin.left)
+            .attr("fill", d3.rgb(0, 0, 0, 0))
+            .on('mousemove', function (event, d) {
+                let pt = d3.pointer(event)
+
+                let ycood = pt[1];
+                ycood = Math.max(ycood, yscale(0.5));
+                ycood = Math.min(ycood, yscale(data.length + 0.5));
+
+                // console.log(pt);
+                console.log(Math.floor(yscale.invert(ycood) - 0.5));
+
+                d3.select("#mouseLine")
+                    // .transition()
+                    // .duration(10)
+                    // .ease('linear') 
+                    .attr('y1', ycood)
+                    .attr('y2', ycood)
+
+                d3.select("#mouseTextUp")
+                    .attr('y', ycood - 5)
+                    .text(Math.floor(yscale.invert(ycood) - 0.5))
+
+                d3.select("#mouseTextDown")
+                    .attr('y', ycood + 15)
+                    .text(data[Math.floor(yscale.invert(ycood) - 0.5)])
+            })
+
+
     }, []);
     return (
         <svg ref={ref}>
             <g />
             <text id="maxText" />
             <text id="minText" />
+
+            <line id="mouseLine" />
+            <text id="mouseTextUp" />
+            <text id="mouseTextDown" />
+            <rect id="histBg" />
         </svg>
     );
 };
