@@ -25,7 +25,10 @@ export default function Legend({
     }
 
     const getButtonStatement = () => {
-        return `Highlight ${administrativeBoundary} with the ${getImpactStatement()}.`
+
+        return (!toggleUnderperformers ? `Highlight ${administrativeBoundary} with the ${getImpactStatement()}.`
+                : `Remove highlights of ${administrativeBoundary} with the ${getImpactStatement()}.`
+        )
     }
 
 
@@ -143,6 +146,8 @@ export default function Legend({
 
                 }
             case true:
+
+                //TODO: create legend for demographics here
                 return (
                     <div>
                         <p>HIII</p>

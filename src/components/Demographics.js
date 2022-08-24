@@ -169,7 +169,7 @@ export default function Demographics({
                             onClick={() => {
                                 setMapDemographics(!mapDemographics)
                             }}
-                        >Show on Map
+                        >{mapDemographics ? "Remove from map" : "Show on map"}
                         </div>
 
                         {getTransitToggles()}
@@ -193,7 +193,7 @@ export default function Demographics({
                             onClick={() => {
                                 setMapDemographics(!mapDemographics)
                             }}
-                        >Show on Map
+                        >{mapDemographics ? "Remove from map" : "Show on map"}
                         </div>
 
                         {getTransitToggles()}
@@ -252,7 +252,7 @@ export default function Demographics({
                             onClick={() => {
                                 setMapDemographics(!mapDemographics)
                             }}
-                        >Show on Map
+                        >{mapDemographics ? "Remove from map" : "Show on map"}
                         </div>
 
                         {getTransitToggles()}
