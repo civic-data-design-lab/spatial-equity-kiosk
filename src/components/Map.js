@@ -139,8 +139,6 @@ export default function DeckMap({
   // 01 CREATE METRIC COLOR RAMPS -------------------------------------------------------
 
   //variables for scale thresholds
-  const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
-  const binList = []; // derived from the selectedMetricArray array, this is the list of bins for the legend
 
   // pick color ramp for metrics and have default to avoid errors
   const selectedRamp =
@@ -149,6 +147,10 @@ export default function DeckMap({
       : selectedIssue === 3
       ? "infra"
       : "troubleshoot";
+
+  const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
+  const binList = []; // derived from the selectedMetricArray array, this is the list of bins for the legend
+
 
   // 01.1 get an array of all the values for the selected metric
   for (let i = 0; i < mapScale.features.length; i++) {

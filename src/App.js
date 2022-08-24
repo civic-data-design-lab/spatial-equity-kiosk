@@ -132,6 +132,9 @@ function App() {
                 case "cR":
                     setColorRamps(pair[1])
                     break;
+                case "tU":
+                    setToggleUnderperformers(pair[1]==="true")
+                    break;
             }
         }
     }, []);
@@ -182,6 +185,7 @@ function App() {
             params.push(`mD=${mapDemographics.toString()}`);
         if (addCompare !== null) params.push(`aC=${addCompare.toString()}`);
         if (colorRamps !== null) params.push(`cR=${colorRamps}`);
+        if (toggleUnderperformers !== null) params.push(`tU=${toggleUnderperformers}`)
 
         // TODO: add colorRamps and legendBins
         let path = window.location.href.split("?")[0];

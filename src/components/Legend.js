@@ -23,8 +23,6 @@ export default function Legend({
 
                                }) {
 
-    const binSize = 5;
-    // toggle areas in need
 
     const administrativeBoundary =
         boundary === "council" ? "Council Districts" : "Community Boards";
@@ -46,108 +44,112 @@ export default function Legend({
     // button statement
     const buttonStatement2 = dataScale ? `Equal Bins` : "Equal Counts";
 
-    // SELECT BOUNDARY ------------------------------------------------------------
-  let selectedBoundary;
-  if (boundary === "council") {
-    selectedBoundary = _COUNCIL_DISTRICTS;
-  }
-  if (boundary === "community") {
-    selectedBoundary = _COMMUNITY_BOARDS;
-  }
+    const getLegendBins = () => {
+        const binSize = 5;
+        // toggle areas in need
 
-  // toggle between council districts and community boards
-  const mapScale =
-    handleLegend == 0
-      ? _NEIGHBORHOODS
-      : handleLegend == 1 && selectedBoundary == _COUNCIL_DISTRICTS
-      ? _COUNCIL_DISTRICTS
-      : _COMMUNITY_BOARDS;
 
-  // SELECT BOUNDARY END --------------------------------------------------------
+        // SELECT BOUNDARY ------------------------------------------------------------
+        let selectedBoundary;
+        if (boundary === "council") {
+            selectedBoundary = _COUNCIL_DISTRICTS;
+        }
+        if (boundary === "community") {
+            selectedBoundary = _COMMUNITY_BOARDS;
+        }
 
-  // METRIC CONFIG -----------------------------------------------------
+        // toggle between council districts and community boards
+        const mapScale =
+            handleLegend == 0
+                ? _NEIGHBORHOODS
+                : handleLegend == 1 && selectedBoundary == _COUNCIL_DISTRICTS
+                    ? _COUNCIL_DISTRICTS
+                    : _COMMUNITY_BOARDS;
 
-  // select metric to display
-  let selectedMetric; // MAKE THIS A STATE AT THE APP LEVEL FOR OPTIMIZATION
-  let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
+        // SELECT BOUNDARY END --------------------------------------------------------
 
-  if (selectedSpecificIssue != null) {
-    if (
-      typeof selectedSpecificIssue == "number" &&
-      isNaN(selectedSpecificIssue) === false
-    ) {
-      selectedMetric =
-        issues.specific_issues_data[selectedSpecificIssue].json_id;
+        // METRIC CONFIG -----------------------------------------------------
 
-      metricGoodBad =
-        issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
+        // select metric to display
+        let selectedMetric; // MAKE THIS A STATE AT THE APP LEVEL FOR OPTIMIZATION
+        let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
+
+        if (selectedSpecificIssue != null) {
+            if (
+                typeof selectedSpecificIssue == "number" &&
+                isNaN(selectedSpecificIssue) === false
+            ) {
+                selectedMetric =
+                    issues.specific_issues_data[selectedSpecificIssue].json_id;
+
+                metricGoodBad =
+                    issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
+            }
+        }
+
+        // 01 CREATE METRIC COLOR RAMPS -------------------------------------------------------
+
+        //variables for scale thresholds
+        const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
+        const binList = []; // derived from the selectedMetricArray array, this is the list of bins for the legend
+
+        // pick color ramp for metrics and have default to avoid errors
+        const selectedRamp =
+            selectedIssue === 1 ? "health" : selectedIssue === 2
+                ? "env"
+                : selectedIssue === 3
+                    ? "infra"
+                    : "troubleshoot";
+
+        // 01.1 get an array of all the values for the selected metric
+        for (let i = 0; i < mapScale.features.length; i++) {
+            let floatValue = parseFloat(
+                mapScale.features[i].properties[selectedMetric]
+            );
+            if (isNaN(floatValue) === false) {
+                if (
+                    boundary === "council" ||
+                    (zoomToggle == 0 &&
+                        boundary === "community" &&
+                        mapScale.features[i].properties.Data_YN === "Y") ||
+                    (zoomToggle == 1 && mapScale.features[i].properties.AnsUnt_YN === "Y")
+                ) {
+                    selectedMetricArray.push(floatValue);
+                }
+            }
+        }
+
+        // create a new sorted array for the quantile, but dont modify existing array
+        const sortedSelectedMetricArray = [...selectedMetricArray].sort(function (
+            a,
+            b
+        ) {
+            return a - b;
+        });
+
+        const uniqueValueArray = [...new Set(sortedSelectedMetricArray)];
+        // console.log(selectedMetricArray, uniqueValueArray);
+
+        // 01.2 break the metric array into bins and get the bin list
+        for (let i = 0; i < binSize; i++) {
+            if (dataScale === "equal") {
+                const threshold =
+                    (max(selectedMetricArray) - min(selectedMetricArray)) / (binSize + 1);
+                binList.push(
+                    Math.round((threshold * (i + 1) + min(selectedMetricArray)) * 100) / 100
+                );
+            } else {
+                const interval = Math.floor(
+                    (uniqueValueArray.length / binSize) * (i + 1)
+                );
+                // quantile breaks
+                binList.push(uniqueValueArray[interval]);
+            }
+        }
+        return [uniqueValueArray[0], binList]
     }
-  }
 
-  // 01 CREATE METRIC COLOR RAMPS -------------------------------------------------------
-
-  //variables for scale thresholds
-  const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
-  const binList = []; // derived from the selectedMetricArray array, this is the list of bins for the legend
-
-  // pick color ramp for metrics and have default to avoid errors
-  const selectedRamp =
-    selectedIssue === 1 ? "health" : selectedIssue === 2
-      ? "env"
-      : selectedIssue === 3
-      ? "infra"
-      : "troubleshoot";
-
-  // 01.1 get an array of all the values for the selected metric
-  for (let i = 0; i < mapScale.features.length; i++) {
-    let floatValue = parseFloat(
-      mapScale.features[i].properties[selectedMetric]
-    );
-    if (isNaN(floatValue) === false) {
-      if (
-        boundary === "council" ||
-        (zoomToggle == 0 &&
-          boundary === "community" &&
-          mapScale.features[i].properties.Data_YN === "Y") ||
-        (zoomToggle == 1 && mapScale.features[i].properties.AnsUnt_YN === "Y")
-      ) {
-        selectedMetricArray.push(floatValue);
-      }
-    }
-  }
-
-  // create a new sorted array for the quantile, but dont modify existing array
-  const sortedSelectedMetricArray = [...selectedMetricArray].sort(function (
-    a,
-    b
-  ) {
-    return a - b;
-  });
-
-  const uniqueValueArray = [...new Set(sortedSelectedMetricArray)];
-  // console.log(selectedMetricArray, uniqueValueArray);
-
-  // 01.2 break the metric array into bins and get the bin list
-  for (let i = 0; i < binSize; i++) {
-    if (dataScale === "equal") {
-      const threshold =
-        (max(selectedMetricArray) - min(selectedMetricArray)) / (binSize + 1);
-      binList.push(
-        Math.round((threshold * (i + 1) + min(selectedMetricArray)) * 100) / 100
-      );
-    } else {
-      const interval = Math.floor(
-        (uniqueValueArray.length / binSize) * (i + 1)
-      );
-      // quantile breaks
-      binList.push(uniqueValueArray[interval]);
-    }
-  }
-
-  const legendBins = [uniqueValueArray[0], binList]
-
-
-
+    const legendBins = getLegendBins()
 
 
     let cleanNumbers = isNaN(legendBins[1][0])
@@ -155,7 +157,6 @@ export default function Legend({
         : min(legendBins[1]) >= 10
             ? legendBins[1].map((d) => Math.round(d))
             : legendBins[1];
-
 
 
     const getLegend = () => {
