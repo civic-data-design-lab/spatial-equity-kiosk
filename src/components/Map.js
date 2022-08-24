@@ -481,7 +481,9 @@ export default function DeckMap({
                         obj.properties[selectedDemographic] * 100
                       ).toFixed(0)}% </strong>`
                     : toggleTransit || toggleBike || toggleWalk
-                    ? `${(selectedDemoArray[info.index] * 100).toFixed(0)}%`
+                    ? `<strong>${(selectedDemoArray[info.index] * 100).toFixed(
+                        0
+                      )}%</strong>`
                     : ""
                   : `\
                   <div class=tooltip-grid>
