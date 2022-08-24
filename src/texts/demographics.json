@@ -20,8 +20,8 @@
       [230, 87, 149],
       [233, 50, 128]
     ],
-    "source": "United States Cencus Bureau",
-    "link": ""
+    "source": "2016-2020 U.S. Census American Community Survey (ACS)",
+    "link": "https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page"
   },
   "2": {
     "name": "Below the Poverty Line",
@@ -34,7 +34,7 @@
       [23, 159, 78]
     ],
     "source": "United States Cencus Bureau",
-    "link": ""
+    "link": "https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page"
   },
   "3": {
     "name": "Bike to Work",
