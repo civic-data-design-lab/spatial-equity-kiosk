@@ -16,7 +16,7 @@
   "1": {
     "name": "Race and Ethnicity",
     "lookup": "",
-    "metric_units": "percent",
+    "metric_units": "Percent",
     "colorRamp": [
       [248, 198, 220],
       [244, 151, 192],
@@ -30,7 +30,7 @@
   "2": {
     "name": "Population Below the Poverty Line",
     "lookup": "F12_PvtyPc",
-    "metric_units": "percent",
+    "metric_units": "Percent",
     "colorRamp": [
       [187, 241, 209],
       [129, 228, 170],
@@ -44,7 +44,7 @@
   "3": {
     "name": "Population With No Car Ownership",
     "lookup": "F7_CarFree",
-    "metric_units": "percent",
+    "metric_units": "Percent",
     "colorRamp": [
       [240, 249, 232],
       [186, 228, 188],
@@ -58,7 +58,7 @@
   "4": {
     "name": "Population that Drives Alone to Work",
     "lookup": "F9_DrvAlon",
-    "metric_units": "percent",
+    "metric_units": "Percent",
     "colorRamp": [
       [246, 239, 247],
       [189, 201, 225],
@@ -72,7 +72,7 @@
   "5": {
     "name": "Population Using Alternative Transportation",
     "lookup": "F10_TrsBkW",
-    "metric_units": "percent",
+    "metric_units": "Percent",
     "colorRamp": [
       [254, 235, 226],
       [251, 180, 185],
@@ -86,7 +86,7 @@
   "6": {
     "name": "Bike to Work",
     "lookup": "F6_bike",
-    "metric_units": "percent",
+    "metric_units": "Percent",
     "colorRamp": [
       [255, 255, 204],
       [161, 218, 180],
@@ -100,7 +100,7 @@
   "7": {
     "name": "Public Transit to Work",
     "lookup": "F8_PubTran",
-    "metric_units": "percent",
+    "metric_units": "Percent",
     "colorRamp": [
       [254, 240, 217],
       [253, 204, 138],
@@ -114,7 +114,7 @@
   "8": {
     "name": "Walk",
     "lookup": "F11_Walk",
-    "metric_units": "percent",
+    "metric_units": "Percent",
     "colorRamp": [
       [254, 237, 222],
       [253, 190, 133],

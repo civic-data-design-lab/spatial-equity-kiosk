@@ -39,8 +39,8 @@ function App() {
     const [moreIssuesLength, setMoreIssuesLength] = useState(0);
     const [mapDemographics, setMapDemographics] = useState(false);
     const [addCompare, setAddCompare] = useState(false);
-    const [legendBins, setLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
-    const [colorRamps, setColorRamps] = useState([1, 1, 1, 1, 1]);
+    //const [legendBins, setLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
+    const [colorRamps, setColorRamps] = useState(null);
     const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
     const [coordinateLookup, setCoordinateLookup] = useState(null);
     const location = useLocation();
@@ -50,10 +50,11 @@ function App() {
     const [dataScale, setdataScale] = useState(false);
     const [highlightFeature, sethighlightFeature] = useState(null);
     const [openAssist, setOpenAssist] = useState(false);
-    const [demoColorRamp, setDemoColorRamp] = useState([1, 1, 1, 1, 1]);
-    const [demoLegendBins, setDemoLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
+    const [demoColorRamp, setDemoColorRamp] = useState([255,0,0],[0,255,0],[0,0,255],[255,255,0],[255,0,255]);
+    const [demoLegendBins, setDemoLegendBins] = useState([1, 1, 1, 1, 1]);
     const [selectedCoord, setSelectedCoord] = useState([]);
 
+    // console.log(demoColorRamp)
     // map hooks
 
     // map starting position and view state constraints
@@ -128,6 +129,12 @@ function App() {
                 case "aC":
                     setAddCompare(pair[1] === "true");
                     break;
+                case "cR":
+                    setColorRamps(pair[1])
+                    break;
+                case "tU":
+                    setToggleUnderperformers(pair[1]==="true")
+                    break;
             }
         }
     }, []);
@@ -149,7 +156,6 @@ function App() {
         // console.log("selectedCoord", selectedCoord)
         // console.log("-------------------------------------------")
 
-
         /* if (!selectedSpecificIssue) {
                  setSelectedIssue(1)
                  setSelectedSpecificIssue(1)
@@ -157,6 +163,9 @@ function App() {
              if (!selectedSpecificIssue) {
                  setSelectedSpecificIssue(1)
              }*/
+
+        console.log("colorRamps", colorRamps)
+        //console.log("legendBins", legendBins)
 
         const params = [];
 
@@ -177,7 +186,10 @@ function App() {
         if (mapDemographics !== null)
             params.push(`mD=${mapDemographics.toString()}`);
         if (addCompare !== null) params.push(`aC=${addCompare.toString()}`);
+        if (colorRamps !== null) params.push(`cR=${colorRamps}`);
+        if (toggleUnderperformers !== null) params.push(`tU=${toggleUnderperformers}`)
 
+        // TODO: add colorRamps and legendBins
         let path = window.location.href.split("?")[0];
         path = path.concat("?");
         params.map((param) => {
@@ -327,7 +339,7 @@ function App() {
                         moreIssues={moreIssues} setMoreIssues={setMoreIssues}
                         moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
                         mapDemographics={mapDemographics} setMapDemographics={setMapDemographics}
-                        legendBins={legendBins} colorRamps={colorRamps}
+                        colorRamps={colorRamps} //legendBins={legendBins}
                         toggleUnderperformers={toggleUnderperformers}
                         setToggleUnderperformers={setToggleUnderperformers}
                         toggleTransit={toggleTransit} setToggleTransit={setToggleTransit}
@@ -336,6 +348,8 @@ function App() {
                         dataScale={dataScale} setdataScale={setdataScale}
                         demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
                         setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
+                        setColorRamps={setColorRamps} handleLegend={handleLegend} zoomToggle={zoomToggle} demoLookup={demoLookup[demographic]}
+                        
                     />
 
 
@@ -356,8 +370,8 @@ function App() {
                             showDemographics={showDemographics}
                             mapDemographics={mapDemographics}
                             demographic={demographic}
-                            legendBins={legendBins}
-                            setLegendBins={setLegendBins}
+                            //legendBins={legendBins}
+                            //setLegendBins={setLegendBins}
                             colorRamps={colorRamps}
                             setColorRamps={setColorRamps}
                             toggleUnderperformers={toggleUnderperformers}
@@ -395,6 +409,8 @@ function App() {
                             toggleTransit={toggleTransit}
                             toggleBike={toggleBike}
                             toggleWalk={toggleWalk}
+                            setDemoLegendBins={setDemoLegendBins}
+                            setDemoColorRamp={setDemoColorRamp}
                         />
                             {/*</div>
                             <div className={"wiper"}>
