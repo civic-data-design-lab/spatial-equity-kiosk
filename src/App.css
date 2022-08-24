@@ -923,12 +923,16 @@ a:active {
     align-items: center;
 }
 
+.placeholder-legend-ethnicity {
+    grid-template-columns: 1fr 1fr 7fr;
+}
+
 .legend-grid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.YEYE{
+.legend-scale{
     border: 1px solid black;
     height: 75%;
     width: 100%;

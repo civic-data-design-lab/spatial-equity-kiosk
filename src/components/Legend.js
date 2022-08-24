@@ -6,6 +6,7 @@ import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _COUNCIL_DISTRICTS from "../data/council_districts.json";
 import _COMMUNITY_BOARDS from "../data/community_boards.json";
 import _NEIGHBORHOODS from "../data/neighborhoods.json";
+import _ETHNICITY_COLORS from "../data/ethnicity_colors.json";
 
 export default function Legend({
   issues,
@@ -190,7 +191,7 @@ export default function Legend({
                 </p>
                 <div className={"placeholder-legend"}>
                   <div
-                    className={"YEYE"}
+                    className={"legend-scale"}
                     style={{
                       backgroundColor: `rgb(${_CHAPTER_COLORS[
                         colorRamps
@@ -204,7 +205,7 @@ export default function Legend({
                   <div>→</div>
                   <div className={"m-0"}>{cleanNumbers[0]}</div>
                   <div
-                    className={"YEYE"}
+                    className={"legend-scale"}
                     style={{
                       backgroundColor: `rgb(${_CHAPTER_COLORS[
                         colorRamps
@@ -216,7 +217,7 @@ export default function Legend({
                   <div>→</div>
                   <div className={"m-0"}>{cleanNumbers[1]}</div>
                   <div
-                    className={"YEYE"}
+                    className={"legend-scale"}
                     style={{
                       backgroundColor: `rgb(${_CHAPTER_COLORS[
                         colorRamps
@@ -228,7 +229,7 @@ export default function Legend({
                   <div>→</div>
                   <div className={"m-0"}>{cleanNumbers[2]}</div>
                   <div
-                    className={"YEYE"}
+                    className={"legend-scale"}
                     style={{
                       backgroundColor: `rgb(${_CHAPTER_COLORS[
                         colorRamps
@@ -240,7 +241,7 @@ export default function Legend({
                   <div>→</div>
                   <div className={"m-0"}>{cleanNumbers[3]}</div>
                   <div
-                    className={"YEYE"}
+                    className={"legend-scale"}
                     style={{
                       backgroundColor: `rgb(${_CHAPTER_COLORS[
                         colorRamps
@@ -278,7 +279,7 @@ export default function Legend({
       case true:
         //TODO: create legend for demographics here
 
-        console.log(demoLookup.colorRamp[0].join(","));
+        // console.log(demoLookup.colorRamp[0].join(","));
 
         // demoColorRamp
         // demoLegendBins
@@ -291,7 +292,7 @@ export default function Legend({
                 </p>
                 <div className={"placeholder-legend"}>
                   <div
-                    className={"YEYE"}
+                    className={"legend-scale"}
                     style={{
                       backgroundColor: `rgb(${demoLookup.colorRamp[0].join(
                         ","
@@ -305,7 +306,7 @@ export default function Legend({
                     {(demoLegendBins[0] * 100).toFixed(0)}%
                   </div>
                   <div
-                    className={"YEYE"}
+                    className={"legend-scale"}
                     style={{
                       backgroundColor: `rgb(${demoLookup.colorRamp[1].join(
                         ","
@@ -321,7 +322,7 @@ export default function Legend({
                     {(demoLegendBins[1] * 100).toFixed(0)}%
                   </div>
                   <div
-                    className={"YEYE"}
+                    className={"legend-scale"}
                     style={{
                       backgroundColor: `rgb(${demoLookup.colorRamp[2].join(
                         ","
@@ -337,7 +338,7 @@ export default function Legend({
                     {(demoLegendBins[2] * 100).toFixed(0)}%
                   </div>
                   <div
-                    className={"YEYE"}
+                    className={"legend-scale"}
                     style={{
                       backgroundColor: `rgb(${demoLookup.colorRamp[3].join(
                         ","
@@ -353,7 +354,7 @@ export default function Legend({
                     {(demoLegendBins[3] * 100).toFixed(0)}%
                   </div>
                   <div
-                    className={"YEYE"}
+                    className={"legend-scale"}
                     style={{
                       backgroundColor: `rgb(${demoLookup.colorRamp[4].join(
                         ","
@@ -368,8 +369,65 @@ export default function Legend({
               </div>
             </div>
           );
+        } else if (mapDemographics) {
+          return (
+            <div className={"d-flex flex-column row-gap"}>
+              <div>
+                <p className={"m-0"}>NYC Overall {demoLookup.name}</p>
+                <div
+                  className={"placeholder-legend placeholder-legend-ethnicity"}
+                >
+                  <div
+                    className={"legend-scale"}
+                    style={{
+                      backgroundColor: `${_ETHNICITY_COLORS.Hispanic.htmlFormat}`,
+                      fontFamily: "Arial",
+                    }}
+                  ></div>
+                  <div className={"m-0"}>Any</div>
+                  <div className={"m-0"}>Hispanic</div>
+                  <div
+                    className={"legend-scale"}
+                    style={{
+                      backgroundColor: `${_ETHNICITY_COLORS.White.htmlFormat}`,
+                      fontFamily: "Arial",
+                    }}
+                  ></div>
+                  <div className={"m-0"}>Any</div>
+                  <div className={"m-0"}>White</div>
+                  <div
+                    className={"legend-scale"}
+                    style={{
+                      backgroundColor: `${_ETHNICITY_COLORS.Black.htmlFormat}`,
+                      fontFamily: "Arial",
+                    }}
+                  ></div>
+                  <div className={"m-0"}>Any</div>
+                  <div className={"m-0"}>Black</div>
+                  <div
+                    className={"legend-scale"}
+                    style={{
+                      backgroundColor: `${_ETHNICITY_COLORS.Asian.htmlFormat}`,
+                      fontFamily: "Arial",
+                    }}
+                  ></div>
+                  <div className={"m-0"}>Any</div>
+                  <div className={"m-0"}>Asian</div>
+                  <div
+                    className={"legend-scale"}
+                    style={{
+                      backgroundColor: `${_ETHNICITY_COLORS.Other.htmlFormat}`,
+                      fontFamily: "Arial",
+                    }}
+                  ></div>
+                  <div className={"m-0"}>Any</div>
+                  <div className={"m-0"}>Other</div>
+                </div>
+              </div>
+            </div>
+          );
         } else {
-          // ADD D3 Demographics Component Here!
+          // DEFAULT CASE - ADD D3 DEMOGRAPHICS COMPONENT HERE!
         }
     }
   };
