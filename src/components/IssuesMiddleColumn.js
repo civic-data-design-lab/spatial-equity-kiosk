@@ -45,11 +45,14 @@ export default function IssuesMiddleColumn({
         })
 
         if (possible_keys.includes(selectedSpecificIssue)) {
-            return <p
-                className={"mt-3"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
+            return <p>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
 
         }
     }
+
+
+
+
 
     useEffect(() => {
         if (!selectedIssue) {
@@ -113,11 +116,13 @@ export default function IssuesMiddleColumn({
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div>
-                            {!showDemographics && <p className={"small-font m-0"}></p>}
+
+                            {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
                             <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={demoLegendBins} colorRamps={demoColorRamp} toggleUnderperformers={toggleUnderperformers}
-                            setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}  />
-                        </div>
+                            setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}/>
+
+
+
                     </div>
                 </div>
             </div>
@@ -162,12 +167,15 @@ export default function IssuesMiddleColumn({
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div>
+
                             {!showDemographics && <p className={"small-font m-0"}></p>}
                             <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}   />
 
-                        </div>
+
+
+
+
 
 
                     </div>
@@ -212,12 +220,13 @@ export default function IssuesMiddleColumn({
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div>
+
                             {!showDemographics && <p className={"small-font m-0"}></p>}
                             <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary} />
 
-                        </div>
+
+
 
 
                     </div>

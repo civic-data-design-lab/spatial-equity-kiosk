@@ -32,12 +32,11 @@ export default function Demographics({
                                      }) {
 
 
-    // TODO: update demographics drop down
     const demographics = {
         1: "Race & Ethnicity",
         2: "Poverty Level",
         3: "Car-free",
-        4: "Take Public Transit to Work",
+        4: "Drive Alone to Work",
         5: "Transit, Biked or Walked (Total)"
     }
 
@@ -252,6 +251,8 @@ export default function Demographics({
                             </div>
                         </div>*/}
 
+                        {getTransitToggles()}
+
                         <div
                             className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"}`}
                             onClick={() => {
@@ -262,7 +263,7 @@ export default function Demographics({
                             <div>{mapDemographics ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}</div>
                         </div>
 
-                        {getTransitToggles()}
+
 
                     </div>
                 }
