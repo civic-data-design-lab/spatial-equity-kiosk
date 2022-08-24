@@ -50,7 +50,6 @@ function App() {
     const [dataScale, setdataScale] = useState(false);
     const [highlightFeature, sethighlightFeature] = useState(null);
     const [openAssist, setOpenAssist] = useState(false);
-    const [coordinates, setCoordiantes] = useState([-73.20310023, 43.3213123]);
     const [demoColorRamp, setDemoColorRamp] = useState([1, 1, 1, 1, 1]);
     const [demoLegendBins, setDemoLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
     const [selectedCoord, setSelectedCoord] = useState([]);
