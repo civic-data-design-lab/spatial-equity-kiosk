@@ -1,17 +1,19 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import MapToggle from "./MapToggle";
 import ShareButton from "./ShareButton";
 import IssueProfile from "./IssuesProfile";
+import DonutChart from "./Histogram";
 
 export default function IssuesTileView({
-                                           selectedSpecificIssue,
-                                           issues, showToggle,
-                                           showMap, setShowMap,
-                                           selectedIssue, selectedChapter,
-                                           communitySearch, compareSearch,
-                                           boundary, demographic, showDemographics,
-                                           moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength,
-                                       }) {
+    selectedSpecificIssue,
+    issues, showToggle,
+    showMap, setShowMap,
+    selectedIssue, selectedChapter,
+    communitySearch, compareSearch,
+    boundary, demographic, showDemographics,
+    moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength,
+    setSelectedSpecificIssue, colorRamps
+}) {
 
     const [expand, setExpand] = useState(false)
 
@@ -46,7 +48,7 @@ export default function IssuesTileView({
                                 />
                             </div>
                             <div id={"toggle-container"}>
-                                <MapToggle showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}/>
+                                <MapToggle showToggle={showToggle} showMap={showMap} setShowMap={setShowMap} />
                             </div>
                         </div>
                     </div>
@@ -55,29 +57,52 @@ export default function IssuesTileView({
                     <div className={"issues-tile-body m-0"}>
 
 
-                        <div className={"issue-tile-viz"}>
+                        <div className={"issue-tile-viz"}  >
                             <div>
-                                <h5 className={"m-0"}>{getIssueName()}</h5>
+                                <h5 className={"m-0 bold"}>{getIssueName()}</h5>
                                 <p className={"m-0 small-font"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}</p>
                             </div>
-                            <div>
-                                VISUALIZATION
+                            <div style={{ height: "700px", flex: 1 }}>
+                                {/* {selectedIssue} */}
+                                <DonutChart colorRamps={colorRamps} />
                             </div>
                             <p className={"m-0 small-font"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}</p>
                         </div>
 
 
                         <div className={"col-6 w-50 overflow-scroll"}>
-                            <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue} boundary={boundary}/>
+                            <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue} boundary={boundary} setSelectedSpecificIssue={setSelectedSpecificIssue} />
                         </div>
                     </div>
                 </div>
             }
 
-            {!selectedSpecificIssue && <div
-                className={"col-12 h-100 issues-tile-container d-flex flex-row justify-content-center align-items-center"}>
-                PLACEHOLDER IMAGE
-            </div>}
+            {!selectedSpecificIssue &&
+                <div className={"col-12 h-100 issues-tile-container"}>
+
+                    <div className={"issues-tile-header"}>
+                        <div className={"toggle-share-container"}>
+                            <div id={"share-container"}>
+                                <ShareButton
+                                    showMap={showMap}
+                                    communitySearch={communitySearch}
+                                    compareSearch={compareSearch}
+                                    selectedSpecificIssue={selectedSpecificIssue}
+                                    issues={issues}
+                                    setShowMap={setShowMap}
+                                    showToggle={showToggle}
+                                    selectedIssue={selectedIssue} selectedChapter={selectedChapter}
+                                    boundary={boundary} demographic={demographic} showDemographics={showDemographics}
+                                    moreIssues={moreIssues} setMoreIssues={setMoreIssues}
+                                    moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
+                                />
+                            </div>
+                            <div id={"toggle-container"}>
+                                <MapToggle showToggle={showToggle} showMap={showMap} setShowMap={setShowMap} />
+                            </div>
+                        </div>
+                    </div>
+                </div>}
         </>
     )
 

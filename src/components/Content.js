@@ -25,8 +25,11 @@ export default function Content({
                                     boundary,
                                     setCommunitySearch, setCompareSearch,
                                     showDemographics, setShowDemographics,
-    moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength, councils,
-    mapDemographics, setMapDemographics
+                                    moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength, councils,
+                                    mapDemographics, setMapDemographics,
+                                    legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers, issue_categories,
+                                    toggleTransit, toggleBike, toggleWalk, setToggleTransit, setToggleBike, setToggleWalk, dataScale,
+                                    setdataScale, demoColorRamp, demoLegendBins, setDemoColorRamp, setDemoLegendBins
                                 }) {
 
 
@@ -44,6 +47,18 @@ export default function Content({
                         showDemographics={showDemographics} setShowDemographics={setShowDemographics}
                         mapDemographics={mapDemographics} setMapDemographics={setMapDemographics} boundary={boundary}
                         communities={communities} councils={councils}
+                        legendBins={legendBins}
+                        colorRamps={colorRamps}
+                        toggleUnderperformers={toggleUnderperformers}
+                        setToggleUnderperformers={setToggleUnderperformers} selectedChapter={selectedChapter}
+                        issue_categories={issue_categories}
+                        toggleTransit={toggleTransit}  setToggleTransit={setToggleTransit}
+                        toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
+                        toggleBike={toggleBike} setToggleBike={setToggleBike}
+                        dataScale={dataScale} setdataScale={setdataScale}
+                        demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
+                        setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
+
                     />}
 
                 {selectedChapter === 3 && <CommunityMiddleColumn
@@ -57,7 +72,7 @@ export default function Content({
 
             </div>
 
-            <div className={`h-100 flex-grow-1 ${!selectedChapter || selectedChapter === 1 ? "no-left-border" : ""}`}
+            <div className={`h-100 flex-grow-1 ${!selectedChapter || selectedChapter === 1 ? "no-left-border" : ""} ${selectedChapter === 3 && communitySearch && !selectedSpecificIssue ? "transparent-bg" : "white-bg"}`}
                  id="right-column">
 
 
@@ -69,6 +84,7 @@ export default function Content({
                     boundary={boundary} demographic={demographic}
                     showDemographics={showDemographics}
                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
+                    setSelectedSpecificIssue={setSelectedSpecificIssue} colorRamps={colorRamps}
 
                 />}
 
@@ -83,6 +99,7 @@ export default function Content({
                     selectedIssue={selectedIssue} selectedChapter={selectedChapter}
                     boundary={boundary} demographic={demographic}
                     showDemographics={showDemographics}
+                    setSelectedSpecificIssue={setSelectedSpecificIssue}
                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
                 />}
 

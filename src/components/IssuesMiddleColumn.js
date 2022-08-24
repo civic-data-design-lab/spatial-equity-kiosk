@@ -16,7 +16,13 @@ export default function IssuesMiddleColumn({
                                                communitySearch, compareSearch,
                                                showDemographics, setShowDemographics,
                                                mapDemographics, setMapDemographics, boundary,
-                                               communities, councils
+                                               communities, councils,
+                                               legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers,
+                                                selectedChapter, issue_categories,
+                                                toggleWalk, setToggleWalk,
+                                                toggleTransit, setToggleTransit,
+                                                toggleBike, setToggleBike, dataScale, 
+                                                setdataScale, setDemoColorRamp, setDemoLegendBins, demoColorRamp, demoLegendBins
 
                                            }) {
 
@@ -39,16 +45,19 @@ export default function IssuesMiddleColumn({
         })
 
         if (possible_keys.includes(selectedSpecificIssue)) {
-            return <p
-                className={"mt-3"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
+            return <p>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
 
         }
     }
 
+
+
+
+
     useEffect(() => {
-        if (!selectedSpecificIssue) {
+        if (!selectedIssue) {
             setShowDemographics(false)
-            setDemographic(null)
+            //setDemographic(null)
         }
     })
 
@@ -64,13 +73,13 @@ export default function IssuesMiddleColumn({
     return (
         <div className={"d-flex flex-column h-100"}>
             <div
-                className={`${selectedIssue === 1 ? 'issues-chapters-active' : ''} ${selectedIssue ? "collapse-issue" : ""} issues-chapters top-border`}
+                className={`${selectedIssue === 1 ? 'issues-chapters-active' : ''} ${selectedIssue || showDemographics ? "collapse-issue" : ""} issues-chapters top-border`}
                 onClick={() => {
                     /*setShowMap(true)
                     setShowToggle(false)*/
                     //setCommunitySearch(null)
                     //setCompareSearch(null)
-                    setShowDemographics(false)
+                    //setShowDemographics(false)
                     setSelectedSpecificIssue(null)
                     if (selectedIssue !== 1) {
                         setSelectedIssue(1)
@@ -92,23 +101,26 @@ export default function IssuesMiddleColumn({
                                     currentValue={selectedSpecificIssue}
                                     setValue={setSelectedSpecificIssue}
                                     setShowDemographics={setShowDemographics}
+                                    issues={issues}
+                                    issue_categories={issue_categories}
                     />
 
                     <div className={"d-flex flex-column justify-content-between h-100"}>
                         {((selectedSpecificIssue && !showDemographics) || (!selectedSpecificIssue)) &&
-                            <div className={"thirds"}>
+                            <div className={"thirds mt-3"}>
                                 {selectedSpecificIssue && !showDemographics && getRankingNarrative(health_issues)}
-                                {!selectedSpecificIssue &&
-                                    <p className={"mt-3"}>This is where you will hear about the topic that
+                                {!selectedSpecificIssue && !showDemographics &&
+                                    <p>This is where you will hear about the topic that
                                         you
                                         select.
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div>
-                            {!showDemographics && <h6>Data Legend</h6>}
-                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
-                        </div>
+
+                            {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
+                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={demoLegendBins} colorRamps={demoColorRamp} toggleUnderperformers={toggleUnderperformers}
+                            setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}/>
+
 
 
                     </div>
@@ -116,9 +128,9 @@ export default function IssuesMiddleColumn({
             </div>
 
             <div
-                className={`${selectedIssue === 2 ? 'issues-chapters-active' : (selectedIssue === 1 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
+                className={`${selectedIssue === 2 ? 'issues-chapters-active' : (selectedIssue === 1 ? "top-border" : "")} ${selectedIssue || showDemographics ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
-                    setShowDemographics(false)
+                    //setShowDemographics(false)
                     setSelectedSpecificIssue(null)
                     //setCommunitySearch(null)
                     //setCompareSearch(null)
@@ -140,33 +152,40 @@ export default function IssuesMiddleColumn({
                                     currentValue={selectedSpecificIssue}
                                     setValue={setSelectedSpecificIssue}
                                     setShowDemographics={setShowDemographics}
+                                    issues={issues} issue_categories={issue_categories}
                     />
 
-                    <div className={"d-flex flex-column justify-content-between h-100"}>
+                    <div
+                        className={`d-flex flex-column h-100 ${selectedSpecificIssue && showDemographics ? "justify-content-end" : "justify-content-between"}`}>
                         {((selectedSpecificIssue && !showDemographics) || (!selectedSpecificIssue)) &&
-                            <div className={"thirds"}>
+                            <div className={"thirds mt-3"}>
                                 {selectedSpecificIssue && !showDemographics && getRankingNarrative(environment_issues)}
-                                {!selectedSpecificIssue &&
-                                    <p className={"mt-3"}>This is where you will hear about the topic that
+                                {!selectedSpecificIssue && !showDemographics &&
+                                    <p>This is where you will hear about the topic that
                                         you
                                         select.
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div>
-                            {!showDemographics && <h6>Data Legend</h6>}
-                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
-                        </div>
+
+                            {!showDemographics && <p className={"small-font m-0"}></p>}
+                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
+                            setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}   />
+
+
+
+
+
 
 
                     </div>
                 </div>
             </div>
             <div
-                className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue === 2 ? "top-border" : "")} ${selectedIssue ? "collapse-issue" : ""} issues-chapters`}
+                className={`${selectedIssue === 3 ? 'issues-chapters-active' : (selectedIssue === 2 ? "top-border" : "")} ${selectedIssue || showDemographics ? "collapse-issue" : ""} issues-chapters`}
                 onClick={() => {
                     setSelectedSpecificIssue(null)
-                    setShowDemographics(false)
+                    //setShowDemographics(false)
                     //setCommunitySearch(null)
                     //setCompareSearch(null)
                     if (selectedIssue !== 3) {
@@ -187,41 +206,93 @@ export default function IssuesMiddleColumn({
                                     currentValue={selectedSpecificIssue}
                                     setValue={setSelectedSpecificIssue}
                                     setShowDemographics={setShowDemographics}
+                                    issues={issues} issue_categories={issue_categories}
                     />
 
                     <div className={"d-flex flex-column justify-content-between h-100"}>
                         {((selectedSpecificIssue && !showDemographics) || (!selectedSpecificIssue)) &&
-                            <div className={"thirds"}>
+                            <div className={"thirds mt-3"}>
                                 {selectedSpecificIssue && !showDemographics && getRankingNarrative(infrastructure_issues)}
-                                {!selectedSpecificIssue &&
-                                    <p className={"mt-3"}>This is where you will hear about the topic that
+                                {!selectedSpecificIssue && !showDemographics &&
+                                    <p>This is where you will hear about the topic that
                                         you
                                         select.
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div>
-                            {!showDemographics && <h6>Data Legend</h6>}
-                            <Legend issues={issues} selectedSpecificIssue={selectedSpecificIssue}/>
-                        </div>
+
+                            {!showDemographics && <p className={"small-font m-0"}></p>}
+                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
+                            setToggleUnderperformers={setToggleUnderperformers} boundary={boundary} />
+
+
+
 
 
                     </div>
                 </div>
             </div>
 
-            <div
+                <div
+                className={`collapse-issue transition-height
+                ${selectedIssue ? "some-height" : "no-height"}
+                ${showDemographics ? "bottom-border issues-chapters-active" : ""} ${selectedIssue === 3 ? "top-border" : ""} issues-chapters no-bottom-border`}
+                onClick={() => {
+                    if (selectedIssue) setShowDemographics(!showDemographics)
+
+                }
+                }
+                id="bottom-chapter"
+            >
+                <div className={`d-flex flex-row justify-content-between align-items-center
+                transition-height ${selectedIssue ? "some-height" : "no-height"}
+                `}>
+                    <h5 className={`${showDemographics ? 'mb-0' : 'mb-0'}`}>{showDemographics ? "Hide Demographics" : "Show Demographics"}</h5>
+                    {showDemographics ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}
+                </div>
+
+
+
+            </div>
+
+            <div className={`${showDemographics ? 'expand-issue' : ''} accordion-body`}>
+                <div className={"h-100 position-relative"}>
+                    <Demographics currentValue={demographic} setValue={setDemographic}
+                                  selectedSpecificIssue={selectedSpecificIssue}
+                                  setShowDemographics={setShowDemographics} showDemographics={showDemographics}
+                                  communitySearch={communitySearch} compareSearch={compareSearch}
+                                  mapDemographics={mapDemographics} setMapDemographics={setMapDemographics}
+                                  boundary={boundary} communities={communities} councils={councils}
+                                  selectedChapter={selectedChapter}
+                                  toggleTransit={toggleTransit} setToggleTransit={setToggleTransit}
+                                  toggleBike={toggleBike} setToggleBike={setToggleBike}
+                                  toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
+                                  legendBins={legendBins} colorRamps={colorRamps}
+                                  demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
+                                  setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
+
+                    />
+
+                </div>
+
+            </div>
+
+
+            {/*<div
                 className={`${selectedIssue ? 'collapse-issue' : ''} ${showDemographics ? "bottom-border issues-chapters-active" : ""} ${selectedIssue === 3 ? "top-border" : ""} issues-chapters no-bottom-border`}
                 onClick={() => {
-                    if (selectedSpecificIssue) {
-                        setShowDemographics(!showDemographics)
-                    }
-                }}>
+                    //if (selectedSpecificIssue ) {
+                    setShowDemographics(!showDemographics)
+                    //}
+                }}
+                id="bottom-chapter"
+            >
                 <div className={'d-flex flex-row justify-content-between align-items-center'}>
                     <h5 className={`${showDemographics ? 'mb-0' : 'mb-0'}`}>{showDemographics ? "Hide Demographics" : "Show Demographics"}</h5>
                     {showDemographics ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}
                 </div>
-                <h5 className={`${!selectedIssue ? "vis" : "invis"}`}>Demographics imperdiet dui accumsan sit amet. Diam
+                <h5 className={`${!showDemographics && !selectedIssue ? "vis" : "invis"}`}>Demographics imperdiet dui
+                    accumsan sit amet. Diam
                     donec adipiscing.</h5>
             </div>
             <div className={`${showDemographics ? 'expand-issue' : ''} accordion-body`}>
@@ -236,7 +307,7 @@ export default function IssuesMiddleColumn({
 
                 </div>
 
-            </div>
+            </div>*/}
 
 
         </div>

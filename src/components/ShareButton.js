@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from "react"
+import React, {useState} from "react"
+import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInstagram, faLinkedinIn, faSquareFacebook, faTwitter} from "@fortawesome/free-brands-svg-icons";
-import {faCopy, faSquareShareNodes} from "@fortawesome/free-solid-svg-icons";
+import {faCopy} from "@fortawesome/free-solid-svg-icons";
+import {default as _SHARE} from "../img/share.svg";
 
 export default function ShareButton({}) {
 
@@ -11,19 +13,40 @@ export default function ShareButton({}) {
         navigator.clipboard.writeText(window.location.href)
     }
 
-
+    const uploadTwitter = () => {
+        const endpoint = "https://upload.twitter.com/1.1/media/upload.json";
+        axios
+            .post(endpoint,
+                {
+                    Name: "Name",
+                    command: "INIT",
+                    total_bytes: "10240",
+                    body: "This is a new post.",
+                    media_type: "image/jpeg"
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                }
+            )
+            .then((res) => {
+                console.log(res)
+            })
+    }
 
 
     return (
         <>
             <div className={"share"}>
                 <small className={"m-0"}>Share</small>
-                <div>
-                    <FontAwesomeIcon icon={faSquareShareNodes} color={"black"} className={"fa-2x"}
-                                     onClick={(e)=>{
+                <div className={"share-icon"}>
+                    <img src={_SHARE}
+                                     onClick={(e) => {
                                          e.preventDefault()
 
-                                         setClicked(!clicked)}}/>
+                                         setClicked(!clicked)
+                                     }}/>
                 </div>
             </div>
             <div className={`${clicked ? "" : "d-none"} position-absolute share-icons`}>
@@ -38,8 +61,7 @@ export default function ShareButton({}) {
                                  onClick={
                                      () => {
                                          setClicked(false)
-                                         const currentURL = window.location.href;
-                                         window.open(`https://twitter.com/intent/tweet?text=@twitter look at this:&url=${currentURL}`)
+                                         uploadTwitter()
                                      }
                                  }
                 />

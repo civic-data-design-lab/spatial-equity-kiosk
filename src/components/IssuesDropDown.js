@@ -4,11 +4,14 @@ import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 
 
 
-export default function IssuesDropDown({currentValue = null, items, setValue = null, setShowDemographics}) {
+export default function IssuesDropDown({currentValue = null, items, setValue = null,
+                                           setShowDemographics, issues,
+                                           issue_categories
+                                       }) {
 
     const [showDropdownItems, setShowDropdownItems] = useState(false)
     const [toggleText, setToggleText] = useState("Select an issue to explore")
-
+    const [included, setIncluded] = useState(false)
 
 
     useEffect(() => {
@@ -17,19 +20,21 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
             if (item.specific_issue_ID === currentValue) {
                 setToggleText(item.specific_issue_name)
                 changed = true
+                setIncluded(true)
             }
         })
         if (!changed) {
             setToggleText("Select an issue to explore")
+            setIncluded(false)
         }
     })
 
     return (
         <>
 
-            <div className={"dropdown-container mb-3"}
+            <div className={"dropdown-container"}
             >
-                <div className={"dropdown-bar d-flex flex-row justify-content-between align-items-center mb-0"}
+                <div className={`${included && currentValue ? `dropdown-bar-${issue_categories.labels[issues.specific_issues_data[currentValue].issue_type_ID]}` : "dropdown-bar-black"} dropdown-bar d-flex flex-row justify-content-between align-items-center mb-0`}
                      onMouseDown={() => {
                          setShowDropdownItems(!showDropdownItems)
                      }}
@@ -57,11 +62,11 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                                             setShowDemographics(false)
                                         } else {
                                             setValue(item.specific_issue_ID)
-                                            //setShowDemographics(true)
+                                            setShowDemographics(true)
                                         }
                                     }}
                                 >
-                                    {item.specific_issue_name}
+                                    <p className={"small-font mb-0"}>{item.specific_issue_name}</p>
                                 </div>)
 
                         })}

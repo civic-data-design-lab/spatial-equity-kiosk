@@ -2,8 +2,17 @@ import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
 import Table from "react-bootstrap/Table";
+import categories from "../texts/issue_categories.json"
 
-export default function IssueProfile({issues, selectedSpecificIssue, rankingProse = false, boundary}) {
+import rankings from "../data/rankings.json";
+
+export default function IssueProfile({
+                                         issues,
+                                         selectedSpecificIssue,
+                                         rankingProse = false,
+                                         boundary,
+                                         setSelectedSpecificIssue
+                                     }) {
 
     const [expand, setExpand] = useState(false)
 
@@ -11,9 +20,30 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
         return issues.specific_issues_data[selectedSpecificIssue].specific_issue_name || null
     }
 
-    const getIssueSolutions = () => {
-        return issues.specific_issues_data[selectedSpecificIssue].specific_issue_solutions || null
+    const getHyperlinkText = (texts) => {
+        return <p>
+            {texts.map((texts)=>{
+                return <>{texts.text}{texts.hyperlink && <span className={`${categories.labels[issues.specific_issues_data[selectedSpecificIssue].issue_type_ID]}`}><a className={`hyperlink ${categories.labels[issues.specific_issues_data[selectedSpecificIssue].issue_type_ID]}`} href={texts.source} target="_blank">{texts.hyperlink}</a></span>}</>
+        })}
+        </p>
     }
+
+    const getListSolution = () => {
+        return issues.specific_issues_data[selectedSpecificIssue].specific_issue_solutions.solutions_list.map((solution)=>{
+            return <li>{getHyperlinkText(solution)}</li>
+        })
+
+    }
+
+
+    const getRelatedIssues = () => {
+        return issues.specific_issues_data[selectedSpecificIssue].related.map((issue, index) => {
+            return <span> <a onClick={() => {
+                setSelectedSpecificIssue(issue)
+            }}>{issues.specific_issues_data[issue].specific_issue_name}</a>{index === 2 ? "." : ","}</span>
+        })
+    }
+
 
     return (
 
@@ -30,7 +60,7 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
                 <h5 className={"issues-tile-heading bold"}>
                     Worst {getIssueName()} by District
                 </h5>
-                <div className={"small-font"}>
+                <div className={"smaller-font"}>
                     <Table bordered>
                         <thead>
                         <tr>
@@ -42,26 +72,22 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
                         <tbody>
 
                         {/*TODO: populate chart with ranking data*/}
-                        {issues.all_issues_id.slice(0, 5).map((id, index) => {
+                        {rankings[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id].slice(0, 5).map((entry, index) => {
                             return <tr key={index}>
-                                <td>{issues.specific_issues_data[id].specific_issue_ID}</td>
-                                <td>{issues.specific_issues_data[id].specific_issue_name}</td>
-                                <td>{issues.specific_issues_data[id].specific_issue_source}</td>
+                                <td>{entry.rank}</td>
+                                <td>{entry.community}</td>
+                                <td>{entry.data}</td>
                             </tr>
                         })}
 
 
-                                {expand && issues.all_issues_id.slice(5).map((id, index) => {
-
-                                    return <tr key={index}>
-                                        <td>{issues.specific_issues_data[id].specific_issue_ID}</td>
-                                        <td>{issues.specific_issues_data[id].specific_issue_name}</td>
-                                        <td>{issues.specific_issues_data[id].specific_issue_source}</td>
-                                    </tr>
-
-                                }
-
-                            )}
+                        {expand && rankings[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id].slice(5).map((entry, index) => {
+                            return <tr key={index}>
+                                <td>{entry.rank}</td>
+                                <td>{entry.community}</td>
+                                <td>{entry.data}</td>
+                            </tr>
+                        })}
 
                         </tbody>
                     </Table>
@@ -81,19 +107,22 @@ export default function IssueProfile({issues, selectedSpecificIssue, rankingPros
                     About this Indicator
                 </h5>
                 <div>
-                    Neighborhoods with fewer street trees are hotter, more polluted, more flood-prone, and have higher
-                    rates of heat-related mortality. Street trees can remove pollution from the air, lower the air
-                    temperature, mitigate heat-related mortality, increase ground permeability, mitigate flooding, and
-                    help keep stormwater runoff and street pollution out of waterways.
+                    {getHyperlinkText(issues.specific_issues_data[selectedSpecificIssue].specific_issue_description)}
                 </div>
+                <div className={"fst-italic"}>Related: {getRelatedIssues()}</div>
             </div>
             <div className={"issues-tile-solutions issues-tile-text"}>
                 <h5 className={"issues-tile-heading bold"}>
                     Take Action
                 </h5>
                 <div>
-                    {getIssueSolutions()}
+                    {getHyperlinkText(issues.specific_issues_data[selectedSpecificIssue].specific_issue_solutions.base_text)}
+
+                    <ol>
+                        {getListSolution()}
+                    </ol>
                 </div>
+
 
             </div>
         </div>

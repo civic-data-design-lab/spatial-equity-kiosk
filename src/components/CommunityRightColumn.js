@@ -14,7 +14,8 @@ export default function CommunityRightColumn({
                                                  showMap, setShowMap, showToggle,
                                                  selectedIssue, selectedChapter,
                                                  boundary, demographic, showDemographics,
-                                                 setMoreIssues, moreIssuesLength, moreIssues, setMoreIssuesLength
+                                                 setMoreIssues, moreIssuesLength, moreIssues, setMoreIssuesLength,
+    setSelectedSpecificIssue
 
                                              }) {
 
@@ -65,8 +66,10 @@ export default function CommunityRightColumn({
                             </div>
                         </div>
                     </div>
-                    {/*<FontAwesomeIcon icon={faArrowLeft}/>
-                    <p className={"m-0"}>Click on a card to learn more about the issue</p>*/}
+                    <div className={"d-flex flex-row col-gap prompt"}>
+                        <FontAwesomeIcon icon={faArrowLeft} className={"fa-lg"}/>
+                        <h5 className={"m-0"}>Click on a card to learn more about the issue</h5>
+                    </div>
                 </div>
             }
 
@@ -97,7 +100,8 @@ export default function CommunityRightColumn({
                     </div>
                     <div className={"standard-padding overflow-scroll"}>
                         <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue}
-                                      rankingProse={true} boundary={boundary}/>
+                                      rankingProse={true} boundary={boundary} setSelectedSpecificIssue={setSelectedSpecificIssue}
+                        />
                     </div>
                 </div>}
 

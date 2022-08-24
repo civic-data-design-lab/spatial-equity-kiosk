@@ -21,7 +21,8 @@ function Nav({
                  setCompareSearch,
                  setShowMap,
                  councils,
-                 setMoreIssues, setMoreIssuesLength
+                 setMoreIssues, setMoreIssuesLength, addCompare, setAddCompare, 
+                 setSelectedCoord       
              }) {
 
 
@@ -29,10 +30,11 @@ function Nav({
 
         <div className={"col-3 h-100 d-flex flex-column"}>
             <div className={`nav-chapters d-flex flex-column justify-content-between top-border
-             ${!selectedChapter ? "" : (selectedChapter === 1 ? "expanded-nav" : "collapsed-nav")}`}
+             ${!selectedChapter ? "" : (selectedChapter === 1 ? "expanded-nav" : "collapsed-nav")}
+             ${selectedChapter === 2? "bottom-highlight" : ""}`}
                  onClick={() => {
-                     setSelectedIssue(null)
-                     setSelectedSpecificIssue(null)
+                     //setSelectedIssue(null)
+                     //setSelectedSpecificIssue(null)
                      setMoreIssuesLength(0)
                      setMoreIssues([])
                      if (selectedChapter !== 1) {
@@ -40,7 +42,10 @@ function Nav({
                          setShowMap(false)
                      } else {
                          setSelectedChapter(null)
+                         setShowMap(false)
                      }
+                     setCommunitySearch(null)
+                    setCompareSearch(null)
                  }}
             >
                 <div>
@@ -57,11 +62,11 @@ function Nav({
                 <div
                     className={`${selectedChapter === 1 ? "nav-chapters-content-expanded" : ""} nav-chapters-content `}>
                     <div className={"no-pointer"}>
-                        <p>Introduction text to issues in New York City. Elit at imperdiet dui accumsan sit amet.
+                        <h5>Introduction text to issues in New York City. Elit at imperdiet dui accumsan sit amet.
                             Diam donec adipiscing tristique risus nec feugiat in. Vel turpis nunc eget lorem dolor sed
                             viverra.
                             Elit at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat
-                            in. </p>
+                            in. </h5>
                     </div>
                 </div>
             </div>
@@ -69,20 +74,23 @@ function Nav({
 
             <div className={`nav-chapters d-flex flex-column
              ${!selectedChapter ? "" : (selectedChapter === 2 ? "expanded-nav" : "collapsed-nav")}
-             `}
+             ${selectedChapter === 3 ? "bottom-highlight" : ""}`}
                  onClick={() => {
-                     setCompareSearch(null)
-                     setCommunitySearch(null)
-                     setShowMap(false)
-                     setSelectedIssue(null)
-                     setSelectedSpecificIssue(null)
+                     //setCompareSearch(null)
+                     //setCommunitySearch(null)
+                     //setShowMap(false)
+                     //setSelectedIssue(null)
+                     //setSelectedSpecificIssue(null)
                      setMoreIssuesLength(0)
                      setMoreIssues([])
                      if (selectedChapter !== 2) {
                          setSelectedChapter(2)
                      } else {
                          setSelectedChapter(null)
+                         setShowMap(false)
                      }
+                     setCommunitySearch(null)
+                    setCompareSearch(null)
 
                      /*if (selectedSpecificIssue) {
                          setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
@@ -113,15 +121,18 @@ function Nav({
 
             <div className={`nav-chapters d-flex flex-column
              ${!selectedChapter ? "" : (selectedChapter === 3 ? "expanded-nav" : "collapsed-nav")}
-             `}
+             ${selectedChapter === 4? "bottom-highlight":""}`}
                  onClick={() => {
-                     setSelectedIssue(null)
-                     setSelectedSpecificIssue(null)
+                     //setSelectedIssue(null)
+                     //setSelectedSpecificIssue(null)
                      if (selectedChapter !== 3) {
                          setSelectedChapter(3)
                      } else {
                          setSelectedChapter(null)
+                         setShowMap(false)
                      }
+                     setCommunitySearch(null)
+                    setCompareSearch(null)
                  }}
             >
                 <div>
@@ -143,16 +154,18 @@ function Nav({
                     </div>
                     <CommunityNav communities={communities} communitySearch={communitySearch}
                                   compareSearch={compareSearch} setCommunitySearch={setCommunitySearch}
-                                  setCompareSearch={setCompareSearch} boundary={boundary} councils={councils}/>
+                                  setCompareSearch={setCompareSearch} boundary={boundary} councils={councils}
+                                  addCompare={addCompare} setAddCompare={setAddCompare} setSelectedCoord={setSelectedCoord}
+                    />
                 </div>
             </div>
 
 
-            <div className={`nav-chapters d-flex flex-column justify-content-between 
+            <div className={`nav-chapters d-flex flex-column justify-content-between no-bottom-border
              ${!selectedChapter ? "flex-grow-0 " : (selectedChapter === 4 ? "expanded-nav" : "collapsed-nav")}`}
                  onClick={() => {
-                     setSelectedIssue(null)
-                     setSelectedSpecificIssue(null)
+                     //setSelectedIssue(null)
+                     //setSelectedSpecificIssue(null)
                      setMoreIssuesLength(0)
                      setMoreIssues([])
                      if (selectedChapter !== 4) {
@@ -160,17 +173,20 @@ function Nav({
                          setShowMap(false)
                      } else {
                          setSelectedChapter(null)
+                         setShowMap(false)
                      }
+                     setCommunitySearch(null)
+                    setCompareSearch(null)
                  }}
             >
                 <div>
                     <div
-                        className={`nav-title ${selectedChapter !== 4 ? '' : 'collapse-nav-title'}`}>
-                        <h5 className={"mb-0"}>Learn More & Take Action</h5>
+                        className={`nav-title ${selectedChapter !== 4 ? '' : ''}`}>
+                        <h5 className={"mb-0"}>{selectedChapter !== 4 ? 'Learn More & Take Action' : 'Learn More &'}</h5>
                     </div>
 
                     <p className={`${selectedChapter === 4 ? "h1" : "collapse-nav-title"} transition-font m-0`}>
-                        Learn More & Take Action
+                        Take Action
                     </p>
                 </div>
 
@@ -204,11 +220,11 @@ function Nav({
                                   href={`//www.linkedin.com/company/transportation-alternatives`}><FontAwesomeIcon
                                 icon={faLinkedinIn}/></a></div>
                         </div>
-                        <button className={`${selectedChapter !== 4 ? "pe-none" : ""} about-button`}
+                        {/*<button className={`${selectedChapter !== 4 ? "pe-none" : ""} about-button`}
                                 onClick={(e) => {
                                     e.stopPropagation()
                                 }}
-                        ><small>Stay Tuned</small></button>
+                        ><small>Stay Tuned</small></button>*/}
                     </div>
                 </div>
             </div>

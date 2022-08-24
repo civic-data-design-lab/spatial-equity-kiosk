@@ -1,54 +1,101 @@
 {
-    "all_dem_id": [1, 2, 3, 4, 5, 6, 7],
-    "specific_dem_data": {
-        "1": {
-            "specific_dem_ID": 1,
-            "specific_dem_name": "",
-            "specific_dem_units": "",
-            "specific_issue_source": "source name source name source name"
-        },
-
-        "2": {
-            "specific_dem_ID": 2,
-            "specific_dem_name": "",
-            "specific_dem_units": "",
-            "specific_issue_source": "source name source name source name"
-        },
-
-        "3": {
-            "specific_dem_ID": 3,
-            "specific_dem_name": "",
-            "specific_dem_units": "",
-            "specific_issue_source": "source name source name source name"
-        },
-
-        "4": {
-            "specific_dem_ID": 4,
-            "specific_dem_name": "",
-            "specific_dem_units": "",
-            "specific_issue_source": "source name source name source name"
-        },
-   
-        "5": {
-            "specific_dem_ID": 5,
-            "specific_dem_name": "",
-            "specific_dem_units": "",
-            "specific_issue_source": "source name source name source name"
-        },
-   
-        "6": {
-            "specific_dem_ID": 6,
-            "specific_dem_name": "",
-            "specific_dem_units": "",
-            "specific_issue_source": "source name source name source name"
-        },
-   
-        "7": {
-            "specific_dem_ID": 7,
-            "specific_dem_name": "",
-            "specific_dem_units": "",
-            "specific_issue_source": "source name source name source name"
-        }
-    }
-
+  "default": {
+    "name": "",
+    "lookup": "",
+    "colorRamp": [
+      [248, 198, 220],
+      [244, 151, 192],
+      [237, 109, 159],
+      [230, 87, 149],
+      [233, 50, 128]
+    ]
+  },
+  "1": {
+    "name": "Race and Ethnicity",
+    "lookup": "",
+    "colorRamp": [
+      [248, 198, 220],
+      [244, 151, 192],
+      [237, 109, 159],
+      [230, 87, 149],
+      [233, 50, 128]
+    ]
+  },
+  "2": {
+    "name": "Below the Poverty Line",
+    "lookup": "F12_Pvt10k",
+    "colorRamp": [
+      [187, 241, 209],
+      [129, 228, 170],
+      [97, 210, 143],
+      [59, 172, 105],
+      [23, 159, 78]
+    ]
+  },
+  "3": {
+    "name": "Bike to Work",
+    "lookup": "F6_bike",
+    "colorRamp": [
+      [255, 255, 204],
+      [161, 218, 180],
+      [65, 182, 196],
+      [44, 127, 184],
+      [37, 52, 148]
+    ]
+  },
+  "4": {
+    "name": "Car Free",
+    "lookup": "F7_CarFree",
+    "colorRamp": [
+      [240, 249, 232],
+      [186, 228, 188],
+      [123, 204, 196],
+      [67, 162, 202],
+      [8, 104, 172]
+    ]
+  },
+  "5": {
+    "name": "Public Transit to Work",
+    "lookup": "F8_PubTran",
+    "colorRamp": [
+      [254, 240, 217],
+      [253, 204, 138],
+      [252, 141, 89],
+      [227, 74, 51],
+      [179, 0, 0]
+    ]
+  },
+  "6": {
+    "name": "Drive Alone to Work",
+    "lookup": "F9_DrvAlon",
+    "colorRamp": [
+      [246, 239, 247],
+      [189, 201, 225],
+      [103, 169, 207],
+      [28, 144, 153],
+      [1, 108, 89]
+    ]
+  },
+  "7": {
+    "name": "Transit, Walk, or Bike",
+    "lookup": "F10_TrsBkW",
+    "colorRamp": [
+      [254, 235, 226],
+      [251, 180, 185],
+      [247, 104, 161],
+      [197, 27, 138],
+      [122, 1, 119]
+    ]
+  },
+  "8": {
+    "name": "Walk",
+    "lookup": "F11_Walk",
+    "colorRamp": [
+      [254, 237, 222],
+      [253, 190, 133],
+      [253, 141, 60],
+      [230, 85, 13],
+      [166, 54, 3]
+    ]
+  }
 }

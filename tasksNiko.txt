@@ -1,0 +1,11 @@
+Legend Middle Column:
+    - demographic buildup of transportation methods
+
+Map
+    - revert to original scroll method and figure out how to update viewstate that way. (WIP works but get non-breaking error)
+    - demographic legend
+    - update how demographics are reported in the tooltip
+    - update demo stuf for neighborhood scale
+
+General
+    - introduction text should always be available on Spatial Equity chapter?
