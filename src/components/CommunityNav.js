@@ -1,6 +1,6 @@
-import React, {useEffect} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRight, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Slider from "./Carousel";
 
 
@@ -8,13 +8,14 @@ import CommunitySearchBar from "./CommunitySearchBar";
 
 
 export default function CommunityNav({
-                                         communities, communitySearch,
-                                         compareSearch,
-                                         setCommunitySearch,
-                                         setCompareSearch,
-                                         boundary, councils,
-                                         addCompare, setAddCompare,
-                                     }) {
+    communities, communitySearch,
+    compareSearch,
+    setCommunitySearch,
+    setCompareSearch,
+    boundary, councils,
+    addCompare, setAddCompare,
+    setSelectedCoord
+}) {
 
 
     useEffect(() => {
@@ -38,24 +39,24 @@ export default function CommunityNav({
                     if (key !== compareSearch) {
                         searchItems.push(
                             <div key={key}
-                                 onClick={(e) => {
-                                     e.stopPropagation()
-                                 }}
-                                 className={`${communitySearch && communitySearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
-                                 onMouseDown={(e) => {
-                                     e.stopPropagation()
-                                     setCommunitySearch(key)
-                                 }
-                                 }
+                                onClick={(e) => {
+                                    e.stopPropagation()
+                                }}
+                                className={`${communitySearch && communitySearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
+                                onMouseDown={(e) => {
+                                    e.stopPropagation()
+                                    setCommunitySearch(key)
+                                }
+                                }
                             >
                                 <div className={"row w-100 p-0 m-0"}>
                                     <div className={"col-10 m-0 p-0"}>
                                         <span
-                                            style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
+                                            style={{ fontWeight: 'bold' }}>{value.bolded_text}</span> {value.remaining_text}
                                     </div>
                                     <div
                                         className={`${communitySearch && communitySearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
-                                        <FontAwesomeIcon icon={faArrowRight}/></div>
+                                        <FontAwesomeIcon icon={faArrowRight} /></div>
                                 </div>
                             </div>
                         )
@@ -67,19 +68,19 @@ export default function CommunityNav({
                     if (key !== communitySearch) {
                         searchItems.push(
                             <div key={key}
-                                 className={`${compareSearch && compareSearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
-                                 onMouseDown={() => {
-                                     setCompareSearch(key)
-                                 }}
+                                className={`${compareSearch && compareSearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
+                                onMouseDown={() => {
+                                    setCompareSearch(key)
+                                }}
                             >
                                 <div className={"row w-100 p-0 m-0"}>
                                     <div className={"col-10 m-0 p-0"}>
                                         <span
-                                            style={{fontWeight: 'bold'}}>{value.bolded_text}</span> {value.remaining_text}
+                                            style={{ fontWeight: 'bold' }}>{value.bolded_text}</span> {value.remaining_text}
                                     </div>
                                     <div
                                         className={`${compareSearch && compareSearch.startsWith(key) ? "visible" : "invisible"} d-flex col-2 p-0 flex-row justify-content-center align-items-center`}>
-                                        <FontAwesomeIcon icon={faArrowRight}/></div>
+                                        <FontAwesomeIcon icon={faArrowRight} /></div>
                                 </div>
                             </div>
                         )
@@ -96,7 +97,8 @@ export default function CommunityNav({
                 <CommunitySearchBar
                     toggleValue={communitySearch ? ((communities[communitySearch] && communities[communitySearch].bolded_text) || (councils[communitySearch] && councils[communitySearch].bolded_text)) : null}
                     communitySearch={communitySearch}
-                    callBack={setCommunitySearch}>
+                    callBack={setCommunitySearch}
+                    setSelectedCoord={setSelectedCoord}>
                     {getSearchItems(true, boundary)}
                 </CommunitySearchBar>
 
@@ -104,7 +106,8 @@ export default function CommunityNav({
                     <CommunitySearchBar
                         toggleValue={compareSearch ? ((communities[compareSearch] && communities[compareSearch].bolded_text) || (councils[compareSearch] && councils[compareSearch].bolded_text)) : null}
                         communitySearch={communitySearch} forSearch={false} setAddCompare={setAddCompare}
-                        callBack={setCompareSearch}>
+                        callBack={setCompareSearch}
+                        setSelectedCoord={setSelectedCoord}>
                         {getSearchItems(false, boundary)}
                     </CommunitySearchBar>
                 }
@@ -120,8 +123,8 @@ export default function CommunityNav({
                     >
                         {!addCompare ? <p className={"m-0"}>Compare Communities</p> :
                             <p className={"m-0"}>Remove Community</p>}
-                        {!addCompare ? <FontAwesomeIcon icon={faPlus} width={32}/> :
-                            <FontAwesomeIcon icon={faMinus} width={32}/>}
+                        {!addCompare ? <FontAwesomeIcon icon={faPlus} width={32} /> :
+                            <FontAwesomeIcon icon={faMinus} width={32} />}
                     </div>
                 }
 
