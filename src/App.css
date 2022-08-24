@@ -724,10 +724,6 @@ a:active {
     justify-items: left;
 }
 
-.map-tooltip-info{
-    /* border: 1px solid red; */
-}
-
 .map-tooltip-info:last-child{
     padding-top: 0px;
 }
@@ -925,11 +921,20 @@ a:active {
     align-items: center;
 }
 
+.placeholder-legend-ethnicity {
+    grid-template-columns: 1fr 1fr 7fr;
+}
+
 .legend-grid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
+.legend-scale{
+    border: 1px solid black;
+    height: 75%;
+    width: 100%;
+}
 .small-font {
     font-size: .75em;
 }

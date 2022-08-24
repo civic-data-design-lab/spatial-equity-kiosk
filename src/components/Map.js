@@ -93,6 +93,8 @@ export default function DeckMap({
   toggleTransit,
   toggleBike,
   toggleWalk,
+  setDemoLegendBins,
+  setDemoColorRamp,
 }) {
   // map hooks
   const deckRef = useRef(null);
@@ -143,7 +145,9 @@ export default function DeckMap({
 
   // pick color ramp for metrics and have default to avoid errors
   const selectedRamp =
-    selectedIssue === 1 ? "health" : selectedIssue === 2
+    selectedIssue === 1
+      ? "health"
+      : selectedIssue === 2
       ? "env"
       : selectedIssue === 3
       ? "infra"
@@ -151,7 +155,6 @@ export default function DeckMap({
 
   const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
   const binList = []; // derived from the selectedMetricArray array, this is the list of bins for the legend
-
 
   // 01.1 get an array of all the values for the selected metric
   for (let i = 0; i < mapScale.features.length; i++) {
@@ -180,7 +183,6 @@ export default function DeckMap({
   });
 
   const uniqueValueArray = [...new Set(sortedSelectedMetricArray)];
-  // console.log(selectedMetricArray, uniqueValueArray);
 
   // 01.2 break the metric array into bins and get the bin list
   for (let i = 0; i < binSize; i++) {
@@ -192,26 +194,20 @@ export default function DeckMap({
       );
     } else {
       const interval = Math.floor(
-        (uniqueValueArray.length / binSize) * (i + 1)
+        ((uniqueValueArray.length - 1) / binSize) * (i + 1)
       );
       // quantile breaks
       binList.push(uniqueValueArray[interval]);
     }
   }
 
-  // 01.3 set legend scale and color
-  useEffect(() => {
-    if (binList.length > 0) {
-      setColorRamps(selectedRamp);
-    }
-  }, [selectedSpecificIssue, zoomToggle, selectedBoundary]);
-
   // 01.4 Color Scale function
   const COLOR_SCALE =
     dataScale == "equal"
       ? scaleThreshold().domain(binList).range(_CHAPTER_COLORS[selectedRamp])
-      : scaleQuantile().domain(uniqueValueArray).range(_CHAPTER_COLORS[selectedRamp]); //quantile bins
-
+      : scaleQuantile()
+          .domain(uniqueValueArray)
+          .range(_CHAPTER_COLORS[selectedRamp]); //quantile bins
 
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 
@@ -327,7 +323,9 @@ export default function DeckMap({
         Math.round((threshold * (i + 1) + min(legendScale)) * 100) / 100
       );
     } else {
-      const interval = Math.floor((uniqueDemoArray.length / binSize) * (i + 1));
+      const interval = Math.floor(
+        ((uniqueDemoArray.length - 1) / binSize) * (i + 1)
+      );
       //  quantile breaks
       demoBinList.push(uniqueDemoArray[interval]);
     }
@@ -536,8 +534,7 @@ export default function DeckMap({
   };
 
   // 05 TOOLTIP END ----------------------------------------------------------------------------------------------
-  // console.log(selectedDemoArray, "selectedDemoArray");
-  // console.log(_NEIGHBORHOODS.features, "N features");
+
   // 06 DIRECT PICKING ENGINE ----------------------------------------------------------------------------------------------
   const onSearch = useCallback((event) => {
     const pickInfo = deckRef.current.pickObject({
@@ -548,8 +545,7 @@ export default function DeckMap({
       radius: 0,
       layerIds: ["administrative-boundaries"],
     });
-/*    console.log(pickInfo);
-    console.log([event.clientX, event.clientY]);*/
+
   }, []);
 
   // coord projection test
@@ -557,6 +553,21 @@ export default function DeckMap({
   // const coordinate = { lon: -122.420679, lat: 37.772537 };
   // if (mapRef.current) console.log(mapRef.current.project(coordinate));
 
+  // 06 Render lifecycle
+  useEffect(() => {
+    if (binList.length > 0) {
+      setColorRamps(selectedRamp);
+    }
+    setDemoLegendBins(demoBinList);
+  }, [
+    selectedSpecificIssue,
+    zoomToggle,
+    selectedBoundary,
+    selectedDemographic,
+    toggleTransit,
+    toggleBike,
+    toggleWalk,
+  ]);
   // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
   const layers = [
     new GeoJsonLayer({
@@ -605,7 +616,7 @@ export default function DeckMap({
               !toggleBike &&
               !toggleWalk)
           ) {
-            return [0, 0, 0, 0];
+            return [255, 255, 255, 255];
           } else {
             return DEMO_COLOR_SCALE(fillValue);
           }
@@ -676,7 +687,7 @@ export default function DeckMap({
           !toggleBike &&
           !toggleWalk
         ) {
-          return [0, 0, 0, 0];
+          return [255, 255, 255, 255];
         }
         if (boundary == "community") {
           if (f.properties.Data_YN == "N") {
