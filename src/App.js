@@ -50,13 +50,11 @@ function App() {
     const [dataScale, setdataScale] = useState(false);
     const [highlightFeature, sethighlightFeature] = useState(null);
     const [openAssist, setOpenAssist] = useState(false);
-    const [demoColorRamp, setDemoColorRamp] = useState([1, 1, 1, 1, 1]);
-    const [demoLegendBins, setDemoLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
+    const [demoColorRamp, setDemoColorRamp] = useState([255,0,0],[0,255,0],[0,0,255],[255,255,0],[255,0,255]);
+    const [demoLegendBins, setDemoLegendBins] = useState([1, 1, 1, 1, 1]);
     const [selectedCoord, setSelectedCoord] = useState([]);
 
-    console.log(demoColorRamp,
-        demoLegendBins)
-
+    console.log(demoColorRamp)
     // map hooks
 
     // map starting position and view state constraints
@@ -411,6 +409,7 @@ function App() {
                             toggleTransit={toggleTransit}
                             toggleBike={toggleBike}
                             toggleWalk={toggleWalk}
+                            setDemoLegendBins={setDemoLegendBins}
                         />
                             {/*</div>
                             <div className={"wiper"}>

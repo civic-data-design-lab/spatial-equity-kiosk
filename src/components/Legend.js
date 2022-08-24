@@ -281,6 +281,11 @@ export default function Legend({
         }
       case true:
         //TODO: create legend for demographics here
+
+        // console.log(demoColorRamp, demoColorRamp.join(","));
+
+        // demoColorRamp
+        // demoLegendBins
         return (
           <div className={"d-flex flex-column row-gap"}>
             <div>
@@ -290,57 +295,78 @@ export default function Legend({
               <div className={"placeholder-legend"}>
                 <div
                   style={{
-                    color: `rgb(255,0,0)`,
+                    color: `rgb(${demoColorRamp.join(",")})`,
                     fontFamily: "Arial",
                   }}
                 >
                   ■
                 </div>
-                <div className={"m-0"}>B</div>
+                <div className={"m-0"}>
+                  {demoLegendBins[0] > 0
+                    ? "0"
+                    : (demoLegendBins[0] * 100).toFixed(0)}
+                  %
+                </div>
                 <div>→</div>
-                <div className={"m-0"}>0</div>
+                <div className={"m-0"}>
+                  {(demoLegendBins[1] * 100).toFixed(0)}%
+                </div>
                 <div
                   style={{
-                    color: `rgb(255,0,0)`,
+                    color: `rgb(${demoColorRamp.join(",")})`,
                     fontFamily: "Arial",
                   }}
                 >
                   ■
                 </div>
-                <div className={"m-0"}>0</div>
+                <div className={"m-0"}>
+                  {(demoLegendBins[1] * 100).toFixed(0)}%
+                </div>
                 <div>→</div>
-                <div className={"m-0"}>1</div>
+                <div className={"m-0"}>
+                  {(demoLegendBins[2] * 100).toFixed(0)}%
+                </div>
                 <div
                   style={{
-                    color: `rgb(255,0,0)`,
+                    color: `rgb(${demoColorRamp.join(",")})`,
                     fontFamily: "Arial",
                   }}
                 >
                   ■
                 </div>
-                <div className={"m-0"}>1</div>
+                <div className={"m-0"}>
+                  {(demoLegendBins[2] * 100).toFixed(0)}%
+                </div>
                 <div>→</div>
-                <div className={"m-0"}>2</div>
+                <div className={"m-0"}>
+                  {(demoLegendBins[3] * 100).toFixed(0)}%
+                </div>
                 <div
                   style={{
-                    color: `rgb(255,0,0)`,
+                    color: `rgb(${demoColorRamp.join(",")})`,
                     fontFamily: "Arial",
                   }}
                 >
                   ■
                 </div>
-                <div className={"m-0"}>2</div>
+                <div className={"m-0"}>
+                  {(demoLegendBins[3] * 100).toFixed(0)}%
+                </div>
                 <div>→</div>
-                <div className={"m-0"}>3</div>
+                <div className={"m-0"}>
+                  {(demoLegendBins[4] * 100).toFixed(0)}%
+                </div>
                 <div
                   style={{
-                    color: `rgb(255,0,0)`,
+                    color: `rgb(${demoColorRamp.join(",")})`,
                     fontFamily: "Arial",
                   }}
                 >
                   ■
                 </div>
-                <div className={"m-0"}>3+</div>
+                <div className={"m-0"}>
+                  {(demoLegendBins[4] * 100).toFixed(0)}%
+                </div>
               </div>
             </div>
           </div>

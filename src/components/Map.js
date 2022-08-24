@@ -93,6 +93,7 @@ export default function DeckMap({
   toggleTransit,
   toggleBike,
   toggleWalk,
+  setDemoLegendBins,
 }) {
   // map hooks
   const deckRef = useRef(null);
@@ -199,13 +200,6 @@ export default function DeckMap({
       binList.push(uniqueValueArray[interval]);
     }
   }
-
-  // 01.3 set legend scale and color
-  useEffect(() => {
-    if (binList.length > 0) {
-      setColorRamps(selectedRamp);
-    }
-  }, [selectedSpecificIssue, zoomToggle, selectedBoundary]);
 
   // 01.4 Color Scale function
   const COLOR_SCALE =
@@ -558,6 +552,20 @@ export default function DeckMap({
   // console.log(mapRef.current)
   // const coordinate = { lon: -122.420679, lat: 37.772537 };
   // if (mapRef.current) console.log(mapRef.current.project(coordinate));
+
+  // 06 Render lifecycle
+  useEffect(() => {
+    if (binList.length > 0) {
+      setColorRamps(selectedRamp);
+    }
+    setDemoLegendBins(demoBinList);
+    console.log(demoBinList);
+  }, [
+    selectedSpecificIssue,
+    zoomToggle,
+    selectedBoundary,
+    selectedDemographic,
+  ]);
 
   // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
   const layers = [
