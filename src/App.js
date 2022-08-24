@@ -381,7 +381,7 @@ function App() {
 
                         <div className={"map-subcontainer"}>
                             <div className={"individual-maps"}
-                                 id={"left-map"}
+                                 id={mapDemographics ? "left-map" : "left-map-alone"}
                             >
                                 <Map
                                     issues={issues}
@@ -430,9 +430,13 @@ function App() {
                                     toggleTransit={toggleTransit}
                                     toggleBike={toggleBike}
                                     toggleWalk={toggleWalk}
+                                    setDemoLegendBins={setDemoLegendBins}
+                                    setDemoColorRamp={setColorRamps}
                                 />
                             </div>
-                            <div className={"wiper"}
+                            {mapDemographics &&
+                                <>
+                                    <div className={"wiper"}
                                  id={"wiper"}
                                  onMouseDown={(e) => {
                                      // Get the current mouse position
@@ -500,8 +504,11 @@ function App() {
                                     toggleTransit={toggleTransit}
                                     toggleBike={toggleBike}
                                     toggleWalk={toggleWalk}
+                                    demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
+                                    setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
                                 />
                             </div>
+                                </>}
                         </div>
                     </div>
                 </Container>

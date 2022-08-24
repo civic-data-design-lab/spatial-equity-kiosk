@@ -681,6 +681,10 @@ a:active {
     display: flex;
 }
 
+#left-map-alone {
+    width: 100% !important;
+}
+
 #right-map {
     flex: 1;
 }
