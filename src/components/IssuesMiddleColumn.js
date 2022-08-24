@@ -17,13 +17,13 @@ export default function IssuesMiddleColumn({
                                                showDemographics, setShowDemographics,
                                                mapDemographics, setMapDemographics, boundary,
                                                communities, councils,
-                                               legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers,
+                                               colorRamps, toggleUnderperformers, setToggleUnderperformers, //legendBins,
                                                 selectedChapter, issue_categories,
                                                 toggleWalk, setToggleWalk,
                                                 toggleTransit, setToggleTransit,
                                                 toggleBike, setToggleBike, dataScale, 
                                                 setdataScale, setDemoColorRamp, setDemoLegendBins, demoColorRamp, demoLegendBins,
-    setColorRamps
+    handleLegend, zoomToggle, setColorRamps
 
                                            }) {
 
@@ -120,8 +120,10 @@ export default function IssuesMiddleColumn({
                             </div>}
 
                             {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
-                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
-                            setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}/>
+                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue}  colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
+                            setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}
+                                    handleLegend={handleLegend} selectedIssue={selectedSpecificIssue} zoomToggle={zoomToggle}
+                            />
 
 
 
@@ -172,7 +174,7 @@ export default function IssuesMiddleColumn({
                             </div>}
 
                             {!showDemographics && <p className={"small-font m-0"}></p>}
-                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
+                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}   />
 
 
@@ -226,7 +228,7 @@ export default function IssuesMiddleColumn({
                             </div>}
 
                             {!showDemographics && <p className={"small-font m-0"}></p>}
-                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
+                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary} />
 
 
@@ -271,7 +273,7 @@ export default function IssuesMiddleColumn({
                                   toggleTransit={toggleTransit} setToggleTransit={setToggleTransit}
                                   toggleBike={toggleBike} setToggleBike={setToggleBike}
                                   toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
-                                  legendBins={legendBins} colorRamps={colorRamps}
+                                  colorRamps={colorRamps} // legendBins={legendBins}
                                   demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
                                   setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
 

@@ -39,7 +39,7 @@ function App() {
     const [moreIssuesLength, setMoreIssuesLength] = useState(0);
     const [mapDemographics, setMapDemographics] = useState(false);
     const [addCompare, setAddCompare] = useState(false);
-    const [legendBins, setLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
+    //const [legendBins, setLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
     const [colorRamps, setColorRamps] = useState(null);
     const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
     const [coordinateLookup, setCoordinateLookup] = useState(null);
@@ -160,7 +160,7 @@ function App() {
              }*/
 
         console.log("colorRamps", colorRamps)
-        console.log("legendBins", legendBins)
+        //console.log("legendBins", legendBins)
 
         const params = [];
 
@@ -183,6 +183,7 @@ function App() {
         if (addCompare !== null) params.push(`aC=${addCompare.toString()}`);
         if (colorRamps !== null) params.push(`cR=${colorRamps}`);
 
+        // TODO: add colorRamps and legendBins
         let path = window.location.href.split("?")[0];
         path = path.concat("?");
         params.map((param) => {
@@ -331,7 +332,7 @@ function App() {
                         moreIssues={moreIssues} setMoreIssues={setMoreIssues}
                         moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
                         mapDemographics={mapDemographics} setMapDemographics={setMapDemographics}
-                        legendBins={legendBins} colorRamps={colorRamps}
+                        colorRamps={colorRamps} //legendBins={legendBins}
                         toggleUnderperformers={toggleUnderperformers}
                         setToggleUnderperformers={setToggleUnderperformers}
                         toggleTransit={toggleTransit} setToggleTransit={setToggleTransit}
@@ -340,7 +341,7 @@ function App() {
                         dataScale={dataScale} setdataScale={setdataScale}
                         demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
                         setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
-                        setColorRamps={setColorRamps}
+                        setColorRamps={setColorRamps} handleLegend={handleLegend} zoomToggle={zoomToggle}
                     />
 
 
@@ -361,8 +362,8 @@ function App() {
                             showDemographics={showDemographics}
                             mapDemographics={mapDemographics}
                             demographic={demographic}
-                            legendBins={legendBins}
-                            setLegendBins={setLegendBins}
+                            //legendBins={legendBins}
+                            //setLegendBins={setLegendBins}
                             colorRamps={colorRamps}
                             setColorRamps={setColorRamps}
                             toggleUnderperformers={toggleUnderperformers}

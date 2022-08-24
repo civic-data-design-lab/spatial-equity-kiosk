@@ -27,9 +27,9 @@ export default function Content({
                                     showDemographics, setShowDemographics,
                                     moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength, councils,
                                     mapDemographics, setMapDemographics,
-                                    legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers, issue_categories,
+                                    colorRamps, toggleUnderperformers, setToggleUnderperformers, issue_categories, //legengBins
                                     toggleTransit, toggleBike, toggleWalk, setToggleTransit, setToggleBike, setToggleWalk, dataScale,
-                                    setdataScale, demoColorRamp, demoLegendBins, setDemoColorRamp, setDemoLegendBins, setColorRamps
+                                    setdataScale, demoColorRamp, demoLegendBins, setDemoColorRamp, setDemoLegendBins, setColorRamps, handleLegend, zoomToggle
                                 }) {
 
 
@@ -47,7 +47,7 @@ export default function Content({
                         showDemographics={showDemographics} setShowDemographics={setShowDemographics}
                         mapDemographics={mapDemographics} setMapDemographics={setMapDemographics} boundary={boundary}
                         communities={communities} councils={councils}
-                        legendBins={legendBins}
+                        //legendBins={legendBins}
                         colorRamps={colorRamps}
                         toggleUnderperformers={toggleUnderperformers}
                         setToggleUnderperformers={setToggleUnderperformers} selectedChapter={selectedChapter}
@@ -58,7 +58,7 @@ export default function Content({
                         dataScale={dataScale} setdataScale={setdataScale}
                         demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
                         setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
-                        setColorRamps={setColorRamps}
+                        setColorRamps={setColorRamps} handleLegend={handleLegend} zoomToggle={zoomToggle}
 
                     />}
 

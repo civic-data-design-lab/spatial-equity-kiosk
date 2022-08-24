@@ -60,8 +60,6 @@ export default function DeckMap({
   showDemographics,
   mapDemographics,
   demographic,
-  legendBins,
-  setLegendBins,
   colorRamps,
   setColorRamps,
   toggleUnderperformers,
@@ -201,7 +199,6 @@ export default function DeckMap({
   // 01.3 set legend scale and color
   useEffect(() => {
     if (binList.length > 0) {
-      setLegendBins([uniqueValueArray[0], binList]);
       setColorRamps(selectedRamp);
     }
   }, [selectedSpecificIssue, zoomToggle, selectedBoundary]);
