@@ -1238,6 +1238,24 @@ input:checked + .slider:before {
     background-color: #146FD1;
 }
 
+.big-button {
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    transition: color 1s, background-color, border 1s;
+}
+
+.big-button-active {
+    color: white;
+    background-color: black;
+    border: 1.5px solid white;
+}
+
+.big-button-inactive {
+    color: black;
+    background-color: white;
+    border: 1.5px solid black;
+}
+
 
 
 /*TODO: print preview*/

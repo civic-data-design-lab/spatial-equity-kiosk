@@ -1,5 +1,6 @@
 import "./App.css";
 import React, {useEffect, useState} from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useLocation} from "react-router-dom";
 
@@ -38,11 +39,8 @@ function App() {
     const [moreIssuesLength, setMoreIssuesLength] = useState(0);
     const [mapDemographics, setMapDemographics] = useState(false);
     const [addCompare, setAddCompare] = useState(false);
-
-    //TODO: default values for legendBins and colorRamps?
-    const [legendBins, setLegendBins] = useState([0, [0,0,0,0,0]]);
-    const [colorRamps, setColorRamps] = useState([0, 0, 0, 0, 0]);
-
+    const [legendBins, setLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
+    const [colorRamps, setColorRamps] = useState([1, 1, 1, 1, 1]);
     const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
     const [coordinateLookup, setCoordinateLookup] = useState(null);
     const location = useLocation();
@@ -53,6 +51,8 @@ function App() {
     const [highlightFeature, sethighlightFeature] = useState(null);
     const [openAssist, setOpenAssist] = useState(false);
     const [coordinates, setCoordiantes] = useState([-73.20310023, 43.3213123]);
+    const [demoColorRamp, setDemoColorRamp] = useState([1, 1, 1, 1, 1]);
+    const [demoLegendBins, setDemoLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
 
     // map hooks
 
@@ -128,7 +128,6 @@ function App() {
                 case "aC":
                     setAddCompare(pair[1] === "true");
                     break;
-                // TODO: add colorRamps and legendBins
             }
         }
     }, []);
@@ -146,17 +145,14 @@ function App() {
              console.log("boundary ", boundary)
              console.log("selectedAbout ", selectedAbout)
              console.log("demographic", demographic)
-
              console.log("-------------------------------------------")*/
 
         console.log("legendBins ", legendBins)
-        console.log("colorRamps", colorRamps)
 
         /* if (!selectedSpecificIssue) {
                  setSelectedIssue(1)
                  setSelectedSpecificIssue(1)
              }
-
              if (!selectedSpecificIssue) {
                  setSelectedSpecificIssue(1)
              }*/
@@ -180,10 +176,6 @@ function App() {
         if (mapDemographics !== null)
             params.push(`mD=${mapDemographics.toString()}`);
         if (addCompare !== null) params.push(`aC=${addCompare.toString()}`);
-
-        // TODO: add colorRamps and legendBins
-        // if (colorRamps !== null) params.push(`cR=[[${colorRamps[0].toString()}],[${colorRamps[1].toString()}],[${colorRamps[2].toString()}],[${colorRamps[3].toString()}],[${colorRamps[4].toString()}]]`);
-        // if (legendBins !== null) params.push(`lB=[${legendBins[0].toString()},[${legendBins[1].toString()}]]`);
 
         let path = window.location.href.split("?")[0];
         path = path.concat("?");
@@ -281,117 +273,100 @@ function App() {
             {useWindowSize().width >= 576 ?
                 <Container fluid className={"h-100 p-0 m-0 d-flex flex-row"}>
                     <Nav
-        selectedChapter={selectedChapter}
-        setSelectedChapter={setSelectedChapter}
-        selectedIssue={selectedIssue}
-        issue_categories={issue_categories}
-        boundary={boundary}
-        setBoundary={setBoundary}
-        selectedSpecificIssue={selectedSpecificIssue}
-        issues={issues}
-        setSelectedIssue={setSelectedIssue}
-        communities={communities}
-        communitySearch={communitySearch}
-        compareSearch={compareSearch}
-        setCommunitySearch={setCommunitySearch}
-        setCompareSearch={setCompareSearch}
-        setShowMap={setShowMap}
-        setSelectedSpecificIssue={setSelectedSpecificIssue}
-        councils={councils}
-        setMoreIssues={setMoreIssues}
-        setMoreIssuesLength={setMoreIssuesLength}
-        addCompare={addCompare}
-        setAddCompare={setAddCompare}
-      />
+                        setShowMap={setShowMap}
+                        selectedChapter={selectedChapter} setSelectedChapter={setSelectedChapter}
+                        selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue}
+                        selectedSpecificIssue={selectedSpecificIssue}
+                        setSelectedSpecificIssue={setSelectedSpecificIssue}
+                        boundary={boundary} setBoundary={setBoundary}
+                        communitySearch={communitySearch} setCommunitySearch={setCommunitySearch}
+                        compareSearch={compareSearch} setCompareSearch={setCompareSearch}
+                        setMoreIssues={setMoreIssues} setMoreIssuesLength={setMoreIssuesLength}
+                        addCompare={addCompare} setAddCompare={setAddCompare}
+                        issues={issues} communities={communities} councils={councils}
+                        issue_categories={issue_categories}
+                        highlightFeature={highlightFeature} sethighlightFeature={sethighlightFeature}
+
+                    />
 
                     <Content
-        selectedChapter={selectedChapter}
-        issues={issues}
-        issue_categories={issue_categories}
-        selectedIssue={selectedIssue}
-        setSelectedIssue={setSelectedIssue}
-        selectedSpecificIssue={selectedSpecificIssue}
-        setSelectedSpecificIssue={setSelectedSpecificIssue}
-        boundary={boundary}
-        showToggle={showToggle}
-        showMap={showMap}
-        setShowMap={setShowMap}
-        communitySearch={communitySearch}
-        compareSearch={compareSearch}
-        communities={communities}
-        demographic={demographic}
-        setDemographic={setDemographic}
-        setCommunitySearch={setCommunitySearch}
-        setCompareSearch={setCompareSearch}
-        selectedAbout={selectedAbout}
-        setSelectedAbout={setSelectedAbout}
-        showDemographics={showDemographics}
-        setShowDemographics={setShowDemographics}
-        moreIssues={moreIssues}
-        setMoreIssues={setMoreIssues}
-        moreIssuesLength={moreIssuesLength}
-        setMoreIssuesLength={setMoreIssuesLength}
-        councils={councils}
-        mapDemographics={mapDemographics}
-        setMapDemographics={setMapDemographics}
-        legendBins={legendBins}
-        colorRamps={colorRamps}
-        toggleUnderperformers={toggleUnderperformers}
-        setToggleUnderperformers={setToggleUnderperformers}
-        toggleTransit={toggleTransit}
-        setToggleTransit={setToggleTransit}
-        toggleWalk={toggleWalk}
-        setToggleWalk={setToggleWalk}
-        toggleBike={toggleBike}
-        setToggleBike={setToggleBike}
-        dataScale={dataScale}
-        setdataScale={setdataScale}
-      />
+                        showToggle={showToggle} showMap={showMap}
+                        selectedChapter={selectedChapter}
+                        issues={issues} issue_categories={issue_categories}
+                        selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue}
+                        selectedSpecificIssue={selectedSpecificIssue}
+                        setSelectedSpecificIssue={setSelectedSpecificIssue}
+                        boundary={boundary}
+                        setShowMap={setShowMap}
+                        communitySearch={communitySearch} setCommunitySearch={setCommunitySearch}
+                        compareSearch={compareSearch} setCompareSearch={setCompareSearch}
+                        communities={communities} councils={councils}
+                        demographic={demographic} setDemographic={setDemographic}
+                        selectedAbout={selectedAbout} setSelectedAbout={setSelectedAbout}
+                        showDemographics={showDemographics} setShowDemographics={setShowDemographics}
+                        moreIssues={moreIssues} setMoreIssues={setMoreIssues}
+                        moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
+                        mapDemographics={mapDemographics} setMapDemographics={setMapDemographics}
+                        legendBins={legendBins} colorRamps={colorRamps}
+                        toggleUnderperformers={toggleUnderperformers}
+                        setToggleUnderperformers={setToggleUnderperformers}
+                        toggleTransit={toggleTransit} setToggleTransit={setToggleTransit}
+                        toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
+                        toggleBike={toggleBike} setToggleBike={setToggleBike}
+                        dataScale={dataScale} setdataScale={setdataScale}
+                        demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
+                        setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
+                    />
 
                     <div className={`${showMap ? "show-map" : "hide-map"} map-container`}>
                         <Map
-          issues={issues}
-          selectedIssue={selectedIssue}
-          selectedSpecificIssue={selectedSpecificIssue}
-          boundary={boundary}
-          showDemographics={showDemographics}
-          mapDemographics={mapDemographics}
-          demographic={demographic}
-          legendBins={legendBins}
-          setLegendBins={setLegendBins}
-          colorRamps={colorRamps}
-          setColorRamps={setColorRamps}
-          toggleUnderperformers={toggleUnderperformers}
-          setToggleUnderperformers={setToggleUnderperformers}
-          demoLookup={demoLookup}
-          selectedChapter={selectedChapter}
-          setSelectedChapter={setSelectedChapter}
-          communitySearch={communitySearch}
-          setCommunitySearch={setCommunitySearch}
-          addCompare={addCompare}
-          setAddCompare={setAddCompare}
-          compareSearch={compareSearch}
-          setCompareSearch={setCompareSearch}
-          setShowMap={setShowMap}
-          communities={communities}
-          councils={councils}
-          viewState={viewState}
-          setViewState={setViewState}
-          mapSelection={mapSelection}
-          setMapSelection={setMapSelection}
-          zoomToggle={zoomToggle}
-          setzoomToggle={setzoomToggle}
-          inverseZoomToggle={inverseZoomToggle}
-          setinverseZoomToggle={setinverseZoomToggle}
-          handleLegend={handleLegend}
-          sethandleLegend={sethandleLegend}
-          zoomMin={zoomMin}
-          zoomMax={zoomMax}
-          coordinateLookup={coordinateLookup}
-          setCoordinateLookup={setCoordinateLookup}
-          dataScale={dataScale}
-          setdataScale={setdataScale}
-        />
+                            issues={issues}
+                            selectedIssue={selectedIssue}
+                            selectedSpecificIssue={selectedSpecificIssue}
+                            boundary={boundary}
+                            showDemographics={showDemographics}
+                            mapDemographics={mapDemographics}
+                            demographic={demographic}
+                            legendBins={legendBins}
+                            setLegendBins={setLegendBins}
+                            colorRamps={colorRamps}
+                            setColorRamps={setColorRamps}
+                            toggleUnderperformers={toggleUnderperformers}
+                            setToggleUnderperformers={setToggleUnderperformers}
+                            demoLookup={demoLookup}
+                            selectedChapter={selectedChapter}
+                            setSelectedChapter={setSelectedChapter}
+                            communitySearch={communitySearch}
+                            setCommunitySearch={setCommunitySearch}
+                            addCompare={addCompare}
+                            setAddCompare={setAddCompare}
+                            compareSearch={compareSearch}
+                            setCompareSearch={setCompareSearch}
+                            setShowMap={setShowMap}
+                            communities={communities}
+                            councils={councils}
+                            viewState={viewState}
+                            setViewState={setViewState}
+                            mapSelection={mapSelection}
+                            setMapSelection={setMapSelection}
+                            zoomToggle={zoomToggle}
+                            setzoomToggle={setzoomToggle}
+                            inverseZoomToggle={inverseZoomToggle}
+                            setinverseZoomToggle={setinverseZoomToggle}
+                            handleLegend={handleLegend}
+                            sethandleLegend={sethandleLegend}
+                            zoomMin={zoomMin}
+                            zoomMax={zoomMax}
+                            coordinateLookup={coordinateLookup}
+                            setCoordinateLookup={setCoordinateLookup}
+                            dataScale={dataScale}
+                            setdataScale={setdataScale}
+                            highlightFeature={highlightFeature}
+                            sethighlightFeature={sethighlightFeature}
+                            toggleTransit={toggleTransit}
+                            toggleBike={toggleBike}
+                            toggleWalk={toggleWalk}
+                        />
                     </div>
                 </Container>
                 :
@@ -521,4 +496,3 @@ function useWindowSize() {
     }, []); // Empty array ensures that effect is only run on mount
     return windowSize;
 }
-

@@ -22,7 +22,7 @@ export default function IssuesMiddleColumn({
                                                 toggleWalk, setToggleWalk,
                                                 toggleTransit, setToggleTransit,
                                                 toggleBike, setToggleBike, dataScale, 
-                                                setdataScale
+                                                setdataScale, setDemoColorRamp, setDemoLegendBins, demoColorRamp, demoLegendBins
 
                                            }) {
 
@@ -115,7 +115,7 @@ export default function IssuesMiddleColumn({
                             </div>}
                         <div>
                             {!showDemographics && <p className={"small-font m-0"}></p>}
-                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
+                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={demoLegendBins} colorRamps={demoColorRamp} toggleUnderperformers={toggleUnderperformers}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}  />
                         </div>
                     </div>
@@ -258,6 +258,7 @@ export default function IssuesMiddleColumn({
                                   toggleTransit={toggleTransit} setToggleTransit={setToggleTransit}
                                   toggleBike={toggleBike} setToggleBike={setToggleBike}
                                   toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
+                                  legendBins={legendBins} colorRamps={colorRamps}
                     />
 
                 </div>

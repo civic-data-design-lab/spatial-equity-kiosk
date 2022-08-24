@@ -29,7 +29,7 @@ export default function Content({
                                     mapDemographics, setMapDemographics,
                                     legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers, issue_categories,
                                     toggleTransit, toggleBike, toggleWalk, setToggleTransit, setToggleBike, setToggleWalk, dataScale,
-                                    setdataScale,
+                                    setdataScale, demoColorRamp, demoLegendBins, setDemoColorRamp, setDemoLegendBins
                                 }) {
 
 
@@ -56,6 +56,9 @@ export default function Content({
                         toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
                         toggleBike={toggleBike} setToggleBike={setToggleBike}
                         dataScale={dataScale} setdataScale={setdataScale}
+                        demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
+                        setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
+
                     />}
 
                 {selectedChapter === 3 && <CommunityMiddleColumn
