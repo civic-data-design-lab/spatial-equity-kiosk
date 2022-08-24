@@ -347,7 +347,7 @@ function App() {
                         dataScale={dataScale} setdataScale={setdataScale}
                         demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
                         setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
-                        setColorRamps={setColorRamps} handleLegend={handleLegend} zoomToggle={zoomToggle}
+                        setColorRamps={setColorRamps} handleLegend={handleLegend} zoomToggle={zoomToggle} demoLookup={demoLookup[demographic]}
                     />
 
 

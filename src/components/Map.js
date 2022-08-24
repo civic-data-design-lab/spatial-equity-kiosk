@@ -143,7 +143,9 @@ export default function DeckMap({
 
   // pick color ramp for metrics and have default to avoid errors
   const selectedRamp =
-    selectedIssue === 1 ? "health" : selectedIssue === 2
+    selectedIssue === 1
+      ? "health"
+      : selectedIssue === 2
       ? "env"
       : selectedIssue === 3
       ? "infra"
@@ -151,7 +153,6 @@ export default function DeckMap({
 
   const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
   const binList = []; // derived from the selectedMetricArray array, this is the list of bins for the legend
-
 
   // 01.1 get an array of all the values for the selected metric
   for (let i = 0; i < mapScale.features.length; i++) {
@@ -210,8 +211,9 @@ export default function DeckMap({
   const COLOR_SCALE =
     dataScale == "equal"
       ? scaleThreshold().domain(binList).range(_CHAPTER_COLORS[selectedRamp])
-      : scaleQuantile().domain(uniqueValueArray).range(_CHAPTER_COLORS[selectedRamp]); //quantile bins
-
+      : scaleQuantile()
+          .domain(uniqueValueArray)
+          .range(_CHAPTER_COLORS[selectedRamp]); //quantile bins
 
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 

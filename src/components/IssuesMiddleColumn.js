@@ -23,7 +23,7 @@ export default function IssuesMiddleColumn({
                                                 toggleTransit, setToggleTransit,
                                                 toggleBike, setToggleBike, dataScale, 
                                                 setdataScale, setDemoColorRamp, setDemoLegendBins, demoColorRamp, demoLegendBins,
-    handleLegend, zoomToggle, setColorRamps
+    handleLegend, zoomToggle, setColorRamps, demoLookup
 
                                            }) {
 
@@ -120,7 +120,7 @@ export default function IssuesMiddleColumn({
                             </div>}
 
                             {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
-                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue}  colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
+                            <Legend demoLookup={demoLookup} demographic={demographic} dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue}  colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}
                                     handleLegend={handleLegend} selectedIssue={selectedSpecificIssue} zoomToggle={zoomToggle}
                             />
@@ -174,7 +174,7 @@ export default function IssuesMiddleColumn({
                             </div>}
 
                             {!showDemographics && <p className={"small-font m-0"}></p>}
-                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
+                            <Legend demoLookup={demoLookup} demographic={demographic} dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}   />
 
 
@@ -228,7 +228,7 @@ export default function IssuesMiddleColumn({
                             </div>}
 
                             {!showDemographics && <p className={"small-font m-0"}></p>}
-                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
+                            <Legend demoLookup={demoLookup} demographic={demographic} dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary} />
 
 
@@ -275,7 +275,7 @@ export default function IssuesMiddleColumn({
                                   toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
                                   colorRamps={colorRamps} // legendBins={legendBins}
                                   demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
-                                  setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
+                                  setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins} demoLookup={demoLookup}
 
                     />
 

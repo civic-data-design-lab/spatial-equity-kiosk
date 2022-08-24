@@ -9,6 +9,7 @@ import Legend from "./Legend";
 
 export default function Demographics({
                                          selectedSpecificIssue,
+                                        //  currentValue = null,
                                          currentValue = null,
                                          items = null,
                                          setValue = null,
@@ -28,7 +29,7 @@ export default function Demographics({
                                          setToggleWalk,
                                          setToggleTransit,
                                          setToggleBike,
-                                         demoLegendBins, demoColorRamp, setDemoColorRamp, setDemoLegendBins
+                                         demoLegendBins, demoColorRamp, setDemoColorRamp, setDemoLegendBins, demoLookup
                                      }) {
 
 
@@ -175,7 +176,8 @@ export default function Demographics({
 
                         {getTransitToggles()}
 
-                        <Legend demographic={demographic}
+                        <Legend demoLookup={demoLookup} 
+                                demographic={demographic}
                                 legendBins={demoLegendBins}
                                 colorRamps={demoColorRamp}
                                 boundary
@@ -201,7 +203,8 @@ export default function Demographics({
 
                         {getTransitToggles()}
 
-                        <Legend demographic={demographic}
+                        <Legend demoLookup={demoLookup} 
+                                demographic={demographic}
                                 legendBins={demoLegendBins}
                                 colorRamps={demoColorRamp}
                                 boundary
@@ -221,7 +224,8 @@ export default function Demographics({
                                 <div className={"d-flex flex-row justify-content-between"}>
                                     <p className={"m-0"}>{(councils[communitySearch] && councils[communitySearch].bolded_text) || (communities[communitySearch] && communities[communitySearch].bolded_text)}</p>
                                 </div>
-                                <Legend demographic={demographic}
+                                <Legend demoLookup={demoLookup} 
+                                        demographic={demographic}
                                         legendBins={demoLegendBins}
                                         colorRamps={demoColorRamp}
                                         boundary
@@ -233,7 +237,8 @@ export default function Demographics({
                                 <div className={"d-flex flex-row justify-content-between"}>
                                     <p className={"m-0"}>{(councils[compareSearch] && councils[compareSearch].bolded_text) || (communities[compareSearch] && communities[compareSearch].bolded_text)}</p>
                                 </div>
-                                <Legend demographic={demographic}
+                                <Legend demoLookup={demoLookup} 
+                                        demographic={demographic}
                                         legendBins={demoLegendBins}
                                         colorRamps={demoColorRamp}
                                         boundary
