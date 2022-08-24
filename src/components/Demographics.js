@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
+import {faCaretDown, faCaretUp, faPlus, faMinus} from "@fortawesome/free-solid-svg-icons";
 
 import Form from 'react-bootstrap/Form';
 import Slider from "./Carousel";
@@ -28,16 +28,15 @@ export default function Demographics({
                                          setToggleWalk,
                                          setToggleTransit,
                                          setToggleBike,
-                                         legendBins, colorRamps
+                                         demoLegendBins, demoColorRamp, setDemoColorRamp, setDemoLegendBins
                                      }) {
 
 
-    // TODO: update demographics drop down
     const demographics = {
         1: "Race & Ethnicity",
         2: "Poverty Level",
-        3: "Car-free",
-        4: "Take Public Transit to Work",
+        3: "No Car Ownership",
+        4: "Drive Alone to Work",
         5: "Transit, Biked or Walked (Total)"
     }
 
@@ -64,7 +63,7 @@ export default function Demographics({
                                 type={'checkbox'}
                                 id={`transit-check`}
                                 checked={toggleTransit}
-                                label={"Transit"}
+                                label={"Public Transit"}
                                 onChange={(e) => {
                                     setToggleTransit(e.target.checked)
                                 }}
@@ -169,14 +168,16 @@ export default function Demographics({
                             onClick={() => {
                                 setMapDemographics(!mapDemographics)
                             }}
-                        >{mapDemographics ? "Remove from map" : "Show on map"}
+                        >
+                            <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
+                            <div>{mapDemographics ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}</div>
                         </div>
 
                         {getTransitToggles()}
 
                         <Legend demographic={demographic}
-                                legendBins={legendBins}
-                                colorRamps={colorRamps}
+                                legendBins={demoLegendBins}
+                                colorRamps={demoColorRamp}
                                 boundary
                                 dataScale
                                 setdataScale
@@ -193,14 +194,16 @@ export default function Demographics({
                             onClick={() => {
                                 setMapDemographics(!mapDemographics)
                             }}
-                        >{mapDemographics ? "Remove from map" : "Show on map"}
+                        >
+                            <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
+                            <div>{mapDemographics ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}</div>
                         </div>
 
                         {getTransitToggles()}
 
                         <Legend demographic={demographic}
-                                legendBins={legendBins}
-                                colorRamps={colorRamps}
+                                legendBins={demoLegendBins}
+                                colorRamps={demoColorRamp}
                                 boundary
                                 dataScale
                                 setdataScale
@@ -219,8 +222,8 @@ export default function Demographics({
                                     <p className={"m-0"}>{(councils[communitySearch] && councils[communitySearch].bolded_text) || (communities[communitySearch] && communities[communitySearch].bolded_text)}</p>
                                 </div>
                                 <Legend demographic={demographic}
-                                        legendBins={legendBins}
-                                        colorRamps={colorRamps}
+                                        legendBins={demoLegendBins}
+                                        colorRamps={demoColorRamp}
                                         boundary
                                         dataScale
                                         setdataScale
@@ -231,12 +234,13 @@ export default function Demographics({
                                     <p className={"m-0"}>{(councils[compareSearch] && councils[compareSearch].bolded_text) || (communities[compareSearch] && communities[compareSearch].bolded_text)}</p>
                                 </div>
                                 <Legend demographic={demographic}
-                                        legendBins={legendBins}
-                                        colorRamps={colorRamps}
+                                        legendBins={demoLegendBins}
+                                        colorRamps={demoColorRamp}
                                         boundary
                                         dataScale
                                         setdataScale
-                                        forDemographic={true}/>
+                                        forDemographic={true}
+                                />
                             </div>
                         </Slider>
                         {/*<div className={"slider-demo-toggle"}>
@@ -247,15 +251,19 @@ export default function Demographics({
                             </div>
                         </div>*/}
 
+                        {getTransitToggles()}
+
                         <div
                             className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"}`}
                             onClick={() => {
                                 setMapDemographics(!mapDemographics)
                             }}
-                        >{mapDemographics ? "Remove from map" : "Show on map"}
+                        >
+                            <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
+                            <div>{mapDemographics ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}</div>
                         </div>
 
-                        {getTransitToggles()}
+
 
                     </div>
                 }

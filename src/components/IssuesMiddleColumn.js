@@ -45,11 +45,14 @@ export default function IssuesMiddleColumn({
         })
 
         if (possible_keys.includes(selectedSpecificIssue)) {
-            return <p
-                className={"mt-3"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
+            return <p>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
 
         }
     }
+
+
+
+
 
     useEffect(() => {
         if (!selectedIssue) {
@@ -104,7 +107,7 @@ export default function IssuesMiddleColumn({
 
                     <div className={"d-flex flex-column justify-content-between h-100"}>
                         {((selectedSpecificIssue && !showDemographics) || (!selectedSpecificIssue)) &&
-                            <div className={"thirds"}>
+                            <div className={"thirds mt-3"}>
                                 {selectedSpecificIssue && !showDemographics && getRankingNarrative(health_issues)}
                                 {!selectedSpecificIssue && !showDemographics &&
                                     <p>This is where you will hear about the topic that
@@ -113,11 +116,13 @@ export default function IssuesMiddleColumn({
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div>
-                            {!showDemographics && <p className={"small-font m-0"}></p>}
+
+                            {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
                             <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={demoLegendBins} colorRamps={demoColorRamp} toggleUnderperformers={toggleUnderperformers}
-                            setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}  />
-                        </div>
+                            setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}/>
+
+
+
                     </div>
                 </div>
             </div>
@@ -153,7 +158,7 @@ export default function IssuesMiddleColumn({
                     <div
                         className={`d-flex flex-column h-100 ${selectedSpecificIssue && showDemographics ? "justify-content-end" : "justify-content-between"}`}>
                         {((selectedSpecificIssue && !showDemographics) || (!selectedSpecificIssue)) &&
-                            <div className={"thirds"}>
+                            <div className={"thirds mt-3"}>
                                 {selectedSpecificIssue && !showDemographics && getRankingNarrative(environment_issues)}
                                 {!selectedSpecificIssue && !showDemographics &&
                                     <p>This is where you will hear about the topic that
@@ -162,12 +167,15 @@ export default function IssuesMiddleColumn({
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div>
+
                             {!showDemographics && <p className={"small-font m-0"}></p>}
                             <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}   />
 
-                        </div>
+
+
+
+
 
 
                     </div>
@@ -203,7 +211,7 @@ export default function IssuesMiddleColumn({
 
                     <div className={"d-flex flex-column justify-content-between h-100"}>
                         {((selectedSpecificIssue && !showDemographics) || (!selectedSpecificIssue)) &&
-                            <div className={"thirds"}>
+                            <div className={"thirds mt-3"}>
                                 {selectedSpecificIssue && !showDemographics && getRankingNarrative(infrastructure_issues)}
                                 {!selectedSpecificIssue && !showDemographics &&
                                     <p>This is where you will hear about the topic that
@@ -212,12 +220,13 @@ export default function IssuesMiddleColumn({
                                         Topics
                                         include a range of health metrics.</p>}
                             </div>}
-                        <div>
+
                             {!showDemographics && <p className={"small-font m-0"}></p>}
                             <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary} />
 
-                        </div>
+
+
 
 
                     </div>
@@ -259,6 +268,9 @@ export default function IssuesMiddleColumn({
                                   toggleBike={toggleBike} setToggleBike={setToggleBike}
                                   toggleWalk={toggleWalk} setToggleWalk={setToggleWalk}
                                   legendBins={legendBins} colorRamps={colorRamps}
+                                  demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
+                                  setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
+
                     />
 
                 </div>

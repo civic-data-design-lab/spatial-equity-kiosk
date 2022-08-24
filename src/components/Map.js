@@ -1,5 +1,5 @@
 // dependencies
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import DeckGL from "@deck.gl/react";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer, TextLayer, ScatterplotLayer } from "@deck.gl/layers";
@@ -97,6 +97,7 @@ export default function DeckMap({
   toggleWalk,
 }) {
   // map hooks
+  const deckRef = useRef(null);
   const dataScale = "q";
 
   // SELECT BOUNDARY ------------------------------------------------------------
@@ -264,24 +265,29 @@ export default function DeckMap({
   }
 
   // 03.2 get an array of all the values for the selected demographic
-  for (let i = 0; i < selectedBoundary.features.length; i++) {
+  for (
+    let i = 0;
+    i <
+    (zoomToggle
+      ? _NEIGHBORHOODS.features.length
+      : selectedBoundary.features.length);
+    i++
+  ) {
+    const scale = zoomToggle ? _NEIGHBORHOODS : selectedBoundary;
+
     if (selectedDemographic == "F10_TrsBkW") {
       let transportationBreakdown = [];
       // check which transportation toggles are on and add them to the list
       if (toggleTransit) {
         transportationBreakdown.push(
-          selectedBoundary.features[i].properties["F8_PubTran"]
+          scale.features[i].properties["F8_PubTran"]
         );
       }
       if (toggleBike) {
-        transportationBreakdown.push(
-          selectedBoundary.features[i].properties["F6_bike"]
-        );
+        transportationBreakdown.push(scale.features[i].properties["F6_bike"]);
       }
       if (toggleWalk) {
-        transportationBreakdown.push(
-          selectedBoundary.features[i].properties["F11_Walk"]
-        );
+        transportationBreakdown.push(scale.features[i].properties["F11_Walk"]);
       }
 
       const transportationAggregation = transportationBreakdown.reduce(
@@ -292,7 +298,7 @@ export default function DeckMap({
       selectedDemoArray.push(transportationAggregation);
     } else {
       selectedDemoArray.push(
-        parseFloat(selectedBoundary.features[i].properties[selectedDemographic])
+        parseFloat(scale.features[i].properties[selectedDemographic])
       );
     }
   }
@@ -400,6 +406,25 @@ export default function DeckMap({
           ? communities[obj.properties.CDTA2020].remaining_text
           : null;
 
+      const transportationModesArray = [];
+      if (toggleTransit) {
+        transportationModesArray.push("Public Transit");
+      }
+      if (toggleBike) {
+        transportationModesArray.push("Bike");
+      }
+      if (toggleWalk) {
+        transportationModesArray.push("Walk");
+      }
+      let transportationModes = transportationModesArray.join(" & ");
+
+      if (transportationModesArray.length > 2) {
+        const last = transportationModesArray.pop();
+        transportationModes = ` ${transportationModesArray.join(
+          ", "
+        )}, & ${last}`;
+      }
+
       if (boundary == "council" || boundary == "community") {
         // return the tooltip for the selected boundary with selected metric and selected demographic
 
@@ -411,7 +436,7 @@ export default function DeckMap({
               background: "white",
               color: "black",
               padding: "0px",
-              // maxWidth: "250px",
+              maxWidth: "250px",
             },
             html: `\
           <!-- select metric -->
@@ -440,12 +465,26 @@ export default function DeckMap({
           </div>
           <!-- select demographic -->
           <div class=tooltip-info>
-          ${selectedDemographic != null ? demoLookup[demographic].name : ""} ${
+          ${
+            selectedDemographic != null
+              ? demographic !== "5"
+                ? `${demoLookup[demographic].name}—`
+                : toggleTransit || toggleBike || toggleWalk
+                ? `${transportationModes}—`
+                : `Check off one of the transportation options above the demographics legend to see how people are getting around.`
+              : ""
+          } ${
               selectedDemographic != null
                 ? demographic !== "1"
-                  ? demographic !== "7"
-                    ? obj.properties[selectedDemographic]
-                    : (selectedDemoArray[info.index] * 100).toFixed(0) + "%"
+                  ? demographic !== "5"
+                    ? `<strong>${(
+                        obj.properties[selectedDemographic] * 100
+                      ).toFixed(0)}% </strong>`
+                    : toggleTransit || toggleBike || toggleWalk
+                    ? `<strong>${(selectedDemoArray[info.index] * 100).toFixed(
+                        0
+                      )}%</strong>`
+                    : ""
                   : `\
                   <div class=tooltip-grid>
                     <div style="color:${
@@ -480,7 +519,7 @@ export default function DeckMap({
             ${COLOR_SCALE(
               selectedBoundary.features[info.index].properties[selectedMetric]
             )}
-            </div> -->
+            </div><div>${onSearch}</div> -->
             `,
           }
         );
@@ -489,6 +528,21 @@ export default function DeckMap({
   };
 
   // 05 TOOLTIP END ----------------------------------------------------------------------------------------------
+  // console.log(selectedDemoArray, "selectedDemoArray");
+  // console.log(_NEIGHBORHOODS.features, "N features");
+  // 06 DIRECT PICKING ENGINE ----------------------------------------------------------------------------------------------
+  const onSearch = useCallback((event) => {
+    const pickInfo = deckRef.current.pickObject({
+      x: event.clientX,
+      // x: 941,
+      y: event.clientY,
+      // y: 397,
+      radius: 0,
+      layerIds: ["administrative-boundaries"],
+    });
+    console.log(pickInfo);
+    console.log([event.clientX, event.clientY]);
+  }, []);
 
   // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
   const layers = [
@@ -544,8 +598,8 @@ export default function DeckMap({
       visible: zoomToggle == 1 ? toggleDemChoropleth : 0,
 
       updateTriggers: {
-        getLineWidth: [selectedDemographic],
-        getFillColor: [selectedDemographic],
+        getLineWidth: [zoomToggle, selectedDemographic],
+        getFillColor: [zoomToggle, selectedDemographic],
       },
     }),
 
@@ -882,6 +936,7 @@ export default function DeckMap({
           addCompare,
           communitySearch,
           compareSearch,
+          deckRef,
         ],
         getFillColor: [
           selectedMetric,
@@ -889,6 +944,7 @@ export default function DeckMap({
           addCompare,
           communitySearch,
           compareSearch,
+          deckRef,
         ],
       },
     }),
@@ -908,36 +964,57 @@ export default function DeckMap({
       opacity: zoomToggle,
     }),
   ];
-  // 06 MAP LAYERS END ----------------------------------------------------------------------------------------------------
-
-  const divStyle = {
-    color: "red",
-    border: "3px solid white",
-  };
 
   return (
-    <DeckGL
-      // viewState={viewState}
-      initialViewState={viewState}
-      onViewStateChange={onViewStateChange}
-      controller={{
-        dragRotate: false,
-        doubleClickZoom: false,
-      }}
-      layers={layers}
-      getCursor={() => "crosshair"}
-      getTooltip={getTooltip}
-      // style={{ mixBlendMode: "multiply" }}
-      // _pickable={isMobile ? false : true}
-    >
-      <Map
-        reuseMaps
-        mapStyle={mapStyle}
-        preventStyleDiffing={true}
-        mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-        attributionControl={false}
-        logoPosition="top-left"
-      />
-    </DeckGL>
+    <div onClick={onSearch}>
+      {/* <>
+        <DeckGL
+          initialViewState={viewState}
+          onViewStateChange={onViewStateChange}
+          controller={{
+            dragRotate: false,
+            doubleClickZoom: false,
+          }}
+          layers={demographicLayers}
+          getCursor={() => "crosshair"}
+        >
+          <Map
+            reuseMaps
+            mapStyle={mapStyle}
+            preventStyleDiffing={true}
+            mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+            attributionControl={false}
+            logoPosition="top-left"
+          />
+        </DeckGL>
+      </> */}
+      <DeckGL
+        // viewState={viewState}
+        initialViewState={viewState}
+        onViewStateChange={onViewStateChange}
+        controller={{
+          dragRotate: false,
+          doubleClickZoom: false,
+        }}
+        layers={layers}
+        getCursor={() => "crosshair"}
+        getTooltip={getTooltip}
+        ref={deckRef}
+        eventRecognizerOptions={
+          isMobile ? { pan: { threshold: 10 }, tap: { threshold: 5 } } : {}
+        }
+        // style={{ mixBlendMode: "multiply" }}
+        // _pickable={isMobile ? false : true}
+      >
+        <Map
+          reuseMaps
+          mapStyle={mapStyle}
+          preventStyleDiffing={true}
+          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+          attributionControl={false}
+          logoPosition="top-left"
+        />
+      </DeckGL>
+    </div>
   );
 }

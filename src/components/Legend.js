@@ -1,5 +1,7 @@
 import React from "react";
 import {min} from "d3-array";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
 export default function Legend({
                                    issues,
@@ -11,7 +13,8 @@ export default function Legend({
                                    setToggleUnderperformers,
                                    boundary,
                                    dataScale,
-                                   setdataScale, forDemographic = false
+                                   setdataScale, forDemographic = false,
+
                                }) {
     // toggle areas in need
 
@@ -20,8 +23,8 @@ export default function Legend({
 
     const getImpactStatement = () => {
         return (issues.specific_issues_data[selectedSpecificIssue]
-        ? issues.specific_issues_data[selectedSpecificIssue].highlight_statement
-        : "")
+            ? issues.specific_issues_data[selectedSpecificIssue].highlight_statement
+            : "")
     }
 
     const getButtonStatement = () => {
@@ -32,11 +35,9 @@ export default function Legend({
     }
 
 
-
     // button statement
     const buttonStatement2 = dataScale ? `Equal Bins` : "Equal Counts";
 
-    console.log("fordemographics ", forDemographic, legendBins)
     let cleanNumbers = isNaN(legendBins[1][0])
         ? ""
         : min(legendBins[1]) >= 10
@@ -63,84 +64,83 @@ export default function Legend({
                     )
                 } else {
                     return (
-                        <div>
-                    <p className={"m-0"}>
-                        {
-                            issues.specific_issues_data[selectedSpecificIssue]
-                                .specific_issue_units
-                        }
-                    </p>
-                    <div className={"placeholder-legend"}>
-                        <div
-                            style={{
-                                color: `rgb(${colorRamps[0].toString()})`,
-                                fontFamily: "Arial",
-                            }}
-                        >
-                            ■
-                        </div>
-                        <div className={"m-0"}>{legendBins[0] < 0 ? legendBins[0] : 0}</div>
-                        <div>→</div>
-                        <div className={"m-0"}>{cleanNumbers[0]}</div>
-                        <div
-                            style={{
-                                color: `rgb(${colorRamps[1].toString()})`,
-                                fontFamily: "Arial",
-                            }}
-                        >
-                            ■
-                        </div>
-                        <div className={"m-0"}>{cleanNumbers[0]}</div>
-                        <div>→</div>
-                        <div className={"m-0"}>{cleanNumbers[1]}</div>
-                        <div
-                            style={{
-                                color: `rgb(${colorRamps[2].toString()})`,
-                                fontFamily: "Arial",
-                            }}
-                        >
-                            ■
-                        </div>
-                        <div className={"m-0"}>{cleanNumbers[1]}</div>
-                        <div>→</div>
-                        <div className={"m-0"}>{cleanNumbers[2]}</div>
-                        <div
-                            style={{
-                                color: `rgb(${colorRamps[3].toString()})`,
-                                fontFamily: "Arial",
-                            }}
-                        >
-                            ■
-                        </div>
-                        <div className={"m-0"}>{cleanNumbers[2]}</div>
-                        <div>→</div>
-                        <div className={"m-0"}>{cleanNumbers[3]}</div>
-                        <div
-                            style={{
-                                color: `rgb(${colorRamps[4].toString()})`,
-                                fontFamily: "Arial",
-                            }}
-                        >
-                            ■
-                        </div>
-                        <div className={"m-0"}>{cleanNumbers[3]}+</div>
-                    </div>
+                        <div className={"d-flex flex-column row-gap"}>
+                            <div>
+                                <p className={"m-0"}>
+                                    {
+                                        issues.specific_issues_data[selectedSpecificIssue]
+                                            .specific_issue_units
+                                    }
+                                </p>
+                                <div className={"placeholder-legend"}>
+                                    <div
+                                        style={{
+                                            color: `rgb(${colorRamps[0].toString()})`,
+                                            fontFamily: "Arial",
+                                        }}
+                                    >
+                                        ■
+                                    </div>
+                                    <div className={"m-0"}>{legendBins[0] < 0 ? legendBins[0] : 0}</div>
+                                    <div>→</div>
+                                    <div className={"m-0"}>{cleanNumbers[0]}</div>
+                                    <div
+                                        style={{
+                                            color: `rgb(${colorRamps[1].toString()})`,
+                                            fontFamily: "Arial",
+                                        }}
+                                    >
+                                        ■
+                                    </div>
+                                    <div className={"m-0"}>{cleanNumbers[0]}</div>
+                                    <div>→</div>
+                                    <div className={"m-0"}>{cleanNumbers[1]}</div>
+                                    <div
+                                        style={{
+                                            color: `rgb(${colorRamps[2].toString()})`,
+                                            fontFamily: "Arial",
+                                        }}
+                                    >
+                                        ■
+                                    </div>
+                                    <div className={"m-0"}>{cleanNumbers[1]}</div>
+                                    <div>→</div>
+                                    <div className={"m-0"}>{cleanNumbers[2]}</div>
+                                    <div
+                                        style={{
+                                            color: `rgb(${colorRamps[3].toString()})`,
+                                            fontFamily: "Arial",
+                                        }}
+                                    >
+                                        ■
+                                    </div>
+                                    <div className={"m-0"}>{cleanNumbers[2]}</div>
+                                    <div>→</div>
+                                    <div className={"m-0"}>{cleanNumbers[3]}</div>
+                                    <div
+                                        style={{
+                                            color: `rgb(${colorRamps[4].toString()})`,
+                                            fontFamily: "Arial",
+                                        }}
+                                    >
+                                        ■
+                                    </div>
+                                    <div className={"m-0"}>{cleanNumbers[3]}+</div>
+                                </div>
+                            </div>
 
 
-                    <div
-                        className={`big-button ${toggleUnderperformers ? "big-button-active" : "big-button-inactive"}`}
-                        onClick={() => {
-                            setToggleUnderperformers(!toggleUnderperformers)
-                        }}
-                    >{getButtonStatement()}</div>
-                    {/*
-          <Toggle
-            textOff={buttonStatement}
-            textOn={buttonStatement}
-            value={toggleUnderperformers}
-            callback={setToggleUnderperformers}
-          />*/}
-                </div>
+                            <div
+                                className={`big-button ${toggleUnderperformers ? "big-button-active" : "big-button-inactive"}`}
+                                onClick={() => {
+                                    setToggleUnderperformers(!toggleUnderperformers)
+                                }}
+                            >{getButtonStatement()}
+
+                                <div>{toggleUnderperformers ? <FontAwesomeIcon icon={faMinus}/> :
+                                    <FontAwesomeIcon icon={faPlus}/>}</div>
+                            </div>
+                        </div>
 
                     )
 

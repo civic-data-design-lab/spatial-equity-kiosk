@@ -32,7 +32,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
     return (
         <>
 
-            <div className={"dropdown-container mb-3"}
+            <div className={"dropdown-container"}
             >
                 <div className={`${included && currentValue ? `dropdown-bar-${issue_categories.labels[issues.specific_issues_data[currentValue].issue_type_ID]}` : "dropdown-bar-black"} dropdown-bar d-flex flex-row justify-content-between align-items-center mb-0`}
                      onMouseDown={() => {

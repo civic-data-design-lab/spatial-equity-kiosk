@@ -44,7 +44,7 @@ function App() {
     const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
     const [coordinateLookup, setCoordinateLookup] = useState(null);
     const location = useLocation();
-    const [toggleTransit, setToggleTransit] = useState(false);
+    const [toggleTransit, setToggleTransit] = useState(true);
     const [toggleBike, setToggleBike] = useState(false);
     const [toggleWalk, setToggleWalk] = useState(false);
     const [dataScale, setdataScale] = useState(false);
@@ -53,7 +53,7 @@ function App() {
     const [coordinates, setCoordiantes] = useState([-73.20310023, 43.3213123]);
     const [demoColorRamp, setDemoColorRamp] = useState([1, 1, 1, 1, 1]);
     const [demoLegendBins, setDemoLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
-    const [selectedCoord, setSelectedCoord] = useState(null);
+    const [selectedCoord, setSelectedCoord] = useState([]);
 
     // map hooks
 
@@ -151,6 +151,7 @@ function App() {
         // console.log("-------------------------------------------")
 
 
+        console.log("legendBins ", legendBins)
 
         /* if (!selectedSpecificIssue) {
                  setSelectedIssue(1)
@@ -221,10 +222,6 @@ function App() {
     }, [selectedSpecificIssue]);
 
 
-
-
-
-
     useEffect(() => {
         window.addEventListener("mouseup", () => {
             setMouseDown(false)
@@ -248,7 +245,6 @@ function App() {
         div.style.transform = `translate(0px, 0px)`;
 
 
-
     }
 
 
@@ -269,6 +265,28 @@ function App() {
     const [offset, setOffset] = useState({ x: 0, y: 0 });
     const [mouseDown, setMouseDown] = useState(false);
     const [mouseMove, setMouseMove] = useState(false);
+
+    const [initialPos,   setInitialPos] = useState(null);
+    const [initialSize, setInitialSize] = useState(null);
+
+    const initial = (e) => {
+        e.preventDefault()
+        console.log("on drag")
+        let resizable = document.getElementById('resizeable-map');
+        setInitialPos(e.clientX);
+        setInitialSize(resizable.offsetWidth);
+        console.log("intial pos and size ", initialPos, initialSize)
+
+    }
+
+    const resize = (e) => {
+        e.preventDefault()
+        console.log("dragging")
+        let resizable = document.getElementById('resizeable-map');
+
+        resizable.style.width = `${initialSize + e.clientX}px`;
+
+    }
 
 
     return (
@@ -323,8 +341,17 @@ function App() {
                         setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
                     />
 
+
                     <div className={`${showMap ? "show-map" : "hide-map"} map-container`}>
-                        <Map
+
+                        {/*<div className={"map-subcontainer"}>
+                            <div className={"individual-maps"}
+                                 id={"draggable-map"}
+                                 draggable="true"
+                                 onDragStart={initial}
+                                 onDrag={resize}
+                            >*/}
+                                <Map
                             issues={issues}
                             selectedIssue={selectedIssue}
                             selectedSpecificIssue={selectedSpecificIssue}
@@ -372,6 +399,63 @@ function App() {
                             toggleBike={toggleBike}
                             toggleWalk={toggleWalk}
                         />
+                            {/*</div>
+                            <div className={"wiper"}>
+                                HI
+                            </div>
+                            <div className={"individual-maps"}
+                                 id={"resizeable-map"}
+                            >
+                                <Map
+                            issues={issues}
+                            selectedIssue={selectedIssue}
+                            selectedSpecificIssue={selectedSpecificIssue}
+                            boundary={boundary}
+                            showDemographics={showDemographics}
+                            mapDemographics={mapDemographics}
+                            demographic={demographic}
+                            legendBins={legendBins}
+                            setLegendBins={setLegendBins}
+                            colorRamps={colorRamps}
+                            setColorRamps={setColorRamps}
+                            toggleUnderperformers={toggleUnderperformers}
+                            setToggleUnderperformers={setToggleUnderperformers}
+                            demoLookup={demoLookup}
+                            selectedChapter={selectedChapter}
+                            setSelectedChapter={setSelectedChapter}
+                            communitySearch={communitySearch}
+                            setCommunitySearch={setCommunitySearch}
+                            addCompare={addCompare}
+                            setAddCompare={setAddCompare}
+                            compareSearch={compareSearch}
+                            setCompareSearch={setCompareSearch}
+                            setShowMap={setShowMap}
+                            communities={communities}
+                            councils={councils}
+                            viewState={viewState}
+                            setViewState={setViewState}
+                            mapSelection={mapSelection}
+                            setMapSelection={setMapSelection}
+                            zoomToggle={zoomToggle}
+                            setzoomToggle={setzoomToggle}
+                            inverseZoomToggle={inverseZoomToggle}
+                            setinverseZoomToggle={setinverseZoomToggle}
+                            handleLegend={handleLegend}
+                            sethandleLegend={sethandleLegend}
+                            zoomMin={zoomMin}
+                            zoomMax={zoomMax}
+                            coordinateLookup={coordinateLookup}
+                            setCoordinateLookup={setCoordinateLookup}
+                            dataScale={dataScale}
+                            setdataScale={setdataScale}
+                            highlightFeature={highlightFeature}
+                            sethighlightFeature={sethighlightFeature}
+                            toggleTransit={toggleTransit}
+                            toggleBike={toggleBike}
+                            toggleWalk={toggleWalk}
+                        />
+                            </div>
+                        </div>*/}
                     </div>
                 </Container>
                 :

@@ -29,6 +29,10 @@
     row-gap: 1rem;
 }
 
+.big-row-gap {
+    row-gap: 1.5rem;
+}
+
 .small-text {
     font-size: 0.75rem;
 }
@@ -653,12 +657,50 @@ a:active {
 
 
 /* Map */
+
+.wiper {
+    height: 100vh;
+    width: 2rem;
+    background-color: deeppink;
+    z-index: 3;
+}
+
+.map-container {
+    width: 50vw;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+}
+
+.map-subcontainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#resizeable-map {
+    width: 200px;
+}
+
+#draggable-map {
+    width: 200px;
+}
+
+
+.individual-maps {
+    position: relative;
+    height: 100vh;
+    flex-grow: 1;
+}
+
+
+
 #deckgl-wrapper {
-    background-color: black;
+/*    background-color: black;
     border-block: 2px solid black;
     left: 50% !important;
     width: 50% !important;
-    height: 100% !important;
+    height: 100% !important;*/
 }
 
 .map-tooltip > *{
@@ -1242,6 +1284,11 @@ input:checked + .slider:before {
     width: 100%;
     padding: 0.25rem 0.5rem;
     transition: color 1s, background-color, border 1s;
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.25rem;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .big-button-active {
