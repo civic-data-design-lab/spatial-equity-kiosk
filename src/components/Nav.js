@@ -21,7 +21,8 @@ function Nav({
                  setCompareSearch,
                  setShowMap,
                  councils,
-                 setMoreIssues, setMoreIssuesLength, addCompare, setAddCompare,        
+                 setMoreIssues, setMoreIssuesLength, addCompare, setAddCompare, 
+                 setSelectedCoord       
              }) {
 
 
@@ -154,7 +155,7 @@ function Nav({
                     <CommunityNav communities={communities} communitySearch={communitySearch}
                                   compareSearch={compareSearch} setCommunitySearch={setCommunitySearch}
                                   setCompareSearch={setCompareSearch} boundary={boundary} councils={councils}
-                                  addCompare={addCompare} setAddCompare={setAddCompare}
+                                  addCompare={addCompare} setAddCompare={setAddCompare} setSelectedCoord={setSelectedCoord}
                     />
                 </div>
             </div>
