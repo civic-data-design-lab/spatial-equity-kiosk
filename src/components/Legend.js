@@ -1,5 +1,7 @@
 import React from "react";
 import {min} from "d3-array";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
 export default function Legend({
                                    issues,
@@ -11,7 +13,8 @@ export default function Legend({
                                    setToggleUnderperformers,
                                    boundary,
                                    dataScale,
-                                   setdataScale, forDemographic = false
+                                   setdataScale, forDemographic = false,
+
                                }) {
     // toggle areas in need
 
@@ -36,7 +39,6 @@ export default function Legend({
     // button statement
     const buttonStatement2 = dataScale ? `Equal Bins` : "Equal Counts";
 
-    console.log("fordemographics ", forDemographic, legendBins)
     let cleanNumbers = isNaN(legendBins[1][0])
         ? ""
         : min(legendBins[1]) >= 10
@@ -132,7 +134,10 @@ export default function Legend({
                         onClick={() => {
                             setToggleUnderperformers(!toggleUnderperformers)
                         }}
-                    >{getButtonStatement()}</div>
+                    >{getButtonStatement()}
+
+                        <div>{toggleUnderperformers ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}</div>
+                    </div>
                     {/*
           <Toggle
             textOff={buttonStatement}
