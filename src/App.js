@@ -50,7 +50,6 @@ function App() {
     const [dataScale, setdataScale] = useState(false);
     const [highlightFeature, sethighlightFeature] = useState(null);
     const [openAssist, setOpenAssist] = useState(false);
-    const [coordinates, setCoordiantes] = useState([-73.20310023, 43.3213123]);
     const [demoColorRamp, setDemoColorRamp] = useState([1, 1, 1, 1, 1]);
     const [demoLegendBins, setDemoLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
     const [selectedCoord, setSelectedCoord] = useState([]);
@@ -141,18 +140,20 @@ function App() {
 
 
     useEffect(() => {
-        /* console.log("HERE ARE THE STATES")
-             console.log("selectedChapter ", selectedChapter)
-             console.log("selectedIssue ", selectedIssue)
-             console.log("selectedSpecficIssue ", selectedSpecificIssue)
-             console.log("showMap ", showMap)
-             console.log("show toggle ", showToggle)
-             console.log("community search ", communitySearch)
-             console.log("compare search ", compareSearch)
-             console.log("boundary ", boundary)
-             console.log("selectedAbout ", selectedAbout)
-             console.log("demographic", demographic)
-             console.log("-------------------------------------------")*/
+        // console.log("HERE ARE THE STATES")
+        // console.log("selectedChapter ", selectedChapter)
+        // console.log("selectedIssue ", selectedIssue)
+        // console.log("selectedSpecficIssue ", selectedSpecificIssue)
+        // console.log("showMap ", showMap)
+        // console.log("show toggle ", showToggle)
+        // console.log("community search ", communitySearch)
+        // console.log("compare search ", compareSearch)
+        // console.log("boundary ", boundary)
+        // console.log("selectedAbout ", selectedAbout)
+        // console.log("demographic", demographic)
+        // console.log("legendBins ", legendBins)
+        // console.log("selectedCoord", selectedCoord)
+        // console.log("-------------------------------------------")
 
         /* if (!selectedSpecificIssue) {
                  setSelectedIssue(1)
@@ -314,6 +315,7 @@ function App() {
                         issues={issues} communities={communities} councils={councils}
                         issue_categories={issue_categories}
                         highlightFeature={highlightFeature} sethighlightFeature={sethighlightFeature}
+                        selectedCoord={selectedCoord}
                         setSelectedCoord={setSelectedCoord}
 
                     />

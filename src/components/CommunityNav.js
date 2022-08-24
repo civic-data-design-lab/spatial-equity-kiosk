@@ -14,7 +14,7 @@ export default function CommunityNav({
     setCompareSearch,
     boundary, councils,
     addCompare, setAddCompare,
-    setSelectedCoord
+    selectedCoord, setSelectedCoord
 }) {
 
 
@@ -23,7 +23,6 @@ export default function CommunityNav({
             setCompareSearch(null)
         }
     })
-
 
     const getSearchItems = (forSearch, boundary) => {
         let searchItems = []
@@ -98,6 +97,7 @@ export default function CommunityNav({
                     toggleValue={communitySearch ? ((communities[communitySearch] && communities[communitySearch].bolded_text) || (councils[communitySearch] && councils[communitySearch].bolded_text)) : null}
                     communitySearch={communitySearch}
                     callBack={setCommunitySearch}
+                    selectedCoord={selectedCoord}
                     setSelectedCoord={setSelectedCoord}>
                     {getSearchItems(true, boundary)}
                 </CommunitySearchBar>
@@ -107,6 +107,7 @@ export default function CommunityNav({
                         toggleValue={compareSearch ? ((communities[compareSearch] && communities[compareSearch].bolded_text) || (councils[compareSearch] && councils[compareSearch].bolded_text)) : null}
                         communitySearch={communitySearch} forSearch={false} setAddCompare={setAddCompare}
                         callBack={setCompareSearch}
+                        selectedCoord={selectedCoord}
                         setSelectedCoord={setSelectedCoord}>
                         {getSearchItems(false, boundary)}
                     </CommunitySearchBar>

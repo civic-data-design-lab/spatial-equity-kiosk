@@ -96,6 +96,7 @@ export default function DeckMap({
 }) {
   // map hooks
   const deckRef = useRef(null);
+  const mapRef = useRef(null);
   const dataScale = "q";
 
   // SELECT BOUNDARY ------------------------------------------------------------
@@ -249,6 +250,7 @@ export default function DeckMap({
   let toggleScatterPlot = false; //scatter plot viz
   let toggleDemChoropleth = false; //standard choropleth viz but for demographics
   const selectedDemoArray = []; // a clean array of values for the color ramp with no NaN and no Null values
+  const neighborhoodDemoArray = []; // a clean array of values for the color ramp with no NaN and no Null values
   const demoBinList = []; // derived from the selectedDemoArray array, this is the list of bins for the legend
 
   // 03.1 toggle demographics on off and pick which to display
@@ -265,57 +267,64 @@ export default function DeckMap({
   }
 
   // 03.2 get an array of all the values for the selected demographic
-  for (
-    let i = 0;
-    i <
-    (zoomToggle
-      ? _NEIGHBORHOODS.features.length
-      : selectedBoundary.features.length);
-    i++
-  ) {
-    const scale = zoomToggle ? _NEIGHBORHOODS : selectedBoundary;
+  function getDemoArray(analysisScale, outputArray) {
+    for (let i = 0; i < analysisScale.features.length; i++) {
+      const scale = analysisScale;
 
-    if (selectedDemographic == "F10_TrsBkW") {
-      let transportationBreakdown = [];
-      // check which transportation toggles are on and add them to the list
-      if (toggleTransit) {
-        transportationBreakdown.push(
-          scale.features[i].properties["F8_PubTran"]
+      if (selectedDemographic == "F10_TrsBkW") {
+        let transportationBreakdown = [];
+        // check which transportation toggles are on and add them to the list
+        if (toggleTransit) {
+          transportationBreakdown.push(
+            scale.features[i].properties["F8_PubTran"]
+          );
+        }
+        if (toggleBike) {
+          transportationBreakdown.push(scale.features[i].properties["F6_bike"]);
+        }
+        if (toggleWalk) {
+          transportationBreakdown.push(
+            scale.features[i].properties["F11_Walk"]
+          );
+        }
+
+        const transportationAggregation = transportationBreakdown.reduce(
+          (a, b) => a + b,
+          0
+        );
+
+        outputArray.push(transportationAggregation);
+      } else {
+        outputArray.push(
+          parseFloat(scale.features[i].properties[selectedDemographic])
         );
       }
-      if (toggleBike) {
-        transportationBreakdown.push(scale.features[i].properties["F6_bike"]);
-      }
-      if (toggleWalk) {
-        transportationBreakdown.push(scale.features[i].properties["F11_Walk"]);
-      }
-
-      const transportationAggregation = transportationBreakdown.reduce(
-        (a, b) => a + b,
-        0
-      );
-
-      selectedDemoArray.push(transportationAggregation);
-    } else {
-      selectedDemoArray.push(
-        parseFloat(scale.features[i].properties[selectedDemographic])
-      );
     }
   }
 
-  const sortedSelectedDemoArray = [...selectedDemoArray].sort(function (a, b) {
+  // demographic array for the analysis scale
+  getDemoArray(selectedBoundary, selectedDemoArray);
+
+  // demographic array for the neighborhood scale
+  getDemoArray(_NEIGHBORHOODS, neighborhoodDemoArray);
+
+  const sortedDemoArray = [
+    ...(zoomToggle ? neighborhoodDemoArray : selectedDemoArray),
+  ].sort(function (a, b) {
     return a - b;
   });
 
-  const uniqueDemoArray = [...new Set(sortedSelectedDemoArray)];
+  const uniqueDemoArray = [...new Set(sortedDemoArray)];
 
   // 03.3 break the demographic array into bins and get the bin list
   for (let i = 0; i < binSize; i++) {
     if (dataScale === "equal") {
-      const threshold =
-        (max(selectedDemoArray) - min(selectedDemoArray)) / (binSize + 1);
+      const legendScale = zoomToggle
+        ? neighborhoodDemoArray
+        : selectedDemoArray;
+      const threshold = (max(legendScale) - min(legendScale)) / (binSize + 1);
       demoBinList.push(
-        Math.round((threshold * (i + 1) + min(selectedDemoArray)) * 100) / 100
+        Math.round((threshold * (i + 1) + min(legendScale)) * 100) / 100
       );
     } else {
       const interval = Math.floor((uniqueDemoArray.length / binSize) * (i + 1));
@@ -386,7 +395,6 @@ export default function DeckMap({
 
       // update auto highlight
       sethighlightFeature(info.index);
-      // console.log(highlightFeature);
 
       const metricCheck = _RANKINGS[boundary][selectedMetric] ? true : false;
 
@@ -544,6 +552,11 @@ export default function DeckMap({
     console.log([event.clientX, event.clientY]);
   }, []);
 
+  // coord projection test
+  // console.log(mapRef.current)
+  // const coordinate = { lon: -122.420679, lat: 37.772537 };
+  // if (mapRef.current) console.log(mapRef.current.project(coordinate));
+
   // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
   const layers = [
     new GeoJsonLayer({
@@ -582,9 +595,16 @@ export default function DeckMap({
         let fillValue =
           selectedDemographic !== "F10_TrsBkW"
             ? parseFloat(f.properties[selectedDemographic])
-            : selectedDemoArray[f.id];
+            : neighborhoodDemoArray[f.id];
+
         if (f.properties.AnsUnt_YN == "Y") {
-          if (isNaN(fillValue)) {
+          if (
+            isNaN(fillValue) ||
+            (selectedDemographic == "F10_TrsBkW" &&
+              !toggleTransit &&
+              !toggleBike &&
+              !toggleWalk)
+          ) {
             return [0, 0, 0, 0];
           } else {
             return DEMO_COLOR_SCALE(fillValue);
@@ -598,8 +618,20 @@ export default function DeckMap({
       visible: zoomToggle == 1 ? toggleDemChoropleth : 0,
 
       updateTriggers: {
-        getLineWidth: [zoomToggle, selectedDemographic],
-        getFillColor: [zoomToggle, selectedDemographic],
+        getLineWidth: [
+          selectedDemographic,
+          toggleTransit,
+          toggleBike,
+          toggleWalk,
+          zoomToggle,
+        ],
+        getFillColor: [
+          selectedDemographic,
+          toggleTransit,
+          toggleBike,
+          toggleWalk,
+          zoomToggle,
+        ],
       },
     }),
 
@@ -638,11 +670,14 @@ export default function DeckMap({
             ? parseFloat(f.properties[selectedDemographic])
             : selectedDemoArray[f.id];
 
-        // console.log(f.id);
-        // console.log(selectedDemoArray[f.id]);
-
-        // subfiltering for transportation mode demographics:
-
+        if (
+          selectedDemographic == "F10_TrsBkW" &&
+          !toggleTransit &&
+          !toggleBike &&
+          !toggleWalk
+        ) {
+          return [0, 0, 0, 0];
+        }
         if (boundary == "community") {
           if (f.properties.Data_YN == "N") {
             return [0, 0, 0, 0];
@@ -661,12 +696,14 @@ export default function DeckMap({
           toggleTransit,
           toggleBike,
           toggleWalk,
+          zoomToggle,
         ],
         getFillColor: [
           selectedDemographic,
           toggleTransit,
           toggleBike,
           toggleWalk,
+          zoomToggle,
         ],
       },
     }),
@@ -1009,6 +1046,7 @@ export default function DeckMap({
         <Map
           reuseMaps
           mapStyle={mapStyle}
+          ref={mapRef}
           preventStyleDiffing={true}
           mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
           attributionControl={false}
