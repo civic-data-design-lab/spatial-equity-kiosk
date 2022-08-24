@@ -2,100 +2,127 @@
   "default": {
     "name": "",
     "lookup": "",
+    "metric_units": "",
     "colorRamp": [
       [248, 198, 220],
       [244, 151, 192],
       [237, 109, 159],
       [230, 87, 149],
       [233, 50, 128]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
   "1": {
     "name": "Race and Ethnicity",
     "lookup": "",
+    "metric_units": "percent",
     "colorRamp": [
       [248, 198, 220],
       [244, 151, 192],
       [237, 109, 159],
       [230, 87, 149],
       [233, 50, 128]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
   "2": {
-    "name": "Below the Poverty Line",
-    "lookup": "F12_Pvt10k",
+    "name": "Population Below the Poverty Line",
+    "lookup": "F12_PvtyPc",
+    "metric_units": "percent",
     "colorRamp": [
       [187, 241, 209],
       [129, 228, 170],
       [97, 210, 143],
       [59, 172, 105],
       [23, 159, 78]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
   "3": {
-    "name": "Bike to Work",
-    "lookup": "F6_bike",
-    "colorRamp": [
-      [255, 255, 204],
-      [161, 218, 180],
-      [65, 182, 196],
-      [44, 127, 184],
-      [37, 52, 148]
-    ]
-  },
-  "4": {
-    "name": "Car Free",
+    "name": "Population With No Car Ownership",
     "lookup": "F7_CarFree",
+    "metric_units": "percent",
     "colorRamp": [
       [240, 249, 232],
       [186, 228, 188],
       [123, 204, 196],
       [67, 162, 202],
       [8, 104, 172]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
-  "5": {
-    "name": "Public Transit to Work",
-    "lookup": "F8_PubTran",
-    "colorRamp": [
-      [254, 240, 217],
-      [253, 204, 138],
-      [252, 141, 89],
-      [227, 74, 51],
-      [179, 0, 0]
-    ]
-  },
-  "6": {
-    "name": "Drive Alone to Work",
+  "4": {
+    "name": "Population that Drives Alone to Work",
     "lookup": "F9_DrvAlon",
+    "metric_units": "percent",
     "colorRamp": [
       [246, 239, 247],
       [189, 201, 225],
       [103, 169, 207],
       [28, 144, 153],
       [1, 108, 89]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
-  "7": {
-    "name": "Transit, Walk, or Bike",
+  "5": {
+    "name": "Population Using Alternative Transportation",
     "lookup": "F10_TrsBkW",
+    "metric_units": "percent",
     "colorRamp": [
       [254, 235, 226],
       [251, 180, 185],
       [247, 104, 161],
       [197, 27, 138],
       [122, 1, 119]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
+  },
+  "6": {
+    "name": "Bike to Work",
+    "lookup": "F6_bike",
+    "metric_units": "percent",
+    "colorRamp": [
+      [255, 255, 204],
+      [161, 218, 180],
+      [65, 182, 196],
+      [44, 127, 184],
+      [37, 52, 148]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
+  },
+  "7": {
+    "name": "Public Transit to Work",
+    "lookup": "F8_PubTran",
+    "metric_units": "percent",
+    "colorRamp": [
+      [254, 240, 217],
+      [253, 204, 138],
+      [252, 141, 89],
+      [227, 74, 51],
+      [179, 0, 0]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
   "8": {
     "name": "Walk",
     "lookup": "F11_Walk",
+    "metric_units": "percent",
     "colorRamp": [
       [254, 237, 222],
       [253, 190, 133],
       [253, 141, 60],
       [230, 85, 13],
       [166, 54, 3]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   }
 }

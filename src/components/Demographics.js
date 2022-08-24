@@ -35,7 +35,7 @@ export default function Demographics({
     const demographics = {
         1: "Race & Ethnicity",
         2: "Poverty Level",
-        3: "Car-free",
+        3: "No Car Ownership",
         4: "Drive Alone to Work",
         5: "Transit, Biked or Walked (Total)"
     }
@@ -63,7 +63,7 @@ export default function Demographics({
                                 type={'checkbox'}
                                 id={`transit-check`}
                                 checked={toggleTransit}
-                                label={"Transit"}
+                                label={"Public Transit"}
                                 onChange={(e) => {
                                     setToggleTransit(e.target.checked)
                                 }}

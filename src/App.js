@@ -44,7 +44,7 @@ function App() {
     const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
     const [coordinateLookup, setCoordinateLookup] = useState(null);
     const location = useLocation();
-    const [toggleTransit, setToggleTransit] = useState(false);
+    const [toggleTransit, setToggleTransit] = useState(true);
     const [toggleBike, setToggleBike] = useState(false);
     const [toggleWalk, setToggleWalk] = useState(false);
     const [dataScale, setdataScale] = useState(false);

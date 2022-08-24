@@ -1,5 +1,7 @@
+Bug Fix:
+- get data to legend
+
 Legend Middle Column:
-    - demographic buildup of transportation methods
 
 Map
     - revert to original scroll method and figure out how to update viewstate that way. (WIP works but get non-breaking error)
