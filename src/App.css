@@ -726,10 +726,6 @@ a:active {
     justify-items: left;
 }
 
-.map-tooltip-info{
-    /* border: 1px solid red; */
-}
-
 .map-tooltip-info:last-child{
     padding-top: 0px;
 }
@@ -932,6 +928,11 @@ a:active {
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
+.YEYE{
+    border: 1px solid black;
+    height: 75%;
+    width: 100%;
+}
 .small-font {
     font-size: .75em;
 }

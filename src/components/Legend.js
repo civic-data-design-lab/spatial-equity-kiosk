@@ -166,15 +166,15 @@ export default function Legend({
         if (!selectedSpecificIssue) {
           return (
             <div className={"placeholder-legend"}>
-              {/* <div style={{fontFamily: "Arial"}}>■</div>
+              {/* <div style={{fontFamily: "Arial"}}></div>
                                 <div className={"m-0"}>Bin 1</div>
-                                <div style={{fontFamily: "Arial"}}>■</div>
+                                <div style={{fontFamily: "Arial"}}></div>
                                 <div className={"m-0"}>Bin 2</div>
-                                <div style={{fontFamily: "Arial"}}>■</div>
+                                <div style={{fontFamily: "Arial"}}></div>
                                 <div className={"m-0"}>Bin 3</div>
-                                <div style={{fontFamily: "Arial"}}>■</div>
+                                <div style={{fontFamily: "Arial"}}></div>
                                 <div className={"m-0"}>Bin 4</div>
-                                <div style={{fontFamily: "Arial"}}>■</div>
+                                <div style={{fontFamily: "Arial"}}></div>
                                 <div className={"m-0"}>Bin 5</div> */}
             </div>
           );
@@ -190,69 +190,64 @@ export default function Legend({
                 </p>
                 <div className={"placeholder-legend"}>
                   <div
+                    className={"YEYE"}
                     style={{
-                      color: `rgb(${_CHAPTER_COLORS[
+                      backgroundColor: `rgb(${_CHAPTER_COLORS[
                         colorRamps
                       ][0].toString()})`,
                       fontFamily: "Arial",
                     }}
-                  >
-                    ■
-                  </div>
+                  ></div>
                   <div className={"m-0"}>
                     {legendBins[0] < 0 ? legendBins[0] : 0}
                   </div>
                   <div>→</div>
                   <div className={"m-0"}>{cleanNumbers[0]}</div>
                   <div
+                    className={"YEYE"}
                     style={{
-                      color: `rgb(${_CHAPTER_COLORS[
+                      backgroundColor: `rgb(${_CHAPTER_COLORS[
                         colorRamps
                       ][1].toString()})`,
                       fontFamily: "Arial",
                     }}
-                  >
-                    ■
-                  </div>
+                  ></div>
                   <div className={"m-0"}>{cleanNumbers[0]}</div>
                   <div>→</div>
                   <div className={"m-0"}>{cleanNumbers[1]}</div>
                   <div
+                    className={"YEYE"}
                     style={{
-                      color: `rgb(${_CHAPTER_COLORS[
+                      backgroundColor: `rgb(${_CHAPTER_COLORS[
                         colorRamps
                       ][2].toString()})`,
                       fontFamily: "Arial",
                     }}
-                  >
-                    ■
-                  </div>
+                  ></div>
                   <div className={"m-0"}>{cleanNumbers[1]}</div>
                   <div>→</div>
                   <div className={"m-0"}>{cleanNumbers[2]}</div>
                   <div
+                    className={"YEYE"}
                     style={{
-                      color: `rgb(${_CHAPTER_COLORS[
+                      backgroundColor: `rgb(${_CHAPTER_COLORS[
                         colorRamps
                       ][3].toString()})`,
                       fontFamily: "Arial",
                     }}
-                  >
-                    ■
-                  </div>
+                  ></div>
                   <div className={"m-0"}>{cleanNumbers[2]}</div>
                   <div>→</div>
                   <div className={"m-0"}>{cleanNumbers[3]}</div>
                   <div
+                    className={"YEYE"}
                     style={{
-                      color: `rgb(${_CHAPTER_COLORS[
+                      backgroundColor: `rgb(${_CHAPTER_COLORS[
                         colorRamps
                       ][4].toString()})`,
                       fontFamily: "Arial",
                     }}
-                  >
-                    ■
-                  </div>
+                  ></div>
                   <div className={"m-0"}>{cleanNumbers[3]}+</div>
                 </div>
               </div>
@@ -283,7 +278,7 @@ export default function Legend({
       case true:
         //TODO: create legend for demographics here
 
-        // console.log(demoColorRamp, demoColorRamp.join(","));
+        console.log(demoLookup.colorRamp[0].join(","));
 
         // demoColorRamp
         // demoLegendBins
@@ -296,26 +291,28 @@ export default function Legend({
                 </p>
                 <div className={"placeholder-legend"}>
                   <div
+                    className={"YEYE"}
                     style={{
-                      color: `rgb(${demoLookup.colorRamp[0].join(",")})`,
+                      backgroundColor: `rgb(${demoLookup.colorRamp[0].join(
+                        ","
+                      )})`,
                       fontFamily: "Arial",
                     }}
-                  >
-                    ■
-                  </div>
+                  ></div>
                   <div className={"m-0"}>0%</div>
                   <div>→</div>
                   <div className={"m-0"}>
                     {(demoLegendBins[0] * 100).toFixed(0)}%
                   </div>
                   <div
+                    className={"YEYE"}
                     style={{
-                      color: `rgb(${demoLookup.colorRamp[1].join(",")})`,
+                      backgroundColor: `rgb(${demoLookup.colorRamp[1].join(
+                        ","
+                      )})`,
                       fontFamily: "Arial",
                     }}
-                  >
-                    ■
-                  </div>
+                  ></div>
                   <div className={"m-0"}>
                     {(demoLegendBins[0] * 100).toFixed(0)}%
                   </div>
@@ -324,13 +321,14 @@ export default function Legend({
                     {(demoLegendBins[1] * 100).toFixed(0)}%
                   </div>
                   <div
+                    className={"YEYE"}
                     style={{
-                      color: `rgb(${demoLookup.colorRamp[2].join(",")})`,
+                      backgroundColor: `rgb(${demoLookup.colorRamp[2].join(
+                        ","
+                      )})`,
                       fontFamily: "Arial",
                     }}
-                  >
-                    ■
-                  </div>
+                  ></div>
                   <div className={"m-0"}>
                     {(demoLegendBins[1] * 100).toFixed(0)}%
                   </div>
@@ -339,13 +337,14 @@ export default function Legend({
                     {(demoLegendBins[2] * 100).toFixed(0)}%
                   </div>
                   <div
+                    className={"YEYE"}
                     style={{
-                      color: `rgb(${demoLookup.colorRamp[3].join(",")})`,
+                      backgroundColor: `rgb(${demoLookup.colorRamp[3].join(
+                        ","
+                      )})`,
                       fontFamily: "Arial",
                     }}
-                  >
-                    ■
-                  </div>
+                  ></div>
                   <div className={"m-0"}>
                     {(demoLegendBins[2] * 100).toFixed(0)}%
                   </div>
@@ -354,13 +353,14 @@ export default function Legend({
                     {(demoLegendBins[3] * 100).toFixed(0)}%
                   </div>
                   <div
+                    className={"YEYE"}
                     style={{
-                      color: `rgb(${demoLookup.colorRamp[4].join(",")})`,
+                      backgroundColor: `rgb(${demoLookup.colorRamp[4].join(
+                        ","
+                      )})`,
                       fontFamily: "Arial",
                     }}
-                  >
-                    ■
-                  </div>
+                  ></div>
                   <div className={"m-0"}>
                     {(demoLegendBins[3] * 100).toFixed(0)}%+
                   </div>
