@@ -22,7 +22,8 @@ export default function IssuesMiddleColumn({
                                                 toggleWalk, setToggleWalk,
                                                 toggleTransit, setToggleTransit,
                                                 toggleBike, setToggleBike, dataScale, 
-                                                setdataScale, setDemoColorRamp, setDemoLegendBins, demoColorRamp, demoLegendBins
+                                                setdataScale, setDemoColorRamp, setDemoLegendBins, demoColorRamp, demoLegendBins,
+    setColorRamps
 
                                            }) {
 
@@ -83,6 +84,7 @@ export default function IssuesMiddleColumn({
                     setSelectedSpecificIssue(null)
                     if (selectedIssue !== 1) {
                         setSelectedIssue(1)
+                        setColorRamps("health")
                     } else {
                         setSelectedIssue(null)
                         setShowDemographics(null)
@@ -118,7 +120,7 @@ export default function IssuesMiddleColumn({
                             </div>}
 
                             {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
-                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={demoLegendBins} colorRamps={demoColorRamp} toggleUnderperformers={toggleUnderperformers}
+                            <Legend dataScale = {dataScale} setdataScale = {setdataScale}  issues={issues} selectedSpecificIssue={selectedSpecificIssue} legendBins={legendBins} colorRamps={colorRamps} toggleUnderperformers={toggleUnderperformers}
                             setToggleUnderperformers={setToggleUnderperformers} boundary={boundary}/>
 
 
@@ -136,6 +138,7 @@ export default function IssuesMiddleColumn({
                     //setCompareSearch(null)
                     if (selectedIssue !== 2) {
                         setSelectedIssue(2)
+                        setColorRamps("env")
                     } else {
                         setSelectedIssue(null)
                         setShowDemographics(null)
@@ -190,6 +193,7 @@ export default function IssuesMiddleColumn({
                     //setCompareSearch(null)
                     if (selectedIssue !== 3) {
                         setSelectedIssue(3)
+                        setColorRamps("infra")
                     } else {
                         setSelectedIssue(null)
                         setShowDemographics(null)

@@ -29,7 +29,7 @@ export default function Content({
                                     mapDemographics, setMapDemographics,
                                     legendBins, colorRamps, toggleUnderperformers, setToggleUnderperformers, issue_categories,
                                     toggleTransit, toggleBike, toggleWalk, setToggleTransit, setToggleBike, setToggleWalk, dataScale,
-                                    setdataScale, demoColorRamp, demoLegendBins, setDemoColorRamp, setDemoLegendBins
+                                    setdataScale, demoColorRamp, demoLegendBins, setDemoColorRamp, setDemoLegendBins, setColorRamps
                                 }) {
 
 
@@ -58,6 +58,7 @@ export default function Content({
                         dataScale={dataScale} setdataScale={setdataScale}
                         demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
                         setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
+                        setColorRamps={setColorRamps}
 
                     />}
 

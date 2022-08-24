@@ -40,7 +40,7 @@ function App() {
     const [mapDemographics, setMapDemographics] = useState(false);
     const [addCompare, setAddCompare] = useState(false);
     const [legendBins, setLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
-    const [colorRamps, setColorRamps] = useState([1, 1, 1, 1, 1]);
+    const [colorRamps, setColorRamps] = useState(null);
     const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
     const [coordinateLookup, setCoordinateLookup] = useState(null);
     const location = useLocation();
@@ -129,6 +129,9 @@ function App() {
                 case "aC":
                     setAddCompare(pair[1] === "true");
                     break;
+                case "cR":
+                    setColorRamps(pair[1])
+                    break;
             }
         }
     }, []);
@@ -148,7 +151,6 @@ function App() {
              console.log("demographic", demographic)
              console.log("-------------------------------------------")*/
 
-
         /* if (!selectedSpecificIssue) {
                  setSelectedIssue(1)
                  setSelectedSpecificIssue(1)
@@ -156,6 +158,9 @@ function App() {
              if (!selectedSpecificIssue) {
                  setSelectedSpecificIssue(1)
              }*/
+
+        console.log("colorRamps", colorRamps)
+        console.log("legendBins", legendBins)
 
         const params = [];
 
@@ -176,6 +181,7 @@ function App() {
         if (mapDemographics !== null)
             params.push(`mD=${mapDemographics.toString()}`);
         if (addCompare !== null) params.push(`aC=${addCompare.toString()}`);
+        if (colorRamps !== null) params.push(`cR=${colorRamps}`);
 
         let path = window.location.href.split("?")[0];
         path = path.concat("?");
@@ -334,6 +340,7 @@ function App() {
                         dataScale={dataScale} setdataScale={setdataScale}
                         demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
                         setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
+                        setColorRamps={setColorRamps}
                     />
 
 

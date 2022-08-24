@@ -2,6 +2,8 @@ import React from "react";
 import {min} from "d3-array";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
+import _CHAPTER_COLORS from "../data/chapter_colors.json";
+
 
 export default function Legend({
                                    issues,
@@ -44,6 +46,8 @@ export default function Legend({
             ? legendBins[1].map((d) => Math.round(d))
             : legendBins[1];
 
+
+
     const getLegend = () => {
         switch (forDemographic) {
             case false:
@@ -75,7 +79,7 @@ export default function Legend({
                                 <div className={"placeholder-legend"}>
                                     <div
                                         style={{
-                                            color: `rgb(${colorRamps[0].toString()})`,
+                                            color: `rgb(${_CHAPTER_COLORS[colorRamps][0].toString()})`,
                                             fontFamily: "Arial",
                                         }}
                                     >
@@ -86,7 +90,7 @@ export default function Legend({
                                     <div className={"m-0"}>{cleanNumbers[0]}</div>
                                     <div
                                         style={{
-                                            color: `rgb(${colorRamps[1].toString()})`,
+                                            color: `rgb(${_CHAPTER_COLORS[colorRamps][1].toString()})`,
                                             fontFamily: "Arial",
                                         }}
                                     >
@@ -97,7 +101,7 @@ export default function Legend({
                                     <div className={"m-0"}>{cleanNumbers[1]}</div>
                                     <div
                                         style={{
-                                            color: `rgb(${colorRamps[2].toString()})`,
+                                            color: `rgb(${_CHAPTER_COLORS[colorRamps][2].toString()})`,
                                             fontFamily: "Arial",
                                         }}
                                     >
@@ -108,7 +112,7 @@ export default function Legend({
                                     <div className={"m-0"}>{cleanNumbers[2]}</div>
                                     <div
                                         style={{
-                                            color: `rgb(${colorRamps[3].toString()})`,
+                                            color: `rgb(${_CHAPTER_COLORS[colorRamps][3].toString()})`,
                                             fontFamily: "Arial",
                                         }}
                                     >
@@ -119,7 +123,7 @@ export default function Legend({
                                     <div className={"m-0"}>{cleanNumbers[3]}</div>
                                     <div
                                         style={{
-                                            color: `rgb(${colorRamps[4].toString()})`,
+                                            color: `rgb(${_CHAPTER_COLORS[colorRamps][4].toString()})`,
                                             fontFamily: "Arial",
                                         }}
                                     >
