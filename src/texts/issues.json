@@ -24,7 +24,8 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "To find space to plant more trees in your neighborhood, pay attention to how public space is used in your neighborhood. Here are a few ideas:\n\nBuild a “micro-forest” by installing a midblock curb extension that replaces one parking space with three street trees on any block. This solution will cool air temperatures, mitigate flooding, remove pollution from the air, and calm reckless driving by narrowing the roadway.\nCreate a “clean air block” by replacing one lane of a roadway with street trees in an area with high air pollution rates. One street tree can remove the equivalent of 11,000 miles of car emissions fr",
             "issue_type_ID": 1,
-            "specific_issue_source": "source name source name source name"
+            "specific_issue_source": "New York State Statewide Planning and Research Cooperative System (SPARCS) Deidentified Hospital Discharge Data",
+            "link": ""
         },
         "2": {
             "specific_issue_ID": 2,
@@ -35,8 +36,8 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 1,
-            "specific_issue_source": "source name"
-
+            "specific_issue_source": "source name",
+            "link": ""
         },
         "3": {
             "specific_issue_ID": 3,
@@ -47,7 +48,8 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 3,
-            "specific_issue_source": "source name"
+            "specific_issue_source": "Department of Transportation (DOT)",
+            "link": "https://data.cityofnewyork.us/Transportation/Bus-Lanes-Local-Streets/ycrg-ses3"
         },
         "4": {
             "specific_issue_ID": 4,
@@ -58,7 +60,8 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 2,
-            "specific_issue_source": "source name"
+            "specific_issue_source": "NYC Department of Parks and Recreation (DPR), NYC Department of City Planning (DCP), National Park Service (NPS), New York State Office of Parks, Recreation, and Historic Preservation (OPRHP). Population & Park Access: American Community Survey (ACS) 2007-2011, Infoshare.org, DPR, DCP",
+            "link": "http://www.ny4p.org/general/district-profiles-2015"
         },
         "5": {
             "specific_issue_ID": 5,
@@ -80,7 +83,8 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 2,
-            "specific_issue_source": "source name"
+            "specific_issue_source": "Department of Environmental Protection (DEP)",
+            "link": "https://data.cityofnewyork.us/Environment/DEP-Green-Infrastructure/spjh-pz7h"
         },
         "7": {
             "specific_issue_ID": 7,
@@ -113,7 +117,8 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 3,
-            "specific_issue_source": "source name"
+            "specific_issue_source": "Department of Transportation (DOT)",
+            "link": "https://data.cityofnewyork.us/Transportation/City-Bench-Locations/kuxa-tauh"
         },
         "10": {
             "specific_issue_ID": 10,
@@ -124,7 +129,8 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 2,
-            "specific_issue_source": "source name"
+            "specific_issue_source": "New York City Community Air Survey",
+            "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/VisualizationData.aspx?id=57,719b87,122,Summarize"
         },
         "11": {
             "specific_issue_ID": 11,
@@ -135,7 +141,8 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 3,
-            "specific_issue_source": "source name"
+            "specific_issue_source": "Department of Transportation (DOT)",
+            "link": "https://data.cityofnewyork.us/Transportation/New-York-City-Bike-Routes/7vsa-caz7"
         },
         "12": {
             "specific_issue_ID": 12,
@@ -146,7 +153,8 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 3,
-            "specific_issue_source": "source name"
+            "specific_issue_source": "New York Metropolitan Transportation Council Best Practice Model",
+            "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/VisualizationData.aspx?id=2112,719b87,114,Summarize"
         },
         "13": {
             "specific_issue_ID": 13,
@@ -157,7 +165,8 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 1,
-            "specific_issue_source": "source name"
+            "specific_issue_source": "Police Department (NYPD)",
+            "link": "https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95"
         },
         "14": {
             "specific_issue_ID": 14,
@@ -168,7 +177,8 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 1,
-            "specific_issue_source": "source name"
+            "specific_issue_source": "Police Department (NYPD)",
+            "link": "https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95"
         },
         "15": {
             "specific_issue_ID": 15,
@@ -179,7 +189,8 @@
             "specific_issue_ranking_narrative": "Ranking narrative (prose version) community district 1 is worst performing. A sentence on Bike Racks. news bite/ headlines. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
             "specific_issue_solutions": "solution",
             "issue_type_ID": 2,
-            "specific_issue_source": "source name"
+            "specific_issue_source": "The Built Environment & Health Project (BEH), Columbia University",
+            "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/VisualizationData.aspx?id=2157,719b87,104,Summarize"
         }
     }
 }
