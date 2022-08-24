@@ -98,6 +98,7 @@ export default function DeckMap({
 }) {
   // map hooks
   const deckRef = useRef(null);
+  const mapRef = useRef(null);
   const dataScale = "q";
 
   // SELECT BOUNDARY ------------------------------------------------------------
@@ -543,6 +544,11 @@ export default function DeckMap({
     console.log(pickInfo);
     console.log([event.clientX, event.clientY]);
   }, []);
+
+  // coord projection test
+  console.log(mapRef.current)
+  const coordinate = {lon: -122.420679, lat: 37.772537};
+  if (mapRef.current) console.log(mapRef.current.project(coordinate));
 
   // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
   const layers = [
@@ -1009,6 +1015,7 @@ export default function DeckMap({
         <Map
           reuseMaps
           mapStyle={mapStyle}
+          ref={mapRef}
           preventStyleDiffing={true}
           mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
           attributionControl={false}

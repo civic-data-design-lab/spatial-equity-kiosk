@@ -150,8 +150,6 @@ function App() {
         // console.log("-------------------------------------------")
 
 
-        console.log("legendBins ", legendBins)
-
         /* if (!selectedSpecificIssue) {
                  setSelectedIssue(1)
                  setSelectedSpecificIssue(1)
