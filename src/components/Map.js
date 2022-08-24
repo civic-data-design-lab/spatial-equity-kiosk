@@ -94,11 +94,12 @@ export default function DeckMap({
   toggleBike,
   toggleWalk,
   setDemoLegendBins,
+  setDemoColorRamp,
 }) {
   // map hooks
   const deckRef = useRef(null);
   const mapRef = useRef(null);
-  const dataScale = "equal";
+  const dataScale = "q";
 
   // SELECT BOUNDARY ------------------------------------------------------------
   let selectedBoundary;
@@ -182,7 +183,6 @@ export default function DeckMap({
   });
 
   const uniqueValueArray = [...new Set(sortedSelectedMetricArray)];
-  // console.log(selectedMetricArray, uniqueValueArray);
 
   // 01.2 break the metric array into bins and get the bin list
   for (let i = 0; i < binSize; i++) {
@@ -194,7 +194,7 @@ export default function DeckMap({
       );
     } else {
       const interval = Math.floor(
-        (uniqueValueArray.length / binSize) * (i + 1)
+        ((uniqueValueArray.length - 1) / binSize) * (i + 1)
       );
       // quantile breaks
       binList.push(uniqueValueArray[interval]);
@@ -323,7 +323,10 @@ export default function DeckMap({
         Math.round((threshold * (i + 1) + min(legendScale)) * 100) / 100
       );
     } else {
-      const interval = Math.floor((uniqueDemoArray.length / binSize) * (i + 1));
+      const interval = Math.floor(
+        ((uniqueDemoArray.length - 1) / binSize) * (i + 1)
+      );
+      console.log(uniqueDemoArray.length, interval, uniqueDemoArray[interval]);
       //  quantile breaks
       demoBinList.push(uniqueDemoArray[interval]);
     }
@@ -532,8 +535,7 @@ export default function DeckMap({
   };
 
   // 05 TOOLTIP END ----------------------------------------------------------------------------------------------
-  // console.log(selectedDemoArray, "selectedDemoArray");
-  // console.log(_NEIGHBORHOODS.features, "N features");
+
   // 06 DIRECT PICKING ENGINE ----------------------------------------------------------------------------------------------
   const onSearch = useCallback((event) => {
     const pickInfo = deckRef.current.pickObject({
@@ -544,8 +546,8 @@ export default function DeckMap({
       radius: 0,
       layerIds: ["administrative-boundaries"],
     });
-    console.log(pickInfo);
-    console.log([event.clientX, event.clientY]);
+    // console.log(pickInfo);
+    // console.log([event.clientX, event.clientY]);
   }, []);
 
   // coord projection test
@@ -559,14 +561,16 @@ export default function DeckMap({
       setColorRamps(selectedRamp);
     }
     setDemoLegendBins(demoBinList);
-    console.log(demoBinList);
+    console.log(binList, demoBinList);
   }, [
     selectedSpecificIssue,
     zoomToggle,
     selectedBoundary,
     selectedDemographic,
+    toggleTransit,
+    toggleBike,
+    toggleWalk,
   ]);
-
   // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
   const layers = [
     new GeoJsonLayer({
@@ -615,7 +619,7 @@ export default function DeckMap({
               !toggleBike &&
               !toggleWalk)
           ) {
-            return [0, 0, 0, 0];
+            return [255, 255, 255, 255];
           } else {
             return DEMO_COLOR_SCALE(fillValue);
           }
@@ -686,7 +690,7 @@ export default function DeckMap({
           !toggleBike &&
           !toggleWalk
         ) {
-          return [0, 0, 0, 0];
+          return [255, 255, 255, 255];
         }
         if (boundary == "community") {
           if (f.properties.Data_YN == "N") {

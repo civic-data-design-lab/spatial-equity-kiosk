@@ -410,6 +410,7 @@ function App() {
                             toggleBike={toggleBike}
                             toggleWalk={toggleWalk}
                             setDemoLegendBins={setDemoLegendBins}
+                            setDemoColorRamp={setDemoColorRamp}
                         />
                             {/*</div>
                             <div className={"wiper"}>

@@ -143,7 +143,7 @@ export default function Legend({
         );
       } else {
         const interval = Math.floor(
-          (uniqueValueArray.length / binSize) * (i + 1)
+          ((uniqueValueArray.length - 1) / binSize) * (i + 1)
         );
         // quantile breaks
         binList.push(uniqueValueArray[interval]);
@@ -297,17 +297,27 @@ export default function Legend({
                 <div className={"placeholder-legend"}>
                   <div
                     style={{
-                      color: `rgb(${demoColorRamp.join(",")})`,
+                      color: `rgb(${demoLookup.colorRamp[0].join(",")})`,
+                      fontFamily: "Arial",
+                    }}
+                  >
+                    ■
+                  </div>
+                  <div className={"m-0"}>0%</div>
+                  <div>→</div>
+                  <div className={"m-0"}>
+                    {(demoLegendBins[0] * 100).toFixed(0)}%
+                  </div>
+                  <div
+                    style={{
+                      color: `rgb(${demoLookup.colorRamp[1].join(",")})`,
                       fontFamily: "Arial",
                     }}
                   >
                     ■
                   </div>
                   <div className={"m-0"}>
-                    {demoLegendBins[0] > 0
-                      ? "0"
-                      : (demoLegendBins[0] * 100).toFixed(0)}
-                    %
+                    {(demoLegendBins[0] * 100).toFixed(0)}%
                   </div>
                   <div>→</div>
                   <div className={"m-0"}>
@@ -315,7 +325,7 @@ export default function Legend({
                   </div>
                   <div
                     style={{
-                      color: `rgb(${demoColorRamp.join(",")})`,
+                      color: `rgb(${demoLookup.colorRamp[2].join(",")})`,
                       fontFamily: "Arial",
                     }}
                   >
@@ -330,7 +340,7 @@ export default function Legend({
                   </div>
                   <div
                     style={{
-                      color: `rgb(${demoColorRamp.join(",")})`,
+                      color: `rgb(${demoLookup.colorRamp[3].join(",")})`,
                       fontFamily: "Arial",
                     }}
                   >
@@ -345,34 +355,21 @@ export default function Legend({
                   </div>
                   <div
                     style={{
-                      color: `rgb(${demoColorRamp.join(",")})`,
+                      color: `rgb(${demoLookup.colorRamp[4].join(",")})`,
                       fontFamily: "Arial",
                     }}
                   >
                     ■
                   </div>
                   <div className={"m-0"}>
-                    {(demoLegendBins[3] * 100).toFixed(0)}%
-                  </div>
-                  <div>→</div>
-                  <div className={"m-0"}>
-                    {(demoLegendBins[4] * 100).toFixed(0)}%
-                  </div>
-                  <div
-                    style={{
-                      color: `rgb(${demoColorRamp.join(",")})`,
-                      fontFamily: "Arial",
-                    }}
-                  >
-                    ■
-                  </div>
-                  <div className={"m-0"}>
-                    {(demoLegendBins[4] * 100).toFixed(0)}%+
+                    {(demoLegendBins[3] * 100).toFixed(0)}%+
                   </div>
                 </div>
               </div>
             </div>
           );
+        } else {
+          // ADD D3 Demographics Component Here!
         }
     }
   };
