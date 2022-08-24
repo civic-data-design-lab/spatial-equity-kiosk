@@ -1,52 +1,52 @@
 import BoundaryToggle from "./BoundaryToggle";
 import CommunityNav from "./CommunityNav";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faInstagram, faLinkedinIn, faSquareFacebook, faTwitter} from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faLinkedinIn, faSquareFacebook, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 function Nav({
-                 selectedChapter,
-                 setSelectedChapter,
-                 selectedIssue,
-                 issue_categories,
-                 boundary,
-                 setBoundary,
-                 selectedSpecificIssue,
-                 setSelectedSpecificIssue,
-                 issues,
-                 setSelectedIssue,
-                 communities,
-                 communitySearch,
-                 compareSearch,
-                 setCommunitySearch,
-                 setCompareSearch,
-                 setShowMap,
-                 councils,
-                 setMoreIssues, setMoreIssuesLength, addCompare, setAddCompare, 
-                 setSelectedCoord       
-             }) {
-
+    selectedChapter,
+    setSelectedChapter,
+    selectedIssue,
+    issue_categories,
+    boundary,
+    setBoundary,
+    selectedSpecificIssue,
+    setSelectedSpecificIssue,
+    issues,
+    setSelectedIssue,
+    communities,
+    communitySearch,
+    compareSearch,
+    setCommunitySearch,
+    setCompareSearch,
+    setShowMap,
+    councils,
+    setMoreIssues, setMoreIssuesLength, addCompare, setAddCompare,
+    selectedCoord,
+    setSelectedCoord
+}) {
 
     return (
 
         <div className={"col-3 h-100 d-flex flex-column"}>
             <div className={`nav-chapters d-flex flex-column justify-content-between top-border
              ${!selectedChapter ? "" : (selectedChapter === 1 ? "expanded-nav" : "collapsed-nav")}
-             ${selectedChapter === 2? "bottom-highlight" : ""}`}
-                 onClick={() => {
-                     //setSelectedIssue(null)
-                     //setSelectedSpecificIssue(null)
-                     setMoreIssuesLength(0)
-                     setMoreIssues([])
-                     if (selectedChapter !== 1) {
-                         setSelectedChapter(1)
-                         setShowMap(false)
-                     } else {
-                         setSelectedChapter(null)
-                         setShowMap(false)
-                     }
-                     setCommunitySearch(null)
+             ${selectedChapter === 2 ? "bottom-highlight" : ""}`}
+                onClick={() => {
+                    //setSelectedIssue(null)
+                    //setSelectedSpecificIssue(null)
+                    setMoreIssuesLength(0)
+                    setMoreIssues([])
+                    if (selectedChapter !== 1) {
+                        setSelectedChapter(1)
+                        setShowMap(false)
+                    } else {
+                        setSelectedChapter(null)
+                        setShowMap(false)
+                    }
+                    setCommunitySearch(null)
                     setCompareSearch(null)
-                 }}
+                }}
             >
                 <div>
                     <div
@@ -75,27 +75,27 @@ function Nav({
             <div className={`nav-chapters d-flex flex-column
              ${!selectedChapter ? "" : (selectedChapter === 2 ? "expanded-nav" : "collapsed-nav")}
              ${selectedChapter === 3 ? "bottom-highlight" : ""}`}
-                 onClick={() => {
-                     //setCompareSearch(null)
-                     //setCommunitySearch(null)
-                     //setShowMap(false)
-                     //setSelectedIssue(null)
-                     //setSelectedSpecificIssue(null)
-                     setMoreIssuesLength(0)
-                     setMoreIssues([])
-                     if (selectedChapter !== 2) {
-                         setSelectedChapter(2)
-                     } else {
-                         setSelectedChapter(null)
-                         setShowMap(false)
-                     }
-                     setCommunitySearch(null)
+                onClick={() => {
+                    //setCompareSearch(null)
+                    //setCommunitySearch(null)
+                    //setShowMap(false)
+                    //setSelectedIssue(null)
+                    //setSelectedSpecificIssue(null)
+                    setMoreIssuesLength(0)
+                    setMoreIssues([])
+                    if (selectedChapter !== 2) {
+                        setSelectedChapter(2)
+                    } else {
+                        setSelectedChapter(null)
+                        setShowMap(false)
+                    }
+                    setCommunitySearch(null)
                     setCompareSearch(null)
 
-                     /*if (selectedSpecificIssue) {
-                         setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
-                     }*/
-                 }}
+                    /*if (selectedSpecificIssue) {
+                        setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
+                    }*/
+                }}
             >
                 <div>
                     <div
@@ -110,7 +110,7 @@ function Nav({
                 <div
                     className={`${selectedChapter === 2 && selectedIssue ? "nav-chapters-content-expanded" : ""} h-100 nav-chapters-content d-flex flex-column justify-content-between`}>
                     <div className={`${selectedChapter === 2 ? "" : "no-pointer"}`}>
-                        <BoundaryToggle boundary={boundary} setBoundary={setBoundary} setCompareSearch={setCompareSearch} setCommunitySearch={setCommunitySearch}/>
+                        <BoundaryToggle boundary={boundary} setBoundary={setBoundary} setCompareSearch={setCompareSearch} setCommunitySearch={setCommunitySearch} />
                     </div>
                     <div className={"no-pointer"}>
                         <p className={"bold"}>{issue_categories.labels[selectedIssue]}</p>
@@ -121,19 +121,19 @@ function Nav({
 
             <div className={`nav-chapters d-flex flex-column
              ${!selectedChapter ? "" : (selectedChapter === 3 ? "expanded-nav" : "collapsed-nav")}
-             ${selectedChapter === 4? "bottom-highlight":""}`}
-                 onClick={() => {
-                     //setSelectedIssue(null)
-                     //setSelectedSpecificIssue(null)
-                     if (selectedChapter !== 3) {
-                         setSelectedChapter(3)
-                     } else {
-                         setSelectedChapter(null)
-                         setShowMap(false)
-                     }
-                     setCommunitySearch(null)
+             ${selectedChapter === 4 ? "bottom-highlight" : ""}`}
+                onClick={() => {
+                    //setSelectedIssue(null)
+                    //setSelectedSpecificIssue(null)
+                    if (selectedChapter !== 3) {
+                        setSelectedChapter(3)
+                    } else {
+                        setSelectedChapter(null)
+                        setShowMap(false)
+                    }
+                    setCommunitySearch(null)
                     setCompareSearch(null)
-                 }}
+                }}
             >
                 <div>
                     <div
@@ -150,12 +150,13 @@ function Nav({
                 <div
                     className={`${selectedChapter === 3 ? "nav-chapters-content-expanded" : ""} h-100 nav-chapters-content d-flex flex-column`}>
                     <div className={`${selectedChapter === 3 ? "" : "no-pointer"}`}>
-                        <BoundaryToggle boundary={boundary} setBoundary={setBoundary} setCompareSearch={setCompareSearch} setCommunitySearch={setCommunitySearch}/>
+                        <BoundaryToggle boundary={boundary} setBoundary={setBoundary} setCompareSearch={setCompareSearch} setCommunitySearch={setCommunitySearch} />
                     </div>
                     <CommunityNav communities={communities} communitySearch={communitySearch}
-                                  compareSearch={compareSearch} setCommunitySearch={setCommunitySearch}
-                                  setCompareSearch={setCompareSearch} boundary={boundary} councils={councils}
-                                  addCompare={addCompare} setAddCompare={setAddCompare} setSelectedCoord={setSelectedCoord}
+                        compareSearch={compareSearch} setCommunitySearch={setCommunitySearch}
+                        setCompareSearch={setCompareSearch} boundary={boundary} councils={councils}
+                        addCompare={addCompare} setAddCompare={setAddCompare}
+                        selectedCoord={selectedCoord} setSelectedCoord={setSelectedCoord}
                     />
                 </div>
             </div>
@@ -163,21 +164,21 @@ function Nav({
 
             <div className={`nav-chapters d-flex flex-column justify-content-between no-bottom-border
              ${!selectedChapter ? "flex-grow-0 " : (selectedChapter === 4 ? "expanded-nav" : "collapsed-nav")}`}
-                 onClick={() => {
-                     //setSelectedIssue(null)
-                     //setSelectedSpecificIssue(null)
-                     setMoreIssuesLength(0)
-                     setMoreIssues([])
-                     if (selectedChapter !== 4) {
-                         setSelectedChapter(4)
-                         setShowMap(false)
-                     } else {
-                         setSelectedChapter(null)
-                         setShowMap(false)
-                     }
-                     setCommunitySearch(null)
+                onClick={() => {
+                    //setSelectedIssue(null)
+                    //setSelectedSpecificIssue(null)
+                    setMoreIssuesLength(0)
+                    setMoreIssues([])
+                    if (selectedChapter !== 4) {
+                        setSelectedChapter(4)
+                        setShowMap(false)
+                    } else {
+                        setSelectedChapter(null)
+                        setShowMap(false)
+                    }
+                    setCommunitySearch(null)
                     setCompareSearch(null)
-                 }}
+                }}
             >
                 <div>
                     <div
@@ -204,21 +205,21 @@ function Nav({
                             <div onClick={(e) => {
                                 e.stopPropagation()
                             }}><a target="_blank" href={`//www.twitter.com/transalt`}><FontAwesomeIcon
-                                icon={faSquareFacebook}/></a></div>
+                                icon={faSquareFacebook} /></a></div>
                             <div onClick={(e) => {
                                 e.stopPropagation()
                             }}><a target="_blank" href={`//www.twitter.com/transalt`}><FontAwesomeIcon
-                                icon={faInstagram}/></a></div>
+                                icon={faInstagram} /></a></div>
                             <div onClick={(e) => {
                                 e.stopPropagation()
                             }}><a target="_blank"
-                                  href={`//www.instagram.com/transportationalternatives/`}><FontAwesomeIcon
-                                icon={faTwitter}/></a></div>
+                                href={`//www.instagram.com/transportationalternatives/`}><FontAwesomeIcon
+                                        icon={faTwitter} /></a></div>
                             <div onClick={(e) => {
                                 e.stopPropagation()
                             }}><a target="_blank"
-                                  href={`//www.linkedin.com/company/transportation-alternatives`}><FontAwesomeIcon
-                                icon={faLinkedinIn}/></a></div>
+                                href={`//www.linkedin.com/company/transportation-alternatives`}><FontAwesomeIcon
+                                        icon={faLinkedinIn} /></a></div>
                         </div>
                         {/*<button className={`${selectedChapter !== 4 ? "pe-none" : ""} about-button`}
                                 onClick={(e) => {
