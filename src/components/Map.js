@@ -548,8 +548,8 @@ export default function DeckMap({
       radius: 0,
       layerIds: ["administrative-boundaries"],
     });
-    console.log(pickInfo);
-    console.log([event.clientX, event.clientY]);
+/*    console.log(pickInfo);
+    console.log([event.clientX, event.clientY]);*/
   }, []);
 
   // coord projection test

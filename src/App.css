@@ -660,9 +660,10 @@ a:active {
 
 .wiper {
     height: 100vh;
-    width: 2rem;
+    width: 0.5rem;
     background-color: deeppink;
     z-index: 3;
+    cursor: ew-resize;
 }
 
 .map-container {
@@ -674,23 +675,20 @@ a:active {
 
 .map-subcontainer {
     display: flex;
-    justify-content: center;
-    flex-direction: row;
 }
 
-#resizeable-map {
-    width: 200px;
+#left-map {
+    display: flex;
 }
 
-#draggable-map {
-    width: 200px;
+#right-map {
+    flex: 1;
 }
 
 
 .individual-maps {
     position: relative;
     height: 100vh;
-    flex-grow: 1;
 }
 
 

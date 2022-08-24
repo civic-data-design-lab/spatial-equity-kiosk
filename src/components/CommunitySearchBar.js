@@ -10,7 +10,7 @@ const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 export default function CommunitySearchBar({
     toggleValue, callBack, communitySearch, forSearch = true,
     children, setAddCompare = null,
-    selectedCoord, setSelectedCoord
+    selectedCoord, setSelectedCoord, showSearch, setShowSearch
 }) {
     const [value, setValue] = useState('');
     const [focus, setFocus] = useState(false)
@@ -110,6 +110,7 @@ export default function CommunitySearchBar({
                     }}
                     onChange={(e) => {
                         callBack("")
+                        setShowSearch(true)
                         setValue(e.target.value)
                     }}
                     value={toggleValue || value}
@@ -130,7 +131,7 @@ export default function CommunitySearchBar({
                 </ul>
             </div>} */}
             {/* {focus && searchItems.length > 0 && <div> */}
-            {searchItems.length > 0 && <div>
+            {searchItems.length > 0 && showSearch && <div>
                 <ul className={`list-unstyled community-dropdown w-100`}>
                     {searchItems}
                     {getSearchItems()}
