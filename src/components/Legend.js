@@ -23,9 +23,9 @@ export default function Legend({
   selectedIssue,
   zoomToggle,
   demoLookup,
+  demoColorRamp,
+  demoLegendBins,
 }) {
-  console.log(demoLookup.name);
-
   const administrativeBoundary =
     boundary === "council" ? "Council Districts" : "Community Boards";
 
@@ -284,7 +284,9 @@ export default function Legend({
         return (
           <div className={"d-flex flex-column row-gap"}>
             <div>
-              <p className={"m-0"}>A</p>
+              <p className={"m-0"}>
+                {demoLookup.metric_units} {demoLookup.name}
+              </p>
               <div className={"placeholder-legend"}>
                 <div
                   style={{

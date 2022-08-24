@@ -54,6 +54,9 @@ function App() {
     const [demoLegendBins, setDemoLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
     const [selectedCoord, setSelectedCoord] = useState([]);
 
+    console.log(demoColorRamp,
+        demoLegendBins)
+
     // map hooks
 
     // map starting position and view state constraints
@@ -348,6 +351,7 @@ function App() {
                         demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
                         setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
                         setColorRamps={setColorRamps} handleLegend={handleLegend} zoomToggle={zoomToggle} demoLookup={demoLookup[demographic]}
+                        
                     />
 
 
