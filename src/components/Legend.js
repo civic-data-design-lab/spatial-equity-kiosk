@@ -25,6 +25,7 @@ export default function Legend({
   demoLookup,
   demoColorRamp,
   demoLegendBins,
+  mapDemographics,
 }) {
   const administrativeBoundary =
     boundary === "council" ? "Council Districts" : "Community Boards";
@@ -286,91 +287,93 @@ export default function Legend({
 
         // demoColorRamp
         // demoLegendBins
-        return (
-          <div className={"d-flex flex-column row-gap"}>
-            <div>
-              <p className={"m-0"}>
-                {demoLookup.metric_units} {demoLookup.name}
-              </p>
-              <div className={"placeholder-legend"}>
-                <div
-                  style={{
-                    color: `rgb(${demoColorRamp.join(",")})`,
-                    fontFamily: "Arial",
-                  }}
-                >
-                  ■
-                </div>
-                <div className={"m-0"}>
-                  {demoLegendBins[0] > 0
-                    ? "0"
-                    : (demoLegendBins[0] * 100).toFixed(0)}
-                  %
-                </div>
-                <div>→</div>
-                <div className={"m-0"}>
-                  {(demoLegendBins[1] * 100).toFixed(0)}%
-                </div>
-                <div
-                  style={{
-                    color: `rgb(${demoColorRamp.join(",")})`,
-                    fontFamily: "Arial",
-                  }}
-                >
-                  ■
-                </div>
-                <div className={"m-0"}>
-                  {(demoLegendBins[1] * 100).toFixed(0)}%
-                </div>
-                <div>→</div>
-                <div className={"m-0"}>
-                  {(demoLegendBins[2] * 100).toFixed(0)}%
-                </div>
-                <div
-                  style={{
-                    color: `rgb(${demoColorRamp.join(",")})`,
-                    fontFamily: "Arial",
-                  }}
-                >
-                  ■
-                </div>
-                <div className={"m-0"}>
-                  {(demoLegendBins[2] * 100).toFixed(0)}%
-                </div>
-                <div>→</div>
-                <div className={"m-0"}>
-                  {(demoLegendBins[3] * 100).toFixed(0)}%
-                </div>
-                <div
-                  style={{
-                    color: `rgb(${demoColorRamp.join(",")})`,
-                    fontFamily: "Arial",
-                  }}
-                >
-                  ■
-                </div>
-                <div className={"m-0"}>
-                  {(demoLegendBins[3] * 100).toFixed(0)}%
-                </div>
-                <div>→</div>
-                <div className={"m-0"}>
-                  {(demoLegendBins[4] * 100).toFixed(0)}%
-                </div>
-                <div
-                  style={{
-                    color: `rgb(${demoColorRamp.join(",")})`,
-                    fontFamily: "Arial",
-                  }}
-                >
-                  ■
-                </div>
-                <div className={"m-0"}>
-                  {(demoLegendBins[4] * 100).toFixed(0)}%
+        if (demoLookup.name !== "Race and Ethnicity" && mapDemographics) {
+          return (
+            <div className={"d-flex flex-column row-gap"}>
+              <div>
+                <p className={"m-0"}>
+                  {demoLookup.metric_units} {demoLookup.name}
+                </p>
+                <div className={"placeholder-legend"}>
+                  <div
+                    style={{
+                      color: `rgb(${demoColorRamp.join(",")})`,
+                      fontFamily: "Arial",
+                    }}
+                  >
+                    ■
+                  </div>
+                  <div className={"m-0"}>
+                    {demoLegendBins[0] > 0
+                      ? "0"
+                      : (demoLegendBins[0] * 100).toFixed(0)}
+                    %
+                  </div>
+                  <div>→</div>
+                  <div className={"m-0"}>
+                    {(demoLegendBins[1] * 100).toFixed(0)}%
+                  </div>
+                  <div
+                    style={{
+                      color: `rgb(${demoColorRamp.join(",")})`,
+                      fontFamily: "Arial",
+                    }}
+                  >
+                    ■
+                  </div>
+                  <div className={"m-0"}>
+                    {(demoLegendBins[1] * 100).toFixed(0)}%
+                  </div>
+                  <div>→</div>
+                  <div className={"m-0"}>
+                    {(demoLegendBins[2] * 100).toFixed(0)}%
+                  </div>
+                  <div
+                    style={{
+                      color: `rgb(${demoColorRamp.join(",")})`,
+                      fontFamily: "Arial",
+                    }}
+                  >
+                    ■
+                  </div>
+                  <div className={"m-0"}>
+                    {(demoLegendBins[2] * 100).toFixed(0)}%
+                  </div>
+                  <div>→</div>
+                  <div className={"m-0"}>
+                    {(demoLegendBins[3] * 100).toFixed(0)}%
+                  </div>
+                  <div
+                    style={{
+                      color: `rgb(${demoColorRamp.join(",")})`,
+                      fontFamily: "Arial",
+                    }}
+                  >
+                    ■
+                  </div>
+                  <div className={"m-0"}>
+                    {(demoLegendBins[3] * 100).toFixed(0)}%
+                  </div>
+                  <div>→</div>
+                  <div className={"m-0"}>
+                    {(demoLegendBins[4] * 100).toFixed(0)}%
+                  </div>
+                  <div
+                    style={{
+                      color: `rgb(${demoColorRamp.join(",")})`,
+                      fontFamily: "Arial",
+                    }}
+                  >
+                    ■
+                  </div>
+                  <div className={"m-0"}>
+                    {(demoLegendBins[4] * 100).toFixed(0)}%+
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
+          );
+        }
     }
   };
 

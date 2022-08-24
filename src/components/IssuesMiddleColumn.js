@@ -155,6 +155,7 @@ export default function IssuesMiddleColumn({
 
             {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
             <Legend
+              mapDemographics={mapDemographics}
               demoColorRamp={demoColorRamp}
               demoLegendBins={demoLegendBins}
               demoLookup={demoLookup}
@@ -243,6 +244,7 @@ export default function IssuesMiddleColumn({
 
             {!showDemographics && <p className={"small-font m-0"}></p>}
             <Legend
+              mapDemographics={mapDemographics}
               demoColorRamp={demoColorRamp}
               demoLegendBins={demoLegendBins}
               demoLookup={demoLookup}
@@ -321,6 +323,7 @@ export default function IssuesMiddleColumn({
 
             {!showDemographics && <p className={"small-font m-0"}></p>}
             <Legend
+              mapDemographics={mapDemographics}
               demoColorRamp={demoColorRamp}
               demoLegendBins={demoLegendBins}
               demoLookup={demoLookup}

@@ -196,6 +196,7 @@ export default function Demographics({
             {getTransitToggles()}
 
             <Legend
+              mapDemographics={mapDemographics}
               demoColorRamp={demoColorRamp}
               demoLegendBins={demoLegendBins}
               demoLookup={demoLookup}
@@ -236,6 +237,7 @@ export default function Demographics({
               {getTransitToggles()}
 
               <Legend
+                mapDemographics={mapDemographics}
                 demoColorRamp={demoColorRamp}
                 demoLegendBins={demoLegendBins}
                 demoLookup={demoLookup}
@@ -266,6 +268,7 @@ export default function Demographics({
                     </p>
                   </div>
                   <Legend
+                    mapDemographics={mapDemographics}
                     demoColorRamp={demoColorRamp}
                     demoLegendBins={demoLegendBins}
                     demoLookup={demoLookup}
@@ -288,6 +291,7 @@ export default function Demographics({
                     </p>
                   </div>
                   <Legend
+                    mapDemographics={mapDemographics}
                     demoColorRamp={demoColorRamp}
                     demoLegendBins={demoLegendBins}
                     demoLookup={demoLookup}

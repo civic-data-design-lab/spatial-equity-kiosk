@@ -98,7 +98,7 @@ export default function DeckMap({
   // map hooks
   const deckRef = useRef(null);
   const mapRef = useRef(null);
-  const dataScale = "q";
+  const dataScale = "equal";
 
   // SELECT BOUNDARY ------------------------------------------------------------
   let selectedBoundary;
