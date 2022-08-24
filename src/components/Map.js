@@ -326,7 +326,6 @@ export default function DeckMap({
       const interval = Math.floor(
         ((uniqueDemoArray.length - 1) / binSize) * (i + 1)
       );
-      console.log(uniqueDemoArray.length, interval, uniqueDemoArray[interval]);
       //  quantile breaks
       demoBinList.push(uniqueDemoArray[interval]);
     }
@@ -561,7 +560,6 @@ export default function DeckMap({
       setColorRamps(selectedRamp);
     }
     setDemoLegendBins(demoBinList);
-    console.log(binList, demoBinList);
   }, [
     selectedSpecificIssue,
     zoomToggle,
