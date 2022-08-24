@@ -19,7 +19,9 @@
       [237, 109, 159],
       [230, 87, 149],
       [233, 50, 128]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
   "2": {
     "name": "Below the Poverty Line",
@@ -30,7 +32,9 @@
       [97, 210, 143],
       [59, 172, 105],
       [23, 159, 78]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
   "3": {
     "name": "Bike to Work",
@@ -41,7 +45,9 @@
       [65, 182, 196],
       [44, 127, 184],
       [37, 52, 148]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
   "4": {
     "name": "Car Free",
@@ -52,7 +58,9 @@
       [123, 204, 196],
       [67, 162, 202],
       [8, 104, 172]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
   "5": {
     "name": "Public Transit to Work",
@@ -63,7 +71,9 @@
       [252, 141, 89],
       [227, 74, 51],
       [179, 0, 0]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
   "6": {
     "name": "Drive Alone to Work",
@@ -74,7 +84,9 @@
       [103, 169, 207],
       [28, 144, 153],
       [1, 108, 89]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
   "7": {
     "name": "Transit, Walk, or Bike",
@@ -85,7 +97,9 @@
       [247, 104, 161],
       [197, 27, 138],
       [122, 1, 119]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   },
   "8": {
     "name": "Walk",
@@ -96,6 +110,9 @@
       [253, 141, 60],
       [230, 85, 13],
       [166, 54, 3]
-    ]
+    ],
+    "source": "United States Cencus Bureau",
+    "link": ""
   }
 }
+
