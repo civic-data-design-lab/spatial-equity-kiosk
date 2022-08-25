@@ -30,6 +30,7 @@ const colorInterpolate = (colorA, colorB, intval) => {
 const getDataToVis = (rawIssueData) => {
     let valueArray = [];
     let nameArray = [];
+    let ascending;
 
     rawIssueData.sort((a, b) => (a.rank > b.rank));
 
@@ -45,16 +46,18 @@ const getDataToVis = (rawIssueData) => {
     for (let i = 0; i < valueArray.length - 1; i++) {
         if ((valueArray[i] < avg) && (valueArray[i + 1] > avg)) {
             avgIndex = i + (avg - valueArray[i]) / (valueArray[i + 1] - valueArray[i])
+            ascending = true;
             break;
         }
 
         if ((valueArray[i] > avg) && (valueArray[i + 1] < avg)) {
             avgIndex = i + (avg - valueArray[i + 1]) / (valueArray[i] - valueArray[i = 1])
+            ascending = false;
             break;
         }
     }
 
-    return [valueArray, nameArray, avg, avgIndex]
+    return [valueArray, nameArray, avg, avgIndex, ascending]
 }
 
 const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue }) => {
@@ -62,7 +65,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
-    let [data, nameArray, avg, avgIndex] = getDataToVis(rawIssueData);
+    let [data, nameArray, avg, avgIndex, ascending] = getDataToVis(rawIssueData);
     // console.log(avg);
     // console.log(data);
 
@@ -174,7 +177,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text('Min ' + d3.min(data));
+            .text((ascending ? 'Min ' : 'Max ') + d3.min(data));
 
         svg.select('#maxText')
             .attr('x', width - margin.right - textWidth)
@@ -182,7 +185,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text('Max ' + d3.max(data));
+            .text((!ascending ? 'Min ' : 'Max ') + d3.max(data));
 
         svg.select('#mouseTextUp')
             .attr('x', width - margin.right - textWidth)
