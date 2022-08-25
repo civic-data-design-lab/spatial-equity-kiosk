@@ -445,8 +445,8 @@ function App() {
                                      const leftSide = resizer.previousElementSibling;
 
 
-                                     setLeftWidth(leftSide.getBoundingClientRect().width)
-                                     console.log("left width is ", leftSide.getBoundingClientRect().width)
+                                    //  setLeftWidth(leftSide.getBoundingClientRect().width)
+                                    //  console.log("left width is ", leftSide.getBoundingClientRect().width)
 
                                      // Attach the listeners to `document`
                                      document.addEventListener('mousemove', mouseMoveHandler);

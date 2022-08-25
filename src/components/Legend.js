@@ -88,6 +88,58 @@ export default function Legend({
       }
     }
 
+    // STATIC - NO NEED TO CALCULATE TOTAL ETHNICITY ON RENDER
+    // // 00 Get Total Ethnicity Breakdown for NYC
+    // const totalEthnicity = [[], [], [], [], []];
+    // const nycEthnicity = [];
+    // // get the total ethnicity breakdown for NYC
+    // if (selectedBoundary) {
+    //   for (let i = 0; i < selectedBoundary.features.length; i++) {
+    //     let raceLookup =
+    //       boundary == "council"
+    //         ? ["Hispanic", "White", "Black", "Asian", "Other"]
+    //         : ["R_Hispanic", "R_White", "R+Black", "R_Asian", "R_Other"];
+
+    //     // hispanic
+    //     totalEthnicity[0].push(
+    //       selectedBoundary.features[i].properties[raceLookup[0]]
+    //     );
+    //     // white
+    //     totalEthnicity[1].push(
+    //       selectedBoundary.features[i].properties[raceLookup[1]]
+    //     );
+
+    //     // black
+    //     totalEthnicity[2].push(
+    //       selectedBoundary.features[i].properties[raceLookup[2]]
+    //     );
+
+    //     // asian
+    //     totalEthnicity[3].push(
+    //       selectedBoundary.features[i].properties[raceLookup[3]]
+    //     );
+
+    //     // other
+    //     totalEthnicity[4].push(
+    //       selectedBoundary.features[i].properties[raceLookup[4]]
+    //     );
+    //   }
+
+    //   for (let i = 0; i < totalEthnicity.length; i++) {
+    //     totalEthnicity[i] = totalEthnicity[i].reduce((a, b) => a + b, 0);
+    //   }
+
+    //   // get percentage of NYC population by ethnicity
+    //   const totalPopulation = totalEthnicity.reduce((a, b) => a + b, 0);
+
+    //   // get percentage total population
+    //   for (let i = 0; i < totalEthnicity.length; i++) {
+    //     nycEthnicity.push(
+    //       ((totalEthnicity[i] / totalPopulation) * 100).toFixed(0)
+    //     );
+    //   }
+    // }
+
     // 01 CREATE METRIC COLOR RAMPS -------------------------------------------------------
 
     //variables for scale thresholds
@@ -283,7 +335,7 @@ export default function Legend({
 
         // demoColorRamp
         // demoLegendBins
-        if (demoLookup.name !== "Race and Ethnicity" && mapDemographics) {
+        if (demoLookup.name !== "Race & Ethnicity" && mapDemographics) {
           return (
             <div className={"d-flex flex-column row-gap"}>
               <div>
@@ -384,7 +436,7 @@ export default function Legend({
                       fontFamily: "Arial",
                     }}
                   ></div>
-                  <div className={"m-0"}>Any</div>
+                  <div className={"m-0"}>29%</div>
                   <div className={"m-0"}>Hispanic</div>
                   <div
                     className={"legend-scale"}
@@ -393,7 +445,7 @@ export default function Legend({
                       fontFamily: "Arial",
                     }}
                   ></div>
-                  <div className={"m-0"}>Any</div>
+                  <div className={"m-0"}>33%</div>
                   <div className={"m-0"}>White</div>
                   <div
                     className={"legend-scale"}
@@ -402,7 +454,7 @@ export default function Legend({
                       fontFamily: "Arial",
                     }}
                   ></div>
-                  <div className={"m-0"}>Any</div>
+                  <div className={"m-0"}>23%</div>
                   <div className={"m-0"}>Black</div>
                   <div
                     className={"legend-scale"}
@@ -411,7 +463,7 @@ export default function Legend({
                       fontFamily: "Arial",
                     }}
                   ></div>
-                  <div className={"m-0"}>Any</div>
+                  <div className={"m-0"}>13%</div>
                   <div className={"m-0"}>Asian</div>
                   <div
                     className={"legend-scale"}
@@ -420,7 +472,7 @@ export default function Legend({
                       fontFamily: "Arial",
                     }}
                   ></div>
-                  <div className={"m-0"}>Any</div>
+                  <div className={"m-0"}>3%</div>
                   <div className={"m-0"}>Other</div>
                 </div>
               </div>
