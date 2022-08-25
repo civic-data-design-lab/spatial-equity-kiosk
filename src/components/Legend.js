@@ -329,12 +329,6 @@ export default function Legend({
           );
         }
       case true:
-        //TODO: create legend for demographics here
-
-        // console.log(demoLookup.colorRamp[0].join(","));
-
-        // demoColorRamp
-        // demoLegendBins
         if (demoLookup.name !== "Race & Ethnicity" && mapDemographics) {
           return (
             <div className={"d-flex flex-column row-gap"}>
