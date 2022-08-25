@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Slider from "./Carousel";
@@ -24,6 +24,8 @@ export default function CommunityNav({
         }
     })
 
+    const [showSearch, setShowSearch] = useState(false)
+
     const getSearchItems = (forSearch, boundary) => {
         let searchItems = []
         let boundaryData
@@ -45,6 +47,7 @@ export default function CommunityNav({
                                 onMouseDown={(e) => {
                                     e.stopPropagation()
                                     setCommunitySearch(key)
+                                    setShowSearch(false)
                                 }
                                 }
                             >
@@ -70,6 +73,7 @@ export default function CommunityNav({
                                 className={`${compareSearch && compareSearch.startsWith(key) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
                                 onMouseDown={() => {
                                     setCompareSearch(key)
+                                    setShowSearch(false)
                                 }}
                             >
                                 <div className={"row w-100 p-0 m-0"}>
@@ -98,7 +102,10 @@ export default function CommunityNav({
                     communitySearch={communitySearch}
                     callBack={setCommunitySearch}
                     selectedCoord={selectedCoord}
-                    setSelectedCoord={setSelectedCoord}>
+                    setSelectedCoord={setSelectedCoord}
+                    setShowSearch={setShowSearch}
+                    showSearch={showSearch}
+                >
                     {getSearchItems(true, boundary)}
                 </CommunitySearchBar>
 
@@ -108,7 +115,10 @@ export default function CommunityNav({
                         communitySearch={communitySearch} forSearch={false} setAddCompare={setAddCompare}
                         callBack={setCompareSearch}
                         selectedCoord={selectedCoord}
-                        setSelectedCoord={setSelectedCoord}>
+                        setSelectedCoord={setSelectedCoord}
+                        setShowSearch={setShowSearch}
+                    showSearch={showSearch}
+                    >
                         {getSearchItems(false, boundary)}
                     </CommunitySearchBar>
                 }

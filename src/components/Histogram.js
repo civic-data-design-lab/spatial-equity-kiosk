@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { text, mouse } from "d3";
-import { propTypes } from "react-bootstrap/esm/Image";
+import _CHAPTER_COLORS from "../data/chapter_colors.json";
+
 
 const getRgb = (color) => {
     let [r, g, b] = Array.from(color);

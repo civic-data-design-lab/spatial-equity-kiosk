@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCaretDown, faCaretUp, faPlus, faMinus} from "@fortawesome/free-solid-svg-icons";
+import {faCaretDown, faCaretUp, faMinus, faPlus,} from "@fortawesome/free-solid-svg-icons";
 
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 import Slider from "./Carousel";
 import Legend from "./Legend";
 
-
 export default function Demographics({
                                          selectedSpecificIssue,
+                                         //  currentValue = null,
                                          currentValue = null,
                                          items = null,
                                          setValue = null,
@@ -28,29 +28,31 @@ export default function Demographics({
                                          setToggleWalk,
                                          setToggleTransit,
                                          setToggleBike,
-                                         demoLegendBins, demoColorRamp, setDemoColorRamp, setDemoLegendBins
+                                         demoLegendBins,
+                                         demoColorRamp,
+                                         setDemoColorRamp,
+                                         setDemoLegendBins,
+                                         demoLookup,
                                      }) {
-
-
     const demographics = {
         1: "Race & Ethnicity",
         2: "Poverty Level",
         3: "No Car Ownership",
         4: "Drive Alone to Work",
-        5: "Transit, Biked or Walked (Total)"
-    }
+        5: "Transit, Biked or Walked (Total)",
+    };
 
-    const [showDropdownItems, setShowDropdownItems] = useState(false)
-    const [toggleText, setToggleText] = useState("Select a demographic to explore")
-    const [demographic, setDemographic] = useState(null)
+    const [showDropdownItems, setShowDropdownItems] = useState(false);
+    const [toggleText, setToggleText] = useState(
+        "Select a demographic to explore"
+    );
+    const [demographic, setDemographic] = useState(null);
 
     useEffect(() => {
         if (currentValue) {
-            setToggleText(demographics[currentValue])
+            setToggleText(demographics[currentValue]);
         }
-
-    }, [])
-
+    }, []);
 
     const getTransitToggles = () => {
         if (currentValue === "5") {
@@ -60,12 +62,12 @@ export default function Demographics({
                         <Form>
                             <Form.Check
                                 inline
-                                type={'checkbox'}
+                                type={"checkbox"}
                                 id={`transit-check`}
                                 checked={toggleTransit}
                                 label={"Public Transit"}
                                 onChange={(e) => {
-                                    setToggleTransit(e.target.checked)
+                                    setToggleTransit(e.target.checked);
                                 }}
                             />
                         </Form>
@@ -74,61 +76,49 @@ export default function Demographics({
                         <Form>
                             <Form.Check
                                 inline
-                                type={'checkbox'}
+                                type={"checkbox"}
                                 id={`bike-check`}
                                 label={"Bike"}
                                 checked={toggleBike}
                                 onChange={(e) => {
-                                    setToggleBike(e.target.checked)
+                                    setToggleBike(e.target.checked);
                                 }}
                             />
-                        </Form></div>
+                        </Form>
+                    </div>
                     <div>
                         <Form>
                             <Form.Check
                                 inline
-                                type={'checkbox'}
+                                type={"checkbox"}
                                 id={`walk-check`}
                                 label={"Walk"}
                                 checked={toggleWalk}
                                 onChange={(e) => {
-                                    setToggleWalk(e.target.checked)
+                                    setToggleWalk(e.target.checked);
                                 }}
                             />
                         </Form>
                     </div>
                 </div>
-            )
+            );
         }
-    }
-
+    };
 
     return (
         <>
-
-            {/*<div
-                className={`${selectedSpecificIssue ? "" : "d-none"} add-demographic-btn d-flex flex-row align-items-center`}
-                onClick={(e) => {
-                    e.stopPropagation()
-                    setShowDemographics(!showDemographics)
-                }}
-            >
-
-                <div className={"d-flex flex-row justify-content-between w-100 align-items-center"}>
-                    {!showDemographics ? <p className={"m-0"}>See Demographics</p> :
-                        <p className={"m-0"}>Hide Demographics</p>}
-                    {!showDemographics ? <FontAwesomeIcon icon={faPlus} width={32}/> :
-                        <FontAwesomeIcon icon={faMinus} width={32}/>}
-                </div>
-            </div>*/}
-
             <div
-                className={`${showDemographics ? 'expand-demographic' : 'collapse-demographic'}`}>
+                className={`${
+                    showDemographics ? "expand-demographic" : "collapse-demographic"
+                }`}
+            >
                 <div className={"dropdown-container mb-3"}>
                     <div
-                        className={"dropdown-bar dropdown-bar-black d-flex flex-row justify-content-between align-items-center"}
+                        className={
+                            "dropdown-bar dropdown-bar-black d-flex flex-row justify-content-between align-items-center"
+                        }
                         onMouseDown={() => {
-                            setShowDropdownItems(!showDropdownItems)
+                            setShowDropdownItems(!showDropdownItems);
                         }}
                     >
                         <p className={"mb-0"}>{toggleText}</p>
@@ -138,112 +128,174 @@ export default function Demographics({
                     </div>
 
                     <div
-                        className={`${showDropdownItems ? "d-block" : "d-none"} dropdown-body position-absolute   w-100`}>
-                        {
-                            Object.keys(demographics).map((key, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        className={`dropdown-item ${currentValue === key ? "dropdown-item-active" : ""}`}
-                                        onMouseDown={() => {
-                                            setShowDropdownItems(false)
-                                            setToggleText(demographics[key])
-                                            setValue(key)
-                                        }}
-                                    >
-                                        <p className={"small-font m-0"}>{demographics[key]}</p>
-                                    </div>)
-
-                            })}
-
+                        className={`${
+                            showDropdownItems ? "d-block" : "d-none"
+                        } dropdown-body position-absolute   w-100`}
+                    >
+                        {Object.keys(demographics).map((key, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className={`dropdown-item ${
+                                        currentValue === key ? "dropdown-item-active" : ""
+                                    }`}
+                                    onMouseDown={() => {
+                                        setShowDropdownItems(false);
+                                        setToggleText(demographics[key]);
+                                        setValue(key);
+                                    }}
+                                >
+                                    <p className={"small-font m-0"}>{demographics[key]}</p>
+                                </div>
+                            );
+                        })}
                     </div>
-
                 </div>
 
-
-                {currentValue && selectedChapter === 2 &&
+                {currentValue && selectedChapter === 2 && (
                     <div>
-                        <div
-                            className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"}`}
-                            onClick={() => {
-                                setMapDemographics(!mapDemographics)
-                            }}
-                        >
-                            <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
-                            <div>{mapDemographics ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}</div>
-                        </div>
+
+                        <p className={"mb-0"}>{demographics[currentValue]}</p>
+
 
                         {getTransitToggles()}
 
-                        <Legend demographic={demographic}
-                                legendBins={demoLegendBins}
-                                colorRamps={demoColorRamp}
-                                boundary
-                                dataScale
-                                setdataScale
-                                forDemographic={true}/>
+                        <Legend
+                            mapDemographics={mapDemographics}
+                            demoColorRamp={demoColorRamp}
+                            demoLegendBins={demoLegendBins}
+                            demoLookup={demoLookup}
+                            demographic={demographic}
+                            legendBins={demoLegendBins}
+                            colorRamps={demoColorRamp}
+                            boundary
+                            dataScale
+                            setdataScale
+                            forDemographic={true}
+                        />
 
-
-                    </div>
-                }
-
-                {currentValue && communitySearch && !compareSearch && selectedChapter === 3 &&
-                    <div>
                         <div
-                            className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"}`}
+                            className={`big-button ${
+                                mapDemographics ? "big-button-active" : "big-button-inactive"
+                            }`}
                             onClick={() => {
-                                setMapDemographics(!mapDemographics)
+                                setMapDemographics(!mapDemographics);
                             }}
                         >
                             <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
-                            <div>{mapDemographics ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}</div>
-                        </div>
-
-                        {getTransitToggles()}
-
-                        <Legend demographic={demographic}
-                                legendBins={demoLegendBins}
-                                colorRamps={demoColorRamp}
-                                boundary
-                                dataScale
-                                setdataScale
-                                forDemographic={true}/>
-
-
-                    </div>
-
-                }
-
-                {currentValue && communitySearch && compareSearch && selectedChapter === 3 &&
-                    <div id={"demographic-slider"}>
-                        <Slider>
                             <div>
-                                <div className={"d-flex flex-row justify-content-between"}>
-                                    <p className={"m-0"}>{(councils[communitySearch] && councils[communitySearch].bolded_text) || (communities[communitySearch] && communities[communitySearch].bolded_text)}</p>
-                                </div>
-                                <Legend demographic={demographic}
-                                        legendBins={demoLegendBins}
-                                        colorRamps={demoColorRamp}
-                                        boundary
-                                        dataScale
-                                        setdataScale
-                                        forDemographic={true}/>
+                                {mapDemographics ? (
+                                    <FontAwesomeIcon icon={faMinus}/>
+                                ) : (
+                                    <FontAwesomeIcon icon={faPlus}/>
+                                )}
                             </div>
-                            <div>
-                                <div className={"d-flex flex-row justify-content-between"}>
-                                    <p className={"m-0"}>{(councils[compareSearch] && councils[compareSearch].bolded_text) || (communities[compareSearch] && communities[compareSearch].bolded_text)}</p>
+                        </div>
+                    </div>
+                )}
+
+                {currentValue &&
+                    communitySearch &&
+                    !compareSearch &&
+                    selectedChapter === 3 && (
+                        <div>
+
+                            <p className={"m-0"}>{demographics[currentValue]}</p>
+
+
+                            {getTransitToggles()}
+
+                            <Legend
+                                mapDemographics={mapDemographics}
+                                demoColorRamp={demoColorRamp}
+                                demoLegendBins={demoLegendBins}
+                                demoLookup={demoLookup}
+                                demographic={demographic}
+                                legendBins={demoLegendBins}
+                                colorRamps={demoColorRamp}
+                                boundary
+                                dataScale
+                                setdataScale
+                                forDemographic={true}
+                            />
+
+                            <div
+                                className={`big-button ${
+                                    mapDemographics ? "big-button-active" : "big-button-inactive"
+                                }`}
+                                onClick={() => {
+                                    setMapDemographics(!mapDemographics);
+                                }}
+                            >
+                                <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
+                                <div>
+                                    {mapDemographics ? (
+                                        <FontAwesomeIcon icon={faMinus}/>
+                                    ) : (
+                                        <FontAwesomeIcon icon={faPlus}/>
+                                    )}
                                 </div>
-                                <Legend demographic={demographic}
+                            </div>
+                        </div>
+                    )}
+
+                {currentValue &&
+                    communitySearch &&
+                    compareSearch &&
+                    selectedChapter === 3 && (
+                        <div id={"demographic-slider"}>
+                            <Slider>
+                                <div>
+                                    {currentValue === "1" && <p className={"m-0"}>
+                                        {(councils[communitySearch] &&
+                                                councils[communitySearch].bolded_text) ||
+                                            (communities[communitySearch] &&
+                                                communities[communitySearch].bolded_text)}
+                                    </p>}
+                                    <p className={"mb-0"}>{demographics[currentValue]}</p>
+                                    {getTransitToggles()}
+
+                                    <Legend
+                                        mapDemographics={mapDemographics}
+                                        demoColorRamp={demoColorRamp}
+                                        demoLegendBins={demoLegendBins}
+                                        demoLookup={demoLookup}
+                                        demographic={demographic}
                                         legendBins={demoLegendBins}
                                         colorRamps={demoColorRamp}
                                         boundary
                                         dataScale
                                         setdataScale
                                         forDemographic={true}
-                                />
-                            </div>
-                        </Slider>
-                        {/*<div className={"slider-demo-toggle"}>
+                                    />
+                                </div>
+                                <div>
+                                    <div className={"d-flex flex-row justify-content-between"}>
+                                        {currentValue === "1" &&
+                                            <p className={"m-0"}>
+                                                {(councils[compareSearch] &&
+                                                        councils[compareSearch].bolded_text) ||
+                                                    (communities[compareSearch] &&
+                                                        communities[compareSearch].bolded_text)}
+                                            </p>
+                                        }
+                                    </div>
+                                    <Legend
+                                        mapDemographics={mapDemographics}
+                                        demoColorRamp={demoColorRamp}
+                                        demoLegendBins={demoLegendBins}
+                                        demoLookup={demoLookup}
+                                        demographic={demographic}
+                                        legendBins={demoLegendBins}
+                                        colorRamps={demoColorRamp}
+                                        boundary
+                                        dataScale
+                                        setdataScale
+                                        forDemographic={true}
+                                    />
+                                </div>
+                            </Slider>
+                            {/*<div className={"slider-demo-toggle"}>
                             <div className={"d-flex flex-row align-items-center col-gap"}>
                                 <Toggle value={mapDemographics} callback={setMapDemographics}
                                         textOff={"Show on map"}
@@ -251,26 +303,27 @@ export default function Demographics({
                             </div>
                         </div>*/}
 
-                        {getTransitToggles()}
 
-                        <div
-                            className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"}`}
-                            onClick={() => {
-                                setMapDemographics(!mapDemographics)
-                            }}
-                        >
-                            <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
-                            <div>{mapDemographics ? <FontAwesomeIcon icon={faMinus}/> : <FontAwesomeIcon icon={faPlus}/>}</div>
+                            <div
+                                className={`big-button ${
+                                    mapDemographics ? "big-button-active" : "big-button-inactive"
+                                }`}
+                                onClick={() => {
+                                    setMapDemographics(!mapDemographics);
+                                }}
+                            >
+                                <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
+                                <div>
+                                    {mapDemographics ? (
+                                        <FontAwesomeIcon icon={faMinus}/>
+                                    ) : (
+                                        <FontAwesomeIcon icon={faPlus}/>
+                                    )}
+                                </div>
+                            </div>
                         </div>
-
-
-
-                    </div>
-                }
-
-
+                    )}
             </div>
         </>
-    )
-
+    );
 }
