@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MapToggle from "./MapToggle";
 import ShareButton from "./ShareButton";
 import IssueProfile from "./IssuesProfile";
-import DonutChart from "./Histogram";
+import Histogram from "./Histogram";
 
 export default function IssuesTileView({
     selectedSpecificIssue,
@@ -63,8 +63,12 @@ export default function IssuesTileView({
                                 <p className={"m-0 small-font"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}</p>
                             </div>
                             <div style={{ height: "700px", flex: 1 }}>
-                                {/* {selectedIssue} */}
-                                <DonutChart colorRamps={colorRamps} />
+                                <Histogram
+                                    colorRampsyType={colorRamps}
+                                    issues={issues}
+                                    boundary={boundary}
+                                    selectedSpecificIssue={selectedSpecificIssue}
+                                />
                             </div>
                             <p className={"m-0 small-font"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}</p>
                         </div>

@@ -137,7 +137,7 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
-          <div className={"d-flex flex-column justify-content-between h-100"}>
+          <div className={`d-flex flex-column h-100 ${selectedSpecificIssue && showDemographics ? "justify-content-end" : "justify-content-between"}`}>
             {((selectedSpecificIssue && !showDemographics) ||
               !selectedSpecificIssue) && (
               <div className={"thirds mt-3"}>

@@ -153,6 +153,7 @@ function App() {
         // console.log("selectedAbout ", selectedAbout)
         // console.log("demographic", demographic)
         // console.log("legendBins ", legendBins)
+        // console.log("colorRamps", colorRamps)
         // console.log("selectedCoord", selectedCoord)
         // console.log("-------------------------------------------")
 
@@ -444,8 +445,8 @@ function App() {
                                      const leftSide = resizer.previousElementSibling;
 
 
-                                     setLeftWidth(leftSide.getBoundingClientRect().width)
-                                     console.log("left width is ", leftSide.getBoundingClientRect().width)
+                                    //  setLeftWidth(leftSide.getBoundingClientRect().width)
+                                    //  console.log("left width is ", leftSide.getBoundingClientRect().width)
 
                                      // Attach the listeners to `document`
                                      document.addEventListener('mousemove', mouseMoveHandler);
