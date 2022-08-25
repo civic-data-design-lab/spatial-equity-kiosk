@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { text, mouse } from "d3";
 
@@ -62,6 +62,45 @@ const getDataToVis = (rawIssueData) => {
 
 const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue }) => {
     const ref = useRef();
+    const containerRef = useRef();
+
+    // svg attr
+    // const width = 500;
+    // const height = 1200;
+    // const widthChart = 400;
+    const textWidth = 50;
+
+    const [dimensions, setDimensions] = useState({
+        height: 0,
+        width: 0,
+    })
+
+    useEffect(() => {
+        let handleResize = () => {
+            // console.log(ref.current)
+            // console.log(containerRef.current)
+            console.log({
+                height: containerRef.current.clientHeight,
+                width: containerRef.current.clientWidth,
+            })
+
+            setDimensions({
+                height: containerRef.current.clientHeight,
+                width: containerRef.current.clientWidth,
+            })
+        }
+
+        window.addEventListener('resize', handleResize);
+    }, [])
+
+    const margin = {
+        top: 20,
+        left: 0,
+        bottom: 40,
+        right: 50,
+    }
+
+
 
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
@@ -85,19 +124,9 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         //     124121,
         // ]).sort(d3.ascending);
 
-        // svg attr
-        const width = 500;
-        const height = 1200;
-        const widthChart = 400;
-        const textWidth = 50;
-
-
-        const margin = {
-            top: 30,
-            left: 30,
-            bottom: 30,
-            right: 30,
-        }
+        const height = dimensions.height ? dimensions.height : 1200;
+        const width = dimensions.width ? dimensions.width : 500;
+        console.log(dimensions)
 
         // histogram bars attr
         const barPadding = 0;
@@ -106,7 +135,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         // scales of chart
         let xscale = d3.scaleLinear()
             .domain([0, d3.max(data)])
-            .range([0, widthChart - margin.right - margin.left])
+            .range([0, width - 100 - margin.right - margin.left])
 
         let yscale = d3.scaleLinear()
             .domain([0, data.length])
@@ -114,8 +143,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
         // build SVG
         let svg = d3.select(ref.current)
-            .attr('height', height)
-            .attr('width', width)
+            .attr('height', '100%')
+            .attr('width', '100%')
 
         // create Chart
         svg.select('g')
@@ -282,30 +311,35 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             })
 
 
-    }, [colorRamps, boundary, selectedSpecificIssue]);
+    }, [colorRamps, boundary, selectedSpecificIssue, dimensions]);
 
     return (
-        <svg ref={ref}>
-            {/* Main Chart */}
-            <g />
+        <div ref={containerRef} style={{
+            height: "100%",
+            width: "100%"
+        }}>
+            <svg ref={ref}>
+                {/* Main Chart */}
+                <g />
 
-            {/* Avg Line */}
-            <line id="avgLine" />
-            <text id="avgTextUp" />
-            <text id="avgTextDown" />
+                {/* Avg Line */}
+                <line id="avgLine" />
+                <text id="avgTextUp" />
+                <text id="avgTextDown" />
 
-            {/* Interactive Line */}
-            <line id="mouseLine" />
-            <text id="mouseTextUp" />
-            <text id="mouseTextDown" />
-            <rect id="histBg" />
+                {/* Interactive Line */}
+                <line id="mouseLine" />
+                <text id="mouseTextUp" />
+                <text id="mouseTextDown" />
+                <rect id="histBg" />
 
-            {/* Min/Max Line */}
-            <line id="maxLine" />
-            <line id="minLine" />
-            <text id="maxText" />
-            <text id="minText" />
-        </svg>
+                {/* Min/Max Line */}
+                <line id="maxLine" />
+                <line id="minLine" />
+                <text id="maxText" />
+                <text id="minText" />
+            </svg>
+        </div>
     );
 };
 

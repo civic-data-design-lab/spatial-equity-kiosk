@@ -62,7 +62,7 @@ export default function IssuesTileView({
                                 <h5 className={"m-0 bold"}>{getIssueName()}</h5>
                                 <p className={"m-0 small-font"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}</p>
                             </div>
-                            <div style={{ height: "700px", flex: 1 }}>
+                            <div style={{  flex: 1 }}>
                                 <Histogram
                                     colorRampsyType={colorRamps}
                                     issues={issues}
