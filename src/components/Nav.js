@@ -23,7 +23,7 @@ function Nav({
     councils,
     setMoreIssues, setMoreIssuesLength, addCompare, setAddCompare,
     selectedCoord,
-    setSelectedCoord
+    setSelectedCoord,
 }) {
 
     return (
@@ -156,7 +156,8 @@ function Nav({
                         compareSearch={compareSearch} setCommunitySearch={setCommunitySearch}
                         setCompareSearch={setCompareSearch} boundary={boundary} councils={councils}
                         addCompare={addCompare} setAddCompare={setAddCompare}
-                        selectedCoord={selectedCoord} setSelectedCoord={setSelectedCoord}
+                        selectedCoord={selectedCoord} setSelectedCoord={setSelectedCoord} 
+                        setShowMap={setShowMap}
                     />
                 </div>
             </div>

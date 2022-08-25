@@ -1,4 +1,6 @@
 Bug Fix:
+When demographics is hidden, the split screen should always go away
+
 
 Legend Middle Column:
 
