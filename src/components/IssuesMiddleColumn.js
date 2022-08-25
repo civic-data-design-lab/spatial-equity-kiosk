@@ -43,6 +43,7 @@ export default function IssuesMiddleColumn({
   zoomToggle,
   setColorRamps,
   demoLookup,
+    showMap
 }) {
   const health_issues = issues.issues_data["health"].specific_issues_ID.map(
     (id_) => {
@@ -171,6 +172,7 @@ export default function IssuesMiddleColumn({
               handleLegend={handleLegend}
               selectedIssue={selectedSpecificIssue}
               zoomToggle={zoomToggle}
+              showMap={showMap}
             />
           </div>
         </div>
@@ -257,6 +259,7 @@ export default function IssuesMiddleColumn({
               toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
               setToggleUnderperformers={setToggleUnderperformers}
               boundary={boundary}
+              showMap={showMap}
             />
           </div>
         </div>
@@ -335,7 +338,7 @@ export default function IssuesMiddleColumn({
               colorRamps={colorRamps}
               toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
               setToggleUnderperformers={setToggleUnderperformers}
-              boundary={boundary}
+              boundary={boundary} showMap={showMap}
             />
           </div>
         </div>
@@ -399,7 +402,7 @@ export default function IssuesMiddleColumn({
             demoLegendBins={demoLegendBins}
             setDemoColorRamp={setDemoColorRamp}
             setDemoLegendBins={setDemoLegendBins}
-            demoLookup={demoLookup}
+            demoLookup={demoLookup} showMap={showMap}
           />
         </div>
       </div>

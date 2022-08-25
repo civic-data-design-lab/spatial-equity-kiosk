@@ -34,7 +34,7 @@ export default function Content({
 
 
     return (
-        <div className={"col-9 d-flex flex-row"}>
+        <div className={`d-flex flex-row col-9`}>
 
             <div
                 className={`middle-column h-100 ${(selectedChapter === 2) || (selectedChapter === 3 && communitySearch && showMap) ? "col-4 no-top-border" : selectedChapter === 3 && communitySearch && !showMap ? "col-6" : "collapsed-middle-column"}`}>
@@ -59,6 +59,7 @@ export default function Content({
                         demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
                         setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins}
                         setColorRamps={setColorRamps} handleLegend={handleLegend} zoomToggle={zoomToggle} demoLookup={demoLookup}
+                        showMap={showMap}
 
                     />}
 
@@ -73,7 +74,8 @@ export default function Content({
 
             </div>
 
-            <div className={`h-100 flex-grow-1 ${!selectedChapter || selectedChapter === 1 ? "no-left-border" : ""} ${selectedChapter === 3 && communitySearch && !selectedSpecificIssue ? "transparent-bg" : "white-bg"}`}
+            <div className={`h-100 flex-grow-1 ${!selectedChapter || selectedChapter === 1 ? "no-left-border" : ""} ${selectedChapter === 3 && communitySearch && !selectedSpecificIssue ? "transparent-bg" : "white-bg"}`
+            }
                  id="right-column">
 
 

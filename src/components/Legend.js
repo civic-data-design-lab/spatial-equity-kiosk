@@ -27,6 +27,7 @@ export default function Legend({
   demoColorRamp,
   demoLegendBins,
   mapDemographics,
+    showMap
 }) {
   const administrativeBoundary =
     boundary === "council" ? "Council Districts" : "Community Boards";
@@ -253,26 +254,26 @@ export default function Legend({
                 </div>
               </div>
 
-              <div
-                className={`big-button ${
-                  toggleUnderperformers
-                    ? "big-button-active"
-                    : "big-button-inactive"
-                }`}
-                onClick={() => {
-                  setToggleUnderperformers(!toggleUnderperformers);
-                }}
+              {showMap && <div
+                  className={`big-button ${
+                      toggleUnderperformers
+                          ? "big-button-active"
+                          : "big-button-inactive"
+                  }`}
+                  onClick={() => {
+                    setToggleUnderperformers(!toggleUnderperformers);
+                  }}
               >
                 {getButtonStatement()}
 
                 <div>
                   {toggleUnderperformers ? (
-                    <FontAwesomeIcon icon={faMinus} />
+                      <FontAwesomeIcon icon={faMinus}/>
                   ) : (
-                    <FontAwesomeIcon icon={faPlus} />
+                      <FontAwesomeIcon icon={faPlus}/>
                   )}
                 </div>
-              </div>
+              </div>}
             </div>
           );
         }

@@ -46,14 +46,6 @@ export default function IssuesCard({
                             <p className={"m-0"}>{issues.specific_issues_data[specificIssue].specific_issue_source}</p>
                         </div>
                     </div>
-                    <FontAwesomeIcon icon={faArrowsUpDownLeftRight} onClick={(e) => {
-                        e.stopPropagation()
-                        if (modalVersion) {
-                            setModal(null)
-                        } else {
-                            setModal(specificIssue)
-                        }
-                    }}/>
                 </div>
             </div>
             <div className={"issues-card-body"}>

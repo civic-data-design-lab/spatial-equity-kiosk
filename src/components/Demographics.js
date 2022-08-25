@@ -32,7 +32,7 @@ export default function Demographics({
                                          demoColorRamp,
                                          setDemoColorRamp,
                                          setDemoLegendBins,
-                                         demoLookup,
+                                         demoLookup, showMap
                                      }) {
     const demographics = {
         1: "Race & Ethnicity",
@@ -174,7 +174,7 @@ export default function Demographics({
                             forDemographic={true}
                         />
 
-                        <div
+                        {showMap && <div
                             className={`big-button ${
                                 mapDemographics ? "big-button-active" : "big-button-inactive"
                             }`}
@@ -190,7 +190,7 @@ export default function Demographics({
                                     <FontAwesomeIcon icon={faPlus}/>
                                 )}
                             </div>
-                        </div>
+                        </div>}
                     </div>
                 )}
 
