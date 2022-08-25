@@ -200,7 +200,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("fill", "#000000")
             .text('');
 
-
+        // Adjust text position
         svg.select('#maxText')
             .attr('x', width - margin.right - svg.select('#maxText').node().getBoundingClientRect().width);
 
@@ -230,6 +230,13 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("font-size", "14")
             .attr("fill", "#000000")
             .text(avg);
+
+        // Adjust text position
+        svg.select('#avgTextUp')
+            .attr('x', width - margin.right - svg.select('#avgTextUp').node().getBoundingClientRect().width);
+
+        svg.select('#avgTextDown')
+            .attr('x', width - margin.right - svg.select('#avgTextDown').node().getBoundingClientRect().width);
 
         d3.select('#histBg')
             .attr('height', height)
@@ -261,6 +268,14 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 d3.select("#mouseTextDown")
                     .attr('y', ycood + 15)
                     .text(data[Math.floor(yscale.invert(ycood) - 0.5)])
+
+                // Adjust text position
+                svg.select('#mouseTextUp')
+                    .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
+
+                svg.select('#mouseTextDown')
+                    .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
+
             })
 
 
