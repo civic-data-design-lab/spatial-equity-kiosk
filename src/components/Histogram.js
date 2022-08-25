@@ -89,9 +89,10 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 width: containerRef.current.clientWidth,
             })
         }
+        handleResize();
 
         window.addEventListener('resize', handleResize);
-    }, [])
+    }, [boundary, selectedSpecificIssue])
 
     const margin = {
         top: 20,
