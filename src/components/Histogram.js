@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { text, mouse } from "d3";
+
 import _CHAPTER_COLORS from "../data/chapter_colors.json";
+import _RANKINGS from "../data/rankings.json";
 
 
 const getRgb = (color) => {
@@ -25,24 +27,47 @@ const colorInterpolate = (colorA, colorB, intval) => {
     ]
 }
 
-const Histogram = ({colorRamps, issues, boundary, selectedSpecificIssue }) => {
+const getDataToVis = (rawIssueData) => {
+    let valueArray = [];
+    let nameArray = [];
+
+    rawIssueData.sort((a, b) => (a.rank > b.rank));
+
+    for (let [_, value] of Object.entries(rawIssueData)) {
+        valueArray.push(Number(Number(value.data).toFixed(3)))
+        nameArray.push(value.community)
+    }
+
+    let sum = valueArray.reduce((a, b) => a + b, 0);
+    let avg = Number((sum / valueArray.length).toFixed(3));
+
+    return [valueArray, nameArray, avg]
+}
+
+const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue }) => {
     const ref = useRef();
 
-    // console.log("colorRamps", props.colorRamps)
-    // console.log("issues", props.issues)
-    // console.log("boundary", props.boundary)
-    // console.log("selectedSpecificIssue", props.selectedSpecificIssue)
+    let colorRamps = _CHAPTER_COLORS[colorRampsyType]
+    let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
+    let [data, nameArray, avg] = getDataToVis(rawIssueData);
+    // console.log(avg);
+    // console.log(data);
+
+    // console.log(rawIssueData);
+    // console.log("colorRamps", colorRamps)
+    // console.log("issues", issues)
+    // console.log("boundary", boundary)
+    // console.log("selectedSpecificIssue", selectedSpecificIssue)
 
     useEffect(() => {
-        const data = ([
-            42358, 98745, 36186, 20817, 68199, 57303, 27330, 21467, 23958, 86923,
-            20881, 32462, 47504, 76660, 111284, 10824, 19879, 28216, 26133, 66290,
-            23684, 11035, 25084, 130028, 22654, 69009, 49598, 11765, 14387, 13512,
-            15558, 24364, 11138, 22206, 18541, 20679, 64235, 114357, 111314, 36500,
-            26879, 23008, 21960, 89437, 31784, 49608, 20314, 81281, 32459, 102158,
-            124121,
-        ]).sort(d3.ascending);
-        // console.log(data);
+        // const data = ([
+        //     42358, 98745, 36186, 20817, 68199, 57303, 27330, 21467, 23958, 86923,
+        //     20881, 32462, 47504, 76660, 111284, 10824, 19879, 28216, 26133, 66290,
+        //     23684, 11035, 25084, 130028, 22654, 69009, 49598, 11765, 14387, 13512,
+        //     15558, 24364, 11138, 22206, 18541, 20679, 64235, 114357, 111314, 36500,
+        //     26879, 23008, 21960, 89437, 31784, 49608, 20314, 81281, 32459, 102158,
+        //     124121,
+        // ]).sort(d3.ascending);
 
         // svg attr
         const width = 500;
@@ -76,13 +101,17 @@ const Histogram = ({colorRamps, issues, boundary, selectedSpecificIssue }) => {
             .attr('height', height)
             .attr('width', width)
 
-        // draw Chart
+        // create Chart
         svg.select('g')
             .attr('class', 'rect')
             .selectAll('rect')
             .data(data)
             .enter()
             .append('rect')
+            .merge(svg.select('g')
+                .attr('class', 'rect')
+                .selectAll('rect')
+                .data(data))
             .attr('height', barHeight - barPadding)
             //.attr('value', d => { console.log(xscale(d)) })
             .attr('width', d => xscale(d))
@@ -90,10 +119,19 @@ const Histogram = ({colorRamps, issues, boundary, selectedSpecificIssue }) => {
             .attr('x', margin.left)
             // .attr("fill", (d, i) => d3.rgb(...colorRamps.colorRamps[Math.floor(colorRamps.colorRamps.length * i / data.length)]))
             .attr("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
-            .attr('value', d => d)
+            .attr('value', d => d);
+
+
+        // clear Chart
+        svg.select('g')
+            .attr('class', 'rect')
+            .selectAll('rect')
+            .data(data)
+            .exit()
+            .remove();
 
         // draw Lines
-        svg.append('line')
+        svg.select('#minLine')
             .attr('x1', margin.left)
             .attr('y1', yscale(0.5))
             .attr('x2', width - margin.right)
@@ -101,7 +139,7 @@ const Histogram = ({colorRamps, issues, boundary, selectedSpecificIssue }) => {
             .style('stroke', 'black')
             .style('stroke-width', 2);
 
-        svg.append('line')
+        svg.select('#maxLine')
             .attr('x1', margin.left)
             .attr('y1', yscale(data.length + 0.5))
             .attr('x2', width - margin.right)
@@ -190,7 +228,7 @@ const Histogram = ({colorRamps, issues, boundary, selectedSpecificIssue }) => {
             })
 
 
-    }, []);
+    }, [colorRamps, boundary, selectedSpecificIssue]);
 
     return (
         <svg ref={ref}>
@@ -202,6 +240,9 @@ const Histogram = ({colorRamps, issues, boundary, selectedSpecificIssue }) => {
             <text id="mouseTextUp" />
             <text id="mouseTextDown" />
             <rect id="histBg" />
+
+            <line id="maxLine" />
+            <line id="minLine" />
         </svg>
     );
 };

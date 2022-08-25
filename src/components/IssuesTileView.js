@@ -64,10 +64,10 @@ export default function IssuesTileView({
                             </div>
                             <div style={{ height: "700px", flex: 1 }}>
                                 <Histogram
-                                    colorRamps={colorRamps}
+                                    colorRampsyType={colorRamps}
                                     issues={issues}
-                                    // boundary={boundary}
-                                    // selectedSpecificIssue={selectedSpecificIssue}
+                                    boundary={boundary}
+                                    selectedSpecificIssue={selectedSpecificIssue}
                                 />
                             </div>
                             <p className={"m-0 small-font"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}</p>
