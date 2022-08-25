@@ -40,8 +40,21 @@ const getDataToVis = (rawIssueData) => {
 
     let sum = valueArray.reduce((a, b) => a + b, 0);
     let avg = Number((sum / valueArray.length).toFixed(3));
+    let avgIndex;
 
-    return [valueArray, nameArray, avg]
+    for (let i = 0; i < valueArray.length - 1; i++) {
+        if ((valueArray[i] < avg) && (valueArray[i + 1] > avg)) {
+            avgIndex = i + (avg - valueArray[i]) / (valueArray[i + 1] - valueArray[i])
+            break;
+        }
+
+        if ((valueArray[i] > avg) && (valueArray[i + 1] < avg)) {
+            avgIndex = i + (avg - valueArray[i + 1]) / (valueArray[i] - valueArray[i = 1])
+            break;
+        }
+    }
+
+    return [valueArray, nameArray, avg, avgIndex]
 }
 
 const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue }) => {
@@ -49,7 +62,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
-    let [data, nameArray, avg] = getDataToVis(rawIssueData);
+    let [data, nameArray, avg, avgIndex] = getDataToVis(rawIssueData);
     // console.log(avg);
     // console.log(data);
 
@@ -177,7 +190,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text('AA');
+            .text('');
 
         svg.select('#mouseTextDown')
             .attr('x', width - margin.right - textWidth)
@@ -185,7 +198,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text('BB');
+            .text('');
 
 
         svg.select('#maxText')
@@ -194,6 +207,29 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         svg.select('#minText')
             .attr('x', width - margin.right - svg.select('#minText').node().getBoundingClientRect().width);
 
+        svg.select('#avgLine')
+            .attr('x1', margin.left)
+            .attr('y1', yscale(avgIndex + 0.5))
+            .attr('x2', width - margin.right)
+            .attr('y2', yscale(avgIndex + 0.5))
+            .style('stroke', 'black')
+            .style('stroke-width', 2);
+
+        svg.select('#avgTextUp')
+            .attr('x', width - margin.right - textWidth)
+            .attr('y', yscale(avgIndex + 0.5) - 5)
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .text('NYC Average');
+
+        svg.select('#avgTextDown')
+            .attr('x', width - margin.right - textWidth)
+            .attr('y', yscale(avgIndex + 0.5) + 15)
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .text(avg);
 
         d3.select('#histBg')
             .attr('height', height)
@@ -220,7 +256,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
                 d3.select("#mouseTextUp")
                     .attr('y', ycood - 5)
-                    .text(Math.floor(yscale.invert(ycood) - 0.5))
+                    .text(nameArray[Math.floor(yscale.invert(ycood) - 0.5)])
 
                 d3.select("#mouseTextDown")
                     .attr('y', ycood + 15)
@@ -232,17 +268,25 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
     return (
         <svg ref={ref}>
+            {/* Main Chart */}
             <g />
-            <text id="maxText" />
-            <text id="minText" />
 
+            {/* Avg Line */}
+            <line id="avgLine" />
+            <text id="avgTextUp" />
+            <text id="avgTextDown" />
+
+            {/* Interactive Line */}
             <line id="mouseLine" />
             <text id="mouseTextUp" />
             <text id="mouseTextDown" />
             <rect id="histBg" />
 
+            {/* Min/Max Line */}
             <line id="maxLine" />
             <line id="minLine" />
+            <text id="maxText" />
+            <text id="minText" />
         </svg>
     );
 };
