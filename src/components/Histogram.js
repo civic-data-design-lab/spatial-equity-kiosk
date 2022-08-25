@@ -206,7 +206,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((ascending ? 'Min ' : 'Max ') + d3.min(data));
+            .text((ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
 
         svg.select('#maxText')
             .attr('x', width - margin.right - textWidth)
@@ -214,7 +214,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((!ascending ? 'Min ' : 'Max ') + d3.max(data));
+            .text((!ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
 
         svg.select('#mouseTextUp')
             .attr('x', width - margin.right - textWidth)
