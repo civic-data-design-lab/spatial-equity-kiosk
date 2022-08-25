@@ -1,12 +1,11 @@
 Bug Fix:
-- get data to legend
-- fix tooltip legend when scrolling in and out with the demographics scale 
+When demographics is hidden, the split screen should always go away
+
 
 Legend Middle Column:
 
 Map
     - revert to original scroll method and figure out how to update viewstate that way. (WIP works but get non-breaking error)
-    - demographic legend
 
 General
     - introduction text should always be available on Spatial Equity chapter?

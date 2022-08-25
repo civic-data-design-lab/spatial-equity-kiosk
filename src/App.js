@@ -154,6 +154,7 @@ function App() {
         // console.log("selectedAbout ", selectedAbout)
         // console.log("demographic", demographic)
         // console.log("legendBins ", legendBins)
+        // console.log("colorRamps", colorRamps)
         // console.log("selectedCoord", selectedCoord)
         // console.log("-------------------------------------------")
 

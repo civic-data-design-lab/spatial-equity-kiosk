@@ -14,7 +14,8 @@ export default function CommunityNav({
     setCompareSearch,
     boundary, councils,
     addCompare, setAddCompare,
-    selectedCoord, setSelectedCoord
+    selectedCoord, setSelectedCoord, showMap,
+    setShowMap
 }) {
 
 
@@ -105,6 +106,7 @@ export default function CommunityNav({
                     setSelectedCoord={setSelectedCoord}
                     setShowSearch={setShowSearch}
                     showSearch={showSearch}
+                    setShowMap={setShowMap}
                 >
                     {getSearchItems(true, boundary)}
                 </CommunitySearchBar>
@@ -117,7 +119,8 @@ export default function CommunityNav({
                         selectedCoord={selectedCoord}
                         setSelectedCoord={setSelectedCoord}
                         setShowSearch={setShowSearch}
-                    showSearch={showSearch}
+                        showSearch={showSearch}
+                        setShowMap={setShowMap}
                     >
                         {getSearchItems(false, boundary)}
                     </CommunitySearchBar>

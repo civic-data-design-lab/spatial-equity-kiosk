@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInstagram, faLinkedinIn, faSquareFacebook, faTwitter} from "@fortawesome/free-brands-svg-icons";
 
 function Nav({
+
                  selectedChapter,
                  setSelectedChapter,
                  selectedIssue,
@@ -25,6 +26,7 @@ function Nav({
                  selectedCoord,
                  setSelectedCoord, isMobile
              }) {
+
 
     return (
 

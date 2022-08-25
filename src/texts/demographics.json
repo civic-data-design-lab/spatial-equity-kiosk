@@ -10,7 +10,7 @@
       [230, 87, 149],
       [233, 50, 128]
     ],
-    "source": "United States Cencus Bureau",
+    "source": "",
     "link": ""
   },
   "1": {
@@ -24,8 +24,8 @@
       [230, 87, 149],
       [233, 50, 128]
     ],
-    "source": "United States Cencus Bureau",
-    "link": ""
+    "source": "U.S. Census Bureau, American Community Survey, 2016 - 2020",
+    "link": "https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page"
   },
   "2": {
     "name": "Population Below the Poverty Line",
@@ -38,8 +38,8 @@
       [59, 172, 105],
       [23, 159, 78]
     ],
-    "source": "United States Cencus Bureau",
-    "link": ""
+    "source": "U.S. Census Bureau, American Community Survey, 2016 - 2020",
+    "link": "https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page"
   },
   "3": {
     "name": "Population With No Car Ownership",
@@ -52,7 +52,7 @@
       [67, 162, 202],
       [8, 104, 172]
     ],
-    "source": "United States Cencus Bureau",
+    "source": "U.S. Census Bureau, American Community Survey, year",
     "link": ""
   },
   "4": {
@@ -66,7 +66,7 @@
       [28, 144, 153],
       [1, 108, 89]
     ],
-    "source": "United States Cencus Bureau",
+    "source": "U.S. Census Bureau, American Community Survey, 2016 - 2020",
     "link": ""
   },
   "5": {
@@ -80,7 +80,7 @@
       [197, 27, 138],
       [122, 1, 119]
     ],
-    "source": "United States Cencus Bureau",
+    "source": "U.S. Census Bureau, American Community Survey, 2016 - 2020",
     "link": ""
   },
   "6": {
@@ -94,7 +94,7 @@
       [44, 127, 184],
       [37, 52, 148]
     ],
-    "source": "United States Cencus Bureau",
+    "source": "U.S. Census Bureau, American Community Survey, 2016 - 2020",
     "link": ""
   },
   "7": {
@@ -108,7 +108,7 @@
       [227, 74, 51],
       [179, 0, 0]
     ],
-    "source": "United States Cencus Bureau",
+    "source": "U.S. Census Bureau, American Community Survey, 2016 - 2020",
     "link": ""
   },
   "8": {
@@ -122,7 +122,7 @@
       [230, 85, 13],
       [166, 54, 3]
     ],
-    "source": "United States Cencus Bureau",
+    "source": "U.S. Census Bureau, American Community Survey, 2016 - 2020",
     "link": ""
   }
 }

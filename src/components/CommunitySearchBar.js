@@ -10,8 +10,10 @@ const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 export default function CommunitySearchBar({
     toggleValue, callBack, communitySearch, forSearch = true,
     children, setAddCompare = null,
-    selectedCoord, setSelectedCoord, showSearch, setShowSearch
+    selectedCoord, setSelectedCoord, showSearch, setShowSearch,
+    setShowMap
 }) {
+
     const [value, setValue] = useState('');
     const [focus, setFocus] = useState(false)
     const [searchItems, setSearchItems] = useState([]);
@@ -75,6 +77,7 @@ export default function CommunitySearchBar({
             )
         }
         setSearchItems(resItems);
+        // setShowMap(true)
     }, [response, selectedCoord]);  // monitor at response and selectedCoord updates
 
 
