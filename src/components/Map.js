@@ -546,9 +546,9 @@ export default function DeckMap({
   }, []);
 
   // coord projection test
-  console.log(mapRef.current)
+//   console.log(mapRef.current)
   const coordinate = {lon: -122.420679, lat: 37.772537};
-  if (mapRef.current) console.log(mapRef.current.project(coordinate));
+//   if (mapRef.current) console.log(mapRef.current.project(coordinate));
 
   // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
   const layers = [

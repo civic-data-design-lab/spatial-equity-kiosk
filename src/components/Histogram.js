@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { text, mouse } from "d3";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 const getRgb = (color) => {
     let [r, g, b] = Array.from(color);
@@ -23,8 +24,14 @@ const colorInterpolate = (colorA, colorB, intval) => {
     ]
 }
 
-const DonutChart = (colorRamps) => {
+const Histogram = ({colorRamps, issues, boundary, selectedSpecificIssue }) => {
     const ref = useRef();
+
+    // console.log("colorRamps", props.colorRamps)
+    // console.log("issues", props.issues)
+    // console.log("boundary", props.boundary)
+    // console.log("selectedSpecificIssue", props.selectedSpecificIssue)
+
     useEffect(() => {
         const data = ([
             42358, 98745, 36186, 20817, 68199, 57303, 27330, 21467, 23958, 86923,
@@ -81,7 +88,7 @@ const DonutChart = (colorRamps) => {
             .attr('y', (d, i) => yscale(i + 0.5))
             .attr('x', margin.left)
             // .attr("fill", (d, i) => d3.rgb(...colorRamps.colorRamps[Math.floor(colorRamps.colorRamps.length * i / data.length)]))
-            .attr("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps.colorRamps[0], colorRamps.colorRamps[colorRamps.colorRamps.length - 1], i / data.length)))
+            .attr("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
             .attr('value', d => d)
 
         // draw Lines
@@ -183,6 +190,7 @@ const DonutChart = (colorRamps) => {
 
 
     }, []);
+
     return (
         <svg ref={ref}>
             <g />
@@ -197,4 +205,4 @@ const DonutChart = (colorRamps) => {
     );
 };
 
-export default DonutChart;
+export default Histogram;
