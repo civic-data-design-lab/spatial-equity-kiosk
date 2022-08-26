@@ -966,8 +966,8 @@
       "good_or_bad": 1,
       "json_id": "F19_Noise_",
       "highlight_statement": "highest noise pollution",
-      "specific_issue_source": "Department of Transportation (DOT)",
-      "link": "https://maps.dot.gov/BTS/NationalTransportationNoiseMap/",
+      "specific_issue_source": "Bureau of Transportation Statistics (BTS), U.S. Department of Transportation (USDOT), 2018",
+      "link": "https://data-usdot.opendata.arcgis.com/documents/usdot::2018-noise-data/about",
       "related": [
         1,
         2,
