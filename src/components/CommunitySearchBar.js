@@ -11,7 +11,7 @@ export default function CommunitySearchBar({
     toggleValue, callBack, communitySearch, forSearch = true,
     children, setAddCompare = null,
     selectedCoord, setSelectedCoord, showSearch, setShowSearch,
-    setShowMap
+    setShowMap, selectedCompareCoord, setselectedCompareCoord, primarySearch
 }) {
 
     const [value, setValue] = useState('');
@@ -59,7 +59,15 @@ export default function CommunitySearchBar({
                     }}
                     onMouseDown={(e) => {
                         e.stopPropagation()
-                        setSelectedCoord([v.center[0].toFixed(3), v.center[1].toFixed(3)])
+
+                        if (primarySearch){
+                            console.log("PRIMARY")
+                            setSelectedCoord([v.center[0].toFixed(3), v.center[1].toFixed(3)])
+                        } else{
+                            console.log("SECONDARY")
+                            setselectedCompareCoord([v.center[0].toFixed(3), v.center[1].toFixed(3)])
+                        }
+                        
                         // console.log([v.center[0].toFixed(3), v.center[1].toFixed(3)])
                         // console.log(selectedCoord)
                     }}

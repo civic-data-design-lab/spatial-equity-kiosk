@@ -24,7 +24,8 @@ function Nav({
                  councils,
                  setMoreIssues, setMoreIssuesLength, addCompare, setAddCompare,
                  selectedCoord,
-                 setSelectedCoord, isMobile
+                 setSelectedCoord, selectedCompareCoord,
+                 setselectedCompareCoord, isMobile
              }) {
 
 
@@ -151,7 +152,8 @@ function Nav({
                                           compareSearch={compareSearch} setCommunitySearch={setCommunitySearch}
                                           setCompareSearch={setCompareSearch} boundary={boundary} councils={councils}
                                           addCompare={addCompare} setAddCompare={setAddCompare}
-                                          selectedCoord={selectedCoord} setSelectedCoord={setSelectedCoord}
+                                          selectedCoord={selectedCoord} setSelectedCoord={setSelectedCoord} selectedCompareCoord={selectedCompareCoord}
+                                            setselectedCompareCoord={setselectedCompareCoord}
                             />
                         </div>
                     </div>
@@ -342,7 +344,8 @@ function Nav({
                                               setCompareSearch={setCompareSearch} boundary={boundary}
                                               councils={councils}
                                               addCompare={addCompare} setAddCompare={setAddCompare}
-                                              selectedCoord={selectedCoord} setSelectedCoord={setSelectedCoord}
+                                              selectedCoord={selectedCoord} setSelectedCoord={setSelectedCoord} 
+                                              selectedCompareCoord={selectedCompareCoord} setselectedCompareCoord={setselectedCompareCoord}
                                 />
                             </div>
                         </div>

@@ -1,11 +1,17 @@
 Bug Fix:
 When demographics is hidden, the split screen should always go away
+When the search feature is open, clicking out of it should not accidentally close the community profiles tab
+Clicking one of the search results should close the dropdown (or pressing enter)
+
+if add compare button is hidden for community profiles, then it should be set to false
 
 
 Legend Middle Column:
 
 Map
     - revert to original scroll method and figure out how to update viewstate that way. (WIP works but get non-breaking error)
+    - create point for where people search
 
 General
     - introduction text should always be available on Spatial Equity chapter?
+
