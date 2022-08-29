@@ -384,6 +384,7 @@ function App() {
           />
 
           <Content
+              setSelectedChapter={setSelectedChapter}
             showToggle={showToggle}
             showMap={showMap}
             selectedChapter={selectedChapter}

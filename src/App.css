@@ -1316,8 +1316,8 @@ input:checked + .slider:before {
     height: 100%;
     overflow: scroll;
     scroll-behavior: smooth;
-
-
+    scroll-snap-type: y mandatory;
+    scroll-padding: 5rem;
 }
 
 .spacer {
@@ -1326,25 +1326,26 @@ input:checked + .slider:before {
 
 .scroll-body {
     min-height: calc(100vh - 2.5rem);
-    transition: opacity 0.5s;
+    transition: opacity 1s;
 }
 
 .scroll-title {
     width: calc(80% - 4.5rem);
-    padding: 1.25rem 1.25rem 0;
-    height: 2.5rem;
+    padding: 2.5rem 2.5rem 0;
+    height: 4.5rem;
 }
 
 .scroll-title-content {
-    top: 1.25rem;
-    left: calc(1.25rem + 25vw);
+    top: 2px;
+    left: calc(25vw);
     position: absolute;
     background-color: white;
 }
 
 .scroll-content {
-    padding: 1.25rem;
+    padding: 0 1.25rem 1.25rem;
     width: calc(75% - 5rem);
+    scroll-snap-align: start;
 }
 
 .about-link {
@@ -1367,10 +1368,10 @@ input:checked + .slider:before {
 .scroll-menu {
     position: absolute;
     right: 1.5rem;
-    top: 2.5rem;
+    top: 5rem;
     bottom: 3.75rem;
     width: 25%;
-    padding: 1.25rem;
+    padding: 0 1.25rem 1.25rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -3,20 +3,27 @@ import Table from 'react-bootstrap/Table';
 import {Scrollama, Step} from 'react-scrollama';
 
 
-export default function About({issues, selectedAbout}) {
+export default function About({issues, selectedAbout, setSelectedChapter}) {
 
     const [currentStepIndex, setCurrentStepIndex] = useState(null);
     const onStepEnter = ({data}) => {
         setCurrentStepIndex(data);
     };
 
-    const [expandSolution, setExpandSolution] = useState(null);
+
     const toTop = () => {
         let div = document.getElementById('about-container');
         div.scrollBy({
             top: -div.scrollHeight,
             behavior: 'smooth'
         })
+    }
+
+
+
+    const localSolutions = () => {
+        // Jump to CitiWide Data tab
+        setSelectedChapter(2)
     }
 
     // TODO: reformat about page
@@ -169,15 +176,16 @@ export default function About({issues, selectedAbout}) {
                             <h4 className={"mb-0 bold"}></h4>
                         </div>
                         <div className={"scroll-content"}>
-                            <p>The goal of Spatial Equity NYC is to empower New Yorkers with data about local
+                            <p>
+                                The goal of Spatial Equity NYC is to empower New Yorkers with data about local
                                 disparities in
                                 public health, environmental resilience, and transportation access that result from how
                                 public
                                 space is used — and to provide concrete solutions to these inequities that can be
                                 implemented
-                                quickly on a local level. You can see how neighborhoods differ citywide and explore
-                                local
-                                solutions here. [Jump to “Citywide Data” tab]</p>
+                                quickly on a local level.
+                                <span> <a style={{textDecorationLine: "underline"}} onClick={()=>{localSolutions()}}> You can see how neighborhoods differ citywide and explore local solutions here.</a></span>
+                            </p>
                             <p>Spatial inequity is a systemic problem, the direct result of racist and classist policy
                                 decisions. Small-scale, spatial solutions, which are the focus of Spatial Equity NYC,
                                 cannot
@@ -185,9 +193,11 @@ export default function About({issues, selectedAbout}) {
                                 chip
                                 away at the harm caused by systemic racist and classist policies and make immediate and
                                 meaningful improvements to the lives of New Yorkers. </p>
-                            <p>Are you a New Yorker concerned about spatial inequity in your neighborhood? Take action
-                                here.
-                                [Jump to “Take Action” tab]</p>
+                            <p>
+                                Are you a New Yorker concerned about spatial inequity in your neighborhood?
+                                <span> <a style={{textDecorationLine: "underline"}} href={"#content-1"}>Take action here</a>.
+                                </span>
+                            </p>
                         </div>
                     </div>
                 </Step>
