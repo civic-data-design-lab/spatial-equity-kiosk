@@ -131,6 +131,7 @@ export default function CommunitySearchBar({
                     onClick={(e) => {
                         e.stopPropagation()
                         setAddCompare(false)
+                        setselectedCompareCoord([])
                         callBack(null)
                     }}
                 >
