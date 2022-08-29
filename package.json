@@ -27,7 +27,8 @@
     "rfs": "^9.0.6",
     "web-vitals": "^2.1.4",
     "typewriter-effect": "^2.19.0",
-    "react-draggable": "^4.4.5"
+    "react-draggable": "^4.4.5",
+    "react-scrollama": "^2.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
