@@ -9,6 +9,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "./components/Nav";
 import Content from "./components/Content";
 import Map from "./components/Map";
+import MobileNav from "./components/Mobile Components/MobileNav";
 
 import _ISSUE_CATEGORIES from "./texts/issue_categories.json";
 import _ISSUES from "./texts/issues.json";
@@ -59,7 +60,6 @@ function App() {
   const [demoLegendBins, setDemoLegendBins] = useState([1, 1, 1, 1, 1]);
   const [selectedCoord, setSelectedCoord] = useState([]);
   const [selectedCompareCoord, setselectedCompareCoord] = useState([]);
-  const [isMobile, setIsMobile] = useState(false);
 
   // console.log(demoColorRamp)
   // map hooks
@@ -576,111 +576,36 @@ function App() {
           </div>
         </Container>
       ) : (
-        <Container>
-          <div id={"menu-container"} className={"menu-container"}>
-            {/* <Draggable bounds="body"
-                                   onStart={() =>
-                                   {setTimeout(() => {setDragging(true)}, PRESS_TIME_UNTIL_DRAG_MS)}}
-                                   onDrag={e => {
-                                       if (isDragging === true) {
-                                           e.preventDefault()
-                                       }
-                                   }}
-                                   onStop= {() => setTimeout(() => {setDragging(false)}, PRESS_TIME_UNTIL_DRAG_MS)}
-                        >*/}
-            <div
-              id={`assistive-touch-div`}
-              className={`assistive-touch ${
-                openAssist ? "assistive-touch-grow" : "assistive-touch-shrink"
-              }`}
-              onMouseDown={(e) => {
-                e.preventDefault();
-                if (!openAssist) {
-                  setMouseDown(true);
-                  console.log("setMouseDown True");
-                  let div = document.getElementById("assistive-touch-div");
-                  setOffset({
-                    x: div.offsetLeft - e.clientX,
-                    y: div.offsetTop - e.clientY,
-                  });
-                }
-              }}
-              onMouseMove={(e) => {
-                e.preventDefault();
-                if (mouseDown) {
-                  setMouseMove(true);
-                  let div = document.getElementById("assistive-touch-div");
-                  const mousePos = { x: e.clientX, y: e.clientY };
-                  // div.style.transform = `translate(0px, 0px)`;;
-                  div.style.left = mousePos.x + offset.x + "px";
-                  div.style.top = mousePos.y + offset.y + "px";
-                  console.log(mouseDown);
-                }
-              }}
-              onMouseUp={(e) => {
-                setMouseDown(false);
-                if (!mouseMove) {
-                  if (!openAssist) {
-                    expandAssist();
-                  } else {
-                    //collapseAssist()
-                  }
-                  //setOpenAssist(!openAssist)
-                }
-                setMouseMove(false);
-              }}
-              onTouchStart={(e) => {
-                if (!openAssist) {
-                  setMouseDown(true);
-                  let div = document.getElementById("assistive-touch-div");
-                  const touch = e.touches[0];
-                  setOffset({
-                    x: div.offsetLeft - touch.clientX,
-                    y: div.offsetTop - touch.clientY,
-                  });
-                }
-              }}
-              onTouchMove={(e) => {
-                if (mouseDown) {
-                  setMouseMove(true);
-                  let div = document.getElementById("assistive-touch-div");
-                  const touch = e.touches[0];
-                  const touchPos = { x: touch.clientX, y: touch.clientY };
-                  // div.style.transform = `translate(0px, 0px)`;
-                  div.style.left = touchPos.x + offset.x + "px";
-                  div.style.top = touchPos.y + offset.y + "px";
-                }
-              }}
-            >
-              {!openAssist && <></>}
-              {openAssist && (
-                <Nav
-                  setShowMap={setShowMap}
-                  selectedChapter={selectedChapter}
-                  setSelectedChapter={setSelectedChapter}
-                  selectedIssue={selectedIssue}
-                  setSelectedIssue={setSelectedIssue}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  setSelectedSpecificIssue={setSelectedSpecificIssue}
-                  boundary={boundary}
-                  setBoundary={setBoundary}
-                  communitySearch={communitySearch}
-                  setCommunitySearch={setCommunitySearch}
-                  compareSearch={compareSearch}
-                  setCompareSearch={setCompareSearch}
-                  setMoreIssues={setMoreIssues}
-                  setMoreIssuesLength={setMoreIssuesLength}
-                  addCompare={addCompare}
-                  setAddCompare={setAddCompare}
-                  issues={issues}
-                  communities={communities}
-                  councils={councils}
-                  issue_categories={issue_categories}
-                  isMobile={true}
-                />
-              )}
-            </div>
-          </div>
+        <Container className={"p-0"}>
+          <MobileNav
+              setShowMap={setShowMap}
+              selectedChapter={selectedChapter}
+              setSelectedChapter={setSelectedChapter}
+              selectedIssue={selectedIssue}
+              setSelectedIssue={setSelectedIssue}
+              selectedSpecificIssue={selectedSpecificIssue}
+              setSelectedSpecificIssue={setSelectedSpecificIssue}
+              boundary={boundary}
+              setBoundary={setBoundary}
+              communitySearch={communitySearch}
+              setCommunitySearch={setCommunitySearch}
+              compareSearch={compareSearch}
+              setCompareSearch={setCompareSearch}
+              setMoreIssues={setMoreIssues}
+              setMoreIssuesLength={setMoreIssuesLength}
+              addCompare={addCompare}
+              setAddCompare={setAddCompare}
+              issues={issues}
+              communities={communities}
+              councils={councils}
+              issue_categories={issue_categories}
+              highlightFeature={highlightFeature}
+              sethighlightFeature={sethighlightFeature}
+              selectedCoord={selectedCoord}
+              setSelectedCoord={setSelectedCoord}
+              selectedCompareCoord={selectedCompareCoord}
+              setselectedCompareCoord={setselectedCompareCoord}
+          />
         </Container>
       )}
     </>

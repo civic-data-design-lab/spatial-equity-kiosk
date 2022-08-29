@@ -283,7 +283,7 @@ export default function About({issues, selectedAbout, setSelectedChapter}) {
                                 advocate for spatial equity in your community,
                                 or how to replicate Spatial Equity NYC in your city or town,
                                 <span> <a
-                                    style={{textDecorationLine: "underline"}}>Contact Transportation Alternatives</a></span>.
+                                    style={{textDecorationLine: "underline"}}>contact Transportation Alternatives</a></span>.
                             </p>
                         </div>
                     </div>
@@ -385,7 +385,7 @@ export default function About({issues, selectedAbout, setSelectedChapter}) {
                                     <th>#</th>
                                     <th>Data Layers</th>
                                     <th>Source</th>
-                                    <th>Download</th>
+                                    <th>Year</th>
                                 </tr>
                                 </thead>
                                 <tbody>
