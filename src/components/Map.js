@@ -8,6 +8,11 @@ import { scaleThreshold, scaleQuantile, scaleQuantize } from "d3-scale";
 import { MaskExtension, FillStyleExtension } from "@deck.gl/extensions";
 import { max, min } from "d3-array";
 
+// geospatial dependencies
+import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+import { point } from "@turf/helpers";
+import { distance } from "@turf/turf";
+
 // data
 // import _ISSUES from "../texts/issues.json";
 import _NEIGHBORHOODS from "../data/neighborhoods.json";
@@ -112,6 +117,8 @@ export default function DeckMap({
   const dataScale = "q";
 
   const [searchPoint, setSearchPoint] = useState([[], []]);
+
+  // console.log(__COUNCIL_DISTRICTS[p].geometry.coordinates);
 
   // SELECT BOUNDARY ------------------------------------------------------------
   let selectedBoundary;
@@ -537,6 +544,15 @@ export default function DeckMap({
                 : ""
             }</div>
             <div>${x}, ${y}</div>
+            <div>${info.index} Index</div>
+            <div>${selectedBoundary.features[
+              info.index
+            ].properties.X_Cent.toFixed(3)}, ${selectedBoundary.features[
+              info.index
+            ].properties.Y_Cent.toFixed(3)}</div>
+            <div>${
+              selectedBoundary.features[info.index].geometry.coordinates.length
+            }</div>
             <!-- <div>
             ${COLOR_SCALE(
               selectedBoundary.features[info.index].properties[selectedMetric]
@@ -554,55 +570,70 @@ export default function DeckMap({
   // 06 DIRECT PICKING ENGINE ---------------------------------------------------------------------------------------------
 
   // 00 update via search engine
-  useEffect(() => {
-    // create and project new search point based on input coordinates
+  function updateSearchEngine(searchEngine, searchEngineType) {
+    if (searchEngine.length == 2) {
+      for (const [index, element] of selectedBoundary.features.entries()) {
+        if (
+          element &&
+          booleanPointInPolygon(point(searchEngine), element) &&
+          (boundary == "council" ||
+            (boundary == "community" && element.properties.Data_YN == "Y"))
+        ) {
+          const lookup =
+            boundary == "council"
+              ? String(element.properties.CounDist)
+              : boundary == "community" && element.properties.Data_YN == "Y"
+              ? element.properties.CDTA2020
+              : null;
 
-    function searchEngineLookup(inputCoords, inputArrayIndex) {
-      const searchLocation = { lon: inputCoords[0], lat: inputCoords[1] };
-      const screenCoords = mapRef.current.project(searchLocation);
-      const pickInfo = deckRef.current.pickObject({
-        x: screenCoords.x,
-        y: screenCoords.y,
-      });
+          // convert string coords to numbers
+          if (searchEngineType == 0) {
+            const searchEngineFormatted = searchEngine.map(Number);
 
-      if (pickInfo) {
-        // move search point to new location
-        // update UI with new data
+            // Select new neighborhood
+            // move camera to new neighborhood
+            if (compareSearch && compareSearch.length < 2) {
+              setViewState({
+                longitude: element.properties.X_Cent,
+                latitude: element.properties.Y_Cent,
+                zoom: zoomMax - 0.5,
+                transitionDuration: 500,
+                transitionInerpolator: new LinearInterpolator(),
+              });
+            }
 
-        // change selected boundary
-        const obj = pickInfo.object;
-        const lookup =
-          boundary == "council"
-            ? String(obj.properties.CounDist)
-            : boundary == "community" && obj.properties.Data_YN == "Y"
-            ? obj.properties.CDTA2020
-            : null;
+            // select new neighborhood
+            setCommunitySearch(lookup);
+            setSearchPoint([searchEngineFormatted]);
+          }
 
-        // for single selection mode
-        if (inputArrayIndex == 0) {
-          setCommunitySearch(lookup);
-          setSearchPoint([pickInfo.coordinate, searchPoint[1]]);
-        } else {
-          setCompareSearch(lookup);
-          setSearchPoint([searchPoint[0], pickInfo.coordinate]);
+          // compare two neighborhoods
+          if (searchEngineType == 1) {
+            const selectedCompareCoordFormatted =
+              selectedCompareCoord.map(Number);
+
+            // Select new neighborhood
+            setCompareSearch(lookup);
+            setSearchPoint([selectedCompareCoordFormatted]);
+          }
+
+          if (selectedCoord && selectedCompareCoord) {
+            // const ptA = point(selectedCoord.map(Number));
+            // const ptB = point(selectedCompareCoord).map(Number);
+            // console.log("DISTANCE", distance(ptA, ptB));
+          }
         }
-
-        setViewState({
-          longitude: obj.properties.X_Cent,
-          latitude: obj.properties.Y_Cent,
-          zoom: zoomMax - 0.5,
-          transitionDuration: 500,
-          transitionInerpolator: new LinearInterpolator(),
-        });
       }
     }
+  }
 
-    if (selectedCoord.length > 0) {
-      searchEngineLookup(selectedCoord, 0);
-    } else if (selectedCompareCoord.length > 0) {
-      searchEngineLookup(selectedCompareCoord, 1);
-    }
-  }, [selectedCoord, selectedCompareCoord]);
+  useEffect(() => {
+    updateSearchEngine(selectedCoord, 0);
+  }, [selectedCoord]);
+
+  useEffect(() => {
+    updateSearchEngine(selectedCompareCoord, 1);
+  }, [selectedCompareCoord]);
 
   // 06 Render lifecycle
   useEffect(() => {
@@ -1074,6 +1105,7 @@ export default function DeckMap({
       // radiusMaxPixels: 125,
       lineWidthMinPixels: 1,
       getPosition: (d) => d,
+      // getPosition: (d) => [-73.978, 40.761],
       getRadius: 30,
       getFillColor: (d) => [0, 0, 0, 255],
       getLineColor: (d) => [255, 255, 255, 255],
