@@ -58,6 +58,10 @@ const binSize = 5; // number of bins in the color ramp
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
 
+function map_range(value, low1, high1, low2, high2) {
+  return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
+}
+
 export default function DeckMap({
   issues,
   selectedIssue,
@@ -592,40 +596,55 @@ export default function DeckMap({
 
             // Select new neighborhood
             // move camera to new neighborhood
-            if (compareSearch && compareSearch.length < 2) {
-              setViewState({
-                longitude: element.properties.X_Cent,
-                latitude: element.properties.Y_Cent,
-                zoom: zoomMax - 0.5,
-                transitionDuration: 500,
-                transitionInerpolator: new LinearInterpolator(),
-              });
-            }
+            setViewState({
+              longitude: element.properties.X_Cent,
+              latitude: element.properties.Y_Cent,
+              zoom: zoomMax - 0.5,
+              transitionDuration: 500,
+              transitionInerpolator: new LinearInterpolator(),
+            });
 
             // select new neighborhood
             setCommunitySearch(lookup);
-            setSearchPoint([searchEngineFormatted]);
+            setSearchPoint([searchEngineFormatted, searchPoint[1]]);
           }
 
           // compare two neighborhoods
           if (searchEngineType == 1) {
-            const selectedCompareCoordFormatted =
-              selectedCompareCoord.map(Number);
+            const searchEngineFormatted = searchEngine.map(Number);
 
             // Select new neighborhood
             setCompareSearch(lookup);
-            setSearchPoint([selectedCompareCoordFormatted]);
+            setSearchPoint([searchPoint[0], searchEngineFormatted]);
           }
 
-          if (selectedCoord && selectedCompareCoord) {
-            // const ptA = point(selectedCoord.map(Number));
-            // const ptB = point(selectedCompareCoord).map(Number);
-            // console.log("DISTANCE", distance(ptA, ptB));
+          if (selectedCoord.length === 2 && selectedCompareCoord.length === 2) {
+            const ptA = selectedCoord.map(Number);
+            const ptB = selectedCompareCoord.map(Number);
+            const ptCompareDistance = distance(point(ptA), point(ptB));
+            console.log(
+              "searchPoint",
+              searchPoint,
+              "DISTANCE",
+              ptCompareDistance,
+              "REMAP",
+              map_range(ptCompareDistance, 0.5, 30, zoomMax, zoomMin)
+            );
+
+            setViewState({
+              longitude: (ptA[0] + ptB[0]) / 2,
+              latitude: (ptA[1] + ptB[1]) / 2,
+              zoom: map_range(ptCompareDistance, 0.3, 25, zoomMax, zoomMin),
+              transitionDuration: 500,
+              transitionInerpolator: new LinearInterpolator(),
+            });
           }
         }
       }
     }
   }
+
+  // console.log("DISTANCE", distance([-74.004, 40.712], [-73.905, 40.774]));
 
   useEffect(() => {
     updateSearchEngine(selectedCoord, 0);
@@ -976,7 +995,6 @@ export default function DeckMap({
           // add clicked object to chapter 3 searchbar and highlight single selection on map
           if (communitySearch == null || addCompare == false) {
             // animate view
-
             setViewState({
               longitude: obj.properties.X_Cent,
               latitude: obj.properties.Y_Cent,
@@ -992,7 +1010,7 @@ export default function DeckMap({
               }
             } else {
               setCommunitySearch(lookup);
-              setSearchPoint([]);
+              setSearchPoint([[], []]);
               if (mapSelection.includes(info.index) == false) {
                 setMapSelection([info.index]);
               }
@@ -1112,7 +1130,6 @@ export default function DeckMap({
     }),
   ];
 
-  // onClick={onSearch}
   return (
     <div>
       <DeckGL

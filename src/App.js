@@ -68,7 +68,7 @@ function App() {
 
   // map starting position and view state constraints
   // Map Viewport settings
-  const zoomMin = 10.5;
+  const zoomMin = 10;
   const zoomMax = 13;
 
   const [viewState, setViewState] = useState({
