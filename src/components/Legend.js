@@ -76,6 +76,7 @@ export default function Legend({
     let selectedMetric; // MAKE THIS A STATE AT THE APP LEVEL FOR OPTIMIZATION
     let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
 
+    console.log(selectedSpecificIssue)
     if (selectedSpecificIssue != null) {
       if (
         typeof selectedSpecificIssue == "number" &&
@@ -157,12 +158,15 @@ export default function Legend({
         ? "infra"
         : "troubleshoot";
 
+    console.log(selectedMetric)
     // 01.1 get an array of all the values for the selected metric
     for (let i = 0; i < mapScale.features.length; i++) {
       let floatValue = parseFloat(
         mapScale.features[i].properties[selectedMetric]
       );
-      if (isNaN(floatValue) === false) {
+      // console.log(mapScale.features[i].properties)
+      // console.log(mapScale.features[i].properties[selectedMetric])
+      if (!isNaN(floatValue)) {
         if (
           boundary === "council" ||
           (zoomToggle == 0 &&

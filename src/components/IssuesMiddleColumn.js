@@ -259,6 +259,9 @@ export default function IssuesMiddleColumn({
               toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
               setToggleUnderperformers={setToggleUnderperformers}
               boundary={boundary}
+              handleLegend={handleLegend}
+              selectedIssue={selectedSpecificIssue}
+              zoomToggle={zoomToggle}
               showMap={showMap}
             />
           </div>
@@ -338,7 +341,11 @@ export default function IssuesMiddleColumn({
               colorRamps={colorRamps}
               toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
               setToggleUnderperformers={setToggleUnderperformers}
-              boundary={boundary} showMap={showMap}
+              boundary={boundary}
+              handleLegend={handleLegend}
+              selectedIssue={selectedSpecificIssue}
+              zoomToggle={zoomToggle}
+              showMap={showMap}
             />
           </div>
         </div>
