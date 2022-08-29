@@ -10,12 +10,14 @@ import Nav from "./components/Nav";
 import Content from "./components/Content";
 import Map from "./components/Map";
 import MobileNav from "./components/Mobile Components/MobileNav";
+import CitywideData from "./components/Mobile Components/CitywideData";
 
 import _ISSUE_CATEGORIES from "./texts/issue_categories.json";
 import _ISSUES from "./texts/issues.json";
 import _COMMUNITIES from "./texts/communities.json";
 import _COUNCILS from "./texts/councildistricts.json";
 import _DEMOGRAPHICS from "./texts/demographics.json";
+
 
 const issue_categories = _ISSUE_CATEGORIES;
 const issues = _ISSUES;
@@ -577,35 +579,7 @@ function App() {
         </Container>
       ) : (
         <Container className={"p-0"}>
-          <MobileNav
-              setShowMap={setShowMap}
-              selectedChapter={selectedChapter}
-              setSelectedChapter={setSelectedChapter}
-              selectedIssue={selectedIssue}
-              setSelectedIssue={setSelectedIssue}
-              selectedSpecificIssue={selectedSpecificIssue}
-              setSelectedSpecificIssue={setSelectedSpecificIssue}
-              boundary={boundary}
-              setBoundary={setBoundary}
-              communitySearch={communitySearch}
-              setCommunitySearch={setCommunitySearch}
-              compareSearch={compareSearch}
-              setCompareSearch={setCompareSearch}
-              setMoreIssues={setMoreIssues}
-              setMoreIssuesLength={setMoreIssuesLength}
-              addCompare={addCompare}
-              setAddCompare={setAddCompare}
-              issues={issues}
-              communities={communities}
-              councils={councils}
-              issue_categories={issue_categories}
-              highlightFeature={highlightFeature}
-              sethighlightFeature={sethighlightFeature}
-              selectedCoord={selectedCoord}
-              setSelectedCoord={setSelectedCoord}
-              selectedCompareCoord={selectedCompareCoord}
-              setselectedCompareCoord={setselectedCompareCoord}
-          />
+          <CitywideData/>
         </Container>
       )}
     </>

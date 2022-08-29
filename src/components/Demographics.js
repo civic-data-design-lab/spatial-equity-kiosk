@@ -248,9 +248,9 @@ export default function Demographics({
                                 <div>
                                     {currentValue === "1" && <p className={"m-0"}>
                                         {(councils[communitySearch] &&
-                                                councils[communitySearch].bolded_text) ||
+                                                councils[communitySearch].name) ||
                                             (communities[communitySearch] &&
-                                                communities[communitySearch].bolded_text)}
+                                                communities[communitySearch].name)}
                                     </p>}
                                     <p className={"mb-0"}>{demographics[currentValue]}</p>
                                     {getTransitToggles()}
@@ -274,9 +274,9 @@ export default function Demographics({
                                         {currentValue === "1" &&
                                             <p className={"m-0"}>
                                                 {(councils[compareSearch] &&
-                                                        councils[compareSearch].bolded_text) ||
+                                                        councils[compareSearch].name) ||
                                                     (communities[compareSearch] &&
-                                                        communities[compareSearch].bolded_text)}
+                                                        communities[compareSearch].name)}
                                             </p>
                                         }
                                     </div>

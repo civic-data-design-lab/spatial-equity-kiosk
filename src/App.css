@@ -352,6 +352,7 @@ a:active {
 
 .community-description {
     padding: 1rem 0;
+    color: white;
 }
 
 .add-community-btn {
@@ -1405,6 +1406,9 @@ input:checked + .slider:before {
     flex-grow: 2;
 }
 
+.mobile-citywide {
+
+}
 
 
 

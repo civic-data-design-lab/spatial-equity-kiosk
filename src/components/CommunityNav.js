@@ -33,6 +33,7 @@ export default function CommunityNav({
   });
 
   const [showSearch, setShowSearch] = useState(false);
+  const [showCompareSearch, setShowCompareSearch] = useState(false)
 
   const getSearchItems = (forSearch, boundary) => {
     let searchItems = [];
@@ -66,9 +67,9 @@ export default function CommunityNav({
                 <div className={"row w-100 p-0 m-0"}>
                   <div className={"col-10 m-0 p-0"}>
                     <span style={{ fontWeight: "bold" }}>
-                      {value.bolded_text}
+                      {value.name}
                     </span>{" "}
-                    {value.remaining_text}
+                    {value.neighborhoods}
                   </div>
                   <div
                     className={`${
@@ -98,15 +99,15 @@ export default function CommunityNav({
                 } col search-item p-2`}
                 onMouseDown={() => {
                   setCompareSearch(key);
-                  setShowSearch(false);
+                  setShowCompareSearch(false)
                 }}
               >
                 <div className={"row w-100 p-0 m-0"}>
                   <div className={"col-10 m-0 p-0"}>
                     <span style={{ fontWeight: "bold" }}>
-                      {value.bolded_text}
+                      {value.name}
                     </span>{" "}
-                    {value.remaining_text}
+                    {value.neighborhoods}
                   </div>
                   <div
                     className={`${
@@ -140,9 +141,9 @@ export default function CommunityNav({
           toggleValue={
             communitySearch
               ? (communities[communitySearch] &&
-                  communities[communitySearch].bolded_text) ||
+                  communities[communitySearch].name) ||
                 (councils[communitySearch] &&
-                  councils[communitySearch].bolded_text)
+                  councils[communitySearch].name)
               : null
           }
           communitySearch={communitySearch}
@@ -164,9 +165,9 @@ export default function CommunityNav({
             toggleValue={
               compareSearch
                 ? (communities[compareSearch] &&
-                    communities[compareSearch].bolded_text) ||
+                    communities[compareSearch].name) ||
                   (councils[compareSearch] &&
-                    councils[compareSearch].bolded_text)
+                    councils[compareSearch].name)
                 : null
             }
             communitySearch={communitySearch}
@@ -175,8 +176,8 @@ export default function CommunityNav({
             callBack={setCompareSearch}
             selectedCoord={selectedCoord}
             setSelectedCoord={setSelectedCoord}
-            setShowSearch={setShowSearch}
-            showSearch={showSearch}
+            setShowSearch={setShowCompareSearch}
+            showSearch={showCompareSearch}
             setShowMap={setShowMap}
             primarySearch={false}
           >
@@ -213,11 +214,28 @@ export default function CommunityNav({
         {communitySearch && !compareSearch && (
           <>
             <p className={"m-0 community-description"}>
-              <span className={"underline"}>
+              <span>
                 {(communities[communitySearch] &&
-                  communities[communitySearch].bolded_text) ||
+                  communities[communitySearch].name) ||
                   (councils[communitySearch] &&
-                    councils[communitySearch].bolded_text)}
+                    councils[communitySearch].text)}
+
+                <a className={"underline"}
+                   onClick={(e)=>{e.stopPropagation();}}
+                   href={`mailto:${
+                  (councils[communitySearch] &&
+                    councils[communitySearch].councilmember_email) || 
+                      null
+                   }`}
+                >
+                {
+                  (councils[communitySearch] &&
+                    councils[communitySearch].councilmember_name) ||
+                    null
+                }
+                  </a>
+
+
               </span>{" "}
               {(communities[communitySearch] &&
                 communities[communitySearch].description) ||
@@ -226,11 +244,10 @@ export default function CommunityNav({
             </p>
 
             <p className={"m-0 small-font"}>
-              Neighborhoods:{" "}
               {(communities[communitySearch] &&
-                communities[communitySearch].remaining_text) ||
+                communities[communitySearch].neighborhoods) ||
                 (councils[communitySearch] &&
-                  councils[communitySearch].remaining_text)}
+                  councils[communitySearch].neighborhoods)}
             </p>
           </>
         )}
@@ -243,71 +260,86 @@ export default function CommunityNav({
           >
             <Slider>
               <div>
-                <p className={"m-0 community-description"}>
-                  <span className={"underline"}>
-                    {(communities[communitySearch] &&
-                      communities[communitySearch].bolded_text) ||
-                      (councils[communitySearch] &&
-                        councils[communitySearch].bolded_text)}
-                  </span>{" "}
-                  {(communities[communitySearch] &&
-                    communities[communitySearch].description) ||
-                    (councils[communitySearch] &&
-                      councils[communitySearch].description)}
-                </p>
-                <p className={"m-0 small-font"}>
-                  Neighborhoods:{" "}
-                  {(communities[communitySearch] &&
-                    communities[communitySearch].remaining_text) ||
-                    (councils[communitySearch] &&
-                      councils[communitySearch].remaining_text)}
-                </p>
+               <p className={"m-0 community-description"}>
+              <span>
+                {(communities[communitySearch] &&
+                  communities[communitySearch].name) ||
+                  (councils[communitySearch] &&
+                    councils[communitySearch].text)}
+
+                <a className={"underline"}
+                   onClick={(e)=>{e.stopPropagation();}}
+                   href={`mailto:${
+                  (councils[communitySearch] &&
+                    councils[communitySearch].councilmember_email) || 
+                      null
+                   }`}
+                >
+                {
+                  (councils[communitySearch] &&
+                    councils[communitySearch].councilmember_name) ||
+                    null
+                }
+                  </a>
+
+
+              </span>{" "}
+              {(communities[communitySearch] &&
+                communities[communitySearch].description) ||
+                (councils[communitySearch] &&
+                  councils[communitySearch].description)}
+            </p>
+
+            <p className={"m-0 small-font"}>
+              {(communities[communitySearch] &&
+                communities[communitySearch].neighborhoods) ||
+                (councils[communitySearch] &&
+                  councils[communitySearch].neighborhoods)}
+            </p>
               </div>
 
               <div>
                 <p className={"m-0 community-description"}>
-                  <span className={"underline"}>
-                    {(communities[compareSearch] &&
-                      communities[compareSearch].bolded_text) ||
-                      (councils[compareSearch] &&
-                        councils[compareSearch].bolded_text)}
-                  </span>{" "}
-                  {(communities[compareSearch] &&
-                    communities[compareSearch].description) ||
-                    (councils[compareSearch] &&
-                      councils[compareSearch].description)}
-                </p>
-                <p className={"m-0 small-font"}>
-                  Neighborhoods:{" "}
-                  {(communities[compareSearch] &&
-                    communities[compareSearch].remaining_text) ||
-                    (councils[compareSearch] &&
-                      councils[compareSearch].remaining_text)}
-                </p>
+              <span>
+                {(communities[compareSearch] &&
+                  communities[compareSearch].name) ||
+                  (councils[compareSearch] &&
+                    councils[compareSearch].text)}
+
+                <a className={"underline"}
+                   onClick={(e)=>{e.stopPropagation();}}
+                   href={`mailto:${
+                  (councils[compareSearch] &&
+                    councils[compareSearch].councilmember_email) || 
+                      null
+                   }`}
+                >
+                {
+                  (councils[compareSearch] &&
+                    councils[compareSearch].councilmember_name) ||
+                    null
+                }
+                  </a>
+
+
+              </span>{" "}
+              {(communities[compareSearch] &&
+                communities[compareSearch].description) ||
+                (councils[compareSearch] &&
+                  councils[compareSearch].description)}
+            </p>
+
+            <p className={"m-0 small-font"}>
+              {(communities[compareSearch] &&
+                communities[compareSearch].neighborhoods) ||
+                (councils[compareSearch] &&
+                  councils[compareSearch].neighborhoods)}
+            </p>
               </div>
             </Slider>
           </div>
         )}
 
-        {/*{communitySearch &&
-                    <p className={"m-0 community-description"}><span
-                        className={"underline"}>{communities[communitySearch].bolded_text}</span> {communities[communitySearch].description}
-                    </p>}
-                {compareSearch &&
-                    <p className={"m-0 community-description"}>{communities[compareSearch].bolded_text} {communities[compareSearch].description}</p>}
-*/}
-        {/*<div
-                    className={`${communitySearch ? "" : "d-none"} add-community-btn d-flex flex-row align-items-center`}
-                    onClick={(e) => {
-                        e.stopPropagation()
-                        setCompareSearch(null)
-                        setAddCompare(!addCompare)
-                    }}
-                >
-                    {!addCompare ? <FontAwesomeIcon icon={faPlus} width={32}/> :
-
-                    <p className={"m-0"}>Compare Communities</p>
-                </div>*/}
       </div>
     </div>
   );
