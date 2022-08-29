@@ -63,9 +63,11 @@ export default function CommunitySearchBar({
                         if (primarySearch){
                             console.log("PRIMARY")
                             setSelectedCoord([v.center[0].toFixed(3), v.center[1].toFixed(3)])
+                            setShowSearch(false)
                         } else{
                             console.log("SECONDARY")
                             setselectedCompareCoord([v.center[0].toFixed(3), v.center[1].toFixed(3)])
+                            setShowSearch(false)
                         }
                         
                         // console.log([v.center[0].toFixed(3), v.center[1].toFixed(3)])
@@ -85,7 +87,6 @@ export default function CommunitySearchBar({
             )
         }
         setSearchItems(resItems);
-        // setShowMap(true)
     }, [response, selectedCoord]);  // monitor at response and selectedCoord updates
 
 
