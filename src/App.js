@@ -61,6 +61,7 @@ function App() {
   const [demoLegendBins, setDemoLegendBins] = useState([1, 1, 1, 1, 1]);
   const [selectedCoord, setSelectedCoord] = useState([]);
   const [selectedCompareCoord, setselectedCompareCoord] = useState([]);
+  const [badSearch, setBadSearch] = useState([0,0]);
 
   // console.log(demoColorRamp)
   // map hooks
@@ -495,6 +496,8 @@ function App() {
                   selectedCompareCoord={selectedCompareCoord}
                   setSelectedCoord={setSelectedCoord}
                   setSelectedCompareCoord={setselectedCompareCoord}
+                  badSearch={badSearch}
+                  setBadSearch={setBadSearch}
                 />
               </div>
               {mapDemographics && (
@@ -571,6 +574,8 @@ function App() {
                       setDemoLegendBins={setDemoLegendBins}
                       selectedCoord={selectedCoord}
                       selectedCompareCoord={selectedCompareCoord}
+                      badSearch={badSearch}
+                      setBadSearch={setBadSearch}
                     />
                   </div>
                 </>

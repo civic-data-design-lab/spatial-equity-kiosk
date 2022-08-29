@@ -4,15 +4,12 @@ When the search feature is open, clicking out of it should not accidentally clos
 Clicking one of the search results should close the dropdown (or pressing enter)
 escaping the search box then makes the neighborhoods unclickable (but this is a non issue if we revert back to the screen going blank to begin)
 
-if add compare button is hidden for community profiles, then it should be set to false
-
 
 Legend Middle Column:
 
 Map
     - revert to original scroll method and figure out how to update viewstate that way. (WIP works but get non-breaking error)
-    - create point for where people search
-
+    - make a state for bad search
 General
     - introduction text should always be available on Spatial Equity chapter?
     - need to add feedback when the person searches for something that doesnt show up

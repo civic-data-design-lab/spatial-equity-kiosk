@@ -61,11 +61,9 @@ export default function CommunitySearchBar({
                         e.stopPropagation()
 
                         if (primarySearch){
-                            console.log("PRIMARY")
                             setSelectedCoord([v.center[0].toFixed(3), v.center[1].toFixed(3)])
                             setShowSearch(false)
                         } else{
-                            console.log("SECONDARY")
                             setselectedCompareCoord([v.center[0].toFixed(3), v.center[1].toFixed(3)])
                             setShowSearch(false)
                         }

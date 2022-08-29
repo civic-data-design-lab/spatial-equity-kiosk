@@ -109,6 +109,8 @@ export default function DeckMap({
   selectedCompareCoord,
   setSelectedCoord,
   setSelectedCompareCoord,
+  badSearch,
+  setBadSearch,
 }) {
   // map hooks
 
@@ -425,9 +427,9 @@ export default function DeckMap({
 
       const neighborhoodList =
         boundary == "council"
-          ? councils[String(obj.properties.CounDist)].remaining_text
+          ? councils[String(obj.properties.CounDist)].neighborhoods
           : boundary == "community"
-          ? communities[obj.properties.CDTA2020].remaining_text
+          ? communities[obj.properties.CDTA2020].neighborhoods
           : null;
 
       const transportationModesArray = [];
@@ -542,6 +544,7 @@ export default function DeckMap({
                   </div>`
                 : ""
             }</div>
+            <!-- TROUBLESHOOTING
             <div>${x}, ${y}</div>
             <div>${info.index} Index</div>
             <div>${selectedBoundary.features[
@@ -552,7 +555,7 @@ export default function DeckMap({
             <div>${
               selectedBoundary.features[info.index].geometry.coordinates.length
             }</div>
-            <!-- <div>
+            <div>
             ${COLOR_SCALE(
               selectedBoundary.features[info.index].properties[selectedMetric]
             )}
@@ -571,6 +574,7 @@ export default function DeckMap({
   // 00 update via search engine
   function updateSearchEngine(searchEngine, searchEngineType) {
     if (searchEngine.length == 2) {
+      const searchItemFound = [];
       for (const [index, element] of selectedBoundary.features.entries()) {
         if (
           element &&
@@ -578,6 +582,7 @@ export default function DeckMap({
           (boundary == "council" ||
             (boundary == "community" && element.properties.Data_YN == "Y"))
         ) {
+          searchItemFound.push(index);
           const lookup =
             boundary == "council"
               ? String(element.properties.CounDist)
@@ -587,6 +592,7 @@ export default function DeckMap({
 
           // convert string coords to numbers
           if (searchEngineType == 0) {
+            setBadSearch([0, badSearch[1]]);
             const searchEngineFormatted = searchEngine.map(Number);
 
             // Select new neighborhood
@@ -606,6 +612,7 @@ export default function DeckMap({
 
           // compare two neighborhoods
           if (searchEngineType == 1) {
+            setBadSearch([badSearch[0], 0]);
             if (addCompare) {
               const searchEngineFormatted = searchEngine.map(Number);
 
@@ -640,12 +647,19 @@ export default function DeckMap({
           }
         }
       }
+
+      if (searchItemFound.length == 0) {
+        if (searchEngineType == 0) {
+          setBadSearch([1, badSearch[1]]);
+        }
+        if (searchEngineType == 1) {
+          setBadSearch([badSearch[0], 1]);
+        }
+      }
     } else {
       setSearchPoint([selectedCoord, selectedCompareCoord]);
     }
   }
-
-  // console.log("DISTANCE", distance([-74.004, 40.712], [-73.905, 40.774]));
 
   useEffect(() => {
     updateSearchEngine(selectedCoord, 0);
@@ -1038,7 +1052,6 @@ export default function DeckMap({
                 setAddCompare(false);
               }
               if (lookup == communitySearch) {
-                console.log("OG");
                 setCommunitySearch(compareSearch);
                 setSelectedCoord(selectedCompareCoord);
                 setSelectedCompareCoord([]);
