@@ -22,6 +22,7 @@ export default function Content({
                                     setDemographic,
                                     selectedAbout,
                                     setSelectedAbout,
+                                    setSelectedChapter,
                                     boundary,
                                     setCommunitySearch, setCompareSearch,
                                     showDemographics, setShowDemographics,
@@ -106,7 +107,7 @@ export default function Content({
                     moreIssues={moreIssues} setMoreIssues={setMoreIssues} moreIssuesLength={moreIssuesLength} setMoreIssuesLength={setMoreIssuesLength}
                 />}
 
-                {selectedChapter === 4 && <About issues={issues} selectedAbout={selectedAbout}/>}
+                {selectedChapter === 4 && <About issues={issues} selectedAbout={selectedAbout} setSelectedChapter={setSelectedChapter}/>}
 
             </div>
 

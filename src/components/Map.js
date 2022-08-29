@@ -25,6 +25,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 //check if mobile
 let isMobile = false; //initiate as false
+const width = window.innerWidth;
 // device detection
 if (
   /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
@@ -95,11 +96,22 @@ export default function DeckMap({
   toggleWalk,
   setDemoLegendBins,
   setDemoColorRamp,
+  selectedCoord,
+  selectedCompareCoord,
 }) {
   // map hooks
+  // console.log(
+  //   "selectedCoord",
+  //   selectedCoord,
+  //   "selectedCompare Coord",
+  //   selectedCompareCoord
+  // );
+  // const [tempCoords, setTempCoords] = useState(["190px", "190px"]);
   const deckRef = useRef(null);
   const mapRef = useRef(null);
   const dataScale = "q";
+
+  const [searchPoint, setSearchPoint] = useState([[], []]);
 
   // SELECT BOUNDARY ------------------------------------------------------------
   let selectedBoundary;
@@ -434,6 +446,9 @@ export default function DeckMap({
       if (boundary == "council" || boundary == "community") {
         // return the tooltip for the selected boundary with selected metric and selected demographic
 
+        //debug get mouse x and y
+        const x = info.x.toFixed(0);
+        const y = info.y.toFixed(0);
         return (
           obj && {
             className: "map-tooltip",
@@ -521,11 +536,12 @@ export default function DeckMap({
                   </div>`
                 : ""
             }</div>
+            <div>${x}, ${y}</div>
             <!-- <div>
             ${COLOR_SCALE(
               selectedBoundary.features[info.index].properties[selectedMetric]
             )}
-            </div><div>${onSearch}</div> -->
+            </div> -->
             `,
           }
         );
@@ -535,23 +551,58 @@ export default function DeckMap({
 
   // 05 TOOLTIP END ----------------------------------------------------------------------------------------------
 
-  // 06 DIRECT PICKING ENGINE ----------------------------------------------------------------------------------------------
-  const onSearch = useCallback((event) => {
-    const pickInfo = deckRef.current.pickObject({
-      x: event.clientX,
-      // x: 941,
-      y: event.clientY,
-      // y: 397,
-      radius: 0,
-      layerIds: ["administrative-boundaries"],
-    });
+  // 06 DIRECT PICKING ENGINE ---------------------------------------------------------------------------------------------
 
-  }, []);
+  // 00 update via search engine
+  useEffect(() => {
+    // create and project new search point based on input coordinates
 
-  // coord projection test
-  // console.log(mapRef.current)
-  // const coordinate = { lon: -122.420679, lat: 37.772537 };
-  // if (mapRef.current) console.log(mapRef.current.project(coordinate));
+    function searchEngineLookup(inputCoords, inputArrayIndex) {
+      const searchLocation = { lon: inputCoords[0], lat: inputCoords[1] };
+      const screenCoords = mapRef.current.project(searchLocation);
+      const pickInfo = deckRef.current.pickObject({
+        x: screenCoords.x,
+        y: screenCoords.y,
+      });
+
+      if (pickInfo) {
+        // move search point to new location
+        // update UI with new data
+
+        // change selected boundary
+        const obj = pickInfo.object;
+        const lookup =
+          boundary == "council"
+            ? String(obj.properties.CounDist)
+            : boundary == "community" && obj.properties.Data_YN == "Y"
+            ? obj.properties.CDTA2020
+            : null;
+
+        // for single selection mode
+        if (inputArrayIndex == 0) {
+          setCommunitySearch(lookup);
+          setSearchPoint([pickInfo.coordinate, searchPoint[1]]);
+        } else {
+          setCompareSearch(lookup);
+          setSearchPoint([searchPoint[0], pickInfo.coordinate]);
+        }
+
+        setViewState({
+          longitude: obj.properties.X_Cent,
+          latitude: obj.properties.Y_Cent,
+          zoom: zoomMax - 0.5,
+          transitionDuration: 500,
+          transitionInerpolator: new LinearInterpolator(),
+        });
+      }
+    }
+
+    if (selectedCoord.length > 0) {
+      searchEngineLookup(selectedCoord, 0);
+    } else if (selectedCompareCoord.length > 0) {
+      searchEngineLookup(selectedCompareCoord, 1);
+    }
+  }, [selectedCoord, selectedCompareCoord]);
 
   // 06 Render lifecycle
   useEffect(() => {
@@ -894,13 +945,13 @@ export default function DeckMap({
           // add clicked object to chapter 3 searchbar and highlight single selection on map
           if (communitySearch == null || addCompare == false) {
             // animate view
+
             setViewState({
               longitude: obj.properties.X_Cent,
               latitude: obj.properties.Y_Cent,
               zoom: zoomMax - 0.5,
               transitionDuration: 500,
               transitionInerpolator: new LinearInterpolator(),
-              // transitionEasing: easeCubic,
             });
 
             if (communitySearch == lookup) {
@@ -910,6 +961,7 @@ export default function DeckMap({
               }
             } else {
               setCommunitySearch(lookup);
+              setSearchPoint([]);
               if (mapSelection.includes(info.index) == false) {
                 setMapSelection([info.index]);
               }
@@ -1011,31 +1063,26 @@ export default function DeckMap({
       maxWidth: 600,
       opacity: zoomToggle,
     }),
+
+    new ScatterplotLayer({
+      id: "user-search",
+      data: searchPoint,
+      stroked: true,
+      filled: true,
+      radiusScale: 4,
+      radiusMinPixels: 8,
+      // radiusMaxPixels: 125,
+      lineWidthMinPixels: 1,
+      getPosition: (d) => d,
+      getRadius: 30,
+      getFillColor: (d) => [0, 0, 0, 255],
+      getLineColor: (d) => [255, 255, 255, 255],
+    }),
   ];
 
+  // onClick={onSearch}
   return (
-    <div onClick={onSearch}>
-      {/* <>
-        <DeckGL
-          initialViewState={viewState}
-          onViewStateChange={onViewStateChange}
-          controller={{
-            dragRotate: false,
-            doubleClickZoom: false,
-          }}
-          layers={demographicLayers}
-          getCursor={() => "crosshair"}
-        >
-          <Map
-            reuseMaps
-            mapStyle={mapStyle}
-            preventStyleDiffing={true}
-            mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-            attributionControl={false}
-            logoPosition="top-left"
-          />
-        </DeckGL>
-      </> */}
+    <div>
       <DeckGL
         // viewState={viewState}
         initialViewState={viewState}
