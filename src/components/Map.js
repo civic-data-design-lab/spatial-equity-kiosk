@@ -107,22 +107,17 @@ export default function DeckMap({
   setDemoColorRamp,
   selectedCoord,
   selectedCompareCoord,
+  setSelectedCoord,
+  setSelectedCompareCoord,
 }) {
   // map hooks
-  // console.log(
-  //   "selectedCoord",
-  //   selectedCoord,
-  //   "selectedCompare Coord",
-  //   selectedCompareCoord
-  // );
+
   // const [tempCoords, setTempCoords] = useState(["190px", "190px"]);
   const deckRef = useRef(null);
   const mapRef = useRef(null);
   const dataScale = "q";
 
   const [searchPoint, setSearchPoint] = useState([[], []]);
-
-  // console.log(__COUNCIL_DISTRICTS[p].geometry.coordinates);
 
   // SELECT BOUNDARY ------------------------------------------------------------
   let selectedBoundary;
@@ -611,25 +606,29 @@ export default function DeckMap({
 
           // compare two neighborhoods
           if (searchEngineType == 1) {
-            const searchEngineFormatted = searchEngine.map(Number);
+            if (addCompare) {
+              const searchEngineFormatted = searchEngine.map(Number);
 
-            // Select new neighborhood
-            setCompareSearch(lookup);
-            setSearchPoint([searchPoint[0], searchEngineFormatted]);
+              // Select new neighborhood
+              setCompareSearch(lookup);
+              setSearchPoint([searchPoint[0], searchEngineFormatted]);
+            } else {
+              setSearchPoint([searchPoint[0], []]);
+            }
           }
 
           if (selectedCoord.length === 2 && selectedCompareCoord.length === 2) {
             const ptA = selectedCoord.map(Number);
             const ptB = selectedCompareCoord.map(Number);
             const ptCompareDistance = distance(point(ptA), point(ptB));
-            console.log(
-              "searchPoint",
-              searchPoint,
-              "DISTANCE",
-              ptCompareDistance,
-              "REMAP",
-              map_range(ptCompareDistance, 0.5, 30, zoomMax, zoomMin)
-            );
+            // console.log(
+            //   "searchPoint",
+            //   searchPoint,
+            //   "DISTANCE",
+            //   ptCompareDistance,
+            //   "REMAP",
+            //   map_range(ptCompareDistance, 0.5, 30, zoomMax, zoomMin)
+            // );
 
             setViewState({
               longitude: (ptA[0] + ptB[0]) / 2,
@@ -641,6 +640,8 @@ export default function DeckMap({
           }
         }
       }
+    } else {
+      setSearchPoint([selectedCoord, selectedCompareCoord]);
     }
   }
 
@@ -648,11 +649,11 @@ export default function DeckMap({
 
   useEffect(() => {
     updateSearchEngine(selectedCoord, 0);
-  }, [selectedCoord]);
+  }, [selectedCoord, addCompare]);
 
   useEffect(() => {
     updateSearchEngine(selectedCompareCoord, 1);
-  }, [selectedCompareCoord]);
+  }, [selectedCompareCoord, addCompare]);
 
   // 06 Render lifecycle
   useEffect(() => {
@@ -991,7 +992,15 @@ export default function DeckMap({
         ) {
           // change chapter
           setSelectedChapter(3);
-
+          // console.log(addCompare, "addCompare");
+          // console.log(
+          //   "community search",
+          //   communitySearch,
+          //   "compare search",
+          //   compareSearch,
+          //   "lookup",
+          //   lookup
+          // );
           // add clicked object to chapter 3 searchbar and highlight single selection on map
           if (communitySearch == null || addCompare == false) {
             // animate view
@@ -1005,12 +1014,15 @@ export default function DeckMap({
 
             if (communitySearch == lookup) {
               setCommunitySearch(null);
+              setSelectedCoord([]);
+
               if (mapSelection.includes(info.index) == true) {
                 setMapSelection([null]);
               }
             } else {
               setCommunitySearch(lookup);
-              setSearchPoint([[], []]);
+              setSelectedCoord(info.coordinate);
+
               if (mapSelection.includes(info.index) == false) {
                 setMapSelection([info.index]);
               }
@@ -1020,14 +1032,22 @@ export default function DeckMap({
           else {
             if (mapSelection.includes(info.index)) {
               setMapSelection(mapSelection.filter((x) => x != info.index));
-              if (compareSearch == lookup) {
+              if (lookup == compareSearch) {
                 setCompareSearch(null);
-              } else if (communitySearch == lookup) {
+                setSelectedCompareCoord([]);
+                setAddCompare(false);
+              }
+              if (lookup == communitySearch) {
+                console.log("OG");
                 setCommunitySearch(compareSearch);
+                setSelectedCoord(selectedCompareCoord);
+                setSelectedCompareCoord([]);
                 setCompareSearch(null);
+                setAddCompare(false);
               }
             } else {
               setCompareSearch(lookup);
+              setSelectedCompareCoord(info.coordinate);
               setMapSelection([mapSelection[0], info.index]);
             }
           }

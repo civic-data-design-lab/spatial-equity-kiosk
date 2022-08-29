@@ -18,7 +18,6 @@ import _COMMUNITIES from "./texts/communities.json";
 import _COUNCILS from "./texts/councildistricts.json";
 import _DEMOGRAPHICS from "./texts/demographics.json";
 
-
 const issue_categories = _ISSUE_CATEGORIES;
 const issues = _ISSUES;
 const communities = _COMMUNITIES;
@@ -386,7 +385,7 @@ function App() {
           />
 
           <Content
-              setSelectedChapter={setSelectedChapter}
+            setSelectedChapter={setSelectedChapter}
             showToggle={showToggle}
             showMap={showMap}
             selectedChapter={selectedChapter}
@@ -494,6 +493,8 @@ function App() {
                   setDemoColorRamp={setColorRamps}
                   selectedCoord={selectedCoord}
                   selectedCompareCoord={selectedCompareCoord}
+                  setSelectedCoord={setSelectedCoord}
+                  setSelectedCompareCoord={setselectedCompareCoord}
                 />
               </div>
               {mapDemographics && (
@@ -579,7 +580,7 @@ function App() {
         </Container>
       ) : (
         <Container className={"p-0"}>
-          <CitywideData/>
+          <CitywideData />
         </Container>
       )}
     </>
