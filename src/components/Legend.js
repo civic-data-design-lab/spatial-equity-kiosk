@@ -287,7 +287,10 @@ export default function Legend({
             <div className={"d-flex flex-column row-gap"}>
               <div>
                 <p className={"mb-3"}>
-                  {demoLookup.metric_units} {demoLookup.name}
+                  {demoLookup.metric_units}{" "}
+                  {demoLookup.lookup !== "F10_TrsBkW"
+                    ? `${demoLookup.name}`
+                    : `Percent Population using ${"A"} ${"B"} ${"C"}`}
                 </p>
                 <div className={"placeholder-legend"}>
                   <div

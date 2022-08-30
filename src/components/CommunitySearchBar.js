@@ -11,7 +11,7 @@ export default function CommunitySearchBar({
     toggleValue, callBack, communitySearch, forSearch = true,
     children, setAddCompare = null,
     selectedCoord, setSelectedCoord, showSearch, setShowSearch,
-    setShowMap, selectedCompareCoord, setselectedCompareCoord, primarySearch
+    setShowMap, selectedCompareCoord, setselectedCompareCoord, primarySearch, badSearch
 }) {
 
     const [value, setValue] = useState('');
@@ -113,6 +113,7 @@ export default function CommunitySearchBar({
                 <input type={"search"}
                     className={`community-search w-100`}
                     placeholder={forSearch ? "Search for a District, Neighborhood, or Address" : "Compare Communities"}
+                    style={{borderColor: ((badSearch[0] && primarySearch) || (badSearch[1] && !primarySearch)) ? "rgb(255,0,0)" : ""}}
                     onClick={(e) => {
                         e.stopPropagation()
                     }}
