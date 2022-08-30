@@ -46,7 +46,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                 </div>
 
                 <div
-                    className={`${showDropdownItems ? "d-block" : "d-none"} dropdown-body position-absolute w-100`}>
+                    className={`${showDropdownItems ? "d-block" : "d-none"} dropdown-body position-absolute`}>
                     {
                         items.map((item, index) => {
                             return (

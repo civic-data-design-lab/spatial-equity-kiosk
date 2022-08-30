@@ -1,4 +1,6 @@
 import {useEffect, useState} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBars} from "@fortawesome/free-solid-svg-icons";
 
 
 export default function MobileNav({
@@ -29,8 +31,8 @@ export default function MobileNav({
     return (
         <div className={"mobile-nav"}>
             <div className={"mobile-nav-header"}>
-                <h5 className={"m-0"}>Spatial Equity NYC</h5>
-                <button>menu button</button>
+                <h4 className={"m-0"}>Spatial Equity NYC</h4>
+                <FontAwesomeIcon icon={faBars} className={"fa-lg"}/>
             </div>
 
             <div className={"mobile-nav-chapter"}>

@@ -17,6 +17,7 @@ import _ISSUES from "./texts/issues.json";
 import _COMMUNITIES from "./texts/communities.json";
 import _COUNCILS from "./texts/councildistricts.json";
 import _DEMOGRAPHICS from "./texts/demographics.json";
+import _CHAPTER_COLORS from "./data/chapter_colors.json"
 
 const issue_categories = _ISSUE_CATEGORIES;
 const issues = _ISSUES;
@@ -161,7 +162,7 @@ function App() {
     // console.log("boundary ", boundary)
     // console.log("selectedAbout ", selectedAbout)
     // console.log("demographic", demographic)
-    // console.log("colorRamps", colorRamps)
+       console.log("colorRamps", colorRamps)
     // console.log("selectedCoord", selectedCoord)
     // console.log("-------------------------------------------")
 
@@ -226,6 +227,7 @@ function App() {
     }
   }, [selectedSpecificIssue]);
 
+
   useEffect(() => {
     if (selectedSpecificIssue) {
       if (!moreIssues.includes(selectedSpecificIssue)) {
@@ -243,7 +245,7 @@ function App() {
   const [mouseMove, setMouseMove] = useState(false);
 
   useEffect(() => {
-    console.log("useEffect triggerted");
+
     window.addEventListener("mouseup", () => {
       setMouseDown(false);
     });
@@ -585,7 +587,15 @@ function App() {
         </Container>
       ) : (
         <Container className={"p-0"}>
-          <CitywideData />
+          <CitywideData selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue}
+                        selectedSpecificIssue={selectedSpecificIssue}
+                        setSelectedSpecificIssue={setSelectedSpecificIssue}
+                        setShowDemographics={setShowDemographics}
+                        issues={issues} issue_categories={issue_categories}
+                        boundary={boundary} setBoundary={setBoundary}
+                        showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}
+                        colorRamps={colorRamps} setColorRamps={setColorRamps}
+          />
         </Container>
       )}
     </>
