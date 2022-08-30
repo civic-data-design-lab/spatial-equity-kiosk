@@ -207,13 +207,20 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .style('stroke', 'black')
             .style('stroke-width', 2);
 
+        //  Init mouse line
         svg.select('#mouseLine')
-            .attr('x1', margin.left)
-            .attr('y1', yscale(data.length / 2 + 0.5))
-            .attr('x2', width - margin.right)
-            .attr('y2', yscale(data.length / 2 + 0.5))
-            .style('stroke', 'black')
-            .style('stroke-width', 4);
+            .style('stroke-width', 0);
+
+        //  Init pinned line
+        svg.select('#pinnedLine')
+            .style('stroke-width', 0);
+
+        d3.select("#pinnedTextUp")
+            .text('')
+
+        d3.select("#pinnedTextDown")
+            .text('')
+
 
         svg.select('#minText')
             .attr('x', width - margin.right - textWidth)
@@ -309,6 +316,10 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                     // .ease('linear') 
                     .attr('y1', ycood)
                     .attr('y2', ycood)
+                    .attr('x1', margin.left)
+                    .attr('x2', width - margin.right)
+                    .style('stroke', 'black')
+                    .style('stroke-width', 4);
 
                 d3.select("#mouseTextUp")
                     .attr('y', ycood - 5)
@@ -323,6 +334,46 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                     .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
 
                 svg.select('#mouseTextDown')
+                    .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
+
+            })
+            .on('click', function (event, d) {
+                let pt = d3.pointer(event)
+
+                let ycood = pt[1];
+                ycood = Math.max(ycood, yscale(0.5));
+                ycood = Math.min(ycood, yscale(data.length + 0.5));
+
+                // console.log(pt);
+                //console.log(Math.floor(yscale.invert(ycood) - 0.5));
+
+                d3.select("#pinnedLine")
+                    // .transition()
+                    // .duration(10)
+                    // .ease('linear') 
+                    .attr('y1', ycood)
+                    .attr('y2', ycood)
+                    .attr('x1', margin.left)
+                    .attr('x2', width - margin.right)
+                    .style('stroke', 'black')
+                    .style('stroke-width', 4)
+                    .exit()
+                    .remove();
+
+
+                d3.select("#pinnedTextUp")
+                    .attr('y', ycood - 5)
+                    .text(nameArray[Math.floor(yscale.invert(ycood) - 0.5)])
+
+                d3.select("#pinnedTextDown")
+                    .attr('y', ycood + 15)
+                    .text(data[Math.floor(yscale.invert(ycood) - 0.5)])
+
+                // Adjust text position
+                svg.select('#pinnedTextUp')
+                    .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
+
+                svg.select('#pinnedTextDown')
                     .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
 
             })
@@ -349,6 +400,11 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 <text id="mouseTextUp" />
                 <text id="mouseTextDown" />
                 <rect id="histBg" />
+
+                {/* Pinned Line */}
+                <line id="pinnedLine" />
+                <text id="pinnedTextUp" />
+                <text id="pinnedTextDown" />
 
                 {/* Min/Max Line */}
                 <line id="maxLine" />
