@@ -4,6 +4,7 @@ import { text, mouse } from "d3";
 
 import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _RANKINGS from "../data/rankings.json";
+// import _ISSUES from "../texts/issues.json"
 
 
 const getRgb = (color) => {
@@ -127,15 +128,28 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
         const height = dimensions.height ? dimensions.height : 1200;
         const width = dimensions.width ? dimensions.width : 500;
-        console.log(dimensions)
+        // console.log(dimensions)
 
         // histogram bars attr
         const barPadding = 0;
         const barHeight = (height - margin.top - margin.bottom) / data.length;
+        const minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
+
+        const removeFirstWord = (str) => {
+            const indexOfSpace = str.indexOf(' ');
+            if (indexOfSpace === -1) {
+                return '';
+            }
+            return str.substring(indexOfSpace + 1);
+        }
+        let highlight_statement = issues.specific_issues_data[selectedSpecificIssue].highlight_statement;
+        highlight_statement = removeFirstWord(highlight_statement);
+        highlight_statement = highlight_statement.charAt(0).toUpperCase() + highlight_statement.slice(1);;
 
         // scales of chart
         let xscale = d3.scaleLinear()
-            .domain([0, d3.max(data)])
+            // .domain([0, d3.max(data)])
+            .domain([d3.min(data) - minValueMargin, d3.max(data)])
             .range([0, width - 100 - margin.right - margin.left])
 
         let yscale = d3.scaleLinear()
@@ -193,13 +207,20 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .style('stroke', 'black')
             .style('stroke-width', 2);
 
+        //  Init mouse line
         svg.select('#mouseLine')
-            .attr('x1', margin.left)
-            .attr('y1', yscale(data.length / 2 + 0.5))
-            .attr('x2', width - margin.right)
-            .attr('y2', yscale(data.length / 2 + 0.5))
-            .style('stroke', 'black')
-            .style('stroke-width', 4);
+            .style('stroke-width', 0);
+
+        //  Init pinned line
+        svg.select('#pinnedLine')
+            .style('stroke-width', 0);
+
+        d3.select("#pinnedTextUp")
+            .text('')
+
+        d3.select("#pinnedTextDown")
+            .text('')
+
 
         svg.select('#minText')
             .attr('x', width - margin.right - textWidth)
@@ -207,7 +228,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
+            // .text((ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
+            .text((ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
 
         svg.select('#maxText')
             .attr('x', width - margin.right - textWidth)
@@ -215,7 +237,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((!ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
+            // .text((!ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
+            .text((!ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
 
         svg.select('#mouseTextUp')
             .attr('x', width - margin.right - textWidth)
@@ -293,6 +316,10 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                     // .ease('linear') 
                     .attr('y1', ycood)
                     .attr('y2', ycood)
+                    .attr('x1', margin.left)
+                    .attr('x2', width - margin.right)
+                    .style('stroke', 'black')
+                    .style('stroke-width', 4);
 
                 d3.select("#mouseTextUp")
                     .attr('y', ycood - 5)
@@ -307,6 +334,46 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                     .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
 
                 svg.select('#mouseTextDown')
+                    .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
+
+            })
+            .on('click', function (event, d) {
+                let pt = d3.pointer(event)
+
+                let ycood = pt[1];
+                ycood = Math.max(ycood, yscale(0.5));
+                ycood = Math.min(ycood, yscale(data.length + 0.5));
+
+                // console.log(pt);
+                //console.log(Math.floor(yscale.invert(ycood) - 0.5));
+
+                d3.select("#pinnedLine")
+                    // .transition()
+                    // .duration(10)
+                    // .ease('linear') 
+                    .attr('y1', ycood)
+                    .attr('y2', ycood)
+                    .attr('x1', margin.left)
+                    .attr('x2', width - margin.right)
+                    .style('stroke', 'black')
+                    .style('stroke-width', 4)
+                    .exit()
+                    .remove();
+
+
+                d3.select("#pinnedTextUp")
+                    .attr('y', ycood - 5)
+                    .text(nameArray[Math.floor(yscale.invert(ycood) - 0.5)])
+
+                d3.select("#pinnedTextDown")
+                    .attr('y', ycood + 15)
+                    .text(data[Math.floor(yscale.invert(ycood) - 0.5)])
+
+                // Adjust text position
+                svg.select('#pinnedTextUp')
+                    .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
+
+                svg.select('#pinnedTextDown')
                     .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
 
             })
@@ -333,6 +400,11 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 <text id="mouseTextUp" />
                 <text id="mouseTextDown" />
                 <rect id="histBg" />
+
+                {/* Pinned Line */}
+                <line id="pinnedLine" />
+                <text id="pinnedTextUp" />
+                <text id="pinnedTextDown" />
 
                 {/* Min/Max Line */}
                 <line id="maxLine" />

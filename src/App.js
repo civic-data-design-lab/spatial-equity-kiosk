@@ -9,6 +9,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "./components/Nav";
 import Content from "./components/Content";
 import Map from "./components/Map";
+import BaseMap from "./components/BaseMap";
 import MobileNav from "./components/Mobile Components/MobileNav";
 import CitywideData from "./components/Mobile Components/CitywideData";
 
@@ -17,10 +18,12 @@ import _ISSUES from "./texts/issues.json";
 import _COMMUNITIES from "./texts/communities.json";
 import _COUNCILS from "./texts/councildistricts.json";
 import _DEMOGRAPHICS from "./texts/demographics.json";
+
 import _CHAPTER_COLORS from "./data/chapter_colors.json"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
 import ISSUES_CATEGORIES from "./texts/issue_categories.json";
+
 
 const issue_categories = _ISSUE_CATEGORIES;
 const issues = _ISSUES;
@@ -166,7 +169,7 @@ function App() {
     // console.log("boundary ", boundary)
     // console.log("selectedAbout ", selectedAbout)
     // console.log("demographic", demographic)
-       console.log("colorRamps", colorRamps)
+    //  console.log("colorRamps", colorRamps)
     // console.log("selectedCoord", selectedCoord)
     // console.log("-------------------------------------------")
 
@@ -219,8 +222,8 @@ function App() {
     }
 
     if (selectedChapter === 3 && !communitySearch) {
-            setShowMap(false);
-        }
+      setShowMap(false);
+    }
   });
 
   useEffect(() => {
@@ -230,7 +233,6 @@ function App() {
       );
     }
   }, [selectedSpecificIssue]);
-
 
   useEffect(() => {
     if (selectedSpecificIssue) {
@@ -249,7 +251,6 @@ function App() {
   const [mouseMove, setMouseMove] = useState(false);
 
   useEffect(() => {
-
     window.addEventListener("mouseup", () => {
       setMouseDown(false);
     });
@@ -446,6 +447,8 @@ function App() {
 
           <div className={`${showMap ? "show-map" : "hide-map"} map-container`}>
             <div className={"map-subcontainer"}>
+              {/* <BaseMap viewState={viewState} /> */}
+
               <div
                 className={"individual-maps"}
                 id={mapDemographics ? "left-map" : "left-map-alone"}
@@ -593,6 +596,7 @@ function App() {
           </div>
         </Container>
       ) : (
+
         <Container className={"p-0 vh-100"}>
          {/* TODO: dynamically change header content based on selected chapter*/}
           <div className={"mobile-nav-header"}>
@@ -624,6 +628,7 @@ function App() {
                         showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}
                         colorRamps={colorRamps} setColorRamps={setColorRamps}
           />*/}
+
         </Container>
       )}
     </>
