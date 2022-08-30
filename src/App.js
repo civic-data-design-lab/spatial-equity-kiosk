@@ -214,9 +214,9 @@ function App() {
       setShowToggle(true);
     }
 
-    /*if (selectedChapter === 3 && !communitySearch) {
+    if (selectedChapter === 3 && !communitySearch) {
             setShowMap(false);
-        }*/
+        }
   });
 
   useEffect(() => {
