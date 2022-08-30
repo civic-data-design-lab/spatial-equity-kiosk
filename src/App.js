@@ -61,7 +61,7 @@ function App() {
   const [demoLegendBins, setDemoLegendBins] = useState([1, 1, 1, 1, 1]);
   const [selectedCoord, setSelectedCoord] = useState([]);
   const [selectedCompareCoord, setselectedCompareCoord] = useState([]);
-  const [badSearch, setBadSearch] = useState([0,0]);
+  const [badSearch, setBadSearch] = useState([0, 0]);
 
   // console.log(demoColorRamp)
   // map hooks
@@ -574,7 +574,9 @@ function App() {
                       setDemoColorRamp={setDemoColorRamp}
                       setDemoLegendBins={setDemoLegendBins}
                       selectedCoord={selectedCoord}
+                      setSelectedCoord={setSelectedCoord}
                       selectedCompareCoord={selectedCompareCoord}
+                      setSelectedCompareCoord={setselectedCompareCoord}
                       badSearch={badSearch}
                       setBadSearch={setBadSearch}
                     />

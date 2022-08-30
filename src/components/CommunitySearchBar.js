@@ -89,7 +89,6 @@ export default function CommunitySearchBar({
     }, [response, selectedCoord]);  // monitor at response and selectedCoord updates
 
 
-    console.log(badSearch)
     const getSearchItems = () => {
         return React.Children.toArray(children).filter(
             (child) =>

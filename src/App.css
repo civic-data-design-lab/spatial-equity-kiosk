@@ -920,14 +920,16 @@ a:active {
 .placeholder-legend {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 7fr;
+    grid-template-columns: repeat(5, 1fr);
     grid-template-rows: auto;
-    column-gap: 1em;
+    column-gap: 0em;
     align-items: center;
+
 }
 
 .placeholder-legend-ethnicity {
-    grid-template-columns: 1fr 1fr 7fr;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 0.25em;
 }
 
 .legend-grid{
@@ -937,7 +939,7 @@ a:active {
 
 .legend-scale{
     border: 1px solid black;
-    height: 75%;
+    height: 3vh;
     width: 100%;
 }
 .small-font {

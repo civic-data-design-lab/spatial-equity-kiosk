@@ -4,6 +4,7 @@ When the search feature is open, clicking out of it should not accidentally clos
 Clicking one of the search results should close the dropdown (or pressing enter)
 escaping the search box then makes the neighborhoods unclickable (but this is a non issue if we revert back to the screen going blank to begin)
 legend reflects the map domain and range, but it becomes misleading in tile view
+legend for infrastructure behaves differently than the legend for Health and Env
 
 Legend Middle Column:
 
