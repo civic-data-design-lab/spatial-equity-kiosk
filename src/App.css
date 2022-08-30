@@ -1411,7 +1411,7 @@ input:checked + .slider:before {
 
 .mobile-nav {
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - (4.025rem + .3vw));
     display: flex;
     flex-direction: column;
 }
@@ -1425,6 +1425,7 @@ input:checked + .slider:before {
 .mobile-nav-header {
     padding: 1rem;
     border: 1px solid black;
+    border-bottom: 1px solid white;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -1432,6 +1433,7 @@ input:checked + .slider:before {
     background-color: black;
     color: white;
     position: relative;
+    height: calc(4.025rem + .3vw);
 }
 
 .mobile-nav-footer {
@@ -1440,11 +1442,7 @@ input:checked + .slider:before {
     transition: flex-grow 1s, padding 1s 0.5s;
 }
 
-.mobile-nav-chapter {
-    padding: 1rem;
-    border: 1px solid black;
-    flex-grow: 2;
-}
+
 
 .mobile-citywide {
     height: 100vh;
@@ -1452,14 +1450,14 @@ input:checked + .slider:before {
     flex-direction: column;
 }
 
-.mobile-citywide-chapter {
-    flex-grow: 1;
+.mobile-nav-chapter {
     cursor: pointer;
-    transition: flex-grow 1s, padding 1s 0.5s, background-color 1s 0.5s, color 1s 0.5s;
+    transition: flex-grow 1s, padding 1s 0.5s, background-color 0.5s, color 0.5s;
 }
 
 .mobile-citywide-content {
     transition: flex-grow 1s, padding 1s 0.5s;
+    overflow: scroll;
 }
 
 .mobile-boundary-toggle {
@@ -1489,11 +1487,22 @@ input:checked + .slider:before {
     border-left: 1px solid white;
 }
 
+.mobile-demographics-toggle {
+    padding: 1rem;
+    border: 1px solid black;
+    border-top: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 
 @media screen and (max-width: 576px) {
     .dropdown-body {
             width: calc(100% - 2rem - 2px);
         }
+
     .map-toggle-container {
         height: 100%;
         width: auto;

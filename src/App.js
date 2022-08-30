@@ -18,6 +18,9 @@ import _COMMUNITIES from "./texts/communities.json";
 import _COUNCILS from "./texts/councildistricts.json";
 import _DEMOGRAPHICS from "./texts/demographics.json";
 import _CHAPTER_COLORS from "./data/chapter_colors.json"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBars} from "@fortawesome/free-solid-svg-icons";
+import ISSUES_CATEGORIES from "./texts/issue_categories.json";
 
 const issue_categories = _ISSUE_CATEGORIES;
 const issues = _ISSUES;
@@ -63,6 +66,7 @@ function App() {
   const [selectedCoord, setSelectedCoord] = useState([]);
   const [selectedCompareCoord, setselectedCompareCoord] = useState([]);
   const [badSearch, setBadSearch] = useState([0, 0]);
+  const [showMenu, setShowMenu] = useState(true)
 
   // console.log(demoColorRamp)
   // map hooks
@@ -589,8 +593,29 @@ function App() {
           </div>
         </Container>
       ) : (
-        <Container className={"p-0"}>
-          <CitywideData selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue}
+        <Container className={"p-0 vh-100"}>
+         {/* TODO: dynamically change header content based on selected chapter*/}
+          <div className={"mobile-nav-header"}>
+                <div>
+                  {selectedChapter && <p className={"m-0 small-font"}>{selectedChapter===1 ? "What is" : selectedChapter<4 ? "Explore Spatial Equity by" : "Learn More"}</p>}
+                    <h4 className={"m-0"}>
+                      {!selectedChapter ? "Spatial Equity NYC" : selectedChapter===1 ? "Spatial Equity" : selectedChapter===2 ? "Citywide Data" : selectedChapter===3 ? "Community Profiles" : "Take Action"}</h4>
+                </div>
+            {/*TODO: animate bars into x*/}
+                <FontAwesomeIcon icon={faBars} className={"fa-lg"}
+                                 onClick={()=>{setShowMenu(!showMenu)}}
+                />
+          </div>
+
+          <div className={"h-100 position-relative"}>
+            <MobileNav
+                showMenu={showMenu} setSelectedChapter={setSelectedChapter}
+                selectedChapter={selectedChapter}
+            />
+          </div>
+
+
+          {/*<CitywideData selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue}
                         selectedSpecificIssue={selectedSpecificIssue}
                         setSelectedSpecificIssue={setSelectedSpecificIssue}
                         setShowDemographics={setShowDemographics}
@@ -598,7 +623,7 @@ function App() {
                         boundary={boundary} setBoundary={setBoundary}
                         showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}
                         colorRamps={colorRamps} setColorRamps={setColorRamps}
-          />
+          />*/}
         </Container>
       )}
     </>
