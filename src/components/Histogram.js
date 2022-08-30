@@ -4,6 +4,7 @@ import { text, mouse } from "d3";
 
 import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _RANKINGS from "../data/rankings.json";
+// import _ISSUES from "../texts/issues.json"
 
 
 const getRgb = (color) => {
@@ -127,12 +128,24 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
         const height = dimensions.height ? dimensions.height : 1200;
         const width = dimensions.width ? dimensions.width : 500;
-        console.log(dimensions)
+        // console.log(dimensions)
 
         // histogram bars attr
         const barPadding = 0;
         const barHeight = (height - margin.top - margin.bottom) / data.length;
         const minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
+
+        const removeFirstWord = (str) => {
+            const indexOfSpace = str.indexOf(' ');
+            if (indexOfSpace === -1) {
+                return '';
+            }
+            return str.substring(indexOfSpace + 1);
+        }
+        let highlight_statement = issues.specific_issues_data[selectedSpecificIssue].highlight_statement;
+        highlight_statement = removeFirstWord(highlight_statement);
+        highlight_statement = highlight_statement.charAt(0).toUpperCase() + highlight_statement.slice(1);;
+
         // scales of chart
         let xscale = d3.scaleLinear()
             // .domain([0, d3.max(data)])
@@ -208,7 +221,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
+            // .text((ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
+            .text((ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
 
         svg.select('#maxText')
             .attr('x', width - margin.right - textWidth)
@@ -216,7 +230,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((!ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
+            // .text((!ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
+            .text((!ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
 
         svg.select('#mouseTextUp')
             .attr('x', width - margin.right - textWidth)
