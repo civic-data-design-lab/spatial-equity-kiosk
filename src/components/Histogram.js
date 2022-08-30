@@ -132,10 +132,11 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         // histogram bars attr
         const barPadding = 0;
         const barHeight = (height - margin.top - margin.bottom) / data.length;
-
+        const minValueMargin = 0.1 * (d3.max(data) - d3.min(data));
         // scales of chart
         let xscale = d3.scaleLinear()
-            .domain([0, d3.max(data)])
+            // .domain([0, d3.max(data)])
+            .domain([d3.min(data) - minValueMargin, d3.max(data)])
             .range([0, width - 100 - margin.right - margin.left])
 
         let yscale = d3.scaleLinear()
