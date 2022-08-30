@@ -19,6 +19,8 @@ export default function CommunitySearchBar({
     const [searchItems, setSearchItems] = useState([]);
     const [loading, setloading] = useState(true);
     const [response, setResponse] = useState(null);
+    const [firstMatchedRes, setFirstMatchedRes] = useState([]);
+
     // console.log('!!!c', communitySearch, )
     // console.log('!!!s', selectedCoord)
     const forwardGeocoding = (address) => {
@@ -48,9 +50,14 @@ export default function CommunitySearchBar({
     useEffect(() => {
         if (!response) return
 
+        let firstItem = true
         let resItems = []
         for (const v of response.data.features) {
             // console.log(v.center[0].toFixed(3) + " " + v.center[1].toFixed(3), v.place_name);
+            if (firstItem) {
+                setFirstMatchedRes([v.center[0].toFixed(3), v.center[1].toFixed(3)]);
+                firstItem = false
+            }
             resItems.push(
                 <div key={v.id}
                     className={`${selectedCoord && (selectedCoord[0] == v.center[0].toFixed(3)) && (selectedCoord[1] == v.center[1].toFixed(3)) ? "search-item-active" : "search-item-inactive"} col search-item p-2`}
@@ -117,12 +124,20 @@ export default function CommunitySearchBar({
                     }}
                     onKeyUp={(e) => {
                         // if (e.keyCode == 13) forwardGeocoding(value);
-                        
+
                         if (e.key === "Escape")
                             setFocus(false);
 
-                        if (e.key === "Enter") {
+                        if (e.key === "Enter" && focus && searchItems.length > 0) {
+                            // console.log(firstMatchedRes);
 
+                            if (primarySearch) {
+                                setSelectedCoord(firstMatchedRes)
+                                setShowSearch(false)
+                            } else {
+                                setselectedCompareCoord(firstMatchedRes)
+                                setShowSearch(false)
+                            }
                         }
                     }}
                     onChange={(e) => {
