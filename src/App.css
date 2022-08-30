@@ -687,24 +687,24 @@ a:active {
 
 .map-subcontainer {
     display: flex;
+    width: 50vw;
+    right: 0;
 }
 
-#left-map {
-    display: flex;
-}
+
 
 #left-map-alone {
     width: 100% !important;
 }
 
-#right-map {
-    flex: 1;
-}
+
 
 
 .individual-maps {
+    border: 1px solid black;
     position: relative;
     height: 100vh;
+    width: 25vw;
 }
 
 /* wiper v2 */

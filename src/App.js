@@ -9,7 +9,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "./components/Nav";
 import Content from "./components/Content";
 import Map from "./components/Map";
-import BaseMap from "./components/BaseMap";
+/*import BaseMap from "./components/BaseMap";*/
 import MobileNav from "./components/Mobile Components/MobileNav";
 import CitywideData from "./components/Mobile Components/CitywideData";
 
@@ -318,44 +318,6 @@ function App() {
 
   const [leftWidth, setLeftWidth] = useState(0);
 
-  const mouseMoveHandler = function (e) {
-    const resizer = document.getElementById("wiper");
-    const leftSide = resizer.previousElementSibling;
-    const rightSide = resizer.nextElementSibling;
-    // How far the mouse has been moved
-    const dx = e.clientX - leftWidth - window.innerWidth / 2;
-
-    const newLeftWidth =
-      ((leftWidth + dx) * 100) /
-      resizer.parentNode.getBoundingClientRect().width;
-    // console.log("newLeftWidth ", newLeftWidth)
-    leftSide.style.width = `${newLeftWidth}%`;
-    leftSide.style.userSelect = "none";
-    leftSide.style.pointerEvents = "none";
-
-    rightSide.style.userSelect = "none";
-    rightSide.style.pointerEvents = "none";
-
-    setLeftWidth(newLeftWidth);
-  };
-
-  const mouseUpHandler = function () {
-    const resizer = document.getElementById("wiper");
-    const leftSide = resizer.previousElementSibling;
-    const rightSide = resizer.nextElementSibling;
-    resizer.style.removeProperty("cursor");
-    document.body.style.removeProperty("cursor");
-
-    leftSide.style.removeProperty("user-select");
-    leftSide.style.removeProperty("pointer-events");
-
-    rightSide.style.removeProperty("user-select");
-    rightSide.style.removeProperty("pointer-events");
-
-    // Remove the handlers of `mousemove` and `mouseup`
-    document.removeEventListener("mousemove", mouseMoveHandler);
-    document.removeEventListener("mouseup", mouseUpHandler);
-  };
 
   return (
     <>
@@ -511,26 +473,6 @@ function App() {
                 />
               </div>
               {mapDemographics && (
-                <>
-                  <div
-                    className={"wiper"}
-                    id={"wiper"}
-                    onMouseDown={(e) => {
-                      // Get the current mouse position
-                      const resizer = document.getElementById("wiper");
-                      const leftSide = resizer.previousElementSibling;
-
-                      setLeftWidth(leftSide.getBoundingClientRect().width);
-                      console.log(
-                        "left width is ",
-                        leftSide.getBoundingClientRect().width
-                      );
-
-                      // Attach the listeners to `document`
-                      document.addEventListener("mousemove", mouseMoveHandler);
-                      document.addEventListener("mouseup", mouseUpHandler);
-                    }}
-                  ></div>
 
                   <div className={"individual-maps"} id={"right-map"}>
                     <Map
@@ -590,7 +532,6 @@ function App() {
                       setBadSearch={setBadSearch}
                     />
                   </div>
-                </>
               )}
             </div>
           </div>
