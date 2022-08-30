@@ -25,6 +25,7 @@ export default function CommunityNav({
   setShowMap,
   selectedCompareCoord,
   setselectedCompareCoord,
+  badSearch,
 }) {
   useEffect(() => {
     if (!communitySearch) {
@@ -154,6 +155,7 @@ export default function CommunityNav({
           showSearch={showSearch}
           setShowMap={setShowMap}
           primarySearch={true}
+          badSearch={badSearch}
         >
           {getSearchItems(true, boundary)}
         </CommunitySearchBar>
@@ -180,6 +182,7 @@ export default function CommunityNav({
             showSearch={showCompareSearch}
             setShowMap={setShowMap}
             primarySearch={false}
+            badSearch={badSearch}
           >
             {getSearchItems(false, boundary)}
           </CommunitySearchBar>

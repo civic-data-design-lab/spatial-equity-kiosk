@@ -383,6 +383,7 @@ function App() {
             selectedCompareCoord={selectedCompareCoord}
             setselectedCompareCoord={setselectedCompareCoord}
             isMobile={false}
+            badSearch={badSearch}
           />
 
           <Content
