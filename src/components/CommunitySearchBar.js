@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 import axios from "axios";
-import { reduce, rgb } from 'd3';
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -12,7 +11,7 @@ export default function CommunitySearchBar({
     toggleValue, callBack, communitySearch, forSearch = true,
     children, setAddCompare = null,
     selectedCoord, setSelectedCoord, showSearch, setShowSearch,
-    setShowMap, selectedCompareCoord, setselectedCompareCoord, primarySearch, badSearch
+    setShowMap, selectedCompareCoord, setselectedCompareCoord, primarySearch
 }) {
 
     const [value, setValue] = useState('');
@@ -61,14 +60,14 @@ export default function CommunitySearchBar({
                     onMouseDown={(e) => {
                         e.stopPropagation()
 
-                        if (primarySearch){
+                        if (primarySearch) {
                             setSelectedCoord([v.center[0].toFixed(3), v.center[1].toFixed(3)])
                             setShowSearch(false)
-                        } else{
+                        } else {
                             setselectedCompareCoord([v.center[0].toFixed(3), v.center[1].toFixed(3)])
                             setShowSearch(false)
                         }
-                        
+
                         // console.log([v.center[0].toFixed(3), v.center[1].toFixed(3)])
                         // console.log(selectedCoord)
                     }}
@@ -89,6 +88,7 @@ export default function CommunitySearchBar({
     }, [response, selectedCoord]);  // monitor at response and selectedCoord updates
 
 
+
     const getSearchItems = () => {
         return React.Children.toArray(children).filter(
             (child) =>
@@ -106,7 +106,6 @@ export default function CommunitySearchBar({
                 <input type={"search"}
                     className={`community-search w-100`}
                     placeholder={forSearch ? "Search for a District, Neighborhood, or Address" : "Compare Communities"}
-                    style={{borderColor: ((primarySearch && badSearch[0] || !primarySearch && badSearch[1]) ? rgb(255,0,0) : "")}}
                     onClick={(e) => {
                         e.stopPropagation()
                     }}
@@ -117,7 +116,13 @@ export default function CommunitySearchBar({
                         setFocus(false)
                     }}
                     onKeyUp={(e) => {
-                        if (e.keyCode == 13) forwardGeocoding(value);
+                        // if (e.keyCode == 13) forwardGeocoding(value);
+                        if (e.key === "Escape") {
+                            setFocus(false);
+                        }
+                        if (e.key === "Enter") {
+                           
+                        }
                     }}
                     onChange={(e) => {
                         callBack("")
@@ -142,8 +147,8 @@ export default function CommunitySearchBar({
                     {getSearchItems()}
                 </ul>
             </div>} */}
-            {/* {focus && searchItems.length > 0 && <div> */}
-            {searchItems.length > 0 && showSearch && <div>
+            {focus && searchItems.length > 0 && <div>
+            {/* {searchItems.length > 0 && showSearch && <div> */}
                 <ul className={`list-unstyled community-dropdown w-100`}>
                     {searchItems}
                     {getSearchItems()}
