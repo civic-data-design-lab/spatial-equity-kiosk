@@ -117,11 +117,12 @@ export default function CommunitySearchBar({
                     }}
                     onKeyUp={(e) => {
                         // if (e.keyCode == 13) forwardGeocoding(value);
-                        if (e.key === "Escape") {
+                        
+                        if (e.key === "Escape")
                             setFocus(false);
-                        }
+
                         if (e.key === "Enter") {
-                           
+
                         }
                     }}
                     onChange={(e) => {
@@ -148,7 +149,7 @@ export default function CommunitySearchBar({
                 </ul>
             </div>} */}
             {focus && searchItems.length > 0 && <div>
-            {/* {searchItems.length > 0 && showSearch && <div> */}
+                {/* {searchItems.length > 0 && showSearch && <div> */}
                 <ul className={`list-unstyled community-dropdown w-100`}>
                     {searchItems}
                     {getSearchItems()}
