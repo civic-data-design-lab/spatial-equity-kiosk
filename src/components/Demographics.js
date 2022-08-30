@@ -162,25 +162,9 @@ export default function Demographics({
           <div>
             <p className={"mb-0"}>{demographics[currentValue]}</p>
 
-            {getTransitToggles()}
-
-            <Legend
-              mapDemographics={mapDemographics}
-              demoColorRamp={demoColorRamp}
-              demoLegendBins={demoLegendBins}
-              demoLookup={demoLookup}
-              demographic={demographic}
-              legendBins={demoLegendBins}
-              colorRamps={demoColorRamp}
-              boundary
-              dataScale
-              setdataScale
-              forDemographic={true}
-            />
-
             {showMap && (
               <div
-                className={`big-button ${
+                className={`big-button mt-2 mb-2 ${
                   mapDemographics ? "big-button-active" : "big-button-inactive"
                 }`}
                 onClick={() => {
@@ -197,6 +181,24 @@ export default function Demographics({
                 </div>
               </div>
             )}
+
+            {getTransitToggles()}
+
+            <Legend
+              mapDemographics={mapDemographics}
+              demoColorRamp={demoColorRamp}
+              demoLegendBins={demoLegendBins}
+              demoLookup={demoLookup}
+              demographic={demographic}
+              legendBins={demoLegendBins}
+              colorRamps={demoColorRamp}
+              boundary
+              dataScale
+              setdataScale
+              forDemographic={true}
+            />
+
+
           </div>
         )}
 
@@ -206,6 +208,24 @@ export default function Demographics({
           selectedChapter === 3 && (
             <div>
               <p className={"m-0"}>{demographics[currentValue]}</p>
+
+              {showMap && <div
+                  className={`big-button mt-2 mb-2 ${
+                      mapDemographics ? "big-button-active" : "big-button-inactive"
+                  }`}
+                  onClick={() => {
+                    setMapDemographics(!mapDemographics);
+                  }}
+              >
+                <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
+                <div>
+                  {mapDemographics ? (
+                      <FontAwesomeIcon icon={faMinus}/>
+                  ) : (
+                      <FontAwesomeIcon icon={faPlus}/>
+                  )}
+                </div>
+              </div>}
 
               {getTransitToggles()}
 
@@ -223,23 +243,7 @@ export default function Demographics({
                 forDemographic={true}
               />
 
-              <div
-                className={`big-button ${
-                  mapDemographics ? "big-button-active" : "big-button-inactive"
-                }`}
-                onClick={() => {
-                  setMapDemographics(!mapDemographics);
-                }}
-              >
-                <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
-                <div>
-                  {mapDemographics ? (
-                    <FontAwesomeIcon icon={faMinus} />
-                  ) : (
-                    <FontAwesomeIcon icon={faPlus} />
-                  )}
-                </div>
-              </div>
+
             </div>
           )}
 
@@ -248,6 +252,23 @@ export default function Demographics({
           compareSearch &&
           selectedChapter === 3 && (
             <div id={"demographic-slider"}>
+              {showMap && <div
+                  className={`big-button mt-2 mb-2 ${
+                      mapDemographics ? "big-button-active" : "big-button-inactive"
+                  }`}
+                  onClick={() => {
+                    setMapDemographics(!mapDemographics);
+                  }}
+              >
+                <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
+                <div>
+                  {mapDemographics ? (
+                      <FontAwesomeIcon icon={faMinus}/>
+                  ) : (
+                      <FontAwesomeIcon icon={faPlus}/>
+                  )}
+                </div>
+              </div>}
               <Slider>
                 <div>
                   {currentValue === "1" && (
@@ -309,23 +330,6 @@ export default function Demographics({
                             </div>
                         </div>*/}
 
-              <div
-                className={`big-button ${
-                  mapDemographics ? "big-button-active" : "big-button-inactive"
-                }`}
-                onClick={() => {
-                  setMapDemographics(!mapDemographics);
-                }}
-              >
-                <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
-                <div>
-                  {mapDemographics ? (
-                    <FontAwesomeIcon icon={faMinus} />
-                  ) : (
-                    <FontAwesomeIcon icon={faPlus} />
-                  )}
-                </div>
-              </div>
             </div>
           )}
       </div>
