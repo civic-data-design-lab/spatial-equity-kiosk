@@ -27,7 +27,7 @@ export default function Legend({
   demoColorRamp,
   demoLegendBins,
   mapDemographics,
-    showMap
+  showMap,
 }) {
   const administrativeBoundary =
     boundary === "council" ? "Council Districts" : "Community Boards";
@@ -76,7 +76,7 @@ export default function Legend({
     let selectedMetric; // MAKE THIS A STATE AT THE APP LEVEL FOR OPTIMIZATION
     let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
 
-    console.log(selectedSpecificIssue)
+    // console.log(selectedSpecificIssue)
     if (selectedSpecificIssue != null) {
       if (
         typeof selectedSpecificIssue == "number" &&
@@ -89,58 +89,6 @@ export default function Legend({
           issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
       }
     }
-
-    // STATIC - NO NEED TO CALCULATE TOTAL ETHNICITY ON RENDER
-    // // 00 Get Total Ethnicity Breakdown for NYC
-    // const totalEthnicity = [[], [], [], [], []];
-    // const nycEthnicity = [];
-    // // get the total ethnicity breakdown for NYC
-    // if (selectedBoundary) {
-    //   for (let i = 0; i < selectedBoundary.features.length; i++) {
-    //     let raceLookup =
-    //       boundary == "council"
-    //         ? ["Hispanic", "White", "Black", "Asian", "Other"]
-    //         : ["R_Hispanic", "R_White", "R+Black", "R_Asian", "R_Other"];
-
-    //     // hispanic
-    //     totalEthnicity[0].push(
-    //       selectedBoundary.features[i].properties[raceLookup[0]]
-    //     );
-    //     // white
-    //     totalEthnicity[1].push(
-    //       selectedBoundary.features[i].properties[raceLookup[1]]
-    //     );
-
-    //     // black
-    //     totalEthnicity[2].push(
-    //       selectedBoundary.features[i].properties[raceLookup[2]]
-    //     );
-
-    //     // asian
-    //     totalEthnicity[3].push(
-    //       selectedBoundary.features[i].properties[raceLookup[3]]
-    //     );
-
-    //     // other
-    //     totalEthnicity[4].push(
-    //       selectedBoundary.features[i].properties[raceLookup[4]]
-    //     );
-    //   }
-
-    //   for (let i = 0; i < totalEthnicity.length; i++) {
-    //     totalEthnicity[i] = totalEthnicity[i].reduce((a, b) => a + b, 0);
-    //   }
-
-    //   // get percentage of NYC population by ethnicity
-    //   const totalPopulation = totalEthnicity.reduce((a, b) => a + b, 0);
-
-    //   // get percentage total population
-    //   for (let i = 0; i < totalEthnicity.length; i++) {
-    //     nycEthnicity.push(
-    //       ((totalEthnicity[i] / totalPopulation) * 100).toFixed(0)
-    //     );
-    //   }
-    // }
 
     // 01 CREATE METRIC COLOR RAMPS -------------------------------------------------------
 
@@ -158,7 +106,7 @@ export default function Legend({
         ? "infra"
         : "troubleshoot";
 
-    console.log(selectedMetric)
+    // console.log(selectedMetric)
     // 01.1 get an array of all the values for the selected metric
     for (let i = 0; i < mapScale.features.length; i++) {
       let floatValue = parseFloat(
@@ -240,7 +188,7 @@ export default function Legend({
           return (
             <div className={"d-flex flex-column row-gap"}>
               <div>
-                <p className={"m-0"}>
+                <p className={"mb-3"}>
                   {
                     issues.specific_issues_data[selectedSpecificIssue]
                       .specific_issue_units
@@ -255,12 +203,7 @@ export default function Legend({
                       ][0].toString()})`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>
-                    {legendBins[0] < 0 ? legendBins[0] : 0}
-                  </div>
-                  <div>→</div>
-                  <div className={"m-0"}>{cleanNumbers[0]}</div>
+                  />
                   <div
                     className={"legend-scale"}
                     style={{
@@ -269,10 +212,7 @@ export default function Legend({
                       ][1].toString()})`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>{cleanNumbers[0]}</div>
-                  <div>→</div>
-                  <div className={"m-0"}>{cleanNumbers[1]}</div>
+                  />
                   <div
                     className={"legend-scale"}
                     style={{
@@ -281,10 +221,7 @@ export default function Legend({
                       ][2].toString()})`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>{cleanNumbers[1]}</div>
-                  <div>→</div>
-                  <div className={"m-0"}>{cleanNumbers[2]}</div>
+                  />{" "}
                   <div
                     className={"legend-scale"}
                     style={{
@@ -293,10 +230,7 @@ export default function Legend({
                       ][3].toString()})`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>{cleanNumbers[2]}</div>
-                  <div>→</div>
-                  <div className={"m-0"}>{cleanNumbers[3]}</div>
+                  />{" "}
                   <div
                     className={"legend-scale"}
                     style={{
@@ -305,31 +239,45 @@ export default function Legend({
                       ][4].toString()})`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>{cleanNumbers[3]}+</div>
+                  />
+                  <div className={"small-font"}>
+                    {legendBins[0] < 0 ? legendBins[0] : 0} → {cleanNumbers[0]}
+                  </div>
+                  <div className={"small-font"}>
+                    {cleanNumbers[0]} → {cleanNumbers[1]}
+                  </div>{" "}
+                  <div className={"small-font"}>
+                    {cleanNumbers[1]} → {cleanNumbers[2]}
+                  </div>
+                  <div className={"small-font"}>
+                    {cleanNumbers[2]} → {cleanNumbers[3]}
+                  </div>
+                  <div className={"small-font"}>{cleanNumbers[3]}+</div>
                 </div>
               </div>
 
-              {showMap && <div
-                  className={`big-button ${
-                      toggleUnderperformers
-                          ? "big-button-active"
-                          : "big-button-inactive"
+              {showMap && (
+                <div
+                  className={`mt-3 big-button ${
+                    toggleUnderperformers
+                      ? "big-button-active"
+                      : "big-button-inactive"
                   }`}
                   onClick={() => {
                     setToggleUnderperformers(!toggleUnderperformers);
                   }}
-              >
-                {getButtonStatement()}
+                >
+                  {getButtonStatement()}
 
-                <div>
-                  {toggleUnderperformers ? (
-                      <FontAwesomeIcon icon={faMinus}/>
-                  ) : (
-                      <FontAwesomeIcon icon={faPlus}/>
-                  )}
+                  <div>
+                    {toggleUnderperformers ? (
+                      <FontAwesomeIcon icon={faMinus} />
+                    ) : (
+                      <FontAwesomeIcon icon={faPlus} />
+                    )}
+                  </div>
                 </div>
-              </div>}
+              )}
             </div>
           );
         }
@@ -338,7 +286,7 @@ export default function Legend({
           return (
             <div className={"d-flex flex-column row-gap"}>
               <div>
-                <p className={"m-0"}>
+                <p className={"mb-3"}>
                   {demoLookup.metric_units} {demoLookup.name}
                 </p>
                 <div className={"placeholder-legend"}>
@@ -350,12 +298,7 @@ export default function Legend({
                       )})`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>0%</div>
-                  <div>→</div>
-                  <div className={"m-0"}>
-                    {(demoLegendBins[0] * 100).toFixed(0)}%
-                  </div>
+                  />
                   <div
                     className={"legend-scale"}
                     style={{
@@ -364,14 +307,7 @@ export default function Legend({
                       )})`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>
-                    {(demoLegendBins[0] * 100).toFixed(0)}%
-                  </div>
-                  <div>→</div>
-                  <div className={"m-0"}>
-                    {(demoLegendBins[1] * 100).toFixed(0)}%
-                  </div>
+                  />
                   <div
                     className={"legend-scale"}
                     style={{
@@ -380,14 +316,7 @@ export default function Legend({
                       )})`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>
-                    {(demoLegendBins[1] * 100).toFixed(0)}%
-                  </div>
-                  <div>→</div>
-                  <div className={"m-0"}>
-                    {(demoLegendBins[2] * 100).toFixed(0)}%
-                  </div>
+                  />
                   <div
                     className={"legend-scale"}
                     style={{
@@ -396,14 +325,7 @@ export default function Legend({
                       )})`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>
-                    {(demoLegendBins[2] * 100).toFixed(0)}%
-                  </div>
-                  <div>→</div>
-                  <div className={"m-0"}>
-                    {(demoLegendBins[3] * 100).toFixed(0)}%
-                  </div>
+                  />
                   <div
                     className={"legend-scale"}
                     style={{
@@ -412,9 +334,25 @@ export default function Legend({
                       )})`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>
-                    {(demoLegendBins[3] * 100).toFixed(0)}%+
+                  />
+
+                  <div className={"small-font"}>
+                    0% → {(demoLegendBins[0] * 100).toFixed(0)}%
+                  </div>
+                  <div className={"small-font"}>
+                    {(demoLegendBins[0] * 100).toFixed(0)}% →{" "}
+                    {(demoLegendBins[1] * 100).toFixed(0)}%
+                  </div>
+                  <div className={"small-font"}>
+                    {(demoLegendBins[1] * 100).toFixed(0)}% →{" "}
+                    {(demoLegendBins[2] * 100).toFixed(0)}%
+                  </div>
+                  <div className={"small-font"}>
+                    {(demoLegendBins[2] * 100).toFixed(0)}% →{" "}
+                    {(demoLegendBins[3] * 100).toFixed(0)}%
+                  </div>
+                  <div className={"small-font"}>
+                    {(demoLegendBins[3] * 100).toFixed(0)}% +
                   </div>
                 </div>
               </div>
@@ -424,7 +362,7 @@ export default function Legend({
           return (
             <div className={"d-flex flex-column row-gap"}>
               <div>
-                <p className={"m-0"}>NYC Overall {demoLookup.name}</p>
+                <p className={"mb-3"}>NYC Overall {demoLookup.name}</p>
                 <div
                   className={"placeholder-legend placeholder-legend-ethnicity"}
                 >
@@ -434,45 +372,40 @@ export default function Legend({
                       backgroundColor: `${_ETHNICITY_COLORS.Hispanic.htmlFormat}`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>29%</div>
-                  <div className={"m-0"}>Hispanic</div>
+                  />
                   <div
                     className={"legend-scale"}
                     style={{
                       backgroundColor: `${_ETHNICITY_COLORS.White.htmlFormat}`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>33%</div>
-                  <div className={"m-0"}>White</div>
+                  />
                   <div
                     className={"legend-scale"}
                     style={{
                       backgroundColor: `${_ETHNICITY_COLORS.Black.htmlFormat}`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>23%</div>
-                  <div className={"m-0"}>Black</div>
+                  />
                   <div
                     className={"legend-scale"}
                     style={{
                       backgroundColor: `${_ETHNICITY_COLORS.Asian.htmlFormat}`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>13%</div>
-                  <div className={"m-0"}>Asian</div>
+                  />
                   <div
                     className={"legend-scale"}
                     style={{
                       backgroundColor: `${_ETHNICITY_COLORS.Other.htmlFormat}`,
                       fontFamily: "Arial",
                     }}
-                  ></div>
-                  <div className={"m-0"}>3%</div>
-                  <div className={"m-0"}>Other</div>
+                  />
+                  <div className={"small-font"}>29% Hispanic</div>
+                  <div className={"small-font"}>33% White</div>
+                  <div className={"small-font"}>23% Black</div>
+                  <div className={"small-font"}>13% Asian</div>
+                  <div className={"small-font"}>3% Other</div>
                 </div>
               </div>
             </div>
