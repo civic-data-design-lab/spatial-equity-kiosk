@@ -3,14 +3,19 @@ When demographics is hidden, the split screen should always go away
 When the search feature is open, clicking out of it should not accidentally close the community profiles tab
 Clicking one of the search results should close the dropdown (or pressing enter)
 escaping the search box then makes the neighborhoods unclickable (but this is a non issue if we revert back to the screen going blank to begin)
-
+legend reflects the map domain and range, but it becomes misleading in tile view
+legend for infrastructure behaves differently than the legend for Health and Env
 
 Legend Middle Column:
 
 Map
     - revert to original scroll method and figure out how to update viewstate that way. (WIP works but get non-breaking error)
-    - make a state for bad search
+
 General
     - introduction text should always be available on Spatial Equity chapter?
     - need to add feedback when the person searches for something that doesnt show up
+
+Next Up:
+    - better legends
+    - make a state for bad search (search result feedback)
 
