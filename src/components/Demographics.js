@@ -5,7 +5,6 @@ import { faCaretDown, faCaretUp, faMinus, faPlus, } from "@fortawesome/free-soli
 import Form from "react-bootstrap/Form";
 import Slider from "./Carousel";
 import Legend from "./Legend";
-import GridGraph from "./GridGraph"
 
 export default function Demographics({
     selectedSpecificIssue,
@@ -158,28 +157,6 @@ export default function Demographics({
 
                         {getTransitToggles()}
 
-                        {/* {(!showMap) &&
-                            <div>
-                                GRID PLACEHOLDER
-                            </div>}
-
-                        {showMap && <Legend
-                            mapDemographics={mapDemographics}
-                            demoColorRamp={demoColorRamp}
-                            demoLegendBins={demoLegendBins}
-                            demoLookup={demoLookup}
-                            demographic={demographic}
-                            legendBins={demoLegendBins}
-                            colorRamps={demoColorRamp}
-                            boundary
-                            dataScale
-                            setdataScale
-                            forDemographic={true}
-                        />} */}
-
-                        GRID PLACEHOLDER
-                        <GridGraph currentDemographics={currentValue} />
-
                         <Legend
                             mapDemographics={mapDemographics}
                             demoColorRamp={demoColorRamp}
@@ -223,8 +200,6 @@ export default function Demographics({
 
 
                             {getTransitToggles()}
-
-                            GRID PLACEHOLDER
 
                             <Legend
                                 mapDemographics={mapDemographics}
@@ -277,8 +252,6 @@ export default function Demographics({
                                     </p>}
 
 
-                                    GRID PLACEHOLDER
-
                                     <Legend
                                         mapDemographics={mapDemographics}
                                         demoColorRamp={demoColorRamp}
@@ -304,8 +277,6 @@ export default function Demographics({
                                             </p>
                                         }
                                     </div>
-
-                                    GRID PLACEHOLDER
 
                                     <Legend
                                         mapDemographics={mapDemographics}
