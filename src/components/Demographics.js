@@ -5,6 +5,7 @@ import { faCaretDown, faCaretUp, faMinus, faPlus, } from "@fortawesome/free-soli
 import Form from "react-bootstrap/Form";
 import Slider from "./Carousel";
 import Legend from "./Legend";
+import GridGraph from "./GridGraph"
 
 export default function Demographics({
     selectedSpecificIssue,
@@ -157,9 +158,9 @@ export default function Demographics({
 
                         {getTransitToggles()}
 
-                        {(!showMap) &&
+                        {/* {(!showMap) &&
                             <div>
-                                GRID
+                                GRID PLACEHOLDER
                             </div>}
 
                         {showMap && <Legend
@@ -174,7 +175,24 @@ export default function Demographics({
                             dataScale
                             setdataScale
                             forDemographic={true}
-                        />}
+                        />} */}
+
+                        GRID PLACEHOLDER
+                        <GridGraph />
+
+                        <Legend
+                            mapDemographics={mapDemographics}
+                            demoColorRamp={demoColorRamp}
+                            demoLegendBins={demoLegendBins}
+                            demoLookup={demoLookup}
+                            demographic={demographic}
+                            legendBins={demoLegendBins}
+                            colorRamps={demoColorRamp}
+                            boundary
+                            dataScale
+                            setdataScale
+                            forDemographic={true}
+                        />
 
                         {showMap && <div
                             className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"
@@ -205,9 +223,8 @@ export default function Demographics({
 
 
                             {getTransitToggles()}
-                            <div>
-                                GRID
-                            </div>
+
+                            GRID PLACEHOLDER
 
                             <Legend
                                 mapDemographics={mapDemographics}
@@ -249,7 +266,7 @@ export default function Demographics({
                         <div id={"demographic-slider"}>
                             <p className={"mb-0"}>{demographics[currentValue]}</p>
                             {getTransitToggles()}
-                            
+
                             <Slider>
                                 <div>
                                     {currentValue === "1" && <p className={"m-0"}>
