@@ -3,82 +3,70 @@ import * as d3 from "d3";
 import { text, mouse } from "d3";
 
 
-const GridGraph = ({ colorRampsyType, issues, boundary, selectedSpecificIssue }) => {
+const GridGraph = ({ currentDemographics, issues, boundary, selectedSpecificIssue }) => {
     const ref = useRef();
     const containerRef = useRef();
 
-    let numHeight = 5;
-    let numWidth = 20;
-    let intervalPx = 15;
-    let squareWidth = 5;
+    useEffect(() => {
 
-    let getGridData = () => {
-        var data = new Array();
-        var xpos = 0; //starting xpos and ypos at 1 so the stroke will show when we make the grid below
-        var ypos = 0;
-        var width = squareWidth;
-        var height = squareWidth;
+        let numHeight = 5;
+        let numWidth = 20;
+        let intervalPx = 5;
+        let squareWidth = 15;
 
-        // iterate for rows 
-        for (var row = 0; row < numHeight; row++) {
-            data.push(new Array());
+        let getGridData = () => {
+            var data = new Array();
+            var xpos = 0; //starting xpos and ypos at 1 so the stroke will show when we make the grid below
+            var ypos = 0;
+            var width = squareWidth;
+            var height = squareWidth;
 
-            // iterate for cells/columns inside rows
-            for (var column = 0; column < numWidth; column++) {
-                data[row].push({
-                    x: xpos,
-                    y: ypos,
-                    width: width,
-                    height: height
-                })
-                // increment the x position. I.e. move it over by 50 (width variable)
-                xpos += width + intervalPx;
+            for (var row = 0; row < numHeight; row++) {
+                for (var column = 0; column < numWidth; column++) {
+                    data.push({
+                        x: xpos,
+                        y: ypos,
+                        width: width,
+                        height: height
+                    })
+                    xpos += width + intervalPx;
+                }
+                xpos = 0;
+                ypos += height + intervalPx;
             }
-            // reset the x position after a row is complete
-            xpos = 0;
-            // increment the y position for the next row. Move it down 50 (height variable)
-            ypos += height + intervalPx;
+            return data;
         }
-        return data;
-    }
 
-    let gridData = getGridData();
+        let gridData = getGridData();
+        // console.log(currentDemographics)
+        // console.log(gridData)
 
-    // build SVG
-    let svg = d3.select(ref.current)
-        .attr('height', '100%')
-        .attr('width', '100%')
+        // build SVG
+        let svg = d3.select(ref.current)
+            .attr('height', '100%')
+            .attr('width', '100%')
 
-    let gridRow = svg.selectAll(".gridRow")
-        .data(gridData)
-        .enter().append("g")
-        .attr("class", "gridRow")
-        .merge(svg.selectAll(".gridRow")
-            .data(gridData));
+        svg.selectAll(".gridSquare")
+            .data(gridData)
+            .enter()
+            .append("rect")
+            .attr("class", "gridSquare")
+            .merge(svg.selectAll(".gridSquare")
+                .data(gridData))
+            .attr("x", function (d) { return d.x; })
+            .attr("y", function (d) { return d.y; })
+            .attr("width", function (d) { return d.width; })
+            .attr("height", function (d) { return d.height; })
+            .style("fill", "#fff")
+            .style("stroke", "#222")
 
-    let gridColumn = gridRow.selectAll(".gridSquare")
-        .data(function (d) { return d; })
-        .enter().append("rect")
-        .attr("class", "gridSquare")
-        .attr("x", function (d) { return d.x; })
-        .attr("y", function (d) { return d.y; })
-        .attr("width", function (d) { return d.width; })
-        .attr("height", function (d) { return d.height; })
-        .style("fill", "#fff")
-        .style("stroke", "#222")
-        .merge(gridRow.selectAll(".gridSquare")
-            .data(function (d) { return d; }));
+        // clear Chart
+        svg.selectAll(".gridSquare")
+            .data(gridData)
+            .exit()
+            .remove();
 
-    // clear Chart
-    svg.selectAll(".gridRow")
-        .data(gridData)
-        .exit()
-        .remove();
-
-    gridRow.selectAll(".gridSquare")
-        .data(function (d) { return d; })
-        .exit()
-        .remove();
+    }, [currentDemographics]);
 
     return (
         <div ref={containerRef} style={{

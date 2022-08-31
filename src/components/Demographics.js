@@ -178,7 +178,7 @@ export default function Demographics({
                         />} */}
 
                         GRID PLACEHOLDER
-                        <GridGraph />
+                        <GridGraph currentDemographics={currentValue} />
 
                         <Legend
                             mapDemographics={mapDemographics}
