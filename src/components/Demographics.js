@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown, faCaretUp, faMinus, faPlus, } from "@fortawesome/free-solid-svg-icons";
+import React, {useEffect, useState} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCaretDown, faCaretUp, faMinus, faPlus,} from "@fortawesome/free-solid-svg-icons";
 
 import Form from "react-bootstrap/Form";
 import Slider from "./Carousel";
 import Legend from "./Legend";
 
 export default function Demographics({
-    selectedSpecificIssue,
-    //  currentValue = null,
-    currentValue = null,
-    items = null,
-    setValue = null,
-    showDemographics,
-    setShowDemographics,
-    compareSearch,
-    communitySearch,
-    mapDemographics,
-    setMapDemographics,
-    boundary,
-    communities,
-    councils,
-    selectedChapter,
-    toggleWalk,
-    toggleTransit,
-    toggleBike,
-    setToggleWalk,
-    setToggleTransit,
-    setToggleBike,
-    demoLegendBins,
-    demoColorRamp,
-    setDemoColorRamp,
-    setDemoLegendBins,
-    demoLookup, showMap
-}) {
+                                         selectedSpecificIssue,
+                                         //  currentValue = null,
+                                         currentValue = null,
+                                         items = null,
+                                         setValue = null,
+                                         showDemographics,
+                                         setShowDemographics,
+                                         compareSearch,
+                                         communitySearch,
+                                         mapDemographics,
+                                         setMapDemographics,
+                                         boundary,
+                                         communities,
+                                         councils,
+                                         selectedChapter,
+                                         toggleWalk,
+                                         toggleTransit,
+                                         toggleBike,
+                                         setToggleWalk,
+                                         setToggleTransit,
+                                         setToggleBike,
+                                         demoLegendBins,
+                                         demoColorRamp,
+                                         setDemoColorRamp,
+                                         setDemoLegendBins,
+                                         demoLookup, showMap
+                                     }) {
     const demographics = {
         1: "Race & Ethnicity",
         2: "Poverty Level",
@@ -108,10 +108,11 @@ export default function Demographics({
     return (
         <>
             <div
-                className={`${showDemographics ? "expand-demographic" : "collapse-demographic"
-                    }`}
+                className={` h-100 d-flex flex-column ${showDemographics ? "expand-demographic" : "collapse-demographic"
+                }`}
+                style={{justifyContent: "space-between"}}
             >
-                <div className={"dropdown-container mb-3"}>
+                <div className={"dropdown-container"}>
                     <div
                         className={
                             "dropdown-bar dropdown-bar-black d-flex flex-row justify-content-between align-items-center"
@@ -122,21 +123,21 @@ export default function Demographics({
                     >
                         <p className={"mb-0"}>{toggleText}</p>
 
-                        {!showDropdownItems && <FontAwesomeIcon icon={faCaretDown} />}
-                        {showDropdownItems && <FontAwesomeIcon icon={faCaretUp} />}
+                        {!showDropdownItems && <FontAwesomeIcon icon={faCaretDown}/>}
+                        {showDropdownItems && <FontAwesomeIcon icon={faCaretUp}/>}
                     </div>
 
 
                     <div
                         className={`${showDropdownItems ? "d-block" : "d-none"
-                            } dropdown-body position-absolute`}
+                        } dropdown-body position-absolute`}
                     >
                         {Object.keys(demographics).map((key, index) => {
                             return (
                                 <div
                                     key={index}
                                     className={`dropdown-item ${currentValue === key ? "dropdown-item-active" : ""
-                                        }`}
+                                    }`}
                                     onMouseDown={() => {
                                         setShowDropdownItems(false);
                                         setToggleText(demographics[key]);
@@ -151,12 +152,8 @@ export default function Demographics({
                 </div>
 
                 {currentValue && selectedChapter === 2 && (
-                    <div>
 
-                        <p className={"mb-0"}>{demographics[currentValue]}</p>
-
-
-
+                    <>
                         <Legend
                             mapDemographics={mapDemographics}
                             demoColorRamp={demoColorRamp}
@@ -174,21 +171,23 @@ export default function Demographics({
 
                         {showMap && <div
                             className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"
-                                }`}
+                            }`}
                             onClick={() => {
                                 setMapDemographics(!mapDemographics);
                             }}
                         >
-                            <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
+                            <div><p
+                                className={"mb-0 small-font"}>{mapDemographics ? "Remove from map" : "Show on map"}</p>
+                            </div>
                             <div>
                                 {mapDemographics ? (
-                                    <FontAwesomeIcon icon={faMinus} />
+                                    <FontAwesomeIcon icon={faMinus}/>
                                 ) : (
-                                    <FontAwesomeIcon icon={faPlus} />
+                                    <FontAwesomeIcon icon={faPlus}/>
                                 )}
                             </div>
                         </div>}
-                    </div>
+                    </>
                 )}
 
                 {currentValue &&
@@ -196,10 +195,6 @@ export default function Demographics({
                     !compareSearch &&
                     selectedChapter === 3 && (
                         <div>
-
-                            <p className={"m-0"}>{demographics[currentValue]}</p>
-
-
 
                             <Legend
                                 mapDemographics={mapDemographics}
@@ -218,17 +213,19 @@ export default function Demographics({
 
                             <div
                                 className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"
-                                    }`}
+                                }`}
                                 onClick={() => {
                                     setMapDemographics(!mapDemographics);
                                 }}
                             >
-                                <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
+                                <div><p
+                                    className={"mb-0 small-font"}>{mapDemographics ? "Remove from map" : "Show on map"}</p>
+                                </div>
                                 <div>
                                     {mapDemographics ? (
-                                        <FontAwesomeIcon icon={faMinus} />
+                                        <FontAwesomeIcon icon={faMinus}/>
                                     ) : (
-                                        <FontAwesomeIcon icon={faPlus} />
+                                        <FontAwesomeIcon icon={faPlus}/>
                                     )}
                                 </div>
                             </div>
@@ -240,14 +237,11 @@ export default function Demographics({
                     compareSearch &&
                     selectedChapter === 3 && (
                         <div id={"demographic-slider"}>
-                            <p className={"mb-0"}>{demographics[currentValue]}</p>
-
-
                             <Slider>
                                 <div>
-                                    {currentValue === "1" && <p className={"m-0"}>
+                                    {currentValue === "1" && <p className={"m-0 small-font"}>
                                         {(councils[communitySearch] &&
-                                            councils[communitySearch].name) ||
+                                                councils[communitySearch].name) ||
                                             (communities[communitySearch] &&
                                                 communities[communitySearch].name)}
                                     </p>}
@@ -271,9 +265,9 @@ export default function Demographics({
                                 <div>
                                     <div className={"d-flex flex-row justify-content-between"}>
                                         {currentValue === "1" &&
-                                            <p className={"m-0"}>
+                                            <p className={"m-0 small-font"}>
                                                 {(councils[compareSearch] &&
-                                                    councils[compareSearch].name) ||
+                                                        councils[compareSearch].name) ||
                                                     (communities[compareSearch] &&
                                                         communities[compareSearch].name)}
                                             </p>
@@ -307,17 +301,19 @@ export default function Demographics({
 
                             <div
                                 className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"
-                                    }`}
+                                }`}
                                 onClick={() => {
                                     setMapDemographics(!mapDemographics);
                                 }}
                             >
-                                <div>{mapDemographics ? "Remove from map" : "Show on map"}</div>
+                                <div><p
+                                    className={"mb-0 small-font"}>{mapDemographics ? "Remove from map" : "Show on map"}</p>
+                                </div>
                                 <div>
                                     {mapDemographics ? (
-                                        <FontAwesomeIcon icon={faMinus} />
+                                        <FontAwesomeIcon icon={faMinus}/>
                                     ) : (
-                                        <FontAwesomeIcon icon={faPlus} />
+                                        <FontAwesomeIcon icon={faPlus}/>
                                     )}
                                 </div>
                             </div>

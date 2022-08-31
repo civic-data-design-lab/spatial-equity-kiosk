@@ -194,9 +194,9 @@ export default function Legend({
                     );
                 } else {
                     return (
-                        <div className={"d-flex flex-column row-gap"}>
-                            <div>
-                                <p className={"mb-3"}>
+                        <>
+                                <div className={"d-flex flex-column justify-content-between"}>
+                                <p className={"small-font mb-1"}>
                                     {
                                         issues.specific_issues_data[selectedSpecificIssue]
                                             .specific_issue_units
@@ -262,11 +262,12 @@ export default function Legend({
                                     </div>
                                     <div className={"small-font"}>{cleanNumbers[3]}+</div>
                                 </div>
-                            </div>
+                                    </div>
+
 
                             {showMap && (
                                 <div
-                                    className={`mt-3 big-button ${toggleUnderperformers
+                                    className={`big-button small-font ${toggleUnderperformers
                                         ? "big-button-active"
                                         : "big-button-inactive"
                                         }`}
@@ -285,7 +286,7 @@ export default function Legend({
                                     </div>
                                 </div>
                             )}
-                        </div>
+                        </>
                     );
                 }
             case true:
@@ -293,13 +294,13 @@ export default function Legend({
                     return (
                         <div className={"d-flex flex-column row-gap"}>
                             <div>
-                                <p className={"mb-3"}>
+                               {/* {demoLookup.name !== "Population Using Alternative Transportation" && <p className={"mb-3 small-font"}>
                                     {demoLookup.metric_units}{" "}
-                                </p>
+                                </p>}*/}
                                     {demoLookup.lookup !== "F10_TrsBkW"
-                                        ? <p className={"mb-3"}>`${demoLookup.name}`</p>
+                                        ? <p className={"mb-1 small-font"}>{demoLookup.name}</p>
                                         : <div className={"d-flex col-gap"}>
-                                            <p className={"mb-0 small-font"}>% population using</p>
+                                            <p className={"mb-1 small-font"}>% population using</p>
                                             {transitToggles}
                                         </div>}
 
@@ -376,7 +377,7 @@ export default function Legend({
                     return (
                         <div className={"d-flex flex-column row-gap"}>
                             <div>
-                                <p className={"mb-3"}>NYC Overall {demoLookup.name}</p>
+                                <p className={"mb-3 small-font"}>NYC Overall {demoLookup.name}</p>
                                 <div
                                     className={"placeholder-legend placeholder-legend-ethnicity"}
                                 >
