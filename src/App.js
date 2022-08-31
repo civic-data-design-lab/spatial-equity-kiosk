@@ -464,8 +464,6 @@ function App() {
                   setSelectedCompareCoord={setselectedCompareCoord}
                   badSearch={badSearch}
                   setBadSearch={setBadSearch}
-                  viewStates={viewStates}
-                  setViewStates={setViewStates}
                   mainMap={true}
                 />
               </div>
@@ -523,8 +521,6 @@ function App() {
                     setSelectedCompareCoord={setselectedCompareCoord}
                     badSearch={badSearch}
                     setBadSearch={setBadSearch}
-                    viewStates={viewStates}
-                    setViewStates={setViewStates}
                     mainMap={false}
                   />
                 </div>
