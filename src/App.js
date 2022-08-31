@@ -76,23 +76,15 @@ function App() {
   // map hooks
 
   // map starting position and view state constraints
-  // Map Viewport settings
-  const zoomMin = 10;
-  const zoomMax = 13;
 
   const [viewState, setViewState] = useState({
     longitude: -73.9,
     latitude: 40.7131,
     zoom: 10,
-    minZoom: zoomMin,
-    maxZoom: zoomMax,
-    pitch: 0,
-    bearing: 0,
   });
 
   const [mapSelection, setMapSelection] = useState([]);
-  const [zoomToggle, setzoomToggle] = useState(1);
-  const [inverseZoomToggle, setinverseZoomToggle] = useState(1);
+  const [zoomToggle, setzoomToggle] = useState(0);
   const [handleLegend, sethandleLegend] = useState(0);
 
   useEffect(() => {
@@ -442,12 +434,8 @@ function App() {
                   setMapSelection={setMapSelection}
                   zoomToggle={zoomToggle}
                   setzoomToggle={setzoomToggle}
-                  inverseZoomToggle={inverseZoomToggle}
-                  setinverseZoomToggle={setinverseZoomToggle}
                   handleLegend={handleLegend}
                   sethandleLegend={sethandleLegend}
-                  zoomMin={zoomMin}
-                  zoomMax={zoomMax}
                   coordinateLookup={coordinateLookup}
                   setCoordinateLookup={setCoordinateLookup}
                   dataScale={dataScale}
@@ -496,12 +484,8 @@ function App() {
                     setMapSelection={setMapSelection}
                     zoomToggle={zoomToggle}
                     setzoomToggle={setzoomToggle}
-                    inverseZoomToggle={inverseZoomToggle}
-                    setinverseZoomToggle={setinverseZoomToggle}
                     handleLegend={handleLegend}
                     sethandleLegend={sethandleLegend}
-                    zoomMin={zoomMin}
-                    zoomMax={zoomMax}
                     coordinateLookup={coordinateLookup}
                     setCoordinateLookup={setCoordinateLookup}
                     dataScale={dataScale}

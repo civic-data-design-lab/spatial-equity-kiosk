@@ -31,12 +31,14 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
-
 const mapStyle = "mapbox://styles/mitcivicdata/cl6fa3jro002d14qxp2nu9wng"; //toner
 
 // color ramps
 const choroplethOpacity = 0.85;
 const binSize = 5; // number of bins in the color ramp
+// Map Viewport settings
+const zoomMin = 10;
+const zoomMax = 13;
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
@@ -71,12 +73,8 @@ export default function DeckMap({
   setMapSelection,
   zoomToggle,
   setzoomToggle,
-  inverseZoomToggle,
-  setinverseZoomToggle,
   handleLegend,
   sethandleLegend,
-  zoomMin,
-  zoomMax,
   highlightFeature,
   sethighlightFeature,
   toggleTransit,
@@ -96,20 +94,33 @@ export default function DeckMap({
   // const [tempCoords, setTempCoords] = useState(["190px", "190px"]);
   const deckRef = useRef(null);
   const mapRef = useRef(null);
-  const dataScale = useRef("q");
+  const dataScale = useRef("q"); //set to "equal" for equal binning, "q" for quantile binning
 
   const [searchPoint, setSearchPoint] = useState([[], []]);
 
   // const [selectedBoundary, setSelectedBoundary] = useState(_COUNCIL_DISTRICTS);
 
   // SELECT BOUNDARY ------------------------------------------------------------
-  let selectedBoundary;
-  if (boundary === "council") {
-    selectedBoundary = _COUNCIL_DISTRICTS;
-  }
-  if (boundary === "community") {
-    selectedBoundary = _COMMUNITY_BOARDS;
-  }
+
+  const selectedBoundary = useMemo(() => {
+    if (boundary === "council") {
+      return _COUNCIL_DISTRICTS;
+    } else if (boundary === "community") {
+      return _COMMUNITY_BOARDS;
+    } else {
+      return _COUNCIL_DISTRICTS;
+    }
+  }, [boundary]);
+
+  //   // let selectedBoundary;
+  // if (boundary === "council") {
+  //   // selectedBoundary = _COUNCIL_DISTRICTS;
+  //   setSelectedBoundary(_COUNCIL_DISTRICTS);
+  // }
+  // if (boundary === "community") {
+  //   // selectedBoundary = _COMMUNITY_BOARDS;
+  //   setSelectedBoundary(_COMMUNITY_BOARDS);
+  // }
 
   // toggle between council districts and community boards
   const mapScale =
@@ -165,10 +176,10 @@ export default function DeckMap({
     if (isNaN(floatValue) === false) {
       if (
         boundary === "council" ||
-        (zoomToggle == 0 &&
+        (zoomToggle == 1 &&
           boundary === "community" &&
           mapScale.features[i].properties.Data_YN === "Y") ||
-        (zoomToggle == 1 && mapScale.features[i].properties.AnsUnt_YN === "Y")
+        (zoomToggle == 0 && mapScale.features[i].properties.AnsUnt_YN === "Y")
       ) {
         selectedMetricArray.push(floatValue);
       }
@@ -306,7 +317,7 @@ export default function DeckMap({
   getDemoArray(_NEIGHBORHOODS, neighborhoodDemoArray);
 
   const sortedDemoArray = [
-    ...(zoomToggle ? neighborhoodDemoArray : selectedDemoArray),
+    ...(!zoomToggle ? neighborhoodDemoArray : selectedDemoArray),
   ].sort(function (a, b) {
     return a - b;
   });
@@ -316,7 +327,7 @@ export default function DeckMap({
   // 03.3 break the demographic array into bins and get the bin list
   for (let i = 0; i < binSize; i++) {
     if (dataScale === "equal") {
-      const legendScale = zoomToggle
+      const legendScale = !zoomToggle
         ? neighborhoodDemoArray
         : selectedDemoArray;
       const threshold = (max(legendScale) - min(legendScale)) / (binSize + 1);
@@ -348,7 +359,7 @@ export default function DeckMap({
 
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
   const onViewStateChange = useCallback(({ viewState }) => {
-    setViewState(viewState);
+    // setViewState(viewState);
     // 04.1 set constraints on view state
 
     viewState.longitude = Math.min(
@@ -359,6 +370,7 @@ export default function DeckMap({
       LATITUDE_RANGE[1],
       Math.max(LATITUDE_RANGE[0], viewState.latitude)
     );
+
     // max zoom
     viewState.zoom = Math.min(zoomMax, Math.max(zoomMin, viewState.zoom));
 
@@ -366,12 +378,10 @@ export default function DeckMap({
 
     // 04.3 toggle based on zoom level
     if (viewState.zoom > 12.25) {
-      setzoomToggle(1);
-      setinverseZoomToggle(0);
+      setzoomToggle(0);
       sethandleLegend(0);
     } else {
-      setzoomToggle(0);
-      setinverseZoomToggle(1);
+      setzoomToggle(1);
       sethandleLegend(1);
     }
   }, []);
@@ -609,19 +619,13 @@ export default function DeckMap({
             const ptA = selectedCoord.map(Number);
             const ptB = selectedCompareCoord.map(Number);
             const ptCompareDistance = distance(point(ptA), point(ptB));
-            // console.log(
-            //   "searchPoint",
-            //   searchPoint,
-            //   "DISTANCE",
-            //   ptCompareDistance,
-            //   "REMAP",
-            //   map_range(ptCompareDistance, 0.5, 30, zoomMax, zoomMin)
-            // );
 
             setViewState({
               longitude: (ptA[0] + ptB[0]) / 2,
               latitude: (ptA[1] + ptB[1]) / 2,
-              zoom: map_range(ptCompareDistance, 0.3, 25, zoomMax, zoomMin),
+              zoom: !mapDemographics
+                ? map_range(ptCompareDistance, 0.3, 25, zoomMax, zoomMin)
+                : map_range(ptCompareDistance, 0.2, 15, zoomMax, zoomMin),
               transitionDuration: 500,
               transitionInerpolator: new LinearInterpolator(),
             });
@@ -687,7 +691,7 @@ export default function DeckMap({
       },
       lineWidthUnits: "pixels",
       opacity: choroplethOpacity,
-      visible: zoomToggle,
+      visible: !zoomToggle,
       // update triggers
       updateTriggers: {
         getFillColor: [selectedMetric],
@@ -711,7 +715,7 @@ export default function DeckMap({
         }
       },
       opacity: choroplethOpacity,
-      visible: inverseZoomToggle,
+      visible: zoomToggle,
 
       updateTriggers: {
         getFillColor: [selectedMetric, mapSelection, addCompare],
@@ -762,7 +766,7 @@ export default function DeckMap({
       },
 
       opacity: choroplethOpacity,
-      visible: inverseZoomToggle,
+      visible: zoomToggle,
 
       // props added by FillStyleExtension
       fillPatternMask: true,
@@ -825,7 +829,7 @@ export default function DeckMap({
       lineWidthMinPixels: 1,
 
       opacity: choroplethOpacity,
-      visible: zoomToggle == 1 ? toggleDemChoropleth : 0,
+      visible: !zoomToggle ? toggleDemChoropleth : 0,
 
       updateTriggers: {
         getLineWidth: [
@@ -874,7 +878,7 @@ export default function DeckMap({
       lineWidthMinPixels: 1,
 
       opacity: choroplethOpacity,
-      visible: zoomToggle == 0 ? toggleDemChoropleth : 0,
+      visible: zoomToggle ? toggleDemChoropleth : 0,
 
       updateTriggers: {
         getLineWidth: [
@@ -1119,7 +1123,7 @@ export default function DeckMap({
       getPosition: (x) => x.geometry.coordinates,
       getSize: 75,
       maxWidth: 600,
-      opacity: zoomToggle,
+      opacity: !zoomToggle,
     }),
 
     new ScatterplotLayer({
@@ -1163,8 +1167,8 @@ export default function DeckMap({
   return (
     <div>
       <DeckGL
-        viewState={viewState}
-        // initialViewState={viewState}
+        // viewState={viewState}
+        initialViewState={viewState}
         onViewStateChange={onViewStateChange}
         controller={{
           dragRotate: false,
