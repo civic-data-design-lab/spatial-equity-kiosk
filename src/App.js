@@ -19,11 +19,12 @@ import _COMMUNITIES from "./texts/communities.json";
 import _COUNCILS from "./texts/councildistricts.json";
 import _DEMOGRAPHICS from "./texts/demographics.json";
 
-import _CHAPTER_COLORS from "./data/chapter_colors.json"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars} from "@fortawesome/free-solid-svg-icons";
+import _CHAPTER_COLORS from "./data/chapter_colors.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import ISSUES_CATEGORIES from "./texts/issue_categories.json";
 
+// map data imports
 
 const issue_categories = _ISSUE_CATEGORIES;
 const issues = _ISSUES;
@@ -69,29 +70,21 @@ function App() {
   const [selectedCoord, setSelectedCoord] = useState([]);
   const [selectedCompareCoord, setselectedCompareCoord] = useState([]);
   const [badSearch, setBadSearch] = useState([0, 0]);
-  const [showMenu, setShowMenu] = useState(true)
+  const [showMenu, setShowMenu] = useState(true);
 
   // console.log(demoColorRamp)
   // map hooks
 
   // map starting position and view state constraints
-  // Map Viewport settings
-  const zoomMin = 10;
-  const zoomMax = 13;
 
   const [viewState, setViewState] = useState({
     longitude: -73.9,
     latitude: 40.7131,
     zoom: 10,
-    minZoom: zoomMin,
-    maxZoom: zoomMax,
-    pitch: 0,
-    bearing: 0,
   });
 
   const [mapSelection, setMapSelection] = useState([]);
-  const [zoomToggle, setzoomToggle] = useState(1);
-  const [inverseZoomToggle, setinverseZoomToggle] = useState(1);
+  const [zoomToggle, setzoomToggle] = useState(0);
   const [handleLegend, sethandleLegend] = useState(0);
 
   useEffect(() => {
@@ -318,7 +311,6 @@ function App() {
 
   const [leftWidth, setLeftWidth] = useState(0);
 
-
   return (
     <>
       {useWindowSize().width >= 576 ? (
@@ -423,14 +415,9 @@ function App() {
                   showDemographics={showDemographics}
                   mapDemographics={mapDemographics}
                   demographic={demographic}
-                  //legendBins={legendBins}
-                  //setLegendBins={setLegendBins}
-                  colorRamps={colorRamps}
                   setColorRamps={setColorRamps}
                   toggleUnderperformers={toggleUnderperformers}
-                  setToggleUnderperformers={setToggleUnderperformers}
                   demoLookup={demoLookup}
-                  selectedChapter={selectedChapter}
                   setSelectedChapter={setSelectedChapter}
                   communitySearch={communitySearch}
                   setCommunitySearch={setCommunitySearch}
@@ -447,12 +434,8 @@ function App() {
                   setMapSelection={setMapSelection}
                   zoomToggle={zoomToggle}
                   setzoomToggle={setzoomToggle}
-                  inverseZoomToggle={inverseZoomToggle}
-                  setinverseZoomToggle={setinverseZoomToggle}
                   handleLegend={handleLegend}
                   sethandleLegend={sethandleLegend}
-                  zoomMin={zoomMin}
-                  zoomMax={zoomMax}
                   coordinateLookup={coordinateLookup}
                   setCoordinateLookup={setCoordinateLookup}
                   dataScale={dataScale}
@@ -463,102 +446,115 @@ function App() {
                   toggleBike={toggleBike}
                   toggleWalk={toggleWalk}
                   setDemoLegendBins={setDemoLegendBins}
-                  setDemoColorRamp={setColorRamps}
                   selectedCoord={selectedCoord}
                   selectedCompareCoord={selectedCompareCoord}
                   setSelectedCoord={setSelectedCoord}
                   setSelectedCompareCoord={setselectedCompareCoord}
                   badSearch={badSearch}
                   setBadSearch={setBadSearch}
+                  mainMap={true}
                 />
               </div>
               {mapDemographics && (
-
-                  <div className={"individual-maps"} id={"right-map"}>
-                    <Map
-                      issues={issues}
-                      selectedIssue={selectedIssue}
-                      selectedSpecificIssue={selectedSpecificIssue}
-                      boundary={boundary}
-                      showDemographics={showDemographics}
-                      mapDemographics={mapDemographics}
-                      demographic={demographic}
-                      colorRamps={colorRamps}
-                      setColorRamps={setColorRamps}
-                      toggleUnderperformers={toggleUnderperformers}
-                      setToggleUnderperformers={setToggleUnderperformers}
-                      demoLookup={demoLookup}
-                      selectedChapter={selectedChapter}
-                      setSelectedChapter={setSelectedChapter}
-                      communitySearch={communitySearch}
-                      setCommunitySearch={setCommunitySearch}
-                      addCompare={addCompare}
-                      setAddCompare={setAddCompare}
-                      compareSearch={compareSearch}
-                      setCompareSearch={setCompareSearch}
-                      setShowMap={setShowMap}
-                      communities={communities}
-                      councils={councils}
-                      viewState={viewState}
-                      setViewState={setViewState}
-                      mapSelection={mapSelection}
-                      setMapSelection={setMapSelection}
-                      zoomToggle={zoomToggle}
-                      setzoomToggle={setzoomToggle}
-                      inverseZoomToggle={inverseZoomToggle}
-                      setinverseZoomToggle={setinverseZoomToggle}
-                      handleLegend={handleLegend}
-                      sethandleLegend={sethandleLegend}
-                      zoomMin={zoomMin}
-                      zoomMax={zoomMax}
-                      coordinateLookup={coordinateLookup}
-                      setCoordinateLookup={setCoordinateLookup}
-                      dataScale={dataScale}
-                      setdataScale={setdataScale}
-                      highlightFeature={highlightFeature}
-                      sethighlightFeature={sethighlightFeature}
-                      toggleTransit={toggleTransit}
-                      toggleBike={toggleBike}
-                      toggleWalk={toggleWalk}
-                      demoColorRamp={demoColorRamp}
-                      demoLegendBins={demoLegendBins}
-                      setDemoColorRamp={setDemoColorRamp}
-                      setDemoLegendBins={setDemoLegendBins}
-                      selectedCoord={selectedCoord}
-                      setSelectedCoord={setSelectedCoord}
-                      selectedCompareCoord={selectedCompareCoord}
-                      setSelectedCompareCoord={setselectedCompareCoord}
-                      badSearch={badSearch}
-                      setBadSearch={setBadSearch}
-                    />
-                  </div>
+                <div className={"individual-maps"} id={"right-map"}>
+                  <Map
+                    issues={issues}
+                    selectedIssue={selectedIssue}
+                    selectedSpecificIssue={selectedSpecificIssue}
+                    boundary={boundary}
+                    showDemographics={showDemographics}
+                    mapDemographics={mapDemographics}
+                    demographic={demographic}
+                    setColorRamps={setColorRamps}
+                    toggleUnderperformers={toggleUnderperformers}
+                    demoLookup={demoLookup}
+                    setSelectedChapter={setSelectedChapter}
+                    communitySearch={communitySearch}
+                    setCommunitySearch={setCommunitySearch}
+                    addCompare={addCompare}
+                    setAddCompare={setAddCompare}
+                    compareSearch={compareSearch}
+                    setCompareSearch={setCompareSearch}
+                    setShowMap={setShowMap}
+                    communities={communities}
+                    councils={councils}
+                    viewState={viewState}
+                    setViewState={setViewState}
+                    mapSelection={mapSelection}
+                    setMapSelection={setMapSelection}
+                    zoomToggle={zoomToggle}
+                    setzoomToggle={setzoomToggle}
+                    handleLegend={handleLegend}
+                    sethandleLegend={sethandleLegend}
+                    coordinateLookup={coordinateLookup}
+                    setCoordinateLookup={setCoordinateLookup}
+                    dataScale={dataScale}
+                    setdataScale={setdataScale}
+                    highlightFeature={highlightFeature}
+                    sethighlightFeature={sethighlightFeature}
+                    toggleTransit={toggleTransit}
+                    toggleBike={toggleBike}
+                    toggleWalk={toggleWalk}
+                    demoColorRamp={demoColorRamp}
+                    demoLegendBins={demoLegendBins}
+                    setDemoColorRamp={setDemoColorRamp}
+                    setDemoLegendBins={setDemoLegendBins}
+                    selectedCoord={selectedCoord}
+                    setSelectedCoord={setSelectedCoord}
+                    selectedCompareCoord={selectedCompareCoord}
+                    setSelectedCompareCoord={setselectedCompareCoord}
+                    badSearch={badSearch}
+                    setBadSearch={setBadSearch}
+                    mainMap={false}
+                  />
+                </div>
               )}
             </div>
           </div>
         </Container>
       ) : (
-
         <Container className={"p-0 vh-100"}>
-         {/* TODO: dynamically change header content based on selected chapter*/}
+          {/* TODO: dynamically change header content based on selected chapter*/}
           <div className={"mobile-nav-header"}>
-                <div>
-                  {selectedChapter && <p className={"m-0 small-font"}>{selectedChapter===1 ? "What is" : selectedChapter<4 ? "Explore Spatial Equity by" : "Learn More"}</p>}
-                    <h4 className={"m-0"}>
-                      {!selectedChapter ? "Spatial Equity NYC" : selectedChapter===1 ? "Spatial Equity" : selectedChapter===2 ? "Citywide Data" : selectedChapter===3 ? "Community Profiles" : "Take Action"}</h4>
-                </div>
+            <div>
+              {selectedChapter && (
+                <p className={"m-0 small-font"}>
+                  {selectedChapter === 1
+                    ? "What is"
+                    : selectedChapter < 4
+                    ? "Explore Spatial Equity by"
+                    : "Learn More"}
+                </p>
+              )}
+              <h4 className={"m-0"}>
+                {!selectedChapter
+                  ? "Spatial Equity NYC"
+                  : selectedChapter === 1
+                  ? "Spatial Equity"
+                  : selectedChapter === 2
+                  ? "Citywide Data"
+                  : selectedChapter === 3
+                  ? "Community Profiles"
+                  : "Take Action"}
+              </h4>
+            </div>
             {/*TODO: animate bars into x*/}
-                <FontAwesomeIcon icon={faBars} className={"fa-lg"}
-                                 onClick={()=>{setShowMenu(!showMenu)}}
-                />
+            <FontAwesomeIcon
+              icon={faBars}
+              className={"fa-lg"}
+              onClick={() => {
+                setShowMenu(!showMenu);
+              }}
+            />
           </div>
 
           <div className={"h-100 position-relative"}>
             <MobileNav
-                showMenu={showMenu} setSelectedChapter={setSelectedChapter}
-                selectedChapter={selectedChapter}
+              showMenu={showMenu}
+              setSelectedChapter={setSelectedChapter}
+              selectedChapter={selectedChapter}
             />
           </div>
-
 
           {/*<CitywideData selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue}
                         selectedSpecificIssue={selectedSpecificIssue}
@@ -569,7 +565,6 @@ function App() {
                         showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}
                         colorRamps={colorRamps} setColorRamps={setColorRamps}
           />*/}
-
         </Container>
       )}
     </>

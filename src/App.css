@@ -710,7 +710,7 @@ a:active {
 /* wiper v2 */
 .splitter-container {
     position: absolute;
-    top: 2rem;
+    bottom: 3rem;
     left: 10%;
     width: 80%;
     z-index: 9;
@@ -731,8 +731,10 @@ a:active {
     height: 100% !important;*/
 }
 
+
 .map-tooltip > *{
     padding: 5px 10px 5px 10px;
+
 }
 
 .map-tooltip-header{
