@@ -80,10 +80,10 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         let handleResize = () => {
             // console.log(ref.current)
             // console.log(containerRef.current)
-            console.log({
-                height: containerRef.current.clientHeight,
-                width: containerRef.current.clientWidth,
-            })
+            // console.log({
+            //     height: containerRef.current.clientHeight,
+            //     width: containerRef.current.clientWidth,
+            // })
 
             setDimensions({
                 height: containerRef.current.clientHeight,
