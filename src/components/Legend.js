@@ -32,17 +32,10 @@ export default function Legend({
     showMap,
 }) {
 
-    console.log("issues", issues)
-    console.log("demographic", demographic)
-    console.log("selectedSpecificIssue", selectedSpecificIssue)
-    console.log("colorRamps", colorRamps)
-    console.log("toggleUnderperformers", toggleUnderperformers)
-    console.log("boundary", boundary)
-    console.log("demoLookup", demoLookup)
-    console.log("forDemographic", forDemographic)
-    console.log("--------------------")
-    // console.log(issues)
-    // console.log(issues)
+    // console.log("demoLegendBins", demoLegendBins)
+    // console.log("demoLookup", demoLookup)
+    // console.log("forDemographic", forDemographic)
+    // console.log("--------------------")
 
     const administrativeBoundary =
         boundary === "council" ? "Council Districts" : "Community Boards";
@@ -429,13 +422,39 @@ export default function Legend({
                     );
                 } else {
                     // DEFAULT CASE - ADD D3 DEMOGRAPHICS COMPONENT HERE!
+                    let colorRamps = [
+                        _ETHNICITY_COLORS.Hispanic.htmlFormat,
+                        _ETHNICITY_COLORS.White.htmlFormat,
+                        _ETHNICITY_COLORS.Black.htmlFormat,
+                        _ETHNICITY_COLORS.Asian.htmlFormat,
+                        _ETHNICITY_COLORS.Other.htmlFormat
+                    ]
+
+                    let percList = [
+                        29,
+                        33,
+                        23,
+                        13,
+                        3
+                    ]
+
+                    let textList = [
+                        'Hispanic',
+                        'White',
+                        'Black',
+                        'Asian',
+                        'Other'
+                    ]
+
                     return (
                         <div>
                             <p className={"mb-3"}>NYC Overall {demoLookup.name}</p>
-                            <div
-                                className={"placeholder-legend placeholder-legend-ethnicity"}
-                            ></div>
-                            <GridGraph />
+                            <div className={"placeholder-legend placeholder-legend-ethnicity"} />
+                            <GridGraph 
+                                colorRamps={colorRamps}
+                                percList={percList}
+                                textList={textList}
+                            />
                         </div>
                     )
                 }

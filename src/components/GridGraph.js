@@ -3,7 +3,7 @@ import * as d3 from "d3";
 import { text, mouse } from "d3";
 
 
-const GridGraph = ({ currentDemographics, issues, boundary, selectedSpecificIssue }) => {
+const GridGraph = ({ colorRamps, percList, textList }) => {
     const ref = useRef();
     const containerRef = useRef();
 
@@ -14,6 +14,10 @@ const GridGraph = ({ currentDemographics, issues, boundary, selectedSpecificIssu
         let intervalPx = 5;
         let squareWidth = 15;
 
+
+        let percRamp = percList.reduce((a, b) => { a.push(a[a.length - 1] + b); return a }, [0,]);
+        let colorIndex = 0;
+
         let getGridData = () => {
             var data = new Array();
             var xpos = 0; //starting xpos and ypos at 1 so the stroke will show when we make the grid below
@@ -21,18 +25,20 @@ const GridGraph = ({ currentDemographics, issues, boundary, selectedSpecificIssu
             var width = squareWidth;
             var height = squareWidth;
 
-            for (var row = 0; row < numHeight; row++) {
-                for (var column = 0; column < numWidth; column++) {
+            for (var column = 0; column < numWidth; column++) {
+                for (var row = 0; row < numHeight; row++) {
+                    if ((data.length) >= percRamp[colorIndex]) colorIndex++;
                     data.push({
                         x: xpos,
                         y: ypos,
                         width: width,
-                        height: height
+                        height: height,
+                        color: colorRamps[colorIndex - 1]
                     })
-                    xpos += width + intervalPx;
+                    ypos += height + intervalPx;
                 }
-                xpos = 0;
-                ypos += height + intervalPx;
+                ypos = 0;
+                xpos += width + intervalPx;
             }
             return data;
         }
@@ -53,12 +59,12 @@ const GridGraph = ({ currentDemographics, issues, boundary, selectedSpecificIssu
             .attr("class", "gridSquare")
             .merge(svg.selectAll(".gridSquare")
                 .data(gridData))
-            .attr("x", function (d) { return d.x; })
-            .attr("y", function (d) { return d.y; })
-            .attr("width", function (d) { return d.width; })
-            .attr("height", function (d) { return d.height; })
-            .style("fill", "#fff")
-            .style("stroke", "#222")
+            .attr("x", (d) => (d.x))
+            .attr("y", (d) => (d.y))
+            .attr("width", (d) => (d.width))
+            .attr("height", (d) => (d.height))
+            .style("fill", (d) => (d.color))
+            .style("stroke", (d) => (d.color));
 
         // clear Chart
         svg.selectAll(".gridSquare")
@@ -66,7 +72,7 @@ const GridGraph = ({ currentDemographics, issues, boundary, selectedSpecificIssu
             .exit()
             .remove();
 
-    }, [currentDemographics]);
+    }, []);
 
     return (
         <div ref={containerRef} style={{
