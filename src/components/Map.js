@@ -3,9 +3,9 @@ import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import DeckGL from "@deck.gl/react";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer, TextLayer, ScatterplotLayer } from "@deck.gl/layers";
-import { FlyToInterpolator, LinearInterpolator } from "@deck.gl/core";
+import { MapView, LinearInterpolator } from "@deck.gl/core";
 import { scaleThreshold, scaleQuantile, scaleQuantize } from "d3-scale";
-import { MaskExtension, FillStyleExtension } from "@deck.gl/extensions";
+import { FillStyleExtension } from "@deck.gl/extensions";
 import { max, min } from "d3-array";
 
 // geospatial dependencies
@@ -46,6 +46,14 @@ const LATITUDE_RANGE = [40.5, 40.9];
 function map_range(value, low1, high1, low2, high2) {
   return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
 }
+
+const mapBackgroundStyle = {
+  position: "absolute",
+  // zIndex: -1,
+  width: "100%",
+  height: "100%",
+  border: "2px solid black",
+};
 
 export default function DeckMap({
   issues,
@@ -91,17 +99,36 @@ export default function DeckMap({
 }) {
   // map hooks
 
-  // const [tempCoords, setTempCoords] = useState(["190px", "190px"]);
-  const deckRef = useRef(null);
-  const mapRef = useRef(null);
   const dataScale = useRef("q"); //set to "equal" for equal binning, "q" for quantile binning
-
   const [searchPoint, setSearchPoint] = useState([[], []]);
 
-  // const [selectedBoundary, setSelectedBoundary] = useState(_COUNCIL_DISTRICTS);
+  const mainView = new MapView({
+    id: "primary",
+    controller: {
+      dragRotate: false,
+      doubleClickZoom: false,
+    },
+    x: 0,
+    y: 0,
+    width: mapDemographics ? "50%" : "100%",
+    height: "100%",
+    clear: true,
+  });
+  const secondaryView = new MapView({
+    id: "secondary",
+    controller: {
+      dragRotate: false,
+      doubleClickZoom: false,
+    },
+    x: "50%",
+    y: 0,
+    width: "50%",
+    height: "100%",
+    clear: true,
+  });
 
   // SELECT BOUNDARY ------------------------------------------------------------
-
+  // toggle between council districts and community boards
   const selectedBoundary = useMemo(() => {
     if (boundary === "council") {
       return _COUNCIL_DISTRICTS;
@@ -112,30 +139,12 @@ export default function DeckMap({
     }
   }, [boundary]);
 
-  //   // let selectedBoundary;
-  // if (boundary === "council") {
-  //   // selectedBoundary = _COUNCIL_DISTRICTS;
-  //   setSelectedBoundary(_COUNCIL_DISTRICTS);
-  // }
-  // if (boundary === "community") {
-  //   // selectedBoundary = _COMMUNITY_BOARDS;
-  //   setSelectedBoundary(_COMMUNITY_BOARDS);
-  // }
-
-  // toggle between council districts and community boards
-  const mapScale =
-    handleLegend == 0
-      ? _NEIGHBORHOODS
-      : handleLegend == 1 && selectedBoundary == _COUNCIL_DISTRICTS
-      ? _COUNCIL_DISTRICTS
-      : _COMMUNITY_BOARDS;
-
   // SELECT BOUNDARY END --------------------------------------------------------
 
   // METRIC CONFIG -----------------------------------------------------
 
   // select metric to display
-  let selectedMetric; // MAKE THIS A STATE AT THE APP LEVEL FOR OPTIMIZATION
+  let selectedMetric;
   let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
 
   if (selectedSpecificIssue != null) {
@@ -152,6 +161,14 @@ export default function DeckMap({
   }
 
   // 01 CREATE METRIC COLOR RAMPS -------------------------------------------------------
+
+  //pick scale for legend bins
+  const mapScale =
+    handleLegend == 0
+      ? _NEIGHBORHOODS
+      : handleLegend == 1 && selectedBoundary == _COUNCIL_DISTRICTS
+      ? _COUNCIL_DISTRICTS
+      : _COMMUNITY_BOARDS;
 
   //variables for scale thresholds
 
@@ -360,6 +377,10 @@ export default function DeckMap({
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
   const onViewStateChange = useCallback(({ viewState }) => {
     // setViewState(viewState);
+    setViewState(() => ({
+      primary: viewState,
+      secondary: viewState,
+    }));
     // 04.1 set constraints on view state
 
     viewState.longitude = Math.min(
@@ -618,14 +639,22 @@ export default function DeckMap({
           if (selectedCoord.length === 2 && selectedCompareCoord.length === 2) {
             const ptA = selectedCoord.map(Number);
             const ptB = selectedCompareCoord.map(Number);
-            const ptCompareDistance = distance(point(ptA), point(ptB));
+            const maxDistance = !mapDemographics ? 25 : 15;
+            const ptCompareDistance =
+              distance(point(ptA), point(ptB)) < maxDistance
+                ? distance(point(ptA), point(ptB))
+                : maxDistance;
 
             setViewState({
               longitude: (ptA[0] + ptB[0]) / 2,
               latitude: (ptA[1] + ptB[1]) / 2,
-              zoom: !mapDemographics
-                ? map_range(ptCompareDistance, 0.3, 25, zoomMax, zoomMin)
-                : map_range(ptCompareDistance, 0.2, 15, zoomMax, zoomMin),
+              zoom: map_range(
+                ptCompareDistance,
+                0.3,
+                maxDistance,
+                zoomMax,
+                zoomMin
+              ),
               transitionDuration: 500,
               transitionInerpolator: new LinearInterpolator(),
             });
@@ -1070,7 +1099,9 @@ export default function DeckMap({
             (f.properties.CDTA2020 == communitySearch ||
               f.properties.CDTA2020 == compareSearch))
         ) {
-          return selectedSpecificIssue ? [255, 255, 255, 255] : [127, 255, 0];
+          return selectedSpecificIssue || (!mainMap && mapDemographics)
+            ? [255, 255, 255, 255]
+            : [127, 255, 0];
         }
         return [0, 0, 0, 0];
       },
@@ -1085,7 +1116,9 @@ export default function DeckMap({
             (f.properties.CDTA2020 == communitySearch ||
               f.properties.CDTA2020 == compareSearch))
         ) {
-          return selectedSpecificIssue ? [0, 0, 0, 0] : [0, 0, 0, 125];
+          return selectedSpecificIssue || (!mainMap && mapDemographics)
+            ? [0, 0, 0, 0]
+            : [0, 0, 0, 125];
         }
         return [0, 0, 0, 0];
       },
@@ -1143,26 +1176,26 @@ export default function DeckMap({
     }),
   ];
 
-  // const layerFilter = useCallback(({ layer, viewport }) => {
-  //   const metricList = [];
-  //   const annoList = [];
+  const layerFilter = useCallback(({ layer, viewport }) => {
+    const metricList = [];
+    const annoList = [];
 
-  //   for (let i = 0; i < metricLayers.length; i++) {
-  //     metricList.push(metricLayers[i].id);
-  //   }
-  //   for (let i = 0; i < annoLayers.length; i++) {
-  //     annoList.push(annoLayers[i].id);
-  //   }
+    for (let i = 0; i < metricLayers.length; i++) {
+      metricList.push(metricLayers[i].id);
+    }
+    for (let i = 0; i < annoLayers.length; i++) {
+      annoList.push(annoLayers[i].id);
+    }
 
-  //   if (annoList.includes(layer.id)) {
-  //     return true;
-  //     // return viewport.id === "main";
-  //   } else if (metricList.includes(layer.id)) {
-  //     return viewport.id === "primary";
-  //   } else {
-  //     return viewport.id === "secondary";
-  //   }
-  // }, []);
+    if (annoList.includes(layer.id)) {
+      return true;
+      // return viewport.id === "main";
+    } else if (metricList.includes(layer.id)) {
+      return viewport.id === "primary";
+    } else {
+      return viewport.id === "secondary";
+    }
+  }, []);
 
   return (
     <div>
@@ -1170,31 +1203,42 @@ export default function DeckMap({
         // viewState={viewState}
         initialViewState={viewState}
         onViewStateChange={onViewStateChange}
-        controller={{
-          dragRotate: false,
-          doubleClickZoom: false,
-        }}
-        layers={mainMap ? [metricLayers, annoLayers] : [demoLayers, annoLayers]}
+        views={mapDemographics ? [mainView, secondaryView] : [mainView]}
+        // layers={mainMap ? [metricLayers, annoLayers] : [demoLayers, annoLayers]}
+        layers={[metricLayers, demoLayers, annoLayers]}
         getCursor={() => "crosshair"}
         getTooltip={getTooltip}
-        ref={deckRef}
-
+        layerFilter={layerFilter}
         // eventRecognizerOptions={
         //   isMobile ? { pan: { threshold: 10 }, tap: { threshold: 5 } } : {}
         // }
-        // layerFilter={layerFilter}
         // style={{ mixBlendMode: "multiply" }}
         // _pickable={isMobile ? false : true}
       >
-        <Map
-          reuseMaps
-          mapStyle={mapStyle}
-          ref={mapRef}
-          preventStyleDiffing={true}
-          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-          attributionControl={false}
-          logoPosition="top-left"
-        />
+        <MapView id="primary">
+          <Map
+            reuseMaps
+            mapStyle={mapStyle}
+            preventStyleDiffing={true}
+            mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+            attributionControl={false}
+            logoPosition="top-left"
+          />
+          <div style={mapBackgroundStyle} />
+        </MapView>
+        {mapDemographics && (
+          <MapView id="secondary">
+            <Map
+              reuseMaps
+              mapStyle={mapStyle}
+              preventStyleDiffing={true}
+              mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+              attributionControl={false}
+              logoPosition="top-left"
+            />
+            <div style={mapBackgroundStyle} />
+          </MapView>
+        )}
       </DeckGL>
     </div>
   );
