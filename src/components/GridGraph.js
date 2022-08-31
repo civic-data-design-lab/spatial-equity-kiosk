@@ -7,12 +7,35 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
     const ref = useRef();
     const containerRef = useRef();
 
+    const [dimensions, setDimensions] = useState({
+        height: 0,
+        width: 0,
+    })
+
     useEffect(() => {
+        let handleResize = () => {
+            setDimensions({
+                height: containerRef.current.clientHeight,
+                width: containerRef.current.clientWidth,
+            })
+        }
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+    }, [colorRamps, percList, textList])
+
+    useEffect(() => {
+
+        let height = dimensions.height ? dimensions.height : 150;
+        let width = dimensions.width ? dimensions.width : 500;
 
         let numHeight = 5;
         let numWidth = 20;
-        let intervalPx = 5;
-        let squareWidth = 15;
+
+        let vertUnit = (height / 6);
+        let horiUnit = (width / 20);
+        let intervalPx = horiUnit * 0.25;
+        let squareWidth = horiUnit * 0.75;
 
 
         let percRamp = percList.reduce((a, b) => { a.push(a[a.length - 1] + b); return a }, [0,]);
@@ -49,8 +72,8 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
                 text.push({
                     text: textList[i] + " " + percList[i] + "%",
                     color: colorRamps[i],
-                    x: i * 90,
-                    y: (squareWidth + intervalPx) * (numHeight + 1),
+                    x: width / textList.length * i,
+                    y: (squareWidth + intervalPx) * (numHeight + 0.5),
                 })
             }
             return text;
@@ -101,7 +124,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             .exit()
             .remove();
 
-    }, []);
+    }, [colorRamps, percList, textList]);
 
     return (
         <div ref={containerRef} style={{
