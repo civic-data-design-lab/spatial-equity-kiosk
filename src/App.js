@@ -458,60 +458,6 @@ function App() {
                   mainMap={true}
                 />
               </div>
-              {mapDemographics && (
-                <div className={"individual-maps"} id={"right-map"}>
-                  <Map
-                    issues={issues}
-                    selectedIssue={selectedIssue}
-                    selectedSpecificIssue={selectedSpecificIssue}
-                    boundary={boundary}
-                    showDemographics={showDemographics}
-                    mapDemographics={mapDemographics}
-                    demographic={demographic}
-                    setColorRamps={setColorRamps}
-                    toggleUnderperformers={toggleUnderperformers}
-                    demoLookup={demoLookup}
-                    setSelectedChapter={setSelectedChapter}
-                    communitySearch={communitySearch}
-                    setCommunitySearch={setCommunitySearch}
-                    addCompare={addCompare}
-                    setAddCompare={setAddCompare}
-                    compareSearch={compareSearch}
-                    setCompareSearch={setCompareSearch}
-                    setShowMap={setShowMap}
-                    communities={communities}
-                    councils={councils}
-                    viewState={viewState}
-                    setViewState={setViewState}
-                    mapSelection={mapSelection}
-                    setMapSelection={setMapSelection}
-                    zoomToggle={zoomToggle}
-                    setzoomToggle={setzoomToggle}
-                    handleLegend={handleLegend}
-                    sethandleLegend={sethandleLegend}
-                    coordinateLookup={coordinateLookup}
-                    setCoordinateLookup={setCoordinateLookup}
-                    dataScale={dataScale}
-                    setdataScale={setdataScale}
-                    highlightFeature={highlightFeature}
-                    sethighlightFeature={sethighlightFeature}
-                    toggleTransit={toggleTransit}
-                    toggleBike={toggleBike}
-                    toggleWalk={toggleWalk}
-                    demoColorRamp={demoColorRamp}
-                    demoLegendBins={demoLegendBins}
-                    setDemoColorRamp={setDemoColorRamp}
-                    setDemoLegendBins={setDemoLegendBins}
-                    selectedCoord={selectedCoord}
-                    setSelectedCoord={setSelectedCoord}
-                    selectedCompareCoord={selectedCompareCoord}
-                    setSelectedCompareCoord={setselectedCompareCoord}
-                    badSearch={badSearch}
-                    setBadSearch={setBadSearch}
-                    mainMap={false}
-                  />
-                </div>
-              )}
             </div>
           </div>
         </Container>

@@ -156,7 +156,6 @@ export default function Demographics({
                         <p className={"mb-0"}>{demographics[currentValue]}</p>
 
 
-                        {getTransitToggles()}
 
                         <Legend
                             mapDemographics={mapDemographics}
@@ -170,6 +169,7 @@ export default function Demographics({
                             dataScale
                             setdataScale
                             forDemographic={true}
+                            transitToggles={getTransitToggles()}
                         />
 
                         {showMap && <div
@@ -200,7 +200,6 @@ export default function Demographics({
                             <p className={"m-0"}>{demographics[currentValue]}</p>
 
 
-                            {getTransitToggles()}
 
                             <Legend
                                 mapDemographics={mapDemographics}
@@ -214,6 +213,7 @@ export default function Demographics({
                                 dataScale
                                 setdataScale
                                 forDemographic={true}
+                                transitToggles={getTransitToggles()}
                             />
 
                             <div
@@ -241,7 +241,7 @@ export default function Demographics({
                     selectedChapter === 3 && (
                         <div id={"demographic-slider"}>
                             <p className={"mb-0"}>{demographics[currentValue]}</p>
-                            {getTransitToggles()}
+
 
                             <Slider>
                                 <div>
@@ -265,6 +265,7 @@ export default function Demographics({
                                         dataScale
                                         setdataScale
                                         forDemographic={true}
+                                        transitToggles={getTransitToggles()}
                                     />
                                 </div>
                                 <div>
@@ -291,6 +292,7 @@ export default function Demographics({
                                         dataScale
                                         setdataScale
                                         forDemographic={true}
+                                        transitToggles={getTransitToggles()}
                                     />
                                 </div>
                             </Slider>

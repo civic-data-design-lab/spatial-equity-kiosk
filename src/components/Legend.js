@@ -29,7 +29,7 @@ export default function Legend({
     demoColorRamp,
     demoLegendBins,
     mapDemographics,
-    showMap,
+    showMap, transitToggles=null
 }) {
 
     // console.log("demoLegendBins", demoLegendBins)
@@ -295,10 +295,14 @@ export default function Legend({
                             <div>
                                 <p className={"mb-3"}>
                                     {demoLookup.metric_units}{" "}
-                                    {demoLookup.lookup !== "F10_TrsBkW"
-                                        ? `${demoLookup.name}`
-                                        : `Percent Population using ${"A"} ${"B"} ${"C"}`}
                                 </p>
+                                    {demoLookup.lookup !== "F10_TrsBkW"
+                                        ? <p className={"mb-3"}>`${demoLookup.name}`</p>
+                                        : <div className={"d-flex col-gap"}>
+                                            <p className={"mb-0 small-font"}>% population using</p>
+                                            {transitToggles}
+                                        </div>}
+
                                 <div className={"placeholder-legend"}>
                                     <div
                                         className={"legend-scale"}
