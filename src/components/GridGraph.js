@@ -43,7 +43,21 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             return data;
         }
 
+        let getGridText = () => {
+            var text = new Array();
+            for (var i = 0; i < textList.length; i++) {
+                text.push({
+                    text: textList[i] + " " + percList[i] + "%",
+                    color: colorRamps[i],
+                    x: i * 90,
+                    y: (squareWidth + intervalPx) * (numHeight + 1),
+                })
+            }
+            return text;
+        }
+
         let gridData = getGridData();
+        let gridText = getGridText();
         // console.log(currentDemographics)
         // console.log(gridData)
 
@@ -66,6 +80,21 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             .style("fill", (d) => (d.color))
             .style("stroke", (d) => (d.color));
 
+        svg.selectAll(".gridText")
+            .data(gridText)
+            .enter()
+            .append("text")
+            .attr("class", "gridText")
+            .merge(svg.selectAll(".gridText")
+                .data(gridText))
+            .attr("x", (d) => (d.x))
+            .attr("y", (d) => (d.y))
+            .attr("style", "font-family:Inter")
+            .attr("style", "font-weight:bold")
+            .attr("font-size", "14")
+            .style("fill", (d) => (d.color))
+            .text((d) => (d.text));
+
         // clear Chart
         svg.selectAll(".gridSquare")
             .data(gridData)
@@ -79,9 +108,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             height: "100%",
             width: "100%"
         }}>
-            <svg ref={ref}>
-
-            </svg>
+            <svg ref={ref} />
         </div>
     );
 };
