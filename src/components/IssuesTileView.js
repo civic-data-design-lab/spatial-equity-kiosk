@@ -53,7 +53,6 @@ export default function IssuesTileView({
                         </div>
                     </div>
 
-
                     <div className={"issues-tile-body m-0"}>
 
 
