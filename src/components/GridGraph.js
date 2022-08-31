@@ -26,8 +26,10 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
 
     useEffect(() => {
 
-        let height = dimensions.height ? dimensions.height : 150;
+        
         let width = dimensions.width ? dimensions.width : 500;
+        // let height = dimensions.height ? dimensions.height : 150;
+        let height = 1.5/5 * width;
 
         let numHeight = 5;
         let numWidth = 20;
@@ -86,8 +88,8 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
 
         // build SVG
         let svg = d3.select(ref.current)
-            .attr('height', '100%')
-            .attr('width', '100%')
+            .attr('height', height)
+            .attr('width', width)
 
         svg.selectAll(".gridSquare")
             .data(gridData)
@@ -124,7 +126,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             .exit()
             .remove();
 
-    }, [colorRamps, percList, textList]);
+    }, [colorRamps, percList, textList, dimensions]);
 
     return (
         <div ref={containerRef} style={{
