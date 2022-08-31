@@ -136,7 +136,7 @@ export default function Demographics({
           <div
             className={`${
               showDropdownItems ? "d-block" : "d-none"
-            } dropdown-body position-absolute   w-100`}
+            } dropdown-body position-absolute`}
           >
             {Object.keys(demographics).map((key, index) => {
               return (

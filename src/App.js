@@ -69,7 +69,7 @@ function App() {
   const [selectedCoord, setSelectedCoord] = useState([]);
   const [selectedCompareCoord, setselectedCompareCoord] = useState([]);
   const [badSearch, setBadSearch] = useState([0, 0]);
-  const [showMenu, setShowMenu] = useState(true)
+  const [showMenu, setShowMenu] = useState(false)
 
   // console.log(demoColorRamp)
   // map hooks
@@ -157,6 +157,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    console.log("demoLookup ", demoLookup);
     // console.log("HERE ARE THE STATES")
     // console.log("selectedChapter ", selectedChapter)
     // console.log("selectedIssue ", selectedIssue)
@@ -548,11 +549,17 @@ function App() {
                 </div>
             {/*TODO: animate bars into x*/}
                 <FontAwesomeIcon icon={faBars} className={"fa-lg"}
-                                 onClick={()=>{setShowMenu(!showMenu)}}
+                                 onClick={()=>{
+                                   setShowMenu(!showMenu)
+                                   setSelectedIssue(null)
+                                 }}
                 />
           </div>
 
-          <div className={"h-100 position-relative"}>
+          <div className={"w-100 position-absolute"}
+               style={{
+                 zIndex:2}}
+          >
             <MobileNav
                 showMenu={showMenu} setSelectedChapter={setSelectedChapter}
                 selectedChapter={selectedChapter}
@@ -560,15 +567,25 @@ function App() {
           </div>
 
 
-          {/*<CitywideData selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue}
-                        selectedSpecificIssue={selectedSpecificIssue}
-                        setSelectedSpecificIssue={setSelectedSpecificIssue}
-                        setShowDemographics={setShowDemographics}
-                        issues={issues} issue_categories={issue_categories}
-                        boundary={boundary} setBoundary={setBoundary}
-                        showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}
-                        colorRamps={colorRamps} setColorRamps={setColorRamps}
-          />*/}
+          {!selectedChapter ?
+              <div>
+                LANDING PAGE
+              </div> :
+              <CitywideData selectedIssue={selectedIssue} setSelectedIssue={setSelectedIssue}
+                         selectedSpecificIssue={selectedSpecificIssue}
+                         setSelectedSpecificIssue={setSelectedSpecificIssue}
+                         showDemographics={showDemographics}
+                         setShowDemographics={setShowDemographics}
+                         issues={issues} issue_categories={issue_categories}
+                         boundary={boundary} setBoundary={setBoundary}
+                         showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}
+                         colorRamps={colorRamps} setColorRamps={setColorRamps} setShowToggle={setShowToggle}
+                            demographic={demographic} setDemographic={setDemographic} mapDemographics={mapDemographics}
+                            setMapDemographics={setMapDemographics} communities={communities} councils={councils} selectedChapter={selectedChapter}
+                                         toggleTransit={toggleTransit} setToggleTransit={setToggleTransit} toggleBike={toggleBike} setToggleBike={setToggleBike}
+                            toggleWalk={toggleWalk} setToggleWalk={setToggleWalk} demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins}
+                                         setDemoColorRamp={setDemoColorRamp} setDemoLegendBins={setDemoLegendBins} demoLookup={demoLookup[demographic]}
+              />}
 
         </Container>
       )}
