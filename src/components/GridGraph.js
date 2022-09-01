@@ -14,10 +14,12 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
 
     useEffect(() => {
         let handleResize = () => {
-            setDimensions({
-                height: containerRef.current.clientHeight,
-                width: containerRef.current.clientWidth,
-            })
+            if (containerRef.current) {
+                setDimensions({
+                    height: containerRef.current.clientHeight,
+                    width: containerRef.current.clientWidth,
+                })
+            }
         }
         handleResize();
 
@@ -26,10 +28,10 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
 
     useEffect(() => {
 
-        
+
         let width = dimensions.width ? dimensions.width : 0;
         // let height = dimensions.height ? dimensions.height : 150;
-        let height = 1.5/5 * width;
+        let height = 1.5 / 5 * width;
 
         let numHeight = 5;
         let numWidth = 20;

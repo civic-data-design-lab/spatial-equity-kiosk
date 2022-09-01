@@ -465,7 +465,7 @@ export default function Legend({
                         'Other'
                     ]
 
-                    console.log(gridColorRamps)
+                    // console.log(gridColorRamps)
 
                     return (
                         <div style={{ flex: 1 }}>

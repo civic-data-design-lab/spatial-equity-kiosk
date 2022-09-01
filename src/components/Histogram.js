@@ -78,17 +78,13 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
     useEffect(() => {
         let handleResize = () => {
-            // console.log(ref.current)
-            // console.log(containerRef.current)
-            // console.log({
-            //     height: containerRef.current.clientHeight,
-            //     width: containerRef.current.clientWidth,
-            // })
-
-            setDimensions({
-                height: containerRef.current.clientHeight,
-                width: containerRef.current.clientWidth,
-            })
+            
+            if (containerRef.current) {
+                setDimensions({
+                    height: containerRef.current.clientHeight,
+                    width: containerRef.current.clientWidth,
+                })
+            }
         }
         handleResize();
 
@@ -117,18 +113,9 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
     // console.log("selectedSpecificIssue", selectedSpecificIssue)
 
     useEffect(() => {
-        // const data = ([
-        //     42358, 98745, 36186, 20817, 68199, 57303, 27330, 21467, 23958, 86923,
-        //     20881, 32462, 47504, 76660, 111284, 10824, 19879, 28216, 26133, 66290,
-        //     23684, 11035, 25084, 130028, 22654, 69009, 49598, 11765, 14387, 13512,
-        //     15558, 24364, 11138, 22206, 18541, 20679, 64235, 114357, 111314, 36500,
-        //     26879, 23008, 21960, 89437, 31784, 49608, 20314, 81281, 32459, 102158,
-        //     124121,
-        // ]).sort(d3.ascending);
 
         const height = dimensions.height ? dimensions.height : 0;
         const width = dimensions.width ? dimensions.width : 500;
-        // console.log(dimensions)
 
         // histogram bars attr
         const barPadding = 0;
