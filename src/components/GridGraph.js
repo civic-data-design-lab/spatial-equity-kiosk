@@ -27,7 +27,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
     useEffect(() => {
 
         
-        let width = dimensions.width ? dimensions.width : 500;
+        let width = dimensions.width ? dimensions.width : 0;
         // let height = dimensions.height ? dimensions.height : 150;
         let height = 1.5/5 * width;
 

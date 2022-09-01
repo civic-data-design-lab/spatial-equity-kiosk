@@ -126,7 +126,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         //     124121,
         // ]).sort(d3.ascending);
 
-        const height = dimensions.height ? dimensions.height : 1200;
+        const height = dimensions.height ? dimensions.height : 0;
         const width = dimensions.width ? dimensions.width : 500;
         // console.log(dimensions)
 
