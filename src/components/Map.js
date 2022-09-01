@@ -3,9 +3,9 @@ import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import DeckGL from "@deck.gl/react";
 import { Map } from "react-map-gl";
 import { GeoJsonLayer, TextLayer, ScatterplotLayer } from "@deck.gl/layers";
-import { FlyToInterpolator, LinearInterpolator } from "@deck.gl/core";
+import { MapView, LinearInterpolator } from "@deck.gl/core";
 import { scaleThreshold, scaleQuantile, scaleQuantize } from "d3-scale";
-import { MaskExtension, FillStyleExtension } from "@deck.gl/extensions";
+import { FillStyleExtension } from "@deck.gl/extensions";
 import { max, min } from "d3-array";
 
 // geospatial dependencies
@@ -26,34 +26,19 @@ import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _ETHNICITY_COLORS from "../data/ethnicity_colors.json";
 import _RANKINGS from "../data/rankings.json";
 
+// mapbox style
 import "mapbox-gl/dist/mapbox-gl.css";
-
-//check if mobile
-let isMobile = false; //initiate as false
-const width = window.innerWidth;
-// device detection
-if (
-  /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
-    navigator.userAgent
-  ) ||
-  /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(
-    navigator.userAgent.substr(0, 4)
-  )
-) {
-  isMobile = true;
-}
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
-
 const mapStyle = "mapbox://styles/mitcivicdata/cl6fa3jro002d14qxp2nu9wng"; //toner
 
 // color ramps
 const choroplethOpacity = 0.85;
-const healthRamp = _CHAPTER_COLORS.health;
-const envRamp = _CHAPTER_COLORS.env;
-const infraRamp = _CHAPTER_COLORS.infra;
 const binSize = 5; // number of bins in the color ramp
+// Map Viewport settings
+const zoomMin = 10;
+const zoomMax = 13;
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
@@ -61,6 +46,14 @@ const LATITUDE_RANGE = [40.5, 40.9];
 function map_range(value, low1, high1, low2, high2) {
   return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
 }
+
+const mapBackgroundStyle = {
+  position: "absolute",
+  // zIndex: -1,
+  width: "100%",
+  height: "100%",
+  border: "2px solid black",
+};
 
 export default function DeckMap({
   issues,
@@ -70,12 +63,9 @@ export default function DeckMap({
   showDemographics,
   mapDemographics,
   demographic,
-  colorRamps,
   setColorRamps,
   toggleUnderperformers,
-  setToggleUnderperformers,
   demoLookup,
-  selectedChapter,
   setSelectedChapter,
   communitySearch,
   addCompare,
@@ -83,7 +73,6 @@ export default function DeckMap({
   setCommunitySearch,
   compareSearch,
   setCompareSearch,
-  setShowMap,
   communities,
   councils,
   viewState,
@@ -92,58 +81,70 @@ export default function DeckMap({
   setMapSelection,
   zoomToggle,
   setzoomToggle,
-  inverseZoomToggle,
-  setinverseZoomToggle,
   handleLegend,
   sethandleLegend,
-  zoomMin,
-  zoomMax,
   highlightFeature,
   sethighlightFeature,
   toggleTransit,
   toggleBike,
   toggleWalk,
   setDemoLegendBins,
-  setDemoColorRamp,
   selectedCoord,
   selectedCompareCoord,
   setSelectedCoord,
   setSelectedCompareCoord,
   badSearch,
   setBadSearch,
+  mainMap,
 }) {
   // map hooks
 
-  // const [tempCoords, setTempCoords] = useState(["190px", "190px"]);
-  const deckRef = useRef(null);
-  const mapRef = useRef(null);
-  const dataScale = "q";
-
+  const dataScale = useRef("q"); //set to "equal" for equal binning, "q" for quantile binning
   const [searchPoint, setSearchPoint] = useState([[], []]);
 
-  // SELECT BOUNDARY ------------------------------------------------------------
-  let selectedBoundary;
-  if (boundary === "council") {
-    selectedBoundary = _COUNCIL_DISTRICTS;
-  }
-  if (boundary === "community") {
-    selectedBoundary = _COMMUNITY_BOARDS;
-  }
+  const mainView = new MapView({
+    id: "primary",
+    controller: {
+      dragRotate: false,
+      doubleClickZoom: false,
+    },
+    x: 0,
+    y: 0,
+    width: mapDemographics ? "50%" : "100%",
+    height: "100%",
+    clear: true,
+  });
+  const secondaryView = new MapView({
+    id: "secondary",
+    controller: {
+      dragRotate: false,
+      doubleClickZoom: false,
+    },
+    x: "50%",
+    y: 0,
+    width: "50%",
+    height: "100%",
+    clear: true,
+  });
 
+  // SELECT BOUNDARY ------------------------------------------------------------
   // toggle between council districts and community boards
-  const mapScale =
-    handleLegend == 0
-      ? _NEIGHBORHOODS
-      : handleLegend == 1 && selectedBoundary == _COUNCIL_DISTRICTS
-      ? _COUNCIL_DISTRICTS
-      : _COMMUNITY_BOARDS;
+  const selectedBoundary = useMemo(() => {
+    if (boundary === "council") {
+      return _COUNCIL_DISTRICTS;
+    } else if (boundary === "community") {
+      return _COMMUNITY_BOARDS;
+    } else {
+      return _COUNCIL_DISTRICTS;
+    }
+  }, [boundary]);
 
   // SELECT BOUNDARY END --------------------------------------------------------
 
   // METRIC CONFIG -----------------------------------------------------
 
   // select metric to display
-  let selectedMetric; // MAKE THIS A STATE AT THE APP LEVEL FOR OPTIMIZATION
+  let selectedMetric;
   let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
 
   if (selectedSpecificIssue != null) {
@@ -160,6 +161,14 @@ export default function DeckMap({
   }
 
   // 01 CREATE METRIC COLOR RAMPS -------------------------------------------------------
+
+  //pick scale for legend bins
+  const mapScale =
+    handleLegend == 0
+      ? _NEIGHBORHOODS
+      : handleLegend == 1 && selectedBoundary == _COUNCIL_DISTRICTS
+      ? _COUNCIL_DISTRICTS
+      : _COMMUNITY_BOARDS;
 
   //variables for scale thresholds
 
@@ -184,10 +193,10 @@ export default function DeckMap({
     if (isNaN(floatValue) === false) {
       if (
         boundary === "council" ||
-        (zoomToggle == 0 &&
+        (zoomToggle == 1 &&
           boundary === "community" &&
           mapScale.features[i].properties.Data_YN === "Y") ||
-        (zoomToggle == 1 && mapScale.features[i].properties.AnsUnt_YN === "Y")
+        (zoomToggle == 0 && mapScale.features[i].properties.AnsUnt_YN === "Y")
       ) {
         selectedMetricArray.push(floatValue);
       }
@@ -325,7 +334,7 @@ export default function DeckMap({
   getDemoArray(_NEIGHBORHOODS, neighborhoodDemoArray);
 
   const sortedDemoArray = [
-    ...(zoomToggle ? neighborhoodDemoArray : selectedDemoArray),
+    ...(!zoomToggle ? neighborhoodDemoArray : selectedDemoArray),
   ].sort(function (a, b) {
     return a - b;
   });
@@ -335,7 +344,7 @@ export default function DeckMap({
   // 03.3 break the demographic array into bins and get the bin list
   for (let i = 0; i < binSize; i++) {
     if (dataScale === "equal") {
-      const legendScale = zoomToggle
+      const legendScale = !zoomToggle
         ? neighborhoodDemoArray
         : selectedDemoArray;
       const threshold = (max(legendScale) - min(legendScale)) / (binSize + 1);
@@ -368,6 +377,10 @@ export default function DeckMap({
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
   const onViewStateChange = useCallback(({ viewState }) => {
     // setViewState(viewState);
+    setViewState(() => ({
+      primary: viewState,
+      secondary: viewState,
+    }));
     // 04.1 set constraints on view state
 
     viewState.longitude = Math.min(
@@ -378,6 +391,7 @@ export default function DeckMap({
       LATITUDE_RANGE[1],
       Math.max(LATITUDE_RANGE[0], viewState.latitude)
     );
+
     // max zoom
     viewState.zoom = Math.min(zoomMax, Math.max(zoomMin, viewState.zoom));
 
@@ -385,12 +399,10 @@ export default function DeckMap({
 
     // 04.3 toggle based on zoom level
     if (viewState.zoom > 12.25) {
-      setzoomToggle(1);
-      setinverseZoomToggle(0);
+      setzoomToggle(0);
       sethandleLegend(0);
     } else {
-      setzoomToggle(0);
-      setinverseZoomToggle(1);
+      setzoomToggle(1);
       sethandleLegend(1);
     }
   }, []);
@@ -545,6 +557,11 @@ export default function DeckMap({
                 : ""
             }</div>
             <!-- TROUBLESHOOTING
+            <div>Centroid ${selectedBoundary.features[
+              info.index
+            ].properties.X_Cent.toFixed(3)}, ${selectedBoundary.features[
+              info.index
+            ].properties.Y_Cent.toFixed(3)}</div>
             <div>${x}, ${y}</div>
             <div>${info.index} Index</div>
             <div>${selectedBoundary.features[
@@ -627,20 +644,37 @@ export default function DeckMap({
           if (selectedCoord.length === 2 && selectedCompareCoord.length === 2) {
             const ptA = selectedCoord.map(Number);
             const ptB = selectedCompareCoord.map(Number);
-            const ptCompareDistance = distance(point(ptA), point(ptB));
-            // console.log(
-            //   "searchPoint",
-            //   searchPoint,
-            //   "DISTANCE",
-            //   ptCompareDistance,
-            //   "REMAP",
-            //   map_range(ptCompareDistance, 0.5, 30, zoomMax, zoomMin)
-            // );
+            const maxDistance = !mapDemographics ? 25 : 15;
+            const ptCompareDistance =
+              distance(point(ptA), point(ptB)) < maxDistance
+                ? distance(point(ptA), point(ptB))
+                : maxDistance;
+
+            const remapZoom = !mapDemographics
+              ? map_range(ptCompareDistance, 0.3, maxDistance, zoomMax, zoomMin)
+              : mapDemographics &&
+                map_range(
+                  ptCompareDistance,
+                  0.3,
+                  maxDistance,
+                  zoomMax,
+                  zoomMin
+                ) -
+                  0.5 >
+                  zoomMin
+              ? map_range(
+                  ptCompareDistance,
+                  0.3,
+                  maxDistance,
+                  zoomMax,
+                  zoomMin
+                ) - 0.5
+              : zoomMin;
 
             setViewState({
               longitude: (ptA[0] + ptB[0]) / 2,
               latitude: (ptA[1] + ptB[1]) / 2,
-              zoom: map_range(ptCompareDistance, 0.3, 25, zoomMax, zoomMin),
+              zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
               transitionDuration: 500,
               transitionInerpolator: new LinearInterpolator(),
             });
@@ -685,7 +719,7 @@ export default function DeckMap({
     toggleWalk,
   ]);
   // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
-  const layers = [
+  const metricLayers = [
     new GeoJsonLayer({
       id: "neighborhoods",
       data: _NEIGHBORHOODS.features,
@@ -706,13 +740,39 @@ export default function DeckMap({
       },
       lineWidthUnits: "pixels",
       opacity: choroplethOpacity,
-      visible: zoomToggle,
+      visible: !zoomToggle,
       // update triggers
       updateTriggers: {
         getFillColor: [selectedMetric],
       },
     }),
 
+    new GeoJsonLayer({
+      id: "administrative-choropleth",
+      data: selectedBoundary,
+      filled: true,
+      getFillColor: (f) => {
+        let fillValue = parseFloat(f.properties[selectedMetric]);
+        if (
+          isNaN(fillValue) ||
+          (boundary == "community" && f.properties.Data_YN == "N")
+        ) {
+          return [0, 0, 0, 0];
+        } else {
+          // return [255, 0, 0, 255];
+          return COLOR_SCALE(f.properties[selectedMetric]);
+        }
+      },
+      opacity: choroplethOpacity,
+      visible: zoomToggle,
+
+      updateTriggers: {
+        getFillColor: [selectedMetric, mapSelection, addCompare],
+      },
+    }),
+  ];
+
+  const demoLayers = [
     new GeoJsonLayer({
       id: "neighborhood-demographics",
       data: _NEIGHBORHOODS.features,
@@ -742,7 +802,7 @@ export default function DeckMap({
       lineWidthMinPixels: 1,
 
       opacity: choroplethOpacity,
-      visible: zoomToggle == 1 ? toggleDemChoropleth : 0,
+      visible: !zoomToggle ? toggleDemChoropleth : 0,
 
       updateTriggers: {
         getLineWidth: [
@@ -759,30 +819,6 @@ export default function DeckMap({
           toggleWalk,
           zoomToggle,
         ],
-      },
-    }),
-
-    new GeoJsonLayer({
-      id: "administrative-choropleth",
-      data: selectedBoundary,
-      filled: true,
-      getFillColor: (f) => {
-        let fillValue = parseFloat(f.properties[selectedMetric]);
-        if (
-          isNaN(fillValue) ||
-          (boundary == "community" && f.properties.Data_YN == "N")
-        ) {
-          return [0, 0, 0, 0];
-        } else {
-          // return [255, 0, 0, 255];
-          return COLOR_SCALE(f.properties[selectedMetric]);
-        }
-      },
-      opacity: choroplethOpacity,
-      visible: inverseZoomToggle,
-
-      updateTriggers: {
-        getFillColor: [selectedMetric, mapSelection, addCompare],
       },
     }),
 
@@ -815,7 +851,7 @@ export default function DeckMap({
       lineWidthMinPixels: 1,
 
       opacity: choroplethOpacity,
-      visible: zoomToggle == 0 ? toggleDemChoropleth : 0,
+      visible: zoomToggle ? toggleDemChoropleth : 0,
 
       updateTriggers: {
         getLineWidth: [
@@ -872,6 +908,9 @@ export default function DeckMap({
         return color;
       },
     }),
+  ];
+
+  const annoLayers = [
     new GeoJsonLayer({
       id: "administrative-choropleth-highlights",
       data: selectedBoundary,
@@ -916,7 +955,7 @@ export default function DeckMap({
       },
 
       opacity: choroplethOpacity,
-      visible: inverseZoomToggle,
+      visible: zoomToggle,
 
       // props added by FillStyleExtension
       fillPatternMask: true,
@@ -1006,15 +1045,7 @@ export default function DeckMap({
         ) {
           // change chapter
           setSelectedChapter(3);
-          // console.log(addCompare, "addCompare");
-          // console.log(
-          //   "community search",
-          //   communitySearch,
-          //   "compare search",
-          //   compareSearch,
-          //   "lookup",
-          //   lookup
-          // );
+
           // add clicked object to chapter 3 searchbar and highlight single selection on map
           if (communitySearch == null || addCompare == false) {
             // animate view
@@ -1088,7 +1119,9 @@ export default function DeckMap({
             (f.properties.CDTA2020 == communitySearch ||
               f.properties.CDTA2020 == compareSearch))
         ) {
-          return selectedSpecificIssue ? [255, 255, 255, 255] : [127, 255, 0];
+          return selectedSpecificIssue || (!mainMap && mapDemographics)
+            ? [255, 255, 255, 255]
+            : [127, 255, 0];
         }
         return [0, 0, 0, 0];
       },
@@ -1103,7 +1136,9 @@ export default function DeckMap({
             (f.properties.CDTA2020 == communitySearch ||
               f.properties.CDTA2020 == compareSearch))
         ) {
-          return selectedSpecificIssue ? [0, 0, 0, 0] : [0, 0, 0, 125];
+          return selectedSpecificIssue || (!mainMap && mapDemographics)
+            ? [0, 0, 0, 0]
+            : [0, 0, 0, 125];
         }
         return [0, 0, 0, 0];
       },
@@ -1118,7 +1153,6 @@ export default function DeckMap({
           addCompare,
           communitySearch,
           compareSearch,
-          deckRef,
         ],
         getFillColor: [
           selectedMetric,
@@ -1126,7 +1160,6 @@ export default function DeckMap({
           addCompare,
           communitySearch,
           compareSearch,
-          deckRef,
         ],
       },
     }),
@@ -1143,7 +1176,7 @@ export default function DeckMap({
       getPosition: (x) => x.geometry.coordinates,
       getSize: 75,
       maxWidth: 600,
-      opacity: zoomToggle,
+      opacity: !zoomToggle,
     }),
 
     new ScatterplotLayer({
@@ -1163,35 +1196,69 @@ export default function DeckMap({
     }),
   ];
 
+  const layerFilter = useCallback(({ layer, viewport }) => {
+    const metricList = [];
+    const annoList = [];
+
+    for (let i = 0; i < metricLayers.length; i++) {
+      metricList.push(metricLayers[i].id);
+    }
+    for (let i = 0; i < annoLayers.length; i++) {
+      annoList.push(annoLayers[i].id);
+    }
+
+    if (annoList.includes(layer.id)) {
+      return true;
+      // return viewport.id === "main";
+    } else if (metricList.includes(layer.id)) {
+      return viewport.id === "primary";
+    } else {
+      return viewport.id === "secondary";
+    }
+  }, []);
+
   return (
     <div>
       <DeckGL
         // viewState={viewState}
         initialViewState={viewState}
         onViewStateChange={onViewStateChange}
-        controller={{
-          dragRotate: false,
-          doubleClickZoom: false,
-        }}
-        layers={layers}
+        views={mapDemographics ? [mainView, secondaryView] : [mainView]}
+        // layers={mainMap ? [metricLayers, annoLayers] : [demoLayers, annoLayers]}
+        layers={[metricLayers, demoLayers, annoLayers]}
         getCursor={() => "crosshair"}
         getTooltip={getTooltip}
-        ref={deckRef}
-        eventRecognizerOptions={
-          isMobile ? { pan: { threshold: 10 }, tap: { threshold: 5 } } : {}
-        }
+        layerFilter={layerFilter}
+        // eventRecognizerOptions={
+        //   isMobile ? { pan: { threshold: 10 }, tap: { threshold: 5 } } : {}
+        // }
         // style={{ mixBlendMode: "multiply" }}
         // _pickable={isMobile ? false : true}
       >
-        <Map
-          reuseMaps
-          mapStyle={mapStyle}
-          ref={mapRef}
-          preventStyleDiffing={true}
-          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-          attributionControl={false}
-          logoPosition="top-left"
-        />
+        <MapView id="primary">
+          <Map
+            reuseMaps
+            mapStyle={mapStyle}
+            preventStyleDiffing={true}
+            mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+            attributionControl={false}
+            logoPosition="top-left"
+          />
+          <div style={mapBackgroundStyle} />
+        </MapView>
+        {mapDemographics && (
+          <MapView id="secondary">
+            <Map
+              reuseMaps
+              mapStyle={mapStyle}
+              preventStyleDiffing={true}
+              mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+              attributionControl={false}
+              logoPosition="top-left"
+            />
+            <div style={mapBackgroundStyle} />
+          </MapView>
+        )}
       </DeckGL>
     </div>
   );

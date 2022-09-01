@@ -39,7 +39,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                          setShowDropdownItems(!showDropdownItems)
                      }}
                 >
-                    <p className={"mb-0"}>{toggleText}</p>
+                    <p className={"mb-0 small-font"}>{toggleText}</p>
 
                     {!showDropdownItems && <FontAwesomeIcon icon={faCaretDown}/>}
                     {showDropdownItems && <FontAwesomeIcon icon={faCaretUp}/>}

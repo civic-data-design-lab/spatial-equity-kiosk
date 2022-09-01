@@ -1,0 +1,22 @@
+{
+  "Race & Ethnicity": {
+    "percList": [29, 33, 23, 13, 3],
+    "textList": ["Hispanic", "White", "Black", "Asian", "Other"]
+  },
+  "Population Below the Poverty Line": {
+    "percList": [11, 89],
+    "textList": ["Population Below the Poverty Line", "Others"]
+  },
+  "Population With No Car Ownership": {
+    "percList": [43, 57],
+    "textList": ["Population With No Car Ownership", "Others"]
+  },
+  "Population that Drives Alone to Work": {
+    "percList": [17, 83],
+    "textList": ["Population that Drives Alone to Work", "Others"]
+  },
+  "Population Using Alternative Transportation": {
+    "percList": [45, 55],
+    "textList": ["Population Using Alternative Transportation", "Others"]
+  }
+}

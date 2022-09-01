@@ -687,30 +687,30 @@ a:active {
 
 .map-subcontainer {
     display: flex;
+    width: 50vw;
+    right: 0;
 }
 
-#left-map {
-    display: flex;
-}
+
 
 #left-map-alone {
     width: 100% !important;
 }
 
-#right-map {
-    flex: 1;
-}
+
 
 
 .individual-maps {
+    border: 1px solid black;
     position: relative;
     height: 100vh;
+    width: 50vw;
 }
 
 /* wiper v2 */
 .splitter-container {
     position: absolute;
-    top: 2rem;
+    bottom: 3rem;
     left: 10%;
     width: 80%;
     z-index: 9;
@@ -731,8 +731,10 @@ a:active {
     height: 100% !important;*/
 }
 
+
 .map-tooltip > *{
     padding: 5px 10px 5px 10px;
+
 }
 
 .map-tooltip-header{
@@ -1006,6 +1008,10 @@ a:active {
     transition: flex-grow 1s;
 }
 
+.transition-opacity {
+    transition: opacity 0.5s 0.5s;
+}
+
 
 
 .ranking-chart {
@@ -1258,6 +1264,7 @@ input:checked + .slider:before {
     display: flex;
     flex-direction: row;
    justify-content: center;
+    font-size: 0.75rem;
 
 }
 
@@ -1411,7 +1418,7 @@ input:checked + .slider:before {
 
 .mobile-nav {
     width: 100%;
-    height: 100vh;
+    transition: height 1s;
     display: flex;
     flex-direction: column;
 }
@@ -1423,6 +1430,7 @@ input:checked + .slider:before {
 }
 
 .mobile-nav-header {
+    z-index: 1;
     padding: 1rem;
     border: 1px solid black;
     display: flex;
@@ -1432,34 +1440,32 @@ input:checked + .slider:before {
     background-color: black;
     color: white;
     position: relative;
+    height: calc(4.025rem + .3vw);
 }
 
-.mobile-nav-footer {
-    padding: 1rem;
-    border: 1px solid black;
-    transition: flex-grow 1s, padding 1s 0.5s;
-}
 
-.mobile-nav-chapter {
-    padding: 1rem;
-    border: 1px solid black;
-    flex-grow: 2;
-}
+
+
 
 .mobile-citywide {
-    height: 100vh;
     display: flex;
     flex-direction: column;
+    height: calc(100vh - (4.025rem + .3vw));;
+}
+
+.mobile-nav-chapter, .mobile-citywide-chapter {
+    cursor: pointer;
+    transition: flex-grow 0.5s, padding 0.25s 0.25s, background-color 0.5s, color 0.5s;
 }
 
 .mobile-citywide-chapter {
-    flex-grow: 1;
     cursor: pointer;
-    transition: flex-grow 1s, padding 1s 0.5s, background-color 1s 0.5s, color 1s 0.5s;
+    transition: flex-grow 0.5s, padding 0.5s 0.5s, background-color 0.5s, color 0.5s;
 }
 
 .mobile-citywide-content {
     transition: flex-grow 1s, padding 1s 0.5s;
+    overflow: scroll;
 }
 
 .mobile-boundary-toggle {
@@ -1480,13 +1486,74 @@ input:checked + .slider:before {
     transition: color 0.5s, background-color 0.5s;
 }
 
-.mobile-map-toggle {
-    position: absolute;
+.demographics-container {
     height: 100%;
-    right: 0;
-    top: 1px;
-    border-right: 1px solid black;
-    border-left: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.mobile-demographics-toggle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.citywide-nav {
+    height: 10vh;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    z-index: 1;
+}
+
+.category-dropdown {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0rem 1rem;
+    border: 1px solid black;
+    border-top: none;
+    border-bottom: none;
+    column-gap: 0.5rem;
+}
+
+.issue-dropdown {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0rem 1rem;
+    border: 1px solid black;
+    border-top: none;
+    border-bottom: none;
+    column-gap: 0.5rem;
+    border-left: none;
+}
+
+.citywide-issue-dropdown {
+    min-width: 0;
+}
+
+.citywide-categories-dropdown {
+    min-width: 0;
+}
+
+.mobile-dropdown-item {
+    padding: 0.25rem 1rem;
+    border: 1px solid black;
+}
+
+.mobile-map-toggle {
+    width: 10vh;
+    height: 100%;
+
 }
 
 
@@ -1494,16 +1561,23 @@ input:checked + .slider:before {
     .dropdown-body {
             width: calc(100% - 2rem - 2px);
         }
+
     .map-toggle-container {
+        width: 100%;
         height: 100%;
-        width: auto;
         margin-left: 0;
+
     }
 
     .map-toggle {
-        height: 100%;
-        aspect-ratio: 1;
-        border: none
+        border: none;
+        border-bottom: 0px solid black;
+        align-items: center;
+
+    }
+
+    .demographics-container {
+        height: 40vh;
     }
 
 
@@ -1567,8 +1641,14 @@ input:checked + .slider:before {
     max-width: 50%;
 }
 
+.hide-text {
+    text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .mobile-transition-font {
-    transition: font-size 1s 0.5s;
+    transition: font-size 0.25s 0.25s, opacity 0.25s;
 }
 
 

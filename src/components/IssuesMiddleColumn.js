@@ -70,7 +70,7 @@ export default function IssuesMiddleColumn({
 
     if (possible_keys.includes(selectedSpecificIssue)) {
       return (
-        <p>
+        <p className={"mb-0 small-font"}>
           {
             issues.specific_issues_data[selectedSpecificIssue]
               .specific_issue_ranking_narrative
@@ -128,7 +128,7 @@ export default function IssuesMiddleColumn({
           selectedIssue === 1 ? "expand-issue" : ""
         } accordion-body`}
       >
-        <div className={"h-100 position-relative d-flex flex-column"}>
+        <div className={"h-100 position-relative d-flex flex-column justify-content-between row-gap"}>
           <IssuesDropDown
             items={health_issues}
             currentValue={selectedSpecificIssue}
@@ -138,15 +138,13 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
-          <div className={`d-flex flex-column h-100 ${selectedSpecificIssue && showDemographics ? "justify-content-end" : "justify-content-between"}`}>
-            {((selectedSpecificIssue && !showDemographics) ||
-              !selectedSpecificIssue) && (
-              <div className={"thirds mt-3"}>
-                {selectedSpecificIssue &&
-                  !showDemographics &&
-                  getRankingNarrative(health_issues)}
+          <div className={`d-flex flex-column h-100 justify-content-between`}>
+            {((selectedSpecificIssue && !showDemographics) || !selectedSpecificIssue) && (
+              <div>
+                {selectedSpecificIssue && !showDemographics &&
+                    getRankingNarrative(health_issues)}
                 {!selectedSpecificIssue && !showDemographics && (
-                  <p>
+                  <p className={"mb-0 small-font"}>
                     This is where you will hear about the topic that you select.
                     Topics include a range of health metrics.
                   </p>
@@ -212,7 +210,7 @@ export default function IssuesMiddleColumn({
           selectedIssue === 2 ? "expand-issue" : ""
         } accordion-body`}
       >
-        <div className={"h-100 position-relative d-flex flex-column"}>
+        <div className={"h-100 position-relative d-flex flex-column justify-content-between row-gap"}>
           <IssuesDropDown
             items={environment_issues}
             currentValue={selectedSpecificIssue}
@@ -222,29 +220,21 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
-          <div
-            className={`d-flex flex-column h-100 ${
-              selectedSpecificIssue && showDemographics
-                ? "justify-content-end"
-                : "justify-content-between"
-            }`}
-          >
-            {((selectedSpecificIssue && !showDemographics) ||
-              !selectedSpecificIssue) && (
-              <div className={"thirds mt-3"}>
-                {selectedSpecificIssue &&
-                  !showDemographics &&
-                  getRankingNarrative(environment_issues)}
+          <div className={`d-flex flex-column h-100 justify-content-between`}>
+            {((selectedSpecificIssue && !showDemographics) || !selectedSpecificIssue) && (
+              <div>
+                {selectedSpecificIssue && !showDemographics &&
+                    getRankingNarrative(environment_issues)}
                 {!selectedSpecificIssue && !showDemographics && (
-                  <p>
+                  <p className={"mb-0 small-font"}>
                     This is where you will hear about the topic that you select.
-                    Topics include a range of health metrics.
+                    Topics include a range of environment metrics.
                   </p>
                 )}
               </div>
             )}
 
-            {!showDemographics && <p className={"small-font m-0"}></p>}
+            {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
             <Legend
               mapDemographics={mapDemographics}
               demoColorRamp={demoColorRamp}
@@ -301,7 +291,7 @@ export default function IssuesMiddleColumn({
           selectedIssue === 3 ? "expand-issue" : ""
         } accordion-body`}
       >
-        <div className={"h-100 position-relative d-flex flex-column"}>
+        <div className={"h-100 position-relative d-flex flex-column justify-content-between row-gap"}>
           <IssuesDropDown
             items={infrastructure_issues}
             currentValue={selectedSpecificIssue}
@@ -311,23 +301,21 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
-          <div className={"d-flex flex-column justify-content-between h-100"}>
-            {((selectedSpecificIssue && !showDemographics) ||
-              !selectedSpecificIssue) && (
-              <div className={"thirds mt-3"}>
-                {selectedSpecificIssue &&
-                  !showDemographics &&
-                  getRankingNarrative(infrastructure_issues)}
+          <div className={`d-flex flex-column h-100 justify-content-between`}>
+            {((selectedSpecificIssue && !showDemographics) || !selectedSpecificIssue) && (
+              <div>
+                {selectedSpecificIssue && !showDemographics &&
+                    getRankingNarrative(infrastructure_issues)}
                 {!selectedSpecificIssue && !showDemographics && (
-                  <p>
+                  <p className={"mb-0 small-font"}>
                     This is where you will hear about the topic that you select.
-                    Topics include a range of health metrics.
+                    Topics include a range of infrastructure metrics.
                   </p>
                 )}
               </div>
             )}
 
-            {!showDemographics && <p className={"small-font m-0"}></p>}
+            {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
             <Legend
               mapDemographics={mapDemographics}
               demoColorRamp={demoColorRamp}
