@@ -128,6 +128,12 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             .exit()
             .remove();
 
+        // clear Chart
+        svg.selectAll(".gridText")
+            .data(gridText)
+            .exit()
+            .remove();
+
     }, [colorRamps, percList, textList, dimensions]);
 
     return (

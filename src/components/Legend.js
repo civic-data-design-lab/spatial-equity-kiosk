@@ -9,6 +9,7 @@ import _COUNCIL_DISTRICTS from "../data/council_districts.json";
 import _COMMUNITY_BOARDS from "../data/community_boards.json";
 import _NEIGHBORHOODS from "../data/neighborhoods.json";
 import _ETHNICITY_COLORS from "../data/ethnicity_colors.json";
+import _DEMOGRAPHIC_PERCENTAGED from "../data/demographic_percentage.json"
 
 export default function Legend({
     issues,
@@ -429,13 +430,12 @@ export default function Legend({
                     // DEFAULT CASE - ADD D3 DEMOGRAPHICS COMPONENT HERE!
                     let gridColorRamps
 
-
                     if (demoLookup.name !== "Race & Ethnicity") {
                         gridColorRamps = [
-                            `rgb(${demoLookup.colorRamp[0].join(",")})`,
-                            `rgb(${demoLookup.colorRamp[1].join(",")})`,
+                            // `rgb(${demoLookup.colorRamp[0].join(",")})`,
+                            // `rgb(${demoLookup.colorRamp[1].join(",")})`,
                             `rgb(${demoLookup.colorRamp[2].join(",")})`,
-                            `rgb(${demoLookup.colorRamp[3].join(",")})`,
+                            // `rgb(${demoLookup.colorRamp[3].join(",")})`,
                             `rgb(${demoLookup.colorRamp[4].join(",")})`
                         ]
                     } else {
@@ -449,21 +449,9 @@ export default function Legend({
                     }
 
 
-                    let percList = [
-                        29,
-                        33,
-                        23,
-                        13,
-                        3
-                    ]
+                    let percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList
 
-                    let textList = [
-                        'Hispanic',
-                        'White',
-                        'Black',
-                        'Asian',
-                        'Other'
-                    ]
+                    let textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList
 
                     // console.log(gridColorRamps)
 
