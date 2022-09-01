@@ -1,27 +1,18 @@
 Bug Fix:
-When demographics is hidden, the split screen should always go away
-When the search feature is open, clicking out of it should not accidentally close the community profiles tab
-Clicking one of the search results should close the dropdown (or pressing enter)
-escaping the search box then makes the neighborhoods unclickable (but this is a non issue if we revert back to the screen going blank to begin)
+Pressing enter should close the dropdown (or pressing enter)
+escaping the search box then disables the search results show up 
 legend reflects the map domain and range, but it becomes misleading in tile view
-legend for infrastructure behaves differently than the legend for Health and Env
+legend breaks sometimes
 
-Histogram updates
-- sometimes the histogram lines go  behind the text (but it happenes only in unique circumstances lol)
-
-small bug coming from searching up two communities, allowing for duplicate comparisons 
-
-Legend Middle Column:
 
 Map
     - revert to original scroll method and figure out how to update viewstate that way. (WIP works but get non-breaking error)
-    - switch boundary scale on screen
 
 General
     - introduction text should always be available on Spatial Equity chapter?
-    - need to add feedback when the person searches for something that doesnt show up
 
-Next Up:
-    - better legends
-    - make a state for bad search (search result feedback)
-
+next up:
+- map clicking fix (small bug coming from searching up two communities, allowing for duplicate comparisons)
+- searching results in the same neighborhoods "both of these areas are in council district xxx!"
+- legend fix
+- as soon as you search for a new area, the boundary goes, but the circle doesnt, fix this

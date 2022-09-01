@@ -644,7 +644,6 @@ export default function DeckMap({
           // convert string coords to numbers
           if (searchEngineType == 0) {
             setBadSearch([0, badSearch[1]]);
-            const searchEngineFormatted = searchEngine.map(Number);
 
             // Select new neighborhood
             // move camera to new neighborhood
@@ -658,26 +657,39 @@ export default function DeckMap({
 
             // select new neighborhood
             setCommunitySearch(lookup);
-            setSearchPoint([searchEngineFormatted, searchPoint[1]]);
+            setSearchPoint([searchEngine, searchPoint[1]]);
           }
 
           // compare two neighborhoods
           if (searchEngineType == 1) {
             setBadSearch([badSearch[0], 0]);
             if (addCompare) {
-              const searchEngineFormatted = searchEngine.map(Number);
-
               // Select new neighborhood
-              setCompareSearch(lookup);
-              setSearchPoint([searchPoint[0], searchEngineFormatted]);
+              if (lookup !== communitySearch) {
+                setCompareSearch(lookup);
+                setSearchPoint([searchPoint[0], searchEngine]);
+              } else {
+                setBadSearch([badSearch[0], 1]);
+                alert(
+                  `These locations are in the same ${
+                    boundary == "community"
+                      ? "Community Board"
+                      : "City District"
+                  }!`
+                );
+              }
             } else {
               setSearchPoint([searchPoint[0], []]);
             }
           }
 
-          if (selectedCoord.length === 2 && selectedCompareCoord.length === 2) {
-            const ptA = selectedCoord.map(Number);
-            const ptB = selectedCompareCoord.map(Number);
+          if (
+            selectedCoord.length === 2 &&
+            selectedCompareCoord.length === 2 &&
+            lookup !== communitySearch
+          ) {
+            const ptA = selectedCoord;
+            const ptB = selectedCompareCoord;
             const maxDistance = !mapDemographics ? 25 : 15;
             const ptCompareDistance =
               distance(point(ptA), point(ptB)) < maxDistance
@@ -1122,6 +1134,7 @@ export default function DeckMap({
                 setSelectedCompareCoord([]);
                 setCompareSearch(null);
                 setAddCompare(false);
+                // pick up here on selection bug when you are awake
               }
             } else {
               setCompareSearch(lookup);
@@ -1215,7 +1228,7 @@ export default function DeckMap({
 
     new ScatterplotLayer({
       id: "user-search",
-      data: searchPoint,
+      data: [selectedCoord, selectedCompareCoord],
       stroked: true,
       filled: true,
       radiusScale: 4,
@@ -1246,24 +1259,10 @@ export default function DeckMap({
       // return viewport.id === "main";
     } else if (metricList.includes(layer.id) && viewport.id !== "splitRight") {
       return true;
-    } else {
+    } else if (!metricList.includes(layer.id) && viewport.id == "splitRight") {
       return viewport.id === "splitRight";
     }
   }, []);
-
-  // const onResize = useEffect(
-  //   (event) => {
-  //     // event.target.resize();
-  //     // map.resize();
-  //     // if (mapRef.current) {
-  //     //   console.log(mapRef.current);
-  //     //   mapRef.current.resize();
-
-  //       // event.map.resize();
-  //     }
-  //   },
-  //   [mapDemographics]
-  // );
 
   return (
     <div>
@@ -1273,7 +1272,6 @@ export default function DeckMap({
         initialViewState={viewState}
         onViewStateChange={onViewStateChange}
         views={mapDemographics ? [splitViewLeft, splitViewRight] : [mainView]}
-        // layers={mainMap ? [metricLayers, annoLayers] : [demoLayers, annoLayers]}
         layers={[metricLayers, demoLayers, annoLayers]}
         getCursor={() => "crosshair"}
         getTooltip={getTooltip}

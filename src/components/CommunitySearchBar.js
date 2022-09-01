@@ -68,10 +68,11 @@ export default function CommunitySearchBar({
                         e.stopPropagation()
 
                         if (primarySearch) {
-                            setSelectedCoord([v.center[0].toFixed(3), v.center[1].toFixed(3)])
+                            setSelectedCoord([parseFloat(v.center[0].toFixed(3)), parseFloat(v.center[1].toFixed(3))])
                             setShowSearch(false)
+                            console.log(selectedCoord)
                         } else {
-                            setselectedCompareCoord([v.center[0].toFixed(3), v.center[1].toFixed(3)])
+                            setselectedCompareCoord([parseFloat((v.center[0].toFixed(3))), parseFloat(v.center[1].toFixed(3))])
                             setShowSearch(false)
                         }
 

@@ -349,6 +349,7 @@ export default function IssuesMiddleColumn({
         } issues-chapters no-bottom-border`}
         onClick={() => {
           if (selectedIssue) setShowDemographics(!showDemographics);
+          if (showDemographics){setMapDemographics(false)}
         }}
         id="bottom-chapter"
       >
