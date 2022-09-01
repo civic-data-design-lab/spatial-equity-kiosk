@@ -37,7 +37,7 @@ const mapStyle = "mapbox://styles/mitcivicdata/cl6fa3jro002d14qxp2nu9wng"; //ton
 const choroplethOpacity = 0.85;
 const binSize = 5; // number of bins in the color ramp
 // Map Viewport settings
-const zoomMin = 10;
+const zoomMin = 9.5;
 const zoomMax = 13;
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
@@ -49,10 +49,31 @@ function map_range(value, low1, high1, low2, high2) {
 
 const mapBackgroundStyle = {
   position: "absolute",
-  // zIndex: -1,
   width: "100%",
   height: "100%",
   border: "2px solid black",
+};
+
+const splitScreenPositioning = {
+  height: "15%",
+  display: "grid",
+  gridTemplateRows: "1fr",
+  margin: "0rem 2.5rem 0rem 2.5rem",
+  // borderRadius: "50px",
+  pointerEvents: "none",
+};
+
+const splitScreenHeader = {
+  padding: "0rem 0.75rem",
+  gridRowStart: "2",
+  verticalAlign: "middle",
+  textAlign: "center",
+  fontFamily: "Inter",
+  color: "white",
+  fontWeight: "500",
+  backgroundColor: "black",
+  border: "1px solid white",
+  // borderRadius: "50px",
 };
 
 export default function DeckMap({
@@ -98,7 +119,7 @@ export default function DeckMap({
   mainMap,
 }) {
   // map hooks
-
+  const mapRef = useRef(null);
   const dataScale = useRef("q"); //set to "equal" for equal binning, "q" for quantile binning
   const [searchPoint, setSearchPoint] = useState([[], []]);
 
@@ -110,12 +131,24 @@ export default function DeckMap({
     },
     x: 0,
     y: 0,
-    width: mapDemographics ? "50%" : "100%",
+    width: "100%",
     height: "100%",
     clear: true,
   });
-  const secondaryView = new MapView({
-    id: "secondary",
+  const splitViewLeft = new MapView({
+    id: "splitLeft",
+    controller: {
+      dragRotate: false,
+      doubleClickZoom: false,
+    },
+    x: 0,
+    y: 0,
+    width: "50%",
+    height: "100%",
+    clear: true,
+  });
+  const splitViewRight = new MapView({
+    id: "splitRight",
     controller: {
       dragRotate: false,
       doubleClickZoom: false,
@@ -379,7 +412,8 @@ export default function DeckMap({
     // setViewState(viewState);
     setViewState(() => ({
       primary: viewState,
-      secondary: viewState,
+      splitLeft: viewState,
+      splitRight: viewState,
     }));
     // 04.1 set constraints on view state
 
@@ -1210,53 +1244,106 @@ export default function DeckMap({
     if (annoList.includes(layer.id)) {
       return true;
       // return viewport.id === "main";
-    } else if (metricList.includes(layer.id)) {
-      return viewport.id === "primary";
+    } else if (metricList.includes(layer.id) && viewport.id !== "splitRight") {
+      return true;
     } else {
-      return viewport.id === "secondary";
+      return viewport.id === "splitRight";
     }
   }, []);
+
+  // const onResize = useEffect(
+  //   (event) => {
+  //     // event.target.resize();
+  //     // map.resize();
+  //     // if (mapRef.current) {
+  //     //   console.log(mapRef.current);
+  //     //   mapRef.current.resize();
+
+  //       // event.map.resize();
+  //     }
+  //   },
+  //   [mapDemographics]
+  // );
 
   return (
     <div>
       <DeckGL
         // viewState={viewState}
+        style={{ backgroundColor: "black" }}
         initialViewState={viewState}
         onViewStateChange={onViewStateChange}
-        views={mapDemographics ? [mainView, secondaryView] : [mainView]}
+        views={mapDemographics ? [splitViewLeft, splitViewRight] : [mainView]}
         // layers={mainMap ? [metricLayers, annoLayers] : [demoLayers, annoLayers]}
         layers={[metricLayers, demoLayers, annoLayers]}
         getCursor={() => "crosshair"}
         getTooltip={getTooltip}
         layerFilter={layerFilter}
+        // onResize={console.log("resize")}
         // eventRecognizerOptions={
         //   isMobile ? { pan: { threshold: 10 }, tap: { threshold: 5 } } : {}
         // }
         // style={{ mixBlendMode: "multiply" }}
         // _pickable={isMobile ? false : true}
       >
-        <MapView id="primary">
-          <Map
-            reuseMaps
-            mapStyle={mapStyle}
-            preventStyleDiffing={true}
-            mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-            attributionControl={false}
-            logoPosition="top-left"
-          />
-          <div style={mapBackgroundStyle} />
-        </MapView>
+        {!mapDemographics && (
+          <MapView id="primary">
+            <Map
+              ref={mapRef}
+              reuseMaps
+              mapStyle={mapStyle}
+              preventStyleDiffing={true}
+              mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+              attributionControl={false}
+              logoPosition="bottom-left"
+            />
+          </MapView>
+        )}
+
         {mapDemographics && (
-          <MapView id="secondary">
+          <MapView id="splitLeft">
             <Map
               reuseMaps
               mapStyle={mapStyle}
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
-              logoPosition="top-left"
+              logoPosition="bottom-left"
             />
             <div style={mapBackgroundStyle} />
+            {selectedSpecificIssue && (
+              <div style={splitScreenPositioning}>
+                <div style={splitScreenHeader}>
+                  {
+                    issues.specific_issues_data[selectedSpecificIssue]
+                      .specific_issue_name
+                  }{" "}
+                  by{" "}
+                  {boundary == "community"
+                    ? "Community Boards"
+                    : "City Districts"}
+                </div>
+              </div>
+            )}
+          </MapView>
+        )}
+        {mapDemographics && (
+          <MapView id="splitRight">
+            <Map
+              reuseMaps
+              mapStyle={mapStyle}
+              preventStyleDiffing={true}
+              mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+              attributionControl={false}
+              logoPosition="bottom-left"
+            />
+            <div style={mapBackgroundStyle} />
+            {demographic && (
+              <div style={splitScreenPositioning}>
+                <div style={splitScreenHeader}>
+                  {demoLookup[demographic].name}
+                </div>
+              </div>
+            )}
           </MapView>
         )}
       </DeckGL>

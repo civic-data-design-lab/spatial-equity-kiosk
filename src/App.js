@@ -77,9 +77,9 @@ function App() {
     // map starting position and view state constraints
 
     const [viewState, setViewState] = useState({
-        longitude: -73.9,
+        longitude: -74,
         latitude: 40.7131,
-        zoom: 10,
+        zoom: 9.5,
     });
 
     const [mapSelection, setMapSelection] = useState([]);
@@ -149,7 +149,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-        console.log("demoLookup ", demoLookup);
+        // console.log("demoLookup ", demoLookup);
         // console.log("HERE ARE THE STATES")
         // console.log("selectedChapter ", selectedChapter)
         // console.log("selectedIssue ", selectedIssue)
