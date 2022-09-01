@@ -1430,6 +1430,7 @@ input:checked + .slider:before {
 }
 
 .mobile-nav-header {
+    z-index: 1;
     padding: 1rem;
     border: 1px solid black;
     display: flex;
@@ -1485,6 +1486,12 @@ input:checked + .slider:before {
     transition: color 0.5s, background-color 0.5s;
 }
 
+.demographics-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 
 .mobile-demographics-toggle {
@@ -1500,6 +1507,8 @@ input:checked + .slider:before {
     border-bottom: 1px solid black;
     display: flex;
     flex-direction: row;
+    background-color: white;
+    z-index: 1;
 }
 
 .category-dropdown, .issue-dropdown {
@@ -1550,6 +1559,10 @@ input:checked + .slider:before {
         border-bottom: 1px solid black;
         align-items: normal;
 
+    }
+
+    .demographics-container {
+        height: 40vh;
     }
 
 

@@ -453,7 +453,7 @@ export default function Legend({
 
                     return (
                         <div>
-                            <p className={"mb-3"}>NYC Overall {demoLookup.name}</p>
+                            <p className={"mb-3 small-font"}>NYC Overall {demoLookup.name}</p>
                             <div className={"placeholder-legend placeholder-legend-ethnicity"} />
                             <GridGraph 
                                 colorRamps={colorRamps}

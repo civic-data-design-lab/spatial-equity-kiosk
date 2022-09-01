@@ -2,9 +2,10 @@ import {faCaretDown, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useState} from "react";
 import MapToggle from "../MapToggle";
+import Demographics from "../Demographics";
 import Histogram from "../Histogram";
 import IssueProfile from "../IssuesProfile";
-import Demographics from "../Demographics";
+import Map from "../Map"
 
 
 export default function CitywideData({
@@ -42,7 +43,36 @@ export default function CitywideData({
                                          demoLegendBins,
                                          setDemoColorRamp,
                                          setDemoLegendBins,
-                                         demoLookup
+                                         demoLookup,
+                                         toggleUnderperformers,
+                                         setSelectedChapter,
+                                         communitySearch,
+                                         setCommunitySearch,
+                                         addCompare,
+                                         setAddCompare,
+                                         compareSearch,
+                                         setCompareSearch,
+                                         viewState,
+                                         setViewState,
+                                         mapSelection,
+                                         setMapSelection,
+                                         zoomToggle,
+                                         setzoomToggle,
+                                         handleLegend,
+                                         sethandleLegend,
+                                         coordinateLookup,
+                                         setCoordinateLookup,
+                                         dataScale,
+                                         setdataScale,
+                                         highlightFeature,
+                                         sethighlightFeature,
+                                         selectedCoord,
+                                         selectedCompareCoord,
+                                         setSelectedCoord,
+                                         setSelectedCompareCoord,
+                                         badSearch,
+                                         setBadSearch,
+                                         mainMap
                                      }) {
 
 
@@ -72,6 +102,7 @@ export default function CitywideData({
         console.log(specific_issues)
         return specific_issues.map((issue, index) => {
             return <div key={index}
+                        style={{zIndex:3}}
                         className={`mobile-dropdown-item ${selectedSpecificIssue === issue.specific_issue_ID ? "active-scheme" : "inactive-scheme"}`}
                         onClick={() => {
                             setShowIssues(false)
@@ -229,7 +260,7 @@ export default function CitywideData({
                             }}/>
                         </div>
                         {showIssues && <div className={"position-absolute w-100"}
-                                            style={{maxHeight: "30vh", overflow: "auto", border: "1px solid black"}}
+                                            style={{maxHeight: "30vh", overflow: "auto", border: "1px solid black", zIndex:3}}
                         >
                             {getIssueItems()}
                         </div>}
@@ -248,34 +279,48 @@ export default function CitywideData({
                 </div>
             }
 
-            {selectedIssue && selectedSpecificIssue &&
-                <div className={"h-100 big-padding"} style={{border: "1px solid black", overflow: "auto"}}>
-                    <p>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
-                    <p className={"small-font mb-0"}>Source: {issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}</p>
-                    <Histogram
+
+
+                <div className={`${selectedIssue&&selectedSpecificIssue?"big-padding":"no-padding"}`}
+                     style={{overflow: "auto",
+                         maxHeight:selectedIssue&&selectedSpecificIssue?"100vh":"0vh",
+                         border:selectedIssue&&selectedSpecificIssue?"1px solid black":"none",
+                         opacity:showMap?0:1,
+                         zIndex:!showMap?1:-1,
+                         backgroundColor:showMap?"transparent":"white",
+                         transition:"max-height 0.5s, padding 0.5s"
+                }}>
+                    <p className={"mb-3"}>{issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_ranking_narrative || null}</p>
+                    <p className={"small-font mb-0"}>
+                        {issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_source ? `Source: ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}`:null}</p>
+                    {selectedSpecificIssue && <> <Histogram
                         colorRampsyType={selectedIssue === 1 ? "health" : selectedIssue === 2 ? "env" : "infra"}
                         issues={issues}
                         boundary={boundary}
                         selectedSpecificIssue={selectedSpecificIssue}
                     />
 
-                    <br/>
+                        <br/>
 
-                    <IssueProfile issues={issues}
-                                  selectedSpecificIssue={selectedSpecificIssue}
-                                  boundary={boundary}
-                                  setSelectedSpecificIssue={setSelectedSpecificIssue}/>
+                        <IssueProfile issues={issues}
+                        selectedSpecificIssue={selectedSpecificIssue}
+                        boundary={boundary}
+                        setSelectedSpecificIssue={setSelectedSpecificIssue}/> </>}
+
+
                 </div>
-            }
 
-            <div>
+
+
+            <div style={{zIndex:1}}>
                 <div
                     className={`mobile-demographics-toggle ${showDemographics ? "active-scheme" : "inactive-scheme"}`}
                     style={{
                         height: selectedIssue && selectedSpecificIssue ? "5vh" : "0",
                         transition: "height 0.5s, padding 0.5s, border 0.5s",
                         border: selectedSpecificIssue && selectedIssue ? "1px solid black" : "none",
-                        padding: selectedSpecificIssue && selectedIssue ? "0.5rem 1rem" : "0"
+                        padding: selectedSpecificIssue && selectedIssue ? "0.5rem 1rem" : "0",
+                        zIndex:1,
                     }}
                 >
                     {selectedIssue && selectedSpecificIssue &&
@@ -299,10 +344,22 @@ export default function CitywideData({
                              ${selectedIssue && selectedSpecificIssue && showDemographics ? "big-padding" : "no-padding"}`}
                  style={{
                      height: selectedIssue && selectedSpecificIssue && showDemographics ? "100%" : "0",
-                     transition: "height 0.5s, padding 0.5s", bottom: 0, border: selectedIssue && selectedSpecificIssue && showDemographics?"1px solid black":"none"
+                     transition: "height 0.5s, padding 0.5s",
+                     bottom: 0,
+                     zIndex:1,
+                     backgroundColor: "white",
+                     border: selectedIssue && selectedSpecificIssue && showDemographics ? "1px solid black" : "none",
+                     /*position: selectedIssue && selectedSpecificIssue && showDemographics && showMap ? "absolute" : "0",
+                     zIndex: selectedIssue && selectedSpecificIssue && showDemographics && showMap ? 2 : */
                  }}
             >
-                {selectedIssue && selectedSpecificIssue && showDemographics &&  <Demographics
+                <div
+                    style={{
+                        maxHeight: selectedIssue && selectedSpecificIssue && showDemographics ? "40vh" : "0",
+                        transition: "max-height 0.5s"
+                    }}
+                >
+                <Demographics
                     currentValue={demographic}
                     setValue={setDemographic}
                     selectedSpecificIssue={selectedSpecificIssue}
@@ -320,13 +377,14 @@ export default function CitywideData({
                     setToggleBike={setToggleBike}
                     toggleWalk={toggleWalk}
                     setToggleWalk={setToggleWalk}
-                    colorRamps={colorRamps} // legendBins={legendBins}
+                    colorRamps={selectedIssue === 1 ? "health" : selectedIssue === 2 ? "env" : "infra"}// legendBins={legendBins}
                     demoColorRamp={demoColorRamp}
                     demoLegendBins={demoLegendBins}
                     setDemoColorRamp={setDemoColorRamp}
                     setDemoLegendBins={setDemoLegendBins}
-                    demoLookup={demoLookup} showMap={showMap}
-                />}
+                    demoLookup={demoLookup[demographic]} showMap={showMap}
+                />
+                </div>
             </div>
 
 

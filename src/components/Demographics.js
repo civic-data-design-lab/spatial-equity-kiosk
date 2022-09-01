@@ -108,9 +108,8 @@ export default function Demographics({
     return (
         <>
             <div
-                className={` h-100 d-flex flex-column ${showDemographics ? "expand-demographic" : "collapse-demographic"
+                className={`demographics-container  ${showDemographics ? "expand-demographic" : "collapse-demographic"
                 }`}
-                style={{justifyContent: "space-between"}}
             >
                 <div className={"dropdown-container"}>
                     <div
@@ -121,7 +120,7 @@ export default function Demographics({
                             setShowDropdownItems(!showDropdownItems);
                         }}
                     >
-                        <p className={"mb-0"}>{toggleText}</p>
+                        <p className={"mb-0 small-font"}>{toggleText}</p>
 
                         {!showDropdownItems && <FontAwesomeIcon icon={faCaretDown}/>}
                         {showDropdownItems && <FontAwesomeIcon icon={faCaretUp}/>}
