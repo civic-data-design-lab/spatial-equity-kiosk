@@ -194,7 +194,7 @@ export default function Demographics({
                     communitySearch &&
                     !compareSearch &&
                     selectedChapter === 3 && (
-                        <div>
+                        <>
 
                             <Legend
                                 mapDemographics={mapDemographics}
@@ -229,14 +229,14 @@ export default function Demographics({
                                     )}
                                 </div>
                             </div>
-                        </div>
+                        </>
                     )}
 
                 {currentValue &&
                     communitySearch &&
                     compareSearch &&
                     selectedChapter === 3 && (
-                        <div id={"demographic-slider"}>
+                        <div id={"demographic-slider"} style={{ flex: 1 }}>
                             <Slider>
                                 <div>
                                     {currentValue === "1" && <p className={"m-0 small-font"}>
