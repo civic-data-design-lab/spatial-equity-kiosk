@@ -150,11 +150,52 @@ export default function Demographics({
                     </div>
                 </div>
 
-                <div style={{ flex: 1 }}>
 
-                    {currentValue && selectedChapter === 2 && (
+                {currentValue && selectedChapter === 2 && (
 
-                        <>
+                    <>
+                        <Legend
+                            mapDemographics={mapDemographics}
+                            demoColorRamp={demoColorRamp}
+                            demoLegendBins={demoLegendBins}
+                            demoLookup={demoLookup}
+                            demographic={demographic}
+                            legendBins={demoLegendBins}
+                            colorRamps={demoColorRamp}
+                            boundary
+                            dataScale
+                            setdataScale
+                            forDemographic={true}
+                            transitToggles={getTransitToggles()}
+                        />
+
+                        {showMap && <div
+                            className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"
+                                }`}
+                            onClick={() => {
+                                setMapDemographics(!mapDemographics);
+                            }}
+                        >
+                            <div><p
+                                className={"mb-0 small-font"}>{mapDemographics ? "Remove from map" : "Show on map"}</p>
+                            </div>
+                            <div>
+                                {mapDemographics ? (
+                                    <FontAwesomeIcon icon={faMinus} />
+                                ) : (
+                                    <FontAwesomeIcon icon={faPlus} />
+                                )}
+                            </div>
+                        </div>}
+                    </>
+                )}
+
+                {currentValue &&
+                    communitySearch &&
+                    !compareSearch &&
+                    selectedChapter === 3 && (
+                        <div>
+
                             <Legend
                                 mapDemographics={mapDemographics}
                                 demoColorRamp={demoColorRamp}
@@ -170,7 +211,7 @@ export default function Demographics({
                                 transitToggles={getTransitToggles()}
                             />
 
-                            {showMap && <div
+                            <div
                                 className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"
                                     }`}
                                 onClick={() => {
@@ -187,111 +228,69 @@ export default function Demographics({
                                         <FontAwesomeIcon icon={faPlus} />
                                     )}
                                 </div>
-                            </div>}
-                        </>
+                            </div>
+                        </div>
                     )}
 
-                    {currentValue &&
-                        communitySearch &&
-                        !compareSearch &&
-                        selectedChapter === 3 && (
-                            <div>
+                {currentValue &&
+                    communitySearch &&
+                    compareSearch &&
+                    selectedChapter === 3 && (
+                        <div id={"demographic-slider"}>
+                            <Slider>
+                                <div>
+                                    {currentValue === "1" && <p className={"m-0 small-font"}>
+                                        {(councils[communitySearch] &&
+                                            councils[communitySearch].name) ||
+                                            (communities[communitySearch] &&
+                                                communities[communitySearch].name)}
+                                    </p>}
 
-                                <Legend
-                                    mapDemographics={mapDemographics}
-                                    demoColorRamp={demoColorRamp}
-                                    demoLegendBins={demoLegendBins}
-                                    demoLookup={demoLookup}
-                                    demographic={demographic}
-                                    legendBins={demoLegendBins}
-                                    colorRamps={demoColorRamp}
-                                    boundary
-                                    dataScale
-                                    setdataScale
-                                    forDemographic={true}
-                                    transitToggles={getTransitToggles()}
-                                />
 
-                                <div
-                                    className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"
-                                        }`}
-                                    onClick={() => {
-                                        setMapDemographics(!mapDemographics);
-                                    }}
-                                >
-                                    <div><p
-                                        className={"mb-0 small-font"}>{mapDemographics ? "Remove from map" : "Show on map"}</p>
-                                    </div>
-                                    <div>
-                                        {mapDemographics ? (
-                                            <FontAwesomeIcon icon={faMinus} />
-                                        ) : (
-                                            <FontAwesomeIcon icon={faPlus} />
-                                        )}
-                                    </div>
+                                    <Legend
+                                        mapDemographics={mapDemographics}
+                                        demoColorRamp={demoColorRamp}
+                                        demoLegendBins={demoLegendBins}
+                                        demoLookup={demoLookup}
+                                        demographic={demographic}
+                                        legendBins={demoLegendBins}
+                                        colorRamps={demoColorRamp}
+                                        boundary
+                                        dataScale
+                                        setdataScale
+                                        forDemographic={true}
+                                        transitToggles={getTransitToggles()}
+                                    />
                                 </div>
-                            </div>
-                        )}
-
-                    {currentValue &&
-                        communitySearch &&
-                        compareSearch &&
-                        selectedChapter === 3 && (
-                            <div id={"demographic-slider"}>
-                                <Slider>
-                                    <div>
-                                        {currentValue === "1" && <p className={"m-0 small-font"}>
-                                            {(councils[communitySearch] &&
-                                                councils[communitySearch].name) ||
-                                                (communities[communitySearch] &&
-                                                    communities[communitySearch].name)}
-                                        </p>}
-
-
-                                        <Legend
-                                            mapDemographics={mapDemographics}
-                                            demoColorRamp={demoColorRamp}
-                                            demoLegendBins={demoLegendBins}
-                                            demoLookup={demoLookup}
-                                            demographic={demographic}
-                                            legendBins={demoLegendBins}
-                                            colorRamps={demoColorRamp}
-                                            boundary
-                                            dataScale
-                                            setdataScale
-                                            forDemographic={true}
-                                            transitToggles={getTransitToggles()}
-                                        />
+                                <div>
+                                    <div className={"d-flex flex-row justify-content-between"}>
+                                        {currentValue === "1" &&
+                                            <p className={"m-0 small-font"}>
+                                                {(councils[compareSearch] &&
+                                                    councils[compareSearch].name) ||
+                                                    (communities[compareSearch] &&
+                                                        communities[compareSearch].name)}
+                                            </p>
+                                        }
                                     </div>
-                                    <div>
-                                        <div className={"d-flex flex-row justify-content-between"}>
-                                            {currentValue === "1" &&
-                                                <p className={"m-0 small-font"}>
-                                                    {(councils[compareSearch] &&
-                                                        councils[compareSearch].name) ||
-                                                        (communities[compareSearch] &&
-                                                            communities[compareSearch].name)}
-                                                </p>
-                                            }
-                                        </div>
 
-                                        <Legend
-                                            mapDemographics={mapDemographics}
-                                            demoColorRamp={demoColorRamp}
-                                            demoLegendBins={demoLegendBins}
-                                            demoLookup={demoLookup}
-                                            demographic={demographic}
-                                            legendBins={demoLegendBins}
-                                            colorRamps={demoColorRamp}
-                                            boundary
-                                            dataScale
-                                            setdataScale
-                                            forDemographic={true}
-                                            transitToggles={getTransitToggles()}
-                                        />
-                                    </div>
-                                </Slider>
-                                {/*<div className={"slider-demo-toggle"}>
+                                    <Legend
+                                        mapDemographics={mapDemographics}
+                                        demoColorRamp={demoColorRamp}
+                                        demoLegendBins={demoLegendBins}
+                                        demoLookup={demoLookup}
+                                        demographic={demographic}
+                                        legendBins={demoLegendBins}
+                                        colorRamps={demoColorRamp}
+                                        boundary
+                                        dataScale
+                                        setdataScale
+                                        forDemographic={true}
+                                        transitToggles={getTransitToggles()}
+                                    />
+                                </div>
+                            </Slider>
+                            {/*<div className={"slider-demo-toggle"}>
                             <div className={"d-flex flex-row align-items-center col-gap"}>
                                 <Toggle value={mapDemographics} callback={setMapDemographics}
                                         textOff={"Show on map"}
@@ -300,28 +299,26 @@ export default function Demographics({
                         </div>*/}
 
 
-                                <div
-                                    className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"
-                                        }`}
-                                    onClick={() => {
-                                        setMapDemographics(!mapDemographics);
-                                    }}
-                                >
-                                    <div><p
-                                        className={"mb-0 small-font"}>{mapDemographics ? "Remove from map" : "Show on map"}</p>
-                                    </div>
-                                    <div>
-                                        {mapDemographics ? (
-                                            <FontAwesomeIcon icon={faMinus} />
-                                        ) : (
-                                            <FontAwesomeIcon icon={faPlus} />
-                                        )}
-                                    </div>
+                            <div
+                                className={`big-button ${mapDemographics ? "big-button-active" : "big-button-inactive"
+                                    }`}
+                                onClick={() => {
+                                    setMapDemographics(!mapDemographics);
+                                }}
+                            >
+                                <div><p
+                                    className={"mb-0 small-font"}>{mapDemographics ? "Remove from map" : "Show on map"}</p>
+                                </div>
+                                <div>
+                                    {mapDemographics ? (
+                                        <FontAwesomeIcon icon={faMinus} />
+                                    ) : (
+                                        <FontAwesomeIcon icon={faPlus} />
+                                    )}
                                 </div>
                             </div>
-                        )}
-
-                </div>
+                        </div>
+                    )}
             </div>
         </>
     );

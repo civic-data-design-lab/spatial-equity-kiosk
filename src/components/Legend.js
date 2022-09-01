@@ -292,7 +292,7 @@ export default function Legend({
             case true:
                 if (demoLookup.name !== "Race & Ethnicity" && mapDemographics) {
                     return (
-                        <div className={"d-flex flex-column row-gap"}>
+                        <div className={"d-flex flex-column row-gap"} style={{ flex: 1 }}>
                             <div>
                                {/* {demoLookup.name !== "Population Using Alternative Transportation" && <p className={"mb-3 small-font"}>
                                     {demoLookup.metric_units}{" "}
@@ -375,7 +375,7 @@ export default function Legend({
                     );
                 } else if (mapDemographics) {
                     return (
-                        <div className={"d-flex flex-column row-gap"}>
+                        <div className={"d-flex flex-column row-gap"} style={{ flex: 1 }}>
                             <div>
                                 <p className={"mb-3 small-font"}>NYC Overall {demoLookup.name}</p>
                                 <div
@@ -452,7 +452,7 @@ export default function Legend({
                     ]
 
                     return (
-                        <div>
+                        <div  style={{ flex: 1 }}>
                             <p className={"mb-3 small-font"}>NYC Overall {demoLookup.name}</p>
                             <div className={"placeholder-legend placeholder-legend-ethnicity"} />
                             <GridGraph 
