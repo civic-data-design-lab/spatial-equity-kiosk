@@ -6,6 +6,8 @@ escaping the search box then makes the neighborhoods unclickable (but this is a 
 legend reflects the map domain and range, but it becomes misleading in tile view
 legend for infrastructure behaves differently than the legend for Health and Env
 
+small bug coming from searching up two communities, allowing for duplicate comparisons 
+
 Legend Middle Column:
 
 Map

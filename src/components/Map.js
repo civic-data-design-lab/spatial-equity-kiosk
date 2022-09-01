@@ -557,6 +557,11 @@ export default function DeckMap({
                 : ""
             }</div>
             <!-- TROUBLESHOOTING
+            <div>Centroid ${selectedBoundary.features[
+              info.index
+            ].properties.X_Cent.toFixed(3)}, ${selectedBoundary.features[
+              info.index
+            ].properties.Y_Cent.toFixed(3)}</div>
             <div>${x}, ${y}</div>
             <div>${info.index} Index</div>
             <div>${selectedBoundary.features[
@@ -645,16 +650,31 @@ export default function DeckMap({
                 ? distance(point(ptA), point(ptB))
                 : maxDistance;
 
+            const remapZoom = !mapDemographics
+              ? map_range(ptCompareDistance, 0.3, maxDistance, zoomMax, zoomMin)
+              : mapDemographics &&
+                map_range(
+                  ptCompareDistance,
+                  0.3,
+                  maxDistance,
+                  zoomMax,
+                  zoomMin
+                ) -
+                  0.5 >
+                  zoomMin
+              ? map_range(
+                  ptCompareDistance,
+                  0.3,
+                  maxDistance,
+                  zoomMax,
+                  zoomMin
+                ) - 0.5
+              : zoomMin;
+
             setViewState({
               longitude: (ptA[0] + ptB[0]) / 2,
               latitude: (ptA[1] + ptB[1]) / 2,
-              zoom: map_range(
-                ptCompareDistance,
-                0.3,
-                maxDistance,
-                zoomMax,
-                zoomMin
-              ),
+              zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
               transitionDuration: 500,
               transitionInerpolator: new LinearInterpolator(),
             });
@@ -748,82 +768,6 @@ export default function DeckMap({
 
       updateTriggers: {
         getFillColor: [selectedMetric, mapSelection, addCompare],
-      },
-    }),
-
-    new GeoJsonLayer({
-      id: "administrative-choropleth-highlights",
-      data: selectedBoundary,
-      filled: true,
-      stroked: true,
-
-      getFillColor: (f) => {
-        if (boundary == "community") {
-          if (f.properties.Data_YN == "N") {
-            return [0, 0, 0, 0];
-          }
-        }
-        return [0, 0, 0, 255];
-      },
-      lineWidthUnits: "meters",
-      lineWidthMinPixels: 1,
-
-      getLineColor: (f) => {
-        if (
-          boundary == "council" ||
-          (boundary == "community" && f.properties.Data_YN == "Y")
-        ) {
-          return [0, 0, 0, 255];
-        }
-        return [0, 0, 0, 0];
-      },
-
-      getLineWidth: (w) => {
-        let strokeValue = parseFloat(w.properties[selectedMetric]);
-        if (
-          toggleUnderperformers === true &&
-          (boundary == "council" ||
-            (boundary == "community" && w.properties.Data_YN == "Y"))
-        ) {
-          if (metricGoodBad == 1) {
-            return strokeValue >= underperformers ? 100 : 0;
-          } else {
-            return strokeValue <= underperformers ? 100 : 0;
-          }
-        }
-        return 0;
-      },
-
-      opacity: choroplethOpacity,
-      visible: zoomToggle,
-
-      // props added by FillStyleExtension
-      fillPatternMask: true,
-      fillPatternAtlas: _HATCH_ATLAS,
-      fillPatternMapping: _FILL_PATTERN,
-      getFillPattern: (f) => {
-        let fillValue = parseFloat(f.properties[selectedMetric]);
-        if (toggleUnderperformers === true) {
-          if (metricGoodBad == 1) {
-            return fillValue >= underperformers
-              ? "hatch-pattern"
-              : "hatch-solid";
-          } else {
-            return fillValue <= underperformers
-              ? "hatch-pattern"
-              : "hatch-solid";
-          }
-        }
-        return "hatch-solid";
-      },
-      getFillPatternScale: 10,
-      getFillPatternOffset: [0, 0],
-      // Define extensions
-      extensions: [new FillStyleExtension({ pattern: true })],
-
-      updateTriggers: {
-        getLineWidth: [selectedMetric, zoomToggle, toggleUnderperformers],
-        getFillPattern: [selectedMetric, zoomToggle, toggleUnderperformers],
       },
     }),
   ];
@@ -967,6 +911,82 @@ export default function DeckMap({
   ];
 
   const annoLayers = [
+    new GeoJsonLayer({
+      id: "administrative-choropleth-highlights",
+      data: selectedBoundary,
+      filled: true,
+      stroked: true,
+
+      getFillColor: (f) => {
+        if (boundary == "community") {
+          if (f.properties.Data_YN == "N") {
+            return [0, 0, 0, 0];
+          }
+        }
+        return [0, 0, 0, 255];
+      },
+      lineWidthUnits: "meters",
+      lineWidthMinPixels: 1,
+
+      getLineColor: (f) => {
+        if (
+          boundary == "council" ||
+          (boundary == "community" && f.properties.Data_YN == "Y")
+        ) {
+          return [0, 0, 0, 255];
+        }
+        return [0, 0, 0, 0];
+      },
+
+      getLineWidth: (w) => {
+        let strokeValue = parseFloat(w.properties[selectedMetric]);
+        if (
+          toggleUnderperformers === true &&
+          (boundary == "council" ||
+            (boundary == "community" && w.properties.Data_YN == "Y"))
+        ) {
+          if (metricGoodBad == 1) {
+            return strokeValue >= underperformers ? 100 : 0;
+          } else {
+            return strokeValue <= underperformers ? 100 : 0;
+          }
+        }
+        return 0;
+      },
+
+      opacity: choroplethOpacity,
+      visible: zoomToggle,
+
+      // props added by FillStyleExtension
+      fillPatternMask: true,
+      fillPatternAtlas: _HATCH_ATLAS,
+      fillPatternMapping: _FILL_PATTERN,
+      getFillPattern: (f) => {
+        let fillValue = parseFloat(f.properties[selectedMetric]);
+        if (toggleUnderperformers === true) {
+          if (metricGoodBad == 1) {
+            return fillValue >= underperformers
+              ? "hatch-pattern"
+              : "hatch-solid";
+          } else {
+            return fillValue <= underperformers
+              ? "hatch-pattern"
+              : "hatch-solid";
+          }
+        }
+        return "hatch-solid";
+      },
+      getFillPatternScale: 10,
+      getFillPatternOffset: [0, 0],
+      // Define extensions
+      extensions: [new FillStyleExtension({ pattern: true })],
+
+      updateTriggers: {
+        getLineWidth: [selectedMetric, zoomToggle, toggleUnderperformers],
+        getFillPattern: [selectedMetric, zoomToggle, toggleUnderperformers],
+      },
+    }),
+
     new GeoJsonLayer({
       id: "administrative-boundaries",
       data: selectedBoundary,
