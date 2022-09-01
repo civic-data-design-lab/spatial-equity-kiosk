@@ -29,7 +29,7 @@ export default function Legend({
     demoColorRamp,
     demoLegendBins,
     mapDemographics,
-    showMap, transitToggles=null
+    showMap, transitToggles = null
 }) {
 
     // console.log("demoLegendBins", demoLegendBins)
@@ -195,7 +195,7 @@ export default function Legend({
                 } else {
                     return (
                         <>
-                                <div className={"d-flex flex-column justify-content-between"}>
+                            <div className={"d-flex flex-column justify-content-between"}>
                                 <p className={"small-font mb-1"}>
                                     {
                                         issues.specific_issues_data[selectedSpecificIssue]
@@ -262,7 +262,7 @@ export default function Legend({
                                     </div>
                                     <div className={"small-font"}>{cleanNumbers[3]}+</div>
                                 </div>
-                                    </div>
+                            </div>
 
 
                             {showMap && (
@@ -294,15 +294,15 @@ export default function Legend({
                     return (
                         <div className={"d-flex flex-column row-gap"} style={{ flex: 1 }}>
                             <div>
-                               {/* {demoLookup.name !== "Population Using Alternative Transportation" && <p className={"mb-3 small-font"}>
+                                {/* {demoLookup.name !== "Population Using Alternative Transportation" && <p className={"mb-3 small-font"}>
                                     {demoLookup.metric_units}{" "}
                                 </p>}*/}
-                                    {demoLookup.lookup !== "F10_TrsBkW"
-                                        ? <p className={"mb-1 small-font"}>{demoLookup.name}</p>
-                                        : <div className={"d-flex col-gap"}>
-                                            <p className={"mb-1 small-font"}>% population using</p>
-                                            {transitToggles}
-                                        </div>}
+                                {demoLookup.lookup !== "F10_TrsBkW"
+                                    ? <p className={"mb-1 small-font"}>{demoLookup.name}</p>
+                                    : <div className={"d-flex col-gap"}>
+                                        <p className={"mb-1 small-font"}>% population using</p>
+                                        {transitToggles}
+                                    </div>}
 
                                 <div className={"placeholder-legend"}>
                                     <div
@@ -427,13 +427,27 @@ export default function Legend({
                     );
                 } else {
                     // DEFAULT CASE - ADD D3 DEMOGRAPHICS COMPONENT HERE!
-                    let colorRamps = [
-                        _ETHNICITY_COLORS.Hispanic.htmlFormat,
-                        _ETHNICITY_COLORS.White.htmlFormat,
-                        _ETHNICITY_COLORS.Black.htmlFormat,
-                        _ETHNICITY_COLORS.Asian.htmlFormat,
-                        _ETHNICITY_COLORS.Other.htmlFormat
-                    ]
+                    let gridColorRamps
+
+
+                    if (demoLookup.name !== "Race & Ethnicity") {
+                        gridColorRamps = [
+                            `rgb(${demoLookup.colorRamp[0].join(",")})`,
+                            `rgb(${demoLookup.colorRamp[1].join(",")})`,
+                            `rgb(${demoLookup.colorRamp[2].join(",")})`,
+                            `rgb(${demoLookup.colorRamp[3].join(",")})`,
+                            `rgb(${demoLookup.colorRamp[4].join(",")})`
+                        ]
+                    } else {
+                        gridColorRamps = [
+                            _ETHNICITY_COLORS.Hispanic.htmlFormat,
+                            _ETHNICITY_COLORS.White.htmlFormat,
+                            _ETHNICITY_COLORS.Black.htmlFormat,
+                            _ETHNICITY_COLORS.Asian.htmlFormat,
+                            _ETHNICITY_COLORS.Other.htmlFormat
+                        ]
+                    }
+
 
                     let percList = [
                         29,
@@ -451,12 +465,14 @@ export default function Legend({
                         'Other'
                     ]
 
+                    console.log(gridColorRamps)
+
                     return (
-                        <div  style={{ flex: 1 }}>
+                        <div style={{ flex: 1 }}>
                             <p className={"mb-3 small-font"}>NYC Overall {demoLookup.name}</p>
                             <div className={"placeholder-legend placeholder-legend-ethnicity"} />
-                            <GridGraph 
-                                colorRamps={colorRamps}
+                            <GridGraph
+                                colorRamps={gridColorRamps}
                                 percList={percList}
                                 textList={textList}
                             />
