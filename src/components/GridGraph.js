@@ -73,12 +73,14 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
         let getGridText = () => {
             var text = new Array();
             for (var i = 0; i < textList.length; i++) {
-                text.push({
-                    text: textList[i] + " " + percList[i] + "%",
-                    color: colorRamps[i],
-                    x: width / textList.length * i,
-                    y: (squareWidth + intervalPx) * (numHeight + 0.5),
-                })
+                if (textList[i] !== "") {
+                    text.push({
+                        text: textList[i] + " " + percList[i] + "%",
+                        color: colorRamps[i],
+                        // x: width / textList.length * i,
+                        y: (squareWidth + intervalPx) * (numHeight + 0.5),
+                    })
+                }
             }
             return text;
         }
@@ -114,13 +116,16 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             .attr("class", "gridText")
             .merge(svg.selectAll(".gridText")
                 .data(gridText))
-            .attr("x", (d) => (d.x))
+            // .attr("x", (d) => (d.x))
             .attr("y", (d) => (d.y))
             .attr("style", "font-family:Inter")
             .attr("style", "font-weight:bold")
             .attr("font-size", "14")
             .style("fill", (d) => (d.color))
             .text((d) => (d.text));
+
+        // svg.selectAll(".gridText")
+        //     .
 
         // clear Chart
         svg.selectAll(".gridSquare")
