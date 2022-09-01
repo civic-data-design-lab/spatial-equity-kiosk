@@ -1503,24 +1503,39 @@ input:checked + .slider:before {
 }
 
 .citywide-nav {
-    height: 5vh;
+    height: 10vh;
     border-bottom: 1px solid black;
     display: flex;
     flex-direction: row;
+    align-items: center;
     background-color: white;
     z-index: 1;
 }
 
-.category-dropdown, .issue-dropdown {
+.category-dropdown {
     height: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 0rem 1rem;
     border: 1px solid black;
+    border-top: none;
+    border-bottom: none;
     column-gap: 0.5rem;
 }
 
+.issue-dropdown {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0rem 1rem;
+    border: 1px solid black;
+    border-top: none;
+    border-bottom: none;
+    column-gap: 0.5rem;
+    border-left: none;
+}
 
 .citywide-issue-dropdown {
     min-width: 0;
@@ -1556,8 +1571,8 @@ input:checked + .slider:before {
 
     .map-toggle {
         border: none;
-        border-bottom: 1px solid black;
-        align-items: normal;
+        border-bottom: 0px solid black;
+        align-items: center;
 
     }
 
