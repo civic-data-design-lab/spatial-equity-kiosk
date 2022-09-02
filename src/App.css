@@ -802,6 +802,9 @@ a:active {
     border: 2px solid black;
 }
 
+.mapbox-logo{
+    display: none !important;
+}
 
 /* Share Button */
 .share {
