@@ -176,10 +176,6 @@ function Nav({
               setBadSearch={setBadSearch}
             />
           </div>
-          <div className={"no-pointer"}>
-            <p className={"bold"}>{issue_categories.labels[selectedIssue]}</p>
-            <p>{issue_categories.descriptions[selectedIssue]}</p>
-          </div>
         </div>
       </div>
 

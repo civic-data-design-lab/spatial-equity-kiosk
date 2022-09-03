@@ -480,16 +480,14 @@ a:active {
 }
 
 .boundary-toggle-item-active {
-    background-color: black;
-    color: White;
-    /*transition: background-color 0.5s, color 0.5s;*/
+    background-color: white;
+    color: black;
     cursor: auto;
 }
 
 .boundary-toggle-item-inactive {
-    background-color: white;
-    color: black;
-    /*transition: background-color 0.5s, color 0.5s;*/
+    background-color: black;
+    color: white;
 }
 
 .boundary-toggle-item {
@@ -501,7 +499,12 @@ a:active {
     align-items: center;
     height: 100%;
     border: 1.5px solid white;
-    /*transition: background-color 0.5s, color 0.5s;*/
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.boundary-toggle-item:hover {
+    background-color: white;
+    color: black;
 }
 
 /*.boundary-toggle-item:hover {

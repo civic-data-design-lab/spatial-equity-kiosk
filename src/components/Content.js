@@ -161,6 +161,11 @@ export default function Content({
             setMoreIssuesLength={setMoreIssuesLength}
             setSelectedSpecificIssue={setSelectedSpecificIssue}
             colorRamps={colorRamps}
+            setSelectedChapter={setSelectedChapter}
+            setCommunitySearch={setCommunitySearch}
+            communities={communities}
+            councils={councils}
+
           />
         )}
 
@@ -183,6 +188,8 @@ export default function Content({
             setMoreIssues={setMoreIssues}
             moreIssuesLength={moreIssuesLength}
             setMoreIssuesLength={setMoreIssuesLength}
+            setSelectedChapter={setSelectedChapter}
+            setCommunitySearch={setCommunitySearch}
           />
         )}
 
