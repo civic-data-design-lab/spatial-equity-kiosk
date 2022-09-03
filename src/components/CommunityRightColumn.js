@@ -30,7 +30,9 @@ export default function CommunityRightColumn({
                 <div className={"typewriter-container"}>
                     <Typewriter
                     options={{
-                        strings: (boundary === "community" ? ['Hamilton Heights', "Bronx 9", 'Bedford Stuyvesant'] : ["Washington Heights", "District 5", "Bensonhurst"]),
+                        strings: (boundary === "community" ? ['your address', 'Hamilton Heights', '111 John Street',
+                            "Bronx 9", 'Bedford Stuyvesant', '350 5th Avenue'] : ["your address", "Washington Heights", "350 5th Avenue", "District 5", "111 John Street",
+                            "Bensonhurst"]),
                         autoStart: true,
                         loop: true,
                         pauseFor: 2000,

@@ -12,7 +12,7 @@ export default function IssuesTileView({
     communitySearch, compareSearch,
     boundary, demographic, showDemographics,
     moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength,
-    setSelectedSpecificIssue, colorRamps
+    setSelectedSpecificIssue, colorRamps, setCommunitySearch, setSelectedChapter, communities, councils
 }) {
 
     const [expand, setExpand] = useState(false)
@@ -74,7 +74,9 @@ export default function IssuesTileView({
 
 
                         <div className={"col-6 w-50 overflow-scroll"}>
-                            <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue} boundary={boundary} setSelectedSpecificIssue={setSelectedSpecificIssue} />
+                            <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue} boundary={boundary} setSelectedSpecificIssue={setSelectedSpecificIssue}
+                                          setCommunitySearch={setCommunitySearch} setSelectedChapter={setSelectedChapter} councils={councils} communities={communities}
+                            />
                         </div>
                     </div>
                 </div>
