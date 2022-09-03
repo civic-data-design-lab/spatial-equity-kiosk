@@ -129,6 +129,7 @@ export default function CommunityNav({
     return searchItems;
   };
 
+  // console.log("communitySearch", communitySearch);
   return (
     <div
       className={
@@ -196,8 +197,12 @@ export default function CommunityNav({
               ? `${
                   communitySearch
                     ? boundary === "council"
-                      ? councils[communitySearch].name
-                      : communities[communitySearch].name
+                      ? councils[communitySearch]
+                        ? councils[communitySearch].name
+                        : ""
+                      : communities[communitySearch]
+                      ? communities[communitySearch].name
+                      : ""
                     : ""
                 } is already selected!`
               : `Nothing found. Try searching for something else.`}

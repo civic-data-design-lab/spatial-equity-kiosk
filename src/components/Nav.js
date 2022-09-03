@@ -170,6 +170,10 @@ function Nav({
               setBoundary={setBoundary}
               setCompareSearch={setCompareSearch}
               setCommunitySearch={setCommunitySearch}
+              setSelectedCoord={setSelectedCoord}
+              setselectedCompareCoord={setselectedCompareCoord}
+              badSearch={badSearch}
+              setBadSearch={setBadSearch}
             />
           </div>
           <div className={"no-pointer"}>
@@ -235,6 +239,10 @@ function Nav({
               setBoundary={setBoundary}
               setCompareSearch={setCompareSearch}
               setCommunitySearch={setCommunitySearch}
+              setSelectedCoord={setSelectedCoord}
+              setselectedCompareCoord={setselectedCompareCoord}
+              badSearch={badSearch}
+              setBadSearch={setBadSearch}
             />
           </div>
           <CommunityNav

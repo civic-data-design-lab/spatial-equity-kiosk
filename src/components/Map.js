@@ -269,6 +269,7 @@ export default function DeckMap({
   }
 
   // 01.4 Color Scale function
+
   const COLOR_SCALE =
     dataScale == "equal"
       ? scaleThreshold().domain(binList).range(_CHAPTER_COLORS[selectedRamp])
@@ -762,11 +763,15 @@ export default function DeckMap({
             } else if (lookup == compareSearch) {
               if (searchSource === "click") {
                 setCompareSearch(null);
-                // setAddCompare(false);
                 setUserPoints([userPoints[0], []]);
               } else {
                 setUserPoints([userPoints[0], searchEngine]);
               }
+            }
+
+            if (booleanPointInPolygon(point(selectedCoord), element)) {
+              setUserPoints([userPoints[0], []]);
+              setCompareSearch(null);
             }
           }
         } else if (searchItemFound.length == 0) {
@@ -792,6 +797,12 @@ export default function DeckMap({
   useEffect(() => {
     updateSearchEngine(selectedCompareCoord, 1);
   }, [selectedCompareCoord, boundary]);
+
+  useEffect(() => {
+    if (!addCompare) {
+      setUserPoints([userPoints[0], []]);
+    }
+  }, [addCompare]);
 
   // 06 Render lifecycle
   useEffect(() => {
@@ -1272,7 +1283,6 @@ export default function DeckMap({
         getCursor={() => "crosshair"}
         getTooltip={getTooltip}
         layerFilter={layerFilter}
-        // onResize={console.log("resize")}
         // eventRecognizerOptions={
         //   isMobile ? { pan: { threshold: 10 }, tap: { threshold: 5 } } : {}
         // }

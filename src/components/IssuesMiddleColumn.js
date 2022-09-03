@@ -43,7 +43,7 @@ export default function IssuesMiddleColumn({
   zoomToggle,
   setColorRamps,
   demoLookup,
-    showMap
+  showMap,
 }) {
   const health_issues = issues.issues_data["health"].specific_issues_ID.map(
     (id_) => {
@@ -128,7 +128,11 @@ export default function IssuesMiddleColumn({
           selectedIssue === 1 ? "expand-issue" : ""
         } accordion-body`}
       >
-        <div className={"h-100 position-relative d-flex flex-column justify-content-between row-gap"}>
+        <div
+          className={
+            "h-100 position-relative d-flex flex-column justify-content-between row-gap"
+          }
+        >
           <IssuesDropDown
             items={health_issues}
             currentValue={selectedSpecificIssue}
@@ -139,10 +143,12 @@ export default function IssuesMiddleColumn({
           />
 
           <div className={`d-flex flex-column h-100 justify-content-between`}>
-            {((selectedSpecificIssue && !showDemographics) || !selectedSpecificIssue) && (
+            {((selectedSpecificIssue && !showDemographics) ||
+              !selectedSpecificIssue) && (
               <div>
-                {selectedSpecificIssue && !showDemographics &&
-                    getRankingNarrative(health_issues)}
+                {selectedSpecificIssue &&
+                  !showDemographics &&
+                  getRankingNarrative(health_issues)}
                 {!selectedSpecificIssue && !showDemographics && (
                   <p className={"mb-0 small-font"}>
                     This is where you will hear about the topic that you select.
@@ -210,7 +216,11 @@ export default function IssuesMiddleColumn({
           selectedIssue === 2 ? "expand-issue" : ""
         } accordion-body`}
       >
-        <div className={"h-100 position-relative d-flex flex-column justify-content-between row-gap"}>
+        <div
+          className={
+            "h-100 position-relative d-flex flex-column justify-content-between row-gap"
+          }
+        >
           <IssuesDropDown
             items={environment_issues}
             currentValue={selectedSpecificIssue}
@@ -221,10 +231,12 @@ export default function IssuesMiddleColumn({
           />
 
           <div className={`d-flex flex-column h-100 justify-content-between`}>
-            {((selectedSpecificIssue && !showDemographics) || !selectedSpecificIssue) && (
+            {((selectedSpecificIssue && !showDemographics) ||
+              !selectedSpecificIssue) && (
               <div>
-                {selectedSpecificIssue && !showDemographics &&
-                    getRankingNarrative(environment_issues)}
+                {selectedSpecificIssue &&
+                  !showDemographics &&
+                  getRankingNarrative(environment_issues)}
                 {!selectedSpecificIssue && !showDemographics && (
                   <p className={"mb-0 small-font"}>
                     This is where you will hear about the topic that you select.
@@ -291,7 +303,11 @@ export default function IssuesMiddleColumn({
           selectedIssue === 3 ? "expand-issue" : ""
         } accordion-body`}
       >
-        <div className={"h-100 position-relative d-flex flex-column justify-content-between row-gap"}>
+        <div
+          className={
+            "h-100 position-relative d-flex flex-column justify-content-between row-gap"
+          }
+        >
           <IssuesDropDown
             items={infrastructure_issues}
             currentValue={selectedSpecificIssue}
@@ -302,10 +318,12 @@ export default function IssuesMiddleColumn({
           />
 
           <div className={`d-flex flex-column h-100 justify-content-between`}>
-            {((selectedSpecificIssue && !showDemographics) || !selectedSpecificIssue) && (
+            {((selectedSpecificIssue && !showDemographics) ||
+              !selectedSpecificIssue) && (
               <div>
-                {selectedSpecificIssue && !showDemographics &&
-                    getRankingNarrative(infrastructure_issues)}
+                {selectedSpecificIssue &&
+                  !showDemographics &&
+                  getRankingNarrative(infrastructure_issues)}
                 {!selectedSpecificIssue && !showDemographics && (
                   <p className={"mb-0 small-font"}>
                     This is where you will hear about the topic that you select.
@@ -349,7 +367,9 @@ export default function IssuesMiddleColumn({
         } issues-chapters no-bottom-border`}
         onClick={() => {
           if (selectedIssue) setShowDemographics(!showDemographics);
-          if (showDemographics){setMapDemographics(false)}
+          if (showDemographics) {
+            setMapDemographics(false);
+          }
         }}
         id="bottom-chapter"
       >
@@ -398,7 +418,8 @@ export default function IssuesMiddleColumn({
             demoLegendBins={demoLegendBins}
             setDemoColorRamp={setDemoColorRamp}
             setDemoLegendBins={setDemoLegendBins}
-            demoLookup={demoLookup} showMap={showMap}
+            demoLookup={demoLookup}
+            showMap={showMap}
           />
         </div>
       </div>
