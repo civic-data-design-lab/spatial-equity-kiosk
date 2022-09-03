@@ -99,8 +99,6 @@ export default function DeckMap({
   councils,
   viewState,
   setViewState,
-  mapSelection,
-  setMapSelection,
   zoomToggle,
   setzoomToggle,
   handleLegend,
@@ -648,7 +646,6 @@ export default function DeckMap({
           }
 
           searchItemFound.push(index);
-          // console.log("searching...", searchItemFound);
           const lookup =
             boundary == "council"
               ? String(element.properties.CounDist)
@@ -671,7 +668,7 @@ export default function DeckMap({
               });
               // select new neighborhood
               setCommunitySearch(lookup);
-              setMapSelection(index, mapSelection[1]);
+              // setMapSelection(index, mapSelection[1]);
             } else if (searchSource === "click") {
               setCommunitySearch(null);
               setUserPoints([[], []]);
@@ -868,7 +865,7 @@ export default function DeckMap({
       visible: zoomToggle,
 
       updateTriggers: {
-        getFillColor: [selectedMetric, mapSelection, addCompare],
+        getFillColor: [selectedMetric, addCompare],
       },
     }),
   ];
@@ -1165,7 +1162,7 @@ export default function DeckMap({
     new GeoJsonLayer({
       id: "administrative-selected",
       data: selectedBoundary,
-      filled: true,
+      filled: false,
       stroked: true,
 
       getLineColor: (f) => {
@@ -1178,44 +1175,29 @@ export default function DeckMap({
             (f.properties.CDTA2020 == communitySearch ||
               f.properties.CDTA2020 == compareSearch))
         ) {
-          return selectedSpecificIssue;
+          return selectedSpecificIssue
+            ? [255, 255, 255, 255]
+            : [127, 255, 0, 255];
         }
         return [0, 0, 0, 0];
       },
-
-      getFillColor: (f) => {
-        if (
-          (boundary == "council" &&
-            (f.properties.CounDist == communitySearch ||
-              f.properties.CounDist == compareSearch)) ||
-          (boundary == "community" &&
-            f.properties.Data_YN == "Y" &&
-            (f.properties.CDTA2020 == communitySearch ||
-              f.properties.CDTA2020 == compareSearch))
-        ) {
-          return selectedSpecificIssue;
-        }
-        return [0, 0, 0, 0];
-      },
-
-      getLineWidth: (f) => {
-        return 100;
-      },
+      getLineWidth: 100,
       updateTriggers: {
         getLineColor: [
           selectedMetric,
-          mapSelection,
           addCompare,
           communitySearch,
           compareSearch,
         ],
         getFillColor: [
           selectedMetric,
-          mapSelection,
           addCompare,
           communitySearch,
           compareSearch,
         ],
+      },
+      parameters: {
+        mixBlendMode: "difference",
       },
     }),
 
@@ -1228,7 +1210,7 @@ export default function DeckMap({
       fontWeight: "1000",
       getColor: [255, 255, 255, 255],
       getText: (d) => d.properties.NTAName.toUpperCase(),
-      getPosition: (x) => x.geometry.coordinates,
+      getPosition: (d) => d.geometry.coordinates,
       getSize: 75,
       maxWidth: 600,
       opacity: !zoomToggle,
@@ -1244,10 +1226,9 @@ export default function DeckMap({
       // radiusMaxPixels: 125,
       lineWidthMinPixels: 1,
       getPosition: (d) => d,
-      // getPosition: (d) => [-73.978, 40.761],
       getRadius: 30,
-      getFillColor: (d) => [0, 0, 0, 255],
-      getLineColor: (d) => [255, 255, 255, 255],
+      getFillColor: [0, 0, 0, 255],
+      getLineColor: [255, 255, 255, 255],
     }),
   ];
 

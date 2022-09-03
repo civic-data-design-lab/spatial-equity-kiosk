@@ -2,7 +2,6 @@ Bug Fix:
 Pressing enter should close the dropdown (or pressing enter)
 escaping the search box then disables the search results show up 
 legend reflects the map domain and range, but it becomes misleading in tile view
-legend breaks sometimes
 
 
 Map
@@ -12,7 +11,4 @@ General
     - introduction text should always be available on Spatial Equity chapter?
 
 next up:
-- map clicking fix (small bug coming from searching up two communities, allowing for duplicate comparisons)
-- searching results in the same neighborhoods "both of these areas are in council district xxx!"
-- legend fix
 - as soon as you search for a new area, the boundary goes, but the circle doesnt, fix this
