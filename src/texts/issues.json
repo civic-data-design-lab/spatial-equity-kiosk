@@ -28,22 +28,16 @@
     },
     "environment": {
       "specific_issues_ID": [
-        4,
+        10,
         5,
         6,
-        10,
         15
       ],
       "issue_description": "Environment Description"
     },
     "infrastructure": {
       "specific_issues_ID": [
-        2,
-        3,
-        8,
-        9,
-        11,
-        12
+        8, 3, 2, 4, 11, 12, 9
       ],
       "issue_description": "Infrastructure Description"
     }
@@ -159,7 +153,7 @@
               "text": "."
             },
             {
-              "text": "Decreasing ",
+              "text": " Decreasing ",
               "hyperlink": "traffic density",
               "source": "https://www.google.com/url?q=https://jamanetwork.com/journals/jama/fullarticle/193572&sa=D&source=docs&ust=1662068675235183&usg=AOvVaw2zg7LUzkcfs7dGSWu6pZyi"
             },
@@ -191,9 +185,7 @@
       "specific_issue_source": "New York State Statewide Planning and Research Cooperative System (SPARCS) Deidentified Hospital Discharge Data",
       "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/VisualizationData.aspx?id=2380,4466a0,11,Summarize",
       "related": [
-        1,
-        2,
-        3
+        10, 12, 15
       ]
   
     },
@@ -611,7 +603,7 @@
           ]
         ]
       },
-      "issue_type_ID": 2,
+      "issue_type_ID": 3,
       "good_or_bad": 0,
       "json_id": "F26_ParkAc",
       "highlight_statement": "least parks",
@@ -840,17 +832,17 @@
               "text": "Install ",
               "hyperlink": "stormwater transit stops",
               "source": "https://nacto.org/publication/urban-street-stormwater-guide/stormwater-elements/green-infrastructure-configurations/stormwater-transit-stop/",
-              "bold": true
+              "bolded": true
             },
             {
               "text": " and ",
               "hyperlink": "stormwater chicanes",
               "source": "https://watershedmg.org/sites/default/files/documents/chicane.pdf",
-              "bold": true
+              "bolded": true
             },
             {
               "text": " in parking spots",
-              "bold": true
+              "bolded": true
             },
             {
               "text": " in flood-prone districts. Exchanging impermeable surfaces for ",
@@ -912,7 +904,7 @@
               "source": "https://www.researchgate.net/publication/23411104_Can_Urban_Tree_Roots_Improve_Infiltration_Through_Compacted_Subsoils_for_Stormwater_Management"
             },
             {
-              "text": "In some of New York City’s most flood-prone neighborhoods, increasing permeable infrastructure from the current less than ",
+              "text": ". In some of New York City’s most flood-prone neighborhoods, increasing permeable infrastructure from the current less than ",
               "hyperlink": "2 percent",
               "source": "https://gothamist.com/news/planning-group-nyc-parking-spots-should-be-converted-to-catch-rainwater-avoid-ida-like-flooding"
             },
@@ -1009,7 +1001,7 @@
           "source": "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1004001"
         },
         {
-          "text": ". Nearly",
+          "text": ". Nearly ",
           "hyperlink": "40 percent",
           "source": "https://www1.nyc.gov/assets/doh/downloads/pdf/epi/databrief45.pdf"
         },
@@ -1109,7 +1101,7 @@
       "related": [
         4,
         12,
-        2
+        15
       ]
     },
     "8": {

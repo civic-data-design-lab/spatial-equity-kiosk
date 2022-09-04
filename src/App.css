@@ -29,6 +29,10 @@
     column-gap: 0.5rem
 }
 
+.big-col-gap {
+    column-gap: 1.5rem;
+}
+
 .row-gap {
     row-gap: 1rem;
 }
@@ -138,6 +142,15 @@ h1, h2, h3, h4, h5, h6, p {
 
 small {
     height: fit-content;
+}
+
+.white-link {
+    color: white;
+    cursor: pointer;
+}
+
+.white-link:hover {
+    color: gray;
 }
 
 

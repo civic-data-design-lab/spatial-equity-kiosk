@@ -141,6 +141,14 @@ export default function Content({
         }`}
         id="right-column"
       >
+
+        {selectedChapter === 1 && (
+           <video width="320" height="240" controls>
+  <source src="https://www.youtube.com/watch?v=Tkculqh0Ha8&t=4s"/>
+
+</video>
+        )}
+
         {selectedChapter === 2 && (
           <IssuesTileView
             selectedSpecificIssue={selectedSpecificIssue}

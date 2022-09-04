@@ -93,13 +93,21 @@ function Nav({
             selectedChapter === 1 ? "nav-chapters-content-expanded" : ""
           } nav-chapters-content `}
         >
-          <div className={"no-pointer"}>
+          <div className={selectedChapter!==1?"no-pointer":""}>
             <h5>
-              Introduction text to issues in New York City. Elit at imperdiet
-              dui accumsan sit amet. Diam donec adipiscing tristique risus nec
-              feugiat in. Vel turpis nunc eget lorem dolor sed viverra. Elit at
-              imperdiet dui accumsan sit amet. Diam donec adipiscing tristique
-              risus nec feugiat in.{" "}
+              Spatial Equity NYC documents inequities in the ways that public space — including streets, sidewalks, and
+                greenspaces — is designed, distributed, and accessed.
+                <span> <a className={"underline white-link"}
+                          onClick={(e)=>{
+                              e.stopPropagation()
+                              setSelectedChapter(2)}}>
+                    Browse citywide data </a></span> or
+                <span> <a className={"underline white-link"} onClick={(e)=>{
+                    e.stopPropagation()
+                    setSelectedChapter(3)
+                }}>search community profiles </a></span>
+                to learn how decisions about the use of public space lead to unequal outcomes and what you can do about
+                it.{" "}
             </h5>
           </div>
         </div>
