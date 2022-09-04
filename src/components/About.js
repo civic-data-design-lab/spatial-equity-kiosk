@@ -383,8 +383,8 @@ export default function About({issues, selectedAbout, setSelectedChapter}) {
                                     return <tr key={index}>
                                         <td>{issues.specific_issues_data[id].specific_issue_ID}</td>
                                         <td>{issues.specific_issues_data[id].specific_issue_name}</td>
-                                        <td>{issues.specific_issues_data[id].specific_issue_source}</td>
-                                        <td>Link</td>
+                                        <td><a target={"_blank"} href={issues.specific_issues_data[id].link}>{issues.specific_issues_data[id].specific_issue_source}</a></td>
+                                        <td>Year</td>
                                     </tr>
                                 })}
                                 </tbody>
