@@ -26,6 +26,10 @@ export default function CommunityNav({
   selectedCompareCoord,
   setselectedCompareCoord,
   badSearch,
+  setBadSearch,
+  setSearchSource,
+  errorCode,
+  setErrorCode,
 }) {
   useEffect(() => {
     if (!communitySearch) {
@@ -34,7 +38,7 @@ export default function CommunityNav({
   });
 
   const [showSearch, setShowSearch] = useState(false);
-  const [showCompareSearch, setShowCompareSearch] = useState(false)
+  const [showCompareSearch, setShowCompareSearch] = useState(false);
 
   const getSearchItems = (forSearch, boundary) => {
     let searchItems = [];
@@ -67,9 +71,7 @@ export default function CommunityNav({
               >
                 <div className={"row w-100 p-0 m-0"}>
                   <div className={"col-10 m-0 p-0"}>
-                    <span style={{ fontWeight: "bold" }}>
-                      {value.name}
-                    </span>{" "}
+                    <span style={{ fontWeight: "bold" }}>{value.name}</span>{" "}
                     {value.neighborhoods}
                   </div>
                   <div
@@ -100,14 +102,12 @@ export default function CommunityNav({
                 } col search-item p-2`}
                 onMouseDown={() => {
                   setCompareSearch(key);
-                  setShowCompareSearch(false)
+                  setShowCompareSearch(false);
                 }}
               >
                 <div className={"row w-100 p-0 m-0"}>
                   <div className={"col-10 m-0 p-0"}>
-                    <span style={{ fontWeight: "bold" }}>
-                      {value.name}
-                    </span>{" "}
+                    <span style={{ fontWeight: "bold" }}>{value.name}</span>{" "}
                     {value.neighborhoods}
                   </div>
                   <div
@@ -129,6 +129,7 @@ export default function CommunityNav({
     return searchItems;
   };
 
+  // console.log("communitySearch", communitySearch);
   return (
     <div
       className={
@@ -143,8 +144,7 @@ export default function CommunityNav({
             communitySearch
               ? (communities[communitySearch] &&
                   communities[communitySearch].name) ||
-                (councils[communitySearch] &&
-                  councils[communitySearch].name)
+                (councils[communitySearch] && councils[communitySearch].name)
               : null
           }
           communitySearch={communitySearch}
@@ -156,6 +156,8 @@ export default function CommunityNav({
           setShowMap={setShowMap}
           primarySearch={true}
           badSearch={badSearch}
+          setBadSearch={setBadSearch}
+          setSearchSource={setSearchSource}
         >
           {getSearchItems(true, boundary)}
         </CommunitySearchBar>
@@ -168,8 +170,7 @@ export default function CommunityNav({
               compareSearch
                 ? (communities[compareSearch] &&
                     communities[compareSearch].name) ||
-                  (councils[compareSearch] &&
-                    councils[compareSearch].name)
+                  (councils[compareSearch] && councils[compareSearch].name)
                 : null
             }
             communitySearch={communitySearch}
@@ -183,9 +184,29 @@ export default function CommunityNav({
             setShowMap={setShowMap}
             primarySearch={false}
             badSearch={badSearch}
+            setBadSearch={setBadSearch}
+            setSearchSource={setSearchSource}
           >
             {getSearchItems(false, boundary)}
           </CommunitySearchBar>
+        )}
+
+        {(badSearch[0] == 1 || badSearch[1] == 1) && (
+          <div className={"small-font"}>
+            {errorCode == 1
+              ? `${
+                  communitySearch
+                    ? boundary === "council"
+                      ? councils[communitySearch]
+                        ? councils[communitySearch].name
+                        : ""
+                      : communities[communitySearch]
+                      ? communities[communitySearch].name
+                      : ""
+                    : ""
+                } is already selected!`
+              : `Nothing found. Try searching for something else.`}
+          </div>
         )}
 
         {communitySearch && !addCompare && (
@@ -220,25 +241,23 @@ export default function CommunityNav({
               <span>
                 {(communities[communitySearch] &&
                   communities[communitySearch].name) ||
-                  (councils[communitySearch] &&
-                    councils[communitySearch].text)}
+                  (councils[communitySearch] && councils[communitySearch].text)}
 
-                <a className={"underline"}
-                   onClick={(e)=>{e.stopPropagation();}}
-                   href={`mailto:${
-                  (councils[communitySearch] &&
-                    councils[communitySearch].councilmember_email) || 
-                      null
-                   }`}
-                >
-                {
-                  (councils[communitySearch] &&
-                    councils[communitySearch].councilmember_name) ||
+                <a
+                  className={"underline"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                  href={`mailto:${
+                    (councils[communitySearch] &&
+                      councils[communitySearch].councilmember_email) ||
                     null
-                }
-                  </a>
-
-
+                  }`}
+                >
+                  {(councils[communitySearch] &&
+                    councils[communitySearch].councilmember_name) ||
+                    null}
+                </a>
               </span>{" "}
               {(communities[communitySearch] &&
                 communities[communitySearch].description) ||
@@ -263,86 +282,82 @@ export default function CommunityNav({
           >
             <Slider>
               <div>
-               <p className={"m-0 community-description"}>
-              <span>
-                {(communities[communitySearch] &&
-                  communities[communitySearch].name) ||
-                  (councils[communitySearch] &&
-                    councils[communitySearch].text)}
+                <p className={"m-0 community-description"}>
+                  <span>
+                    {(communities[communitySearch] &&
+                      communities[communitySearch].name) ||
+                      (councils[communitySearch] &&
+                        councils[communitySearch].text)}
 
-                <a className={"underline"}
-                   onClick={(e)=>{e.stopPropagation();}}
-                   href={`mailto:${
-                  (councils[communitySearch] &&
-                    councils[communitySearch].councilmember_email) || 
-                      null
-                   }`}
-                >
-                {
-                  (councils[communitySearch] &&
-                    councils[communitySearch].councilmember_name) ||
-                    null
-                }
-                  </a>
+                    <a
+                      className={"underline"}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      href={`mailto:${
+                        (councils[communitySearch] &&
+                          councils[communitySearch].councilmember_email) ||
+                        null
+                      }`}
+                    >
+                      {(councils[communitySearch] &&
+                        councils[communitySearch].councilmember_name) ||
+                        null}
+                    </a>
+                  </span>{" "}
+                  {(communities[communitySearch] &&
+                    communities[communitySearch].description) ||
+                    (councils[communitySearch] &&
+                      councils[communitySearch].description)}
+                </p>
 
-
-              </span>{" "}
-              {(communities[communitySearch] &&
-                communities[communitySearch].description) ||
-                (councils[communitySearch] &&
-                  councils[communitySearch].description)}
-            </p>
-
-            <p className={"m-0 small-font"}>
-              {(communities[communitySearch] &&
-                communities[communitySearch].neighborhoods) ||
-                (councils[communitySearch] &&
-                  councils[communitySearch].neighborhoods)}
-            </p>
+                <p className={"m-0 small-font"}>
+                  {(communities[communitySearch] &&
+                    communities[communitySearch].neighborhoods) ||
+                    (councils[communitySearch] &&
+                      councils[communitySearch].neighborhoods)}
+                </p>
               </div>
 
               <div>
                 <p className={"m-0 community-description"}>
-              <span>
-                {(communities[compareSearch] &&
-                  communities[compareSearch].name) ||
-                  (councils[compareSearch] &&
-                    councils[compareSearch].text)}
+                  <span>
+                    {(communities[compareSearch] &&
+                      communities[compareSearch].name) ||
+                      (councils[compareSearch] && councils[compareSearch].text)}
 
-                <a className={"underline"}
-                   onClick={(e)=>{e.stopPropagation();}}
-                   href={`mailto:${
-                  (councils[compareSearch] &&
-                    councils[compareSearch].councilmember_email) || 
-                      null
-                   }`}
-                >
-                {
-                  (councils[compareSearch] &&
-                    councils[compareSearch].councilmember_name) ||
-                    null
-                }
-                  </a>
+                    <a
+                      className={"underline"}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      href={`mailto:${
+                        (councils[compareSearch] &&
+                          councils[compareSearch].councilmember_email) ||
+                        null
+                      }`}
+                    >
+                      {(councils[compareSearch] &&
+                        councils[compareSearch].councilmember_name) ||
+                        null}
+                    </a>
+                  </span>{" "}
+                  {(communities[compareSearch] &&
+                    communities[compareSearch].description) ||
+                    (councils[compareSearch] &&
+                      councils[compareSearch].description)}
+                </p>
 
-
-              </span>{" "}
-              {(communities[compareSearch] &&
-                communities[compareSearch].description) ||
-                (councils[compareSearch] &&
-                  councils[compareSearch].description)}
-            </p>
-
-            <p className={"m-0 small-font"}>
-              {(communities[compareSearch] &&
-                communities[compareSearch].neighborhoods) ||
-                (councils[compareSearch] &&
-                  councils[compareSearch].neighborhoods)}
-            </p>
+                <p className={"m-0 small-font"}>
+                  {(communities[compareSearch] &&
+                    communities[compareSearch].neighborhoods) ||
+                    (councils[compareSearch] &&
+                      councils[compareSearch].neighborhoods)}
+                </p>
               </div>
             </Slider>
           </div>
         )}
-
       </div>
     </div>
   );

@@ -29,6 +29,10 @@
     column-gap: 0.5rem
 }
 
+.big-col-gap {
+    column-gap: 1.5rem;
+}
+
 .row-gap {
     row-gap: 1rem;
 }
@@ -138,6 +142,15 @@ h1, h2, h3, h4, h5, h6, p {
 
 small {
     height: fit-content;
+}
+
+.white-link {
+    color: white;
+    cursor: pointer;
+}
+
+.white-link:hover {
+    color: gray;
 }
 
 
@@ -480,16 +493,14 @@ a:active {
 }
 
 .boundary-toggle-item-active {
-    background-color: black;
-    color: White;
-    /*transition: background-color 0.5s, color 0.5s;*/
+    background-color: white;
+    color: black;
     cursor: auto;
 }
 
 .boundary-toggle-item-inactive {
-    background-color: white;
-    color: black;
-    /*transition: background-color 0.5s, color 0.5s;*/
+    background-color: black;
+    color: white;
 }
 
 .boundary-toggle-item {
@@ -501,7 +512,12 @@ a:active {
     align-items: center;
     height: 100%;
     border: 1.5px solid white;
-    /*transition: background-color 0.5s, color 0.5s;*/
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.boundary-toggle-item:hover {
+    background-color: white;
+    color: black;
 }
 
 /*.boundary-toggle-item:hover {
@@ -802,6 +818,9 @@ a:active {
     border: 2px solid black;
 }
 
+.mapbox-logo{
+    display: none !important;
+}
 
 /* Share Button */
 .share {
@@ -1411,6 +1430,25 @@ input:checked + .slider:before {
     flex-direction: column;
     justify-content: space-between;
     color: black;
+}
+
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video {
+  width: 100%;
+    height: 100%;
 }
 
 

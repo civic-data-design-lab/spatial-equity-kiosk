@@ -37,7 +37,7 @@ const mapStyle = "mapbox://styles/mitcivicdata/cl6fa3jro002d14qxp2nu9wng"; //ton
 const choroplethOpacity = 0.85;
 const binSize = 5; // number of bins in the color ramp
 // Map Viewport settings
-const zoomMin = 10;
+const zoomMin = 9.5;
 const zoomMax = 13;
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
@@ -49,10 +49,31 @@ function map_range(value, low1, high1, low2, high2) {
 
 const mapBackgroundStyle = {
   position: "absolute",
-  // zIndex: -1,
   width: "100%",
   height: "100%",
   border: "2px solid black",
+};
+
+const splitScreenPositioning = {
+  height: "15%",
+  display: "grid",
+  gridTemplateRows: "1fr",
+  margin: "0rem 2.5rem 0rem 2.5rem",
+  // borderRadius: "50px",
+  pointerEvents: "none",
+};
+
+const splitScreenHeader = {
+  padding: "0rem 0.75rem",
+  gridRowStart: "2",
+  verticalAlign: "middle",
+  textAlign: "center",
+  fontFamily: "Inter",
+  color: "white",
+  fontWeight: "500",
+  backgroundColor: "black",
+  border: "1px solid white",
+  // borderRadius: "50px",
 };
 
 export default function DeckMap({
@@ -66,6 +87,7 @@ export default function DeckMap({
   setColorRamps,
   toggleUnderperformers,
   demoLookup,
+  selectedChapter,
   setSelectedChapter,
   communitySearch,
   addCompare,
@@ -77,8 +99,6 @@ export default function DeckMap({
   councils,
   viewState,
   setViewState,
-  mapSelection,
-  setMapSelection,
   zoomToggle,
   setzoomToggle,
   handleLegend,
@@ -95,12 +115,16 @@ export default function DeckMap({
   setSelectedCompareCoord,
   badSearch,
   setBadSearch,
-  mainMap,
+  searchSource,
+  setSearchSource,
+  setErrorCode,
 }) {
   // map hooks
+  const [userPoints, setUserPoints] = useState([], []);
 
+  const mapRef = useRef(null);
   const dataScale = useRef("q"); //set to "equal" for equal binning, "q" for quantile binning
-  const [searchPoint, setSearchPoint] = useState([[], []]);
+  // const [searchPoint, setSearchPoint] = useState([[], []]);
 
   const mainView = new MapView({
     id: "primary",
@@ -110,12 +134,24 @@ export default function DeckMap({
     },
     x: 0,
     y: 0,
-    width: mapDemographics ? "50%" : "100%",
+    width: "100%",
     height: "100%",
     clear: true,
   });
-  const secondaryView = new MapView({
-    id: "secondary",
+  const splitViewLeft = new MapView({
+    id: "splitLeft",
+    controller: {
+      dragRotate: false,
+      doubleClickZoom: false,
+    },
+    x: 0,
+    y: 0,
+    width: "50%",
+    height: "100%",
+    clear: true,
+  });
+  const splitViewRight = new MapView({
+    id: "splitRight",
     controller: {
       dragRotate: false,
       doubleClickZoom: false,
@@ -231,6 +267,7 @@ export default function DeckMap({
   }
 
   // 01.4 Color Scale function
+
   const COLOR_SCALE =
     dataScale == "equal"
       ? scaleThreshold().domain(binList).range(_CHAPTER_COLORS[selectedRamp])
@@ -379,7 +416,8 @@ export default function DeckMap({
     // setViewState(viewState);
     setViewState(() => ({
       primary: viewState,
-      secondary: viewState,
+      splitLeft: viewState,
+      splitRight: viewState,
     }));
     // 04.1 set constraints on view state
 
@@ -590,8 +628,11 @@ export default function DeckMap({
 
   // 00 update via search engine
   function updateSearchEngine(searchEngine, searchEngineType) {
+    //check if search engine is valid coordinates
     if (searchEngine.length == 2) {
       const searchItemFound = [];
+
+      // check if search engine falls in supported polygon bounds
       for (const [index, element] of selectedBoundary.features.entries()) {
         if (
           element &&
@@ -599,6 +640,11 @@ export default function DeckMap({
           (boundary == "council" ||
             (boundary == "community" && element.properties.Data_YN == "Y"))
         ) {
+          // change chapter
+          if (selectedChapter !== 3) {
+            setSelectedChapter(3);
+          }
+
           searchItemFound.push(index);
           const lookup =
             boundary == "council"
@@ -607,78 +653,126 @@ export default function DeckMap({
               ? element.properties.CDTA2020
               : null;
 
-          // convert string coords to numbers
+          // CASE 0 > FOR SINGLE SEARCH MODE
           if (searchEngineType == 0) {
-            setBadSearch([0, badSearch[1]]);
-            const searchEngineFormatted = searchEngine.map(Number);
-
-            // Select new neighborhood
-            // move camera to new neighborhood
-            setViewState({
-              longitude: element.properties.X_Cent,
-              latitude: element.properties.Y_Cent,
-              zoom: zoomMax - 0.5,
-              transitionDuration: 500,
-              transitionInerpolator: new LinearInterpolator(),
-            });
-
-            // select new neighborhood
-            setCommunitySearch(lookup);
-            setSearchPoint([searchEngineFormatted, searchPoint[1]]);
-          }
-
-          // compare two neighborhoods
-          if (searchEngineType == 1) {
-            setBadSearch([badSearch[0], 0]);
-            if (addCompare) {
-              const searchEngineFormatted = searchEngine.map(Number);
-
-              // Select new neighborhood
-              setCompareSearch(lookup);
-              setSearchPoint([searchPoint[0], searchEngineFormatted]);
-            } else {
-              setSearchPoint([searchPoint[0], []]);
+            if (lookup !== communitySearch) {
+              setBadSearch([0, badSearch[1]]);
+              setUserPoints([searchEngine, []]);
+              // move camera to new neighborhood
+              setViewState({
+                longitude: element.properties.X_Cent,
+                latitude: element.properties.Y_Cent,
+                zoom: zoomMax - 0.5,
+                transitionDuration: 500,
+                transitionInerpolator: new LinearInterpolator(),
+              });
+              // select new neighborhood
+              setCommunitySearch(lookup);
+              // setMapSelection(index, mapSelection[1]);
+            } else if (searchSource === "click") {
+              setCommunitySearch(null);
+              setUserPoints([[], []]);
             }
           }
 
-          if (selectedCoord.length === 2 && selectedCompareCoord.length === 2) {
-            const ptA = selectedCoord.map(Number);
-            const ptB = selectedCompareCoord.map(Number);
-            const maxDistance = !mapDemographics ? 25 : 15;
-            const ptCompareDistance =
-              distance(point(ptA), point(ptB)) < maxDistance
-                ? distance(point(ptA), point(ptB))
-                : maxDistance;
+          // CASE 1 > COMPARE MODE
+          if (searchEngineType == 1) {
+            if (lookup !== communitySearch && lookup !== compareSearch) {
+              setBadSearch([badSearch[0], 0]);
+              setUserPoints([userPoints[0], searchEngine]);
+              if (addCompare) {
+                // Select new neighborhood
+                if (lookup !== communitySearch) {
+                  setCompareSearch(lookup);
+                  // setSearchPoint([searchPoint[0], searchEngine]);
+                } else {
+                  setBadSearch([badSearch[0], 1]);
+                  setSelectedCompareCoord([]);
+                  setCompareSearch(null);
+                  alert(
+                    `These locations are in the same ${
+                      boundary == "community"
+                        ? "Community Board"
+                        : "City District"
+                    }!`
+                  );
+                }
+              }
 
-            const remapZoom = !mapDemographics
-              ? map_range(ptCompareDistance, 0.3, maxDistance, zoomMax, zoomMin)
-              : mapDemographics &&
-                map_range(
-                  ptCompareDistance,
-                  0.3,
-                  maxDistance,
-                  zoomMax,
-                  zoomMin
-                ) -
-                  0.5 >
-                  zoomMin
-              ? map_range(
-                  ptCompareDistance,
-                  0.3,
-                  maxDistance,
-                  zoomMax,
-                  zoomMin
-                ) - 0.5
-              : zoomMin;
+              if (
+                selectedCoord.length === 2 &&
+                selectedCompareCoord.length === 2 &&
+                lookup !== communitySearch
+              ) {
+                const ptA = selectedCoord;
+                const ptB = selectedCompareCoord;
+                const maxDistance = !mapDemographics ? 25 : 15;
+                const ptCompareDistance =
+                  distance(point(ptA), point(ptB)) < maxDistance
+                    ? distance(point(ptA), point(ptB))
+                    : maxDistance;
 
-            setViewState({
-              longitude: (ptA[0] + ptB[0]) / 2,
-              latitude: (ptA[1] + ptB[1]) / 2,
-              zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
-              transitionDuration: 500,
-              transitionInerpolator: new LinearInterpolator(),
-            });
+                const remapZoom = !mapDemographics
+                  ? map_range(
+                      ptCompareDistance,
+                      0.3,
+                      maxDistance,
+                      zoomMax,
+                      zoomMin
+                    )
+                  : mapDemographics &&
+                    map_range(
+                      ptCompareDistance,
+                      0.3,
+                      maxDistance,
+                      zoomMax,
+                      zoomMin
+                    ) -
+                      0.5 >
+                      zoomMin
+                  ? map_range(
+                      ptCompareDistance,
+                      0.3,
+                      maxDistance,
+                      zoomMax,
+                      zoomMin
+                    ) - 0.5
+                  : zoomMin;
+
+                setViewState({
+                  longitude: (ptA[0] + ptB[0]) / 2,
+                  latitude: (ptA[1] + ptB[1]) / 2,
+                  zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
+                  transitionDuration: 500,
+                  transitionInerpolator: new LinearInterpolator(),
+                });
+              }
+            } else if (lookup == communitySearch) {
+              if (searchSource === "click") {
+                setCommunitySearch(compareSearch ? compareSearch : null);
+                setCompareSearch(null);
+                setUserPoints([userPoints[1], []]);
+              } else {
+                setUserPoints([searchEngine, userPoints[1]]);
+                setBadSearch([badSearch[0], 1]);
+                setErrorCode(1);
+              }
+            } else if (lookup == compareSearch) {
+              if (searchSource === "click") {
+                setCompareSearch(null);
+                setUserPoints([userPoints[0], []]);
+              } else {
+                setUserPoints([userPoints[0], searchEngine]);
+              }
+            }
+
+            if (booleanPointInPolygon(point(selectedCoord), element)) {
+              setUserPoints([userPoints[0], []]);
+              setCompareSearch(null);
+            }
           }
+        } else if (searchItemFound.length == 0) {
+          setErrorCode(0);
         }
       }
 
@@ -690,18 +784,22 @@ export default function DeckMap({
           setBadSearch([badSearch[0], 1]);
         }
       }
-    } else {
-      setSearchPoint([selectedCoord, selectedCompareCoord]);
     }
   }
 
   useEffect(() => {
     updateSearchEngine(selectedCoord, 0);
-  }, [selectedCoord, addCompare]);
+  }, [selectedCoord, boundary]);
 
   useEffect(() => {
     updateSearchEngine(selectedCompareCoord, 1);
-  }, [selectedCompareCoord, addCompare]);
+  }, [selectedCompareCoord, boundary]);
+
+  useEffect(() => {
+    if (!addCompare) {
+      setUserPoints([userPoints[0], []]);
+    }
+  }, [addCompare]);
 
   // 06 Render lifecycle
   useEffect(() => {
@@ -767,7 +865,7 @@ export default function DeckMap({
       visible: zoomToggle,
 
       updateTriggers: {
-        getFillColor: [selectedMetric, mapSelection, addCompare],
+        getFillColor: [selectedMetric, addCompare],
       },
     }),
   ];
@@ -1043,57 +1141,15 @@ export default function DeckMap({
           (boundary == "community" && obj.properties.Data_YN == "Y") ||
           boundary == "council"
         ) {
-          // change chapter
-          setSelectedChapter(3);
-
+          setSearchSource("click"); //set search source to click
           // add clicked object to chapter 3 searchbar and highlight single selection on map
           if (communitySearch == null || addCompare == false) {
-            // animate view
-            setViewState({
-              longitude: obj.properties.X_Cent,
-              latitude: obj.properties.Y_Cent,
-              zoom: zoomMax - 0.5,
-              transitionDuration: 500,
-              transitionInerpolator: new LinearInterpolator(),
-            });
-
-            if (communitySearch == lookup) {
-              setCommunitySearch(null);
-              setSelectedCoord([]);
-
-              if (mapSelection.includes(info.index) == true) {
-                setMapSelection([null]);
-              }
-            } else {
-              setCommunitySearch(lookup);
-              setSelectedCoord(info.coordinate);
-
-              if (mapSelection.includes(info.index) == false) {
-                setMapSelection([info.index]);
-              }
-            }
+            // updateSearchEngine(info.coordinate, 0);
+            setSelectedCoord(info.coordinate);
           }
           // double selection functionality
           else {
-            if (mapSelection.includes(info.index)) {
-              setMapSelection(mapSelection.filter((x) => x != info.index));
-              if (lookup == compareSearch) {
-                setCompareSearch(null);
-                setSelectedCompareCoord([]);
-                setAddCompare(false);
-              }
-              if (lookup == communitySearch) {
-                setCommunitySearch(compareSearch);
-                setSelectedCoord(selectedCompareCoord);
-                setSelectedCompareCoord([]);
-                setCompareSearch(null);
-                setAddCompare(false);
-              }
-            } else {
-              setCompareSearch(lookup);
-              setSelectedCompareCoord(info.coordinate);
-              setMapSelection([mapSelection[0], info.index]);
-            }
+            setSelectedCompareCoord(info.coordinate);
           }
         }
       },
@@ -1106,7 +1162,7 @@ export default function DeckMap({
     new GeoJsonLayer({
       id: "administrative-selected",
       data: selectedBoundary,
-      filled: true,
+      filled: false,
       stroked: true,
 
       getLineColor: (f) => {
@@ -1119,48 +1175,29 @@ export default function DeckMap({
             (f.properties.CDTA2020 == communitySearch ||
               f.properties.CDTA2020 == compareSearch))
         ) {
-          return selectedSpecificIssue || (!mainMap && mapDemographics)
+          return selectedSpecificIssue
             ? [255, 255, 255, 255]
-            : [127, 255, 0];
+            : [127, 255, 0, 255];
         }
         return [0, 0, 0, 0];
       },
-
-      getFillColor: (f) => {
-        if (
-          (boundary == "council" &&
-            (f.properties.CounDist == communitySearch ||
-              f.properties.CounDist == compareSearch)) ||
-          (boundary == "community" &&
-            f.properties.Data_YN == "Y" &&
-            (f.properties.CDTA2020 == communitySearch ||
-              f.properties.CDTA2020 == compareSearch))
-        ) {
-          return selectedSpecificIssue || (!mainMap && mapDemographics)
-            ? [0, 0, 0, 0]
-            : [0, 0, 0, 125];
-        }
-        return [0, 0, 0, 0];
-      },
-
-      getLineWidth: (f) => {
-        return 100;
-      },
+      getLineWidth: 100,
       updateTriggers: {
         getLineColor: [
           selectedMetric,
-          mapSelection,
           addCompare,
           communitySearch,
           compareSearch,
         ],
         getFillColor: [
           selectedMetric,
-          mapSelection,
           addCompare,
           communitySearch,
           compareSearch,
         ],
+      },
+      parameters: {
+        mixBlendMode: "difference",
       },
     }),
 
@@ -1173,7 +1210,7 @@ export default function DeckMap({
       fontWeight: "1000",
       getColor: [255, 255, 255, 255],
       getText: (d) => d.properties.NTAName.toUpperCase(),
-      getPosition: (x) => x.geometry.coordinates,
+      getPosition: (d) => d.geometry.coordinates,
       getSize: 75,
       maxWidth: 600,
       opacity: !zoomToggle,
@@ -1181,7 +1218,7 @@ export default function DeckMap({
 
     new ScatterplotLayer({
       id: "user-search",
-      data: searchPoint,
+      data: userPoints,
       stroked: true,
       filled: true,
       radiusScale: 4,
@@ -1189,10 +1226,9 @@ export default function DeckMap({
       // radiusMaxPixels: 125,
       lineWidthMinPixels: 1,
       getPosition: (d) => d,
-      // getPosition: (d) => [-73.978, 40.761],
       getRadius: 30,
-      getFillColor: (d) => [0, 0, 0, 255],
-      getLineColor: (d) => [255, 255, 255, 255],
+      getFillColor: [0, 0, 0, 255],
+      getLineColor: [255, 255, 255, 255],
     }),
   ];
 
@@ -1209,11 +1245,10 @@ export default function DeckMap({
 
     if (annoList.includes(layer.id)) {
       return true;
-      // return viewport.id === "main";
-    } else if (metricList.includes(layer.id)) {
-      return viewport.id === "primary";
-    } else {
-      return viewport.id === "secondary";
+    } else if (metricList.includes(layer.id) && viewport.id !== "splitRight") {
+      return true;
+    } else if (!metricList.includes(layer.id) && viewport.id == "splitRight") {
+      return viewport.id === "splitRight";
     }
   }, []);
 
@@ -1221,10 +1256,10 @@ export default function DeckMap({
     <div>
       <DeckGL
         // viewState={viewState}
+        style={{ backgroundColor: "black" }}
         initialViewState={viewState}
         onViewStateChange={onViewStateChange}
-        views={mapDemographics ? [mainView, secondaryView] : [mainView]}
-        // layers={mainMap ? [metricLayers, annoLayers] : [demoLayers, annoLayers]}
+        views={mapDemographics ? [splitViewLeft, splitViewRight] : [mainView]}
         layers={[metricLayers, demoLayers, annoLayers]}
         getCursor={() => "crosshair"}
         getTooltip={getTooltip}
@@ -1235,28 +1270,65 @@ export default function DeckMap({
         // style={{ mixBlendMode: "multiply" }}
         // _pickable={isMobile ? false : true}
       >
-        <MapView id="primary">
-          <Map
-            reuseMaps
-            mapStyle={mapStyle}
-            preventStyleDiffing={true}
-            mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-            attributionControl={false}
-            logoPosition="top-left"
-          />
-          <div style={mapBackgroundStyle} />
-        </MapView>
+        {!mapDemographics && (
+          <MapView id="primary">
+            <Map
+              ref={mapRef}
+              reuseMaps
+              mapStyle={mapStyle}
+              preventStyleDiffing={true}
+              mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+              attributionControl={false}
+              logoPosition="bottom-left"
+            />
+          </MapView>
+        )}
+
         {mapDemographics && (
-          <MapView id="secondary">
+          <MapView id="splitLeft">
             <Map
               reuseMaps
               mapStyle={mapStyle}
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
-              logoPosition="top-left"
+              logoPosition="bottom-left"
             />
             <div style={mapBackgroundStyle} />
+            {selectedSpecificIssue && (
+              <div style={splitScreenPositioning}>
+                <div style={splitScreenHeader}>
+                  {
+                    issues.specific_issues_data[selectedSpecificIssue]
+                      .specific_issue_name
+                  }{" "}
+                  by{" "}
+                  {boundary == "community"
+                    ? "Community Boards"
+                    : "City Districts"}
+                </div>
+              </div>
+            )}
+          </MapView>
+        )}
+        {mapDemographics && (
+          <MapView id="splitRight">
+            <Map
+              reuseMaps
+              mapStyle={mapStyle}
+              preventStyleDiffing={true}
+              mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+              attributionControl={false}
+              logoPosition="bottom-left"
+            />
+            <div style={mapBackgroundStyle} />
+            {demographic && (
+              <div style={splitScreenPositioning}>
+                <div style={splitScreenHeader}>
+                  {demoLookup[demographic].name}
+                </div>
+              </div>
+            )}
           </MapView>
         )}
       </DeckGL>

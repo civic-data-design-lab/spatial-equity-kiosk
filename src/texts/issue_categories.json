@@ -6,9 +6,9 @@
     },
 
     "descriptions": {
-        "1": "Text explanation about “health”. Felis donec et odio pellentesque. Elit at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in. Vel turpis nunc eget lorem dolor sed viverra.",
-        "2": "Text explanation about “environment”. Turpis egestas pretium aenean pharetra magna. Sed odio morbi quis commodo odio aenean sed adipiscing.",
-        "3": "Text explanation about “infrastructure” Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        "1": "Policies about the use of public space in New York City affect the physical and mental health of New Yorkers. Health indicators of spatial equity include air pollution, asthma, noise pollution, traffic injuries, and traffic fatalities.",
+        "2": "Policies about the use of public space in New York City affect the resilience and sustainability of the physical environment. Environmental indicators of spatial equity include heat, parkland, permeable surfaces, and trees.",
+        "3": "Policies about the use of public space in New York City affect mobility and access to the built environment. Infrastructure indicators of spatial equity include bike parking, bus lanes and busways, bus speeds, protected bike lanes, seating, and traffic density."
     }
 
 }

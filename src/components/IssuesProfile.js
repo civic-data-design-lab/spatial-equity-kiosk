@@ -11,7 +11,8 @@ export default function IssueProfile({
                                          selectedSpecificIssue,
                                          rankingProse = false,
                                          boundary,
-                                         setSelectedSpecificIssue
+                                         setSelectedSpecificIssue,
+                                         setCommunitySearch, setSelectedChapter
                                      }) {
 
     const [expand, setExpand] = useState(false)
@@ -23,7 +24,7 @@ export default function IssueProfile({
     const getHyperlinkText = (texts) => {
         return <p>
             {texts.map((texts)=>{
-                return <>{texts.text}{texts.hyperlink && <span className={`${categories.labels[issues.specific_issues_data[selectedSpecificIssue].issue_type_ID]}`}><a className={`hyperlink ${categories.labels[issues.specific_issues_data[selectedSpecificIssue].issue_type_ID]}`} href={texts.source} target="_blank">{texts.hyperlink}</a></span>}</>
+                return <span className={texts.bolded ? "bold" : ""}>{texts.text}{texts.hyperlink && <span className={`${categories.labels[issues.specific_issues_data[selectedSpecificIssue].issue_type_ID]}`}><a className={`hyperlink ${categories.labels[issues.specific_issues_data[selectedSpecificIssue].issue_type_ID]}`} href={texts.source} target="_blank">{texts.hyperlink}</a></span>}</span>
         })}
         </p>
     }
@@ -75,7 +76,12 @@ export default function IssueProfile({
                         {rankings[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id].slice(0, 5).map((entry, index) => {
                             return <tr key={index}>
                                 <td>{entry.rank}</td>
-                                <td>{entry.community}</td>
+                                <td onClick={()=>{
+                                    setCommunitySearch(entry.community_ID)
+                                    setSelectedChapter(3)
+                                }
+                                }
+                                >{entry.community}</td>
                                 <td>{entry.data}</td>
                             </tr>
                         })}
@@ -84,7 +90,12 @@ export default function IssueProfile({
                         {expand && rankings[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id].slice(5).map((entry, index) => {
                             return <tr key={index}>
                                 <td>{entry.rank}</td>
-                                <td>{entry.community}</td>
+                                <td onClick={()=>{
+                                    setCommunitySearch(entry.community_ID)
+                                    setSelectedChapter(3)
+                                }
+                                }
+                                >{entry.community}</td>
                                 <td>{entry.data}</td>
                             </tr>
                         })}
