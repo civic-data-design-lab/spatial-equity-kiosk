@@ -81,6 +81,7 @@ export default function IssueProfile({
                                     setSelectedChapter(3)
                                 }
                                 }
+                                    className={"issues-profile-community-jump"}
                                 >{entry.community}</td>
                                 <td>{entry.data}</td>
                             </tr>
@@ -95,6 +96,7 @@ export default function IssueProfile({
                                     setSelectedChapter(3)
                                 }
                                 }
+                                    className={"issues-profile-community-jump"}
                                 >{entry.community}</td>
                                 <td>{entry.data}</td>
                             </tr>

@@ -1451,6 +1451,11 @@ input:checked + .slider:before {
     height: 100%;
 }
 
+.issues-profile-community-jump:hover {
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+
 
 /*TODO: mobile CSS*/
 

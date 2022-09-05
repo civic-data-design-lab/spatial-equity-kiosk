@@ -44,6 +44,7 @@ export default function IssuesMiddleColumn({
                                                setColorRamps,
                                                demoLookup,
                                                showMap,
+                                               binList
                                            }) {
     const health_issues = issues.issues_data["health"].specific_issues_ID.map(
         (id_) => {
@@ -179,6 +180,7 @@ export default function IssuesMiddleColumn({
                             selectedIssue={selectedSpecificIssue}
                             zoomToggle={zoomToggle}
                             showMap={showMap}
+                            binList={binList}
                         />}
                     </div>
                 </div>
@@ -269,6 +271,7 @@ export default function IssuesMiddleColumn({
                             selectedIssue={selectedSpecificIssue}
                             zoomToggle={zoomToggle}
                             showMap={showMap}
+                            binList={binList}
                         />}
                     </div>
                 </div>
@@ -358,6 +361,7 @@ export default function IssuesMiddleColumn({
                             selectedIssue={selectedSpecificIssue}
                             zoomToggle={zoomToggle}
                             showMap={showMap}
+                            binList={binList}
                         />}
                     </div>
                 </div>

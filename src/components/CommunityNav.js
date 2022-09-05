@@ -258,7 +258,11 @@ export default function CommunityNav({
                     councils[communitySearch].councilmember_name) ||
                     null}
                 </a>
-              </span>{" "}
+              </span>
+
+              {councils[communitySearch] && "."}
+
+              {" "}
               {(communities[communitySearch] &&
                 communities[communitySearch].description) ||
                 (councils[communitySearch] &&
