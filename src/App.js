@@ -560,6 +560,7 @@ function App() {
                                     setAddCompare={setAddCompare}
                                     compareSearch={compareSearch}
                                     setCompareSearch={setCompareSearch}
+                                    showMap={showMap}
                                     setShowMap={setShowMap}
                                     communities={communities}
                                     councils={councils}
@@ -591,6 +592,7 @@ function App() {
                                     setSearchSource={setSearchSource}
                                     setErrorCode={setErrorCode}
                                     infoTransfer={info}
+                                    setShowMap={setShowMap}
                                 />
                             </div>
                         </div>

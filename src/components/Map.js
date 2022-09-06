@@ -119,6 +119,8 @@ export default function DeckMap({
   setSearchSource,
   setErrorCode,
   infoTransfer,
+  setShowMap,
+  showMap,
 }) {
   // map hooks
   const [underperformers, setUnderperformers] = useState(null);
@@ -523,10 +525,11 @@ export default function DeckMap({
   // 00 update via search engine
   function updateSearchEngine(searchEngine, searchEngineType) {
     //check if search engine is valid coordinates
+    if (searchEngineType == "click") {
+      setShowMap(true);
+    }
     if (searchEngine.length == 2) {
       const searchItemFound = [];
-
-      console.log(infoTransfer.selectedBoundary);
 
       // check if search engine falls in supported polygon bounds
       for (const [
@@ -539,13 +542,6 @@ export default function DeckMap({
           (boundary == "council" ||
             (boundary == "community" && element.properties.Data_YN == "Y"))
         ) {
-          // change chapter
-          if (selectedChapter !== 3) {
-            setSelectedChapter(3);
-          }
-
-          console.log("hi");
-
           searchItemFound.push(index);
           const lookup =
             boundary == "council"
@@ -555,7 +551,7 @@ export default function DeckMap({
               : null;
 
           // CASE 0 > FOR SINGLE SEARCH MODE
-          if (searchEngineType == 0) {
+          if (searchEngineType == 0 && selectedChapter == 3) {
             if (lookup !== communitySearch) {
               setBadSearch([0, badSearch[1]]);
               setUserPoints([searchEngine, []]);
@@ -577,33 +573,17 @@ export default function DeckMap({
           }
 
           // CASE 1 > COMPARE MODE
-          if (searchEngineType == 1) {
+          if (searchEngineType == 1 && selectedChapter == 3) {
             if (lookup !== communitySearch && lookup !== compareSearch) {
               setBadSearch([badSearch[0], 0]);
               setUserPoints([userPoints[0], searchEngine]);
               if (addCompare) {
                 // Select new neighborhood
-                if (lookup !== communitySearch) {
-                  setCompareSearch(lookup);
-                  // setSearchPoint([searchPoint[0], searchEngine]);
-                } else {
-                  setBadSearch([badSearch[0], 1]);
-                  setSelectedCompareCoord([]);
-                  setCompareSearch(null);
-                  alert(
-                    `These locations are in the same ${
-                      boundary == "community"
-                        ? "Community Board"
-                        : "City District"
-                    }!`
-                  );
-                }
+                setCompareSearch(lookup);
               }
-
               if (
                 selectedCoord.length === 2 &&
-                selectedCompareCoord.length === 2 &&
-                lookup !== communitySearch
+                selectedCompareCoord.length === 2
               ) {
                 const ptA = selectedCoord;
                 const ptB = selectedCompareCoord;
@@ -666,11 +646,6 @@ export default function DeckMap({
                 setUserPoints([userPoints[0], searchEngine]);
               }
             }
-
-            if (booleanPointInPolygon(point(selectedCoord), element)) {
-              setUserPoints([userPoints[0], []]);
-              setCompareSearch(null);
-            }
           }
         } else if (searchItemFound.length == 0) {
           setErrorCode(0);
@@ -688,15 +663,15 @@ export default function DeckMap({
     }
   }
 
-  useEffect(() => {
-    updateSearchEngine(selectedCoord, 0);
-  }, [selectedCoord, infoTransfer]);
+  console.log(userPoints);
 
   useEffect(() => {
-    if (addCompare) {
-      updateSearchEngine(selectedCompareCoord, 1);
-    }
-  }, [selectedCompareCoord, infoTransfer]);
+    updateSearchEngine(selectedCoord, 0);
+  }, [selectedCoord, infoTransfer.selectedBoundary]);
+
+  useEffect(() => {
+    updateSearchEngine(selectedCompareCoord, 1);
+  }, [selectedCompareCoord, infoTransfer.selectedBoundary]);
 
   useEffect(() => {
     if (!addCompare) {
@@ -1048,6 +1023,11 @@ export default function DeckMap({
           boundary == "council"
         ) {
           setSearchSource("click"); //set search source to click
+          // change chapter
+          if (selectedChapter !== 3) {
+            setSelectedChapter(3);
+          }
+
           // add clicked object to chapter 3 searchbar and highlight single selection on map
           if (communitySearch == null || addCompare == false) {
             // updateSearchEngine(info.coordinate, 0);
