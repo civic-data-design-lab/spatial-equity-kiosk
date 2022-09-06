@@ -434,32 +434,42 @@ export default function DeckMap({
             html: `\
           <!-- select metric -->
           <div class=map-tooltip-header>${tooltipBounds} <strong>${boundaryName}</strong></div>
-          <div class=map-tooltip-subinfo>${neighborhoodList}</div>
+          <!-- depricated neighborhood list <div class=map-tooltip-subinfo>${neighborhoodList}</div> -->
           <div>
             <div class=map-tooltip-info>${
               metricCheck
-                ? `Ranking in ${
+                ? `Ranks <strong>${
+                    metricCheck ? `${ranking} / ${maxRanking}` : ""
+                  }</strong> for ${
                     typeof selectedSpecificIssue == "number"
                       ? issues.specific_issues_data[selectedSpecificIssue]
                           .specific_issue_name
                       : ""
-                  }—`
+                  } with <strong>${
+                    metricCheck
+                      ? `${
+                          infoTransfer.selectedMetric != null
+                            ? obj.properties[infoTransfer.selectedMetric] > 10
+                              ? obj.properties[
+                                  infoTransfer.selectedMetric
+                                ].toFixed(0)
+                              : obj.properties[
+                                  infoTransfer.selectedMetric
+                                ].toFixed(2)
+                            : ""
+                        }</strong> ${
+                          typeof selectedSpecificIssue == "number"
+                            ? issues.specific_issues_data[selectedSpecificIssue]
+                                .specific_issue_units
+                            : ""
+                        }`
+                      : ""
+                  }.`
                 : ""
             }</div>
-            <div class=map-tooltip-info><a class=map-tooltip-ranking>${
-              metricCheck ? `${ranking} / ${maxRanking}` : ""
-            } </a><a class=map-tooltip-subinfo>${
-              metricCheck
-                ? `(${
-                    infoTransfer.selectedMetric != null
-                      ? obj.properties[infoTransfer.selectedMetric]
-                      : ""
-                  })`
-                : ""
-            }  </a></div>
           </div>
           <!-- select demographic -->
-          <div class=tooltip-info>
+          <div class=map-tooltip-info>
           ${
             selectedDemographic != null
               ? demographic !== "5"
@@ -483,10 +493,10 @@ export default function DeckMap({
                   : `\
                   <div class=tooltip-grid>
                     <div style="color:${
-                      ethnicityColors.Hispanic.htmlFormat
+                      ethnicityColors.Latino.htmlFormat
                     }">■</div>
                     <div>${Math.round(obj.properties.P_Hispanic * 100)}%</div>
-                    <div>Hispanic</div>
+                    <div>Latino</div>
                     <div style="color:${
                       ethnicityColors.White.htmlFormat
                     }">■</div>
@@ -521,13 +531,9 @@ export default function DeckMap({
   // 05 TOOLTIP END ----------------------------------------------------------------------------------------------
 
   // 06 DIRECT PICKING ENGINE ---------------------------------------------------------------------------------------------
-
   // 00 update via search engine
   function updateSearchEngine(searchEngine, searchEngineType) {
     //check if search engine is valid coordinates
-    if (searchEngineType == "click") {
-      setShowMap(true);
-    }
     if (searchEngine.length == 2) {
       const searchItemFound = [];
 
@@ -693,6 +699,7 @@ export default function DeckMap({
     toggleWalk,
   ]);
   // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
+
   const metricLayers = [
     new GeoJsonLayer({
       id: "neighborhoods",
@@ -862,7 +869,7 @@ export default function DeckMap({
         let color;
         switch (d.properties.EthnicityCode) {
           case "1":
-            color = ethnicityColors.Hispanic.deckFormat; // hispanic
+            color = ethnicityColors.Latino.deckFormat; // latino
             break;
           case "2":
             return ethnicityColors.White.deckFormat; // white
@@ -1115,25 +1122,38 @@ export default function DeckMap({
     }),
   ];
 
-  const layerFilter = useCallback(({ layer, viewport }) => {
-    const metricList = [];
-    const annoList = [];
+  const layerFilter = useCallback(
+    ({ layer, viewport }) => {
+      const metricList = [];
+      const annoList = [];
 
-    for (let i = 0; i < metricLayers.length; i++) {
-      metricList.push(metricLayers[i].id);
-    }
-    for (let i = 0; i < annoLayers.length; i++) {
-      annoList.push(annoLayers[i].id);
-    }
+      for (let i = 0; i < metricLayers.length; i++) {
+        metricList.push(metricLayers[i].id);
+      }
+      for (let i = 0; i < annoLayers.length; i++) {
+        annoList.push(annoLayers[i].id);
+      }
 
-    if (annoList.includes(layer.id)) {
-      return true;
-    } else if (metricList.includes(layer.id) && viewport.id !== "splitRight") {
-      return true;
-    } else if (!metricList.includes(layer.id) && viewport.id == "splitRight") {
-      return viewport.id === "splitRight";
-    }
-  }, []);
+      if (!showMap) {
+        if (annoList.includes(layer.id)) return true;
+      } else {
+        if (annoList.includes(layer.id)) {
+          return true;
+        } else if (
+          metricList.includes(layer.id) &&
+          viewport.id !== "splitRight"
+        ) {
+          return true;
+        } else if (
+          !metricList.includes(layer.id) &&
+          viewport.id == "splitRight"
+        ) {
+          return viewport.id === "splitRight";
+        }
+      }
+    },
+    [showMap]
+  );
 
   return (
     <div>
@@ -1142,7 +1162,13 @@ export default function DeckMap({
         style={{ backgroundColor: "black" }}
         initialViewState={viewState}
         onViewStateChange={onViewStateChange}
-        views={mapDemographics ? [splitViewLeft, splitViewRight] : [mainView]}
+        views={
+          showMap
+            ? mapDemographics
+              ? [splitViewLeft, splitViewRight]
+              : [mainView]
+            : null
+        }
         layers={[metricLayers, demoLayers, annoLayers]}
         getCursor={() => "crosshair"}
         getTooltip={getTooltip}

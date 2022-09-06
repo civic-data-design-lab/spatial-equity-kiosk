@@ -610,7 +610,7 @@
       "good_or_bad": 0,
       "json_id": "F26_ParkAc",
       "issue_hi_low": ["most","least"],
-      "highlight_statement": "least parks",
+      "highlight_statement": "least parkland",
       "specific_issue_source": "NYC Department of Parks and Recreation (DPR), NYC Department of City Planning (DCP), National Park Service (NPS), New York State Office of Parks, Recreation, and Historic Preservation (OPRHP). Population & Park Access: American Community Survey (ACS) 2007-2011, Infoshare.org, DPR, DCP",
       "link": "http://www.ny4p.org/general/district-profiles-2015",
       "related": [

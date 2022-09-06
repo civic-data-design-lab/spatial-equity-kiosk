@@ -82,8 +82,25 @@ export default function CommunityProfile({
               </h5>
             }
             <p className={"mt-3"}>
-              A few sentences on how these topics of interest were selected. A
-              few sentences on how these topics of interest were selected.
+              {communitySearch
+                ? ` Below are the three worst spatial equity indicators in this ${
+                    communitySearch
+                      ? boundary == "council"
+                        ? councils[communitySearch]
+                          ? `City Council ${councils[communitySearch].name}`
+                          : ""
+                        : communities[communitySearch]
+                        ? `${communities[communitySearch].name
+                            .split(" ")
+                            .slice(0, -1)} Community Board ${communities[
+                            communitySearch
+                          ].name
+                            .split(" ")
+                            .slice(-1)}`
+                        : ""
+                      : ""
+                  }.`
+                : ``}
             </p>
 
             <div className={"d-flex flex-column row-gap"}>
@@ -139,7 +156,7 @@ export default function CommunityProfile({
           </div>
 
           <div className={"standard-padding"}>
-            <h5 className={"mb-3"}>More Issues</h5>
+            <h5 className={"mb-3"}>More Indicators</h5>
 
             <IssuesTags
               issues={issues}

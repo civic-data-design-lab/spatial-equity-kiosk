@@ -1,7 +1,7 @@
 {
   "Race & Ethnicity": {
     "percList": [29, 33, 23, 13, 3],
-    "textList": ["Hispanic", "White", "Black", "Asian", "Other"]
+    "textList": ["Latino", "White", "Black", "Asian", "Other"]
   },
   "Households Living Below the Poverty Line": {
     "percList": [11, 89],

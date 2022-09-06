@@ -73,12 +73,13 @@ export default function IssueProfile({
 
         <div className={"issues-tile-text-container"}>
 
-            {rankingProse ? <div className={"issues-tile-prose issues-tile-text"}>
+            {/* {rankingProse ? 
+            <div className={"issues-tile-prose issues-tile-text"}>
                 <h5 className={"issues-tile-heading bold"}>
                     Understand How Districts Rank
                 </h5>
                 <p className={"m-0"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
-            </div> : null}
+            </div> : null} */}
 
             <div className={"issues-tile-ranking issues-tile-text"}>
                 <h5 className={"issues-tile-heading bold"}>

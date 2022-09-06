@@ -772,6 +772,10 @@ a:active {
     justify-items: left;
 }
 
+.map-tooltip-info{
+    font-size: 0.75em;
+}
+
 .map-tooltip-info:last-child{
     padding-top: 0px;
 }
@@ -1670,6 +1674,11 @@ input:checked + .slider:before {
 
 .small-text {
     font-size: 1rem;
+}
+
+.smaller-text {
+    font-size: 0.75rem;
+    font-weight: 300;
 }
 
 .no-text {

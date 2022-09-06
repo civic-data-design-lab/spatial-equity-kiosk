@@ -22,7 +22,7 @@
     "3":
         {   "json_lookup": "3",
             "name": "District 3",
-            "borough": ["Boro List"],
+            "borough": ["Boro List", "2", "3"],
             "text": "City Council District 3 in Manhattan is represented by City Council member ",
             "councilmember_name": "Erik Bottcher",
             "councilmember_email": "District3@council.nyc.gov",
@@ -332,7 +332,7 @@
     "34":
         {   "json_lookup": "34",
             "name": "District 34",
-            "borough": ["Boro List"],
+            "borough": ["Brooklyn", "Queens"],
             "text": "City Council District 34 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Jennifer Gutiérrez",
             "councilmember_email": "district34@nyc.gov",
