@@ -663,8 +663,6 @@ export default function DeckMap({
     }
   }
 
-  console.log(userPoints);
-
   useEffect(() => {
     updateSearchEngine(selectedCoord, 0);
   }, [selectedCoord, infoTransfer.selectedBoundary]);
@@ -941,7 +939,6 @@ export default function DeckMap({
       fillPatternMapping: _FILL_PATTERN,
       getFillPattern: (f) => {
         let fillValue = parseFloat(f.properties[infoTransfer.selectedMetric]);
-        // console.log(underperformers);
         if (toggleUnderperformers === true) {
           if (infoTransfer.metricGoodorBad == 1) {
             return fillValue >= underperformers
