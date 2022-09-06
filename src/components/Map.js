@@ -526,6 +526,8 @@ export default function DeckMap({
     if (searchEngine.length == 2) {
       const searchItemFound = [];
 
+      console.log(infoTransfer.selectedBoundary);
+
       // check if search engine falls in supported polygon bounds
       for (const [
         index,
@@ -541,6 +543,8 @@ export default function DeckMap({
           if (selectedChapter !== 3) {
             setSelectedChapter(3);
           }
+
+          console.log("hi");
 
           searchItemFound.push(index);
           const lookup =
@@ -686,11 +690,13 @@ export default function DeckMap({
 
   useEffect(() => {
     updateSearchEngine(selectedCoord, 0);
-  }, [selectedCoord, boundary]);
+  }, [selectedCoord, infoTransfer]);
 
   useEffect(() => {
-    updateSearchEngine(selectedCompareCoord, 1);
-  }, [selectedCompareCoord, boundary]);
+    if (addCompare) {
+      updateSearchEngine(selectedCompareCoord, 1);
+    }
+  }, [selectedCompareCoord, infoTransfer]);
 
   useEffect(() => {
     if (!addCompare) {
