@@ -65,6 +65,27 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
     const ref = useRef();
     const containerRef = useRef();
 
+    const getIssueStatement = () => {
+
+        if (selectedSpecificIssue) {
+            let words = issues.specific_issues_data[selectedSpecificIssue].highlight_statement.split(" ")
+            words.shift()
+            const ignoreCapitalization = ["the", "of", "an", "a", "by"]
+
+            for (let i = 0; i < words.length; i++) {
+                
+                if (!ignoreCapitalization.includes(words[i].toLowerCase())) {
+                    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+                } else{
+                    words[i] = words[i]
+                } 
+            }
+            const sentence = words.join(" ");
+            return sentence || null
+        }
+        return null
+    }
+
     // svg attr
     // const width = 500;
     // const height = 1200;
@@ -129,11 +150,15 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             }
             return str.substring(indexOfSpace + 1);
         }
-        let highlight_statement = issues.specific_issues_data[selectedSpecificIssue].highlight_statement;
-        highlight_statement = removeFirstWord(highlight_statement);
-        highlight_statement = highlight_statement.charAt(0).toUpperCase() + highlight_statement.slice(1);;
+        // let highlight_statement = issues.specific_issues_data[selectedSpecificIssue].highlight_statement;
+        // highlight_statement = removeFirstWord(highlight_statement);
+        // highlight_statement = highlight_statement.charAt(0).toUpperCase() + highlight_statement.slice(1);
 
-        // scales of chart
+        let [hiStatement, lowStatement] = issues.specific_issues_data[selectedSpecificIssue].issue_hi_low
+        hiStatement = hiStatement.charAt(0).toUpperCase() + hiStatement.slice(1);;
+        lowStatement = lowStatement.charAt(0).toUpperCase() + lowStatement.slice(1);;
+
+        console.log("hiStatement", hiStatement, "lowStatement", lowStatement)
         let xscale = d3.scaleLinear()
             // .domain([0, d3.max(data)])
             .domain([d3.min(data) - minValueMargin, d3.max(data)])
@@ -216,7 +241,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("font-size", "14")
             .attr("fill", "#000000")
             // .text((ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
-            .text((ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
+            // .text((ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
+            .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
 
         svg.select('#maxText')
             .attr('x', width - margin.right - textWidth)
@@ -225,7 +251,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("font-size", "14")
             .attr("fill", "#000000")
             // .text((!ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
-            .text((!ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
+            // .text((!ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
+            .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
 
         svg.select('#mouseTextUp')
             .attr('x', width - margin.right - textWidth)
@@ -264,7 +291,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text('NYC Average');
+            .text('Citywide Average');
 
         svg.select('#avgTextDown')
             .attr('x', width - margin.right - textWidth)
