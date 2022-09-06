@@ -117,7 +117,7 @@ export default function DeckMap({
   setBadSearch,
   searchSource,
   setSearchSource,
-  setErrorCode,
+  setErrorCode, info
 }) {
   // map hooks
   const [userPoints, setUserPoints] = useState([], []);
@@ -163,131 +163,29 @@ export default function DeckMap({
     clear: true,
   });
 
-  // SELECT BOUNDARY ------------------------------------------------------------
-  // toggle between council districts and community boards
-  const selectedBoundary = useMemo(() => {
-    if (boundary === "council") {
-      return _COUNCIL_DISTRICTS;
-    } else if (boundary === "community") {
-      return _COMMUNITY_BOARDS;
-    } else {
-      return _COUNCIL_DISTRICTS;
-    }
-  }, [boundary]);
-
-  // SELECT BOUNDARY END --------------------------------------------------------
-
-  // METRIC CONFIG -----------------------------------------------------
-
-  // select metric to display
-  let selectedMetric;
-  let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
-
-  if (selectedSpecificIssue != null) {
-    if (
-      typeof selectedSpecificIssue == "number" &&
-      isNaN(selectedSpecificIssue) === false
-    ) {
-      selectedMetric =
-        issues.specific_issues_data[selectedSpecificIssue].json_id;
-
-      metricGoodBad =
-        issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
-    }
-  }
-
-  // 01 CREATE METRIC COLOR RAMPS -------------------------------------------------------
-
-  //pick scale for legend bins
-  const mapScale =
-    handleLegend == 0
-      ? _NEIGHBORHOODS
-      : handleLegend == 1 && selectedBoundary == _COUNCIL_DISTRICTS
-      ? _COUNCIL_DISTRICTS
-      : _COMMUNITY_BOARDS;
-
-  //variables for scale thresholds
-
-  // pick color ramp for metrics and have default to avoid errors
-  const selectedRamp =
-    selectedIssue === 1
-      ? "health"
-      : selectedIssue === 2
-      ? "env"
-      : selectedIssue === 3
-      ? "infra"
-      : "troubleshoot";
-
-  const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
-  const binList = []; // derived from the selectedMetricArray array, this is the list of bins for the legend
-
-  // 01.1 get an array of all the values for the selected metric
-  for (let i = 0; i < mapScale.features.length; i++) {
-    let floatValue = parseFloat(
-      mapScale.features[i].properties[selectedMetric]
-    );
-    if (isNaN(floatValue) === false) {
-      if (
-        boundary === "council" ||
-        (zoomToggle == 1 &&
-          boundary === "community" &&
-          mapScale.features[i].properties.Data_YN === "Y") ||
-        (zoomToggle == 0 && mapScale.features[i].properties.AnsUnt_YN === "Y")
-      ) {
-        selectedMetricArray.push(floatValue);
-      }
-    }
-  }
-
-  // create a new sorted array for the quantile, but dont modify existing array
-  const sortedSelectedMetricArray = [...selectedMetricArray].sort(function (
-    a,
-    b
-  ) {
-    return a - b;
-  });
-
-  const uniqueValueArray = [...new Set(sortedSelectedMetricArray)];
-
-  // 01.2 break the metric array into bins and get the bin list
-  for (let i = 0; i < binSize; i++) {
-    if (dataScale === "equal") {
-      const threshold =
-        (max(selectedMetricArray) - min(selectedMetricArray)) / (binSize + 1);
-      binList.push(
-        Math.round((threshold * (i + 1) + min(selectedMetricArray)) * 100) / 100
-      );
-    } else {
-      const interval = Math.floor(
-        ((uniqueValueArray.length - 1) / binSize) * (i + 1)
-      );
-      // quantile breaks
-      binList.push(uniqueValueArray[interval]);
-    }
-  }
 
   // 01.4 Color Scale function
 
   const COLOR_SCALE =
     dataScale == "equal"
-      ? scaleThreshold().domain(binList).range(_CHAPTER_COLORS[selectedRamp])
+      ? scaleThreshold().domain(info.binList).range(_CHAPTER_COLORS[info.selectedRamp])
       : scaleQuantile()
-          .domain(uniqueValueArray)
-          .range(_CHAPTER_COLORS[selectedRamp]); //quantile bins
+          .domain(info.uniqueValueArray)
+          .range(_CHAPTER_COLORS[info.selectedRamp]); //quantile bins
 
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 
   // 02 IDENTIFY NEIGHBORHOODS IN NEED ---------------------------------------------------------------------------
   // 02.1 Get low performers and ignore parks/graveyards/airports
   const setPerformanceBar = [];
-  for (let i = 0; i < mapScale.features.length; i++) {
+  for (let i = 0; i < info.mapScale.features.length; i++) {
     if (
       (boundary == "community" &&
-        mapScale.features[i].properties.Data_YN == "Y") ||
+        info.mapScale.features[i].properties.Data_YN == "Y") ||
       boundary == "council"
     ) {
       setPerformanceBar.push(
-        parseFloat(mapScale.features[i].properties[selectedMetric])
+        parseFloat(info.mapScale.features[i].properties[info.selectedMetric])
       );
     }
   }
@@ -295,7 +193,7 @@ export default function DeckMap({
   // 02.2 Get the 5 lowest performers
   setPerformanceBar.sort(function (a, b) {
     // return the sorted list of values depending if you want the highest scores or lowest scores of a given metric
-    if (typeof metricGoodBad == "number") {
+    if (typeof info.metricGoodBad == "number") {
       return issues.specific_issues_data[selectedSpecificIssue].good_or_bad == 1
         ? b - a // highest scores
         : a - b; // lowest scores
@@ -365,7 +263,7 @@ export default function DeckMap({
   }
 
   // demographic array for the analysis scale
-  getDemoArray(selectedBoundary, selectedDemoArray);
+  getDemoArray(info.selectedBoundary, selectedDemoArray);
 
   // demographic array for the neighborhood scale
   getDemoArray(_NEIGHBORHOODS, neighborhoodDemoArray);
@@ -464,13 +362,13 @@ export default function DeckMap({
       // update auto highlight
       sethighlightFeature(info.index);
 
-      const metricCheck = _RANKINGS[boundary][selectedMetric] ? true : false;
+      const metricCheck = _RANKINGS[boundary][info.selectedMetric] ? true : false;
 
       const maxRanking = metricCheck
-        ? _RANKINGS[boundary][selectedMetric].length
+        ? _RANKINGS[boundary][info.selectedMetric].length
         : "";
       const ranking = metricCheck
-        ? _RANKINGS[boundary][selectedMetric].find(
+        ? _RANKINGS[boundary][info.selectedMetric].find(
             (t) => t.community_ID == boundaryName
           ).rank
         : "";
@@ -537,7 +435,7 @@ export default function DeckMap({
             } </a><a class=map-tooltip-subinfo>${
               metricCheck
                 ? `(${
-                    selectedMetric != null ? obj.properties[selectedMetric] : ""
+                    info.selectedMetric != null ? obj.properties[info.selectedMetric] : ""
                   })`
                 : ""
             }  </a></div>
@@ -594,27 +492,7 @@ export default function DeckMap({
                   </div>`
                 : ""
             }</div>
-            <!-- TROUBLESHOOTING
-            <div>Centroid ${selectedBoundary.features[
-              info.index
-            ].properties.X_Cent.toFixed(3)}, ${selectedBoundary.features[
-              info.index
-            ].properties.Y_Cent.toFixed(3)}</div>
-            <div>${x}, ${y}</div>
-            <div>${info.index} Index</div>
-            <div>${selectedBoundary.features[
-              info.index
-            ].properties.X_Cent.toFixed(3)}, ${selectedBoundary.features[
-              info.index
-            ].properties.Y_Cent.toFixed(3)}</div>
-            <div>${
-              selectedBoundary.features[info.index].geometry.coordinates.length
-            }</div>
-            <div>
-            ${COLOR_SCALE(
-              selectedBoundary.features[info.index].properties[selectedMetric]
-            )}
-            </div> -->
+           
             `,
           }
         );
@@ -633,7 +511,7 @@ export default function DeckMap({
       const searchItemFound = [];
 
       // check if search engine falls in supported polygon bounds
-      for (const [index, element] of selectedBoundary.features.entries()) {
+      for (const [index, element] of info.selectedBoundary.features.entries()) {
         if (
           element &&
           booleanPointInPolygon(point(searchEngine), element) &&
@@ -803,14 +681,14 @@ export default function DeckMap({
 
   // 06 Render lifecycle
   useEffect(() => {
-    if (binList.length > 0) {
-      setColorRamps(selectedRamp);
+    if (info.binList.length > 0) {
+      setColorRamps(info.selectedRamp);
     }
     setDemoLegendBins(demoBinList);
   }, [
     selectedSpecificIssue,
     zoomToggle,
-    selectedBoundary,
+    info.selectedBoundary,
     selectedDemographic,
     toggleTransit,
     toggleBike,
@@ -824,13 +702,13 @@ export default function DeckMap({
       stroked: false,
       filled: true,
       getFillColor: (f) => {
-        let fillValue = parseFloat(f.properties[selectedMetric]);
+        let fillValue = parseFloat(f.properties[info.selectedMetric]);
 
         if (f.properties.AnsUnt_YN == "Y") {
           if (isNaN(fillValue)) {
             return [0, 0, 0, 0];
           } else {
-            return COLOR_SCALE(f.properties[selectedMetric]);
+            return COLOR_SCALE(f.properties[info.selectedMetric]);
           }
         } else {
           return [0, 0, 0, 0];
@@ -841,16 +719,16 @@ export default function DeckMap({
       visible: !zoomToggle,
       // update triggers
       updateTriggers: {
-        getFillColor: [selectedMetric],
+        getFillColor: [info.selectedMetric],
       },
     }),
 
     new GeoJsonLayer({
       id: "administrative-choropleth",
-      data: selectedBoundary,
+      data: info.selectedBoundary,
       filled: true,
       getFillColor: (f) => {
-        let fillValue = parseFloat(f.properties[selectedMetric]);
+        let fillValue = parseFloat(f.properties[info.selectedMetric]);
         if (
           isNaN(fillValue) ||
           (boundary == "community" && f.properties.Data_YN == "N")
@@ -858,14 +736,14 @@ export default function DeckMap({
           return [0, 0, 0, 0];
         } else {
           // return [255, 0, 0, 255];
-          return COLOR_SCALE(f.properties[selectedMetric]);
+          return COLOR_SCALE(f.properties[info.selectedMetric]);
         }
       },
       opacity: choroplethOpacity,
       visible: zoomToggle,
 
       updateTriggers: {
-        getFillColor: [selectedMetric, addCompare],
+        getFillColor: [info.selectedMetric, addCompare],
       },
     }),
   ];
@@ -922,7 +800,7 @@ export default function DeckMap({
 
     new GeoJsonLayer({
       id: "administrative-demographics",
-      data: selectedBoundary,
+      data: info.selectedBoundary,
       stroked: false,
       filled: true,
       getFillColor: (f) => {
@@ -1011,7 +889,7 @@ export default function DeckMap({
   const annoLayers = [
     new GeoJsonLayer({
       id: "administrative-choropleth-highlights",
-      data: selectedBoundary,
+      data: info.selectedBoundary,
       filled: true,
       stroked: true,
 
@@ -1037,13 +915,13 @@ export default function DeckMap({
       },
 
       getLineWidth: (w) => {
-        let strokeValue = parseFloat(w.properties[selectedMetric]);
+        let strokeValue = parseFloat(w.properties[info.selectedMetric]);
         if (
           toggleUnderperformers === true &&
           (boundary == "council" ||
             (boundary == "community" && w.properties.Data_YN == "Y"))
         ) {
-          if (metricGoodBad == 1) {
+          if (info.metricGoodBad == 1) {
             return strokeValue >= underperformers ? 100 : 0;
           } else {
             return strokeValue <= underperformers ? 100 : 0;
@@ -1060,9 +938,9 @@ export default function DeckMap({
       fillPatternAtlas: _HATCH_ATLAS,
       fillPatternMapping: _FILL_PATTERN,
       getFillPattern: (f) => {
-        let fillValue = parseFloat(f.properties[selectedMetric]);
+        let fillValue = parseFloat(f.properties[info.selectedMetric]);
         if (toggleUnderperformers === true) {
-          if (metricGoodBad == 1) {
+          if (info.metricGoodBad == 1) {
             return fillValue >= underperformers
               ? "hatch-pattern"
               : "hatch-solid";
@@ -1080,14 +958,14 @@ export default function DeckMap({
       extensions: [new FillStyleExtension({ pattern: true })],
 
       updateTriggers: {
-        getLineWidth: [selectedMetric, zoomToggle, toggleUnderperformers],
-        getFillPattern: [selectedMetric, zoomToggle, toggleUnderperformers],
+        getLineWidth: [info.selectedMetric, zoomToggle, toggleUnderperformers],
+        getFillPattern: [info.selectedMetric, zoomToggle, toggleUnderperformers],
       },
     }),
 
     new GeoJsonLayer({
       id: "administrative-boundaries",
-      data: selectedBoundary,
+      data: info.selectedBoundary,
       stroked: true,
       filled: true,
       getFillColor: [255, 255, 255, 0],
@@ -1161,7 +1039,7 @@ export default function DeckMap({
 
     new GeoJsonLayer({
       id: "administrative-selected",
-      data: selectedBoundary,
+      data: info.selectedBoundary,
       filled: false,
       stroked: true,
 
@@ -1184,13 +1062,13 @@ export default function DeckMap({
       getLineWidth: 100,
       updateTriggers: {
         getLineColor: [
-          selectedMetric,
+          info.selectedMetric,
           addCompare,
           communitySearch,
           compareSearch,
         ],
         getFillColor: [
-          selectedMetric,
+          info.selectedMetric,
           addCompare,
           communitySearch,
           compareSearch,

@@ -54,7 +54,7 @@ export default function Content({
                                     setColorRamps,
                                     handleLegend,
                                     zoomToggle,
-                                    demoLookup,
+                                    demoLookup, info
                                 }) {
     return (
         <div className={`d-flex flex-row col-9`}>
@@ -110,6 +110,7 @@ export default function Content({
                         zoomToggle={zoomToggle}
                         demoLookup={demoLookup}
                         showMap={showMap}
+                        info={info}
                     />
                 )}
 
