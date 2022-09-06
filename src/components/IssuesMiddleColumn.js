@@ -392,7 +392,7 @@ export default function IssuesMiddleColumn({
                 `}
                 >
                     <h5 className={`${showDemographics ? "mb-0" : "mb-0"}`}>
-                        {showDemographics ? "Hide Demographics" : "Show Demographics"}
+                        {showDemographics ? "Hide U.S. Census Data" : "Show U.S. Census Data"}
                     </h5>
                     {showDemographics ? (
                         <FontAwesomeIcon icon={faMinus}/>
