@@ -39,9 +39,6 @@ export default function IssueProfile({
             }
             
             const sentence = words.join(" ");
-
-            console.log('sentence', sentence)
-
             return sentence || null
         }
         return null

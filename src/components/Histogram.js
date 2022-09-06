@@ -4,6 +4,7 @@ import { text, mouse } from "d3";
 
 import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _RANKINGS from "../data/rankings.json";
+import _COUNCILDISTRICTS from "../texts/councildistricts.json";
 // import _ISSUES from "../texts/issues.json"
 
 
@@ -32,12 +33,14 @@ const getDataToVis = (rawIssueData) => {
     let valueArray = [];
     let nameArray = [];
     let ascending;
-
+    let lookupArray = []
+    
     rawIssueData.sort((a, b) => (a.rank > b.rank));
 
     for (let [_, value] of Object.entries(rawIssueData)) {
         valueArray.push(Number(Number(value.data).toFixed(3)))
         nameArray.push(value.community)
+        lookupArray.push(value.community_ID)
     }
 
     let sum = valueArray.reduce((a, b) => a + b, 0);
@@ -58,7 +61,7 @@ const getDataToVis = (rawIssueData) => {
         }
     }
 
-    return [valueArray, nameArray, avg, avgIndex, ascending]
+    return [valueArray, nameArray, avg, avgIndex, ascending, lookupArray]
 }
 
 const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue }) => {
@@ -86,6 +89,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         return null
     }
 
+    
     // svg attr
     // const width = 500;
     // const height = 1200;
@@ -123,7 +127,22 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
-    let [data, nameArray, avg, avgIndex, ascending] = getDataToVis(rawIssueData);
+    let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
+    
+    // let borough = ["A","B"]
+
+    console.log(boundary == "council"?
+    _COUNCILDISTRICTS[1].borough
+    : [""])
+    // let borough = boundary == "council" ?
+    // _COUNCILDISTRICTS[lookupArray].borough
+    // : [""]
+
+
+    // console.log(lookupArray)
+
+
+    // console.log(rawIssueData)
     // console.log(avg);
     // console.log(data);
 
@@ -158,7 +177,6 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         hiStatement = hiStatement.charAt(0).toUpperCase() + hiStatement.slice(1);;
         lowStatement = lowStatement.charAt(0).toUpperCase() + lowStatement.slice(1);;
 
-        console.log("hiStatement", hiStatement, "lowStatement", lowStatement)
         let xscale = d3.scaleLinear()
             // .domain([0, d3.max(data)])
             .domain([d3.min(data) - minValueMargin, d3.max(data)])
@@ -322,7 +340,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 ycood = Math.min(ycood, yscale(data.length + 0.5));
 
                 // console.log(pt);
-                //console.log(Math.floor(yscale.invert(ycood) - 0.5));
+                // console.log(Math.floor(yscale.invert(ycood) - 0.5));
 
                 d3.select("#mouseLine")
                     // .transition()
@@ -337,11 +355,11 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
                 d3.select("#mouseTextUp")
                     .attr('y', ycood - 5)
-                    .text(nameArray[Math.floor(yscale.invert(ycood) - 0.5)])
+                    .text(`${nameArray[Math.floor(yscale.invert(ycood) - 0.5)]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[Math.floor(yscale.invert(ycood) - 0.5)]].borough.join("/ ")}` : ""}`)
 
                 d3.select("#mouseTextDown")
                     .attr('y', ycood + 15)
-                    .text(data[Math.floor(yscale.invert(ycood) - 0.5)])
+                    .text(`${data[Math.floor(yscale.invert(ycood) - 0.5)]}`)
 
                 // Adjust text position
                 svg.select('#mouseTextUp')
@@ -377,7 +395,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
                 d3.select("#pinnedTextUp")
                     .attr('y', ycood - 5)
-                    .text(nameArray[Math.floor(yscale.invert(ycood) - 0.5)])
+                    .text(`${nameArray[Math.floor(yscale.invert(ycood) - 0.5)]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[Math.floor(yscale.invert(ycood) - 0.5)]].borough.join("/ ")}` : ""}`)
 
                 d3.select("#pinnedTextDown")
                     .attr('y', ycood + 15)
