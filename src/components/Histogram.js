@@ -89,6 +89,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         return null
     }
 
+    // console.log(issues.specific_issues_data[selectedSpecificIssue].specific_issue_units)
+
     
     // svg attr
     // const width = 500;
@@ -129,19 +131,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
     let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
     
-    // let borough = ["A","B"]
-
-    console.log(boundary == "council"?
-    _COUNCILDISTRICTS[1].borough
-    : [""])
-    // let borough = boundary == "council" ?
-    // _COUNCILDISTRICTS[lookupArray].borough
-    // : [""]
-
-
     // console.log(lookupArray)
-
-
     // console.log(rawIssueData)
     // console.log(avg);
     // console.log(data);
@@ -355,11 +345,11 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
                 d3.select("#mouseTextUp")
                     .attr('y', ycood - 5)
-                    .text(`${nameArray[Math.floor(yscale.invert(ycood) - 0.5)]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[Math.floor(yscale.invert(ycood) - 0.5)]].borough.join("/ ")}` : ""}`)
+                    .text(`${boundary == "council" ? "Council" : ""} ${nameArray[Math.floor(yscale.invert(ycood) - 0.5)]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[Math.floor(yscale.invert(ycood) - 0.5)]].borough.join("/ ")}` : ""}`)
 
                 d3.select("#mouseTextDown")
                     .attr('y', ycood + 15)
-                    .text(`${data[Math.floor(yscale.invert(ycood) - 0.5)]}`)
+                    .text(`${data[Math.floor(yscale.invert(ycood) - 0.5)]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
 
                 // Adjust text position
                 svg.select('#mouseTextUp')
@@ -395,11 +385,11 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
                 d3.select("#pinnedTextUp")
                     .attr('y', ycood - 5)
-                    .text(`${nameArray[Math.floor(yscale.invert(ycood) - 0.5)]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[Math.floor(yscale.invert(ycood) - 0.5)]].borough.join("/ ")}` : ""}`)
+                    .text(`${boundary == "council" ? "Council" : ""} ${nameArray[Math.floor(yscale.invert(ycood) - 0.5)]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[Math.floor(yscale.invert(ycood) - 0.5)]].borough.join("/ ")}` : ""}`)
 
                 d3.select("#pinnedTextDown")
                     .attr('y', ycood + 15)
-                    .text(data[Math.floor(yscale.invert(ycood) - 0.5)])
+                    .text(`${data[Math.floor(yscale.invert(ycood) - 0.5)]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
 
                 // Adjust text position
                 svg.select('#pinnedTextUp')

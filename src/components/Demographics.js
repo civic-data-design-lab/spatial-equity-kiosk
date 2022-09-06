@@ -45,7 +45,7 @@ export default function Demographics({
     2: "Poverty Level",
     3: "No Car Ownership",
     4: "Drive Alone to Work",
-    5: "Transit, Biked or Walked (Total)",
+    5: "Walked, Biked, or Ride Transit",
   };
 
   const [showDropdownItems, setShowDropdownItems] = useState(false);
@@ -64,16 +64,16 @@ export default function Demographics({
     if (currentValue === "5") {
       return (
         <div className={"transit-toggle"}>
-          <div>
+                  <div>
             <Form>
               <Form.Check
                 inline
                 type={"checkbox"}
-                id={`transit-check`}
-                checked={toggleTransit}
-                label={"Public Transit"}
+                id={`walk-check`}
+                label={"Walk"}
+                checked={toggleWalk}
                 onChange={(e) => {
-                  setToggleTransit(e.target.checked);
+                  setToggleWalk(e.target.checked);
                 }}
               />
             </Form>
@@ -97,11 +97,11 @@ export default function Demographics({
               <Form.Check
                 inline
                 type={"checkbox"}
-                id={`walk-check`}
-                label={"Walk"}
-                checked={toggleWalk}
+                id={`transit-check`}
+                checked={toggleTransit}
+                label={"Public Transit"}
                 onChange={(e) => {
-                  setToggleWalk(e.target.checked);
+                  setToggleTransit(e.target.checked);
                 }}
               />
             </Form>

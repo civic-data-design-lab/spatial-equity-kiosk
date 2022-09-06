@@ -28,7 +28,7 @@
     "link": "https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page"
   },
   "2": {
-    "name": "Population Below the Poverty Line",
+    "name": "Households Living Below the Poverty Line",
     "lookup": "F12_PvtyPc",
     "metric_units": "Percent",
     "colorRamp": [
@@ -42,7 +42,7 @@
     "link": "https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page"
   },
   "3": {
-    "name": "Population With No Car Ownership",
+    "name": "Households Without a Car",
     "lookup": "F7_CarFree",
     "metric_units": "Percent",
     "colorRamp": [
@@ -56,7 +56,7 @@
     "link": ""
   },
   "4": {
-    "name": "Population that Drives Alone to Work",
+    "name": "Citywide Commuters Who Drive Alone to Work",
     "lookup": "F9_DrvAlon",
     "metric_units": "Percent",
     "colorRamp": [
@@ -70,7 +70,7 @@
     "link": ""
   },
   "5": {
-    "name": "Population Using Alternative Transportation",
+    "name": "Commuters Who Bike, Walk, or Ride Transit",
     "lookup": "F10_TrsBkW",
     "metric_units": "Percent",
     "colorRamp": [

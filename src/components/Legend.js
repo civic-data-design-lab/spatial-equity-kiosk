@@ -303,7 +303,7 @@ export default function Legend({
                                     <p className={"mb-1 small-font"}>{demoLookup.name}</p>
                                 ) : (
                                     <div className={"d-flex col-gap"}>
-                                        <p className={"mb-1 small-font"}>% population using</p>
+                                        <p className={"mb-1 small-font"}>Citywide Commuters Who</p>
                                         {transitToggles}
                                     </div>
                                 )}
@@ -382,7 +382,7 @@ export default function Legend({
                         <div className={"d-flex flex-column row-gap"} style={{flex: 1}}>
                             <div>
                                 <p className={"mb-3 small-font"}>
-                                    NYC Overall {demoLookup.name}
+                                    Citywide {demoLookup.name}
                                 </p>
                                 <div
                                     className={"placeholder-legend placeholder-legend-ethnicity"}
@@ -453,15 +453,14 @@ export default function Legend({
                         ];
                     }
 
+                    // console.log()
                     let percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
 
                     let textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
 
-                    // console.log(gridColorRamps)
-
                     return (
                         <div style={{flex: 1}}>
-                            <p className={"mb-3 small-font"}>NYC Overall {demoLookup.name}</p>
+                            <p className={"mb-3 small-font"}>Citywide {demoLookup.name}</p>
                             <div
                                 className={"placeholder-legend placeholder-legend-ethnicity"}
                             />
