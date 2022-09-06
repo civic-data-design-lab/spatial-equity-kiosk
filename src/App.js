@@ -272,7 +272,7 @@ function App() {
             "mapScale": mapScale
         })
 
-        console.log("info ", info)
+        // console.log("info ", info)
     }, [boundary, selectedSpecificIssue, selectedIssue])
 
     useEffect(() => {
@@ -590,7 +590,7 @@ function App() {
                                     searchSource={searchSource}
                                     setSearchSource={setSearchSource}
                                     setErrorCode={setErrorCode}
-                                    info={info}
+                                    infoTransfer={info}
                                 />
                             </div>
                         </div>
