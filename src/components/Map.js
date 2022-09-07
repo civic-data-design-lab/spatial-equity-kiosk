@@ -387,8 +387,6 @@ export default function DeckMap({
       const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
         ? true
         : false;
-      // console.log(_RANKINGS[boundary], info);
-
       const maxRanking = metricCheck
         ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
         : "";
@@ -694,22 +692,10 @@ export default function DeckMap({
 
   useEffect(() => {
     updateSearchEngine(selectedCoord, 0);
-    console.log(
-      "selectedCoord",
-      selectedCoord,
-      "selectedCompareCoord",
-      selectedCompareCoord
-    );
   }, [selectedCoord, infoTransfer.selectedBoundary]);
 
   useEffect(() => {
     updateSearchEngine(selectedCompareCoord, 1);
-    console.log(
-      "selectedCoord",
-      selectedCoord,
-      "selectedCompareCoord",
-      selectedCompareCoord
-    );
   }, [selectedCompareCoord, infoTransfer.selectedBoundary]);
 
   useEffect(() => {
