@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowLeft,
   faArrowRight,
   faMinus,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
+
 import Slider from "./Carousel";
 
 import CommunitySearchBar from "./CommunitySearchBar";
+import Typewriter from "typewriter-effect";
 
 export default function CommunityNav({
   communities,
@@ -208,6 +211,27 @@ export default function CommunityNav({
               : `Nothing found. Try searching for something else.`}
           </div>
         )}
+
+        {!communitySearch && <div className={"d-flex flex-row align-items-center h-100 w-100"}>
+
+                   {/* <FontAwesomeIcon icon={faArrowLeft} className={"fa-lg"}/>*/}
+                <p className={"m-0 small-font"}>Try searching for &thinsp;</p>
+
+                <div className={"typewriter-container"}>
+                    <Typewriter
+                    options={{
+                        strings: (boundary === "community" ? ['your address', 'Hamilton Heights', '111 John Street',
+                            "Bronx 9", 'Bedford Stuyvesant', '350 5th Avenue'] : ["your address", "Washington Heights", "350 5th Avenue", "District 5", "111 John Street",
+                            "Bensonhurst"]),
+                        autoStart: true,
+                        loop: true,
+                        pauseFor: 2000,
+                    }}
+                />
+                </div>
+
+
+            </div>}
 
         {communitySearch && !addCompare && (
           <div

@@ -120,11 +120,10 @@ export default function DeckMap({
   setErrorCode,
   infoTransfer,
   setShowMap,
-  showMap,
+  showMap, userPoints, setUserPoints
 }) {
   // map hooks
   const [underperformers, setUnderperformers] = useState(null);
-  const [userPoints, setUserPoints] = useState([], []);
 
   const mapRef = useRef(null);
   const dataScale = useRef("q"); //set to "equal" for equal binning, "q" for quantile binning

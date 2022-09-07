@@ -17,26 +17,13 @@ export default function CommunityProfile({
   councils,
 }) {
   useEffect(() => {
-    if (boundary === "community") {
-      if (
-        selectedSpecificIssue &&
-        communitySearch &&
-        ((communities[communitySearch] &&
-          !communities[communitySearch].least_performing_issues.includes(
-            selectedSpecificIssue
-          ) &&
-          !moreIssues.includes(selectedSpecificIssue)) ||
-          (councils[communitySearch] &&
-            !councils[communitySearch].least_performing_issues.includes(
-              selectedSpecificIssue
-            ) &&
-            !moreIssues.includes(selectedSpecificIssue)))
-      ) {
-        let newMoreIssues = moreIssues;
-        newMoreIssues.push(selectedSpecificIssue);
-        setMoreIssues(newMoreIssues);
-        setMoreIssuesLength(moreIssuesLength + 1);
-      }
+
+    if (moreIssues && communitySearch) {
+      let leastPerfIssues = councils[communitySearch]?.least_performing_issues || councils[communitySearch]?.least_performing_issues
+      let newMoreIssues= moreIssues.filter((issue)=>!leastPerfIssues.includes(issue))
+      setMoreIssues(newMoreIssues)
+      setMoreIssuesLength(newMoreIssues.length)
+
     }
 
     /* if (boundary === "council") {
@@ -47,7 +34,7 @@ export default function CommunityProfile({
                 setMoreIssuesLength(moreIssuesLength+1)
             }
         }*/
-  }, [selectedSpecificIssue]);
+  }, [selectedSpecificIssue, communitySearch]);
 
   const [modal, setModal] = useState(null);
 
