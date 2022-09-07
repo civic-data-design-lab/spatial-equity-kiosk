@@ -215,7 +215,7 @@ export default function CommunityNav({
         {!communitySearch && <div className={"d-flex flex-row align-items-center h-100 w-100"}>
 
                    {/* <FontAwesomeIcon icon={faArrowLeft} className={"fa-lg"}/>*/}
-                <p className={"m-0 small-font"}>Try searching for &thinsp;</p>
+                <p className={"m-0"}>Try searching for &thinsp;</p>
 
                 <div className={"typewriter-container"}>
                     <Typewriter

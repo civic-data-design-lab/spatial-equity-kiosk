@@ -36,8 +36,8 @@ export default function Legend({
   // console.log("forDemographic", forDemographic)
   // console.log("--------------------")
 
-    console.log("demographics json ", _DEMOGRAPHIC_PERCENTAGED)
-    console.log("demoLookup ", demoLookup)
+    // console.log("demographics json ", _DEMOGRAPHIC_PERCENTAGED)
+    // console.log("demoLookup ", demoLookup)
 
   const administrativeBoundary =
     boundary === "council" ? "Council Districts" : "Community Boards";

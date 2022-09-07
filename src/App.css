@@ -1151,8 +1151,8 @@ a:active {
 }
 
 .typewriter-container {
-    /*font-size: calc(1.325rem + .9vw);*/
-    font-size: calc(0.75rem);
+    font-size: calc(1.325rem + .9vw);
+    /* font-size: calc(0.75rem); */
     font-weight: 500;
     color: white;
 }
@@ -1398,7 +1398,7 @@ input:checked + .slider:before {
 }
 
 .scroll-content {
-    padding: 0 1.25rem 1.25rem;
+    padding: 0 2rem 1.25rem 1.25rem;
     width: calc(75% - 5rem);
     scroll-snap-align: start;
 }

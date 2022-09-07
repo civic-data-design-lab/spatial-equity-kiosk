@@ -47,6 +47,14 @@ function map_range(value, low1, high1, low2, high2) {
   return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
 }
 
+const resetView = {
+  longitude: -74,
+  latitude: 40.7131,
+  zoom: 9.5,
+  transitionDuration: 500,
+  transitionInerpolator: new LinearInterpolator(),
+};
+
 const mapBackgroundStyle = {
   position: "absolute",
   width: "100%",
@@ -120,7 +128,9 @@ export default function DeckMap({
   setErrorCode,
   infoTransfer,
   setShowMap,
-  showMap, userPoints, setUserPoints
+  showMap,
+  userPoints,
+  setUserPoints,
 }) {
   // map hooks
   const [underperformers, setUnderperformers] = useState(null);
@@ -574,6 +584,8 @@ export default function DeckMap({
             } else if (searchSource === "click") {
               setCommunitySearch(null);
               setUserPoints([[], []]);
+
+              setViewState(resetView);
             }
           }
 
@@ -638,6 +650,10 @@ export default function DeckMap({
                 setCommunitySearch(compareSearch ? compareSearch : null);
                 setCompareSearch(null);
                 setUserPoints([userPoints[1], []]);
+
+                if (!compareSearch) {
+                  setViewState(resetView);
+                }
               } else {
                 setUserPoints([searchEngine, userPoints[1]]);
                 setBadSearch([badSearch[0], 1]);
@@ -681,6 +697,11 @@ export default function DeckMap({
       setUserPoints([userPoints[0], []]);
     }
   }, [addCompare]);
+
+  // fix view on resize
+  useEffect(() => {
+    setViewState(resetView);
+  }, [selectedChapter]);
 
   // 06 Render lifecycle
   useEffect(() => {
