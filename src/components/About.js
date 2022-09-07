@@ -536,7 +536,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   "w-100 d-flex flex-row align-items-center big-col-gap justify-content-center pt-3 mb-3"
                 }
               >
-                <svg
+                {/* <svg
                   width="126"
                   height="34"
                   viewBox="0 0 126 34"
@@ -573,7 +573,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
 
                 <img src={_MIT} height={30} />
                 <img src={_LCAU} height={50} />
-                <img src={_CDDL} height={30} />
+                <img src={_CDDL} height={30} /> */}
               </div>
             </div>
           </div>
