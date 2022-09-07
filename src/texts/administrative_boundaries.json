@@ -3,18 +3,21 @@
         {   "json_lookup": "CDD",
             "name": "City Council Districts",
             "data_source": "",
+            "year": "",
             "link": ""
         },
     "CDTA":
         {   "json_lookup": "CDTA",
             "name": "Community District Tabulation Areas",
             "data_source": "",
+            "year": "2020",
             "link": ""
         },
     "NTA":
         {   "json_lookup": "NTA",
             "name": "Neighborhood Tabulation Areas",
             "data_source": "",
+            "year": "2020",
             "link": ""
         }
 }
