@@ -458,7 +458,7 @@ export default function DeckMap({
                     metricCheck
                       ? `${
                           infoTransfer.selectedMetric != null
-                            ? obj.properties[infoTransfer.selectedMetric] > 10
+                            ? obj.properties[infoTransfer.selectedMetric] >= 10
                               ? obj.properties[
                                   infoTransfer.selectedMetric
                                 ].toFixed(0)
@@ -466,10 +466,12 @@ export default function DeckMap({
                                   infoTransfer.selectedMetric
                                 ].toFixed(2)
                             : ""
-                        }</strong> ${
+                        }</strong>${
                           typeof selectedSpecificIssue == "number"
                             ? issues.specific_issues_data[selectedSpecificIssue]
-                                .specific_issue_units
+                                .issue_units_shorthand != ""
+                              ? `<strong>${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand}</strong>`
+                              : ` ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`
                             : ""
                         }`
                       : ""

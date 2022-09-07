@@ -1600,6 +1600,18 @@ input:checked + .slider:before {
 
 }
 
+.attributions{
+        width: 90%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 0.1rem;
+}
+
+.attributions a:hover{
+    transform: scale(1.1);
+    transition: 0.5s ease-in-out;
+}
+
 
 @media screen and (max-width: 576px) {
     .dropdown-body {
