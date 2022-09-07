@@ -36,6 +36,9 @@ export default function Legend({
   // console.log("forDemographic", forDemographic)
   // console.log("--------------------")
 
+    console.log("demographics json ", _DEMOGRAPHIC_PERCENTAGED)
+    console.log("demoLookup ", demoLookup)
+
   const administrativeBoundary =
     boundary === "council" ? "Council Districts" : "Community Boards";
 
@@ -292,6 +295,14 @@ export default function Legend({
           return (
             <div className={"d-flex flex-column row-gap"} style={{ flex: 1 }}>
               <div>
+                  {<p className={"m-0 small-font"}><span className={"bold"}>{_DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList[0]}</span>% of
+                    {demoLookup.name === "Households Living Below the Poverty Line" || demoLookup.name === "Households Without a Car" ? " households " : " commuters "}
+                    in <span className={"underline bold"}>{"New York City"}</span> {demoLookup.name === "Households Living Below the Poverty Line" ? "live below the poverty line" :
+                        demoLookup.name === "Households Without a Car" ? "do not own a car" :
+                            demoLookup.name === "Citywide Commuters Who Drive Alone to Work" ? "drive alone to work" :
+                                "bike, walk, or ride transit"}
+
+                </p>}
                 {/* {demoLookup.name !== "Population Using Alternative Transportation" && <p className={"mb-3 small-font"}>
                                     {demoLookup.metric_units}{" "}
                                 </p>}*/}
@@ -454,6 +465,7 @@ export default function Legend({
 
           return (
             <div style={{ flex: 1 }}>
+
               <p className={"mb-3 small-font"}>Citywide {demoLookup.name}</p>
               <div
                 className={"placeholder-legend placeholder-legend-ethnicity"}
