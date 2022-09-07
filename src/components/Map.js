@@ -694,10 +694,22 @@ export default function DeckMap({
 
   useEffect(() => {
     updateSearchEngine(selectedCoord, 0);
+    console.log(
+      "selectedCoord",
+      selectedCoord,
+      "selectedCompareCoord",
+      selectedCompareCoord
+    );
   }, [selectedCoord, infoTransfer.selectedBoundary]);
 
   useEffect(() => {
     updateSearchEngine(selectedCompareCoord, 1);
+    console.log(
+      "selectedCoord",
+      selectedCoord,
+      "selectedCompareCoord",
+      selectedCompareCoord
+    );
   }, [selectedCompareCoord, infoTransfer.selectedBoundary]);
 
   useEffect(() => {
@@ -708,7 +720,9 @@ export default function DeckMap({
 
   // fix view on resize
   useEffect(() => {
-    setViewState(resetView);
+    if (searchSource !== "click") {
+      setViewState(resetView);
+    }
   }, [selectedChapter]);
 
   // 06 Render lifecycle

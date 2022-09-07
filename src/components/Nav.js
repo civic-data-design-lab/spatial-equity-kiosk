@@ -44,6 +44,7 @@ function Nav({
   setSearchSource,
   errorCode,
   setErrorCode,
+  setUserPoints,
 }) {
   const selectedChapterCache = useRef(null);
 
@@ -148,15 +149,13 @@ function Nav({
              }
              ${selectedChapter === 3 ? "bottom-highlight" : ""}`}
         onClick={() => {
-          //setCompareSearch(null)
-          //setCommunitySearch(null)
-          //setShowMap(false)
-          //setSelectedIssue(null)
-          //setSelectedSpecificIssue(null)
           setMoreIssuesLength(0);
           setMoreIssues([]);
           if (selectedChapter !== 2) {
             setSelectedChapter(2);
+            setSearchSource(null);
+            setUserPoints([], []);
+            setAddCompare(false);
             setSelectedSpecificIssue(selectedChapterCache.current);
           } else {
             setSelectedChapter(null);
@@ -225,6 +224,10 @@ function Nav({
         onClick={() => {
           if (selectedChapter !== 3) {
             setSelectedChapter(3);
+            setSearchSource(null);
+            setUserPoints([], []);
+            setSelectedCoord([]);
+            setselectedCompareCoord([]);
             selectedChapterCache.current = selectedSpecificIssue;
             setSelectedSpecificIssue(null);
           } else {

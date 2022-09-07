@@ -117,7 +117,7 @@ export default function ShareButton({}) {
             />
           </div>
         )}
-        {!clicked && <small className={"m-0"}>Share</small>}
+        {!clicked && <small className={"m-0"}><strong>Share</strong></small>}
         <div className={"share-icon"}>
           <img src={_SHARE} />
         </div>
