@@ -1,6 +1,6 @@
 {
-    "CDD":
-        {   "json_lookup": "CDD",
+    "CCD":
+        {   "json_lookup": "CCD",
             "name": "City Council Districts",
             "data_source": "",
             "year": "",
