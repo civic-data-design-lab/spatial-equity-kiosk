@@ -8,6 +8,8 @@ import {default as _SHARE} from "../img/share.svg";
 
 const SHARE_HASHTAGS = ["nyc", "spatialequity"]
 const TWEET_INTENT_URL = "https://twitter.com/intent/tweet"
+const FACEBOOK_SHARE_URL = "https://www.facebook.com/sharer/sharer.php"
+const LINKEDIN_SHARE_URL = "https://linkedin.com/sharing/share-offsite"
 
 export default function ShareButton({}) {
 
@@ -57,36 +59,40 @@ export default function ShareButton({}) {
                 </div>
             </div>
             <div className={`${clicked ? "" : "d-none"} position-absolute share-icons`}>
-                <FontAwesomeIcon icon={faSquareFacebook}
-                                 onClick={
-                                     () => {
-                                         setClicked(false)
-                                     }
-                                 }
-                />
+                {/* https://developers.facebook.com/docs/plugins/share-button/ */}
+                <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`${FACEBOOK_SHARE_URL}?u=${shareUrl}`}
+                    onClick={() => setClicked(false)}
+                >
+                    <FontAwesomeIcon icon={faSquareFacebook}/>
+                </a>
                 {/* https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/overview */}
                 <a
-                    class="twitter-share-button"
                     target="_blank"
+                    rel="noreferrer"
                     href={`${TWEET_INTENT_URL}?text=${encodeURIComponent(shareText)}&url=${shareUrl}&hashtags=${SHARE_HASHTAGS.join(",")}`}
                     onClick={() => setClicked(false)}
                 >
                     <FontAwesomeIcon icon={faTwitter}/>
                 </a>
-                <FontAwesomeIcon icon={faInstagram}
-                                 onClick={
-                                     () => {
-                                         setClicked(false)
-                                     }
-                                 }
-                />
-                <FontAwesomeIcon icon={faLinkedinIn}
-                                 onClick={
-                                     () => {
-                                         setClicked(false)
-                                     }
-                                 }
-                />
+                {/* TODO:
+                    Instagram sharing doesn't seem to be supported via web API,
+                    only by mobile apps https://stackoverflow.com/a/17682403. 
+                */}
+                <a onClick={() => setClicked(false)}>
+                    <FontAwesomeIcon icon={faInstagram}/>
+                </a>
+                {/* https://github.com/bradvin/social-share-urls */}
+                 <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`${LINKEDIN_SHARE_URL}?url=${shareUrl}`}
+                    onClick={() => setClicked(false)}
+                >
+                    <FontAwesomeIcon icon={faLinkedinIn}/>
+                </a>
                 <FontAwesomeIcon icon={faCopy} onClick={
                     (e) => {
                         e.preventDefault()
