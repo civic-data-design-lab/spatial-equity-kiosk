@@ -76,6 +76,7 @@ function App() {
     const [errorCode, setErrorCode] = useState(null);
     const [showMenu, setShowMenu] = useState(false);
     const [info, setInfo] = useState(null);
+    const [userPoints, setUserPoints] = useState([], [])
 
     // console.log(demoColorRamp)
     // map hooks
@@ -150,6 +151,13 @@ function App() {
                 case "tU":
                     setToggleUnderperformers(pair[1] === "true");
                     break;
+              /*  case "uP":
+                    console.log("pair[1] ", pair[1])
+                    setUserPoints(
+                        JSON.parse(pair[1]).map((item) => {
+                            return parseInt(item);
+                        })
+                    )*/
             }
         }
     }, []);
@@ -163,6 +171,8 @@ function App() {
       return _COUNCIL_DISTRICTS;
     }
   }, [boundary]);
+
+
 
     useEffect(() => {
         // SELECT BOUNDARY ------------------------------------------------------------
@@ -203,14 +213,24 @@ function App() {
         //variables for scale thresholds
 
         // pick color ramp for metrics and have default to avoid errors
-        const selectedRamp =
-            selectedIssue === 1
+
+        let selectedRamp
+        if (selectedSpecificIssue) {
+           selectedRamp = issues.specific_issues_data[selectedSpecificIssue].issue_type_ID === 1 ?
+               "health" : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID === 2 ?
+                   "env" : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID === 3 ?
+                       "infra" : "troubleshoot"
+       } else {
+            selectedRamp= selectedIssue === 1
                 ? "health"
                 : selectedIssue === 2
                     ? "env"
                     : selectedIssue === 3
                         ? "infra"
                         : "troubleshoot";
+        }
+        setColorRamps(selectedRamp)
+
 
         const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
         const binList = []; // derived from the selectedMetricArray array, this is the list of bins for the legend
@@ -272,10 +292,12 @@ function App() {
             "mapScale": mapScale
         })
 
-        console.log("info ", info)
-    }, [boundary, selectedSpecificIssue, selectedIssue])
+        // console.log("info ", info)
+    }, [boundary, selectedSpecificIssue, selectedIssue, zoomToggle])
 
     useEffect(() => {
+
+        console.log("userPoints ", userPoints)
         // console.log("demoLookup ", demoLookup);
         // console.log("HERE ARE THE STATES")
         // console.log("selectedChapter ", selectedChapter)
@@ -326,7 +348,11 @@ function App() {
         if (toggleUnderperformers !== null)
             params.push(`tU=${toggleUnderperformers}`);
 
-        // TODO: add colorRamps and legendBins
+        // TODO: ask what format of this statehook is
+/*
+        if (userPoints[0]!==null && userPoints[1]!==null) params.push(`uP=[[${userPoints[0] && userPoints[0].toString()}],[${userPoints[1] && userPoints[1].toString()}]]`)
+*/
+
         let path = window.location.href.split("?")[0];
         path = path.concat("?");
         params.map((param) => {
@@ -339,13 +365,15 @@ function App() {
             window.location.assign(path);
         }
 
+
         if ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) {
             setShowToggle(true);
         }
 
         if (selectedChapter === 3 && !communitySearch) {
-            setShowMap(false);
+            setShowMap(true);
         }
+
     });
 
     useEffect(() => {
@@ -356,7 +384,7 @@ function App() {
         }
     }, [selectedSpecificIssue]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (selectedSpecificIssue) {
             if (!moreIssues.includes(selectedSpecificIssue)) {
                 let newMore = moreIssues;
@@ -365,7 +393,8 @@ function App() {
                 setMoreIssuesLength(moreIssuesLength + 1);
             }
         }
-    }, [selectedSpecificIssue]);
+    }, [selectedSpecificIssue]);*/
+
 
     const [assistivePos, setAssistivePos] = useState({x: 0, y: 0});
     const [offset, setOffset] = useState({x: 0, y: 0});
@@ -538,7 +567,11 @@ function App() {
                             {/* <BaseMap viewState={viewState} /> */}
 
                             <div
-                                className={"individual-maps"}
+                                className={`individual-maps`}
+                                style={
+                                {width: selectedChapter===3 && !communitySearch ? "75vw" : "50vw",
+                                    transition: "width 0.5s"
+                                }}
                                 id={mapDemographics ? "left-map" : "left-map-alone"}
                             >
                                 <Map
@@ -560,6 +593,7 @@ function App() {
                                     setAddCompare={setAddCompare}
                                     compareSearch={compareSearch}
                                     setCompareSearch={setCompareSearch}
+                                    showMap={showMap}
                                     setShowMap={setShowMap}
                                     communities={communities}
                                     councils={councils}
@@ -590,7 +624,10 @@ function App() {
                                     searchSource={searchSource}
                                     setSearchSource={setSearchSource}
                                     setErrorCode={setErrorCode}
-                                    info={info}
+                                    infoTransfer={info}
+                                    setShowMap={setShowMap}
+                                    userPoints={userPoints}
+                                    setUserPoints={setUserPoints}
                                 />
                             </div>
                         </div>
@@ -716,54 +753,6 @@ function App() {
                             mainMap={true}
                         />
                     )}
-
-                    {/* <Map
-            issues={issues}
-            selectedIssue={selectedIssue}
-            selectedSpecificIssue={selectedSpecificIssue}
-            boundary={boundary}
-            showDemographics={showDemographics}
-            mapDemographics={mapDemographics}
-            demographic={demographic}
-            setColorRamps={setColorRamps}
-            toggleUnderperformers={toggleUnderperformers}
-            demoLookup={demoLookup}
-            setSelectedChapter={setSelectedChapter}
-            communitySearch={communitySearch}
-            setCommunitySearch={setCommunitySearch}
-            addCompare={addCompare}
-            setAddCompare={setAddCompare}
-            compareSearch={compareSearch}
-            setCompareSearch={setCompareSearch}
-            setShowMap={setShowMap}
-            communities={communities}
-            councils={councils}
-            viewState={viewState}
-            setViewState={setViewState}
-            mapSelection={mapSelection}
-            setMapSelection={setMapSelection}
-            zoomToggle={zoomToggle}
-            setzoomToggle={setzoomToggle}
-            handleLegend={handleLegend}
-            sethandleLegend={sethandleLegend}
-            coordinateLookup={coordinateLookup}
-            setCoordinateLookup={setCoordinateLookup}
-            dataScale={dataScale}
-            setdataScale={setdataScale}
-            highlightFeature={highlightFeature}
-            sethighlightFeature={sethighlightFeature}
-            toggleTransit={toggleTransit}
-            toggleBike={toggleBike}
-            toggleWalk={toggleWalk}
-            setDemoLegendBins={setDemoLegendBins}
-            selectedCoord={selectedCoord}
-            selectedCompareCoord={selectedCompareCoord}
-            setSelectedCoord={setSelectedCoord}
-            setSelectedCompareCoord={setselectedCompareCoord}
-            badSearch={badSearch}
-            setBadSearch={setBadSearch}
-            setErrorCode={setErrorCode}
-          /> */}
                 </Container>
             )}
         </>

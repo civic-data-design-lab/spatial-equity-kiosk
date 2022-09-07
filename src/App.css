@@ -695,7 +695,7 @@ a:active {
 }
 
 .map-container {
-    width: 50vw;
+
     height: 100vh;
     position: absolute;
     right: 0;
@@ -703,15 +703,11 @@ a:active {
 
 .map-subcontainer {
     display: flex;
-    width: 50vw;
     right: 0;
 }
 
 
 
-#left-map-alone {
-    width: 100% !important;
-}
 
 
 
@@ -720,7 +716,6 @@ a:active {
     border: 1px solid black;
     position: relative;
     height: 100vh;
-    width: 50vw;
 }
 
 /* wiper v2 */
@@ -770,6 +765,10 @@ a:active {
     grid-template-columns: auto 1fr 4fr;
     grid-gap: 1px;
     justify-items: left;
+}
+
+.map-tooltip-info{
+    font-size: 0.75em;
 }
 
 .map-tooltip-info:last-child{
@@ -1152,8 +1151,10 @@ a:active {
 }
 
 .typewriter-container {
-    font-size: calc(1.325rem + .9vw);
+    /*font-size: calc(1.325rem + .9vw);*/
+    font-size: calc(0.75rem);
     font-weight: 500;
+    color: white;
 }
 
 .Typewriter__wrapper {
@@ -1670,6 +1671,11 @@ input:checked + .slider:before {
 
 .small-text {
     font-size: 1rem;
+}
+
+.smaller-text {
+    font-size: 0.75rem;
+    font-weight: 300;
 }
 
 .no-text {

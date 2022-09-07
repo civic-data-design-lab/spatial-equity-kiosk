@@ -84,7 +84,7 @@ function Nav({
               selectedChapter && selectedChapter !== 1 ? "h5 m-0" : "h1"
             } transition-font`}
           >
-            Spatial Equity
+            Spatial Equity NYC
           </p>
         </div>
 

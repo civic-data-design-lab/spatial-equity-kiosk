@@ -1,22 +1,22 @@
 {
   "Race & Ethnicity": {
     "percList": [29, 33, 23, 13, 3],
-    "textList": ["Hispanic", "White", "Black", "Asian", "Other"]
+    "textList": ["Latino", "White", "Black", "Asian", "Other"]
   },
-  "Population Below the Poverty Line": {
+  "Households Living Below the Poverty Line": {
     "percList": [11, 89],
-    "textList": ["Population Below the Poverty Line", "Others"]
+    "textList": ["Households Living Below the Poverty Line", "Others"]
   },
-  "Population With No Car Ownership": {
+  "Households Without a Car": {
     "percList": [43, 57],
-    "textList": ["Population With No Car Ownership", "Others"]
+    "textList": ["Households Without a Car", "Others"]
   },
-  "Population that Drives Alone to Work": {
+  "Citywide Commuters Who Drive Alone to Work": {
     "percList": [17, 83],
-    "textList": ["Population that Drives Alone to Work", "Others"]
+    "textList": ["Citywide Commuters Who Drive Alone to Work", "Others"]
   },
-  "Population Using Alternative Transportation": {
+  "Commuters Who Bike, Walk, or Ride Transit": {
     "percList": [45, 55],
-    "textList": ["Population Using Alternative Transportation", "Others"]
+    "textList": ["Commuters Who Bike, Walk, or Ride Transit", "Others"]
   }
 }

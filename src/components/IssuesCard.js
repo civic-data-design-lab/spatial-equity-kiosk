@@ -31,7 +31,7 @@ export default function IssuesCard({
             <div className={"issues-card-header"}>
                 <div className={"issues-card-title-container col-gap"}>
                     <p className={"m-0"}>{getIssueName()}</p>
-                    <p className={"m-0 small-text"}>{issues.specific_issues_data[specificIssue].specific_issue_units}</p>
+                    <p className={"m-0 smaller-text"}>{issues.specific_issues_data[specificIssue].specific_issue_units}</p>
                 </div>
                 <div className={"issues-card-button-container col-gap"}>
                     <div
