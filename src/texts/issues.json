@@ -184,6 +184,7 @@
       "issue_hi_low": ["greatest","least"],
       "highlight_statement": "highest asthma rates",
       "specific_issue_source": "New York State Statewide Planning and Research Cooperative System (SPARCS) Deidentified Hospital Discharge Data",
+      "year": "",
       "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/VisualizationData.aspx?id=2380,4466a0,11,Summarize",
       "related": [
         10, 12, 15
@@ -308,6 +309,7 @@
       "issue_hi_low": ["fastest","slowest"],
       "highlight_statement": "slowest bus speeds",
       "specific_issue_source": "source name",
+      "year": "",
       "link": "",
       "related": [
         9,
@@ -482,6 +484,7 @@
       "issue_hi_low": ["most","least"],
       "highlight_statement": "least bus lane and busway miles",
       "specific_issue_source": "Department of Transportation (DOT)",
+      "year": "",
       "link": "https://data.cityofnewyork.us/Transportation/Bus-Lanes-Local-Streets/ycrg-ses3/data",
       "related": [
         9,
@@ -612,6 +615,7 @@
       "issue_hi_low": ["most","least"],
       "highlight_statement": "least parkland",
       "specific_issue_source": "NYC Department of Parks and Recreation (DPR), NYC Department of City Planning (DCP), National Park Service (NPS), New York State Office of Parks, Recreation, and Historic Preservation (OPRHP). Population & Park Access: American Community Survey (ACS) 2007-2011, Infoshare.org, DPR, DCP",
+      "year": "",
       "link": "http://www.ny4p.org/general/district-profiles-2015",
       "related": [
         10,
@@ -772,6 +776,7 @@
       "issue_hi_low": ["highest","lowest"],
       "highlight_statement": "highest daytime temperatures",
       "specific_issue_source": "source name",
+      "year": "",
       "link": "",
       "related": [
         1,
@@ -949,6 +954,7 @@
       "issue_hi_low": ["most","least"],
       "highlight_statement": "least green infrastructure",
       "specific_issue_source": "Department of Environmental Protection (DEP)",
+      "year": "",
       "link": "https://data.cityofnewyork.us/Environment/DEP-Green-Infrastructure/spjh-pz7h",
       "related": [
         4,
@@ -1104,6 +1110,7 @@
       "issue_hi_low": ["greatest","least"],
       "highlight_statement": "greatest noise pollution",
       "specific_issue_source": "Bureau of Transportation Statistics (BTS), U.S. Department of Transportation (USDOT), 2018",
+      "year": "",
       "link": "https://data-usdot.opendata.arcgis.com/documents/usdot::2018-noise-data/about",
       "related": [
         4,
@@ -1240,6 +1247,7 @@
       "issue_hi_low": ["most","least"],
       "highlight_statement": "least bike racks",
       "specific_issue_source": "source name",
+      "year": "",
       "link": "",
       "related": [
         11,
@@ -1365,6 +1373,7 @@
       "issue_hi_low": ["most","least"],
       "highlight_statement": "least city benches",
       "specific_issue_source": "source name",
+      "year": "",
       "link": "",
       "related": [
         3,
@@ -1515,6 +1524,7 @@
       "issue_hi_low": ["highest","lowest"],
       "highlight_statement": "highest pollution levels",
       "specific_issue_source": "New York City Community Air Survey",
+      "year": "",
       "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/VisualizationData.aspx?id=2023,719b87,122,Summarize",
       "related": [
         1,
@@ -1649,6 +1659,7 @@
       "issue_hi_low": ["most","least"],
       "highlight_statement": "least bike lanes",
       "specific_issue_source": "Department of Transportation (DOT)",
+      "year": "",
       "link": "https://data.cityofnewyork.us/Environment/DEP-Green-Infrastructure/spjh-pz7h",
       "related": [
         12,
@@ -1799,6 +1810,7 @@
       "issue_hi_low": ["most","least"],
       "highlight_statement": "greatest traffic",
       "specific_issue_source": "New York Metropolitan Transportation Council Best Practice Model",
+      "year": "",
       "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/VisualizationData.aspx?id=2112,719b87,114,Summarize",
       "related": [
         10,
@@ -1954,6 +1966,7 @@
       "issue_hi_low": ["most","fewest"],
       "highlight_statement": "most traffic fatalities",
       "specific_issue_source": "Police Department (NYPD)",
+      "year": "",
       "link": "https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95",
       "related": [
         11,
@@ -2124,6 +2137,7 @@
       "issue_hi_low": ["most","fewest"],
       "highlight_statement": "most traffic injuries",
       "specific_issue_source": "Police Department (NYPD)",
+      "year": "",
       "link": "https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95",
       "related": [
         11,
@@ -2304,6 +2318,7 @@
       "issue_hi_low": ["most","least"],
       "highlight_statement": "least tree canopy cover",
       "specific_issue_source": "The Built Environment & Health Project (BEH), Columbia University",
+      "year": "",
       "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/VisualizationData.aspx?id=2157,719b87,104,Summarize",
       "related": [
         10,
