@@ -443,8 +443,9 @@ export default function DeckMap({
             html: `\
           <!-- select metric -->
           <div class=map-tooltip-header>${tooltipBounds} <strong>${boundaryName}</strong></div>
-          <!-- depricated neighborhood list <div class=map-tooltip-subinfo>${neighborhoodList}</div> -->
-          <div>
+          ${
+            metricCheck
+              ? `<div>
             <div class=map-tooltip-info>${
               metricCheck
                 ? `Ranks <strong>${
@@ -478,30 +479,34 @@ export default function DeckMap({
                   }.`
                 : ""
             }</div>
-          </div>
+          </div>`
+              : ""
+          }
           <!-- select demographic -->
-          <div class=map-tooltip-info>
           ${
             selectedDemographic != null
-              ? demographic !== "5"
-                ? `${demoLookup[demographic].name}—`
-                : toggleTransit || toggleBike || toggleWalk
-                ? `${transportationModes}—`
-                : `Check off one of the transportation options above the demographics legend to see how people are getting around.`
-              : ""
-          } ${
+              ? `<div class=map-tooltip-info>
+            ${
               selectedDemographic != null
-                ? demographic !== "1"
-                  ? demographic !== "5"
-                    ? `<strong>${(
-                        obj.properties[selectedDemographic] * 100
-                      ).toFixed(0)}% </strong>`
-                    : toggleTransit || toggleBike || toggleWalk
-                    ? `<strong>${(selectedDemoArray[info.index] * 100).toFixed(
-                        0
-                      )}%</strong>`
-                    : ""
-                  : `\
+                ? demographic !== "5"
+                  ? `${demoLookup[demographic].name}—`
+                  : toggleTransit || toggleBike || toggleWalk
+                  ? `${transportationModes}—`
+                  : `Check off one of the transportation options above the demographics legend to see how people are getting around.`
+                : ""
+            } ${
+                  selectedDemographic != null
+                    ? demographic !== "1"
+                      ? demographic !== "5"
+                        ? `<strong>${(
+                            obj.properties[selectedDemographic] * 100
+                          ).toFixed(0)}% </strong>`
+                        : toggleTransit || toggleBike || toggleWalk
+                        ? `<strong>${(
+                            selectedDemoArray[info.index] * 100
+                          ).toFixed(0)}%</strong>`
+                        : ""
+                      : `\
                   <div class=tooltip-grid>
                     <div style="color:${
                       ethnicityColors.Latino.htmlFormat
@@ -529,9 +534,10 @@ export default function DeckMap({
                     <div>${Math.round(obj.properties.P_Other * 100)}%</div>
                     <div>Other</div>
                   </div>`
-                : ""
-            }</div>
-           
+                    : ""
+                }</div>`
+              : ""
+          }
             `,
           }
         );
@@ -1177,6 +1183,7 @@ export default function DeckMap({
     [showMap]
   );
 
+  // console.log(map ? map : "no map");
   return (
     <div>
       <DeckGL
@@ -1211,6 +1218,8 @@ export default function DeckMap({
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
               logoPosition="bottom-left"
+              // onLoad={({ map }) => setMap(map)}
+              // onIdle={(map) => console.log(map)}
             />
           </MapView>
         )}

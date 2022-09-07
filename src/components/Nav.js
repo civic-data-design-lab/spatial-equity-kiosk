@@ -11,6 +11,7 @@ import _CDDL from "../img/cddl_logo_white.svg";
 import _LCAU from "../img/Logo_LCAU logo_white.svg";
 import _MIT from "../img/MIT-logo-white.svg";
 import _TA from "../img/ta_logo_BW_icon.svg";
+import { useRef } from "react";
 
 function Nav({
   selectedChapter,
@@ -44,6 +45,8 @@ function Nav({
   errorCode,
   setErrorCode,
 }) {
+  const selectedChapterCache = useRef(null);
+
   return (
     <div className={"col-3 h-100 d-flex flex-column"}>
       <div
@@ -154,6 +157,7 @@ function Nav({
           setMoreIssues([]);
           if (selectedChapter !== 2) {
             setSelectedChapter(2);
+            setSelectedSpecificIssue(selectedChapterCache.current);
           } else {
             setSelectedChapter(null);
             setShowMap(false);
@@ -219,10 +223,10 @@ function Nav({
              }
              ${selectedChapter === 4 ? "bottom-highlight" : ""}`}
         onClick={() => {
-          //setSelectedIssue(null)
-          //setSelectedSpecificIssue(null)
           if (selectedChapter !== 3) {
             setSelectedChapter(3);
+            selectedChapterCache.current = selectedSpecificIssue;
+            setSelectedSpecificIssue(null);
           } else {
             setSelectedChapter(null);
             setShowMap(false);
