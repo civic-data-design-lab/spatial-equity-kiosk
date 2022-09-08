@@ -128,7 +128,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
     const margin = {
         top: 20,
-        left: 0,
+        left: 20,
         bottom: 40,
         right: 50,
     }
@@ -160,13 +160,6 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         const barHeight = height == 0 ? 0 : (height - margin.top - margin.bottom) / data.length;
         const minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
 
-        const removeFirstWord = (str) => {
-            const indexOfSpace = str.indexOf(' ');
-            if (indexOfSpace === -1) {
-                return '';
-            }
-            return str.substring(indexOfSpace + 1);
-        }
         // let highlight_statement = issues.specific_issues_data[selectedSpecificIssue].highlight_statement;
         // highlight_statement = removeFirstWord(highlight_statement);
         // highlight_statement = highlight_statement.charAt(0).toUpperCase() + highlight_statement.slice(1);
@@ -183,6 +176,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         let yscale = d3.scaleLinear()
             .domain([0, data.length])
             .range([margin.top, height - margin.bottom])
+
+        let yUnit = yscale(1) - yscale(0)
 
         // build SVG
         let svg = d3.select(ref.current)
@@ -350,7 +345,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                     .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
 
             })
-            .on('click', function (event, d) {
+            .on('click', (event, d) => {
                 let pt = d3.pointer(event)
 
                 let ycood = pt[1];
@@ -433,6 +428,62 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .data(data)
             .exit()
             .remove();
+
+        // Draw all cancel button
+        svg.selectAll(".cancelButton")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "cancelButton")
+            .merge(svg.selectAll(".cancelButton")
+                .data(data))
+            .attr('y', (d, i) => yscale(i + 0.5))
+            .attr('x', 0)
+            .attr('width', margin.left)
+            .attr('height', yUnit)
+            .attr('visibility', 'visible')
+            .attr('lookupID', (d, i) => lookupArray[i])
+            .attr("fill", "#FFFFFF")
+            .on('click', (e, d) => {
+                console.log(d3.select(this))
+                console.log(d3.select(this).attr("lookupID"))
+                // if (boundary == "council") setCouncilPinned(councilPinned.filter((d, _) => d !== lookupArray[i]))
+            })
+
+
+        svg.selectAll(".cancelButton")
+            .data(data)
+            .exit()
+            .remove();
+
+        // Draw all cancel button text
+        svg.selectAll(".cancelButtonText")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "cancelButtonText")
+            .merge(svg.selectAll(".cancelButtonText")
+                .data(data))
+            .attr('y', (d, i) => yscale(i + 1) + 5)
+            .attr('x', margin.left - 5)
+            .attr("text-anchor", "end")
+            .attr('visibility', 'visible')
+            .style('font-weight', 'bold')
+            .attr("fill", "#000000")
+            .attr("font-size", "14")
+            .text('X')
+            .attr('lookupID', (d, i) => lookupArray[i])
+            .on('click', (e, _, i) => {
+                if (boundary == "council") setCouncilPinned(councilPinned.filter((d, _) => d !== lookupArray[i]))
+                else {}
+            })
+
+        svg.selectAll(".cancelButtonText")
+            .data(data)
+            .exit()
+            .remove();
+
+
 
         // move the interaction layer to front
         d3.select('#histBg')
