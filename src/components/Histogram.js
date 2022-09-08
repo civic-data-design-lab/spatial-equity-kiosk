@@ -17,6 +17,7 @@ const getRgb = (color) => {
     }
 }
 
+
 const unique = (arr) => {
     return Array.from(new Set(arr))
 }
@@ -175,6 +176,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("fill", "#000000")
             .text('');
 
+
     }, [colorRamps, boundary, selectedSpecificIssue, dimensions,])
 
     useEffect(() => {
@@ -271,6 +273,21 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("fill", "#000000")
             .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
 
+        // draw reset button
+        d3.select('#resetButton')
+            .attr('x', margin.left)
+            .attr('y', yscale(data.length + 0.5) + 15)
+            .attr("style", "font-family:Inter")
+            .attr('visibility', 'hidden')
+            .style('font-weight', 'bold')
+            .attr("font-size", "14")
+            .on('click', (event, d) => {
+                if (boundary == "council") {
+                    setCouncilPinned([]);
+                } else {
+                   setCommunityPinned([]);
+                }
+            })
 
         // Adjust text position
         svg.select('#maxText')
@@ -502,6 +519,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         // move the interaction layer to front
         d3.select('#histBg')
             .raise()
+        d3.select('#resetButton')
+            .raise()
 
     }, [colorRamps, boundary, selectedSpecificIssue, dimensions, councilPinned, communityPinned]);
 
@@ -557,6 +576,16 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             }
         })
 
+        svg.selectAll("#resetButton").each(function (d, i) {
+            if (boundary == "council") {
+                if (councilPinned.length > 0) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            } else {
+                if (communityPinned.length > 0) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            }
+        })
+
 
     }, [colorRamps, boundary, selectedSpecificIssue, dimensions, councilPinned, communityPinned, currentHoveredCommunityID]);
 
@@ -585,6 +614,11 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 <line id="minLine" />
                 <text id="maxText" />
                 <text id="minText" />
+
+                {/* Reset Button */}
+                <text id="resetButton" >
+                    Reset
+                </text >
             </svg>
         </div>
     );
