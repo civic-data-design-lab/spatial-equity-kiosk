@@ -100,9 +100,6 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
 
     // svg attr
-    // const width = 500;
-    // const height = 1200;
-    // const widthChart = 400;
     const textWidth = 50;
 
     const [dimensions, setDimensions] = useState({
@@ -204,11 +201,9 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 .selectAll('rect')
                 .data(data))
             .attr('height', barHeight - barPadding)
-            //.attr('value', d => { console.log(xscale(d)) })
             .attr('width', d => xscale(d))
             .attr('y', (d, i) => yscale(i + 0.5))
             .attr('x', margin.left)
-            // .attr("fill", (d, i) => d3.rgb(...colorRamps.colorRamps[Math.floor(colorRamps.colorRamps.length * i / data.length)]))
             .attr("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
             .attr('value', d => d);
 
@@ -248,8 +243,6 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            // .text((ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
-            // .text((ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
             .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
 
         svg.select('#maxText')
@@ -258,8 +251,6 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            // .text((!ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
-            // .text((!ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
             .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
 
         svg.select('#mouseTextUp')
