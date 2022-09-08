@@ -34,7 +34,7 @@ const getDataToVis = (rawIssueData) => {
     let nameArray = [];
     let ascending;
     let lookupArray = []
-    
+
     rawIssueData.sort((a, b) => (a.rank > b.rank));
 
     for (let [_, value] of Object.entries(rawIssueData)) {
@@ -78,12 +78,12 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             const ignoreCapitalization = ["the", "of", "an", "a", "by"]
 
             for (let i = 0; i < words.length; i++) {
-                
+
                 if (!ignoreCapitalization.includes(words[i].toLowerCase())) {
                     words[i] = words[i][0].toUpperCase() + words[i].substr(1);
-                } else{
+                } else {
                     words[i] = words[i]
-                } 
+                }
             }
             const sentence = words.join(" ");
             return sentence || null
@@ -93,7 +93,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
     // console.log(issues.specific_issues_data[selectedSpecificIssue].specific_issue_units)
 
-    
+
     // svg attr
     // const width = 500;
     // const height = 1200;
@@ -107,7 +107,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
     useEffect(() => {
         let handleResize = () => {
-            
+
             if (containerRef.current) {
                 setDimensions({
                     height: containerRef.current.clientHeight,
@@ -132,7 +132,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
     let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
-    
+
     // console.log(lookupArray)
     // console.log(rawIssueData)
     // console.log(avg);
@@ -238,9 +238,15 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .style('stroke-width', 0);
 
         d3.select("#pinnedTextUp")
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
             .text('')
 
         d3.select("#pinnedTextDown")
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
             .text('')
 
 
