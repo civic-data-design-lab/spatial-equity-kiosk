@@ -171,16 +171,16 @@ export default function CommunityProfile({
           <div className={"standard-padding"}>
             {
               <h5 className={"mb-3"}>
-                Topic of Interests -{" "}
+                Topics of Interest -{" "}
                 {(communities[communitySearch] &&
-                  communities[communitySearch].bolded_text) ||
+                  communities[communitySearch].name) ||
                   (councils[communitySearch] &&
-                    councils[communitySearch].bolded_text)}{" "}
+                    councils[communitySearch].name)}{" "}
                 &{" "}
                 {(communities[compareSearch] &&
-                  communities[compareSearch].bolded_text) ||
+                  communities[compareSearch].name) ||
                   (councils[compareSearch] &&
-                    councils[compareSearch].bolded_text)}
+                    councils[compareSearch].name)}
               </h5>
             }
             <p className={"mt-3"}>

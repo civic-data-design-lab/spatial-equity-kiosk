@@ -712,11 +712,11 @@ export default function DeckMap({
     }
   }, [selectedChapter]);
 
-/*  // 06 Render lifecycle
+  // 06 Render lifecycle
   useEffect(() => {
-    if (infoTransfer.binList.length > 0) {
+    /*if (infoTransfer.binList.length > 0) {
       setColorRamps(colorRamp);
-    }
+    }*/
     setDemoLegendBins(demoBinList);
   }, [
     selectedSpecificIssue,
@@ -726,7 +726,7 @@ export default function DeckMap({
     toggleTransit,
     toggleBike,
     toggleWalk,
-  ]);*/
+  ]);
   // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
 
   const metricLayers = [

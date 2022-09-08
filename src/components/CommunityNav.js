@@ -260,10 +260,14 @@ export default function CommunityNav({
           </div>
         )}
 
-       {/* {!communitySearch && <div className={"d-flex flex-row align-items-center h-100 w-100"}>
+        {!communitySearch && <div className={"d-flex flex-column align-items-start h-100 w-100 mt-3"}>
 
+{/*
                     <FontAwesomeIcon icon={faArrowLeft} className={"fa-lg"}/>
-                <p className={"m-0"}>Try searching for &thinsp;</p>
+*/}
+                <p className={"m-0"}
+                   style={{fontSize:"1.75rem", paddingTop:"3rem"}}
+                >Try searching for &thinsp;</p>
 
                 <div className={"typewriter-container"}>
                     <Typewriter
@@ -279,7 +283,7 @@ export default function CommunityNav({
                 </div>
 
 
-            </div>}*/}
+            </div>}
 
 
 

@@ -301,6 +301,8 @@ function App() {
       }
     }
 
+    console.log("legendBins ", uniqueValueArray[0], binList)
+
     setInfo({
       binList: binList,
       uniqueValueArray: uniqueValueArray,

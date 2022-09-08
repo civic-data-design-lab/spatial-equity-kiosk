@@ -618,9 +618,9 @@
       "json_id": "F26_ParkAc",
       "issue_hi_low": ["most","least"],
       "highlight_statement": "least parkland",
-      "specific_issue_source": "NYC Department of Parks and Recreation (DPR), NYC Department of City Planning (DCP), National Park Service (NPS), New York State Office of Parks, Recreation, and Historic Preservation (OPRHP). Population & Park Access: American Community Survey (ACS) 2007-2011, Infoshare.org, DPR, DCP",
-      "year": "",
-      "link": "http://www.ny4p.org/general/district-profiles-2015",
+      "specific_issue_source": "NYC Department of Parks and Recreation (DPR), NYC Department of City Planning (DCP), National Park Service (NPS), New York State Office of Parks, Recreation, and Historic Preservation (OPRHP)",
+      "year": "2021",
+      "link": "http://www.ny4p.org/data-and-research/research-library/open-space-profiles",
       "related": [
         10,
         1,
@@ -2163,7 +2163,7 @@
       "specific_issue_ID": 15,
       "specific_issue_name": "Trees Canopy Cover",
       "specific_issue_units": "Tree Canopy Cover as Percent of Total Land",
-      "issue_units_shorthand": "% coverage",
+      "issue_units_shorthand": "% Canopy Cover",
       "specific_issue_description": [
         {
           "text": "Districts with fewer trees are ",

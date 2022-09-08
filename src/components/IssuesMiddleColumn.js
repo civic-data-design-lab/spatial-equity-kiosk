@@ -46,6 +46,10 @@ export default function IssuesMiddleColumn({
                                                showMap,
                                                binList, info
                                            }) {
+
+
+    console.log("demoLegend in issuesmiddle ", demoLegendBins)
+
     const health_issues = issues.issues_data["health"].specific_issues_ID.map(
         (id_) => {
             return issues.specific_issues_data[id_];
