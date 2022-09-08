@@ -865,12 +865,6 @@ a:active {
 
 .goToButton{
     cursor: pointer;
-    opacity: 0.6;
-}
-
-.goToButton:hover{
-    opacity: 1;
-    color: red !important;
 }
 
 .pinnedTextUp:hover{

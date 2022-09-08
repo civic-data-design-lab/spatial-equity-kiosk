@@ -239,7 +239,7 @@ const Histogram = ({ colorRampsyType,
             .attr('y', (d, i) => yscale(i + 0.5))
             .attr('x', d => d3.min(data) >= 0 ? margin.left : (d > 0 ? margin.left + xscale(0) : margin.left + xscale(d)))
             .attr("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
-            .attr('value', d => d);
+            .attr('value', d => d)
 
 
         // clear Chart
@@ -413,7 +413,7 @@ const Histogram = ({ colorRampsyType,
             .attr('visibility', 'hidden')
             .attr('lookupID', (d, i) => lookupArray[i])
             .style('stroke', 'black')
-            .style('stroke-width', 2);
+            .style('stroke-width', 2)
 
         svg.selectAll(".pinnedLine")
             .data(data)
@@ -437,11 +437,12 @@ const Histogram = ({ colorRampsyType,
             .attr("font-size", "14")
             .attr("fill", "#000000")
             .text((d, i) => `${boundary == "council" ? "Council" : ""} ${nameArray[i]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[i]].borough.join("/ ")}` : ""}`)
+                
 
         svg.selectAll(".pinnedTextUp")
             .data(data)
             .exit()
-            .remove();
+            .remove()
 
         // Draw all the pinnedTextDown and make them invisible
         svg.selectAll(".pinnedTextDown")
@@ -570,6 +571,7 @@ const Histogram = ({ colorRampsyType,
 
     useEffect(() => {
         let svg = d3.select(ref.current);
+
         svg.selectAll("#mouseLine").each(function (d, i) {
 
             if (boundary == "council") {
@@ -652,6 +654,10 @@ const Histogram = ({ colorRampsyType,
         })
 
         svg.selectAll(".goToButton").each(function (d, i) {
+
+            d3.select(this).on("mouseover", function (d, i) {d3.select(this).attr("fill", "#ffffff").attr("stroke", "#000000")})
+            d3.select(this).on("mouseout", function (d, i) {d3.select(this).attr("fill", "#000000")})
+
             if (boundary == "council") {
                 if ((councilPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
                 else d3.select(this).attr('visibility', "hidden")
