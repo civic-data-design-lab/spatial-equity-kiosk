@@ -873,6 +873,10 @@ a:active {
     color: red !important;
 }
 
+.pinnedTextUp:hover{
+    text-decoration: underline;
+}
+
 /* Share Button */
 /* .share {
     display: flex;

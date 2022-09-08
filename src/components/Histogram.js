@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { text, mouse } from "d3";
-
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _RANKINGS from "../data/rankings.json";
 import _COUNCILDISTRICTS from "../texts/councildistricts.json";
@@ -538,14 +538,15 @@ const Histogram = ({ colorRampsyType,
         .attr("class", "goToButton")
         .merge(svg.selectAll(".goToButton")
             .data(data))
-        .attr('y', (d, i) => yscale(i + 1) + 5)
-        .attr('x', width-10)
+        .attr('y', (d, i) => yscale(i+1)+10)
+        .attr('x', width-25)
         .attr("text-anchor", "end")
         .attr('visibility', 'hidden')
         .style('font-weight', 'bold')
         .attr("fill", "#000000")
-        .attr("font-size", "24")
-        .text('▶')
+        .attr("font-size", "32")
+        // .text('▶')
+        .text('🞂')
         .attr('lookupID', (d, i) => lookupArray[i])
 
     svg.selectAll(".goToButton")
