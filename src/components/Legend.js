@@ -31,7 +31,7 @@ export default function Legend({
   transitToggles = null,
   info,
 }) {
-  console.log("demoLegendBins", demoLegendBins)
+  // console.log("demoLegendBins", demoLegendBins)
   // console.log("demoLookup", demoLookup)
   // console.log("forDemographic", forDemographic)
   // console.log("--------------------")

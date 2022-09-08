@@ -175,10 +175,10 @@ function App() {
     }, [boundary]);
 
     const getColorRamp = () => {
-        console.log("get color ramp triggered")
+        // console.log("get color ramp triggered")
         let selectedRamp;
         if (selectedSpecificIssue) {
-            console.log("case 1 ", selectedSpecificIssue)
+            // console.log("case 1 ", selectedSpecificIssue)
             selectedRamp =
                 issues.specific_issues_data[selectedSpecificIssue].issue_type_ID === 1
                     ? "health"
@@ -190,7 +190,7 @@ function App() {
                             ? "infra"
                             : "troubleshoot";
         } else {
-            console.log("case 2 ", selectedIssue)
+            // console.log("case 2 ", selectedIssue)
             selectedRamp =
                 selectedIssue === 1
                     ? "health"
@@ -304,7 +304,7 @@ function App() {
             }
         }
 
-        console.log("legendBins ", uniqueValueArray[0], binList)
+        // console.log("legendBins ", uniqueValueArray[0], binList)
 
         setInfo({
             binList: binList,
