@@ -105,14 +105,14 @@ export default function CommunitySearchBar({
                                 parseFloat(v.center[0].toFixed(3)),
                                 parseFloat(v.center[1].toFixed(3)),
                             ]);
-                            setShowSearch(false);
+                            setFocus(false);
                         } else {
                             setSearchSource("search");
                             setselectedCompareCoord([
                                 parseFloat(v.center[0].toFixed(3)),
                                 parseFloat(v.center[1].toFixed(3)),
                             ]);
-                            setShowSearch(false);
+                            setFocus(false);
                         }
 
                         // console.log([v.center[0].toFixed(3), v.center[1].toFixed(3)])
@@ -241,16 +241,19 @@ export default function CommunitySearchBar({
 
                                 if (primarySearch) {
                                     setSelectedCoord(firstMatchedRes);
-                                    setShowSearch(false);
+                                    setFocus(false);
                                 } else {
                                     setselectedCompareCoord(firstMatchedRes);
-                                    setShowSearch(false);
+                                    setFocus(false);
                                 }
                             }
                         }}
                         onChange={(e) => {
+                            if (!focus) {
+                                setFocus(true);
+                            }
                             callBack("");
-                            setShowSearch(true);
+                            // setShowSearch(true);
                             setValue(e.target.value);
                         }}
                         value={toggleValue || value}
@@ -294,16 +297,20 @@ export default function CommunitySearchBar({
 
                                 if (primarySearch) {
                                     setSelectedCoord(firstMatchedRes);
-                                    setShowSearch(false);
+                                    setFocus(false);
+                                    
                                 } else {
                                     setselectedCompareCoord(firstMatchedRes);
-                                    setShowSearch(false);
+                                    setFocus(false);
                                 }
                             }
                         }}
                         onChange={(e) => {
+                            if (!focus) {
+                                setFocus(true);
+                            }
                             callBack("");
-                            setShowSearch(true);
+                            // setFocus(true);
                             setValue(e.target.value);
                         }}
                         value={toggleValue || value}
