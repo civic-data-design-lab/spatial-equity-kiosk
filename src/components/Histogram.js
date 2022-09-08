@@ -443,6 +443,9 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .exit()
             .remove();
 
+        // move the interaction layer to front
+        d3.select('#histBg')
+            .raise()
 
     }, [colorRamps, boundary, selectedSpecificIssue, dimensions, councilPinned, communityPinned]);
 
@@ -458,7 +461,25 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             }
         })
 
+        svg.selectAll(".pinnedTextUp").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            }
+        })
 
+        svg.selectAll(".pinnedTextDown").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            }
+        })
 
 
     }, [colorRamps, boundary, selectedSpecificIssue, dimensions, councilPinned, communityPinned, currentHoveredCommunityID]);
