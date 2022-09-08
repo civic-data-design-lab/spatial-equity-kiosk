@@ -242,9 +242,12 @@ export default function CommunitySearchBar({
                                 if (primarySearch) {
                                     setSelectedCoord(firstMatchedRes);
                                     setFocus(false);
+                                    e.target.blur();
+                                    
                                 } else {
                                     setselectedCompareCoord(firstMatchedRes);
                                     setFocus(false);
+                                    e.target.blur();
                                 }
                             }
                         }}
@@ -298,10 +301,11 @@ export default function CommunitySearchBar({
                                 if (primarySearch) {
                                     setSelectedCoord(firstMatchedRes);
                                     setFocus(false);
-                                    
+                                    e.target.blur();
                                 } else {
                                     setselectedCompareCoord(firstMatchedRes);
                                     setFocus(false);
+                                    e.target.blur();
                                 }
                             }
                         }}
