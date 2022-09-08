@@ -43,6 +43,7 @@ const getDataToVis = (rawIssueData) => {
         lookupArray.push(value.community_ID)
     }
 
+    // get the corresponding index of average value
     let sum = valueArray.reduce((a, b) => a + b, 0);
     let avg = Number((sum / valueArray.length).toFixed(3));
     let avgIndex;
@@ -104,6 +105,9 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         height: 0,
         width: 0,
     })
+
+    const [communityPinned, setCommunityPinned] = useState([])
+    const [councilPinned, setCouncilPinned] = useState([])
 
     useEffect(() => {
         let handleResize = () => {
@@ -381,8 +385,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                     // .transition()
                     // .duration(10)
                     // .ease('linear') 
-                    .attr('y1', ycood)
-                    .attr('y2', ycood)
+                    .attr('y1', yscale(Math.floor(yscale.invert(ycood) - 0.5) + 1))
+                    .attr('y2', yscale(Math.floor(yscale.invert(ycood) - 0.5) + 1))
                     .attr('x1', margin.left)
                     .attr('x2', width - margin.right)
                     .style('stroke', 'black')
@@ -392,11 +396,11 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
 
                 d3.select("#pinnedTextUp")
-                    .attr('y', ycood - 5)
+                    .attr('y', yscale(Math.floor(yscale.invert(ycood) - 0.5) + 1) - 5)
                     .text(`${boundary == "council" ? "Council" : ""} ${nameArray[Math.floor(yscale.invert(ycood) - 0.5)]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[Math.floor(yscale.invert(ycood) - 0.5)]].borough.join("/ ")}` : ""}`)
 
                 d3.select("#pinnedTextDown")
-                    .attr('y', ycood + 15)
+                    .attr('y', yscale(Math.floor(yscale.invert(ycood) - 0.5) + 1) + 15)
                     .text(`${data[Math.floor(yscale.invert(ycood) - 0.5)]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
 
                 // Adjust text position
