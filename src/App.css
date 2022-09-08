@@ -347,7 +347,12 @@ a:active {
 
 
 /* Searchbar */
-[type="search"]::-webkit-search-cancel-button {
+#compare-search::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+#community-search::-webkit-search-cancel-button {
     -webkit-appearance: none;
     appearance: none;
     /*height: 10px;
@@ -1202,8 +1207,7 @@ a:active {
 }
 
 .typewriter-container {
-    font-size: 0.75rem;
-    /* font-size: calc(0.75rem); */
+     font-size: 1rem;
     font-weight: 500;
     color: white;
 }

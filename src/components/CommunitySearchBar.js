@@ -154,6 +154,7 @@ export default function CommunitySearchBar({
       >
         <input
           type={"search"}
+          id={forSearch?"community-search":"compare-search"}
           className={`community-search w-100`}
           placeholder={
             forSearch
