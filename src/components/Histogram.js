@@ -151,6 +151,33 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
     // console.log("selectedSpecificIssue", selectedSpecificIssue)
 
     useEffect(() => {
+        let svg = d3.select(ref.current)
+        const height = dimensions.height ? dimensions.height : 0;
+        const width = dimensions.width ? dimensions.width : 500;
+
+        //  Init mouse line
+        svg.select('#mouseLine')
+            .style('stroke-width', 0);
+
+        svg.select('#mouseTextUp')
+            .attr('text-anchor', 'end')
+            .attr('x', width - margin.right)
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .text('');
+
+        svg.select('#mouseTextDown')
+            .attr('text-anchor', 'end')
+            .attr('x', width - margin.right)
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .text('');
+
+    }, [colorRamps, boundary, selectedSpecificIssue, dimensions,])
+
+    useEffect(() => {
 
         const height = dimensions.height ? dimensions.height : 0;
         const width = dimensions.width ? dimensions.width : 500;
@@ -228,10 +255,6 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .style('stroke', 'black')
             .style('stroke-width', 2);
 
-        //  Init mouse line
-        svg.select('#mouseLine')
-            .style('stroke-width', 0);
-
         svg.select('#minText')
             .attr('x', width - margin.right - textWidth)
             .attr('y', yscale(0.5) + 15)
@@ -248,21 +271,6 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("fill", "#000000")
             .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
 
-        svg.select('#mouseTextUp')
-            .attr('x', width - margin.right - textWidth)
-            .attr('y', yscale(data.length / 2 + 0.5) - 5)
-            .attr("style", "font-family:Inter")
-            .attr("font-size", "14")
-            .attr("fill", "#000000")
-            .text('');
-
-        svg.select('#mouseTextDown')
-            .attr('x', width - margin.right - textWidth)
-            .attr('y', yscale(data.length / 2 + 0.5) + 15)
-            .attr("style", "font-family:Inter")
-            .attr("font-size", "14")
-            .attr("fill", "#000000")
-            .text('');
 
         // Adjust text position
         svg.select('#maxText')
@@ -338,11 +346,11 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                     .text(`${data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
 
                 // Adjust text position
-                svg.select('#mouseTextUp')
-                    .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
+                // svg.select('#mouseTextUp')
+                //     .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
 
-                svg.select('#mouseTextDown')
-                    .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
+                // svg.select('#mouseTextDown')
+                //     .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
 
             })
             .on('click', (event, d) => {
@@ -357,7 +365,6 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 // console.log(lookupArray[rectID])
                 if (boundary == "council") setCouncilPinned(unique([...councilPinned, lookupArray[rectID]]))
                 else setCommunityPinned(unique([...communityPinned, lookupArray[rectID]]))
-                console.log(councilPinned)
             })
 
 
@@ -444,10 +451,15 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr('visibility', 'visible')
             .attr('lookupID', (d, i) => lookupArray[i])
             .attr("fill", "#FFFFFF")
-            .on('click', (e, d) => {
-                console.log(d3.select(this))
-                console.log(d3.select(this).attr("lookupID"))
-                // if (boundary == "council") setCouncilPinned(councilPinned.filter((d, _) => d !== lookupArray[i]))
+
+        svg.selectAll(".cancelButton")
+            .each(function (d, i) {
+                d3.select(this)
+                    .on('click', (e, d) => {
+                        console.log(d3.select(this).attr("lookupID"))
+                        console.log(councilPinned)
+                        if (boundary == "council") setCouncilPinned(councilPinned.filter((d, _) => d !== d3.select(this).attr("lookupID")))
+                    })
             })
 
 
@@ -475,7 +487,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr('lookupID', (d, i) => lookupArray[i])
             .on('click', (e, _, i) => {
                 if (boundary == "council") setCouncilPinned(councilPinned.filter((d, _) => d !== lookupArray[i]))
-                else {}
+                else { }
             })
 
         svg.selectAll(".cancelButtonText")
