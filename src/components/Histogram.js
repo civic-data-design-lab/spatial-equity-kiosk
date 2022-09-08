@@ -448,7 +448,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr('x', 0)
             .attr('width', margin.left)
             .attr('height', yUnit)
-            .attr('visibility', 'visible')
+            .attr('visibility', 'hidden')
             .attr('lookupID', (d, i) => lookupArray[i])
             .attr("fill", "#FFFFFF")
 
@@ -456,9 +456,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .each(function (d, i) {
                 d3.select(this)
                     .on('click', (e, d) => {
-                        console.log(d3.select(this).attr("lookupID"))
-                        console.log(councilPinned)
                         if (boundary == "council") setCouncilPinned(councilPinned.filter((d, _) => d !== d3.select(this).attr("lookupID")))
+                        else setCommunityPinned(communityPinned.filter((d, _) => d !== d3.select(this).attr("lookupID")))
                     })
             })
 
@@ -479,23 +478,26 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr('y', (d, i) => yscale(i + 1) + 5)
             .attr('x', margin.left - 5)
             .attr("text-anchor", "end")
-            .attr('visibility', 'visible')
+            .attr('visibility', 'hidden')
             .style('font-weight', 'bold')
             .attr("fill", "#000000")
             .attr("font-size", "14")
             .text('X')
             .attr('lookupID', (d, i) => lookupArray[i])
-            .on('click', (e, _, i) => {
-                if (boundary == "council") setCouncilPinned(councilPinned.filter((d, _) => d !== lookupArray[i]))
-                else { }
+
+        svg.selectAll(".cancelButtonText")
+            .each(function (d, i) {
+                d3.select(this)
+                    .on('click', (e, d) => {
+                        if (boundary == "council") setCouncilPinned(councilPinned.filter((d, _) => d !== d3.select(this).attr("lookupID")))
+                        else setCommunityPinned(communityPinned.filter((d, _) => d !== d3.select(this).attr("lookupID")))
+                    })
             })
 
         svg.selectAll(".cancelButtonText")
             .data(data)
             .exit()
             .remove();
-
-
 
         // move the interaction layer to front
         d3.select('#histBg')
@@ -531,6 +533,26 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 else d3.select(this).attr('visibility', "hidden")
             } else {
                 if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            }
+        })
+
+        svg.selectAll(".cancelButton").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            }
+        })
+
+        svg.selectAll(".cancelButtonText").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
                 else d3.select(this).attr('visibility', "hidden")
             }
         })
