@@ -221,6 +221,7 @@ a:active {
     flex-grow: 2 !important;
     padding: 1.5em 1.5em !important;
     border-bottom-color: white;
+    overflow: auto;
 }
 
 .collapsed-nav {
@@ -373,9 +374,9 @@ a:active {
     overflow: auto;
 }
 
-.community-nav-container {
+/*.community-nav-container {
     overflow: auto;
-}
+}*/
 
 .community-nav-text {
     bottom: 0;
