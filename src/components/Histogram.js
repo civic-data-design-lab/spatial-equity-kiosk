@@ -419,16 +419,16 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 <text id="avgTextUp" />
                 <text id="avgTextDown" />
 
+                {/* Pinned Line */}
+                <line id="pinnedLine" />
+                <text id="pinnedTextUp" />
+                <text id="pinnedTextDown" />
+
                 {/* Interactive Line */}
                 <line id="mouseLine" />
                 <text id="mouseTextUp" />
                 <text id="mouseTextDown" />
                 <rect id="histBg" />
-
-                {/* Pinned Line */}
-                <line id="pinnedLine" />
-                <text id="pinnedTextUp" />
-                <text id="pinnedTextDown" />
 
                 {/* Min/Max Line */}
                 <line id="maxLine" />
