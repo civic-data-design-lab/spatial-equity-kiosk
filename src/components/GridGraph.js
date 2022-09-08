@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { text, mouse } from "d3";
 
-
 const GridGraph = ({ colorRamps, percList, textList }) => {
-    const ref = useRef();
+    const svgRef = useRef();
+    const textRef = useRef();
     const containerRef = useRef();
 
     const [dimensions, setDimensions] = useState({
@@ -91,7 +91,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
         // console.log(gridData)
 
         // build SVG
-        let svg = d3.select(ref.current)
+        let svg = d3.select(svgRef.current)
             .attr('height', height)
             .attr('width', width)
 
@@ -109,23 +109,22 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             .style("fill", (d) => (d.color))
             .style("stroke", (d) => (d.color));
 
-        svg.selectAll(".gridText")
+        d3.select(textRef.current)
+            .attr("style", "display: flex; justify-content: space-between")
+            .selectAll(".gridText")
             .data(gridText)
             .enter()
             .append("text")
-            .attr("class", "gridText")
-            .merge(svg.selectAll(".gridText")
+            .attr("class", "small-font gridText")
+            .merge(d3.selectAll(".gridText")
                 .data(gridText))
             // .attr("x", (d) => (d.x))
-            .attr("y", (d) => (d.y))
+            // .attr("y", (d) => (d.y))
             .attr("style", "font-family:Inter")
             .attr("style", "font-weight:bold")
-            .attr("font-size", "14")
-            .style("fill", (d) => (d.color))
+            .style("color", (d) => (d.color))
             .text((d) => (d.text));
 
-        // svg.selectAll(".gridText")
-        //     .
 
         // clear Chart
         svg.selectAll(".gridSquare")
@@ -134,7 +133,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             .remove();
 
         // clear Chart
-        svg.selectAll(".gridText")
+        d3.selectAll(".gridText")
             .data(gridText)
             .exit()
             .remove();
@@ -146,7 +145,8 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             height: "100%",
             width: "100%"
         }}>
-            <svg ref={ref} />
+            <svg ref={svgRef} />
+            <div ref={textRef} />
         </div>
     );
 };
