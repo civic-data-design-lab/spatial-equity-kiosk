@@ -454,11 +454,6 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
     useEffect(() => {
         let svg = d3.select(ref.current);
         svg.selectAll(".pinnedLine").each(function (d, i) {
-            // console.log(d3.select(this).attr('visibility'))
-            // if (councilPinned.includes(d3.select(this).attr("lookupID"))) {
-            //     console.log(d3.select(this).attr("lookupID"))
-            // }
-            
             if (boundary == "council") {
                 if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible" )
                 else d3.select(this).attr('visibility', "hidden" )
