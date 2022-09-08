@@ -151,7 +151,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
         // histogram bars attr
         const barPadding = 0;
-        const barHeight = (height - margin.top - margin.bottom) / data.length;
+        const barHeight = height == 0 ? 0 : (height - margin.top - margin.bottom) / data.length;
         const minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
 
         const removeFirstWord = (str) => {
