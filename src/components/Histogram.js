@@ -70,7 +70,15 @@ const getDataToVis = (rawIssueData) => {
     return [valueArray, nameArray, avg, avgIndex, ascending, lookupArray]
 }
 
-const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue }) => {
+const Histogram = ({ colorRampsyType,
+    issues,
+    boundary,
+    selectedSpecificIssue,
+    communityPinned,
+    setCommunityPinned,
+    councilPinned,
+    setCouncilPinned,
+}) => {
     const ref = useRef();
     const containerRef = useRef();
 
@@ -108,8 +116,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         width: 0,
     })
 
-    const [communityPinned, setCommunityPinned] = useState([])
-    const [councilPinned, setCouncilPinned] = useState([])
+    // const [communityPinned, setCommunityPinned] = useState([])
+    // const [councilPinned, setCouncilPinned] = useState([])
     const [currentHoveredCommunityID, setCurrentHoveredCommunityID] = useState('')
 
     useEffect(() => {

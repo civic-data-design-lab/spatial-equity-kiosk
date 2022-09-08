@@ -12,7 +12,11 @@ export default function IssuesTileView({
     communitySearch, compareSearch,
     boundary, demographic, showDemographics,
     moreIssues, setMoreIssues, moreIssuesLength, setMoreIssuesLength,
-    setSelectedSpecificIssue, colorRamps, setCommunitySearch, setSelectedChapter, communities, councils
+    setSelectedSpecificIssue, colorRamps, setCommunitySearch, setSelectedChapter, communities, councils,
+    communityPinned,
+    setCommunityPinned,
+    councilPinned,
+    setCouncilPinned,
 }) {
 
     const [expand, setExpand] = useState(false)
@@ -61,12 +65,16 @@ export default function IssuesTileView({
                                 <h5 className={"m-0 bold"}>{getIssueName()}</h5>
                                 <p className={"m-0 small-font"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}</p>
                             </div>
-                            <div style={{  flex: 1 }}>
+                            <div style={{ flex: 1 }}>
                                 <Histogram
                                     colorRampsyType={colorRamps}
                                     issues={issues}
                                     boundary={boundary}
                                     selectedSpecificIssue={selectedSpecificIssue}
+                                    communityPinned={communityPinned}
+                                    setCommunityPinned={setCommunityPinned}
+                                    councilPinned={councilPinned}
+                                    setCouncilPinned={setCouncilPinned}
                                 />
                             </div>
                             <p className={"m-0 small-font"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}</p>
@@ -75,7 +83,7 @@ export default function IssuesTileView({
 
                         <div className={"col-6 w-50 overflow-scroll"}>
                             <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue} boundary={boundary} setSelectedSpecificIssue={setSelectedSpecificIssue}
-                                          setCommunitySearch={setCommunitySearch} setSelectedChapter={setSelectedChapter} councils={councils} communities={communities}
+                                setCommunitySearch={setCommunitySearch} setSelectedChapter={setSelectedChapter} councils={councils} communities={communities}
                             />
                         </div>
                     </div>

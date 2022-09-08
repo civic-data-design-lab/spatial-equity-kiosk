@@ -1,6 +1,6 @@
-import {faCaretDown, faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {useState} from "react";
+import { faCaretDown, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import MapToggle from "../MapToggle";
 import Demographics from "../Demographics";
 import Histogram from "../Histogram";
@@ -9,71 +9,75 @@ import Map from "../Map"
 
 
 export default function CitywideData({
-                                         selectedIssue,
-                                         setSelectedIssue,
-                                         selectedSpecificIssue,
-                                         setSelectedSpecificIssue,
-                                         setShowDemographics,
-                                         issues,
-                                         issue_categories,
-                                         boundary,
-                                         setBoundary,
-                                         showToggle,
-                                         showMap,
-                                         setShowMap,
-                                         colorRamps,
-                                         setColorRamps,
-                                         setShowToggle,
-                                         showDemographics,
+    selectedIssue,
+    setSelectedIssue,
+    selectedSpecificIssue,
+    setSelectedSpecificIssue,
+    setShowDemographics,
+    issues,
+    issue_categories,
+    boundary,
+    setBoundary,
+    showToggle,
+    showMap,
+    setShowMap,
+    colorRamps,
+    setColorRamps,
+    setShowToggle,
+    showDemographics,
 
-                                         demographic,
-                                         setDemographic,
-                                         mapDemographics,
-                                         setMapDemographics,
-                                         communities,
-                                         councils,
-                                         selectedChapter,
-                                         toggleTransit,
-                                         setToggleTransit,
-                                         toggleBike,
-                                         setToggleBike,
-                                         toggleWalk,
-                                         setToggleWalk,
-                                         demoColorRamp,
-                                         demoLegendBins,
-                                         setDemoColorRamp,
-                                         setDemoLegendBins,
-                                         demoLookup,
-                                         toggleUnderperformers,
-                                         setSelectedChapter,
-                                         communitySearch,
-                                         setCommunitySearch,
-                                         addCompare,
-                                         setAddCompare,
-                                         compareSearch,
-                                         setCompareSearch,
-                                         viewState,
-                                         setViewState,
-                                         mapSelection,
-                                         setMapSelection,
-                                         zoomToggle,
-                                         setzoomToggle,
-                                         handleLegend,
-                                         sethandleLegend,
-                                         coordinateLookup,
-                                         setCoordinateLookup,
-                                         dataScale,
-                                         setdataScale,
-                                         highlightFeature,
-                                         sethighlightFeature,
-                                         selectedCoord,
-                                         selectedCompareCoord,
-                                         setSelectedCoord,
-                                         setSelectedCompareCoord,
-                                         badSearch,
-                                         setBadSearch,
-                                         mainMap
-                                     }) {
+    demographic,
+    setDemographic,
+    mapDemographics,
+    setMapDemographics,
+    communities,
+    councils,
+    selectedChapter,
+    toggleTransit,
+    setToggleTransit,
+    toggleBike,
+    setToggleBike,
+    toggleWalk,
+    setToggleWalk,
+    demoColorRamp,
+    demoLegendBins,
+    setDemoColorRamp,
+    setDemoLegendBins,
+    demoLookup,
+    toggleUnderperformers,
+    setSelectedChapter,
+    communitySearch,
+    setCommunitySearch,
+    addCompare,
+    setAddCompare,
+    compareSearch,
+    setCompareSearch,
+    viewState,
+    setViewState,
+    mapSelection,
+    setMapSelection,
+    zoomToggle,
+    setzoomToggle,
+    handleLegend,
+    sethandleLegend,
+    coordinateLookup,
+    setCoordinateLookup,
+    dataScale,
+    setdataScale,
+    highlightFeature,
+    sethighlightFeature,
+    selectedCoord,
+    selectedCompareCoord,
+    setSelectedCoord,
+    setSelectedCompareCoord,
+    badSearch,
+    setBadSearch,
+    mainMap,
+    communityPinned,
+    setCommunityPinned,
+    councilPinned,
+    setCouncilPinned,
+}) {
 
 
     const health_issues = issues.issues_data["health"].specific_issues_ID.map(
@@ -84,13 +88,13 @@ export default function CitywideData({
 
     const environment_issues = issues.issues_data[
         "environment"
-        ].specific_issues_ID.map((id_) => {
+    ].specific_issues_ID.map((id_) => {
         return issues.specific_issues_data[id_];
     });
 
     const infrastructure_issues = issues.issues_data[
         "infrastructure"
-        ].specific_issues_ID.map((id_) => {
+    ].specific_issues_ID.map((id_) => {
         return issues.specific_issues_data[id_];
     });
 
@@ -102,16 +106,16 @@ export default function CitywideData({
         console.log(specific_issues)
         return specific_issues.map((issue, index) => {
             return <div key={index}
-                        style={{zIndex:3}}
-                        className={`mobile-dropdown-item ${selectedSpecificIssue === issue.specific_issue_ID ? "active-scheme" : "inactive-scheme"}`}
-                        onClick={() => {
-                            setShowIssues(false)
-                            if (selectedSpecificIssue !== issue.specific_issue_ID) {
-                                setSelectedSpecificIssue(issue.specific_issue_ID)
-                            } else {
-                                setSelectedSpecificIssue(null)
-                            }
-                        }}>
+                style={{ zIndex: 3 }}
+                className={`mobile-dropdown-item ${selectedSpecificIssue === issue.specific_issue_ID ? "active-scheme" : "inactive-scheme"}`}
+                onClick={() => {
+                    setShowIssues(false)
+                    if (selectedSpecificIssue !== issue.specific_issue_ID) {
+                        setSelectedSpecificIssue(issue.specific_issue_ID)
+                    } else {
+                        setSelectedSpecificIssue(null)
+                    }
+                }}>
                 <p className={"m-0 small-font"}>{issue.specific_issue_name}</p>
             </div>
         })
@@ -186,10 +190,10 @@ export default function CitywideData({
                 <div className={"citywide-nav position-relative"}>
 
                     <div className={"h-100 grow position-relative"}
-                         style={{
-                             maxWidth: !selectedIssue ? "100vw" : !selectedSpecificIssue ? "calc(100vw / 2)" : "calc((100vw - 10vh)/2",
-                             transition: "max-width 0.5s"
-                         }}
+                        style={{
+                            maxWidth: !selectedIssue ? "100vw" : !selectedSpecificIssue ? "calc(100vw / 2)" : "calc((100vw - 10vh)/2",
+                            transition: "max-width 0.5s"
+                        }}
                     >
                         <div className={"category-dropdown"}>
                             <div className={"citywide-categories-dropdown grow"}>
@@ -197,10 +201,10 @@ export default function CitywideData({
                             </div>
                             <FontAwesomeIcon icon={faCaretDown} onClick={() => {
                                 setShowCategories(!showCategories)
-                            }}/>
+                            }} />
                         </div>
                         {showCategories && <div className={"position-absolute w-100"}
-                                                style={{maxHeight: "30vh", overflow: "auto", border: "1px solid black"}}
+                            style={{ maxHeight: "30vh", overflow: "auto", border: "1px solid black" }}
                         >
                             {<div
                                 className={`mobile-dropdown-item ${selectedIssue === 1 ? "active-scheme" : "inactive-scheme"}`}
@@ -244,12 +248,12 @@ export default function CitywideData({
                         </div>}
                     </div>
                     <div className={`h-100 position-relative ${selectedIssue ? "grow" : "shrink"}`}
-                         style={{
-                             maxWidth: !selectedIssue ? "0" : selectedSpecificIssue ? "calc((100vw - 10vh)/2)" : "calc(100vw / 2)",
-                             transition: "max-width 0.5s, flex-grow 0.25s",
-                             border: !selectedIssue ? "border: 1px solid black" : "none"
-                         }
-                         }
+                        style={{
+                            maxWidth: !selectedIssue ? "0" : selectedSpecificIssue ? "calc((100vw - 10vh)/2)" : "calc(100vw / 2)",
+                            transition: "max-width 0.5s, flex-grow 0.25s",
+                            border: !selectedIssue ? "border: 1px solid black" : "none"
+                        }
+                        }
                     >
                         <div className={"issue-dropdown"}>
                             <div className={"citywide-issue-dropdown grow"}>
@@ -257,62 +261,67 @@ export default function CitywideData({
                             </div>
                             <FontAwesomeIcon icon={faCaretDown} onClick={() => {
                                 setShowIssues(!showIssues)
-                            }}/>
+                            }} />
                         </div>
                         {showIssues && <div className={"position-absolute w-100"}
-                                            style={{maxHeight: "30vh", overflow: "auto", border: "1px solid black", zIndex:3}}
+                            style={{ maxHeight: "30vh", overflow: "auto", border: "1px solid black", zIndex: 3 }}
                         >
                             {getIssueItems()}
                         </div>}
                     </div>
 
                     <div className={`mobile-map-toggle`}
-                         style={{
-                             maxWidth: selectedIssue && selectedSpecificIssue ? "10vh" : "0",
-                             opacity: selectedIssue && selectedSpecificIssue ? 1 : 0,
-                             transition: "max-width 0.5s",
-                             border: selectedSpecificIssue ? "border: 1px solid black" : "none"
-                         }}
+                        style={{
+                            maxWidth: selectedIssue && selectedSpecificIssue ? "10vh" : "0",
+                            opacity: selectedIssue && selectedSpecificIssue ? 1 : 0,
+                            transition: "max-width 0.5s",
+                            border: selectedSpecificIssue ? "border: 1px solid black" : "none"
+                        }}
                     >
-                        <MapToggle showToggle={showToggle} showMap={showMap} setShowMap={setShowMap}/>
+                        <MapToggle showToggle={showToggle} showMap={showMap} setShowMap={setShowMap} />
                     </div>
                 </div>
             }
 
 
 
-                <div className={`${selectedIssue&&selectedSpecificIssue?"big-padding":"no-padding"}`}
-                     style={{overflow: "auto",
-                         maxHeight:selectedIssue&&selectedSpecificIssue?"100vh":"0vh",
-                         border:selectedIssue&&selectedSpecificIssue?"1px solid black":"none",
-                         opacity:showMap?0:1,
-                         zIndex:!showMap?1:-1,
-                         backgroundColor:showMap?"transparent":"white",
-                         transition:"max-height 0.5s, padding 0.5s"
+            <div className={`${selectedIssue && selectedSpecificIssue ? "big-padding" : "no-padding"}`}
+                style={{
+                    overflow: "auto",
+                    maxHeight: selectedIssue && selectedSpecificIssue ? "100vh" : "0vh",
+                    border: selectedIssue && selectedSpecificIssue ? "1px solid black" : "none",
+                    opacity: showMap ? 0 : 1,
+                    zIndex: !showMap ? 1 : -1,
+                    backgroundColor: showMap ? "transparent" : "white",
+                    transition: "max-height 0.5s, padding 0.5s"
                 }}>
-                    <p className={"mb-3"}>{issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_ranking_narrative || null}</p>
-                    <p className={"small-font mb-0"}>
-                        {issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_source ? `Source: ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}`:null}</p>
-                    {selectedSpecificIssue && <> <Histogram
-                        colorRampsyType={selectedIssue === 1 ? "health" : selectedIssue === 2 ? "env" : "infra"}
-                        issues={issues}
-                        boundary={boundary}
-                        selectedSpecificIssue={selectedSpecificIssue}
+                <p className={"mb-3"}>{issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_ranking_narrative || null}</p>
+                <p className={"small-font mb-0"}>
+                    {issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_source ? `Source: ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}` : null}</p>
+                {selectedSpecificIssue && <> <Histogram
+                    colorRampsyType={selectedIssue === 1 ? "health" : selectedIssue === 2 ? "env" : "infra"}
+                    issues={issues}
+                    boundary={boundary}
+                    selectedSpecificIssue={selectedSpecificIssue}
+                    communityPinned={communityPinned}
+                    setCommunityPinned={setCommunityPinned}
+                    councilPinned={councilPinned}
+                    setCouncilPinned={setCouncilPinned}
                     />
 
-                        <br/>
+                    <br />
 
-                        <IssueProfile issues={issues}
+                    <IssueProfile issues={issues}
                         selectedSpecificIssue={selectedSpecificIssue}
                         boundary={boundary}
-                        setSelectedSpecificIssue={setSelectedSpecificIssue}/> </>}
+                        setSelectedSpecificIssue={setSelectedSpecificIssue} /> </>}
 
 
-                </div>
+            </div>
 
 
 
-            <div style={{zIndex:1}}>
+            <div style={{ zIndex: 1 }}>
                 <div
                     className={`mobile-demographics-toggle ${showDemographics ? "active-scheme" : "inactive-scheme"}`}
                     style={{
@@ -320,7 +329,7 @@ export default function CitywideData({
                         transition: "height 0.5s, padding 0.5s, border 0.5s",
                         border: selectedSpecificIssue && selectedIssue ? "1px solid black" : "none",
                         padding: selectedSpecificIssue && selectedIssue ? "0.5rem 1rem" : "0",
-                        zIndex:1,
+                        zIndex: 1,
                     }}
                 >
                     {selectedIssue && selectedSpecificIssue &&
@@ -331,8 +340,8 @@ export default function CitywideData({
                                     setShowDemographics(!showDemographics)
                                 }}
                             >
-                                {!showDemographics ? <FontAwesomeIcon icon={faPlus}/> :
-                                    <FontAwesomeIcon icon={faMinus}/>}
+                                {!showDemographics ? <FontAwesomeIcon icon={faPlus} /> :
+                                    <FontAwesomeIcon icon={faMinus} />}
                             </div>
                         </>
                     }
@@ -342,16 +351,16 @@ export default function CitywideData({
 
             <div className={`mobile-demographics-body 
                              ${selectedIssue && selectedSpecificIssue && showDemographics ? "big-padding" : "no-padding"}`}
-                 style={{
-                     height: selectedIssue && selectedSpecificIssue && showDemographics ? "100%" : "0",
-                     transition: "height 0.5s, padding 0.5s",
-                     bottom: 0,
-                     zIndex:1,
-                     backgroundColor: "white",
-                     border: selectedIssue && selectedSpecificIssue && showDemographics ? "1px solid black" : "none",
-                     /*position: selectedIssue && selectedSpecificIssue && showDemographics && showMap ? "absolute" : "0",
-                     zIndex: selectedIssue && selectedSpecificIssue && showDemographics && showMap ? 2 : */
-                 }}
+                style={{
+                    height: selectedIssue && selectedSpecificIssue && showDemographics ? "100%" : "0",
+                    transition: "height 0.5s, padding 0.5s",
+                    bottom: 0,
+                    zIndex: 1,
+                    backgroundColor: "white",
+                    border: selectedIssue && selectedSpecificIssue && showDemographics ? "1px solid black" : "none",
+                    /*position: selectedIssue && selectedSpecificIssue && showDemographics && showMap ? "absolute" : "0",
+                    zIndex: selectedIssue && selectedSpecificIssue && showDemographics && showMap ? 2 : */
+                }}
             >
                 <div
                     style={{
@@ -359,31 +368,31 @@ export default function CitywideData({
                         transition: "max-height 0.5s"
                     }}
                 >
-                <Demographics
-                    currentValue={demographic}
-                    setValue={setDemographic}
-                    selectedSpecificIssue={selectedSpecificIssue}
-                    setShowDemographics={setShowDemographics}
-                    showDemographics={showDemographics}
-                    mapDemographics={mapDemographics}
-                    setMapDemographics={setMapDemographics}
-                    boundary={boundary}
-                    communities={communities}
-                    councils={councils}
-                    selectedChapter={selectedChapter}
-                    toggleTransit={toggleTransit}
-                    setToggleTransit={setToggleTransit}
-                    toggleBike={toggleBike}
-                    setToggleBike={setToggleBike}
-                    toggleWalk={toggleWalk}
-                    setToggleWalk={setToggleWalk}
-                    colorRamps={selectedIssue === 1 ? "health" : selectedIssue === 2 ? "env" : "infra"}// legendBins={legendBins}
-                    demoColorRamp={demoColorRamp}
-                    demoLegendBins={demoLegendBins}
-                    setDemoColorRamp={setDemoColorRamp}
-                    setDemoLegendBins={setDemoLegendBins}
-                    demoLookup={demoLookup[demographic]} showMap={showMap}
-                />
+                    <Demographics
+                        currentValue={demographic}
+                        setValue={setDemographic}
+                        selectedSpecificIssue={selectedSpecificIssue}
+                        setShowDemographics={setShowDemographics}
+                        showDemographics={showDemographics}
+                        mapDemographics={mapDemographics}
+                        setMapDemographics={setMapDemographics}
+                        boundary={boundary}
+                        communities={communities}
+                        councils={councils}
+                        selectedChapter={selectedChapter}
+                        toggleTransit={toggleTransit}
+                        setToggleTransit={setToggleTransit}
+                        toggleBike={toggleBike}
+                        setToggleBike={setToggleBike}
+                        toggleWalk={toggleWalk}
+                        setToggleWalk={setToggleWalk}
+                        colorRamps={selectedIssue === 1 ? "health" : selectedIssue === 2 ? "env" : "infra"}// legendBins={legendBins}
+                        demoColorRamp={demoColorRamp}
+                        demoLegendBins={demoLegendBins}
+                        setDemoColorRamp={setDemoColorRamp}
+                        setDemoLegendBins={setDemoLegendBins}
+                        demoLookup={demoLookup[demographic]} showMap={showMap}
+                    />
                 </div>
             </div>
 
