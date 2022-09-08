@@ -225,9 +225,9 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 .selectAll('rect')
                 .data(data))
             .attr('height', barHeight - barPadding)
-            .attr('width', d => xscale(d))
+            .attr('width', d => d3.min(data) >= 0 ? xscale(d) : (d > 0 ? xscale(d) - xscale(0) : xscale(0) - xscale(d)))
             .attr('y', (d, i) => yscale(i + 0.5))
-            .attr('x', margin.left)
+            .attr('x', d => d3.min(data) >= 0 ? margin.left : (d > 0 ? margin.left + xscale(0) : margin.left + xscale(d)))
             .attr("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
             .attr('value', d => d);
 
@@ -285,7 +285,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 if (boundary == "council") {
                     setCouncilPinned([]);
                 } else {
-                   setCommunityPinned([]);
+                    setCommunityPinned([]);
                 }
             })
 
@@ -617,7 +617,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
                 {/* Reset Button */}
                 <text id="resetButton" >
-                    Reset
+                    Clear All
                 </text >
             </svg>
         </div>
