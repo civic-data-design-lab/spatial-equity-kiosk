@@ -1760,6 +1760,18 @@ input:checked+.slider:before {
 }
 
 
+.issues-profile-table-row {
+    background-color: white;
+    color: black;
+    transition: all 0.5s;
+}
+
+.issues-profile-table-row:hover {
+    background-color: black;
+    color: white;
+}
+
+
 
 
 /*TODO: print preview*/

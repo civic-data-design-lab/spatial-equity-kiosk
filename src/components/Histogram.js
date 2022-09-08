@@ -68,6 +68,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
     const ref = useRef();
     const containerRef = useRef();
 
+    console.log("colorRampsyType ", colorRampsyType)
+
     const getIssueStatement = () => {
 
         if (selectedSpecificIssue) {
