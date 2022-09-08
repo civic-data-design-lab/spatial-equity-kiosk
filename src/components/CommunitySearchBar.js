@@ -73,6 +73,7 @@ export default function CommunitySearchBar({
 
     useEffect(() => {
         if (!response) return;
+        if (response.data.features.length == 0) return;
 
         let firstItem = true;
         let resItems = [];
