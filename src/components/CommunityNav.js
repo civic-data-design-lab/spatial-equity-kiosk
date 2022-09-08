@@ -161,6 +161,7 @@ export default function CommunityNav({
           badSearch={badSearch}
           setBadSearch={setBadSearch}
           setSearchSource={setSearchSource}
+          boundary={boundary}
         >
           {getSearchItems(true, boundary)}
         </CommunitySearchBar>
@@ -235,6 +236,7 @@ export default function CommunityNav({
             badSearch={badSearch}
             setBadSearch={setBadSearch}
             setSearchSource={setSearchSource}
+            boundary={boundary}
           >
             {getSearchItems(false, boundary)}
           </CommunitySearchBar>

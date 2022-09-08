@@ -368,6 +368,7 @@ a:active {
 
 .community-search-container {
     height: 2em;
+    font-size: 1rem;
 }
 
 .community-nav-content {
@@ -405,13 +406,13 @@ a:active {
 
 .community-search {
     height: 100%;
-    padding: 8px;
     border-radius: 0;
-    border: 2px solid white;
     outline: none;
     font-style: italic;
     font-weight: bold;
     font-size: 11px;
+    background-color: black;
+    color: white;
 }
 
 .community-search-active {
@@ -431,6 +432,7 @@ a:active {
     /* Firefox */
     z-index: 1;
     padding: 0;
+
 }
 
 .shorter {
@@ -1197,7 +1199,7 @@ a:active {
 }
 
 .typewriter-container {
-    font-size: calc(1.325rem + .9vw);
+    font-size: 0.75rem;
     /* font-size: calc(0.75rem); */
     font-weight: 500;
     color: white;
