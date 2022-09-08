@@ -242,23 +242,6 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         svg.select('#mouseLine')
             .style('stroke-width', 0);
 
-        //  Init pinned line
-        svg.select('#pinnedLine')
-            .style('stroke-width', 0);
-
-        d3.select("#pinnedTextUp")
-            .attr("style", "font-family:Inter")
-            .attr("font-size", "14")
-            .attr("fill", "#000000")
-            .text('')
-
-        d3.select("#pinnedTextDown")
-            .attr("style", "font-family:Inter")
-            .attr("font-size", "14")
-            .attr("fill", "#000000")
-            .text('')
-
-
         svg.select('#minText')
             .attr('x', width - margin.right - textWidth)
             .attr('y', yscale(0.5) + 15)
@@ -391,21 +374,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 console.log(councilPinned)
             })
 
-        // svg.selectAll(".gridSquare")
-        //     .data(gridData)
-        //     .enter()
-        //     .append("rect")
-        //     .attr("class", "gridSquare")
-        //     .merge(svg.selectAll(".gridSquare")
-        //         .data(gridData))
-        //     .attr("x", (d) => (d.x))
-        //     .attr("y", (d) => (d.y))
-        //     .attr("width", (d) => (d.width))
-        //     .attr("height", (d) => (d.height))
-        //     .style("fill", (d) => (d.color))
-        //     .style("stroke", (d) => (d.color));
 
-
+        // Draw all the line and make them invisible
         svg.selectAll(".pinnedLine")
             .data(data)
             .enter()
@@ -427,27 +397,52 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .exit()
             .remove();
 
-        // d3.select("#pinnedLine")
-        //     .attr('y1', yscale(lookupArray.indexOf(councilPinned[0]) + 1))
-        //     .attr('y2', yscale(lookupArray.indexOf(councilPinned[0]) + 1))
-        //     .attr('x1', margin.left)
-        //     .attr('x2', width - margin.right)
-        //     .style('stroke', 'black')
-        //     .style('stroke-width', 4)
-        //     .exit()
-        //     .remove();
+        // Draw all the pinnedTextUp and make them invisible
+        svg.selectAll(".pinnedTextUp")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "pinnedTextUp")
+            .merge(svg.selectAll(".pinnedTextUp")
+                .data(data))
+            .attr('y', (d, i) => yscale(i + 1) - 5)
+            .attr('x', width - margin.right)
+            .attr("text-anchor", "end")
+            .attr('visibility', 'hidden')
+            .attr('lookupID', (d, i) => lookupArray[i])
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .text((d, i) => `${boundary == "council" ? "Council" : ""} ${nameArray[i]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[i]].borough.join("/ ")}` : ""}`)
 
-        // d3.select("#pinnedTextUp")
-        //     .attr('y', yscale(lookupArray.indexOf(councilPinned[0]) + 1) - 5)
-        //     .attr('x', width - margin.right)
-        //     .attr("text-anchor", "end")
-        //     .text(`${boundary == "council" ? "Council" : ""} ${nameArray[councilPinned[0]]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[councilPinned[0]]].borough.join("/ ")}` : ""}`)
+        svg.selectAll(".pinnedTextUp")
+            .data(data)
+            .exit()
+            .remove();
 
-        // d3.select("#pinnedTextDown")
-        //     .attr('y', yscale(lookupArray.indexOf(councilPinned[0]) + 1) + 15)
-        //     .attr('x', width - margin.right)
-        //     .attr("text-anchor", "end")
-        //     .text(`${data[councilPinned[0]]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
+        // Draw all the pinnedTextDown and make them invisible
+        svg.selectAll(".pinnedTextDown")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "pinnedTextDown")
+            .merge(svg.selectAll(".pinnedTextDown")
+                .data(data))
+            .attr('y', (d, i) => yscale(i + 1) + 15)
+            .attr('x', width - margin.right)
+            .attr("text-anchor", "end")
+            .attr('visibility', 'hidden')
+            .attr('lookupID', (d, i) => lookupArray[i])
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .text((d, i) => `${data[i]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
+
+        svg.selectAll(".pinnedTextDown")
+            .data(data)
+            .exit()
+            .remove();
+
 
     }, [colorRamps, boundary, selectedSpecificIssue, dimensions, councilPinned, communityPinned]);
 
@@ -455,45 +450,17 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
         let svg = d3.select(ref.current);
         svg.selectAll(".pinnedLine").each(function (d, i) {
             if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible" )
-                else d3.select(this).attr('visibility', "hidden" )
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
             } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible" )
-                else d3.select(this).attr('visibility', "hidden" )
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
             }
         })
 
-        // if (councilPinned != []) {
-        //     d3.select("#pinnedLine")
-        //         .attr('y1', yscale(lookupArray.indexOf(councilPinned[0]) + 1))
-        //         .attr('y2', yscale(lookupArray.indexOf(councilPinned[0]) + 1))
-        //         .attr('x1', margin.left)
-        //         .attr('x2', width - margin.right)
-        //         .style('stroke', 'black')
-        //         .style('stroke-width', 4)
-        //         .exit()
-        //         .remove();
-
-        //     d3.select("#pinnedTextUp")
-        //         .attr('y', yscale(lookupArray.indexOf(councilPinned[0]) + 1) - 5)
-        //         .attr('x', width - margin.right)
-        //         .attr("text-anchor", "end")
-        //         .text(`${boundary == "council" ? "Council" : ""} ${nameArray[councilPinned[0]]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[councilPinned[0]]].borough.join("/ ")}` : ""}`)
-
-        //     d3.select("#pinnedTextDown")
-        //         .attr('y', yscale(lookupArray.indexOf(councilPinned[0]) + 1) + 15)
-        //         .attr('x', width - margin.right)
-        //         .attr("text-anchor", "end")
-        //         .text(`${data[councilPinned[0]]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
 
 
-        // // Adjust text position
-        // svg.select('#pinnedTextUp')
-        //     .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
 
-        // svg.select('#pinnedTextDown')
-        //     .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
-        // }
     }, [colorRamps, boundary, selectedSpecificIssue, dimensions, councilPinned, communityPinned, currentHoveredCommunityID]);
 
     return (
@@ -509,11 +476,6 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 <line id="avgLine" />
                 <text id="avgTextUp" />
                 <text id="avgTextDown" />
-
-                {/* Pinned Line */}
-                <line id="pinnedLine" />
-                <text id="pinnedTextUp" />
-                <text id="pinnedTextDown" />
 
                 {/* Interactive Line */}
                 <line id="mouseLine" />
