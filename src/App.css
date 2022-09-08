@@ -221,6 +221,7 @@ a:active {
     flex-grow: 2 !important;
     padding: 1.5em 1.5em !important;
     border-bottom-color: white;
+    overflow: auto;
 }
 
 .collapsed-nav {
@@ -367,15 +368,16 @@ a:active {
 
 .community-search-container {
     height: 2em;
+    font-size: 1rem;
 }
 
 .community-nav-content {
     overflow: auto;
 }
 
-.community-nav-container {
+/*.community-nav-container {
     overflow: auto;
-}
+}*/
 
 .community-nav-text {
     bottom: 0;
@@ -404,13 +406,13 @@ a:active {
 
 .community-search {
     height: 100%;
-    padding: 8px;
     border-radius: 0;
-    border: 2px solid white;
     outline: none;
     font-style: italic;
     font-weight: bold;
     font-size: 11px;
+    background-color: black;
+    color: white;
 }
 
 .community-search-active {
@@ -430,6 +432,7 @@ a:active {
     /* Firefox */
     z-index: 1;
     padding: 0;
+
 }
 
 .shorter {
@@ -1196,7 +1199,7 @@ a:active {
 }
 
 .typewriter-container {
-    font-size: calc(1.325rem + .9vw);
+    font-size: 0.75rem;
     /* font-size: calc(0.75rem); */
     font-weight: 500;
     color: white;
@@ -1757,6 +1760,18 @@ input:checked+.slider:before {
 
 .mobile-transition-font {
     transition: font-size 0.25s 0.25s, opacity 0.25s;
+}
+
+
+.issues-profile-table-row {
+    background-color: white;
+    color: black;
+    transition: all 0.5s;
+}
+
+.issues-profile-table-row:hover {
+    background-color: black;
+    color: white;
 }
 
 

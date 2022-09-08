@@ -98,7 +98,7 @@ export default function IssueProfile({
 
                         {/*TODO: populate chart with ranking data*/}
                         {rankings[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id].slice(0, 5).map((entry, index) => {
-                            return <tr key={index}>
+                            return <tr key={index} className={"issues-profile-table-row"}>
                                 <td>{entry.rank}</td>
                                 <td onClick={()=>{
                                     setCommunitySearch(entry.community_ID)
@@ -113,7 +113,7 @@ export default function IssueProfile({
 
 
                         {expand && rankings[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id].slice(5).map((entry, index) => {
-                            return <tr key={index}>
+                            return <tr key={index} className={"issues-profile-table-row"}>
                                 <td>{entry.rank}</td>
                                 <td onClick={()=>{
                                     setCommunitySearch(entry.community_ID)

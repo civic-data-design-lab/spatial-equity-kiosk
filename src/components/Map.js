@@ -131,6 +131,7 @@ export default function DeckMap({
   showMap,
   userPoints,
   setUserPoints,
+    colorRamp
 }) {
   // map hooks
   const [underperformers, setUnderperformers] = useState(null);
@@ -182,10 +183,10 @@ export default function DeckMap({
     dataScale == "equal"
       ? scaleThreshold()
           .domain(infoTransfer.binList)
-          .range(_CHAPTER_COLORS[infoTransfer.selectedRamp])
+          .range(_CHAPTER_COLORS[colorRamp])
       : scaleQuantile()
           .domain(infoTransfer.uniqueValueArray)
-          .range(_CHAPTER_COLORS[infoTransfer.selectedRamp]); //quantile bins
+          .range(_CHAPTER_COLORS[colorRamp]); //quantile bins
 
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 
@@ -711,10 +712,10 @@ export default function DeckMap({
     }
   }, [selectedChapter]);
 
-  // 06 Render lifecycle
+/*  // 06 Render lifecycle
   useEffect(() => {
     if (infoTransfer.binList.length > 0) {
-      setColorRamps(infoTransfer.selectedRamp);
+      setColorRamps(colorRamp);
     }
     setDemoLegendBins(demoBinList);
   }, [
@@ -725,7 +726,7 @@ export default function DeckMap({
     toggleTransit,
     toggleBike,
     toggleWalk,
-  ]);
+  ]);*/
   // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
 
   const metricLayers = [

@@ -171,6 +171,45 @@ function App() {
     }
   }, [boundary]);
 
+  const getColorRamp = () => {
+    console.log("get color ramp triggered")
+    let selectedRamp;
+    if (selectedSpecificIssue) {
+      console.log("case 1 ", selectedSpecificIssue)
+      selectedRamp =
+        issues.specific_issues_data[selectedSpecificIssue].issue_type_ID === 1
+          ? "health"
+          : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
+            2
+          ? "env"
+          : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
+            3
+          ? "infra"
+          : "troubleshoot";
+    } else {
+      console.log("case 2 ", selectedIssue)
+      selectedRamp =
+        selectedIssue === 1
+          ? "health"
+          : selectedIssue === 2
+          ? "env"
+          : selectedIssue === 3
+          ? "infra"
+          : "troubleshoot";
+    }
+    return selectedRamp
+  }
+
+  useEffect(()=>{
+    setColorRamps(getColorRamp());
+  }, [selectedSpecificIssue,
+    selectedIssue,
+    zoomToggle,
+    selectedBoundary,
+    toggleTransit,
+    toggleBike,
+    toggleWalk,])
+
   useEffect(() => {
     // SELECT BOUNDARY ------------------------------------------------------------
     // toggle between council districts and community boards
@@ -211,29 +250,7 @@ function App() {
 
     // pick color ramp for metrics and have default to avoid errors
 
-    let selectedRamp;
-    if (selectedSpecificIssue) {
-      selectedRamp =
-        issues.specific_issues_data[selectedSpecificIssue].issue_type_ID === 1
-          ? "health"
-          : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
-            2
-          ? "env"
-          : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
-            3
-          ? "infra"
-          : "troubleshoot";
-    } else {
-      selectedRamp =
-        selectedIssue === 1
-          ? "health"
-          : selectedIssue === 2
-          ? "env"
-          : selectedIssue === 3
-          ? "infra"
-          : "troubleshoot";
-    }
-    setColorRamps(selectedRamp);
+
 
     const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
     const binList = []; // derived from the selectedMetricArray array, this is the list of bins for the legend
@@ -292,7 +309,6 @@ function App() {
       selectedBoundary: selectedBoundary,
       selectedMetric: selectedMetric,
       metricGoodorBad: metricGoodBad,
-      selectedRamp: selectedRamp,
       mapScale: mapScale,
     });
 
@@ -627,6 +643,7 @@ function App() {
                   infoTransfer={info}
                   userPoints={userPoints}
                   setUserPoints={setUserPoints}
+                  colorRamp={colorRamps}
                 />
               </div>
             </div>

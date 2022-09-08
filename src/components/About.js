@@ -583,8 +583,8 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
       <div className={"scroll-title scroll-title-content"}>
         <h4 className={"bold"}>
           {currentStepIndex < 4
-            ? `Take Action— ${subheadings[currentStepIndex - 1]}`
-            : `Learn More— ${subheadings[currentStepIndex - 1]}`}
+            ? `Take Action — ${subheadings[currentStepIndex - 1]}`
+            : `Learn More — ${subheadings[currentStepIndex - 1]}`}
         </h4>
       </div>
 
