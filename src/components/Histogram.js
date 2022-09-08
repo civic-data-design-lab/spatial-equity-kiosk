@@ -78,6 +78,8 @@ const Histogram = ({ colorRampsyType,
     setCommunityPinned,
     councilPinned,
     setCouncilPinned,
+    setCommunitySearch,
+    setSelectedChapter
 }) => {
     const ref = useRef();
     const containerRef = useRef();
@@ -359,15 +361,18 @@ const Histogram = ({ colorRampsyType,
                     .attr('y2', ycood)
                     .attr('x1', margin.left)
                     .attr('x2', width - margin.right)
+                    .attr('lookupID', lookupArray[rectID])
                     .style('stroke', 'black')
                     .style('stroke-width', 2);
 
                 d3.select("#mouseTextUp")
                     .attr('y', ycood - 5)
+                    .attr('lookupID', lookupArray[rectID])
                     .text(`${boundary == "council" ? "Council" : ""} ${nameArray[rectID]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[rectID]].borough.join("/ ")}` : ""}`)
 
                 d3.select("#mouseTextDown")
                     .attr('y', ycood + 15)
+                    .attr('lookupID', lookupArray[rectID])
                     .text(`${data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand !== "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
 
                 // Adjust text position
@@ -518,11 +523,41 @@ const Histogram = ({ colorRampsyType,
                         else setCommunityPinned(communityPinned.filter((d, _) => d !== d3.select(this).attr("lookupID")))
                     })
             })
+            
 
         svg.selectAll(".cancelButtonText")
             .data(data)
             .exit()
             .remove();
+
+        // draw goTo button
+        svg.selectAll(".goToButton")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "goToButton")
+        .merge(svg.selectAll(".goToButton")
+            .data(data))
+        .attr('y', (d, i) => yscale(i + 1) + 5)
+        .attr('x', width-10)
+        .attr("text-anchor", "end")
+        .attr('visibility', 'hidden')
+        .style('font-weight', 'bold')
+        .attr("fill", "#000000")
+        .attr("font-size", "24")
+        .text('▶')
+        .attr('lookupID', (d, i) => lookupArray[i])
+
+    svg.selectAll(".goToButton")
+        .each(function (d, i) {
+            d3.select(this)
+                .on('click', (e, d) => {
+                    setSelectedChapter(3)
+                    setCommunitySearch(d3.select(this).attr("lookupID"))
+                    // if (boundary == "council") setCouncilPinned(councilPinned.filter((d, _) => d !== d3.select(this).attr("lookupID")))
+                    // else setCommunityPinned(communityPinned.filter((d, _) => d !== d3.select(this).attr("lookupID")))
+                })
+        })
 
         // move the interaction layer to front
         d3.select('#histBg')
@@ -534,32 +569,63 @@ const Histogram = ({ colorRampsyType,
 
     useEffect(() => {
         let svg = d3.select(ref.current);
+        svg.selectAll("#mouseLine").each(function (d, i) {
+
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
+                else d3.select(this).attr('visibility', "visible")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
+                else d3.select(this).attr('visibility', "visible")
+            }
+        })
+
+        svg.selectAll("#mouseTextUp").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID") ) d3.select(this).attr('visibility', "hidden")
+                else d3.select(this).attr('visibility', "visible")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID") ) d3.select(this).attr('visibility', "hidden")
+                else d3.select(this).attr('visibility', "visible")
+            }
+        })
+
+        svg.selectAll("#mouseTextDown").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
+                else d3.select(this).attr('visibility', "visible")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
+                else d3.select(this).attr('visibility', "visible")
+            }
+        })
+
         svg.selectAll(".pinnedLine").each(function (d, i) {
             if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
                 else d3.select(this).attr('visibility', "hidden")
             } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
                 else d3.select(this).attr('visibility', "hidden")
             }
         })
 
         svg.selectAll(".pinnedTextUp").each(function (d, i) {
             if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
                 else d3.select(this).attr('visibility', "hidden")
             } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
                 else d3.select(this).attr('visibility', "hidden")
             }
         })
 
         svg.selectAll(".pinnedTextDown").each(function (d, i) {
             if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
                 else d3.select(this).attr('visibility', "hidden")
             } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible")
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
                 else d3.select(this).attr('visibility', "hidden")
             }
         })
@@ -575,6 +641,16 @@ const Histogram = ({ colorRampsyType,
         })
 
         svg.selectAll(".cancelButtonText").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            }
+        })
+
+        svg.selectAll(".goToButton").each(function (d, i) {
             if (boundary == "council") {
                 if ((councilPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
                 else d3.select(this).attr('visibility', "hidden")

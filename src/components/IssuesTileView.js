@@ -75,6 +75,8 @@ export default function IssuesTileView({
                                     setCommunityPinned={setCommunityPinned}
                                     councilPinned={councilPinned}
                                     setCouncilPinned={setCouncilPinned}
+                                    setCommunitySearch={setCommunitySearch}
+                                    setSelectedChapter={setSelectedChapter}
                                 />
                             </div>
                             <p className={"m-0 small-font"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}</p>

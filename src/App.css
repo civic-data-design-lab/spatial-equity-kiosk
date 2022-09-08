@@ -863,6 +863,16 @@ a:active {
     text-decoration: underline;
 }
 
+.goToButton{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.goToButton:hover{
+    opacity: 1;
+    color: red !important;
+}
+
 /* Share Button */
 /* .share {
     display: flex;
