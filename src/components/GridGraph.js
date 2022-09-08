@@ -31,7 +31,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
 
         let width = dimensions.width ? dimensions.width : 0;
         // let height = dimensions.height ? dimensions.height : 150;
-        let height = 1.5 / 5 * width;
+        let height = 1 / 4 * width;
 
         let numHeight = 5;
         let numWidth = 20;
