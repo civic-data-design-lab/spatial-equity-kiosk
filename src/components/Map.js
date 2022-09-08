@@ -354,6 +354,8 @@ export default function DeckMap({
     // max zoom
     viewState.zoom = Math.min(zoomMax, Math.max(zoomMin, viewState.zoom));
 
+    viewState.width = "100%"
+
     // 04.2 ramp in/out based on zoom level
 
     // 04.3 toggle based on zoom level
