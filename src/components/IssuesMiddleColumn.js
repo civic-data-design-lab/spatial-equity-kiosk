@@ -44,6 +44,7 @@ export default function IssuesMiddleColumn({
                                                setColorRamps,
                                                demoLookup,
                                                showMap,
+                                               binList, info
                                            }) {
     const health_issues = issues.issues_data["health"].specific_issues_ID.map(
         (id_) => {
@@ -179,6 +180,8 @@ export default function IssuesMiddleColumn({
                             selectedIssue={selectedSpecificIssue}
                             zoomToggle={zoomToggle}
                             showMap={showMap}
+                            binList={binList}
+                            info={info}
                         />}
                     </div>
                 </div>
@@ -269,6 +272,8 @@ export default function IssuesMiddleColumn({
                             selectedIssue={selectedSpecificIssue}
                             zoomToggle={zoomToggle}
                             showMap={showMap}
+                            binList={binList}
+                            info={info}
                         />}
                     </div>
                 </div>
@@ -358,6 +363,8 @@ export default function IssuesMiddleColumn({
                             selectedIssue={selectedSpecificIssue}
                             zoomToggle={zoomToggle}
                             showMap={showMap}
+                            binList={binList}
+                            info={info}
                         />}
                     </div>
                 </div>
@@ -385,7 +392,7 @@ export default function IssuesMiddleColumn({
                 `}
                 >
                     <h5 className={`${showDemographics ? "mb-0" : "mb-0"}`}>
-                        {showDemographics ? "Hide Demographics" : "Show Demographics"}
+                        {showDemographics ? "Hide U.S. Census Data" : "Show U.S. Census Data"}
                     </h5>
                     {showDemographics ? (
                         <FontAwesomeIcon icon={faMinus}/>

@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircleInfo, faArrowsUpDownLeftRight} from "@fortawesome/free-solid-svg-icons";
+import {faCircleInfo, faArrowsUpDownLeftRight, faXmark} from "@fortawesome/free-solid-svg-icons";
 
 export default function IssuesCard({
                                        issues,
                                        selectedSpecificIssue,
                                        setSelectedSpecificIssue,
                                        specificIssue,
-                                       setModal,
-                                       modalVersion = false
+                                       setModal, moreIssues,
+                                       modalVersion = false, forMoreIssues=false,
+                                       setMoreIssues=null
                                    }) {
 
     const [showInfo, setShowInfo] = useState(false)
@@ -30,7 +31,7 @@ export default function IssuesCard({
             <div className={"issues-card-header"}>
                 <div className={"issues-card-title-container col-gap"}>
                     <p className={"m-0"}>{getIssueName()}</p>
-                    <p className={"m-0 small-text"}>{issues.specific_issues_data[specificIssue].specific_issue_units}</p>
+                    <p className={"m-0 smaller-text"}>{issues.specific_issues_data[specificIssue].specific_issue_units}</p>
                 </div>
                 <div className={"issues-card-button-container col-gap"}>
                     <div
@@ -46,6 +47,17 @@ export default function IssuesCard({
                             <p className={"m-0"}>{issues.specific_issues_data[specificIssue].specific_issue_source}</p>
                         </div>
                     </div>
+                    {forMoreIssues && <FontAwesomeIcon icon={faXmark} onClick={(e)=>{
+                        e.stopPropagation()
+                        if (selectedSpecificIssue === specificIssue) {
+                            setSelectedSpecificIssue(null)
+                        }
+                        let newMoreIssues = moreIssues.filter((issue)=>issue!==specificIssue)
+                        console.log("newMoreIssues ", newMoreIssues)
+                        setMoreIssues(newMoreIssues)
+
+                    }}
+                    />}
                 </div>
             </div>
             <div className={"issues-card-body"}>

@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
-import { max, min } from "d3-array";
+import React from "react";
+import { min } from "d3-array";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import GridGraph from "./GridGraph";
 
 import _CHAPTER_COLORS from "../data/chapter_colors.json";
-import _COUNCIL_DISTRICTS from "../data/council_districts.json";
-import _COMMUNITY_BOARDS from "../data/community_boards.json";
-import _NEIGHBORHOODS from "../data/neighborhoods.json";
 import _ETHNICITY_COLORS from "../data/ethnicity_colors.json";
 import _DEMOGRAPHIC_PERCENTAGED from "../data/demographic_percentage.json";
 
@@ -32,11 +29,15 @@ export default function Legend({
   mapDemographics,
   showMap,
   transitToggles = null,
+  info,
 }) {
   // console.log("demoLegendBins", demoLegendBins)
   // console.log("demoLookup", demoLookup)
   // console.log("forDemographic", forDemographic)
   // console.log("--------------------")
+
+    // console.log("demographics json ", _DEMOGRAPHIC_PERCENTAGED)
+    // console.log("demoLookup ", demoLookup)
 
   const administrativeBoundary =
     boundary === "council" ? "Council Districts" : "Community Boards";
@@ -56,128 +57,127 @@ export default function Legend({
   // button statement
   const buttonStatement2 = dataScale ? `Equal Bins` : "Equal Counts";
 
-  const getLegendBins = () => {
-    const binSize = 5;
-    // toggle areas in need
+  /*const getLegendBins = () => {
+      const binSize = 5;
+      // toggle areas in need
 
-    // SELECT BOUNDARY ------------------------------------------------------------
-    let selectedBoundary;
-    if (boundary === "council") {
-      selectedBoundary = _COUNCIL_DISTRICTS;
-    }
-    if (boundary === "community") {
-      selectedBoundary = _COMMUNITY_BOARDS;
-    }
-
-    // toggle between council districts and community boards
-    const mapScale =
-      handleLegend == 0
-        ? _NEIGHBORHOODS
-        : handleLegend == 1 && selectedBoundary == _COUNCIL_DISTRICTS
-        ? _COUNCIL_DISTRICTS
-        : _COMMUNITY_BOARDS;
-
-    // SELECT BOUNDARY END --------------------------------------------------------
-
-    // METRIC CONFIG -----------------------------------------------------
-
-    // select metric to display
-    let selectedMetric; // MAKE THIS A STATE AT THE APP LEVEL FOR OPTIMIZATION
-    let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
-
-    // console.log(selectedSpecificIssue)
-    if (selectedSpecificIssue != null) {
-      if (
-        typeof selectedSpecificIssue == "number" &&
-        isNaN(selectedSpecificIssue) === false
-      ) {
-        selectedMetric =
-          issues.specific_issues_data[selectedSpecificIssue].json_id;
-
-        metricGoodBad =
-          issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
+      // SELECT BOUNDARY ------------------------------------------------------------
+      let selectedBoundary;
+      if (boundary === "council") {
+        selectedBoundary = _COUNCIL_DISTRICTS;
       }
-    }
+      if (boundary === "community") {
+        selectedBoundary = _COMMUNITY_BOARDS;
+      }
 
-    // 01 CREATE METRIC COLOR RAMPS -------------------------------------------------------
+      // toggle between council districts and community boards
+      const mapScale =
+        handleLegend == 0
+          ? _NEIGHBORHOODS
+          : handleLegend == 1 && selectedBoundary == _COUNCIL_DISTRICTS
+          ? _COUNCIL_DISTRICTS
+          : _COMMUNITY_BOARDS;
 
-    //variables for scale thresholds
-    const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
-    const binList = []; // derived from the selectedMetricArray array, this is the list of bins for the legend
+      // SELECT BOUNDARY END --------------------------------------------------------
 
-    // pick color ramp for metrics and have default to avoid errors
-    const selectedRamp =
-      selectedIssue === 1
-        ? "health"
-        : selectedIssue === 2
-        ? "env"
-        : selectedIssue === 3
-        ? "infra"
-        : "troubleshoot";
+      // METRIC CONFIG -----------------------------------------------------
 
-    // console.log(selectedMetric)
-    // 01.1 get an array of all the values for the selected metric
-    for (let i = 0; i < mapScale.features.length; i++) {
-      let floatValue = parseFloat(
-        mapScale.features[i].properties[selectedMetric]
-      );
-      // console.log(mapScale.features[i].properties)
-      // console.log(mapScale.features[i].properties[selectedMetric])
-      if (isNaN(floatValue) === false) {
+      // select metric to display
+      let selectedMetric; // MAKE THIS A STATE AT THE APP LEVEL FOR OPTIMIZATION
+      let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
+
+      // console.log(selectedSpecificIssue)
+      if (selectedSpecificIssue != null) {
         if (
-          boundary === "council" ||
-          (zoomToggle == 1 &&
-            boundary === "community" &&
-            mapScale.features[i].properties.Data_YN === "Y") ||
-          (zoomToggle == 0 && mapScale.features[i].properties.AnsUnt_YN === "Y")
+          typeof selectedSpecificIssue == "number" &&
+          isNaN(selectedSpecificIssue) === false
         ) {
-          selectedMetricArray.push(floatValue);
+          selectedMetric =
+            issues.specific_issues_data[selectedSpecificIssue].json_id;
+
+          metricGoodBad =
+            issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
         }
       }
-    }
 
-    // create a new sorted array for the quantile, but dont modify existing array
-    const sortedSelectedMetricArray = [...selectedMetricArray].sort(function (
-      a,
-      b
-    ) {
-      return a - b;
-    });
+      // 01 CREATE METRIC COLOR RAMPS -------------------------------------------------------
 
-    const uniqueValueArray = [...new Set(sortedSelectedMetricArray)];
-    // console.log(selectedMetricArray, uniqueValueArray);
+      //variables for scale thresholds
+      const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
+      const binList = []; // derived from the selectedMetricArray array, this is the list of bins for the legend
 
-    // 01.2 break the metric array into bins and get the bin list
-    for (let i = 0; i < binSize; i++) {
-      if (dataScale === "equal") {
-        const threshold =
-          (max(selectedMetricArray) - min(selectedMetricArray)) / (binSize + 1);
-        binList.push(
-          Math.round((threshold * (i + 1) + min(selectedMetricArray)) * 100) /
-            100
+      // pick color ramp for metrics and have default to avoid errors
+      const selectedRamp =
+        selectedIssue === 1
+          ? "health"
+          : selectedIssue === 2
+          ? "env"
+          : selectedIssue === 3
+          ? "infra"
+          : "troubleshoot";
+
+      // console.log(selectedMetric)
+      // 01.1 get an array of all the values for the selected metric
+      for (let i = 0; i < mapScale.features.length; i++) {
+        let floatValue = parseFloat(
+          mapScale.features[i].properties[selectedMetric]
         );
-      } else {
-        const interval = Math.floor(
-          ((uniqueValueArray.length - 1) / binSize) * (i + 1)
-        );
-        // quantile breaks
-        binList.push(uniqueValueArray[interval]);
+        // console.log(mapScale.features[i].properties)
+        // console.log(mapScale.features[i].properties[selectedMetric])
+        if (isNaN(floatValue) === false) {
+          if (
+            boundary === "council" ||
+            (zoomToggle == 1 &&
+              boundary === "community" &&
+              mapScale.features[i].properties.Data_YN === "Y") ||
+            (zoomToggle == 0 && mapScale.features[i].properties.AnsUnt_YN === "Y")
+          ) {
+            selectedMetricArray.push(floatValue);
+          }
+        }
       }
-    }
-    return [uniqueValueArray[0], binList];
-  };
 
-  const legendBins = getLegendBins();
+      // create a new sorted array for the quantile, but dont modify existing array
+      const sortedSelectedMetricArray = [...selectedMetricArray].sort(function (
+        a,
+        b
+      ) {
+        return a - b;
+      });
 
-  let cleanNumbers = isNaN(legendBins[1][0])
-    ? ""
-    : min(legendBins[1]) >= 10
-    ? legendBins[1].map((d) => Math.round(d))
-    : legendBins[1];
+      const uniqueValueArray = [...new Set(sortedSelectedMetricArray)];
+      // console.log(selectedMetricArray, uniqueValueArray);
+
+      // 01.2 break the metric array into bins and get the bin list
+      for (let i = 0; i < binSize; i++) {
+        if (dataScale === "equal") {
+          const threshold =
+            (max(selectedMetricArray) - min(selectedMetricArray)) / (binSize + 1);
+          binList.push(
+            Math.round((threshold * (i + 1) + min(selectedMetricArray)) * 100) /
+              100
+          );
+        } else {
+          const interval = Math.floor(
+            ((uniqueValueArray.length - 1) / binSize) * (i + 1)
+          );
+          // quantile breaks
+          binList.push(uniqueValueArray[interval]);
+        }
+      }
+      return [uniqueValueArray[0], binList];
+    };*/
 
   const getLegend = () => {
     switch (forDemographic) {
       case false:
+        const legendBins = [info.uniqueValueArray[0], info.binList];
+
+        let cleanNumbers = isNaN(legendBins[1][0])
+          ? ""
+          : min(legendBins[1]) >= 10
+          ? legendBins[1].map((d) => Math.round(d))
+          : legendBins[1];
         if (!selectedSpecificIssue) {
           return (
             <div className={"placeholder-legend"}>
@@ -295,6 +295,14 @@ export default function Legend({
           return (
             <div className={"d-flex flex-column row-gap"} style={{ flex: 1 }}>
               <div>
+                  {<p className={"m-0 small-font"}><span className={"bold"}>{_DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList[0]}</span>% of
+                    {demoLookup.name === "Households Living Below the Poverty Line" || demoLookup.name === "Households Without a Car" ? " households " : " commuters "}
+                    in <span className={"underline bold"}>{"New York City"}</span> {demoLookup.name === "Households Living Below the Poverty Line" ? "live below the poverty line" :
+                        demoLookup.name === "Households Without a Car" ? "do not own a car" :
+                            demoLookup.name === "Citywide Commuters Who Drive Alone to Work" ? "drive alone to work" :
+                                "bike, walk, or ride transit"}
+
+                </p>}
                 {/* {demoLookup.name !== "Population Using Alternative Transportation" && <p className={"mb-3 small-font"}>
                                     {demoLookup.metric_units}{" "}
                                 </p>}*/}
@@ -302,7 +310,7 @@ export default function Legend({
                   <p className={"mb-1 small-font"}>{demoLookup.name}</p>
                 ) : (
                   <div className={"d-flex col-gap"}>
-                    <p className={"mb-1 small-font"}>% population using</p>
+                    <p className={"mb-1 small-font"}>Citywide Commuters Who</p>
                     {transitToggles}
                   </div>
                 )}
@@ -380,16 +388,14 @@ export default function Legend({
           return (
             <div className={"d-flex flex-column row-gap"} style={{ flex: 1 }}>
               <div>
-                <p className={"mb-3 small-font"}>
-                  NYC Overall {demoLookup.name}
-                </p>
+                <p className={"mb-3 small-font"}>Citywide {demoLookup.name}</p>
                 <div
                   className={"placeholder-legend placeholder-legend-ethnicity"}
                 >
                   <div
                     className={"legend-scale"}
                     style={{
-                      backgroundColor: `${_ETHNICITY_COLORS.Hispanic.htmlFormat}`,
+                      backgroundColor: `${_ETHNICITY_COLORS.Latino.htmlFormat}`,
                       fontFamily: "Arial",
                     }}
                   />
@@ -421,7 +427,7 @@ export default function Legend({
                       fontFamily: "Arial",
                     }}
                   />
-                  <div className={"small-font"}>29% Hispanic</div>
+                  <div className={"small-font"}>29% Latino</div>
                   <div className={"small-font"}>33% White</div>
                   <div className={"small-font"}>23% Black</div>
                   <div className={"small-font"}>13% Asian</div>
@@ -444,7 +450,7 @@ export default function Legend({
             ];
           } else {
             gridColorRamps = [
-              _ETHNICITY_COLORS.Hispanic.htmlFormat,
+              _ETHNICITY_COLORS.Latino.htmlFormat,
               _ETHNICITY_COLORS.White.htmlFormat,
               _ETHNICITY_COLORS.Black.htmlFormat,
               _ETHNICITY_COLORS.Asian.htmlFormat,
@@ -452,15 +458,15 @@ export default function Legend({
             ];
           }
 
+          // console.log()
           let percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
 
           let textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
 
-          // console.log(gridColorRamps)
-
           return (
             <div style={{ flex: 1 }}>
-              <p className={"mb-3 small-font"}>NYC Overall {demoLookup.name}</p>
+
+              <p className={"mb-3 small-font"}>Citywide {demoLookup.name}</p>
               <div
                 className={"placeholder-legend placeholder-legend-ethnicity"}
               />

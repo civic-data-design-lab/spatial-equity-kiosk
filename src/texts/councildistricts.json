@@ -2,159 +2,177 @@
     "1":
         {   "json_lookup": "1",
             "name": "District 1",
+            "borough": ["Manhattan"],
             "text": "City Council District 1 in Manhattan is represented by City Council member ",
             "councilmember_name": "Christopher Marte",
             "councilmember_email": "District1@council.nyc.gov",
             "neighborhoods": "Neighborhoods: Battery Park, Chinatown, the Financial District, the Lower East Side, SoHo/Nolita, and TriBeCa",
-            "least_performing_issues": [1, 2, 3]
+            "least_performing_issues": [2, 15, 12]
         },
     "2":
         {   "json_lookup": "2",
             "name": "District 2",
+            "borough": ["Manhattan"],
             "text": "City Council District 2 in Manhattan is represented by City Council member ",
             "councilmember_name": "Carlina Rivera",
             "councilmember_email": "District2@council.nyc.gov",
             "neighborhoods": "Neighborhoods: East Village, Gramercy Park, Lower East Side, Murray Hill, and Kips Bay/Rose Hill",
-            "least_performing_issues": [2, 3, 4]
+            "least_performing_issues": [12, 10, 7]
         },
     "3":
         {   "json_lookup": "3",
             "name": "District 3",
+            "borough": ["Manhattan"],
             "text": "City Council District 3 in Manhattan is represented by City Council member ",
             "councilmember_name": "Erik Bottcher",
             "councilmember_email": "District3@council.nyc.gov",
             "neighborhoods": "Neighborhoods: Chelsea, Hell’s Kitchen, Greenwich Village, Times Square, the Garment District, Flatiron, and the Upper West Side",
-            "least_performing_issues": [3, 4, 5]
+            "least_performing_issues": [10, 15, 4]
         },
     "4":
         {   "json_lookup": "4",
             "name": "District 4",
+            "borough": ["Manhattan"],
             "text": "City Council District 4 in Manhattan is represented by City Council member ",
             "councilmember_name": "Keith Powers",
             "councilmember_email": "district4@nyc.gov",
             "neighborhoods": "Neighborhoods: Upper East Side, Midtown, and Stuyvesant Town/Peter Cooper Village",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [12, 10, 13]
         },
     "5":
         {   "json_lookup": "5",
             "name": "District 5",
+            "borough": ["Manhattan"],
             "text": "City Council District 5 in Manhattan is represented by City Council member ",
             "councilmember_name": "Julie Menin",
             "councilmember_email": "district5@nyc.gov",
             "neighborhoods": "Neighborhoods: Upper East Side, Midtown East, El Barrio, and Roosevelt Island",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [12, 10, 6]
         },
     "6":
         {   "json_lookup": "6",
             "name": "District 6",
+            "borough": ["Manhattan"],
             "text": "City Council District 6 in Manhattan is represented by City Council member ",
             "councilmember_name": "Gale A. Brewer",
             "councilmember_email": "district6@nyc.gov",
             "neighborhoods": "Neighborhoods: Central Park, Lincoln Square, Upper West Side, and Clinton",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [2, 6, 15]
         },
     "7":
         {   "json_lookup": "7",
             "name": "District 7",
+            "borough": ["Manhattan"],
             "text": "City Council District 7 in Manhattan is represented by City Council member ",
             "councilmember_name": "Shaun Abreu",
             "councilmember_email": "district7@nyc.gov",
             "neighborhoods": "Neighborhoods: Manhattan Valley, Manhattanville, Morningside Heights, and Hamilton Heights",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [12, 6, 3]
         },
     "8":
         {   "json_lookup": "8",
             "name": "District 8",
+            "borough": ["Manhattan", "Bronx"],
             "text": "City Council District 8 in Manhattan is represented by City Council member ",
             "councilmember_name": "Diana Ayala",
             "councilmember_email": "district8@nyc.gov",
             "neighborhoods": "Neighborhoods: El Barrio/East Harlem, Mott Haven, Highbridge, Concourse, Longwood, and Port Morris",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [7, 1, 15]
         },
     "9":
         {   "json_lookup": "9",
             "name": "District 9",
+            "borough": ["Manhattan"],
             "text": "City Council District 9 in Manhattan is represented by City Council member ",
             "councilmember_name": "Kristin Richardson Jordan",
             "councilmember_email": "district9@nyc.gov",
             "neighborhoods": "Neighborhoods: Central Harlem, Morningside Heights, Upper West Side, and East Harlem",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [1, 12, 10]
         },
     "10":
         {   "json_lookup": "10",
             "name": "District 10",
+            "borough": ["Manhattan"],
             "text": "City Council District 10 in Manhattan is represented by City Council member ",
             "councilmember_name": "Carmen De La Rosa",
             "councilmember_email": "district10@nyc.gov",
             "neighborhoods": "Neighborhoods: Washington Heights, Inwood, and Marble Hill",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [6, 2, 12]
         },
     "11":
         {   "json_lookup": "11",
             "name": "District 11",
+            "borough": ["Bronx"],
             "text": "City Council District 11 in the Bronx is represented by City Council member ",
             "councilmember_name": "Eric Dinowitz",
             "councilmember_email": "district11@nyc.gov",
             "neighborhoods": "Neighborhoods: Bedford Park, Kingsbridge, Riverdale, Norwood, and Spuyten Duyvil",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [2, 11, 9]
         },
     "12":
         {   "json_lookup": "12",
             "name": "District 12",
+            "borough": ["Bronx"],
             "text": "City Council District 12 in the Bronx is represented by City Council member ",
             "councilmember_name": "Kevin C. Riley",
             "councilmember_email": "district12@nyc.gov",
             "neighborhoods": "Neighborhoods: Wakefield, Eastchester, Williamsbridge, and Co-op City",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [3, 8, 9]
         },
     "13":
         {   "json_lookup": "13",
             "name": "District 13",
+            "borough": ["Bronx"],
             "text": "City Council District 13 in the Bronx is represented by City Council member ",
             "councilmember_name": "Marjorie Velázquez",
             "councilmember_email": "district13@nyc.gov",
             "neighborhoods": "Neighborhoods: Allerton, City Island, Morris Park, Pelham Bay, Throggs Neck, Westchester Square",
-            "least_performing_issues": [1, 2, 3]
+            "least_performing_issues": [13, 5, 11]
         },
     "14":
         {   "json_lookup": "14",
             "name": "District 14",
+            "borough": ["Bronx"],
             "text": "City Council District 14 in the Bronx is represented by City Council member ",
             "councilmember_name": "Pierina Ana Sanchez",
             "councilmember_email": "district14@nyc.gov",
             "neighborhoods": "Neighborhoods: Morris Heights, University Heights, Fordham, and Kingsbridge",
-            "least_performing_issues": [2, 3, 4]
+            "least_performing_issues": [6, 7, 1]
         },
     "15":
         {   "json_lookup": "15",
             "name": "District 15",
+            "borough": ["Bronx"],
             "text": "City Council District 15 in the Bronx is represented by City Council member ",
             "councilmember_name": "Oswald Feliz",
             "councilmember_email": "district15@nyc.gov",
             "neighborhoods": "Neighborhoods: Fordham Heights, Belmont, East Tremont, Allerton, and Little Yemen",
-            "least_performing_issues": [3, 4, 5]
+            "least_performing_issues":  [2, 9, 1]
         },
     "16":
         {   "json_lookup": "16",
             "name": "District 16",
+            "borough": ["Bronx"],
             "text": "City Council District 16 in the Bronx is represented by City Council member ",
             "councilmember_name": "Althea Stevens",
             "councilmember_email": "district16@nyc.gov",
             "neighborhoods": "Neighborhoods: Concourse Village, Highbridge, Morris Heights, Mount Eden, and Morrisania",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [1, 2, 15]
         },
     "17":
         {   "json_lookup": "17",
             "name": "District 17",
+            "borough": ["Bronx"],
             "text": "City Council District 17 in the Bronx is represented by City Council member ",
             "councilmember_name": "Rafael Salamanca Jr",
             "councilmember_email": "district17@nyc.gov",
             "neighborhoods": "Neighborhoods: Crotona Park East, Hunts Point, Longwood, Port Morris, and West Farms",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [1, 13, 5]
         },
     "18":
         {   "json_lookup": "18",
             "name": "District 18",
+            "borough": ["Bronx"],
             "text": "City Council District 18 in the Bronx is represented by City Council member ",
             "councilmember_name": "Amanda Farías",
             "councilmember_email": "district18@nyc.gov",
@@ -164,298 +182,331 @@
     "19":
         {   "json_lookup": "19",
             "name": "District 19",
+            "borough": ["Queens"],
             "text": "City Council District 19 in Queens is represented by City Council member ",
             "councilmember_name": "Vickie Paladino",
             "councilmember_email": "district19@nyc.gov",
             "neighborhoods": "Neighborhoods: Bayside, Douglaston, Flushing, Little Neck, and Whitestone",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [11, 3, 7]
         },
     "20":
         {   "json_lookup": "20",
             "name": "District 20",
+            "borough": ["Queens"],
             "text": "City Council District 20 in Queens is represented by City Council member ",
             "councilmember_name": "Sandra Ung",
             "councilmember_email": "district20@nyc.gov",
             "neighborhoods": "Neighborhoods: Downtown Flushing, Murray Hill, and Queensboro Hill",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [9, 8, 5]
         },
     "21":
         {   "json_lookup": "21",
             "name": "District 21",
+            "borough": ["Queens"],
             "text": "City Council District 21 in Queens is represented by City Council member ",
             "councilmember_name": "Francisco Moya",
             "councilmember_email": "district21@nyc.gov",
             "neighborhoods": "Neighborhoods: East Elmhurst, Elmhurst, Jackson Heights, and Corona",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [15, 2, 4]
         },
     "22":
         {   "json_lookup": "22",
             "name": "District 22",
+            "borough": ["Queens"],
             "text": "City Council District 22 in Queens is represented by City Council member ",
             "councilmember_name": "Tiffany Cabán",
             "councilmember_email": "district22@nyc.gov",
             "neighborhoods": "Neighborhoods: East Elmhurst, Jackson Heights, and Woodside",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [15, 7, 10]
         },
     "23":
         {   "json_lookup": "23",
             "name": "District 23",
+            "borough": ["Queens"],
             "text": "City Council District 23 in Queens is represented by City Council member ",
             "councilmember_name": "Linda Lee",
             "councilmember_email": "district23@nyc.gov",
             "neighborhoods": "Neighborhoods: Bayside Hills, Floral Park, Fresh Meadows, Glen Oaks, Hollis Hills, Oakland Gardens",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [11, 6, 9]
         },
     "24":
         {   "json_lookup": "24",
             "name": "District 24",
+            "borough": ["Queens"],
             "text": "City Council District 24 in Queens is represented by City Council member ",
             "councilmember_name": "James F. Gennaro",
             "councilmember_email": "district24@nyc.gov",
             "neighborhoods": "Neighborhoods: Kew Gardens Hills, Pomonok, Fresh Meadows, Jamaica Estates, and Briarwood",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [9, 8, 5]
         },
     "25":
         {   "json_lookup": "25",
             "name": "District 25",
+            "borough": ["Queens"],
             "text": "City Council District 25 in Queens is represented by City Council member ",
             "councilmember_name": "Shekar Krishnan",
             "councilmember_email": "district25@nyc.gov",
             "neighborhoods": "Neighborhoods: Elmhurst and Jackson Heights",
-            "least_performing_issues": [3, 4, 5]
+            "least_performing_issues": [4, 5, 10]
         },
     "26":
         {   "json_lookup": "26",
             "name": "District 26",
+            "borough": ["Queens"],
             "text": "City Council District 26 in Queens is represented by City Council member ",
             "councilmember_name": "Julie Won",
             "councilmember_email": "district26@nyc.gov",
             "neighborhoods": "Neighborhoods: Sunnyside, Woodside, Long Island City, Astoria, and Dutch Kills",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [15, 4, 14]
         },
     "27":
         {   "json_lookup": "27",
             "name": "District 27",
+            "borough": ["Queens"],
             "text": "City Council District 27 in Queens is represented by City Council member ",
             "councilmember_name": "Nantasha Williams",
             "councilmember_email": "district27@nyc.gov",
             "neighborhoods": "Neighborhoods: Cambria Heights, Hollis, Jamaica, St. Albans, and Springfield Gardens",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [5, 11, 14]
         },
     "28":
         {   "json_lookup": "28",
             "name": "District 28",
+            "borough": ["Queens"],
             "text": "City Council District 28 in Queens is represented by City Council member ",
             "councilmember_name": "Adrienne E. Adams",
             "councilmember_email": "district28@nyc.gov",
             "neighborhoods": "Neighborhoods: Jamaica, Richmond Hill, Rochdale Village, and South Ozone Park",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [11, 9, 5]
         },
     "29":
         {   "json_lookup": "29",
             "name": "District 29",
+            "borough": ["Queens"],
             "text": "City Council District 29 in Queens is represented by City Council member ",
             "councilmember_name": "Lynn Schulman",
             "councilmember_email": "district29@nyc.gov",
             "neighborhoods": "Neighborhoods: Rego Park, Forest Hills, Kew Gardens, and Richmond Hill",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [4, 12, 11]
         },
     "30":
         {   "json_lookup": "30",
             "name": "District 30",
+            "borough": ["Queens"],
             "text": "City Council District 30 in Queens is represented by City Council member ",
             "councilmember_name": "Robert F. Holden",
             "councilmember_email": "district30@nyc.gov",
             "neighborhoods": "Neighborhoods: Glendale, Maspeth, Middle Village, Ridgewood, Woodhaven, and Woodside",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [9, 2, 11]
         },
     "31":
         {   "json_lookup": "31",
             "name": "District 31",
+            "borough": ["Queens"],
             "text": "City Council District 31 in Queens is represented by City Council member ",
             "councilmember_name": "Selvena N. Brooks-Powers",
             "councilmember_email": "district31@nyc.gov",
             "neighborhoods": "Neighborhoods: Brookville, Far Rockaway, Laurelton, Rosedale, and Springfield Gardens",
-            "least_performing_issues": [1, 2, 3]
+            "least_performing_issues": [7, 14, 13]
         },
     "32":
         {   "json_lookup": "32",
             "name": "District 32",
+            "borough": ["Queens"],
             "text": "City Council District 32 in Queens is represented by City Council member ",
             "councilmember_name": "Joann Ariola",
             "councilmember_email": "district32@nyc.gov",
             "neighborhoods": "Neighborhoods: Broad Channel, Howard Beach, Ozone Park, Richmond Hill, and Rockaway Park",
-            "least_performing_issues": [2, 3, 4]
+            "least_performing_issues": [13, 11, 5]
         },
     "33":
         {   "json_lookup": "33",
             "name": "District 33",
+            "borough": ["Brooklyn"],
             "text": "City Council District 33 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Lincoln Restler",
             "councilmember_email": "district33@nyc.gov",
             "neighborhoods": "Neighborhoods: Boerum Hill, Brooklyn Heights, Downtown Brooklyn, Dumbo, Greenpoint, and Williamsburg",
-            "least_performing_issues": [3, 4, 5]
+            "least_performing_issues": [15, 10, 12]
         },
     "34":
         {   "json_lookup": "34",
             "name": "District 34",
+            "borough": ["Brooklyn", "Queens"],
             "text": "City Council District 34 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Jennifer Gutiérrez",
             "councilmember_email": "district34@nyc.gov",
             "neighborhoods": "Neighborhoods: Williamsburg, Bushwick, and Ridgewood",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [5, 10, 13]
         },
     "35":
         {   "json_lookup": "35",
             "name": "District 35",
+            "borough": ["Brooklyn"],
             "text": "City Council District 35 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Crystal Hudson",
             "councilmember_email": "district35@nyc.gov",
             "neighborhoods": "Neighborhoods: Fort Greene, Clinton Hill, Crown Heights, Prospect Heights, and Bedford-Stuyvesant",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues":  [12, 14, 1]
         },
     "36":
         {   "json_lookup": "36",
             "name": "District 36",
+            "borough": ["Brooklyn"],
             "text": "City Council District 36 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Chi Ossé",
             "councilmember_email": "district36@nyc.gov",
             "neighborhoods": "Neighborhoods: Bedford-Stuyvesant and Northern Crown Heights",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [1, 4, 10]
         },
     "37":
         {   "json_lookup": "37",
             "name": "District 37",
+            "borough": ["Brooklyn"],
             "text": "City Council District 37 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Sandy Nurse",
             "councilmember_email": "district37@nyc.gov",
             "neighborhoods": "Neighborhoods: Cypress Hills, Bushwick, City Line, Ocean Hill, Brownsville, and East New York",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [3, 15, 9]
         },
     "38":
         {   "json_lookup": "38",
             "name": "District 38",
+            "borough": ["Brooklyn"],
             "text": "City Council District 38 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Alexa Avilés",
             "councilmember_email": "district38@nyc.gov",
             "neighborhoods": "Neighborhoods: Red Hook, Sunset Park, Greenwood Heights, Dyker Heights, and Boro Park",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [3, 2, 4]
         },
     "39":
         {   "json_lookup": "39",
             "name": "District 39",
+            "borough": ["Brooklyn"],
             "text": "City Council District 39 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Shahana Hanif",
             "councilmember_email": "district39@nyc.gov",
             "neighborhoods": "Neighborhoods: Cobble Hill, Carroll Gardens, Gowanus, Park Slope, Windsor Terrace, Borough Park, and Kensington",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [3, 2, 4]
         },
     "40":
         {   "json_lookup": "40",
             "name": "District 40",
+            "borough": ["Brooklyn"],
             "text": "City Council District 40 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Rita Joseph",
             "councilmember_email": "district40@nyc.gov",
             "neighborhoods": "Neighborhoods: Crown Heights, East Flatbush, Flatbush, Kensington, Midwood, and Prospect Lefferts Gardens",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [4, 1, 14]
         },
     "41":
         {   "json_lookup": "41",
             "name": "District 41",
+            "borough": ["Brooklyn"],
             "text": "City Council District 41 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Darlene Mealy",
             "councilmember_email": "district41@nyc.gov",
             "neighborhoods": "Neighborhoods: Bedford-Stuyvesant, Ocean Hill-Brownsville, East Flatbush, and Crown Heights",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [14, 1, 4]
         },
     "42":
         {   "json_lookup": "42",
             "name": "District 42",
+            "borough": ["Brooklyn"],
             "text": "City Council District 42 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Charles Barron",
             "councilmember_email": "district42@nyc.gov",
             "neighborhoods": "Neighborhoods: East New York, New Lots, Remsen Village, Spring Creek, and Starrett City",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [14, 3, 13]
         },
     "43":
         {   "json_lookup": "43",
             "name": "District 43",
+            "borough": ["Brooklyn"],
             "text": "City Council District 43 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Justin Brannan",
             "councilmember_email": "district43@nyc.gov",
             "neighborhoods": "Neighborhoods: Bay Ridge, Dyker Heights, Bensonhurst, and Bath Beach",
-            "least_performing_issues": [1, 2, 3]
+            "least_performing_issues": [13, 15, 8]
         },
     "44":
         {   "json_lookup": "44",
             "name": "District 44",
+            "borough": ["Brooklyn"],
             "text": "City Council District 44 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Kalman Yeger",
             "councilmember_email": "district44@nyc.gov",
             "neighborhoods": "Neighborhoods: Bensonhurst, Borough Park, Midwood, and Ocean Parkway",
-            "least_performing_issues": [2, 3, 4]
+            "least_performing_issues": [4, 3, 5]
         },
     "45":
         {   "json_lookup": "45",
             "name": "District 45",
+            "borough": ["Brooklyn"],
             "text": "City Council District 45 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Farah N. Louis",
             "councilmember_email": "district45@nyc.gov",
             "neighborhoods": "Neighborhoods: Flatbush, East Flatbush, Midwood, Marine Park, Flatlands, and Kensington",
-            "least_performing_issues": [3, 4, 5]
+            "least_performing_issues": [14, 5, 13]
         },
     "46":
         {   "json_lookup": "46",
             "name": "District 46",
+            "borough": ["Brooklyn"],
             "text": "City Council District 46 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Mercedes Narcisse",
             "councilmember_email": "district46@nyc.gov",
             "neighborhoods": "Neighborhoods: Bergen Beach, Canarsie, Flatlands, Gerritsen Beach, Marine Park, Mill Basin, and Sheepshead Bay",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [11, 13, 6]
         },
     "47":
         {   "json_lookup": "47",
             "name": "District 47",
+            "borough": ["Brooklyn"],
             "text": "City Council District 47 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Ari Kagan",
             "councilmember_email": "district47@nyc.gov",
             "neighborhoods": "Neighborhoods: Bensonhurst, Coney Island, Gravesend, and Sea Gate",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [3, 7, 6]
         },
     "48":
         {   "json_lookup": "48",
             "name": "District 48",
+            "borough": ["Brooklyn"],
             "text": "City Council District 48 in Brooklyn is represented by City Council member ",
             "councilmember_name": "Inna Vernikov",
             "councilmember_email": "district48@nyc.gov",
             "neighborhoods": "Neighborhoods: Brighton Beach, Manhattan Beach, Sheepshead Bay, Homecrest, and Midwood",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [6, 13, 3]
         },
     "49":
         {   "json_lookup": "49",
             "name": "District 49",
+            "borough": ["Staten Island"],
             "text": "City Council District 49 in Staten Island is represented by City Council member ",
             "councilmember_name": "Kamillah Hanks",
             "councilmember_email": "district49@nyc.gov",
             "neighborhoods": "Neighborhoods: Clifton, Grymes Hill, Mariners Harbor, New Brighton, Port Richmond, Randall Manor, Rosebank, St. George, Stapleton, Sunnyside, West Brighton, and Tompkinsville",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [6, 1, 9]
         },
     "50":
         {   "json_lookup": "50",
             "name": "District 50",
+            "borough": ["Staten Island"],
             "text": "City Council District 50 in Staten Island is represented by City Council member ",
             "councilmember_name": "David Carr",
             "councilmember_email": "district50@nyc.gov",
             "neighborhoods": "Neighborhoods: Bloomfield, Bulls Head, Castleton Corners, Dongan Hills, Fort Wadsworth, Grasmere, Grant City, Lighthouse Hill, Midland Beach, New Dorp, New Springville, Oakwood, Old Town, Richmondtown, South Beach, Todt Hill, Travis, and Westerleigh",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [8, 9, 7]
         },
     "51":
         {   "json_lookup": "51",
             "name": "District 51",
+            "borough": ["Staten Island"],
             "text": "City Council District 51 in Staten Island is represented by City Council member ",
             "councilmember_name": "Joseph C. Borelli",
             "councilmember_email": "district51@nyc.gov",
             "neighborhoods": "Neighborhoods: Annadale, Arden Heights, Bay Terrace, Charleston, Eltingville, Great Kills, Huguenot, Pleasant Plains, Prince’s Bay, Richmond Valley, Tottenville, and Woodrow",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [9, 8, 11]
         }
 }

@@ -15,7 +15,7 @@ export default function CommunityRightColumn({
                                                  selectedIssue, selectedChapter,
                                                  boundary, demographic, showDemographics,
                                                  setMoreIssues, moreIssuesLength, moreIssues, setMoreIssuesLength,
-    setSelectedSpecificIssue
+    setSelectedSpecificIssue, setSelectedChapter, setCommunitySearch
 
                                              }) {
 
@@ -103,6 +103,7 @@ export default function CommunityRightColumn({
                     <div className={"standard-padding overflow-scroll"}>
                         <IssueProfile issues={issues} selectedSpecificIssue={selectedSpecificIssue}
                                       rankingProse={true} boundary={boundary} setSelectedSpecificIssue={setSelectedSpecificIssue}
+                                      setSelectedChapter={setSelectedChapter} setCommunitySearch={setCommunitySearch}
                         />
                     </div>
                 </div>}

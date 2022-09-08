@@ -1,20 +1,23 @@
 {
-    "CDD":
-        {   "json_lookup": "CDD",
+    "CCD":
+        {   "json_lookup": "CCD",
             "name": "City Council Districts",
-            "data_source": "",
-            "link": ""
+            "data_source": "NYC Department of City Planning (DCP)",
+            "year": "2022",
+            "link": "https://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page"
         },
     "CDTA":
         {   "json_lookup": "CDTA",
             "name": "Community District Tabulation Areas",
-            "data_source": "",
-            "link": ""
+            "data_source": "NYC Department of City Planning (DCP)",
+            "year": "2022",
+            "link": "https://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page"
         },
     "NTA":
         {   "json_lookup": "NTA",
             "name": "Neighborhood Tabulation Areas",
-            "data_source": "",
-            "link": ""
+            "data_source": "NYC Department of City Planning (DCP)",
+            "year": "2022",
+            "link": "https://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page"
         }
 }

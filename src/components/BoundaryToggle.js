@@ -36,7 +36,7 @@ export default function BoundaryToggle({
           }
         }}
       >
-        Council District
+        City Council
       </div>
 
       <div

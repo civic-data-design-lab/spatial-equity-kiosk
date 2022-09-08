@@ -21,6 +21,29 @@ export default function IssueProfile({
         return issues.specific_issues_data[selectedSpecificIssue].specific_issue_name || null
     }
 
+    const getIssueStatement = () => {
+
+        if (selectedSpecificIssue) {
+            const words = issues.specific_issues_data[selectedSpecificIssue].highlight_statement.split(" ")
+
+            const ignoreCapitalization = ["the", "of", "an", "a", "by"]
+
+            for (let i = 0; i < words.length; i++) {
+                
+                if (!ignoreCapitalization.includes(words[i].toLowerCase())) {
+                    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+                } else{
+                    words[i] = words[i]
+                }
+                
+            }
+            
+            const sentence = words.join(" ");
+            return sentence || null
+        }
+        return null
+    }
+
     const getHyperlinkText = (texts) => {
         return <p>
             {texts.map((texts)=>{
@@ -50,23 +73,24 @@ export default function IssueProfile({
 
         <div className={"issues-tile-text-container"}>
 
-            {rankingProse ? <div className={"issues-tile-prose issues-tile-text"}>
+            {/* {rankingProse ? 
+            <div className={"issues-tile-prose issues-tile-text"}>
                 <h5 className={"issues-tile-heading bold"}>
                     Understand How Districts Rank
                 </h5>
                 <p className={"m-0"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
-            </div> : null}
+            </div> : null} */}
 
             <div className={"issues-tile-ranking issues-tile-text"}>
                 <h5 className={"issues-tile-heading bold"}>
-                    Worst {getIssueName()} by District
+                {getIssueStatement()} by {boundary == "council" ? "Council Districts" : "Community Boards"}
                 </h5>
                 <div className={"smaller-font"}>
                     <Table bordered>
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>{boundary.charAt(0).toUpperCase() + boundary.slice(1)} District</th>
+                            <th>Rank</th>
+                            <th>{boundary == "council" ? "City Council" : "Community Board" }</th>
                             <th>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_name} {issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}</th>
                         </tr>
                         </thead>
@@ -74,13 +98,14 @@ export default function IssueProfile({
 
                         {/*TODO: populate chart with ranking data*/}
                         {rankings[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id].slice(0, 5).map((entry, index) => {
-                            return <tr key={index}>
+                            return <tr key={index} className={"issues-profile-table-row"}>
                                 <td>{entry.rank}</td>
                                 <td onClick={()=>{
                                     setCommunitySearch(entry.community_ID)
                                     setSelectedChapter(3)
                                 }
                                 }
+                                    className={"issues-profile-community-jump"}
                                 >{entry.community}</td>
                                 <td>{entry.data}</td>
                             </tr>
@@ -88,13 +113,14 @@ export default function IssueProfile({
 
 
                         {expand && rankings[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id].slice(5).map((entry, index) => {
-                            return <tr key={index}>
+                            return <tr key={index} className={"issues-profile-table-row"}>
                                 <td>{entry.rank}</td>
                                 <td onClick={()=>{
                                     setCommunitySearch(entry.community_ID)
                                     setSelectedChapter(3)
                                 }
                                 }
+                                    className={"issues-profile-community-jump"}
                                 >{entry.community}</td>
                                 <td>{entry.data}</td>
                             </tr>
@@ -114,9 +140,9 @@ export default function IssueProfile({
             </div>
 
             <div className={"issues-tile-description issues-tile-text"}>
-                <h5 className={"issues-tile-heading bold"}>
+                {/* <h5 className={"issues-tile-heading bold"}>
                     About this Indicator
-                </h5>
+                </h5> */}
                 <div>
                     {getHyperlinkText(issues.specific_issues_data[selectedSpecificIssue].specific_issue_description)}
                 </div>

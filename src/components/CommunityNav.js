@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowLeft,
   faArrowRight,
   faMinus,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
+
 import Slider from "./Carousel";
 
 import CommunitySearchBar from "./CommunitySearchBar";
+import Typewriter from "typewriter-effect";
 
 export default function CommunityNav({
   communities,
@@ -158,9 +161,56 @@ export default function CommunityNav({
           badSearch={badSearch}
           setBadSearch={setBadSearch}
           setSearchSource={setSearchSource}
+          boundary={boundary}
         >
           {getSearchItems(true, boundary)}
         </CommunitySearchBar>
+
+         <div className={"community-nav-text"}>
+        {communitySearch && (
+          <>
+            <p className={"m-0 community-description"}>
+              <span>
+                {(communities[communitySearch] &&
+                  communities[communitySearch].name) ||
+                  (councils[communitySearch] && councils[communitySearch].text)}
+
+                <a
+                  className={"underline"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                  href={`mailto:${
+                    (councils[communitySearch] &&
+                      councils[communitySearch].councilmember_email) ||
+                    null
+                  }`}
+                >
+                  {(councils[communitySearch] &&
+                    councils[communitySearch].councilmember_name) ||
+                    null}
+                </a>
+              </span>
+
+              {councils[communitySearch] && "."}
+
+              {" "}
+              {(communities[communitySearch] &&
+                communities[communitySearch].description) ||
+                (councils[communitySearch] &&
+                  councils[communitySearch].description)}
+            </p>
+
+            <p className={"m-0 small-font"}>
+              {(communities[communitySearch] &&
+                communities[communitySearch].neighborhoods) ||
+                (councils[communitySearch] &&
+                  councils[communitySearch].neighborhoods)}
+            </p>
+          </>
+        )}
+        </div>
+
 
         {communitySearch && addCompare && (
           <CommunitySearchBar
@@ -186,6 +236,7 @@ export default function CommunityNav({
             badSearch={badSearch}
             setBadSearch={setBadSearch}
             setSearchSource={setSearchSource}
+            boundary={boundary}
           >
             {getSearchItems(false, boundary)}
           </CommunitySearchBar>
@@ -208,6 +259,29 @@ export default function CommunityNav({
               : `Nothing found. Try searching for something else.`}
           </div>
         )}
+
+       {/* {!communitySearch && <div className={"d-flex flex-row align-items-center h-100 w-100"}>
+
+                    <FontAwesomeIcon icon={faArrowLeft} className={"fa-lg"}/>
+                <p className={"m-0"}>Try searching for &thinsp;</p>
+
+                <div className={"typewriter-container"}>
+                    <Typewriter
+                    options={{
+                        strings: (boundary === "community" ? ['your address', 'Hamilton Heights', '111 John Street',
+                            "Bronx 9", 'Bedford Stuyvesant', '350 5th Avenue'] : ["your address", "Washington Heights", "350 5th Avenue", "District 5", "111 John Street",
+                            "Bensonhurst"]),
+                        autoStart: true,
+                        loop: true,
+                        pauseFor: 2000,
+                    }}
+                />
+                </div>
+
+
+            </div>}*/}
+
+
 
         {communitySearch && !addCompare && (
           <div
@@ -232,49 +306,48 @@ export default function CommunityNav({
             )}
           </div>
         )}
+
+        <div>
+                <p className={"m-0 community-description"}>
+                  <span>
+                    {(communities[compareSearch] &&
+                      communities[compareSearch].name) ||
+                      (councils[compareSearch] && councils[compareSearch].text)}
+
+                    <a
+                      className={"underline"}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      href={`mailto:${
+                        (councils[compareSearch] &&
+                          councils[compareSearch].councilmember_email) ||
+                        null
+                      }`}
+                    >
+                      {(councils[compareSearch] &&
+                        councils[compareSearch].councilmember_name) ||
+                        null}
+                    </a>
+                  </span>{" "}
+                  {(communities[compareSearch] &&
+                    communities[compareSearch].description) ||
+                    (councils[compareSearch] &&
+                      councils[compareSearch].description)}
+                </p>
+
+                <p className={"m-0 small-font"}>
+                  {(communities[compareSearch] &&
+                    communities[compareSearch].neighborhoods) ||
+                    (councils[compareSearch] &&
+                      councils[compareSearch].neighborhoods)}
+                </p>
+              </div>
       </div>
 
-      <div className={"community-nav-text"}>
-        {communitySearch && !compareSearch && (
-          <>
-            <p className={"m-0 community-description"}>
-              <span>
-                {(communities[communitySearch] &&
-                  communities[communitySearch].name) ||
-                  (councils[communitySearch] && councils[communitySearch].text)}
 
-                <a
-                  className={"underline"}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  href={`mailto:${
-                    (councils[communitySearch] &&
-                      councils[communitySearch].councilmember_email) ||
-                    null
-                  }`}
-                >
-                  {(councils[communitySearch] &&
-                    councils[communitySearch].councilmember_name) ||
-                    null}
-                </a>
-              </span>{" "}
-              {(communities[communitySearch] &&
-                communities[communitySearch].description) ||
-                (councils[communitySearch] &&
-                  councils[communitySearch].description)}
-            </p>
 
-            <p className={"m-0 small-font"}>
-              {(communities[communitySearch] &&
-                communities[communitySearch].neighborhoods) ||
-                (councils[communitySearch] &&
-                  councils[communitySearch].neighborhoods)}
-            </p>
-          </>
-        )}
-
-        {compareSearch && communitySearch && (
+       {/* {compareSearch && communitySearch && (
           <div
             onClick={(e) => {
               e.stopPropagation();
@@ -357,8 +430,8 @@ export default function CommunityNav({
               </div>
             </Slider>
           </div>
-        )}
-      </div>
+        )}*/}
+
     </div>
   );
 }

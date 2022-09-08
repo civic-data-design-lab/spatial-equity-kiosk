@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useLocation } from "react-router-dom";
@@ -12,6 +12,7 @@ import Map from "./components/Map";
 /*import BaseMap from "./components/BaseMap";*/
 import MobileNav from "./components/Mobile Components/MobileNav";
 import CitywideData from "./components/Mobile Components/CitywideData";
+import { max, min } from "d3-array";
 
 import _ISSUE_CATEGORIES from "./texts/issue_categories.json";
 import _ISSUES from "./texts/issues.json";
@@ -20,6 +21,9 @@ import _COUNCILS from "./texts/councildistricts.json";
 import _DEMOGRAPHICS from "./texts/demographics.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import _COUNCIL_DISTRICTS from "./data/council_districts.json";
+import _COMMUNITY_BOARDS from "./data/community_boards.json";
+import _NEIGHBORHOODS from "./data/neighborhoods.json";
 
 // map data imports
 
@@ -69,8 +73,9 @@ function App() {
   const [selectedCompareCoord, setselectedCompareCoord] = useState([]);
   const [badSearch, setBadSearch] = useState([0, 0]);
   const [errorCode, setErrorCode] = useState(null);
-
   const [showMenu, setShowMenu] = useState(false);
+  const [info, setInfo] = useState(null);
+  const [userPoints, setUserPoints] = useState([], []);
 
   // console.log(demoColorRamp)
   // map hooks
@@ -145,11 +150,173 @@ function App() {
         case "tU":
           setToggleUnderperformers(pair[1] === "true");
           break;
+        /*  case "uP":
+                    console.log("pair[1] ", pair[1])
+                    setUserPoints(
+                        JSON.parse(pair[1]).map((item) => {
+                            return parseInt(item);
+                        })
+                    )*/
       }
     }
   }, []);
 
+  const selectedBoundary = useMemo(() => {
+    if (boundary === "council") {
+      return _COUNCIL_DISTRICTS;
+    } else if (boundary === "community") {
+      return _COMMUNITY_BOARDS;
+    } else {
+      return _COUNCIL_DISTRICTS;
+    }
+  }, [boundary]);
+
+  const getColorRamp = () => {
+    console.log("get color ramp triggered")
+    let selectedRamp;
+    if (selectedSpecificIssue) {
+      console.log("case 1 ", selectedSpecificIssue)
+      selectedRamp =
+        issues.specific_issues_data[selectedSpecificIssue].issue_type_ID === 1
+          ? "health"
+          : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
+            2
+          ? "env"
+          : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
+            3
+          ? "infra"
+          : "troubleshoot";
+    } else {
+      console.log("case 2 ", selectedIssue)
+      selectedRamp =
+        selectedIssue === 1
+          ? "health"
+          : selectedIssue === 2
+          ? "env"
+          : selectedIssue === 3
+          ? "infra"
+          : "troubleshoot";
+    }
+    return selectedRamp
+  }
+
+  useEffect(()=>{
+    setColorRamps(getColorRamp());
+  }, [selectedSpecificIssue,
+    selectedIssue,
+    zoomToggle,
+    selectedBoundary,
+    toggleTransit,
+    toggleBike,
+    toggleWalk,])
+
   useEffect(() => {
+    // SELECT BOUNDARY ------------------------------------------------------------
+    // toggle between council districts and community boards
+    const binSize = 5;
+
+    // SELECT BOUNDARY END --------------------------------------------------------
+
+    // METRIC CONFIG -----------------------------------------------------
+
+    // select metric to display
+    let selectedMetric;
+    let metricGoodBad; // Declare whether metric is good or bad at high values (for hatching areas)
+
+    if (selectedSpecificIssue != null) {
+      if (
+        typeof selectedSpecificIssue == "number" &&
+        isNaN(selectedSpecificIssue) === false
+      ) {
+        selectedMetric =
+          issues.specific_issues_data[selectedSpecificIssue].json_id;
+
+        metricGoodBad =
+          issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
+      }
+    }
+
+    // 01 CREATE METRIC COLOR RAMPS -------------------------------------------------------
+
+    //pick scale for legend bins
+    const mapScale =
+      handleLegend == 0
+        ? _NEIGHBORHOODS
+        : handleLegend == 1 && selectedBoundary == _COUNCIL_DISTRICTS
+        ? _COUNCIL_DISTRICTS
+        : _COMMUNITY_BOARDS;
+
+    //variables for scale thresholds
+
+    // pick color ramp for metrics and have default to avoid errors
+
+
+
+    const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
+    const binList = []; // derived from the selectedMetricArray array, this is the list of bins for the legend
+
+    // 01.1 get an array of all the values for the selected metric
+    for (let i = 0; i < mapScale.features.length; i++) {
+      let floatValue = parseFloat(
+        mapScale.features[i].properties[selectedMetric]
+      );
+      if (isNaN(floatValue) === false) {
+        if (
+          boundary === "council" ||
+          (zoomToggle == 1 &&
+            boundary === "community" &&
+            mapScale.features[i].properties.Data_YN === "Y") ||
+          (zoomToggle == 0 && mapScale.features[i].properties.AnsUnt_YN === "Y")
+        ) {
+          selectedMetricArray.push(floatValue);
+        }
+      }
+    }
+
+    // create a new sorted array for the quantile, but dont modify existing array
+    const sortedSelectedMetricArray = [...selectedMetricArray].sort(function (
+      a,
+      b
+    ) {
+      return a - b;
+    });
+
+    const uniqueValueArray = [...new Set(sortedSelectedMetricArray)];
+
+    // 01.2 break the metric array into bins and get the bin list
+    for (let i = 0; i < binSize; i++) {
+      if (dataScale === "equal") {
+        const threshold =
+          (max(selectedMetricArray) - min(selectedMetricArray)) / (binSize + 1);
+        binList.push(
+          Math.round((threshold * (i + 1) + min(selectedMetricArray)) * 100) /
+            100
+        );
+      } else {
+        const interval = Math.floor(
+          ((uniqueValueArray.length - 1) / binSize) * (i + 1)
+        );
+        // quantile breaks
+        binList.push(uniqueValueArray[interval]);
+      }
+    }
+
+    setInfo({
+      binList: binList,
+      uniqueValueArray: uniqueValueArray,
+      sortedSelectedMetricArray: sortedSelectedMetricArray,
+      selectedMetricArray: selectedMetricArray,
+      selectedBoundary: selectedBoundary,
+      selectedMetric: selectedMetric,
+      metricGoodorBad: metricGoodBad,
+      mapScale: mapScale,
+    });
+
+    // console.log("info ", info)
+  }, [boundary, selectedSpecificIssue, selectedIssue, zoomToggle]);
+
+  useEffect(() => {
+    // console.log("userPoints ", userPoints)
     // console.log("demoLookup ", demoLookup);
     // console.log("HERE ARE THE STATES")
     // console.log("selectedChapter ", selectedChapter)
@@ -168,12 +335,12 @@ function App() {
     // console.log("-------------------------------------------")
 
     /* if (!selectedSpecificIssue) {
-                     setSelectedIssue(1)
-                     setSelectedSpecificIssue(1)
-                 }
-                 if (!selectedSpecificIssue) {
-                     setSelectedSpecificIssue(1)
-                 }*/
+                         setSelectedIssue(1)
+                         setSelectedSpecificIssue(1)
+                     }
+                     if (!selectedSpecificIssue) {
+                         setSelectedSpecificIssue(1)
+                     }*/
 
     const params = [];
 
@@ -198,7 +365,11 @@ function App() {
     if (toggleUnderperformers !== null)
       params.push(`tU=${toggleUnderperformers}`);
 
-    // TODO: add colorRamps and legendBins
+    // TODO: ask what format of this statehook is
+    /*
+        if (userPoints[0]!==null && userPoints[1]!==null) params.push(`uP=[[${userPoints[0] && userPoints[0].toString()}],[${userPoints[1] && userPoints[1].toString()}]]`)
+*/
+
     let path = window.location.href.split("?")[0];
     path = path.concat("?");
     params.map((param) => {
@@ -216,7 +387,7 @@ function App() {
     }
 
     if (selectedChapter === 3 && !communitySearch) {
-      setShowMap(false);
+      setShowMap(true);
     }
   });
 
@@ -228,16 +399,16 @@ function App() {
     }
   }, [selectedSpecificIssue]);
 
-  useEffect(() => {
-    if (selectedSpecificIssue) {
-      if (!moreIssues.includes(selectedSpecificIssue)) {
-        let newMore = moreIssues;
-        newMore.push(selectedSpecificIssue);
-        setMoreIssues(newMore);
-        setMoreIssuesLength(moreIssuesLength + 1);
-      }
-    }
-  }, [selectedSpecificIssue]);
+  /*useEffect(() => {
+        if (selectedSpecificIssue) {
+            if (!moreIssues.includes(selectedSpecificIssue)) {
+                let newMore = moreIssues;
+                newMore.push(selectedSpecificIssue);
+                setMoreIssues(newMore);
+                setMoreIssuesLength(moreIssuesLength + 1);
+            }
+        }
+    }, [selectedSpecificIssue]);*/
 
   const [assistivePos, setAssistivePos] = useState({ x: 0, y: 0 });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -250,17 +421,17 @@ function App() {
     });
 
     /*window.addEventListener("mousemove", (e) => {
-                e.preventDefault()
-                console.log("mouseDOwn in event listener is ", mouseDown)
-                if (mouseDown) {
-                    setMouseMove(true)
-                    let div = document.getElementById("assistive-touch-div")
-                    const mousePos = {x: e.clientX, y: e.clientY};
-                    // div.style.transform = `translate(0px, 0px)`;;
-                    div.style.left = (mousePos.x + offset.x) + 'px';
-                    div.style.top = (mousePos.y + offset.y) + 'px';
-                }
-        })*/
+                    e.preventDefault()
+                    console.log("mouseDOwn in event listener is ", mouseDown)
+                    if (mouseDown) {
+                        setMouseMove(true)
+                        let div = document.getElementById("assistive-touch-div")
+                        const mousePos = {x: e.clientX, y: e.clientY};
+                        // div.style.transform = `translate(0px, 0px)`;;
+                        div.style.left = (mousePos.x + offset.x) + 'px';
+                        div.style.top = (mousePos.y + offset.y) + 'px';
+                    }
+            })*/
 
     return () => {
       window.removeEventListener("mouseup", () => {
@@ -268,16 +439,16 @@ function App() {
       });
 
       /*window.removeEventListener("mousemove", (e) => {
-                  e.preventDefault()
-                  if (mouseDown) {
-                      setMouseMove(true)
-                      let div = document.getElementById("assistive-touch-div")
-                      const mousePos = {x: e.clientX, y: e.clientY};
-                      // div.style.transform = `translate(0px, 0px)`;;
-                      div.style.left = (mousePos.x + offset.x) + 'px';
-                      div.style.top = (mousePos.y + offset.y) + 'px';
-                  }
-          })*/
+                        e.preventDefault()
+                        if (mouseDown) {
+                            setMouseMove(true)
+                            let div = document.getElementById("assistive-touch-div")
+                            const mousePos = {x: e.clientX, y: e.clientY};
+                            // div.style.transform = `translate(0px, 0px)`;;
+                            div.style.left = (mousePos.x + offset.x) + 'px';
+                            div.style.top = (mousePos.y + offset.y) + 'px';
+                        }
+                })*/
     };
   }, []);
 
@@ -350,6 +521,7 @@ function App() {
             setSearchSource={setSearchSource}
             errorCode={errorCode}
             setErrorCode={setErrorCode}
+            setUserPoints={setUserPoints}
           />
 
           <Content
@@ -402,6 +574,7 @@ function App() {
             handleLegend={handleLegend}
             zoomToggle={zoomToggle}
             demoLookup={demoLookup[demographic]}
+            info={info}
           />
 
           <div className={`${showMap ? "show-map" : "hide-map"} map-container`}>
@@ -409,7 +582,12 @@ function App() {
               {/* <BaseMap viewState={viewState} /> */}
 
               <div
-                className={"individual-maps"}
+                className={`individual-maps`}
+                style={{
+                  width:
+                    selectedChapter === 3 && !communitySearch ? "75vw" : "50vw",
+                  transition: "width 0.5s",
+                }}
                 id={mapDemographics ? "left-map" : "left-map-alone"}
               >
                 <Map
@@ -431,6 +609,7 @@ function App() {
                   setAddCompare={setAddCompare}
                   compareSearch={compareSearch}
                   setCompareSearch={setCompareSearch}
+                  showMap={showMap}
                   setShowMap={setShowMap}
                   communities={communities}
                   councils={councils}
@@ -461,6 +640,10 @@ function App() {
                   searchSource={searchSource}
                   setSearchSource={setSearchSource}
                   setErrorCode={setErrorCode}
+                  infoTransfer={info}
+                  userPoints={userPoints}
+                  setUserPoints={setUserPoints}
+                  colorRamp={colorRamps}
                 />
               </div>
             </div>
@@ -586,54 +769,6 @@ function App() {
               mainMap={true}
             />
           )}
-
-          {/* <Map
-            issues={issues}
-            selectedIssue={selectedIssue}
-            selectedSpecificIssue={selectedSpecificIssue}
-            boundary={boundary}
-            showDemographics={showDemographics}
-            mapDemographics={mapDemographics}
-            demographic={demographic}
-            setColorRamps={setColorRamps}
-            toggleUnderperformers={toggleUnderperformers}
-            demoLookup={demoLookup}
-            setSelectedChapter={setSelectedChapter}
-            communitySearch={communitySearch}
-            setCommunitySearch={setCommunitySearch}
-            addCompare={addCompare}
-            setAddCompare={setAddCompare}
-            compareSearch={compareSearch}
-            setCompareSearch={setCompareSearch}
-            setShowMap={setShowMap}
-            communities={communities}
-            councils={councils}
-            viewState={viewState}
-            setViewState={setViewState}
-            mapSelection={mapSelection}
-            setMapSelection={setMapSelection}
-            zoomToggle={zoomToggle}
-            setzoomToggle={setzoomToggle}
-            handleLegend={handleLegend}
-            sethandleLegend={sethandleLegend}
-            coordinateLookup={coordinateLookup}
-            setCoordinateLookup={setCoordinateLookup}
-            dataScale={dataScale}
-            setdataScale={setdataScale}
-            highlightFeature={highlightFeature}
-            sethighlightFeature={sethighlightFeature}
-            toggleTransit={toggleTransit}
-            toggleBike={toggleBike}
-            toggleWalk={toggleWalk}
-            setDemoLegendBins={setDemoLegendBins}
-            selectedCoord={selectedCoord}
-            selectedCompareCoord={selectedCompareCoord}
-            setSelectedCoord={setSelectedCoord}
-            setSelectedCompareCoord={setselectedCompareCoord}
-            badSearch={badSearch}
-            setBadSearch={setBadSearch}
-            setErrorCode={setErrorCode}
-          /> */}
         </Container>
       )}
     </>

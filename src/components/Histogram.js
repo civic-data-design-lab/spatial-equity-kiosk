@@ -4,6 +4,7 @@ import { text, mouse } from "d3";
 
 import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _RANKINGS from "../data/rankings.json";
+import _COUNCILDISTRICTS from "../texts/councildistricts.json";
 // import _ISSUES from "../texts/issues.json"
 
 
@@ -32,12 +33,14 @@ const getDataToVis = (rawIssueData) => {
     let valueArray = [];
     let nameArray = [];
     let ascending;
-
+    let lookupArray = []
+    
     rawIssueData.sort((a, b) => (a.rank > b.rank));
 
     for (let [_, value] of Object.entries(rawIssueData)) {
         valueArray.push(Number(Number(value.data).toFixed(3)))
         nameArray.push(value.community)
+        lookupArray.push(value.community_ID)
     }
 
     let sum = valueArray.reduce((a, b) => a + b, 0);
@@ -58,13 +61,39 @@ const getDataToVis = (rawIssueData) => {
         }
     }
 
-    return [valueArray, nameArray, avg, avgIndex, ascending]
+    return [valueArray, nameArray, avg, avgIndex, ascending, lookupArray]
 }
 
 const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue }) => {
     const ref = useRef();
     const containerRef = useRef();
 
+    console.log("colorRampsyType ", colorRampsyType)
+
+    const getIssueStatement = () => {
+
+        if (selectedSpecificIssue) {
+            let words = issues.specific_issues_data[selectedSpecificIssue].highlight_statement.split(" ")
+            words.shift()
+            const ignoreCapitalization = ["the", "of", "an", "a", "by"]
+
+            for (let i = 0; i < words.length; i++) {
+                
+                if (!ignoreCapitalization.includes(words[i].toLowerCase())) {
+                    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+                } else{
+                    words[i] = words[i]
+                } 
+            }
+            const sentence = words.join(" ");
+            return sentence || null
+        }
+        return null
+    }
+
+    // console.log(issues.specific_issues_data[selectedSpecificIssue].specific_issue_units)
+
+    
     // svg attr
     // const width = 500;
     // const height = 1200;
@@ -102,7 +131,10 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
-    let [data, nameArray, avg, avgIndex, ascending] = getDataToVis(rawIssueData);
+    let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
+    
+    // console.log(lookupArray)
+    // console.log(rawIssueData)
     // console.log(avg);
     // console.log(data);
 
@@ -129,11 +161,14 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             }
             return str.substring(indexOfSpace + 1);
         }
-        let highlight_statement = issues.specific_issues_data[selectedSpecificIssue].highlight_statement;
-        highlight_statement = removeFirstWord(highlight_statement);
-        highlight_statement = highlight_statement.charAt(0).toUpperCase() + highlight_statement.slice(1);;
+        // let highlight_statement = issues.specific_issues_data[selectedSpecificIssue].highlight_statement;
+        // highlight_statement = removeFirstWord(highlight_statement);
+        // highlight_statement = highlight_statement.charAt(0).toUpperCase() + highlight_statement.slice(1);
 
-        // scales of chart
+        let [hiStatement, lowStatement] = issues.specific_issues_data[selectedSpecificIssue].issue_hi_low
+        hiStatement = hiStatement.charAt(0).toUpperCase() + hiStatement.slice(1);;
+        lowStatement = lowStatement.charAt(0).toUpperCase() + lowStatement.slice(1);;
+
         let xscale = d3.scaleLinear()
             // .domain([0, d3.max(data)])
             .domain([d3.min(data) - minValueMargin, d3.max(data)])
@@ -216,7 +251,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("font-size", "14")
             .attr("fill", "#000000")
             // .text((ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
-            .text((ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
+            // .text((ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
+            .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
 
         svg.select('#maxText')
             .attr('x', width - margin.right - textWidth)
@@ -225,7 +261,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("font-size", "14")
             .attr("fill", "#000000")
             // .text((!ascending ? 'Min ' + d3.min(data) : 'Max ' + d3.max(data)));
-            .text((!ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
+            // .text((!ascending ? highlight_statement + ' ' + d3.min(data) : 'Max ' + d3.max(data)));
+            .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
 
         svg.select('#mouseTextUp')
             .attr('x', width - margin.right - textWidth)
@@ -264,7 +301,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text('NYC Average');
+            .text('Citywide Average');
 
         svg.select('#avgTextDown')
             .attr('x', width - margin.right - textWidth)
@@ -295,7 +332,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 ycood = Math.min(ycood, yscale(data.length + 0.5));
 
                 // console.log(pt);
-                //console.log(Math.floor(yscale.invert(ycood) - 0.5));
+                // console.log(Math.floor(yscale.invert(ycood) - 0.5));
 
                 d3.select("#mouseLine")
                     // .transition()
@@ -310,11 +347,11 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
                 d3.select("#mouseTextUp")
                     .attr('y', ycood - 5)
-                    .text(nameArray[Math.floor(yscale.invert(ycood) - 0.5)])
+                    .text(`${boundary == "council" ? "Council" : ""} ${nameArray[Math.floor(yscale.invert(ycood) - 0.5)]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[Math.floor(yscale.invert(ycood) - 0.5)]].borough.join("/ ")}` : ""}`)
 
                 d3.select("#mouseTextDown")
                     .attr('y', ycood + 15)
-                    .text(data[Math.floor(yscale.invert(ycood) - 0.5)])
+                    .text(`${data[Math.floor(yscale.invert(ycood) - 0.5)]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
 
                 // Adjust text position
                 svg.select('#mouseTextUp')
@@ -350,11 +387,11 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
                 d3.select("#pinnedTextUp")
                     .attr('y', ycood - 5)
-                    .text(nameArray[Math.floor(yscale.invert(ycood) - 0.5)])
+                    .text(`${boundary == "council" ? "Council" : ""} ${nameArray[Math.floor(yscale.invert(ycood) - 0.5)]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[Math.floor(yscale.invert(ycood) - 0.5)]].borough.join("/ ")}` : ""}`)
 
                 d3.select("#pinnedTextDown")
                     .attr('y', ycood + 15)
-                    .text(data[Math.floor(yscale.invert(ycood) - 0.5)])
+                    .text(`${data[Math.floor(yscale.invert(ycood) - 0.5)]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
 
                 // Adjust text position
                 svg.select('#pinnedTextUp')

@@ -3,7 +3,6 @@ Pressing enter should close the dropdown (or pressing enter)
 escaping the search box then disables the search results show up 
 legend reflects the map domain and range, but it becomes misleading in tile view
 
-
 Map
     - revert to original scroll method and figure out how to update viewstate that way. (WIP works but get non-breaking error)
 
@@ -11,4 +10,4 @@ General
     - introduction text should always be available on Spatial Equity chapter?
 
 next up:
-- as soon as you search for a new area, the boundary goes, but the circle doesnt, fix this
+after selecting a neighborhood, switching between admin scales messes it up
