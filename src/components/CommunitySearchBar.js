@@ -7,6 +7,7 @@ import Typewriter from "typewriter-effect";
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
+const NYC_BBOX = '-74.25,40.5,-73.7,40.9'
 
 export default function CommunitySearchBar({
                                                toggleValue,
@@ -41,7 +42,7 @@ export default function CommunitySearchBar({
     // console.log('!!!c', communitySearch, )
     // console.log('!!!s', selectedCoord)
     const forwardGeocoding = (address) => {
-        const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${MAPBOX_ACCESS_TOKEN}&autocomplete=false&limit=5&bbox=-79.762152,0.496103,-71.856214,45.01585`;
+        const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${MAPBOX_ACCESS_TOKEN}&autocomplete=false&limit=5&bbox=${NYC_BBOX}`;
         axios
             .get(endpoint, {
                 headers: {
