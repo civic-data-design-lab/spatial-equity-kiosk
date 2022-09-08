@@ -287,7 +287,7 @@ const Histogram = ({ colorRampsyType,
             .attr('y', yscale(data.length + 0.5) + 15)
             .attr("style", "font-family:Inter")
             .attr('visibility', 'hidden')
-            .style('font-weight', 'bold')
+            // .style('font-weight', 'bold')
             .attr("font-size", "14")
             .on('click', (event, d) => {
                 if (boundary == "council") {
@@ -360,7 +360,7 @@ const Histogram = ({ colorRampsyType,
                     .attr('x1', margin.left)
                     .attr('x2', width - margin.right)
                     .style('stroke', 'black')
-                    .style('stroke-width', 4);
+                    .style('stroke-width', 2);
 
                 d3.select("#mouseTextUp")
                     .attr('y', ycood - 5)
@@ -368,7 +368,7 @@ const Histogram = ({ colorRampsyType,
 
                 d3.select("#mouseTextDown")
                     .attr('y', ycood + 15)
-                    .text(`${data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
+                    .text(`${data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand !== "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
 
                 // Adjust text position
                 // svg.select('#mouseTextUp')
@@ -408,7 +408,7 @@ const Histogram = ({ colorRampsyType,
             .attr('visibility', 'hidden')
             .attr('lookupID', (d, i) => lookupArray[i])
             .style('stroke', 'black')
-            .style('stroke-width', 4);
+            .style('stroke-width', 2);
 
         svg.selectAll(".pinnedLine")
             .data(data)
@@ -454,7 +454,7 @@ const Histogram = ({ colorRampsyType,
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((d, i) => `${data[i]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
+            .text((d, i) => `${data[i]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand != "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
 
         svg.selectAll(".pinnedTextDown")
             .data(data)
@@ -507,7 +507,7 @@ const Histogram = ({ colorRampsyType,
             .style('font-weight', 'bold')
             .attr("fill", "#000000")
             .attr("font-size", "14")
-            .text('X')
+            .text('✕')
             .attr('lookupID', (d, i) => lookupArray[i])
 
         svg.selectAll(".cancelButtonText")
@@ -626,7 +626,7 @@ const Histogram = ({ colorRampsyType,
                 {/* Reset Button */}
                 <text id="resetButton" >
                     Clear All
-                </text >
+                </text>
             </svg>
         </div>
     );

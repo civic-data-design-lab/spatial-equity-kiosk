@@ -842,8 +842,25 @@ a:active {
     border: 2px solid black;
 }
 
-.mapbox-logo {
-    display: none !important;
+/* Histogram */
+.cancelButtonText{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.cancelButtonText:hover{
+    opacity: 1;
+    text-decoration: underline;
+}
+
+#resetButton{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+#resetButton:hover{
+    opacity: 1;
+    text-decoration: underline;
 }
 
 /* Share Button */
