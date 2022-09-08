@@ -324,6 +324,7 @@ export default function CommunitySearchBar({
                     className={`${
                         !forSearch ? "position-absolute" : "d-none"
                     } remove-community-btn`}
+                    style={{color:"white"}}
                     onClick={(e) => {
                         e.stopPropagation();
                         setAddCompare(false);
