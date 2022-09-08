@@ -17,6 +17,10 @@ const getRgb = (color) => {
     }
 }
 
+const unique = (arr) => {
+    return Array.from(new Set(arr))
+}
+
 const colorInterpolate = (colorA, colorB, intval) => {
     const rgbA = getRgb(colorA);
     const rgbB = getRgb(colorB);
@@ -37,7 +41,7 @@ const getDataToVis = (rawIssueData) => {
 
     rawIssueData.sort((a, b) => (a.rank > b.rank));
 
-    for (let [_, value] of Object.entries(rawIssueData)) {
+    for (let [index, value] of Object.entries(rawIssueData)) {
         valueArray.push(Number(Number(value.data).toFixed(3)))
         nameArray.push(value.community)
         lookupArray.push(value.community_ID)
@@ -69,7 +73,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
     const ref = useRef();
     const containerRef = useRef();
 
-    console.log("colorRampsyType ", colorRampsyType)
+    // console.log("colorRampsyType ", colorRampsyType)
 
     const getIssueStatement = () => {
 
@@ -108,6 +112,7 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
     const [communityPinned, setCommunityPinned] = useState([])
     const [councilPinned, setCouncilPinned] = useState([])
+    const [currentHoveredCommunityID, setCurrentHoveredCommunityID] = useState('')
 
     useEffect(() => {
         let handleResize = () => {
@@ -341,8 +346,8 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 ycood = Math.max(ycood, yscale(0.5));
                 ycood = Math.min(ycood, yscale(data.length + 0.5));
 
-                // console.log(pt);
-                // console.log(Math.floor(yscale.invert(ycood) - 0.5));
+                let rectID = Math.floor(yscale.invert(ycood) - 0.5)
+                setCurrentHoveredCommunityID(lookupArray[rectID])
 
                 d3.select("#mouseLine")
                     // .transition()
@@ -357,11 +362,11 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
 
                 d3.select("#mouseTextUp")
                     .attr('y', ycood - 5)
-                    .text(`${boundary == "council" ? "Council" : ""} ${nameArray[Math.floor(yscale.invert(ycood) - 0.5)]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[Math.floor(yscale.invert(ycood) - 0.5)]].borough.join("/ ")}` : ""}`)
+                    .text(`${boundary == "council" ? "Council" : ""} ${nameArray[rectID]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[rectID]].borough.join("/ ")}` : ""}`)
 
                 d3.select("#mouseTextDown")
                     .attr('y', ycood + 15)
-                    .text(`${data[Math.floor(yscale.invert(ycood) - 0.5)]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
+                    .text(`${data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
 
                 // Adjust text position
                 svg.select('#mouseTextUp')
@@ -378,42 +383,123 @@ const Histogram = ({ colorRampsyType, issues, boundary, selectedSpecificIssue })
                 ycood = Math.max(ycood, yscale(0.5));
                 ycood = Math.min(ycood, yscale(data.length + 0.5));
 
-                // console.log(pt);
-                //console.log(Math.floor(yscale.invert(ycood) - 0.5));
+                let rectID = Math.floor(yscale.invert(ycood) - 0.5)
 
-                d3.select("#pinnedLine")
-                    // .transition()
-                    // .duration(10)
-                    // .ease('linear') 
-                    .attr('y1', yscale(Math.floor(yscale.invert(ycood) - 0.5) + 1))
-                    .attr('y2', yscale(Math.floor(yscale.invert(ycood) - 0.5) + 1))
-                    .attr('x1', margin.left)
-                    .attr('x2', width - margin.right)
-                    .style('stroke', 'black')
-                    .style('stroke-width', 4)
-                    .exit()
-                    .remove();
-
-
-                d3.select("#pinnedTextUp")
-                    .attr('y', yscale(Math.floor(yscale.invert(ycood) - 0.5) + 1) - 5)
-                    .text(`${boundary == "council" ? "Council" : ""} ${nameArray[Math.floor(yscale.invert(ycood) - 0.5)]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[Math.floor(yscale.invert(ycood) - 0.5)]].borough.join("/ ")}` : ""}`)
-
-                d3.select("#pinnedTextDown")
-                    .attr('y', yscale(Math.floor(yscale.invert(ycood) - 0.5) + 1) + 15)
-                    .text(`${data[Math.floor(yscale.invert(ycood) - 0.5)]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
-
-                // Adjust text position
-                svg.select('#pinnedTextUp')
-                    .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
-
-                svg.select('#pinnedTextDown')
-                    .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
-
+                // console.log(lookupArray[rectID])
+                if (boundary == "council") setCouncilPinned(unique([...councilPinned, lookupArray[rectID]]))
+                else setCommunityPinned(unique([...communityPinned, lookupArray[rectID]]))
+                console.log(councilPinned)
             })
 
+        // svg.selectAll(".gridSquare")
+        //     .data(gridData)
+        //     .enter()
+        //     .append("rect")
+        //     .attr("class", "gridSquare")
+        //     .merge(svg.selectAll(".gridSquare")
+        //         .data(gridData))
+        //     .attr("x", (d) => (d.x))
+        //     .attr("y", (d) => (d.y))
+        //     .attr("width", (d) => (d.width))
+        //     .attr("height", (d) => (d.height))
+        //     .style("fill", (d) => (d.color))
+        //     .style("stroke", (d) => (d.color));
 
-    }, [colorRamps, boundary, selectedSpecificIssue, dimensions]);
+
+        svg.selectAll(".pinnedLine")
+            .data(data)
+            .enter()
+            .append("line")
+            .attr("class", "pinnedLine")
+            .merge(svg.selectAll(".pinnedLine")
+                .data(data))
+            .attr('y1', (d, i) => yscale(i + 1))
+            .attr('y2', (d, i) => yscale(i + 1))
+            .attr('x1', margin.left)
+            .attr('x2', width - margin.right)
+            .attr('visibility', 'hidden')
+            .attr('lookupID', (d, i) => lookupArray[i])
+            .style('stroke', 'black')
+            .style('stroke-width', 4);
+
+        svg.selectAll(".pinnedLine")
+            .data(data)
+            .exit()
+            .remove();
+
+        // d3.select("#pinnedLine")
+        //     .attr('y1', yscale(lookupArray.indexOf(councilPinned[0]) + 1))
+        //     .attr('y2', yscale(lookupArray.indexOf(councilPinned[0]) + 1))
+        //     .attr('x1', margin.left)
+        //     .attr('x2', width - margin.right)
+        //     .style('stroke', 'black')
+        //     .style('stroke-width', 4)
+        //     .exit()
+        //     .remove();
+
+        // d3.select("#pinnedTextUp")
+        //     .attr('y', yscale(lookupArray.indexOf(councilPinned[0]) + 1) - 5)
+        //     .attr('x', width - margin.right)
+        //     .attr("text-anchor", "end")
+        //     .text(`${boundary == "council" ? "Council" : ""} ${nameArray[councilPinned[0]]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[councilPinned[0]]].borough.join("/ ")}` : ""}`)
+
+        // d3.select("#pinnedTextDown")
+        //     .attr('y', yscale(lookupArray.indexOf(councilPinned[0]) + 1) + 15)
+        //     .attr('x', width - margin.right)
+        //     .attr("text-anchor", "end")
+        //     .text(`${data[councilPinned[0]]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
+
+    }, [colorRamps, boundary, selectedSpecificIssue, dimensions, councilPinned, communityPinned]);
+
+    useEffect(() => {
+        let svg = d3.select(ref.current);
+        svg.selectAll(".pinnedLine").each(function (d, i) {
+            // console.log(d3.select(this).attr('visibility'))
+            // if (councilPinned.includes(d3.select(this).attr("lookupID"))) {
+            //     console.log(d3.select(this).attr("lookupID"))
+            // }
+            
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible" )
+                else d3.select(this).attr('visibility', "hidden" )
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID") != currentHoveredCommunityID)) d3.select(this).attr('visibility', "visible" )
+                else d3.select(this).attr('visibility', "hidden" )
+            }
+        })
+
+        // if (councilPinned != []) {
+        //     d3.select("#pinnedLine")
+        //         .attr('y1', yscale(lookupArray.indexOf(councilPinned[0]) + 1))
+        //         .attr('y2', yscale(lookupArray.indexOf(councilPinned[0]) + 1))
+        //         .attr('x1', margin.left)
+        //         .attr('x2', width - margin.right)
+        //         .style('stroke', 'black')
+        //         .style('stroke-width', 4)
+        //         .exit()
+        //         .remove();
+
+        //     d3.select("#pinnedTextUp")
+        //         .attr('y', yscale(lookupArray.indexOf(councilPinned[0]) + 1) - 5)
+        //         .attr('x', width - margin.right)
+        //         .attr("text-anchor", "end")
+        //         .text(`${boundary == "council" ? "Council" : ""} ${nameArray[councilPinned[0]]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[councilPinned[0]]].borough.join("/ ")}` : ""}`)
+
+        //     d3.select("#pinnedTextDown")
+        //         .attr('y', yscale(lookupArray.indexOf(councilPinned[0]) + 1) + 15)
+        //         .attr('x', width - margin.right)
+        //         .attr("text-anchor", "end")
+        //         .text(`${data[councilPinned[0]]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
+
+
+        // // Adjust text position
+        // svg.select('#pinnedTextUp')
+        //     .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
+
+        // svg.select('#pinnedTextDown')
+        //     .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
+        // }
+    }, [colorRamps, boundary, selectedSpecificIssue, dimensions, councilPinned, communityPinned, currentHoveredCommunityID]);
 
     return (
         <div ref={containerRef} style={{
