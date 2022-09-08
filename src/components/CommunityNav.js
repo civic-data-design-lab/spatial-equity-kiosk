@@ -266,7 +266,7 @@ export default function CommunityNav({
                     <FontAwesomeIcon icon={faArrowLeft} className={"fa-lg"}/>
 */}
                 <p className={"m-0"}
-                   style={{fontSize:"0.75rem"}}
+                   style={{fontSize:"1.75rem", paddingTop:"3rem"}}
                 >Try searching for &thinsp;</p>
 
                 <div className={"typewriter-container"}>
