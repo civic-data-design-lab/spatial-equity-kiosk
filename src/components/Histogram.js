@@ -452,6 +452,16 @@ const Histogram = ({ colorRampsyType,
             .exit()
             .remove();
 
+        // Add goto function on pinnedTextUp
+        svg.selectAll(".pinnedTextUp")
+            .each(function (d, i) {
+                d3.select(this)
+                    .on('click', (e, d) => {
+                        setSelectedChapter(3)
+                        setCommunitySearch(d3.select(this).attr("lookupID"))
+                    })
+            })
+
         // Draw all cancel button
         svg.selectAll(".cancelButton")
             .data(data)
@@ -552,6 +562,8 @@ const Histogram = ({ colorRampsyType,
         d3.select('#histBg')
             .raise()
         d3.select('#resetButton')
+            .raise()
+        svg.selectAll(".pinnedTextUp")
             .raise()
 
     }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight, councilPinned, communityPinned]);
