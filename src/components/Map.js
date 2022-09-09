@@ -218,11 +218,12 @@ export default function DeckMap({
               : a - b; // lowest scores
           }
         });
-      // console.log(infoTransfer.metricGoodorBad, performanceBar[4]);
 
       setUnderperformers(
         zoomToggle ? performanceBar[4] : [...new Set(performanceBar)][7]
       );
+    } else {
+      setUnderperformers(null);
     }
   }, [toggleUnderperformers, infoTransfer]);
 
