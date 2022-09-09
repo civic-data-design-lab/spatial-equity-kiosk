@@ -1,36 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { text, mouse } from "d3";
+import { useResizeObserver } from "../utils/useResizeObserver"
 
 const GridGraph = ({ colorRamps, percList, textList }) => {
     const svgRef = useRef();
     const textRef = useRef();
     const containerRef = useRef();
 
-    const [dimensions, setDimensions] = useState({
-        height: 0,
-        width: 0,
-    })
+    const optionalCallback = (entry) => {
+    }
+
+    const [width, height] = useResizeObserver(containerRef, optionalCallback);
 
     useEffect(() => {
-        let handleResize = () => {
-            if (containerRef.current) {
-                setDimensions({
-                    height: containerRef.current.clientHeight,
-                    width: containerRef.current.clientWidth,
-                })
-            }
-        }
-        handleResize();
+        // build SVG
+        let svg = d3.select(svgRef.current)
+        svg.attr('width', '100%')
+        svg.attr('height', svgRef.current.clientWidth * 1 / 4)
 
-        window.addEventListener('resize', handleResize);
-    }, [colorRamps, percList, textList])
-
-    useEffect(() => {
-
-
-        let width = dimensions.width ? dimensions.width : 0;
+        // let width = dimensions.width ? dimensions.width : 0;
         // let height = dimensions.height ? dimensions.height : 150;
+        console.log(svgRef.current.clientWidth, svgRef.current.clientHeight)
+        let width = svgRef.current.clientWidth;
         let height = 1 / 4 * width;
 
         let numHeight = 5;
@@ -90,11 +82,6 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
         // console.log(currentDemographics)
         // console.log(gridData)
 
-        // build SVG
-        let svg = d3.select(svgRef.current)
-            .attr('height', height)
-            .attr('width', width)
-
         svg.selectAll(".gridSquare")
             .data(gridData)
             .enter()
@@ -138,7 +125,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             .exit()
             .remove();
 
-    }, [colorRamps, percList, textList, dimensions]);
+    }, [colorRamps, percList, textList, width, height]);
 
     return (
         <div ref={containerRef} style={{
