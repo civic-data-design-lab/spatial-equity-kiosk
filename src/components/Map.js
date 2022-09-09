@@ -21,7 +21,7 @@ import _COMMUNITY_BOARDS from "../data/community_boards.json"; //community board
 import _NEIGHBORHOOD_NAMES from "../data/neighborhood_names.json";
 import _ETHNICITY from "../data/ethnicity.json";
 import _FILL_PATTERN from "../data/fill_pattern.json";
-import _HATCH_ATLAS from "../data/hatch_pattern.png";
+import _HATCH_ATLAS from "../data/triple_hatch_pattern.png";
 import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _ETHNICITY_COLORS from "../data/ethnicity_colors.json";
 import _RANKINGS from "../data/rankings.json";
@@ -193,36 +193,38 @@ export default function DeckMap({
   // 02 IDENTIFY NEIGHBORHOODS IN NEED ---------------------------------------------------------------------------
   // 02.1 Get low performers and ignore parks/graveyards/airports
 
+  // REPLACE MAP SCALE WITH BOUNDARY SCALE
+  // console.log(infoTransfer.mapScale);
+
   useEffect(() => {
-    const setPerformanceBar = [];
-    for (let i = 0; i < infoTransfer.mapScale.features.length; i++) {
-      if (
-        (boundary == "community" &&
-          infoTransfer.mapScale.features[i].properties.Data_YN == "Y") ||
-        boundary == "council"
-      ) {
-        setPerformanceBar.push(
-          parseFloat(
-            infoTransfer.mapScale.features[i].properties[
-              infoTransfer.selectedMetric
-            ]
-          )
-        );
-      }
+    if (toggleUnderperformers && infoTransfer.selectedMetric) {
+      const performanceBar = infoTransfer.mapScale.features
+        .map((value) => {
+          if (
+            (!zoomToggle && value.properties.AnsUnt_YN == "Y") ||
+            (zoomToggle &&
+              boundary == "community" &&
+              value.properties.Data_YN == "Y") ||
+            (zoomToggle && boundary == "council")
+          ) {
+            return value.properties[infoTransfer.selectedMetric];
+          }
+        })
+        .sort(function (a, b) {
+          // return the sorted list of values depending if you want the highest scores or lowest scores of a given metric
+          if (typeof infoTransfer.metricGoodorBad == "number") {
+            return infoTransfer.metricGoodorBad == 1
+              ? b - a // highest scores
+              : a - b; // lowest scores
+          }
+        });
+      // console.log(infoTransfer.metricGoodorBad, performanceBar[4]);
+
+      setUnderperformers(
+        zoomToggle ? performanceBar[4] : [...new Set(performanceBar)][7]
+      );
     }
-    // 02.2 Get the 5 lowest performers
-    setPerformanceBar.sort(function (a, b) {
-      // return the sorted list of values depending if you want the highest scores or lowest scores of a given metric
-      // console.log(info.metricGoodorBad)
-      if (typeof infoTransfer.metricGoodorBad == "number") {
-        return infoTransfer.metricGoodorBad == 1
-          ? b - a // highest scores
-          : a - b; // lowest scores
-      }
-    });
-    // const underperformers = setPerformanceBar[4]; //get the 5 worst performing values
-    setUnderperformers(setPerformanceBar[4]);
-  }, [toggleUnderperformers, boundary, infoTransfer]);
+  }, [toggleUnderperformers, infoTransfer]);
 
   // 02 IDENTIFY NEIGHBORHOODS IN NEED END -----------------------------------------------------------------------
 
@@ -354,7 +356,7 @@ export default function DeckMap({
     // max zoom
     viewState.zoom = Math.min(zoomMax, Math.max(zoomMin, viewState.zoom));
 
-    viewState.width = "100%"
+    viewState.width = "100%";
 
     // 04.2 ramp in/out based on zoom level
 
@@ -662,6 +664,7 @@ export default function DeckMap({
 
                 if (!compareSearch) {
                   setViewState(resetView);
+                  setAddCompare(false);
                 }
               } else {
                 setUserPoints([searchEngine, userPoints[1]]);
@@ -789,27 +792,6 @@ export default function DeckMap({
       filled: true,
       stroked: true,
 
-      getFillColor: (f) => {
-        if (boundary == "community") {
-          if (f.properties.Data_YN == "N") {
-            return [0, 0, 0, 0];
-          }
-        }
-        return [0, 0, 0, 255];
-      },
-      lineWidthUnits: "meters",
-      lineWidthMinPixels: 1,
-
-      getLineColor: (f) => {
-        if (
-          boundary == "council" ||
-          (boundary == "community" && f.properties.Data_YN == "Y")
-        ) {
-          return [0, 0, 0, 255];
-        }
-        return [0, 0, 0, 0];
-      },
-
       getLineWidth: (w) => {
         let boundaryValue = parseFloat(
           w.properties[infoTransfer.selectedMetric]
@@ -829,7 +811,7 @@ export default function DeckMap({
       },
 
       opacity: choroplethOpacity,
-      visible: zoomToggle,
+      visible: toggleUnderperformers ? zoomToggle : false,
 
       // props added by FillStyleExtension
       fillPatternMask: true,
@@ -837,7 +819,11 @@ export default function DeckMap({
       fillPatternMapping: _FILL_PATTERN,
       getFillPattern: (f) => {
         let fillValue = parseFloat(f.properties[infoTransfer.selectedMetric]);
-        if (toggleUnderperformers === true) {
+        if (
+          toggleUnderperformers === true &&
+          (boundary == "council" ||
+            (boundary == "community" && f.properties.Data_YN == "Y"))
+        ) {
           if (infoTransfer.metricGoodorBad == 1) {
             return fillValue >= underperformers
               ? "hatch-pattern"
@@ -856,8 +842,58 @@ export default function DeckMap({
       extensions: [new FillStyleExtension({ pattern: true })],
 
       updateTriggers: {
-        getLineWidth: [zoomToggle, toggleUnderperformers, underperformers],
-        getFillPattern: [zoomToggle, toggleUnderperformers, underperformers],
+        getLineWidth: [underperformers],
+        getFillPattern: [underperformers],
+      },
+    }),
+
+    new GeoJsonLayer({
+      id: "neighborhood-choropleth-highlights",
+      data: _NEIGHBORHOODS.features,
+      filled: true,
+      stroked: true,
+
+      getLineWidth: (w) => {
+        let boundaryValue = parseFloat(
+          w.properties[infoTransfer.selectedMetric]
+        );
+        if (toggleUnderperformers === true && w.properties.AnsUnt_YN == "Y") {
+          if (infoTransfer.metricGoodorBad == 1) {
+            return boundaryValue >= underperformers ? 50 : 0;
+          } else {
+            return boundaryValue <= underperformers ? 50 : 0;
+          }
+        }
+        return 0;
+      },
+
+      opacity: choroplethOpacity,
+      visible: toggleUnderperformers ? !zoomToggle : false,
+
+      // props added by FillStyleExtension
+      fillPatternMask: true,
+      fillPatternAtlas: _HATCH_ATLAS,
+      fillPatternMapping: _FILL_PATTERN,
+      getFillPattern: (f) => {
+        let fillValue = parseFloat(f.properties[infoTransfer.selectedMetric]);
+        if (toggleUnderperformers === true && f.properties.AnsUnt_YN == "Y") {
+          // console.log(toggleUnderperformers, underperformers);
+          if (infoTransfer.metricGoodorBad == 1) {
+            return fillValue >= underperformers ? "hatch-small" : "hatch-solid";
+          } else {
+            return fillValue <= underperformers ? "hatch-small" : "hatch-solid";
+          }
+        }
+        return "hatch-solid";
+      },
+      getFillPatternScale: 10,
+      getFillPatternOffset: [0, 0],
+      // Define extensions
+      extensions: [new FillStyleExtension({ pattern: true })],
+
+      updateTriggers: {
+        getLineWidth: [underperformers],
+        getFillPattern: [underperformers],
       },
     }),
   ];
@@ -1027,9 +1063,9 @@ export default function DeckMap({
           (boundary == "community" && w.properties.Data_YN == "Y")
         ) {
           if (w.id == highlightFeature) {
-            return 100;
+            return zoomToggle ? 100 : 50;
           }
-          return 50;
+          return zoomToggle ? 50 : 25;
         }
         return 0;
       },
@@ -1076,7 +1112,7 @@ export default function DeckMap({
       },
       updateTriggers: {
         getLineColor: [highlightFeature],
-        getLineWidth: [highlightFeature],
+        getLineWidth: [highlightFeature, zoomToggle],
       },
     }),
 
@@ -1153,38 +1189,27 @@ export default function DeckMap({
     }),
   ];
 
-  const layerFilter = useCallback(
-    ({ layer, viewport }) => {
-      const metricList = [];
-      const annoList = [];
+  const layerFilter = useCallback(({ layer, viewport }) => {
+    const metricList = [];
+    const annoList = [];
 
-      for (let i = 0; i < metricLayers.length; i++) {
-        metricList.push(metricLayers[i].id);
-      }
-      for (let i = 0; i < annoLayers.length; i++) {
-        annoList.push(annoLayers[i].id);
-      }
+    if (!showMap) return false;
 
-      if (!showMap) {
-        if (annoList.includes(layer.id)) return true;
-      } else {
-        if (annoList.includes(layer.id)) {
-          return true;
-        } else if (
-          metricList.includes(layer.id) &&
-          viewport.id !== "splitRight"
-        ) {
-          return true;
-        } else if (
-          !metricList.includes(layer.id) &&
-          viewport.id == "splitRight"
-        ) {
-          return viewport.id === "splitRight";
-        }
-      }
-    },
-    [showMap]
-  );
+    for (let i = 0; i < metricLayers.length; i++) {
+      metricList.push(metricLayers[i].id);
+    }
+    for (let i = 0; i < annoLayers.length; i++) {
+      annoList.push(annoLayers[i].id);
+    }
+
+    if (annoList.includes(layer.id)) {
+      return true;
+    } else if (metricList.includes(layer.id) && viewport.id !== "splitRight") {
+      return true;
+    } else if (!metricList.includes(layer.id) && viewport.id == "splitRight") {
+      return viewport.id === "splitRight";
+    }
+  });
 
   // console.log(map ? map : "no map");
   return (
