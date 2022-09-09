@@ -93,6 +93,7 @@ export default function CommunitySearchBar({
                 parseFloat(v.center[1].toFixed(3)),
               ]);
               setShowSearch(false);
+              e.target.blur();
             } else {
               setSearchSource("search");
               setselectedCompareCoord([
@@ -100,6 +101,7 @@ export default function CommunitySearchBar({
                 parseFloat(v.center[1].toFixed(3)),
               ]);
               setShowSearch(false);
+              e.target.blur();
             }
 
             // console.log([v.center[0].toFixed(3), v.center[1].toFixed(3)])
@@ -188,9 +190,11 @@ export default function CommunitySearchBar({
               if (primarySearch) {
                 setSelectedCoord(firstMatchedRes);
                 setShowSearch(false);
+                e.target.blur();
               } else {
                 setselectedCompareCoord(firstMatchedRes);
                 setShowSearch(false);
+                e.target.blur();
               }
             }
           }}
