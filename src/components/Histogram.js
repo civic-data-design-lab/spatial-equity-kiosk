@@ -6,6 +6,7 @@ import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _RANKINGS from "../data/rankings.json";
 import _COUNCILDISTRICTS from "../texts/councildistricts.json";
 // import _ISSUES from "../texts/issues.json"
+import { useResizeObserver } from "../utils/useResizeObserver"
 
 
 const getRgb = (color) => {
@@ -109,33 +110,17 @@ const Histogram = ({ colorRampsyType,
 
     // console.log(issues.specific_issues_data[selectedSpecificIssue].specific_issue_units)
 
-
     // svg attr
     const textWidth = 50;
-
-    const [dimensions, setDimensions] = useState({
-        height: 0,
-        width: 0,
-    })
 
     // const [communityPinned, setCommunityPinned] = useState([])
     // const [councilPinned, setCouncilPinned] = useState([])
     const [currentHoveredCommunityID, setCurrentHoveredCommunityID] = useState('')
 
-    useEffect(() => {
-        let handleResize = () => {
+    const optionalCallback = (entry) => {
+    }
 
-            if (containerRef.current) {
-                setDimensions({
-                    height: containerRef.current.clientHeight,
-                    width: containerRef.current.clientWidth,
-                })
-            }
-        }
-        handleResize();
-
-        window.addEventListener('resize', handleResize);
-    }, [boundary, selectedSpecificIssue])
+    const [containerWidth, containerHeight] = useResizeObserver(containerRef, optionalCallback);
 
     const margin = {
         top: 20,
@@ -163,8 +148,8 @@ const Histogram = ({ colorRampsyType,
 
     useEffect(() => {
         let svg = d3.select(ref.current)
-        const height = dimensions.height ? dimensions.height : 0;
-        const width = dimensions.width ? dimensions.width : 500;
+        const height = containerHeight ? containerHeight : 0;
+        const width = containerWidth ? containerWidth : 500;
 
         //  Init mouse line
         svg.select('#mouseLine')
@@ -187,17 +172,17 @@ const Histogram = ({ colorRampsyType,
             .text('');
 
 
-    }, [colorRamps, boundary, selectedSpecificIssue, dimensions,])
+    }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight,])
 
     useEffect(() => {
 
-        const height = dimensions.height ? dimensions.height : 0;
-        const width = dimensions.width ? dimensions.width : 500;
+        const height = containerHeight ? containerHeight : 0;
+        const width = containerWidth ? containerWidth : 500;
 
         // histogram bars attr
-        const barPadding = 0;
-        const barHeight = height == 0 ? 0 : (height - margin.top - margin.bottom) / data.length;
-        const minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
+        let barPadding = 0;
+        let barHeight = (height - margin.top - margin.bottom) / data.length;
+        let minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
 
         // let highlight_statement = issues.specific_issues_data[selectedSpecificIssue].highlight_statement;
         // highlight_statement = removeFirstWord(highlight_statement);
@@ -234,7 +219,7 @@ const Histogram = ({ colorRampsyType,
                 .attr('class', 'rect')
                 .selectAll('rect')
                 .data(data))
-            .attr('height', barHeight - barPadding)
+            .attr('height', (barHeight - barPadding) >= 0 ? (barHeight - barPadding) : 0)
             .attr('width', d => d3.min(data) >= 0 ? xscale(d) : (d > 0 ? xscale(d) - xscale(0) : xscale(0) - xscale(d)))
             .attr('y', (d, i) => yscale(i + 0.5))
             .attr('x', d => d3.min(data) >= 0 ? margin.left : (d > 0 ? margin.left + xscale(0) : margin.left + xscale(d)))
@@ -338,7 +323,7 @@ const Histogram = ({ colorRampsyType,
             .attr('x', width - margin.right - svg.select('#avgTextDown').node().getBoundingClientRect().width);
 
         d3.select('#histBg')
-            .attr('height', height)
+            .attr('height', (height >= 0) ? height : 0)
             .attr('width', width - margin.left - margin.right)
             .attr('y', 0)
             .attr('x', margin.left)
@@ -478,7 +463,7 @@ const Histogram = ({ colorRampsyType,
             .attr('y', (d, i) => yscale(i + 0.5))
             .attr('x', 0)
             .attr('width', margin.left)
-            .attr('height', yUnit)
+            .attr('height', yUnit >= 0 ? yUnit : 0)
             .attr('visibility', 'hidden')
             .attr('lookupID', (d, i) => lookupArray[i])
             .attr("fill", "#FFFFFF")
@@ -569,7 +554,7 @@ const Histogram = ({ colorRampsyType,
         d3.select('#resetButton')
             .raise()
 
-    }, [colorRamps, boundary, selectedSpecificIssue, dimensions, councilPinned, communityPinned]);
+    }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight, councilPinned, communityPinned]);
 
     useEffect(() => {
         let svg = d3.select(ref.current);
@@ -680,7 +665,7 @@ const Histogram = ({ colorRampsyType,
         })
 
 
-    }, [colorRamps, boundary, selectedSpecificIssue, dimensions, councilPinned, communityPinned, currentHoveredCommunityID]);
+    }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight, councilPinned, communityPinned, currentHoveredCommunityID]);
 
     return (
         <div ref={containerRef} style={{

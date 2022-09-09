@@ -12,7 +12,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
     }
 
     const [width, height] = useResizeObserver(containerRef, optionalCallback);
-
+    
     useEffect(() => {
         // build SVG
         let svg = d3.select(svgRef.current)
@@ -21,7 +21,6 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
 
         // let width = dimensions.width ? dimensions.width : 0;
         // let height = dimensions.height ? dimensions.height : 150;
-        console.log(svgRef.current.clientWidth, svgRef.current.clientHeight)
         let width = svgRef.current.clientWidth;
         let height = 1 / 4 * width;
 
