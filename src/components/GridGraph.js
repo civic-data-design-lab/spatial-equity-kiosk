@@ -102,7 +102,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             .enter()
             .append("text")
             .attr("class", "small-font gridText")
-            .merge(d3.selectAll(".gridText")
+            .merge(d3.select(textRef.current).selectAll(".gridText")
                 .data(gridText))
             // .attr("x", (d) => (d.x))
             // .attr("y", (d) => (d.y))
@@ -119,7 +119,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             .remove();
 
         // clear Chart
-        d3.selectAll(".gridText")
+        d3.select(textRef.current).selectAll(".gridText")
             .data(gridText)
             .exit()
             .remove();
