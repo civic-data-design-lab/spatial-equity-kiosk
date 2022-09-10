@@ -80,6 +80,7 @@ function App() {
     const [communityPinned, setCommunityPinned] = useState([])
     const [councilPinned, setCouncilPinned] = useState([])
     const [collapseMap, setCollapseMap] = useState(false)
+    const [collapseMapToggle, setCollapseMapToggle] = useState(false)
 
     // console.log(demoColorRamp)
     // map hooks
@@ -527,6 +528,7 @@ function App() {
                         errorCode={errorCode}
                         setErrorCode={setErrorCode}
                         setUserPoints={setUserPoints}
+                        setMapDemographics={setMapDemographics}
                     />
 
                     <Content
@@ -606,18 +608,30 @@ function App() {
                                 <div className={`collapse-map-button`}
                                      style={{
                                          width: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? "5vh" : 0,
+                                         borderLeft: "none",
                                          border: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? "1px solid black" : "none",
                                          opacity: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? 1 : 0,
-                                         /*transform:collapseMap?"translate(-25vw, 0)":"translate(0,0)",
-                                         transition:"all 0.4s ease-out"*/
                                      }}
                                      onClick={(e) => {
                                          e.stopPropagation()
                                          setCollapseMap(!collapseMap)
                                      }}
+
+                                     onMouseEnter={()=>{
+                                         setCollapseMapToggle(true)
+                                     }}
+                                     onMouseLeave={()=>{
+                                         setCollapseMapToggle(false)
+                                     }}
                                 >
                                     {showMap && <FontAwesomeIcon icon={collapseMap ? faChevronRight : faChevronLeft}/>}
+
+                                    <div className={`collapse-map-tooltip ${collapseMapToggle?"":"d-none"}`}>
+                                        {collapseMap?"Show Panel":"Collapse Panel"}
+                                    </div>
                                 </div>
+
+
 
 
                                 <Map

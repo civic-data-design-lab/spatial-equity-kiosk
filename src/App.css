@@ -1824,7 +1824,6 @@ input:checked+.slider:before {
     justify-content: center;
     height: 20vh;
     background-color: white;
-    border-left: none;
     top: 40vh;
     left: 0vw;
     transition: width 0.5s;
@@ -1835,10 +1834,21 @@ input:checked+.slider:before {
 
 
 
-.collapse-map-button:hover {
-    width: 7vh;
-
+.collapse-map-tooltip {
+    position: absolute;
+    left: 6vh;
+    background-color: black;
+    opacity: 0.8;
+    color: white;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: row;
+    border-radius: 8px;
+    width: fit-content;
 }
+
+
+
 
 
 

@@ -45,6 +45,7 @@ function Nav({
   errorCode,
   setErrorCode,
   setUserPoints,
+    setMapDemographics
 }) {
   const selectedChapterCache = useRef(null);
 
@@ -65,6 +66,7 @@ function Nav({
           //setSelectedSpecificIssue(null)
           setMoreIssuesLength(0);
           setMoreIssues([]);
+          setMapDemographics(false)
           if (selectedChapter !== 1) {
             setSelectedChapter(1);
             setShowMap(false);
@@ -72,8 +74,7 @@ function Nav({
             setSelectedChapter(null);
             setShowMap(false);
           }
-          setCommunitySearch(null);
-          setCompareSearch(null);
+
         }}
       >
         <div>
@@ -149,6 +150,7 @@ function Nav({
              }
              ${selectedChapter === 3 ? "bottom-highlight" : ""}`}
         onClick={() => {
+            setMapDemographics(false)
           setMoreIssuesLength(0);
           setMoreIssues([]);
           if (selectedChapter !== 2) {
@@ -162,8 +164,7 @@ function Nav({
             setSelectedChapter(null);
             setShowMap(false);
           }
-          setCommunitySearch(null);
-          setCompareSearch(null);
+
 
           /*if (selectedSpecificIssue) {
                         setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
@@ -223,6 +224,9 @@ function Nav({
              }
              ${selectedChapter === 4 ? "bottom-highlight" : ""}`}
         onClick={() => {
+            setMapDemographics(false)
+            /*setCommunitySearch(null);
+          setCompareSearch(null);*/
           if (selectedChapter !== 3) {
             setSelectedChapter(3);
             setSearchSource(null);
@@ -236,8 +240,7 @@ function Nav({
             setSelectedChapter(null);
             setShowMap(false);
           }
-          setCommunitySearch(null);
-          setCompareSearch(null);
+
         }}
       >
         <div>
@@ -314,6 +317,7 @@ function Nav({
         onClick={() => {
           //setSelectedIssue(null)
           //setSelectedSpecificIssue(null)
+            setMapDemographics(false)
           setMoreIssuesLength(0);
           setMoreIssues([]);
           if (selectedChapter !== 4) {
@@ -323,8 +327,7 @@ function Nav({
             setSelectedChapter(null);
             setShowMap(false);
           }
-          setCommunitySearch(null);
-          setCompareSearch(null);
+
         }}
       >
         <div>
