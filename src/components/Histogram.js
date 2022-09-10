@@ -50,22 +50,25 @@ const getDataToVis = (rawIssueData) => {
     let sum = valueArray.reduce((a, b) => a + b, 0);
     let avg = Number((sum / valueArray.length).toFixed(3));
     let avgIndex;
+    let avgRectID;
 
     for (let i = 0; i < valueArray.length - 1; i++) {
         if ((valueArray[i] < avg) && (valueArray[i + 1] > avg)) {
-            avgIndex = i + (avg - valueArray[i]) / (valueArray[i + 1] - valueArray[i])
+            avgIndex = i + (avg - valueArray[i]) / (valueArray[i + 1] - valueArray[i]);
+            avgRectID = i;
             ascending = true;
             break;
         }
 
         if ((valueArray[i] > avg) && (valueArray[i + 1] < avg)) {
-            avgIndex = i + (avg - valueArray[i + 1]) / (valueArray[i] - valueArray[i = 1])
+            avgIndex = i + (avg - valueArray[i + 1]) / (valueArray[i] - valueArray[i = 1]);
+            avgRectID = i;
             ascending = false;
             break;
         }
     }
 
-    return [valueArray, nameArray, avg, avgIndex, ascending, lookupArray]
+    return [valueArray, nameArray, avg, avgIndex, avgRectID, ascending, lookupArray]
 }
 
 const Histogram = ({ colorRampsyType,
@@ -130,7 +133,7 @@ const Histogram = ({ colorRampsyType,
 
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
-    let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
+    let [data, nameArray, avg, avgIndex, avgRectID, ascending, lookupArray] = getDataToVis(rawIssueData);
 
     // console.log(lookupArray)
     // console.log(rawIssueData)
@@ -334,6 +337,7 @@ const Histogram = ({ colorRampsyType,
 
                 let rectID = Math.floor(yscale.invert(ycood) - 0.5)
                 if (!lookupArray[rectID]) return;
+
                 setCurrentHoveredCommunityID(lookupArray[rectID])
 
                 d3.select("#mouseLine")
@@ -543,12 +547,12 @@ const Histogram = ({ colorRampsyType,
                     })
                 d3.select(this)
                     .on("mouseover", (e, d) => {
-                            d3.select(this).attr("fill", "#ffffff").attr("stroke", "#000000")
-                        })
+                        d3.select(this).attr("fill", "#ffffff").attr("stroke", "#000000")
+                    })
                 d3.select(this)
                     .on("mouseout", (e, d) => {
-                            d3.select(this).attr("fill", "#000000")
-                        })
+                        d3.select(this).attr("fill", "#000000")
+                    })
             })
 
         svg.selectAll(".goToButton")
@@ -614,6 +618,21 @@ const Histogram = ({ colorRampsyType,
                 else d3.select(this).attr('visibility', "hidden")
             }
         })
+
+        // when avgline is close to mouseline or is overlapped with another pinned line, hide the avgline
+        let hideAvgLine = false;
+        if (lookupArray.indexOf(currentHoveredCommunityID) && Math.abs(avgIndex - lookupArray.indexOf(currentHoveredCommunityID)) < 1) hideAvgLine = true;
+        if (boundary == "council" && councilPinned.includes(lookupArray[avgRectID])) hideAvgLine = true;
+        if (boundary != "council" && communityPinned.includes(lookupArray[avgRectID])) hideAvgLine = true;
+        if (hideAvgLine) {
+            svg.select('#avgLine').attr('visibility', 'hidden')
+            svg.select('#avgTextUp').attr('visibility', 'hidden')
+            svg.select('#avgTextDown').attr('visibility', 'hidden')
+        } else {
+            svg.select('#avgLine').attr('visibility', 'visible')
+            svg.select('#avgTextUp').attr('visibility', 'visible')
+            svg.select('#avgTextDown').attr('visibility', 'visible')
+        }
     }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight, councilPinned, communityPinned, currentHoveredCommunityID]);
 
     return (
