@@ -329,10 +329,11 @@ const Histogram = ({ colorRampsyType,
                 let pt = d3.pointer(event)
 
                 let ycood = pt[1];
-                ycood = Math.max(ycood, yscale(0.5));
-                ycood = Math.min(ycood, yscale(data.length + 0.5));
+                if (ycood < yscale(0.5)) return;
+                if (ycood > yscale(data.length + 0.5)) return;
 
                 let rectID = Math.floor(yscale.invert(ycood) - 0.5)
+                if (!lookupArray[rectID]) return;
                 setCurrentHoveredCommunityID(lookupArray[rectID])
 
                 d3.select("#mouseLine")
@@ -356,25 +357,17 @@ const Histogram = ({ colorRampsyType,
                     .attr('y', ycood + 15)
                     .attr('lookupID', lookupArray[rectID])
                     .text(`${data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand !== "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
-
-                // Adjust text position
-                // svg.select('#mouseTextUp')
-                //     .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
-
-                // svg.select('#mouseTextDown')
-                //     .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
-
             })
             .on('click', (event, d) => {
                 let pt = d3.pointer(event)
 
                 let ycood = pt[1];
-                ycood = Math.max(ycood, yscale(0.5));
-                ycood = Math.min(ycood, yscale(data.length + 0.5));
+                if (ycood < yscale(0.5)) return;
+                if (ycood > yscale(data.length + 0.5)) return;
 
                 let rectID = Math.floor(yscale.invert(ycood) - 0.5)
+                if (!lookupArray[rectID]) return;
 
-                // console.log(lookupArray[rectID])
                 if (boundary == "council") setCouncilPinned(unique([...councilPinned, lookupArray[rectID]]))
                 else setCommunityPinned(unique([...communityPinned, lookupArray[rectID]]))
             })
