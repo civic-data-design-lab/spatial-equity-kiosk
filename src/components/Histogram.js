@@ -4,7 +4,6 @@ import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _RANKINGS from "../data/rankings.json";
 import _COUNCILDISTRICTS from "../texts/councildistricts.json";
 import { useResizeObserver } from "../utils/useResizeObserver"
-import { LightenDarkenColor } from "../utils/LightenDarkenColor"
 
 const getRgb = (color) => {
     let [r, g, b] = Array.from(color);
