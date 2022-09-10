@@ -4,7 +4,7 @@ import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _RANKINGS from "../data/rankings.json";
 import _COUNCILDISTRICTS from "../texts/councildistricts.json";
 import { useResizeObserver } from "../utils/useResizeObserver"
-
+import { LightenDarkenColor } from "../utils/LightenDarkenColor"
 
 const getRgb = (color) => {
     let [r, g, b] = Array.from(color);
@@ -223,8 +223,10 @@ const Histogram = ({ colorRampsyType,
             .attr('width', d => d3.min(data) >= 0 ? xscale(d) : (d > 0 ? xscale(d) - xscale(0) : xscale(0) - xscale(d)))
             .attr('y', (d, i) => yscale(i + 0.5))
             .attr('x', d => d3.min(data) >= 0 ? margin.left : (d > 0 ? margin.left + xscale(0) : margin.left + xscale(d)))
-            .attr("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
+            .attr("initColor", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
+            .style("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
             .attr('value', d => d)
+            .attr('lookupID', (d, i) => lookupArray[i])
 
 
         // clear Chart
@@ -633,6 +635,15 @@ const Histogram = ({ colorRampsyType,
             svg.select('#avgTextUp').attr('visibility', 'visible')
             svg.select('#avgTextDown').attr('visibility', 'visible')
         }
+
+        svg.select('g').selectAll('rect').each(function (d, i) {
+            if (d3.select(this).attr("lookupID") == currentHoveredCommunityID) {
+                // d3.select(this).style("fill", d3.rgb(d3.select(this).attr("initColor")).brighter(0.5))
+                d3.select(this).style("fill", d3.rgb(d3.select(this).attr("initColor")).darker(0.5))
+            } else {
+                d3.select(this).style("fill", d3.rgb(d3.select(this).attr("initColor")))
+            }
+        })
     }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight, councilPinned, communityPinned, currentHoveredCommunityID]);
 
     return (
