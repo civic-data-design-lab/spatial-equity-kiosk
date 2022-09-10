@@ -68,7 +68,7 @@ const getDataToVis = (rawIssueData) => {
     return [valueArray, nameArray, avg, avgIndex, ascending, lookupArray]
 }
 
-const Histogram = ({ colorRampsyType,
+const IssueHistogram = ({ colorRampsyType,
     issues,
     boundary,
     selectedSpecificIssue,
@@ -81,8 +81,6 @@ const Histogram = ({ colorRampsyType,
 }) => {
     const ref = useRef();
     const containerRef = useRef();
-
-    // console.log("colorRampsyType ", colorRampsyType)
 
     const getIssueStatement = () => {
 
@@ -105,13 +103,9 @@ const Histogram = ({ colorRampsyType,
         return null
     }
 
-    // console.log(issues.specific_issues_data[selectedSpecificIssue].specific_issue_units)
 
-    // svg attr
     const textWidth = 50;
 
-    // const [communityPinned, setCommunityPinned] = useState([])
-    // const [councilPinned, setCouncilPinned] = useState([])
     const [currentHoveredCommunityID, setCurrentHoveredCommunityID] = useState('')
 
     const optionalCallback = (entry) => {
@@ -127,21 +121,9 @@ const Histogram = ({ colorRampsyType,
     }
 
 
-
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
     let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
-
-    // console.log(lookupArray)
-    // console.log(rawIssueData)
-    // console.log(avg);
-    // console.log(data);
-
-    // console.log(rawIssueData);
-    // console.log("colorRamps", colorRamps)
-    // console.log("issues", issues)
-    // console.log("boundary", boundary)
-    // console.log("selectedSpecificIssue", selectedSpecificIssue)
 
     useEffect(() => {
         let svg = d3.select(ref.current)
@@ -711,4 +693,4 @@ const Histogram = ({ colorRampsyType,
     );
 };
 
-export default Histogram;
+export default IssueHistogram;
