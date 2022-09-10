@@ -5,6 +5,7 @@ import _RANKINGS from "../data/rankings.json";
 import _COUNCILDISTRICTS from "../texts/councildistricts.json";
 import { useResizeObserver } from "../utils/useResizeObserver"
 
+
 const getRgb = (color) => {
     let [r, g, b] = Array.from(color);
     return {
@@ -49,28 +50,25 @@ const getDataToVis = (rawIssueData) => {
     let sum = valueArray.reduce((a, b) => a + b, 0);
     let avg = Number((sum / valueArray.length).toFixed(3));
     let avgIndex;
-    let avgRectID;
 
     for (let i = 0; i < valueArray.length - 1; i++) {
         if ((valueArray[i] < avg) && (valueArray[i + 1] > avg)) {
-            avgIndex = i + (avg - valueArray[i]) / (valueArray[i + 1] - valueArray[i]);
-            avgRectID = i;
+            avgIndex = i + (avg - valueArray[i]) / (valueArray[i + 1] - valueArray[i])
             ascending = true;
             break;
         }
 
         if ((valueArray[i] > avg) && (valueArray[i + 1] < avg)) {
-            avgIndex = i + (avg - valueArray[i + 1]) / (valueArray[i] - valueArray[i = 1]);
-            avgRectID = i;
+            avgIndex = i + (avg - valueArray[i + 1]) / (valueArray[i] - valueArray[i = 1])
             ascending = false;
             break;
         }
     }
 
-    return [valueArray, nameArray, avg, avgIndex, avgRectID, ascending, lookupArray]
+    return [valueArray, nameArray, avg, avgIndex, ascending, lookupArray]
 }
 
-const Histogram = ({ colorRampsyType,
+const IssueHistogram = ({ colorRampsyType,
     issues,
     boundary,
     selectedSpecificIssue,
@@ -83,8 +81,6 @@ const Histogram = ({ colorRampsyType,
 }) => {
     const ref = useRef();
     const containerRef = useRef();
-
-    // console.log("colorRampsyType ", colorRampsyType)
 
     const getIssueStatement = () => {
 
@@ -107,13 +103,9 @@ const Histogram = ({ colorRampsyType,
         return null
     }
 
-    // console.log(issues.specific_issues_data[selectedSpecificIssue].specific_issue_units)
 
-    // svg attr
     const textWidth = 50;
 
-    // const [communityPinned, setCommunityPinned] = useState([])
-    // const [councilPinned, setCouncilPinned] = useState([])
     const [currentHoveredCommunityID, setCurrentHoveredCommunityID] = useState('')
 
     const optionalCallback = (entry) => {
@@ -129,21 +121,9 @@ const Histogram = ({ colorRampsyType,
     }
 
 
-
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
-    let [data, nameArray, avg, avgIndex, avgRectID, ascending, lookupArray] = getDataToVis(rawIssueData);
-
-    // console.log(lookupArray)
-    // console.log(rawIssueData)
-    // console.log(avg);
-    // console.log(data);
-
-    // console.log(rawIssueData);
-    // console.log("colorRamps", colorRamps)
-    // console.log("issues", issues)
-    // console.log("boundary", boundary)
-    // console.log("selectedSpecificIssue", selectedSpecificIssue)
+    let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
 
     useEffect(() => {
         let svg = d3.select(ref.current)
@@ -222,10 +202,8 @@ const Histogram = ({ colorRampsyType,
             .attr('width', d => d3.min(data) >= 0 ? xscale(d) : (d > 0 ? xscale(d) - xscale(0) : xscale(0) - xscale(d)))
             .attr('y', (d, i) => yscale(i + 0.5))
             .attr('x', d => d3.min(data) >= 0 ? margin.left : (d > 0 ? margin.left + xscale(0) : margin.left + xscale(d)))
-            .attr("initColor", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
-            .style("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
+            .attr("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
             .attr('value', d => d)
-            .attr('lookupID', (d, i) => lookupArray[i])
 
 
         // clear Chart
@@ -333,12 +311,10 @@ const Histogram = ({ colorRampsyType,
                 let pt = d3.pointer(event)
 
                 let ycood = pt[1];
-                if (ycood < yscale(0.5)) return;
-                if (ycood > yscale(data.length + 0.5)) return;
+                ycood = Math.max(ycood, yscale(0.5));
+                ycood = Math.min(ycood, yscale(data.length + 0.5));
 
                 let rectID = Math.floor(yscale.invert(ycood) - 0.5)
-                if (!lookupArray[rectID]) return;
-
                 setCurrentHoveredCommunityID(lookupArray[rectID])
 
                 d3.select("#mouseLine")
@@ -362,17 +338,25 @@ const Histogram = ({ colorRampsyType,
                     .attr('y', ycood + 15)
                     .attr('lookupID', lookupArray[rectID])
                     .text(`${data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand !== "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
+
+                // Adjust text position
+                // svg.select('#mouseTextUp')
+                //     .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
+
+                // svg.select('#mouseTextDown')
+                //     .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
+
             })
             .on('click', (event, d) => {
                 let pt = d3.pointer(event)
 
                 let ycood = pt[1];
-                if (ycood < yscale(0.5)) return;
-                if (ycood > yscale(data.length + 0.5)) return;
+                ycood = Math.max(ycood, yscale(0.5));
+                ycood = Math.min(ycood, yscale(data.length + 0.5));
 
                 let rectID = Math.floor(yscale.invert(ycood) - 0.5)
-                if (!lookupArray[rectID]) return;
 
+                // console.log(lookupArray[rectID])
                 if (boundary == "council") setCouncilPinned(unique([...councilPinned, lookupArray[rectID]]))
                 else setCommunityPinned(unique([...communityPinned, lookupArray[rectID]]))
             })
@@ -546,14 +530,6 @@ const Histogram = ({ colorRampsyType,
                         setSelectedChapter(3)
                         setCommunitySearch(d3.select(this).attr("lookupID"))
                     })
-                d3.select(this)
-                    .on("mouseover", (e, d) => {
-                        d3.select(this).attr("fill", "#ffffff").attr("stroke", "#000000")
-                    })
-                d3.select(this)
-                    .on("mouseout", (e, d) => {
-                        d3.select(this).attr("fill", "#000000")
-                    })
             })
 
         svg.selectAll(".goToButton")
@@ -574,41 +550,100 @@ const Histogram = ({ colorRampsyType,
     useEffect(() => {
         let svg = d3.select(ref.current);
 
-        for (let element of ["#mouseLine", "#mouseTextUp", "#mouseTextDown"]) {
-            svg.selectAll(element).each(function (d, i) {
-                if (boundary == "council") {
-                    if ((councilPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
-                    else d3.select(this).attr('visibility', "visible")
-                } else {
-                    if ((communityPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
-                    else d3.select(this).attr('visibility', "visible")
-                }
-            })
-        }
+        svg.selectAll("#mouseLine").each(function (d, i) {
 
-        for (let element of [".pinnedLine", ".pinnedTextUp", ".pinnedTextDown", ".goToButton"]) {
-            svg.selectAll(element).each(function (d, i) {
-                if (boundary == "council") {
-                    if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
-                    else d3.select(this).attr('visibility', "hidden")
-                } else {
-                    if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
-                    else d3.select(this).attr('visibility', "hidden")
-                }
-            })
-        }
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
+                else d3.select(this).attr('visibility', "visible")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
+                else d3.select(this).attr('visibility', "visible")
+            }
+        })
 
-        for (let element of [".cancelButton", ".cancelButtonText"]) {
-            svg.selectAll(element).each(function (d, i) {
-                if (boundary == "council") {
-                    if ((councilPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
-                    else d3.select(this).attr('visibility', "hidden")
-                } else {
-                    if ((communityPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
-                    else d3.select(this).attr('visibility', "hidden")
-                }
-            })
-        }
+        svg.selectAll("#mouseTextUp").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
+                else d3.select(this).attr('visibility', "visible")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
+                else d3.select(this).attr('visibility', "visible")
+            }
+        })
+
+        svg.selectAll("#mouseTextDown").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
+                else d3.select(this).attr('visibility', "visible")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
+                else d3.select(this).attr('visibility', "visible")
+            }
+        })
+
+        svg.selectAll(".pinnedLine").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            }
+        })
+
+        svg.selectAll(".pinnedTextUp").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            }
+        })
+
+        svg.selectAll(".pinnedTextDown").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            }
+        })
+
+        svg.selectAll(".cancelButton").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            }
+        })
+
+        svg.selectAll(".cancelButtonText").each(function (d, i) {
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            }
+        })
+
+        svg.selectAll(".goToButton").each(function (d, i) {
+
+            d3.select(this).on("mouseover", function (d, i) { d3.select(this).attr("fill", "#ffffff").attr("stroke", "#000000") })
+            d3.select(this).on("mouseout", function (d, i) { d3.select(this).attr("fill", "#000000") })
+
+            if (boundary == "council") {
+                if ((councilPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            } else {
+                if ((communityPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
+                else d3.select(this).attr('visibility', "hidden")
+            }
+        })
 
         svg.selectAll("#resetButton").each(function (d, i) {
             if (boundary == "council") {
@@ -620,29 +655,7 @@ const Histogram = ({ colorRampsyType,
             }
         })
 
-        // when avgline is close to mouseline or is overlapped with another pinned line, hide the avgline
-        let hideAvgLine = false;
-        if (lookupArray.indexOf(currentHoveredCommunityID) && Math.abs(avgIndex - lookupArray.indexOf(currentHoveredCommunityID)) < 1) hideAvgLine = true;
-        if (boundary == "council" && councilPinned.includes(lookupArray[avgRectID])) hideAvgLine = true;
-        if (boundary != "council" && communityPinned.includes(lookupArray[avgRectID])) hideAvgLine = true;
-        if (hideAvgLine) {
-            svg.select('#avgLine').attr('visibility', 'hidden')
-            svg.select('#avgTextUp').attr('visibility', 'hidden')
-            svg.select('#avgTextDown').attr('visibility', 'hidden')
-        } else {
-            svg.select('#avgLine').attr('visibility', 'visible')
-            svg.select('#avgTextUp').attr('visibility', 'visible')
-            svg.select('#avgTextDown').attr('visibility', 'visible')
-        }
 
-        svg.select('g').selectAll('rect').each(function (d, i) {
-            if (d3.select(this).attr("lookupID") == currentHoveredCommunityID) {
-                // d3.select(this).style("fill", d3.rgb(d3.select(this).attr("initColor")).brighter(0.5))
-                d3.select(this).style("fill", d3.rgb(d3.select(this).attr("initColor")).darker(0.5))
-            } else {
-                d3.select(this).style("fill", d3.rgb(d3.select(this).attr("initColor")))
-            }
-        })
     }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight, councilPinned, communityPinned, currentHoveredCommunityID]);
 
     return (
@@ -680,4 +693,4 @@ const Histogram = ({ colorRampsyType,
     );
 };
 
-export default Histogram;
+export default IssueHistogram;

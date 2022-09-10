@@ -418,7 +418,7 @@ a:active {
     font-size: 11px;
     background-color: black;
     color: white;
-    border: 2px solid white;
+    border: 1px solid white;
     padding: 8px;
 }
 
@@ -859,6 +859,16 @@ a:active {
 }
 
 #resetButton:hover{
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.pinnedTextUp{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.pinnedTextUp:hover{
     opacity: 1;
     text-decoration: underline;
 }
