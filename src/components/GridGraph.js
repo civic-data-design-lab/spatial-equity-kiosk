@@ -107,7 +107,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
             // .attr("x", (d) => (d.x))
             // .attr("y", (d) => (d.y))
             .attr("style", "font-family:Inter")
-            .attr("style", "font-weight:bold")
+            // .attr("style", "font-weight:bold")
             .style("color", (d) => (d.color))
             .text((d) => (d.text));
 
