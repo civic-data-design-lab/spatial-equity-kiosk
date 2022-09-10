@@ -1,8 +1,8 @@
 import "./App.css";
-import React, { useEffect, useMemo, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useLocation } from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 
@@ -12,15 +12,15 @@ import Map from "./components/Map";
 /*import BaseMap from "./components/BaseMap";*/
 import MobileNav from "./components/Mobile Components/MobileNav";
 import CitywideData from "./components/Mobile Components/CitywideData";
-import { max, min } from "d3-array";
+import {max, min} from "d3-array";
 
 import _ISSUE_CATEGORIES from "./texts/issue_categories.json";
 import _ISSUES from "./texts/issues.json";
 import _COMMUNITIES from "./texts/communities.json";
 import _COUNCILS from "./texts/councildistricts.json";
 import _DEMOGRAPHICS from "./texts/demographics.json";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBars, faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import _COUNCIL_DISTRICTS from "./data/council_districts.json";
 import _COMMUNITY_BOARDS from "./data/community_boards.json";
 import _NEIGHBORHOODS from "./data/neighborhoods.json";
@@ -79,6 +79,7 @@ function App() {
 
     const [communityPinned, setCommunityPinned] = useState([])
     const [councilPinned, setCouncilPinned] = useState([])
+    const [collapseMap, setCollapseMap] = useState(false)
 
     // console.log(demoColorRamp)
     // map hooks
@@ -183,10 +184,10 @@ function App() {
                 issues.specific_issues_data[selectedSpecificIssue].issue_type_ID === 1
                     ? "health"
                     : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
-                        2
+                    2
                         ? "env"
                         : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
-                            3
+                        3
                             ? "infra"
                             : "troubleshoot";
         } else {
@@ -252,7 +253,6 @@ function App() {
         //variables for scale thresholds
 
         // pick color ramp for metrics and have default to avoid errors
-
 
 
         const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
@@ -415,8 +415,8 @@ function App() {
           }
       }, [selectedSpecificIssue]);*/
 
-    const [assistivePos, setAssistivePos] = useState({ x: 0, y: 0 });
-    const [offset, setOffset] = useState({ x: 0, y: 0 });
+    const [assistivePos, setAssistivePos] = useState({x: 0, y: 0});
+    const [offset, setOffset] = useState({x: 0, y: 0});
     const [mouseDown, setMouseDown] = useState(false);
     const [mouseMove, setMouseMove] = useState(false);
 
@@ -462,7 +462,7 @@ function App() {
         let offset = div.getBoundingClientRect();
         const offsetLeft = offset.left;
         const offsetTop = offset.top;
-        setAssistivePos({ x: offsetLeft, y: offsetTop });
+        setAssistivePos({x: offsetLeft, y: offsetTop});
 
         div.style.top = ``;
         div.style.left = ``;
@@ -584,6 +584,8 @@ function App() {
                         setCommunityPinned={setCommunityPinned}
                         councilPinned={councilPinned}
                         setCouncilPinned={setCouncilPinned}
+                        setCollapseMap={setCollapseMap}
+                        collapseMap={collapseMap}
                     />
 
                     <div className={`${showMap ? "show-map" : "hide-map"} map-container`}>
@@ -594,11 +596,30 @@ function App() {
                                 className={`individual-maps`}
                                 style={{
                                     width:
-                                        selectedChapter === 3 && !communitySearch ? "75vw" : "50vw",
+                                        ((selectedChapter === 3 && !communitySearch) || ((selectedChapter === 2 || selectedChapter === 3) && collapseMap)) ? "75vw" : "50vw",
                                     transition: "width 0.5s",
                                 }}
                                 id={mapDemographics ? "left-map" : "left-map-alone"}
                             >
+
+
+                                <div className={`collapse-map-button`}
+                                     style={{
+                                         width: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? "5vh" : 0,
+                                         border: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? "1px solid black" : "none",
+                                         opacity: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? 1 : 0,
+                                         /*transform:collapseMap?"translate(-25vw, 0)":"translate(0,0)",
+                                         transition:"all 0.4s ease-out"*/
+                                     }}
+                                     onClick={(e) => {
+                                         e.stopPropagation()
+                                         setCollapseMap(!collapseMap)
+                                     }}
+                                >
+                                    {showMap && <FontAwesomeIcon icon={collapseMap ? faChevronRight : faChevronLeft}/>}
+                                </div>
+
+
                                 <Map
                                     issues={issues}
                                     selectedIssue={selectedIssue}

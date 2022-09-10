@@ -3,7 +3,7 @@ import IssuesDropDown from "./IssuesDropDown";
 import Demographics from "./Demographics";
 import Legend from "./Legend";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faMinus, faPlus, faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
 export default function IssuesMiddleColumn({
                                                issues,
@@ -44,7 +44,7 @@ export default function IssuesMiddleColumn({
                                                setColorRamps,
                                                demoLookup,
                                                showMap,
-                                               binList, info
+                                               binList, info, collapseMap, setCollapseMap
                                            }) {
 
 
@@ -101,7 +101,7 @@ export default function IssuesMiddleColumn({
           }, [selectedSpecificIssue])*/
 
     return (
-        <div className={"d-flex flex-column h-100"}>
+        <div className={"d-flex flex-column h-100 position-relative"}>
             <div
                 className={`${selectedIssue === 1 ? "issues-chapters-active" : ""} ${
                     selectedIssue || showDemographics ? "collapse-issue" : ""
@@ -440,6 +440,10 @@ export default function IssuesMiddleColumn({
                     />
                 </div>
             </div>
+
+
+
+
 
             {/*<div
                 className={`${selectedIssue ? 'collapse-issue' : ''} ${showDemographics ? "bottom-border issues-chapters-active" : ""} ${selectedIssue === 3 ? "top-border" : ""} issues-chapters no-bottom-border`}

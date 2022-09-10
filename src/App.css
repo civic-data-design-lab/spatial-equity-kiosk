@@ -1806,6 +1806,30 @@ input:checked+.slider:before {
     color: white;
 }
 
+.collapse-map-button {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 20vh;
+    background-color: white;
+    border-left: none;
+    top: 40vh;
+    left: 0vw;
+    transition: width 0.5s;
+    border-top-right-radius: 5vh;
+    border-bottom-right-radius: 5vh;
+    z-index: 5;
+}
+
+
+
+.collapse-map-button:hover {
+    width: 7vh;
+
+}
+
 
 
 

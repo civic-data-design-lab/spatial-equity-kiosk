@@ -56,7 +56,7 @@ export default function IssuesTags({
                                 return (
                                     <div
                                         key={index}
-                                        className={`${(moreIssues && !moreIssues.includes(id)) ? "active-tag" : "inactive-tag"} issues-tag col-gap`}
+                                        className={`${(moreIssues && !moreIssues.includes(id)) ? "inactive-tag" : "active-tag"} issues-tag col-gap`}
 
                                         onClick={() => {
                                             if ((moreIssues && !moreIssues.includes(id))) {
