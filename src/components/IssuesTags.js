@@ -74,7 +74,7 @@ export default function IssuesTags({
                                         }}
                                     >
                                         <p className={"m-0"}>{issues.specific_issues_data[id].specific_issue_name}</p>
-                                        {(moreIssues && !moreIssues.includes(id)) ? <FontAwesomeIcon icon={faMinus}/> :
+                                        {(moreIssues && !moreIssues.includes(id)) ? <FontAwesomeIcon icon={faPlus}/> :
                                             <FontAwesomeIcon icon={faPlus}/>}
                                     </div>
                                 )

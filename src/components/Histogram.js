@@ -536,6 +536,7 @@ const Histogram = ({ colorRampsyType,
             .style('font-weight', 'bold')
             .attr("fill", "#000000")
             .attr("font-size", "32")
+            .attr("stroke-width", "0.5px")
             .text('🞂')
             .attr('lookupID', (d, i) => lookupArray[i])
 
@@ -548,7 +549,7 @@ const Histogram = ({ colorRampsyType,
                     })
                 d3.select(this)
                     .on("mouseover", (e, d) => {
-                        d3.select(this).attr("fill", "#ffffff").attr("stroke", "#000000")
+                        d3.select(this).attr("fill", "rgb(255,255,255,0)").attr("stroke", "#000000")
                     })
                 d3.select(this)
                     .on("mouseout", (e, d) => {
