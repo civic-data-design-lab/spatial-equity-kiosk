@@ -69,7 +69,7 @@ export default function CommunityProfile({
                                         : communities[communitySearch]
                                             ? `${communities[communitySearch].name
                                                 .split(" ")
-                                                .slice(0, -1)} Community Board ${communities[
+                                                .slice(0, -1).join(" ")} Community Board ${communities[
                                                 communitySearch
                                                 ].name
                                                 .split(" ")
