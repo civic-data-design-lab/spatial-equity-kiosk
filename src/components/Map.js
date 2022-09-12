@@ -57,15 +57,16 @@ const MAP_BACKGROUND_STYLE = {
   position: 'absolute',
   width: '100%',
   height: '100%',
-  border: '2px solid black',
-  borderLeft: 'none',
+  border: '1px solid black',
+  borderRight: '2px solid black',
+  // borderLeft: 'none',
 };
 
 const SPLIT_SCREEN_POSITIONING = {
-  height: '15%',
-  display: 'grid',
-  gridTemplateRows: '1fr',
-  margin: '0rem 2.5rem 0rem 2.5rem',
+  // height: '15%',
+  position: 'absolute',
+  bottom: '1rem',
+  margin: '0rem 1rem 0rem 1rem',
   // borderRadius: "50px",
   pointerEvents: 'none',
 };
@@ -80,6 +81,7 @@ const SPLIT_SCREEN_HEADER = {
   fontWeight: '500',
   backgroundColor: 'black',
   border: '1px solid white',
+  fontSize: '0.75rem',
   // borderRadius: "50px",
 };
 
@@ -95,8 +97,9 @@ const MAIN_VIEW = new MapView({
     doubleClickZoom: false,
     scrollZoom: {
       smooth: true,
+      speed: 0.02,
     },
-    inertia: 350,
+    inertia: 500,
   },
   x: 0,
   y: 0,
@@ -112,8 +115,9 @@ const SPLIT_VIEW_LEFT = new MapView({
     doubleClickZoom: false,
     scrollZoom: {
       smooth: true,
+      speed: 0.02,
     },
-    inertia: 350,
+    inertia: 500,
   },
   x: 0,
   y: 0,
@@ -129,8 +133,9 @@ const SPLIT_VIEW_RIGHT = new MapView({
     doubleClickZoom: false,
     scrollZoom: {
       smooth: true,
+      speed: 0.02,
     },
-    inertia: 350,
+    inertia: 500,
   },
   x: '50%',
   y: 0,
@@ -1316,7 +1321,9 @@ export default function DeckMap({
       sizeUnits: 'meters',
       fontFamily: 'Roboto',
       fontWeight: '1000',
-      getColor: [255, 255, 255, 255],
+      getColor: infoTransfer.selectedMetric
+        ? [255, 255, 255, 255]
+        : [0, 0, 0, 255],
       getText: (d) => d.properties.NTAName.toUpperCase(),
       getPosition: (d) => d.geometry.coordinates,
       getSize: 75,
@@ -1396,7 +1403,7 @@ export default function DeckMap({
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
-              logoPosition="bottom-left"
+              logoPosition="bottom-right"
               // onLoad={({ map }) => setMap(map)}
               // onIdle={(map) => console.log(map)}
             />
@@ -1411,7 +1418,7 @@ export default function DeckMap({
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
-              logoPosition="bottom-left"
+              logoPosition="bottom-right"
             />
             <div style={MAP_BACKGROUND_STYLE} />
             {selectedSpecificIssue && (
@@ -1438,7 +1445,7 @@ export default function DeckMap({
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
-              logoPosition="bottom-left"
+              logoPosition="bottom-right"
             />
             <div style={MAP_BACKGROUND_STYLE} />
             {demographic && (

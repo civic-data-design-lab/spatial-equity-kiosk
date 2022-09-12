@@ -47,7 +47,7 @@ const getDataToVis = (rawIssueData) => {
 
     // get the corresponding index of average value
     let sum = valueArray.reduce((a, b) => a + b, 0);
-    let avg = Number((sum / valueArray.length).toFixed(3));
+    let avg = Number((sum / valueArray.length)) >= 10 ? Number((sum / valueArray.length)).toFixed(0) : Number((sum / valueArray.length)).toFixed(3);
     let avgIndex;
     let avgRectID;
 
@@ -259,7 +259,7 @@ const Histogram = ({ colorRampsyType,
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+            .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data) >= 10 ? d3.max(data).toFixed(0) : d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data) >= 10 ? d3.min(data).toFixed(0) : d3.min(data)} `));
 
         svg.select('#maxText')
             .attr('x', width - margin.right - textWidth)
@@ -267,7 +267,7 @@ const Histogram = ({ colorRampsyType,
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+            .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data) >= 10 ? d3.max(data).toFixed(0) : d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data) >= 10 ? d3.min(data).toFixed(0) : d3.min(data)} `));
 
         // draw reset button
         d3.select('#resetButton')
@@ -314,7 +314,7 @@ const Histogram = ({ colorRampsyType,
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text(avg);
+            .text(`${avg} ${getIssueStatement()}`);
 
         // Adjust text position
         svg.select('#avgTextUp')
@@ -361,7 +361,7 @@ const Histogram = ({ colorRampsyType,
                 d3.select("#mouseTextDown")
                     .attr('y', ycood + 15)
                     .attr('lookupID', lookupArray[rectID])
-                    .text(`${data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand !== "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
+                    .text(`${data[rectID] >= 10 ? data[rectID].toFixed(0) : data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand !== "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
             })
             .on('click', (event, d) => {
                 let pt = d3.pointer(event)
@@ -440,7 +440,7 @@ const Histogram = ({ colorRampsyType,
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((d, i) => `${data[i]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand != "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
+            .text((d, i) => `${data[i] >= 10 ? data[i].toFixed(0) : data[i]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand != "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
 
         svg.selectAll(".pinnedTextDown")
             .data(data)

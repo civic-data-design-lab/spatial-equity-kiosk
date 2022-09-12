@@ -22,7 +22,7 @@ export default function CommunityRightColumn({
 
     return (
         <>
-            {!communitySearch && <div className={"d-flex flex-row align-items-center h-100 p-5 col-gap w-100"}>
+            {/* {!communitySearch && <div className={"d-flex flex-row align-items-center h-100 p-5 col-gap w-100"}>
 
                     <FontAwesomeIcon icon={faArrowLeft} className={"fa-lg"}/>
                 <h2 className={"m-0"}>Try searching for</h2>
@@ -41,7 +41,7 @@ export default function CommunityRightColumn({
                 </div>
 
 
-            </div>}
+            </div>} */}
 
             {communitySearch && !selectedSpecificIssue &&
                 <div className={"d-flex flex-row h-100 col-gap standard-padding"}>

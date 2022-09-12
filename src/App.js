@@ -547,6 +547,7 @@ function App() {
                         setUserPoints={setUserPoints}
                         setMapDemographics={setMapDemographics}
                         info={info}
+                        setCollapseMap={setCollapseMap}
                     />
 
                     <Content
