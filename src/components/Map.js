@@ -82,6 +82,49 @@ const splitScreenHeader = {
   // borderRadius: "50px",
 };
 
+/**
+ * Map view definitions
+ */
+
+const mainView = new MapView({
+  id: 'primary',
+  controller: {
+    dragRotate: false,
+    doubleClickZoom: false,
+  },
+  x: 0,
+  y: 0,
+  width: '100%',
+  height: '100%',
+  clear: true,
+});
+
+const splitViewLeft = new MapView({
+  id: 'splitLeft',
+  controller: {
+    dragRotate: false,
+    doubleClickZoom: false,
+  },
+  x: 0,
+  y: 0,
+  width: '50%',
+  height: '100%',
+  clear: true,
+});
+
+const splitViewRight = new MapView({
+  id: 'splitRight',
+  controller: {
+    dragRotate: false,
+    doubleClickZoom: false,
+  },
+  x: '50%',
+  y: 0,
+  width: '50%',
+  height: '100%',
+  clear: true,
+});
+
 export default function DeckMap({
   issues,
   selectedIssue,
@@ -137,43 +180,6 @@ export default function DeckMap({
   const mapRef = useRef(null);
   const dataScale = useRef('q'); //set to "equal" for equal binning, "q" for quantile binning
   // const [searchPoint, setSearchPoint] = useState([[], []]);
-
-  const mainView = new MapView({
-    id: 'primary',
-    controller: {
-      dragRotate: false,
-      doubleClickZoom: false,
-    },
-    x: 0,
-    y: 0,
-    width: '100%',
-    height: '100%',
-    clear: true,
-  });
-  const splitViewLeft = new MapView({
-    id: 'splitLeft',
-    controller: {
-      dragRotate: false,
-      doubleClickZoom: false,
-    },
-    x: 0,
-    y: 0,
-    width: '50%',
-    height: '100%',
-    clear: true,
-  });
-  const splitViewRight = new MapView({
-    id: 'splitRight',
-    controller: {
-      dragRotate: false,
-      doubleClickZoom: false,
-    },
-    x: '50%',
-    y: 0,
-    width: '50%',
-    height: '100%',
-    clear: true,
-  });
 
   // 01.4 Color Scale function
 
