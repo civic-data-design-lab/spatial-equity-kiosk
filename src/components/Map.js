@@ -29,14 +29,14 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
-const mapStyle = 'mapbox://styles/mitcivicdata/cl6fa3jro002d14qxp2nu9wng'; //toner
+const MAP_STYLE = 'mapbox://styles/mitcivicdata/cl6fa3jro002d14qxp2nu9wng'; //toner
 
 // color ramps
-const choroplethOpacity = 0.85;
-const binSize = 5; // number of bins in the color ramp
+const CHOROPLETH_OPACITY = 0.85;
+const BIN_SIZE = 5; // number of bins in the color ramp
 // Map Viewport settings
-const zoomMin = 9.5;
-const zoomMax = 13;
+const ZOOM_MIN = 9.5;
+const ZOOM_MAX = 13;
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
@@ -45,7 +45,7 @@ function map_range(value, low1, high1, low2, high2) {
   return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
 }
 
-const resetView = {
+const RESET_VIEW = {
   longitude: -74,
   latitude: 40.7131,
   zoom: 9.5,
@@ -53,14 +53,14 @@ const resetView = {
   transitionInerpolator: new LinearInterpolator(),
 };
 
-const mapBackgroundStyle = {
+const MAP_BACKGROUND_STYLE = {
   position: 'absolute',
   width: '100%',
   height: '100%',
   border: '2px solid black',
 };
 
-const splitScreenPositioning = {
+const SPLIT_SCREEN_POSITIONING = {
   height: '15%',
   display: 'grid',
   gridTemplateRows: '1fr',
@@ -69,7 +69,7 @@ const splitScreenPositioning = {
   pointerEvents: 'none',
 };
 
-const splitScreenHeader = {
+const SPLIT_SCREEN_HEADER = {
   padding: '0rem 0.75rem',
   gridRowStart: '2',
   verticalAlign: 'middle',
@@ -86,7 +86,7 @@ const splitScreenHeader = {
  * Map view definitions
  */
 
-const mainView = new MapView({
+const MAIN_VIEW = new MapView({
   id: 'primary',
   controller: {
     dragRotate: false,
@@ -99,7 +99,7 @@ const mainView = new MapView({
   clear: true,
 });
 
-const splitViewLeft = new MapView({
+const SPLIT_VIEW_LEFT = new MapView({
   id: 'splitLeft',
   controller: {
     dragRotate: false,
@@ -112,7 +112,7 @@ const splitViewLeft = new MapView({
   clear: true,
 });
 
-const splitViewRight = new MapView({
+const SPLIT_VIEW_RIGHT = new MapView({
   id: 'splitRight',
   controller: {
     dragRotate: false,
@@ -307,18 +307,18 @@ export default function DeckMap({
   const uniqueDemoArray = [...new Set(sortedDemoArray)];
 
   // 03.3 break the demographic array into bins and get the bin list
-  for (let i = 0; i < binSize; i++) {
+  for (let i = 0; i < BIN_SIZE; i++) {
     if (dataScale === 'equal') {
       const legendScale = !zoomToggle
         ? neighborhoodDemoArray
         : selectedDemoArray;
-      const threshold = (max(legendScale) - min(legendScale)) / (binSize + 1);
+      const threshold = (max(legendScale) - min(legendScale)) / (BIN_SIZE + 1);
       demoBinList.push(
         Math.round((threshold * (i + 1) + min(legendScale)) * 100) / 100
       );
     } else {
       const interval = Math.floor(
-        ((uniqueDemoArray.length - 1) / binSize) * (i + 1)
+        ((uniqueDemoArray.length - 1) / BIN_SIZE) * (i + 1)
       );
       //  quantile breaks
       demoBinList.push(uniqueDemoArray[interval]);
@@ -359,7 +359,7 @@ export default function DeckMap({
     );
 
     // max zoom
-    viewState.zoom = Math.min(zoomMax, Math.max(zoomMin, viewState.zoom));
+    viewState.zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, viewState.zoom));
 
     viewState.width = '100%';
 
@@ -596,7 +596,7 @@ export default function DeckMap({
           setViewState({
             longitude: selectedCoord[0],
             latitude: selectedCoord[1],
-            zoom: zoomMax - 0.5,
+            zoom: ZOOM_MAX - 0.5,
             transitionDuration: 500,
             transitionInerpolator: new LinearInterpolator(),
           });
@@ -604,7 +604,7 @@ export default function DeckMap({
       } else {
         setBadSearch([1, badSearch[1]]);
         setUserPoints([[], []]);
-        setViewState(resetView);
+        setViewState(RESET_VIEW);
       }
     }
 
@@ -630,14 +630,25 @@ export default function DeckMap({
               : maxDistance;
 
           const remapZoom = !mapDemographics
-            ? map_range(ptCompareDistance, 0.3, maxDistance, zoomMax, zoomMin)
+            ? map_range(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
             : mapDemographics &&
-              map_range(ptCompareDistance, 0.3, maxDistance, zoomMax, zoomMin) -
+              map_range(
+                ptCompareDistance,
+                0.3,
+                maxDistance,
+                ZOOM_MAX,
+                ZOOM_MIN
+              ) -
                 0.5 >
-                zoomMin
-            ? map_range(ptCompareDistance, 0.3, maxDistance, zoomMax, zoomMin) -
-              0.5
-            : zoomMin;
+                ZOOM_MIN
+            ? map_range(
+                ptCompareDistance,
+                0.3,
+                maxDistance,
+                ZOOM_MAX,
+                ZOOM_MIN
+              ) - 0.5
+            : ZOOM_MIN;
 
           setViewState({
             longitude: (ptA[0] + ptB[0]) / 2,
@@ -687,7 +698,7 @@ export default function DeckMap({
                          setViewState({
                              longitude: element.properties.X_Cent,
                              latitude: element.properties.Y_Cent,
-                             zoom: zoomMax - 0.5,
+                             zoom: ZOOM_MAX - 0.5,
                              transitionDuration: 500,
                              transitionInerpolator: new LinearInterpolator(),
                          });
@@ -699,7 +710,7 @@ export default function DeckMap({
                          setCommunitySearch(null);
                          setUserPoints([[], []]);
 
-                         setViewState(resetView);
+                         setViewState(RESET_VIEW);
                      }
                  } else {
                      if (lookup === communitySearch) {
@@ -709,7 +720,7 @@ export default function DeckMap({
                          setViewState({
                              longitude: element.properties.X_Cent,
                              latitude: element.properties.Y_Cent,
-                             zoom: zoomMax - 0.5,
+                             zoom: ZOOM_MAX - 0.5,
                              transitionDuration: 500,
                              transitionInerpolator: new LinearInterpolator(),
                          });
@@ -720,7 +731,7 @@ export default function DeckMap({
                          console.log("2")
                          setCommunitySearch(null);
                          setUserPoints([[], []]);
-                         setViewState(resetView);
+                         setViewState(RESET_VIEW);
                      }
                  }
              }
@@ -751,27 +762,27 @@ export default function DeckMap({
                                  ptCompareDistance,
                                  0.3,
                                  maxDistance,
-                                 zoomMax,
-                                 zoomMin
+                                 ZOOM_MAX,
+                                 ZOOM_MIN
                              )
                              : mapDemographics &&
                              map_range(
                                  ptCompareDistance,
                                  0.3,
                                  maxDistance,
-                                 zoomMax,
-                                 zoomMin
+                                 ZOOM_MAX,
+                                 ZOOM_MIN
                              ) -
                              0.5 >
-                             zoomMin
+                             ZOOM_MIN
                                  ? map_range(
                                  ptCompareDistance,
                                  0.3,
                                  maxDistance,
-                                 zoomMax,
-                                 zoomMin
+                                 ZOOM_MAX,
+                                 ZOOM_MIN
                              ) - 0.5
-                                 : zoomMin;
+                                 : ZOOM_MIN;
 
                          setViewState({
                              longitude: (ptA[0] + ptB[0]) / 2,
@@ -788,7 +799,7 @@ export default function DeckMap({
                          setUserPoints([userPoints[1], []]);
 
                          if (!compareSearch) {
-                             setViewState(resetView);
+                             setViewState(RESET_VIEW);
                              setAddCompare(false);
                          }
                      } else {
@@ -839,7 +850,7 @@ export default function DeckMap({
   // fix view on resize
   useEffect(() => {
     if (searchSource !== 'click') {
-      setViewState(resetView);
+      setViewState(RESET_VIEW);
     }
   }, [selectedChapter]);
 
@@ -880,7 +891,7 @@ export default function DeckMap({
         }
       },
       lineWidthUnits: 'pixels',
-      opacity: choroplethOpacity,
+      opacity: CHOROPLETH_OPACITY,
       visible: !zoomToggle,
       // update triggers
       updateTriggers: {
@@ -904,7 +915,7 @@ export default function DeckMap({
           return COLOR_SCALE(f.properties[infoTransfer.selectedMetric]);
         }
       },
-      opacity: choroplethOpacity,
+      opacity: CHOROPLETH_OPACITY,
       visible: zoomToggle,
 
       updateTriggers: {
@@ -936,7 +947,7 @@ export default function DeckMap({
         return 0;
       },
 
-      opacity: choroplethOpacity,
+      opacity: CHOROPLETH_OPACITY,
       visible: toggleUnderperformers ? zoomToggle : false,
 
       // props added by FillStyleExtension
@@ -993,7 +1004,7 @@ export default function DeckMap({
         return 0;
       },
 
-      opacity: choroplethOpacity,
+      opacity: CHOROPLETH_OPACITY,
       visible: toggleUnderperformers ? !zoomToggle : false,
 
       // props added by FillStyleExtension
@@ -1053,7 +1064,7 @@ export default function DeckMap({
       },
       lineWidthMinPixels: 1,
 
-      opacity: choroplethOpacity,
+      opacity: CHOROPLETH_OPACITY,
       visible: !zoomToggle ? toggleDemChoropleth : 0,
 
       updateTriggers: {
@@ -1102,7 +1113,7 @@ export default function DeckMap({
       },
       lineWidthMinPixels: 1,
 
-      opacity: choroplethOpacity,
+      opacity: CHOROPLETH_OPACITY,
       visible: zoomToggle ? toggleDemChoropleth : 0,
 
       updateTriggers: {
@@ -1348,8 +1359,8 @@ export default function DeckMap({
         views={
           showMap
             ? mapDemographics
-              ? [splitViewLeft, splitViewRight]
-              : [mainView]
+              ? [SPLIT_VIEW_LEFT, SPLIT_VIEW_RIGHT]
+              : [MAIN_VIEW]
             : null
         }
         layers={[metricLayers, demoLayers, annoLayers]}
@@ -1367,7 +1378,7 @@ export default function DeckMap({
             <Map
               ref={mapRef}
               reuseMaps
-              mapStyle={mapStyle}
+              mapStyle={MAP_STYLE}
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
@@ -1382,16 +1393,16 @@ export default function DeckMap({
           <MapView id="splitLeft">
             <Map
               reuseMaps
-              mapStyle={mapStyle}
+              mapStyle={MAP_STYLE}
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
               logoPosition="bottom-left"
             />
-            <div style={mapBackgroundStyle} />
+            <div style={MAP_BACKGROUND_STYLE} />
             {selectedSpecificIssue && (
-              <div style={splitScreenPositioning}>
-                <div style={splitScreenHeader}>
+              <div style={SPLIT_SCREEN_POSITIONING}>
+                <div style={SPLIT_SCREEN_HEADER}>
                   {
                     issues.specific_issues_data[selectedSpecificIssue]
                       .specific_issue_name
@@ -1409,16 +1420,16 @@ export default function DeckMap({
           <MapView id="splitRight">
             <Map
               reuseMaps
-              mapStyle={mapStyle}
+              mapStyle={MAP_STYLE}
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
               logoPosition="bottom-left"
             />
-            <div style={mapBackgroundStyle} />
+            <div style={MAP_BACKGROUND_STYLE} />
             {demographic && (
-              <div style={splitScreenPositioning}>
-                <div style={splitScreenHeader}>
+              <div style={SPLIT_SCREEN_POSITIONING}>
+                <div style={SPLIT_SCREEN_HEADER}>
                   {demoLookup[demographic].name}
                 </div>
               </div>
