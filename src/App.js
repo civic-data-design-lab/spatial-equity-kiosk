@@ -118,6 +118,15 @@ function App() {
                     break;
                 case "ctS":
                     setCommunitySearch(pair[1]);
+                    const selectedBoundary = boundary==="council" ? _COUNCIL_DISTRICTS : _COMMUNITY_BOARDS;
+                    console.log("communitySerch", pair[1])
+                    for (const [index, element,] of selectedBoundary.features.entries()) {
+                        if (element.properties.CDTA2020?.toString() === pair[1] || element.properties.CounDist?.toString() === pair[1]) {
+                            console.log("here")
+                            setSelectedCoord([element.properties.X_Cent, element.properties.Y_Cent])
+                            break
+                        }
+                    }
                     break;
                 case "cpS":
                     setCompareSearch(pair[1]);
@@ -348,6 +357,8 @@ function App() {
                              setSelectedSpecificIssue(1)
                          }*/
 
+        console.log()
+
         const params = [];
 
         if (showMap !== null) params.push(`swM=${showMap.toString()}`);
@@ -404,6 +415,7 @@ function App() {
             );
         }
     }, [selectedSpecificIssue]);
+
 
     /*useEffect(() => {
           if (selectedSpecificIssue) {
@@ -529,6 +541,7 @@ function App() {
                         setErrorCode={setErrorCode}
                         setUserPoints={setUserPoints}
                         setMapDemographics={setMapDemographics}
+                        info={info}
                     />
 
                     <Content
@@ -617,21 +630,19 @@ function App() {
                                          setCollapseMap(!collapseMap)
                                      }}
 
-                                     onMouseEnter={()=>{
+                                     onMouseEnter={() => {
                                          setCollapseMapToggle(true)
                                      }}
-                                     onMouseLeave={()=>{
+                                     onMouseLeave={() => {
                                          setCollapseMapToggle(false)
                                      }}
                                 >
                                     {showMap && <FontAwesomeIcon icon={collapseMap ? faChevronRight : faChevronLeft}/>}
 
-                                    <div className={`collapse-map-tooltip ${collapseMapToggle?"":"d-none"}`}>
-                                        {collapseMap?"Show Panel":"Collapse Panel"}
+                                    <div className={`collapse-map-tooltip ${collapseMapToggle ? "" : "d-none"}`}>
+                                        {collapseMap ? "Show Panel" : "Collapse Panel"}
                                     </div>
                                 </div>
-
-
 
 
                                 <Map
