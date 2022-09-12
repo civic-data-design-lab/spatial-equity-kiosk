@@ -89,8 +89,8 @@ export default function Content({
 
 
             >
-                {(selectedChapter === 2 ||
-                    (selectedChapter === 3 && communitySearch && showMap)) && (
+                {(!collapseMap && (selectedChapter === 2 ||
+                    (selectedChapter === 3 && communitySearch && showMap))) && (
                     <IssuesMiddleColumn
                         selectedIssue={selectedIssue}
                         setSelectedIssue={setSelectedIssue}
@@ -175,7 +175,7 @@ export default function Content({
                         allowFullScreen></iframe>
                 )}
 
-                {selectedChapter === 2 && (
+                {(selectedChapter === 2 && !collapseMap) && (
                     <IssuesTileView
                         selectedSpecificIssue={selectedSpecificIssue}
                         issues={issues}

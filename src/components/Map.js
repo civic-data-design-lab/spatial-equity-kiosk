@@ -58,6 +58,7 @@ const MAP_BACKGROUND_STYLE = {
   width: '100%',
   height: '100%',
   border: '2px solid black',
+  borderLeft: 'none',
 };
 
 const SPLIT_SCREEN_POSITIONING = {
