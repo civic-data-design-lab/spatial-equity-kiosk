@@ -88,9 +88,14 @@ const SPLIT_SCREEN_HEADER = {
 
 const MAIN_VIEW = new MapView({
   id: 'primary',
+  // https://deck.gl/docs/api-reference/core/controller
   controller: {
     dragRotate: false,
     doubleClickZoom: false,
+    scrollZoom: {
+      smooth: true,
+    },
+    inertia: 350,
   },
   x: 0,
   y: 0,
@@ -104,6 +109,10 @@ const SPLIT_VIEW_LEFT = new MapView({
   controller: {
     dragRotate: false,
     doubleClickZoom: false,
+    scrollZoom: {
+      smooth: true,
+    },
+    inertia: 350,
   },
   x: 0,
   y: 0,
@@ -117,6 +126,10 @@ const SPLIT_VIEW_RIGHT = new MapView({
   controller: {
     dragRotate: false,
     doubleClickZoom: false,
+    scrollZoom: {
+      smooth: true,
+    },
+    inertia: 350,
   },
   x: '50%',
   y: 0,
