@@ -357,7 +357,10 @@ function App() {
                              setSelectedSpecificIssue(1)
                          }*/
 
-        console.log()
+        console.log("communitySearch ", communitySearch)
+        console.log("selectedCoords ", selectedCoord)
+        console.log("compareSearch ", compareSearch)
+        console.log("selectedCompareCoords ", selectedCompareCoord)
 
         const params = [];
 

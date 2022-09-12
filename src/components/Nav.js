@@ -157,7 +157,6 @@ function Nav({
             setSelectedChapter(2);
             setSearchSource(null);
             setUserPoints([], []);
-            setAddCompare(false);
             setBadSearch(0,0)
             setSelectedSpecificIssue(selectedChapterCache.current);
           } else {
@@ -231,8 +230,6 @@ function Nav({
             setSelectedChapter(3);
             setSearchSource(null);
             setUserPoints([], []);
-            setSelectedCoord([]);
-            setselectedCompareCoord([]);
             setBadSearch(0,0)
             selectedChapterCache.current = selectedSpecificIssue;
             setSelectedSpecificIssue(null);
