@@ -106,8 +106,6 @@ export default function IssuesMiddleColumn({
       ? Number(!issues.specific_issues_data[selectedSpecificIssue].good_or_bad)
       : '';
 
-    console.log(goodOrBad);
-
     if (possible_keys.includes(selectedSpecificIssue)) {
       return (
         <p className={'mb-3 small-font'}>
@@ -124,17 +122,7 @@ export default function IssuesMiddleColumn({
             }
             {` ${issues.specific_issues_data[
               selectedSpecificIssue
-            ].specific_issue_name.toLowerCase()} 
-          ${
-            issues.specific_issues_data[selectedSpecificIssue]
-              .issue_units_shorthand != ''
-              ? issues.specific_issues_data[
-                  selectedSpecificIssue
-                ].issue_units_shorthand.toLowerCase()
-              : issues.specific_issues_data[
-                  selectedSpecificIssue
-                ].specific_issue_units.toLowerCase()
-          }.`}
+            ].specific_issue_units_sentence.toLowerCase()}.`}
           </strong>
         </p>
       );

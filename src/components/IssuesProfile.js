@@ -26,8 +26,13 @@ export default function IssueProfile({
 
   const getIssueStatement = () => {
     if (selectedSpecificIssue) {
+      let goodOrBad =
+        issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
+
       let attitude =
-        issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1];
+        issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[
+          Number(!goodOrBad)
+        ];
       attitude = attitude[0].toUpperCase() + attitude.substr(1);
 
       const words =
@@ -158,7 +163,7 @@ export default function IssueProfile({
               {rankings[boundary][
                 issues.specific_issues_data[selectedSpecificIssue].json_id
               ]
-                .slice(0, 5)
+
                 .map((entry, index) => {
                   return (
                     <tr key={index} className={'issues-profile-table-row'}>
@@ -175,13 +180,14 @@ export default function IssueProfile({
                       <td>{entry.data}</td>
                     </tr>
                   );
-                })}
+                })
+                .reverse()
+                .slice(0, 5)}
 
               {expand &&
                 rankings[boundary][
                   issues.specific_issues_data[selectedSpecificIssue].json_id
                 ]
-                  .slice(5)
                   .map((entry, index) => {
                     return (
                       <tr key={index} className={'issues-profile-table-row'}>
@@ -198,7 +204,9 @@ export default function IssueProfile({
                         <td>{entry.data}</td>
                       </tr>
                     );
-                  })}
+                  })
+                  .reverse()
+                  .slice(5)}
             </tbody>
           </Table>
 
