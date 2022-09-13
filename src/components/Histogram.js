@@ -119,10 +119,7 @@ const Histogram = ({ colorRampsyType,
     // const [councilPinned, setCouncilPinned] = useState([])
     const [currentHoveredCommunityID, setCurrentHoveredCommunityID] = useState('')
 
-    const optionalCallback = (entry) => {
-    }
-
-    const [containerWidth, containerHeight] = useResizeObserver(containerRef, optionalCallback);
+    const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
     const margin = {
         top: 20,
