@@ -184,6 +184,7 @@ const Histogram = ({ colorRampsyType,
         let barPadding = 0;
         let barHeight = (height - margin.top - margin.bottom) / data.length;
         let minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
+        let longestBarPadding = 100;
 
         // let highlight_statement = issues.specific_issues_data[selectedSpecificIssue].highlight_statement;
         // highlight_statement = removeFirstWord(highlight_statement);
@@ -196,7 +197,7 @@ const Histogram = ({ colorRampsyType,
         let xscale = d3.scaleLinear()
             // .domain([0, d3.max(data)])
             .domain([d3.min(data) - minValueMargin, d3.max(data)])
-            .range([0, width - 100 - margin.right - margin.left])
+            .range([0, width - longestBarPadding - margin.right - margin.left])
 
         let yscale = d3.scaleLinear()
             .domain([0, data.length])

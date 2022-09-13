@@ -121,33 +121,7 @@ const IssueHistogram = ({
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
     let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
-
-    useEffect(() => {
-        // let svg = d3.select(ref.current)
-        // const height = containerHeight ? containerHeight : 0;
-        // const width = containerWidth ? containerWidth : 500;
-
-        //  Init mouse line
-        // svg.select('#mouseLine')
-        //     .style('stroke-width', 0);
-
-        // svg.select('#mouseTextUp')
-        //     .attr('text-anchor', 'end')
-        //     .attr('x', width - margin.right)
-        //     .attr("style", "font-family:Inter")
-        //     .attr("font-size", "14")
-        //     .attr("fill", "#000000")
-        //     .text('');
-
-        // svg.select('#mouseTextDown')
-        //     .attr('text-anchor', 'end')
-        //     .attr('x', width - margin.right)
-        //     .attr("style", "font-family:Inter")
-        //     .attr("font-size", "14")
-        //     .attr("fill", "#000000")
-        //     .text('');
-
-    }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight,])
+    let selectedIndex = lookupArray.indexOf(selectedCommunity.json_lookup)
 
     useEffect(() => {
 
@@ -156,23 +130,24 @@ const IssueHistogram = ({
 
         // histogram bars attr
         let barPadding = 0;
-        let barHeight = (height - margin.top - margin.bottom) / data.length;
+        let barWdith = (width - margin.right - margin.left) / data.length;
         let minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
+        let longestBarPadding = 0;
 
-        
 
-        let [hiStatement, lowStatement] = issues.specific_issues_data[selectedSpecificIssue].issue_hi_low
-        hiStatement = hiStatement.charAt(0).toUpperCase() + hiStatement.slice(1);;
-        lowStatement = lowStatement.charAt(0).toUpperCase() + lowStatement.slice(1);;
+        // let [hiStatement, lowStatement] = issues.specific_issues_data[selectedSpecificIssue].issue_hi_low
+        // hiStatement = hiStatement.charAt(0).toUpperCase() + hiStatement.slice(1);
+        // lowStatement = lowStatement.charAt(0).toUpperCase() + lowStatement.slice(1);
+        let [hiStatement, lowStatement] = ['Max', 'Min']
 
         let xscale = d3.scaleLinear()
-            // .domain([0, d3.max(data)])
-            .domain([d3.min(data) - minValueMargin, d3.max(data)])
-            .range([0, width - 100 - margin.right - margin.left])
+            .domain([0, data.length])
+            .range([margin.left, width - margin.right])
 
         let yscale = d3.scaleLinear()
-            .domain([0, data.length])
-            .range([margin.top, height - margin.bottom])
+            .domain([d3.min(data) - minValueMargin, d3.max(data)])
+            .range([0, height - longestBarPadding - margin.top - margin.bottom])
+
 
         let yUnit = yscale(1) - yscale(0)
 
@@ -192,13 +167,12 @@ const IssueHistogram = ({
                 .attr('class', 'rect')
                 .selectAll('rect')
                 .data(data))
-            .attr('height', (barHeight - barPadding) >= 0 ? (barHeight - barPadding) : 0)
-            .attr('width', d => d3.min(data) >= 0 ? xscale(d) : (d > 0 ? xscale(d) - xscale(0) : xscale(0) - xscale(d)))
-            .attr('y', (d, i) => yscale(i + 0.5))
-            .attr('x', d => d3.min(data) >= 0 ? margin.left : (d > 0 ? margin.left + xscale(0) : margin.left + xscale(d)))
+            .attr('width', (barWdith - barPadding) >= 0 ? (barWdith - barPadding) : 0)
+            .attr('height', d => d3.min(data) >= 0 ? yscale(d) : (d > 0 ? yscale(d) - yscale(0) : yscale(0) - yscale(d)))
+            .attr('x', (d, i) => xscale(i + 0.5))
+            .attr('y', d => d3.min(data) >= 0 ? margin.bottom : (d > 0 ? margin.bottom + yscale(0) : margin.bottom + yscale(d)))
             .attr("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
             .attr('value', d => d)
-
 
         // clear Chart
         svg.select('g')
@@ -210,18 +184,18 @@ const IssueHistogram = ({
 
         // draw Lines
         svg.select('#minLine')
-            .attr('x1', margin.left)
-            .attr('y1', yscale(0.5))
-            .attr('x2', width - margin.right)
-            .attr('y2', yscale(0.5))
+            .attr('y1', margin.bottom)
+            .attr('x1', xscale(0.5))
+            .attr('y2', height - margin.top)
+            .attr('x2', xscale(0.5))
             .style('stroke', 'black')
             .style('stroke-width', 2);
 
         svg.select('#maxLine')
-            .attr('x1', margin.left)
-            .attr('y1', yscale(data.length + 0.5))
-            .attr('x2', width - margin.right)
-            .attr('y2', yscale(data.length + 0.5))
+            .attr('y1', margin.bottom)
+            .attr('x1', xscale(data.length + 0.5))
+            .attr('y2', height - margin.top)
+            .attr('x2', xscale(data.length + 0.5))
             .style('stroke', 'black')
             .style('stroke-width', 2);
 
@@ -231,7 +205,8 @@ const IssueHistogram = ({
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+            // .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+            .text((!ascending ? `${hiStatement} ` : `${lowStatement} `));
 
         svg.select('#maxText')
             .attr('x', width - margin.right - textWidth)
@@ -239,22 +214,17 @@ const IssueHistogram = ({
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+            // .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+            .text((ascending ? `${hiStatement} ` : `${lowStatement} `));
 
 
 
-        // Adjust text position
-        svg.select('#maxText')
-            .attr('x', width - margin.right - svg.select('#maxText').node().getBoundingClientRect().width);
-
-        svg.select('#minText')
-            .attr('x', width - margin.right - svg.select('#minText').node().getBoundingClientRect().width);
-
+        // draw avg Lines
         svg.select('#avgLine')
-            .attr('x1', margin.left)
-            .attr('y1', yscale(avgIndex + 0.5))
-            .attr('x2', width - margin.right)
-            .attr('y2', yscale(avgIndex + 0.5))
+            .attr('y1', margin.bottom)
+            .attr('x1', xscale(avgIndex + 0.5))
+            .attr('y2', height - margin.top)
+            .attr('x2', xscale(avgIndex + 0.5))
             .style('stroke', 'black')
             .style('stroke-width', 2);
 
@@ -274,24 +244,14 @@ const IssueHistogram = ({
             .attr("fill", "#000000")
             .text(avg);
 
-        // Adjust text position
-        svg.select('#avgTextUp')
-            .attr('x', width - margin.right - svg.select('#avgTextUp').node().getBoundingClientRect().width);
-
-        svg.select('#avgTextDown')
-            .attr('x', width - margin.right - svg.select('#avgTextDown').node().getBoundingClientRect().width);
-
-        svg.select('#histBg')
-            .attr('height', (height >= 0) ? height : 0)
-            .attr('width', width - margin.left - margin.right)
-            .attr('y', 0)
-            .attr('x', margin.left)
-            .attr("fill", d3.rgb(0, 0, 0, 0))
-
-
-        // move the interaction layer to front
-        svg.select('#histBg')
-            .raise()
+       // draw selected Lines
+        svg.select('#selectedLine')
+            .attr('y1', margin.bottom)
+            .attr('x1', xscale(selectedIndex + 0.5))
+            .attr('y2', height - margin.top)
+            .attr('x2', xscale(selectedIndex + 0.5))
+            .style('stroke', 'black')
+            .style('stroke-width', 4);
 
     }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight,]);
 
@@ -309,12 +269,7 @@ const IssueHistogram = ({
                 <text id="avgTextUp" />
                 <text id="avgTextDown" />
 
-                {/* Interactive Line */}
-                {/* <line id="mouseLine" />
-                <text id="mouseTextUp" />
-                <text id="mouseTextDown" />
-                <rect id="histBg" /> */}
-
+                {/* Selected Line */}
                 <line id="selectedLine" />
                 <text id="selectedTextUp" />
                 <text id="selectedTextDown" />
