@@ -460,7 +460,8 @@ export default function Legend({
 
                     let percList;
                     if (selectedChapter == 3) { 
-                        console.log(info.selectedBoundary)
+                        console.log(info)
+                        percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
                     }
                     else {
                         percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
