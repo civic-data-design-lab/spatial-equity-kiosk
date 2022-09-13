@@ -626,7 +626,7 @@ const Histogram = ({ colorRampsyType,
 
         // when avgline is close to mouseline or is overlapped with another pinned line, hide the avgline
         let hideAvgLine = false;
-        if (lookupArray.indexOf(currentHoveredCommunityID) && Math.abs(avgIndex - lookupArray.indexOf(currentHoveredCommunityID)) < 1) hideAvgLine = true;
+        if (Math.abs(avgIndex - lookupArray.indexOf(currentHoveredCommunityID)) < 1) hideAvgLine = true;
         if (boundary == "council" && councilPinned.includes(lookupArray[avgRectID])) hideAvgLine = true;
         if (boundary != "council" && communityPinned.includes(lookupArray[avgRectID])) hideAvgLine = true;
         if (boundary == "council" && councilPinned.includes(lookupArray[avgRectID - 1])) hideAvgLine = true;
@@ -641,6 +641,32 @@ const Histogram = ({ colorRampsyType,
             svg.select('#avgLine').attr('visibility', 'visible')
             svg.select('#avgTextUp').attr('visibility', 'visible')
             svg.select('#avgTextDown').attr('visibility', 'visible')
+        }
+
+        // when maxline is close to mouseline or is overlapped with another pinned line, hide the maxline
+        let hideMaxLine = false;
+        if ((lookupArray.indexOf(currentHoveredCommunityID) == data.length - 1)) hideMaxLine = true;
+        if (boundary == "council" && councilPinned.includes(lookupArray[data.length - 1])) hideMaxLine = true;
+        if (boundary != "council" && communityPinned.includes(lookupArray[data.length - 1])) hideMaxLine = true;
+        if (hideMaxLine) {
+            svg.select('#maxLine').attr('visibility', 'hidden')
+            svg.select('#maxText').attr('visibility', 'hidden')
+        } else {
+            svg.select('#maxLine').attr('visibility', 'visible')
+            svg.select('#maxText').attr('visibility', 'visible')
+        }
+
+        // when minline is close to mouseline or is overlapped with another pinned line, hide the minline
+        let hideMinLine = false;
+        if ((lookupArray.indexOf(currentHoveredCommunityID) == 0)) hideMinLine = true;
+        if (boundary == "council" && councilPinned.includes(lookupArray[0])) hideMinLine = true;
+        if (boundary != "council" && communityPinned.includes(lookupArray[0])) hideMinLine = true;
+        if (hideMinLine) {
+            svg.select('#minLine').attr('visibility', 'hidden')
+            svg.select('#minText').attr('visibility', 'hidden')
+        } else {
+            svg.select('#minLine').attr('visibility', 'visible')
+            svg.select('#minText').attr('visibility', 'visible')
         }
 
         svg.select('g').selectAll('rect').each(function (d, i) {
