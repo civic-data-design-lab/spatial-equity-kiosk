@@ -4,7 +4,7 @@ import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _RANKINGS from "../data/rankings.json";
 import _COUNCILDISTRICTS from "../texts/councildistricts.json";
 import { useResizeObserver } from "../utils/useResizeObserver"
-import {getIssueType} from "../utils/getIssueType"
+import { getIssueType } from "../utils/getIssueType"
 
 
 const getRgb = (color) => {
@@ -114,7 +114,7 @@ const IssueHistogram = ({
     let colorRamps = _CHAPTER_COLORS[getIssueType(issues, selectedSpecificIssue)]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
     let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
-    let selectedIndex = lookupArray.indexOf(selectedCommunity.json_lookup)
+    let selectedIndex = selectedCommunity ? lookupArray.indexOf(selectedCommunity.json_lookup) : 0;
 
     // console.log('------')
     // console.log('specificIssue', selectedSpecificIssue)
@@ -297,11 +297,11 @@ const IssueHistogram = ({
             .attr("font-size", "14")
             .attr("fill", "#000000")
             .attr("text-anchor", "middle")
-            .text(`${selectedCommunity.name}`);
+            .text(`${selectedCommunity ? selectedCommunity.name : 0}`);
 
 
         svg.select('#minTextUp')
-            .attr('x', xscale(0.5) )
+            .attr('x', xscale(0.5))
             .attr('y', svg.select('#minLine').attr('y1') - 5)
             .attr('class', 'smaller-text')
             .attr("style", "font-family:Inter")
@@ -311,7 +311,7 @@ const IssueHistogram = ({
             .text(`${data[0]}`);
 
         svg.select('#maxTextUp')
-            .attr('x', xscale(data.length + 0.5) )
+            .attr('x', xscale(data.length + 0.5))
             .attr('y', svg.select('#maxLine').attr('y1') - 5)
             .attr('class', 'smaller-text')
             .attr("style", "font-family:Inter")
@@ -321,7 +321,7 @@ const IssueHistogram = ({
             .text(`${data[data.length - 1]}`);
 
         svg.select('#avgTextUp')
-            .attr('x', svg.select('#avgLine').attr('x1') )
+            .attr('x', svg.select('#avgLine').attr('x1'))
             .attr('y', svg.select('#avgLine').attr('y1') - 5)
             .attr('class', 'smaller-text')
             .attr("style", "font-family:Inter")
@@ -332,20 +332,20 @@ const IssueHistogram = ({
 
         let showSelectedText = (!(Number(svg.select('#selectedLine').attr('index')) == data.length - 1));
         svg.select('#selectedTextUp')
-            .attr('x', svg.select('#selectedLine').attr('x1') )
+            .attr('x', svg.select('#selectedLine').attr('x1'))
             .attr('y', svg.select('#selectedLine').attr('y1') - 5)
             .attr('class', 'smaller-text')
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
             .attr("text-anchor", ((!ascending) ? "start " : "end"))
-            .text(`${showSelectedText ? data[Math.round(svg.select('#selectedLine').attr('index'))] : `` }`);
+            .text(`${showSelectedText ? data[Math.round(svg.select('#selectedLine').attr('index'))] : ``}`);
 
 
 
 
 
-    }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight,]);
+    }, [colorRamps, boundary, selectedSpecificIssue, selectedCommunity, containerWidth, containerHeight,]);
 
     return (
         <div ref={containerRef} style={{
