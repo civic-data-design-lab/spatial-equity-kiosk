@@ -4,6 +4,7 @@ import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _RANKINGS from "../data/rankings.json";
 import _COUNCILDISTRICTS from "../texts/councildistricts.json";
 import { useResizeObserver } from "../utils/useResizeObserver"
+import {getIssueType} from "../utils/getIssueType"
 
 
 const getRgb = (color) => {
@@ -110,7 +111,7 @@ const IssueHistogram = ({
     }
     const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
-    let colorRamps = _CHAPTER_COLORS[colorRampsyType]
+    let colorRamps = _CHAPTER_COLORS[getIssueType(issues, selectedSpecificIssue)]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
     let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
     let selectedIndex = lookupArray.indexOf(selectedCommunity.json_lookup)
@@ -118,6 +119,8 @@ const IssueHistogram = ({
     // console.log('------')
     // console.log('specificIssue', selectedSpecificIssue)
     // console.log('issues', issues)
+    // console.log('issues', issues.issues_data['environment'].specific_issues_ID)
+    // console.log('issues type', getIssueType(issues, selectedSpecificIssue))
     // console.log('boundary', boundary)
     // console.log('json_id', issues.specific_issues_data[selectedSpecificIssue].json_id)
     // console.log('_RANKINGS', _RANKINGS[boundary])
