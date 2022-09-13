@@ -127,7 +127,6 @@ export default function IssuesCard({
                 </div>
             </div>
             <div className={'issues-card-body'}>
-                <div>VISUALIZATION</div>
                 <IssueHistogram
                     colorRampsyType={'health'}
                     issues={issues}

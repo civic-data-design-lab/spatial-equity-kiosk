@@ -272,7 +272,7 @@ const Histogram = ({ colorRampsyType,
             .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data) >= 10 ? d3.max(data).toFixed(0) : d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data) >= 10 ? d3.min(data).toFixed(0) : d3.min(data)} `));
 
         // draw reset button
-        d3.select('#resetButton')
+        svg.select('#resetButton')
             .attr('x', margin.left)
             .attr('y', yscale(data.length + 0.5) + 15)
             .attr("style", "font-family:Inter")
@@ -325,7 +325,7 @@ const Histogram = ({ colorRampsyType,
         svg.select('#avgTextDown')
             .attr('x', width - margin.right - svg.select('#avgTextDown').node().getBoundingClientRect().width);
 
-        d3.select('#histBg')
+        svg.select('#histBg')
             .attr('height', (height >= 0) ? height : 0)
             .attr('width', width - margin.left - margin.right)
             .attr('y', 0)
@@ -343,7 +343,7 @@ const Histogram = ({ colorRampsyType,
 
                 setCurrentHoveredCommunityID(lookupArray[rectID])
 
-                d3.select("#mouseLine")
+                svg.select("#mouseLine")
                     // .transition()
                     // .duration(10)
                     // .ease('linear') 
@@ -355,12 +355,12 @@ const Histogram = ({ colorRampsyType,
                     .style('stroke', 'black')
                     .style('stroke-width', 2);
 
-                d3.select("#mouseTextUp")
+                svg.select("#mouseTextUp")
                     .attr('y', ycood - 5)
                     .attr('lookupID', lookupArray[rectID])
                     .text(`${boundary == "council" ? "Council" : ""} ${nameArray[rectID]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[rectID]].borough.join("/ ")}` : ""}`)
 
-                d3.select("#mouseTextDown")
+                svg.select("#mouseTextDown")
                     .attr('y', ycood + 15)
                     .attr('lookupID', lookupArray[rectID])
                     .text(`${data[rectID] >= 10 ? data[rectID].toFixed(0) : data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand !== "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
@@ -565,9 +565,9 @@ const Histogram = ({ colorRampsyType,
             .remove();
 
         // move the interaction layer to front
-        d3.select('#histBg')
+        svg.select('#histBg')
             .raise()
-        d3.select('#resetButton')
+        svg.select('#resetButton')
             .raise()
         svg.selectAll(".pinnedTextUp")
             .raise()

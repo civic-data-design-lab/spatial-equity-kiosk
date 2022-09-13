@@ -67,8 +67,8 @@ const getDataToVis = (rawIssueData) => {
     return [valueArray, nameArray, avg, avgIndex, ascending, lookupArray]
 }
 
-const IssueHistogram = ({ 
-    colorRampsyType='health',
+const IssueHistogram = ({
+    colorRampsyType = 'health',
     issues,
     boundary,
     selectedSpecificIssue,
@@ -101,19 +101,19 @@ const IssueHistogram = ({
     const textWidth = 50;
     const margin = {
         top: 20,
-        left: 20,
-        bottom: 40,
-        right: 50,
+        left: 0,
+        bottom: 20,
+        right: 20,
     }
     const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
-    console.log('------')
-    console.log('specificIssue', selectedSpecificIssue)
-    console.log('issues', issues)
-    console.log('boundary', boundary)
-    console.log('json_id', issues.specific_issues_data[selectedSpecificIssue].json_id)
-    console.log('_RANKINGS', _RANKINGS[boundary])
-    console.log('------')
+    // console.log('------')
+    // console.log('specificIssue', selectedSpecificIssue)
+    // console.log('issues', issues)
+    // console.log('boundary', boundary)
+    // console.log('json_id', issues.specific_issues_data[selectedSpecificIssue].json_id)
+    // console.log('_RANKINGS', _RANKINGS[boundary])
+    // console.log('------')
 
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
@@ -241,7 +241,7 @@ const IssueHistogram = ({
             .attr("fill", "#000000")
             .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
 
-       
+
 
         // Adjust text position
         svg.select('#maxText')
@@ -281,7 +281,7 @@ const IssueHistogram = ({
         svg.select('#avgTextDown')
             .attr('x', width - margin.right - svg.select('#avgTextDown').node().getBoundingClientRect().width);
 
-        d3.select('#histBg')
+        svg.select('#histBg')
             .attr('height', (height >= 0) ? height : 0)
             .attr('width', width - margin.left - margin.right)
             .attr('y', 0)
@@ -296,7 +296,7 @@ const IssueHistogram = ({
 
                 let rectID = Math.floor(yscale.invert(ycood) - 0.5)
 
-                d3.select("#mouseLine")
+                svg.select("#mouseLine")
                     // .transition()
                     // .duration(10)
                     // .ease('linear') 
@@ -308,12 +308,12 @@ const IssueHistogram = ({
                     .style('stroke', 'black')
                     .style('stroke-width', 2);
 
-                d3.select("#mouseTextUp")
+                svg.select("#mouseTextUp")
                     .attr('y', ycood - 5)
                     .attr('lookupID', lookupArray[rectID])
                     .text(`${boundary == "council" ? "Council" : ""} ${nameArray[rectID]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[rectID]].borough.join("/ ")}` : ""}`)
 
-                d3.select("#mouseTextDown")
+                svg.select("#mouseTextDown")
                     .attr('y', ycood + 15)
                     .attr('lookupID', lookupArray[rectID])
                     .text(`${data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand !== "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
@@ -322,10 +322,10 @@ const IssueHistogram = ({
 
 
         // move the interaction layer to front
-        d3.select('#histBg')
+        svg.select('#histBg')
             .raise()
 
-    }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight, ]);
+    }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight,]);
 
     return (
         <div ref={containerRef} style={{
