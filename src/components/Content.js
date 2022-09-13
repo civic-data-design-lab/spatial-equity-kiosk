@@ -78,8 +78,8 @@ export default function Content({
                         selectedChapter === 2 ?
                             (showMap && collapseMap) ? 
                                 "collapsed-middle-column" : 
-                                "col-4 no-top-border" : 
-                            !communitySearch ? 
+                                "col-4 no-top-border" :
+                            (!communitySearch && !compareSearch) ? 
                                 "collapsed-middle-column" : !showMap ? 
                                     "col-6" : collapseMap ? 
                                         "collapsed-middle-column" : "col-4 no-top-border"
@@ -90,7 +90,7 @@ export default function Content({
 
             >
                 {(selectedChapter === 2 ||
-                    (selectedChapter === 3 && communitySearch && showMap)) && (
+                    (selectedChapter === 3 && (communitySearch || compareSearch) && showMap)) && (
                     <IssuesMiddleColumn
                         selectedIssue={selectedIssue}
                         setSelectedIssue={setSelectedIssue}

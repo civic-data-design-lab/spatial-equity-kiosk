@@ -583,17 +583,26 @@ export default function DeckMap({
             if (selectedCoord.length === 2) {
                 const newCommunitySearch = getCommunitySearch(searchEngine, boundary)
                 if (newCommunitySearch.length > 0) {
-                    setCommunitySearch(newCommunitySearch[0])
-                    setBadSearch([0, badSearch[1]]);
-                    setUserPoints([searchEngine, []]);
-                    // move camera to new neighborhood
-                    setViewState({
-                        longitude: selectedCoord[0],
-                        latitude: selectedCoord[1],
-                        zoom: zoomMax - 0.5,
-                        transitionDuration: 500,
-                        transitionInerpolator: new LinearInterpolator(),
-                    });
+                    if ((searchSource === "click" && newCommunitySearch[0] !== communitySearch) || searchSource === "search") {
+                        setCommunitySearch(newCommunitySearch[0])
+                        setBadSearch([0, badSearch[1]]);
+                        setUserPoints([searchEngine, userPoints[1]]);
+                        // move camera to new neighborhood
+                        setViewState({
+                            longitude: selectedCoord[0],
+                            latitude: selectedCoord[1],
+                            zoom: zoomMax - 0.5,
+                            transitionDuration: 500,
+                            transitionInerpolator: new LinearInterpolator(),
+                        });
+                    } else {
+                        if (searchSource === "click" || searchSource === "search") {
+                            setSelectedCoord([])
+                            setCommunitySearch(null)
+                            setUserPoints([[], userPoints[1]])
+                        }
+                    }
+
                 }
             } else {
                 setBadSearch([1, badSearch[1]])
@@ -603,12 +612,9 @@ export default function DeckMap({
         }
 
         if (searchEngineType === 1 && selectedChapter === 3) {
-            console.log("in second case", selectedCoord, selectedCompareCoord)
             if (selectedCompareCoord.length === 2) {
                 const newCompareSearch = getCommunitySearch(searchEngine, boundary)
-                console.log("newCompareSearch ", newCompareSearch)
-                if (newCompareSearch.length>0 && (newCompareSearch[0] !== communitySearch) && selectedCoord.length===2) {
-                    console.log("reset map ", newCompareSearch[0])
+                if (newCompareSearch.length > 0 && (newCompareSearch[0] !== communitySearch) && ((searchSource === "click" && newCompareSearch[0] !== compareSearch) || searchSource === "search") && selectedCoord.length === 2) {
                     setCompareSearch(newCompareSearch[0])
                     setBadSearch([badSearch[0], 0]);
                     const ptA = selectedCoord;
@@ -646,6 +652,8 @@ export default function DeckMap({
                         ) - 0.5
                             : zoomMin;
 
+                    setUserPoints([userPoints[0], searchEngine]);
+
                     setViewState({
                         longitude: (ptA[0] + ptB[0]) / 2,
                         latitude: (ptA[1] + ptB[1]) / 2,
@@ -653,8 +661,23 @@ export default function DeckMap({
                         transitionDuration: 500,
                         transitionInerpolator: new LinearInterpolator(),
                     });
-                }
-                else {
+                } else if (newCompareSearch.length > 0 && (newCompareSearch[0] === compareSearch) && searchEngine.length === 2 && searchSource === "click") {
+                    setSelectedCompareCoord([])
+                    setCompareSearch(null)
+                    setUserPoints([userPoints[0], []])
+                } else if (newCompareSearch.length > 0 && (newCompareSearch[0] === communitySearch) && searchEngine.length === 2 && searchSource === "click") {
+                    if (!compareSearch) {
+                        setSelectedCoord([])
+                        setCommunitySearch(null)
+                        setUserPoints([[], []])
+                    } else {
+                        setSelectedCoord(searchEngine)
+                        setCommunitySearch(compareSearch)
+                        setUserPoints([searchEngine, []])
+                        setCompareSearch(null)
+                        setSelectedCompareCoord([])
+                    }
+                } else {
                     if (searchEngineType == 1) {
                         setBadSearch([badSearch[0], 1]);
                     }

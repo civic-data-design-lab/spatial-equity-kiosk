@@ -45,7 +45,7 @@ function Nav({
   errorCode,
   setErrorCode,
   setUserPoints,
-               setMapDemographics, info
+               setMapDemographics, info, userPoints
 }) {
   const selectedChapterCache = useRef(null);
 
@@ -299,6 +299,8 @@ function Nav({
             errorCode={errorCode}
             setErrorCode={setErrorCode}
             info={info}
+            setUserPoints={setUserPoints}
+            userPoints={userPoints}
           />
         </div>
       </div>

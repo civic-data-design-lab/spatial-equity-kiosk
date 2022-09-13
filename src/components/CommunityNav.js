@@ -26,13 +26,10 @@ export default function CommunityNav({
                                          setSearchSource,
                                          errorCode,
                                          setErrorCode,
-                                         info
+                                         info,
+                                         setUserPoints, userPoints
                                      }) {
-    useEffect(() => {
-        if (!communitySearch) {
-            setCompareSearch(null);
-        }
-    });
+
 
     const [showSearch, setShowSearch] = useState(false);
     const [showCompareSearch, setShowCompareSearch] = useState(false);
@@ -182,6 +179,8 @@ export default function CommunityNav({
                     setCommunitySearch={setCommunitySearch}
                     setCompareSearch={setCompareSearch}
                     setAddCompare={setAddCompare}
+                    setUserPoints={setUserPoints}
+                    userPoints={userPoints}
                 >
                     {getSearchItems(true, boundary)}
                 </CommunitySearchBar>
@@ -258,6 +257,8 @@ export default function CommunityNav({
                         setSearchSource={setSearchSource}
                         boundary={boundary}
                         info={info}
+                        setUserPoints={setUserPoints}
+                        userPoints={userPoints}
                     >
                         {getSearchItems(false, boundary)}
                     </CommunitySearchBar>

@@ -119,10 +119,8 @@ function App() {
                 case "ctS":
                     setCommunitySearch(pair[1]);
                     const selectedBoundary = boundary==="council" ? _COUNCIL_DISTRICTS : _COMMUNITY_BOARDS;
-                    console.log("communitySerch", pair[1])
                     for (const [index, element,] of selectedBoundary.features.entries()) {
                         if (element.properties.CDTA2020?.toString() === pair[1] || element.properties.CounDist?.toString() === pair[1]) {
-                            console.log("here")
                             setSelectedCoord([element.properties.X_Cent, element.properties.Y_Cent])
                             break
                         }
@@ -358,9 +356,8 @@ function App() {
                          }*/
 
         console.log("communitySearch ", communitySearch)
-        console.log("selectedCoords ", selectedCoord)
-        console.log("compareSearch ", compareSearch)
-        console.log("selectedCompareCoords ", selectedCompareCoord)
+        console.log("CompareSearch ", compareSearch)
+
 
         const params = [];
 
@@ -545,6 +542,7 @@ function App() {
                         setUserPoints={setUserPoints}
                         setMapDemographics={setMapDemographics}
                         info={info}
+                        userPoints={userPoints}
                     />
 
                     <Content
@@ -614,7 +612,7 @@ function App() {
                                 className={`individual-maps`}
                                 style={{
                                     width:
-                                        ((selectedChapter === 3 && !communitySearch) || ((selectedChapter === 2 || selectedChapter === 3) && collapseMap)) ? "75vw" : "50vw",
+                                        ((selectedChapter === 3 && !communitySearch && !compareSearch) || ((selectedChapter === 2 || selectedChapter === 3) && collapseMap)) ? "75vw" : "50vw",
                                     transition: "width 0.5s",
                                 }}
                                 id={mapDemographics ? "left-map" : "left-map-alone"}
