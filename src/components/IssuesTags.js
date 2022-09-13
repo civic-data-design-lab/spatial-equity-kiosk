@@ -12,8 +12,8 @@ export default function IssuesTags({
                                        moreIssues,
                                        setMoreIssues,
                                        setMoreIssuesLength,
-                                       compareSearch, communitySearch
-
+                                       compareSearch, communitySearch,
+                                       boundary,
                                    }) {
 
     // TODO: all tags when communitySearch && compareSearch
@@ -39,6 +39,7 @@ export default function IssuesTags({
                                         issues={issues} setSelectedSpecificIssue={setSelectedSpecificIssue}
                                         setModal={setModal} forMoreIssues={true} setMoreIssues={setMoreIssues}
                                         moreIssues={moreIssues}
+                                        boundary={boundary}
                             />
                         </div>
                     )

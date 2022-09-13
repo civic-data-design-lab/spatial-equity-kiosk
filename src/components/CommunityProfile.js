@@ -185,6 +185,7 @@ export default function CommunityProfile({
               setMoreIssuesLength={setMoreIssuesLength}
               compareSearch={compareSearch}
               communitySearch={communitySearch}
+              boundary={boundary}
             />
           </div>
         </>
@@ -227,6 +228,7 @@ export default function CommunityProfile({
               setMoreIssuesLength={setMoreIssuesLength}
               compareSearch={compareSearch}
               communitySearch={communitySearch}
+              boundary={boundary}
             />
           </div>
         </>

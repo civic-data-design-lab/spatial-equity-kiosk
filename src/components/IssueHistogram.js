@@ -107,6 +107,14 @@ const IssueHistogram = ({
     }
     const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
+    console.log('------')
+    console.log('specificIssue', selectedSpecificIssue)
+    console.log('issues', issues)
+    console.log('boundary', boundary)
+    console.log('json_id', issues.specific_issues_data[selectedSpecificIssue].json_id)
+    console.log('_RANKINGS', _RANKINGS[boundary])
+    console.log('------')
+
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
     let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
