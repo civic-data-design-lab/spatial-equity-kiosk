@@ -297,15 +297,15 @@ const Histogram = ({ colorRampsyType,
 
         svg.select('#avgLine')
             .attr('x1', margin.left)
-            .attr('y1', yscale(avgIndex + 0.5))
+            .attr('y1', yscale(avgIndex))
             .attr('x2', width - margin.right)
-            .attr('y2', yscale(avgIndex + 0.5))
+            .attr('y2', yscale(avgIndex))
             .style('stroke', 'black')
             .style('stroke-width', 2);
 
         svg.select('#avgTextUp')
             .attr('x', width - margin.right - textWidth)
-            .attr('y', yscale(avgIndex + 0.5) - 5)
+            .attr('y', yscale(avgIndex) - 5)
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
@@ -313,7 +313,7 @@ const Histogram = ({ colorRampsyType,
 
         svg.select('#avgTextDown')
             .attr('x', width - margin.right - textWidth)
-            .attr('y', yscale(avgIndex + 0.5) + 15)
+            .attr('y', yscale(avgIndex) + 15)
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
