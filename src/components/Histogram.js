@@ -56,14 +56,14 @@ const getDataToVis = (rawIssueData) => {
     for (let i = 0; i < valueArray.length - 1; i++) {
         if ((valueArray[i] < avg) && (valueArray[i + 1] > avg)) {
             avgIndex = i + (avg - valueArray[i]) / (valueArray[i + 1] - valueArray[i]);
-            avgRectID = i;
+            avgRectID = Math.round(avgIndex);
             ascending = true;
             break;
         }
 
         if ((valueArray[i] > avg) && (valueArray[i + 1] < avg)) {
-            avgIndex = i + (avg - valueArray[i + 1]) / (valueArray[i] - valueArray[i = 1]);
-            avgRectID = i;
+            avgIndex = i + 1 - (avg - valueArray[i + 1]) / (valueArray[i] - valueArray[i + 1]);
+            avgRectID = Math.round(avgIndex);
             ascending = false;
             break;
         }
@@ -138,7 +138,7 @@ const Histogram = ({ colorRampsyType,
 
     // console.log(lookupArray)
     // console.log(rawIssueData)
-    // console.log(avg);
+    // console.log(avgIndex);
     // console.log(data);
 
     // console.log(rawIssueData);
@@ -297,15 +297,15 @@ const Histogram = ({ colorRampsyType,
 
         svg.select('#avgLine')
             .attr('x1', margin.left)
-            .attr('y1', yscale(avgIndex))
+            .attr('y1', yscale(avgIndex + 1))
             .attr('x2', width - margin.right)
-            .attr('y2', yscale(avgIndex))
+            .attr('y2', yscale(avgIndex + 1))
             .style('stroke', 'black')
             .style('stroke-width', 2);
 
         svg.select('#avgTextUp')
             .attr('x', width - margin.right - textWidth)
-            .attr('y', yscale(avgIndex) - 5)
+            .attr('y', yscale(avgIndex + 1) - 5)
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
@@ -313,7 +313,7 @@ const Histogram = ({ colorRampsyType,
 
         svg.select('#avgTextDown')
             .attr('x', width - margin.right - textWidth)
-            .attr('y', yscale(avgIndex) + 15)
+            .attr('y', yscale(avgIndex + 1) + 15)
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
@@ -629,6 +629,10 @@ const Histogram = ({ colorRampsyType,
         if (lookupArray.indexOf(currentHoveredCommunityID) && Math.abs(avgIndex - lookupArray.indexOf(currentHoveredCommunityID)) < 1) hideAvgLine = true;
         if (boundary == "council" && councilPinned.includes(lookupArray[avgRectID])) hideAvgLine = true;
         if (boundary != "council" && communityPinned.includes(lookupArray[avgRectID])) hideAvgLine = true;
+        if (boundary == "council" && councilPinned.includes(lookupArray[avgRectID - 1])) hideAvgLine = true;
+        if (boundary != "council" && communityPinned.includes(lookupArray[avgRectID - 1])) hideAvgLine = true;
+        if (boundary == "council" && councilPinned.includes(lookupArray[avgRectID + 1])) hideAvgLine = true;
+        if (boundary != "council" && communityPinned.includes(lookupArray[avgRectID + 1])) hideAvgLine = true;
         if (hideAvgLine) {
             svg.select('#avgLine').attr('visibility', 'hidden')
             svg.select('#avgTextUp').attr('visibility', 'hidden')
