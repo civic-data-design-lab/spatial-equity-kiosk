@@ -37,7 +37,7 @@ const getDataToVis = (rawIssueData) => {
     let ascending;
     let lookupArray = []
 
-    rawIssueData.sort((a, b) => (a.rank > b.rank));
+    rawIssueData.sort((a, b) => (a.rank - b.rank));
 
     for (let [index, value] of Object.entries(rawIssueData)) {
         valueArray.push(Number(Number(value.data).toFixed(3)))

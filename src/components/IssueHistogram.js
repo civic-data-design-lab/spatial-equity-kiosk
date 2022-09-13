@@ -37,13 +37,15 @@ const getDataToVis = (rawIssueData) => {
     let ascending;
     let lookupArray = []
 
-    rawIssueData.sort((a, b) => (a.rank > b.rank));
+    rawIssueData.sort((a, b) => (a.rank - b.rank));
 
     for (let [index, value] of Object.entries(rawIssueData)) {
         valueArray.push(Number(Number(value.data).toFixed(3)))
         nameArray.push(value.community)
         lookupArray.push(value.community_ID)
     }
+
+    
 
     // get the corresponding index of average value
     let sum = valueArray.reduce((a, b) => a + b, 0);
