@@ -41,7 +41,9 @@ export default function Legend({
     // console.log("demoLookup ", demoLookup)
 
     const administrativeBoundary =
-        boundary === "council" ? "Council Districts" : "Community Boards";
+        (boundary === "council" ? "Council Districts" : "Community Boards");
+        
+    console.log('boundary', boundary)
 
     const getImpactStatement = () => {
         return issues.specific_issues_data[selectedSpecificIssue]
@@ -457,10 +459,9 @@ export default function Legend({
                             _ETHNICITY_COLORS.Other.htmlFormat,
                         ];
                     }
-
+                    // console.log('boundary', boundary)
                     let percList;
                     if (selectedChapter == 3) { 
-                        console.log(info)
                         percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
                     }
                     else {

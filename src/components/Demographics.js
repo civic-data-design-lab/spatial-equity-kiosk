@@ -168,7 +168,7 @@ export default function Demographics({
               demographic={demographic}
               legendBins={demoLegendBins}
               colorRamps={demoColorRamp}
-              boundary
+              boundary={boundary}
               dataScale
               setdataScale
               forDemographic={true}
@@ -215,7 +215,7 @@ export default function Demographics({
                 demographic={demographic}
                 legendBins={demoLegendBins}
                 colorRamps={demoColorRamp}
-                boundary
+                boundary={boundary}
                 dataScale
                 setdataScale
                 forDemographic={true}
@@ -271,7 +271,7 @@ export default function Demographics({
                     demographic={demographic}
                     legendBins={demoLegendBins}
                     colorRamps={demoColorRamp}
-                    boundary
+                    boundary={boundary}
                     dataScale
                     setdataScale
                     forDemographic={true}
@@ -299,7 +299,7 @@ export default function Demographics({
                     demographic={demographic}
                     legendBins={demoLegendBins}
                     colorRamps={demoColorRamp}
-                    boundary
+                    boundary={boundary}
                     dataScale
                     setdataScale
                     forDemographic={true}
