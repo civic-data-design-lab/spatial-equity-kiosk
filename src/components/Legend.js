@@ -462,7 +462,7 @@ export default function Legend({
           let percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
 
           let textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
-
+          
           return (
             <div style={{ flex: 1 }}>
 
