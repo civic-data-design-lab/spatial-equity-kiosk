@@ -150,9 +150,10 @@ const IssueHistogram = ({
             .domain([0, data.length])
             .range([margin.left, width - margin.right - margin.left])
 
+        let yrange = (height - longestBarPadding - margin.bottom - margin.top > 0) ? (height - longestBarPadding - margin.bottom - margin.top) : 0
         let yscale = d3.scaleLinear()
             .domain([d3.min(data) >= 0 ? d3.min(data) - minValueMargin : d3.min(data), d3.max(data)])
-            .range([0, height - longestBarPadding - margin.bottom - margin.top])
+            .range([0, yrange])
 
 
         let yUnit = yscale(1) - yscale(0)
