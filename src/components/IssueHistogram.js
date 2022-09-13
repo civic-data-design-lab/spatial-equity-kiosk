@@ -45,22 +45,22 @@ const getDataToVis = (rawIssueData) => {
         lookupArray.push(value.community_ID)
     }
 
-    
-
     // get the corresponding index of average value
     let sum = valueArray.reduce((a, b) => a + b, 0);
-    let avg = Number((sum / valueArray.length).toFixed(3));
+    let avg = Number((sum / valueArray.length)) >= 10 ? Number((sum / valueArray.length).toFixed(1)) : Number((sum / valueArray.length).toFixed(3));
     let avgIndex;
+
+
 
     for (let i = 0; i < valueArray.length - 1; i++) {
         if ((valueArray[i] < avg) && (valueArray[i + 1] > avg)) {
-            avgIndex = i + (avg - valueArray[i]) / (valueArray[i + 1] - valueArray[i])
+            avgIndex = i + (avg - valueArray[i]) / (valueArray[i + 1] - valueArray[i]);
             ascending = true;
             break;
         }
 
         if ((valueArray[i] > avg) && (valueArray[i + 1] < avg)) {
-            avgIndex = i + (avg - valueArray[i + 1]) / (valueArray[i] - valueArray[i = 1])
+            avgIndex = i + 1 - (avg - valueArray[i + 1]) / (valueArray[i] - valueArray[i + 1]);
             ascending = false;
             break;
         }
@@ -113,7 +113,7 @@ const IssueHistogram = ({
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
     let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
-    let selectedIndex = lookupArray.indexOf(selectedCommunity.json_lookup) + 1
+    let selectedIndex = lookupArray.indexOf(selectedCommunity.json_lookup)
 
     // console.log('------')
     // console.log('specificIssue', selectedSpecificIssue)
@@ -225,15 +225,15 @@ const IssueHistogram = ({
         // draw avg Lines
         svg.select('#avgLine')
             .attr('y1', margin.bottom)
-            .attr('x1', xscale(avgIndex))
+            .attr('x1', xscale(avgIndex + 1))
             .attr('y2', height - margin.top)
-            .attr('x2', xscale(avgIndex))
+            .attr('x2', xscale(avgIndex + 1))
             .style('stroke', 'black')
             .style('stroke-width', 2);
 
         svg.select('#avgTextUp')
             .attr('x', width - margin.right - textWidth)
-            .attr('y', yscale(avgIndex) - 5)
+            .attr('y', yscale(avgIndex + 1) - 5)
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
@@ -241,18 +241,18 @@ const IssueHistogram = ({
 
         svg.select('#avgTextDown')
             .attr('x', width - margin.right - textWidth)
-            .attr('y', yscale(avgIndex) + 15)
+            .attr('y', yscale(avgIndex + 1) + 15)
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
             .text(avg);
 
-       // draw selected Lines
+        // draw selected Lines
         svg.select('#selectedLine')
             .attr('y1', margin.bottom)
-            .attr('x1', xscale(selectedIndex))
+            .attr('x1', xscale(selectedIndex + 1))
             .attr('y2', height - margin.top)
-            .attr('x2', xscale(selectedIndex))
+            .attr('x2', xscale(selectedIndex + 1))
             .style('stroke', 'black')
             .style('stroke-width', 4);
 
