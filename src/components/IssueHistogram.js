@@ -104,7 +104,7 @@ const IssueHistogram = ({
     const textWidth = 50;
     const margin = {
         top: 20,
-        left: 20,
+        left: 25,
         bottom: 20,
         right: 20,
     }
@@ -148,7 +148,7 @@ const IssueHistogram = ({
             .range([margin.left, width - margin.right - margin.left])
 
         let yscale = d3.scaleLinear()
-            .domain([d3.min(data) > 0 ? d3.min(data) - minValueMargin : d3.min(data), d3.max(data)])
+            .domain([d3.min(data) >= 0 ? d3.min(data) - minValueMargin : d3.min(data), d3.max(data)])
             .range([0, height - longestBarPadding - margin.bottom - margin.top])
 
 
@@ -236,55 +236,108 @@ const IssueHistogram = ({
 
         svg.selectAll(".dataLine")
             .each(function (d, i) {
-                let index = Math.round(d3.select(this).attr('index')) 
-                console.log(index)
-                console.log(data[index])
-                console.log(yscale(data[index]))
-                
+                let index = Math.round(d3.select(this).attr('index'))
                 let length = d3.min(data) >= 0 ? yscale(data[index]) : (data[index] > 0 ? yscale(data[index]) - yscale(0) : yscale(0) - yscale(data[index]))
-                console.log(length)
-                console.log('---------')
                 d3.select(this)
                     .attr('y1', d3.min(data) >= 0 ? height - length - margin.top : (data[index] > 0 ? height - length - margin.top - yscale(0) : height - length - margin.top - yscale(data[index])))
                 d3.select(this)
                     .attr('y2', Number(d3.select(this).attr('y1')) + length)
+
+                // svg.append('text')
+                //     .attr('class', 'smaller-text')
+                //     .attr('x', d3.select(this).attr('x1'))
+                //     .attr('y', d3.select(this).attr('y1') - 5)
+                //     .attr("style", "font-family:Inter")
+                //     .attr("font-size", "14")
+                //     .attr("fill", "#000000")
+                //     .attr("text-anchor", "middle")
+                //     .text(`${data[index]}`)
             })
 
-        // svg.select('#minText')
-        //     .attr('x', xscale(0.5) - 5)
-        //     .attr('y', height - margin.bottom)
-        //     .attr("style", "font-family:Inter")
-        //     .attr("font-size", "14")
-        //     .attr("fill", "#000000")
-        //     .attr("text-anchor", "end")
-        //     // .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
-        //     .text((!ascending ? `${hiStatement} ` : `${lowStatement} `));
+        svg.select('#minTextDown')
+            .attr('x', xscale(0.5) - 5)
+            .attr('y', height - margin.bottom + 5)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .attr("text-anchor", "end")
+            // .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+            .text((!ascending ? `${hiStatement} ` : `${lowStatement} `));
 
-        // svg.select('#maxText')
-        //     .attr('x', xscale(data.length + 0.5) + 5)
-        //     .attr('y', height - margin.bottom)
-        //     .attr("style", "font-family:Inter")
-        //     .attr("font-size", "14")
-        //     .attr("fill", "#000000")
-        //     // .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
-        //     .text((ascending ? `${hiStatement} ` : `${lowStatement} `));
+        svg.select('#maxTextDown')
+            .attr('x', xscale(data.length + 0.5) + 5)
+            .attr('y', height - margin.bottom + 5)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            // .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+            .text((ascending ? `${hiStatement} ` : `${lowStatement} `));
+
+        svg.select('#avgTextDown')
+            .attr('x', svg.select('#avgLine').attr('x1'))
+            .attr('y', height - margin.bottom + 15)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .attr("text-anchor", "middle")
+            .text('NYC');
+
+        svg.select('#selectedTextDown')
+            .attr('x', svg.select('#selectedLine').attr('x1'))
+            .attr('y', height - margin.bottom + 15)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .attr("text-anchor", "middle")
+            .text(`${selectedCommunity.name}`);
 
 
-        // svg.select('#avgTextUp')
-        //     .attr('x', width - margin.right - textWidth)
-        //     .attr('y', yscale(avgIndex + 1) - 5)
-        //     .attr("style", "font-family:Inter")
-        //     .attr("font-size", "14")
-        //     .attr("fill", "#000000")
-        //     .text('Citywide Average');
+        svg.select('#minTextUp')
+            .attr('x', xscale(0.5) )
+            .attr('y', svg.select('#minLine').attr('y1') - 5)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .attr("text-anchor", ((!ascending) ? "start " : "end"))
+            .text(`${data[0]}`);
 
-        // svg.select('#avgTextDown')
-        //     .attr('x', width - margin.right - textWidth)
-        //     .attr('y', yscale(avgIndex + 1) + 15)
-        //     .attr("style", "font-family:Inter")
-        //     .attr("font-size", "14")
-        //     .attr("fill", "#000000")
-        //     .text(avg);
+        svg.select('#maxTextUp')
+            .attr('x', xscale(data.length + 0.5) )
+            .attr('y', svg.select('#maxLine').attr('y1') - 5)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .attr("text-anchor", ((!ascending) ? "start " : "end"))
+            .text(`${data[data.length - 1]}`);
+
+        svg.select('#avgTextUp')
+            .attr('x', svg.select('#avgLine').attr('x1') )
+            .attr('y', svg.select('#avgLine').attr('y1') - 5)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .attr("text-anchor", ((!ascending) ? "start " : "end"))
+            .text(`${data[Math.round(svg.select('#avgLine').attr('index'))]}`);
+
+        let showSelectedText = (!(Number(svg.select('#selectedLine').attr('index')) == data.length - 1));
+        svg.select('#selectedTextUp')
+            .attr('x', svg.select('#selectedLine').attr('x1') )
+            .attr('y', svg.select('#selectedLine').attr('y1') - 5)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .attr("text-anchor", ((!ascending) ? "start " : "end"))
+            .text(`${showSelectedText ? data[Math.round(svg.select('#selectedLine').attr('index'))] : `` }`);
+
+
 
 
 
@@ -312,8 +365,10 @@ const IssueHistogram = ({
                 {/* Min/Max Line */}
                 <line id="maxLine" />
                 <line id="minLine" />
-                <text id="maxText" />
-                <text id="minText" />
+                <text id="maxTextUp" />
+                <text id="minTextUp" />
+                <text id="maxTextDown" />
+                <text id="minTextDown" />
             </svg>
         </div>
     );

@@ -196,7 +196,7 @@ const Histogram = ({ colorRampsyType,
 
         let xscale = d3.scaleLinear()
             // .domain([0, d3.max(data)])
-            .domain([d3.min(data) > 0 ? d3.min(data) - minValueMargin : d3.min(data), d3.max(data)])
+            .domain([d3.min(data) >= 0 ? d3.min(data) - minValueMargin : d3.min(data), d3.max(data)])
             .range([0, width - longestBarPadding - margin.right - margin.left])
 
         let yscale = d3.scaleLinear()
