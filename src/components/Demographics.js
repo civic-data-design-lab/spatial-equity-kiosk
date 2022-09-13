@@ -39,6 +39,7 @@ export default function Demographics({
   setDemoLegendBins,
   demoLookup,
   showMap,
+  info,
 }) {
   const demographics = {
     1: "Race & Ethnicity",
@@ -174,6 +175,7 @@ export default function Demographics({
               forDemographic={true}
               transitToggles={getTransitToggles()}
               selectedChapter={selectedChapter}
+              info={info}
             />
 
             {showMap && (
@@ -221,6 +223,7 @@ export default function Demographics({
                 forDemographic={true}
                 transitToggles={getTransitToggles()}
                 selectedChapter={selectedChapter}
+                info={info}
               />
 
               <div
@@ -277,6 +280,7 @@ export default function Demographics({
                     forDemographic={true}
                     transitToggles={getTransitToggles()}
                     selectedChapter={selectedChapter}
+                    info={info}
                   />
                 </div>
                 <div>
@@ -305,6 +309,7 @@ export default function Demographics({
                     forDemographic={true}
                     transitToggles={getTransitToggles()}
                     selectedChapter={selectedChapter}
+                    info={info}
                   />
                 </div>
               </Slider>

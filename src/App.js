@@ -349,6 +349,7 @@ function App() {
         // console.log("demographic", demographic)
         //  console.log("colorRamps", colorRamps)
         // console.log("selectedCoord", selectedCoord)
+        // console.log("info", info)
         // console.log("-------------------------------------------")
 
         /* if (!selectedSpecificIssue) {
@@ -832,6 +833,7 @@ function App() {
                             setCommunityPinned={setCommunityPinned}
                             councilPinned={councilPinned}
                             setCouncilPinned={setCouncilPinned}
+                            info={info}
                         />
                     )}
                 </Container>

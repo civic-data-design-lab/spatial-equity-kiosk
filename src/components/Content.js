@@ -151,6 +151,7 @@ export default function Content({
                         setMoreIssuesLength={setMoreIssuesLength}
                         boundary={boundary}
                         councils={councils}
+                        info={info}
                     />
                 )}
 

@@ -43,8 +43,6 @@ export default function Legend({
     const administrativeBoundary =
         (boundary === "council" ? "Council Districts" : "Community Boards");
         
-    console.log('boundary', boundary)
-
     const getImpactStatement = () => {
         return issues.specific_issues_data[selectedSpecificIssue]
             ? `${issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1]} ${issues.specific_issues_data[selectedSpecificIssue].highlight_statement}`
@@ -459,10 +457,11 @@ export default function Legend({
                             _ETHNICITY_COLORS.Other.htmlFormat,
                         ];
                     }
-                    // console.log('boundary', boundary)
+                    console.log('info', info)
                     let percList;
                     if (selectedChapter == 3) { 
                         percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+
                     }
                     else {
                         percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;

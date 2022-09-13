@@ -77,6 +77,7 @@ export default function CitywideData({
     setCommunityPinned,
     councilPinned,
     setCouncilPinned,
+    info,
 }) {
 
 
@@ -392,6 +393,7 @@ export default function CitywideData({
                         setDemoColorRamp={setDemoColorRamp}
                         setDemoLegendBins={setDemoLegendBins}
                         demoLookup={demoLookup[demographic]} showMap={showMap}
+                        info={info}
                     />
                 </div>
             </div>

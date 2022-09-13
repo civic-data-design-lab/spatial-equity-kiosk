@@ -490,6 +490,7 @@ export default function IssuesMiddleColumn({
             setDemoLegendBins={setDemoLegendBins}
             demoLookup={demoLookup}
             showMap={showMap}
+            info={info}
           />
         </div>
       </div>
