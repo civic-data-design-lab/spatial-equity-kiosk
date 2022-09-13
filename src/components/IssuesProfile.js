@@ -144,10 +144,12 @@ export default function IssueProfile({
                     issues.specific_issues_data[selectedSpecificIssue]
                       .specific_issue_name
                   }{' '}
-                  {
-                    issues.specific_issues_data[selectedSpecificIssue]
-                      .specific_issue_units
-                  }
+                  {issues.specific_issues_data[selectedSpecificIssue]
+                    .issue_units_shorthand != ''
+                    ? issues.specific_issues_data[selectedSpecificIssue]
+                        .issue_units_shorthand
+                    : issues.specific_issues_data[selectedSpecificIssue]
+                        .specific_issue_units}
                 </th>
               </tr>
             </thead>

@@ -70,7 +70,6 @@ export default function IssuesMiddleColumn({
     return issues.specific_issues_data[id_];
   });
 
-  //   NIKO CONTINUE WORKING HERE FINISH UP PROCEDURAL SENTENCES, then DETERMINE WHEN THE FONT SHOWS
   const getRankingNarrative = (items) => {
     const possible_keys = items.map((item) => {
       return item.specific_issue_ID;
@@ -103,6 +102,12 @@ export default function IssuesMiddleColumn({
           : _COUNCILDISTRICTS[boundaryPhrase.community_ID].borough
         : '';
 
+    const goodOrBad = selectedSpecificIssue
+      ? Number(!issues.specific_issues_data[selectedSpecificIssue].good_or_bad)
+      : '';
+
+    console.log(goodOrBad);
+
     if (possible_keys.includes(selectedSpecificIssue)) {
       return (
         <p className={'mb-3 small-font'}>
@@ -110,9 +115,13 @@ export default function IssuesMiddleColumn({
             ? `City Council ${boundaryPhrase.community} in ${councilDistrictBorough} ranks `
             : `Community Board ${boundaryPhrase.community} ranks `}
           {`last out of ${boundary == 'council' ? '51' : '59'} `}
-          {`districts citywide for `}
+          {`districts citywide for the `}
           <strong>
-            {issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[0]}
+            {
+              issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[
+                goodOrBad
+              ]
+            }
             {` ${issues.specific_issues_data[
               selectedSpecificIssue
             ].specific_issue_name.toLowerCase()} 

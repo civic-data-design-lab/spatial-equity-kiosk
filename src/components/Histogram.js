@@ -47,9 +47,11 @@ const getDataToVis = (rawIssueData) => {
 
     // get the corresponding index of average value
     let sum = valueArray.reduce((a, b) => a + b, 0);
-    let avg = Number((sum / valueArray.length)) >= 10 ? Number((sum / valueArray.length)).toFixed(0) : Number((sum / valueArray.length)).toFixed(3);
+    let avg = Number((sum / valueArray.length)) >= 10 ? Number((sum / valueArray.length).toFixed(1)) : Number((sum / valueArray.length).toFixed(3));
     let avgIndex;
     let avgRectID;
+
+
 
     for (let i = 0; i < valueArray.length - 1; i++) {
         if ((valueArray[i] < avg) && (valueArray[i + 1] > avg)) {
@@ -69,6 +71,7 @@ const getDataToVis = (rawIssueData) => {
 
     return [valueArray, nameArray, avg, avgIndex, avgRectID, ascending, lookupArray]
 }
+
 
 const Histogram = ({ colorRampsyType,
     issues,
@@ -133,6 +136,8 @@ const Histogram = ({ colorRampsyType,
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
     let [data, nameArray, avg, avgIndex, avgRectID, ascending, lookupArray] = getDataToVis(rawIssueData);
+
+    // console.log(avg)
 
     // console.log(lookupArray)
     // console.log(rawIssueData)

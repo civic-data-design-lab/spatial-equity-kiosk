@@ -866,11 +866,11 @@ a:active {
 
 .pinnedTextUp{
     cursor: pointer;
-    opacity: 0.6;
+    /* opacity: 0.6; */
 }
 
 .pinnedTextUp:hover{
-    opacity: 1;
+    /* opacity: 1; */
     text-decoration: underline;
 }
 
