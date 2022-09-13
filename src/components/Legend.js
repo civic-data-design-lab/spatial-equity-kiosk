@@ -30,6 +30,7 @@ export default function Legend({
   showMap,
   transitToggles = null,
   info,
+  selectedChapter,
 }) {
   // console.log("demoLegendBins", demoLegendBins)
   // console.log("demoLookup", demoLookup)
@@ -474,6 +475,8 @@ export default function Legend({
                 colorRamps={gridColorRamps}
                 percList={percList}
                 textList={textList}
+                selectedChapter={selectedChapter}
+                demographic={demographic}
               />
             </div>
           );

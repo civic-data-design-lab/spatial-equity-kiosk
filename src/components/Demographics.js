@@ -173,6 +173,7 @@ export default function Demographics({
               setdataScale
               forDemographic={true}
               transitToggles={getTransitToggles()}
+              selectedChapter={selectedChapter}
             />
 
             {showMap && (
@@ -219,6 +220,7 @@ export default function Demographics({
                 setdataScale
                 forDemographic={true}
                 transitToggles={getTransitToggles()}
+                selectedChapter={selectedChapter}
               />
 
               <div
@@ -274,6 +276,7 @@ export default function Demographics({
                     setdataScale
                     forDemographic={true}
                     transitToggles={getTransitToggles()}
+                    selectedChapter={selectedChapter}
                   />
                 </div>
                 <div>
@@ -301,6 +304,7 @@ export default function Demographics({
                     setdataScale
                     forDemographic={true}
                     transitToggles={getTransitToggles()}
+                    selectedChapter={selectedChapter}
                   />
                 </div>
               </Slider>

@@ -227,6 +227,7 @@ export default function IssuesMiddleColumn({
                 showMap={showMap}
                 binList={binList}
                 info={info}
+                selectedChapter={selectedChapter}
               />
             )}
           </div>
@@ -322,6 +323,7 @@ export default function IssuesMiddleColumn({
                 showMap={showMap}
                 binList={binList}
                 info={info}
+                selectedChapter={selectedChapter}
               />
             )}
           </div>
@@ -416,6 +418,7 @@ export default function IssuesMiddleColumn({
                 showMap={showMap}
                 binList={binList}
                 info={info}
+                selectedChapter={selectedChapter}
               />
             )}
           </div>
