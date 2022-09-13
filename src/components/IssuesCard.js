@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
+import IssueHistogram  from "./IssueHistogram"
 
 export default function IssuesCard({
   issues,
@@ -128,6 +129,7 @@ export default function IssuesCard({
       </div>
       <div className={'issues-card-body'}>
         <div>VISUALIZATION</div>
+        {/* <IssueHistogram></IssueHistogram> */}
         <div className={'m-0 small-text'}>
           {getRankingNarrative(issues.specific_issues_data[specificIssue])}{' '}
         </div>
