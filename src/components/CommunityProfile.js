@@ -61,12 +61,18 @@ export default function CommunityProfile({
 
   return (
     <div className={'community-profile-container'}>
-      <div className={'issues-tile-header'}></div>
       {!compareSearch ? (
         <>
-          <div className={'standard-padding'}>
+          <div>
             {
-              <h5 className={'mb-3'}>
+              <h5
+                class={'sticky-basic'}
+                style={{
+                  top: '0em',
+                  padding: '0.75em 0',
+                  zIndex: '3',
+                }}
+              >
                 Notable Indicators—{' '}
                 {communitySearch
                   ? boundary == 'council'
@@ -88,7 +94,7 @@ export default function CommunityProfile({
             }
             <p className={'mt-3'}>
               {communitySearch
-                ? ` Below are the three worst spatial equity indicators in this ${
+                ? ` Below are the three worst spatial equity indicators in ${
                     communitySearch
                       ? boundary == 'council'
                         ? councils[communitySearch]
@@ -107,7 +113,10 @@ export default function CommunityProfile({
                   }.`
                 : ``}
             </p>
-
+            <div
+              class={'sticky-basic'}
+              style={{ borderBottom: '2px solid black' }}
+            ></div>
             <div className={'d-flex flex-column row-gap'}>
               {(communities[communitySearch] &&
                 communities[communitySearch].least_performing_issues.map(
@@ -164,8 +173,21 @@ export default function CommunityProfile({
             </div>
           </div>
 
-          <div className={'standard-padding'}>
-            <h5 className={'mb-3'}>More Indicators</h5>
+          <div className={'pt-3'}>
+            <h5
+              class={'sticky-basic'}
+              style={{
+                top: '0em',
+                padding: '0.75em 0',
+                zIndex: '3',
+              }}
+            >
+              More Indicators
+            </h5>
+            <div
+              class={'sticky-basic'}
+              style={{ borderBottom: '2px solid black' }}
+            ></div>
 
             <IssuesTags
               issues={issues}

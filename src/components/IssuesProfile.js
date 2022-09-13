@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronDown,
+  faChevronUp,
+  faCaretDown,
+  faCaretUp,
+} from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
 import categories from '../texts/issue_categories.json';
 
@@ -14,6 +19,7 @@ export default function IssueProfile({
   setSelectedSpecificIssue,
   setCommunitySearch,
   setSelectedChapter,
+  showMap,
 }) {
   const [expand, setExpand] = useState(false);
 
@@ -38,7 +44,7 @@ export default function IssueProfile({
       const words =
         issues.specific_issues_data[
           selectedSpecificIssue
-        ].highlight_statement.split(' ');
+        ].specific_issue_units_sentence.split(' ');
 
       const ignoreCapitalization = ['the', 'of', 'an', 'a', 'by'];
 
@@ -122,132 +128,155 @@ export default function IssueProfile({
   };
 
   return (
-    <div className={'issues-tile-text-container'}>
-      {/* {rankingProse ? 
-            <div className={"issues-tile-prose issues-tile-text"}>
-                <h5 className={"issues-tile-heading bold"}>
-                    Understand How Districts Rank
-                </h5>
-                <p className={"m-0"}>{issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}</p>
-            </div> : null} */}
+    <>
+      {!showMap && (
+        <div className={'issues-tile-text-container'}>
+          <div className={'issues-tile-ranking issues-tile-text'}>
+            <h5
+              style={{
+                background: 'white',
+                position: 'sticky',
+                top: '0em',
+                borderBottom: '2px solid black',
+                marginBottom: '0',
+                padding: '0.75em 0',
+              }}
+            >
+              {getIssueStatement()} by{' '}
+              {boundary == 'council' ? 'Council Districts' : 'Community Boards'}
+            </h5>
+            <div className={'smaller-font'}>
+              <Table bordered>
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>
+                      {boundary == 'council'
+                        ? 'City Council'
+                        : 'Community Board'}
+                    </th>
+                    <th>
+                      {issues.specific_issues_data[selectedSpecificIssue]
+                        .issue_units_shorthand != ''
+                        ? issues.specific_issues_data[selectedSpecificIssue]
+                            .issue_units_shorthand
+                        : issues.specific_issues_data[selectedSpecificIssue]
+                            .specific_issue_units}{' '}
+                      {
+                        issues.specific_issues_data[selectedSpecificIssue]
+                          .issue_units_symbol
+                      }
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/*TODO: populate chart with ranking data*/}
+                  {rankings[boundary][
+                    issues.specific_issues_data[selectedSpecificIssue].json_id
+                  ]
 
-      <div className={'issues-tile-ranking issues-tile-text'}>
-        <h5 className={'issues-tile-heading bold'}>
-          {getIssueStatement()} by{' '}
-          {boundary == 'council' ? 'Council Districts' : 'Community Boards'}
-        </h5>
-        <div className={'smaller-font'}>
-          <Table bordered>
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>
-                  {boundary == 'council' ? 'City Council' : 'Community Board'}
-                </th>
-                <th>
-                  {
-                    issues.specific_issues_data[selectedSpecificIssue]
-                      .specific_issue_name
-                  }{' '}
-                  {issues.specific_issues_data[selectedSpecificIssue]
-                    .issue_units_shorthand != ''
-                    ? issues.specific_issues_data[selectedSpecificIssue]
-                        .issue_units_shorthand
-                    : issues.specific_issues_data[selectedSpecificIssue]
-                        .specific_issue_units}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {/*TODO: populate chart with ranking data*/}
-              {rankings[boundary][
-                issues.specific_issues_data[selectedSpecificIssue].json_id
-              ]
+                    .map((entry, index) => {
+                      return (
+                        <tr key={index} className={'issues-profile-table-row'}>
+                          <td>{entry.rank}</td>
+                          <td
+                            onClick={() => {
+                              setCommunitySearch(entry.community_ID);
+                              setSelectedChapter(3);
+                            }}
+                            className={'issues-profile-community-jump'}
+                          >
+                            {entry.community}
+                          </td>
+                          <td>{entry.data}</td>
+                        </tr>
+                      );
+                    })
+                    .reverse()
+                    .slice(0, 5)}
 
-                .map((entry, index) => {
-                  return (
-                    <tr key={index} className={'issues-profile-table-row'}>
-                      <td>{entry.rank}</td>
-                      <td
-                        onClick={() => {
-                          setCommunitySearch(entry.community_ID);
-                          setSelectedChapter(3);
-                        }}
-                        className={'issues-profile-community-jump'}
-                      >
-                        {entry.community}
-                      </td>
-                      <td>{entry.data}</td>
-                    </tr>
-                  );
-                })
-                .reverse()
-                .slice(0, 5)}
+                  {expand &&
+                    rankings[boundary][
+                      issues.specific_issues_data[selectedSpecificIssue].json_id
+                    ]
+                      .map((entry, index) => {
+                        return (
+                          <tr
+                            key={index}
+                            className={'issues-profile-table-row'}
+                          >
+                            <td>{entry.rank}</td>
+                            <td
+                              onClick={() => {
+                                setCommunitySearch(entry.community_ID);
+                                setSelectedChapter(3);
+                              }}
+                              className={'issues-profile-community-jump'}
+                            >
+                              {entry.community}
+                            </td>
+                            <td>{entry.data}</td>
+                          </tr>
+                        );
+                      })
+                      .reverse()
+                      .slice(5)}
+                </tbody>
+              </Table>
 
-              {expand &&
-                rankings[boundary][
-                  issues.specific_issues_data[selectedSpecificIssue].json_id
-                ]
-                  .map((entry, index) => {
-                    return (
-                      <tr key={index} className={'issues-profile-table-row'}>
-                        <td>{entry.rank}</td>
-                        <td
-                          onClick={() => {
-                            setCommunitySearch(entry.community_ID);
-                            setSelectedChapter(3);
-                          }}
-                          className={'issues-profile-community-jump'}
-                        >
-                          {entry.community}
-                        </td>
-                        <td>{entry.data}</td>
-                      </tr>
-                    );
-                  })
-                  .reverse()
-                  .slice(5)}
-            </tbody>
-          </Table>
-
-          <div
-            className={'d-flex flex-row justify-content-center ranking-button'}
-            onClick={() => {
-              setExpand(!expand);
-            }}
-          >
-            {expand ? (
-              <FontAwesomeIcon icon={faChevronUp} />
-            ) : (
-              <FontAwesomeIcon icon={faChevronDown} />
-            )}
+              <div
+                className={
+                  'd-flex flex-row justify-content-center ranking-button'
+                }
+                style={
+                  expand
+                    ? {
+                        border: '2px solid black',
+                        borderTop: '1px solid black',
+                        background: 'white',
+                        position: 'sticky',
+                        bottom: '0em',
+                      }
+                    : { borderTop: '1px solid black' }
+                }
+                onClick={() => {
+                  setExpand(!expand);
+                }}
+              >
+                {expand ? (
+                  <FontAwesomeIcon icon={faCaretUp} />
+                ) : (
+                  <FontAwesomeIcon icon={faCaretDown} />
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className={'issues-tile-description issues-tile-text'}>
-        {/* <h5 className={"issues-tile-heading bold"}>
+          <div className={'issues-tile-description issues-tile-text'}>
+            {/* <h5 className={"issues-tile-heading bold"}>
                     About this Indicator
                 </h5> */}
-        <div>
-          {getHyperlinkText(
-            issues.specific_issues_data[selectedSpecificIssue]
-              .specific_issue_description
-          )}
-        </div>
-        <div className={'fst-italic'}>Related: {getRelatedIssues()}</div>
-      </div>
-      <div className={'issues-tile-solutions issues-tile-text'}>
-        <h5 className={'issues-tile-heading bold'}>Take Action</h5>
-        <div>
-          {getHyperlinkText(
-            issues.specific_issues_data[selectedSpecificIssue]
-              .specific_issue_solutions.base_text
-          )}
+            <div>
+              {getHyperlinkText(
+                issues.specific_issues_data[selectedSpecificIssue]
+                  .specific_issue_description
+              )}
+            </div>
+            <div className={'fst-italic'}>Related: {getRelatedIssues()}</div>
+          </div>
+          <div className={'issues-tile-solutions issues-tile-text'}>
+            <h5 className={'issues-tile-heading bold'}>Take Action</h5>
+            <div>
+              {getHyperlinkText(
+                issues.specific_issues_data[selectedSpecificIssue]
+                  .specific_issue_solutions.base_text
+              )}
 
-          <ol>{getListSolution()}</ol>
+              <ol>{getListSolution()}</ol>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

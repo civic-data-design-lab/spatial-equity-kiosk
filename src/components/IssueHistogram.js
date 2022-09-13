@@ -83,7 +83,7 @@ const IssueHistogram = ({
     const getIssueStatement = () => {
 
         if (selectedSpecificIssue) {
-            let words = issues.specific_issues_data[selectedSpecificIssue].highlight_statement.split(" ")
+            let words = issues.specific_issues_data[selectedSpecificIssue].specific_issue_units_sentence.split(" ")
             words.shift()
             const ignoreCapitalization = ["the", "of", "an", "a", "by"]
 

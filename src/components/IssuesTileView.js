@@ -34,7 +34,7 @@ export default function IssuesTileView({
         <>
             {selectedSpecificIssue &&
                 <div className={"col-12 h-100 issues-tile-container"}>
-                    <div className={"issues-tile-header"}>
+                    <div className={"issues-tile-header floating-share"}>
                         <div className={"toggle-share-container"}>
                             <div id={"share-container"}>
                                 <ShareButton
@@ -95,7 +95,7 @@ export default function IssuesTileView({
             {!selectedSpecificIssue &&
                 <div className={"col-12 h-100 issues-tile-container"}>
 
-                    <div className={"issues-tile-header"}>
+                    <div className={"issues-tile-header floating-share"}>
                         <div className={"toggle-share-container"}>
                             <div id={"share-container"}>
                                 <ShareButton

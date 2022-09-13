@@ -65,7 +65,7 @@ const MAP_BACKGROUND_STYLE = {
 const SPLIT_SCREEN_POSITIONING = {
   // height: '15%',
   position: 'absolute',
-  bottom: '1rem',
+  top: '1rem',
   margin: '0rem 1rem 0rem 1rem',
   // borderRadius: "50px",
   pointerEvents: 'none',
@@ -81,7 +81,7 @@ const SPLIT_SCREEN_HEADER = {
   fontWeight: '500',
   backgroundColor: 'black',
   border: '1px solid white',
-  fontSize: '0.75rem',
+  fontSize: '0.85rem',
   // borderRadius: "50px",
 };
 
@@ -1403,7 +1403,7 @@ export default function DeckMap({
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
-              logoPosition="bottom-right"
+              logoPosition="top-right"
               // onLoad={({ map }) => setMap(map)}
               // onIdle={(map) => console.log(map)}
             />
@@ -1418,7 +1418,7 @@ export default function DeckMap({
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
-              logoPosition="bottom-right"
+              logoPosition="top-right"
             />
             <div style={MAP_BACKGROUND_STYLE} />
             {selectedSpecificIssue && (
@@ -1445,7 +1445,7 @@ export default function DeckMap({
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
-              logoPosition="bottom-right"
+              logoPosition="top-right"
             />
             <div style={MAP_BACKGROUND_STYLE} />
             {demographic && (

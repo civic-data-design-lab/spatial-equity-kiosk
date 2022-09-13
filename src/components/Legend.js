@@ -45,7 +45,7 @@ export default function Legend({
         
     const getImpactStatement = () => {
         return issues.specific_issues_data[selectedSpecificIssue]
-            ? `${issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1]} ${issues.specific_issues_data[selectedSpecificIssue].highlight_statement}`
+            ? `${issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units_sentence}`
             : "";
     };
 
