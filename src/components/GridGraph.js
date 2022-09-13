@@ -5,9 +5,7 @@ import { useResizeObserver } from "../utils/useResizeObserver"
 
 const GridGraph = ({ colorRamps,
     percList,
-    textList,
-    selectedChapter,
-    demographic }) => {
+    textList,}) => {
     const svgRef = useRef();
     const textRef = useRef();
     const containerRef = useRef();
