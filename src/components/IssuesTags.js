@@ -56,7 +56,7 @@ export default function IssuesTags({
                                 return (
                                     <div
                                         key={index}
-                                        className={`${(moreIssues && !moreIssues.includes(id)) ? "active-tag" : "inactive-tag"} issues-tag col-gap`}
+                                        className={`${(moreIssues && !moreIssues.includes(id)) ? "inactive-tag" : "active-tag"} issues-tag col-gap`}
 
                                         onClick={() => {
                                             if ((moreIssues && !moreIssues.includes(id))) {
@@ -74,7 +74,7 @@ export default function IssuesTags({
                                         }}
                                     >
                                         <p className={"m-0"}>{issues.specific_issues_data[id].specific_issue_name}</p>
-                                        {(moreIssues && !moreIssues.includes(id)) ? <FontAwesomeIcon icon={faMinus}/> :
+                                        {(moreIssues && !moreIssues.includes(id)) ? <FontAwesomeIcon icon={faPlus}/> :
                                             <FontAwesomeIcon icon={faPlus}/>}
                                     </div>
                                 )

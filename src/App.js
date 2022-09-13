@@ -1,8 +1,8 @@
 import "./App.css";
-import React, { useEffect, useMemo, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useLocation } from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 
@@ -12,15 +12,15 @@ import Map from "./components/Map";
 /*import BaseMap from "./components/BaseMap";*/
 import MobileNav from "./components/Mobile Components/MobileNav";
 import CitywideData from "./components/Mobile Components/CitywideData";
-import { max, min } from "d3-array";
+import {max, min} from "d3-array";
 
 import _ISSUE_CATEGORIES from "./texts/issue_categories.json";
 import _ISSUES from "./texts/issues.json";
 import _COMMUNITIES from "./texts/communities.json";
 import _COUNCILS from "./texts/councildistricts.json";
 import _DEMOGRAPHICS from "./texts/demographics.json";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBars, faChevronLeft, faChevronRight, faCaretLeft, faCaretRight} from "@fortawesome/free-solid-svg-icons";
 import _COUNCIL_DISTRICTS from "./data/council_districts.json";
 import _COMMUNITY_BOARDS from "./data/community_boards.json";
 import _NEIGHBORHOODS from "./data/neighborhoods.json";
@@ -79,6 +79,10 @@ function App() {
 
     const [communityPinned, setCommunityPinned] = useState([])
     const [councilPinned, setCouncilPinned] = useState([])
+    const [collapseMap, setCollapseMap] = useState(false)
+    const [collapseMapToggle, setCollapseMapToggle] = useState(false)
+
+    // console.log(collapseMap)
 
     // console.log(demoColorRamp)
     // map hooks
@@ -116,6 +120,15 @@ function App() {
                     break;
                 case "ctS":
                     setCommunitySearch(pair[1]);
+                    const selectedBoundary = boundary==="council" ? _COUNCIL_DISTRICTS : _COMMUNITY_BOARDS;
+                    // console.log("communitySerch", pair[1])
+                    for (const [index, element,] of selectedBoundary.features.entries()) {
+                        if (element.properties.CDTA2020?.toString() === pair[1] || element.properties.CounDist?.toString() === pair[1]) {
+                            // console.log("here")
+                            setSelectedCoord([element.properties.X_Cent, element.properties.Y_Cent])
+                            break
+                        }
+                    }
                     break;
                 case "cpS":
                     setCompareSearch(pair[1]);
@@ -183,10 +196,10 @@ function App() {
                 issues.specific_issues_data[selectedSpecificIssue].issue_type_ID === 1
                     ? "health"
                     : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
-                        2
+                    2
                         ? "env"
                         : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
-                            3
+                        3
                             ? "infra"
                             : "troubleshoot";
         } else {
@@ -252,7 +265,6 @@ function App() {
         //variables for scale thresholds
 
         // pick color ramp for metrics and have default to avoid errors
-
 
 
         const selectedMetricArray = []; // a clean array of values for the color ramp with no NaN and no Null values
@@ -347,6 +359,11 @@ function App() {
                              setSelectedSpecificIssue(1)
                          }*/
 
+        // console.log("communitySearch ", communitySearch) 
+        // console.log("selectedCoords ", selectedCoord) 
+        // console.log("compareSearch ", compareSearch) 
+        // console.log("selectedCompareCoords ", selectedCompareCoord) 
+
         const params = [];
 
         if (showMap !== null) params.push(`swM=${showMap.toString()}`);
@@ -404,6 +421,7 @@ function App() {
         }
     }, [selectedSpecificIssue]);
 
+
     /*useEffect(() => {
           if (selectedSpecificIssue) {
               if (!moreIssues.includes(selectedSpecificIssue)) {
@@ -415,8 +433,8 @@ function App() {
           }
       }, [selectedSpecificIssue]);*/
 
-    const [assistivePos, setAssistivePos] = useState({ x: 0, y: 0 });
-    const [offset, setOffset] = useState({ x: 0, y: 0 });
+    const [assistivePos, setAssistivePos] = useState({x: 0, y: 0});
+    const [offset, setOffset] = useState({x: 0, y: 0});
     const [mouseDown, setMouseDown] = useState(false);
     const [mouseMove, setMouseMove] = useState(false);
 
@@ -462,7 +480,7 @@ function App() {
         let offset = div.getBoundingClientRect();
         const offsetLeft = offset.left;
         const offsetTop = offset.top;
-        setAssistivePos({ x: offsetLeft, y: offsetTop });
+        setAssistivePos({x: offsetLeft, y: offsetTop});
 
         div.style.top = ``;
         div.style.left = ``;
@@ -527,6 +545,9 @@ function App() {
                         errorCode={errorCode}
                         setErrorCode={setErrorCode}
                         setUserPoints={setUserPoints}
+                        setMapDemographics={setMapDemographics}
+                        info={info}
+                        setCollapseMap={setCollapseMap}
                     />
 
                     <Content
@@ -584,6 +605,8 @@ function App() {
                         setCommunityPinned={setCommunityPinned}
                         councilPinned={councilPinned}
                         setCouncilPinned={setCouncilPinned}
+                        setCollapseMap={setCollapseMap}
+                        collapseMap={collapseMap}
                     />
 
                     <div className={`${showMap ? "show-map" : "hide-map"} map-container`}>
@@ -594,11 +617,40 @@ function App() {
                                 className={`individual-maps`}
                                 style={{
                                     width:
-                                        selectedChapter === 3 && !communitySearch ? "75vw" : "50vw",
+                                        ((selectedChapter === 3 && !communitySearch) || ((selectedChapter === 2 || selectedChapter === 3) && collapseMap)) ? "75vw" : "50vw",
                                     transition: "width 0.5s",
                                 }}
                                 id={mapDemographics ? "left-map" : "left-map-alone"}
                             >
+
+
+                                <div className={`collapse-map-button`}
+                                     style={{
+                                         width: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? "1.5vw" : 0,
+                                         borderLeft: "none",
+                                         outline: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? "1px solid black" : "none",
+                                         opacity: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? 1 : 0,
+                                     }}
+                                     onClick={(e) => {
+                                         e.stopPropagation()
+                                         setCollapseMap(!collapseMap)
+                                     }}
+
+                                     onMouseEnter={() => {
+                                         setCollapseMapToggle(true)
+                                     }}
+                                     onMouseLeave={() => {
+                                         setCollapseMapToggle(false)
+                                     }}
+                                >
+                                    {showMap && <FontAwesomeIcon icon={collapseMap ? faCaretRight : faCaretLeft}/>}
+
+                                    <div className={`collapse-map-tooltip ${collapseMapToggle ? "" : "d-none"}`}>
+                                        {collapseMap ? "Show Panel" : "Collapse Panel"}
+                                    </div>
+                                </div>
+
+
                                 <Map
                                     issues={issues}
                                     selectedIssue={selectedIssue}

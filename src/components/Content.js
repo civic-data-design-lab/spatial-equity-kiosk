@@ -4,118 +4,138 @@ import IssuesTileView from "./IssuesTileView";
 import CommunityRightColumn from "./CommunityRightColumn";
 import CommunityMiddleColumn from "./CommunityMiddleColumn";
 import About from "./About";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
 export default function Content({
-    selectedChapter,
-    selectedIssue,
-    setSelectedIssue,
-    issues,
-    selectedSpecificIssue,
-    setSelectedSpecificIssue,
-    showToggle,
-    showMap,
-    setShowMap,
-    communitySearch,
-    compareSearch,
-    communities,
-    demographic,
-    setDemographic,
-    selectedAbout,
-    setSelectedAbout,
-    setSelectedChapter,
-    boundary,
-    setCommunitySearch,
-    setCompareSearch,
-    showDemographics,
-    setShowDemographics,
-    moreIssues,
-    setMoreIssues,
-    moreIssuesLength,
-    setMoreIssuesLength,
-    councils,
-    mapDemographics,
-    setMapDemographics,
-    colorRamps,
-    toggleUnderperformers,
-    setToggleUnderperformers,
-    issue_categories,
-    toggleTransit,
-    toggleBike,
-    toggleWalk,
-    setToggleTransit,
-    setToggleBike,
-    setToggleWalk,
-    dataScale,
-    setdataScale,
-    demoColorRamp,
-    demoLegendBins,
-    setDemoColorRamp,
-    setDemoLegendBins,
-    setColorRamps,
-    handleLegend,
-    zoomToggle,
-    demoLookup, info,
-    communityPinned,
-    setCommunityPinned,
-    councilPinned,
-    setCouncilPinned,
-}) {
+                                    selectedChapter,
+                                    selectedIssue,
+                                    setSelectedIssue,
+                                    issues,
+                                    selectedSpecificIssue,
+                                    setSelectedSpecificIssue,
+                                    showToggle,
+                                    showMap,
+                                    setShowMap,
+                                    communitySearch,
+                                    compareSearch,
+                                    communities,
+                                    demographic,
+                                    setDemographic,
+                                    selectedAbout,
+                                    setSelectedAbout,
+                                    setSelectedChapter,
+                                    boundary,
+                                    setCommunitySearch,
+                                    setCompareSearch,
+                                    showDemographics,
+                                    setShowDemographics,
+                                    moreIssues,
+                                    setMoreIssues,
+                                    moreIssuesLength,
+                                    setMoreIssuesLength,
+                                    councils,
+                                    mapDemographics,
+                                    setMapDemographics,
+                                    colorRamps,
+                                    toggleUnderperformers,
+                                    setToggleUnderperformers,
+                                    issue_categories,
+                                    toggleTransit,
+                                    toggleBike,
+                                    toggleWalk,
+                                    setToggleTransit,
+                                    setToggleBike,
+                                    setToggleWalk,
+                                    dataScale,
+                                    setdataScale,
+                                    demoColorRamp,
+                                    demoLegendBins,
+                                    setDemoColorRamp,
+                                    setDemoLegendBins,
+                                    setColorRamps,
+                                    handleLegend,
+                                    zoomToggle,
+                                    demoLookup, info,
+                                    communityPinned,
+                                    setCommunityPinned,
+                                    councilPinned,
+                                    setCouncilPinned, setCollapseMap, collapseMap
+                                }) {
     return (
         <div className={`d-flex flex-row col-9`}>
             <div
-                className={`middle-column h-100 ${selectedChapter === 2 ||
+                /*className={`middle-column h-100 ${selectedChapter === 2 ||
                         (selectedChapter === 3 && communitySearch && showMap)
                         ? "col-4 no-top-border"
                         : selectedChapter === 3 && communitySearch && !showMap
                             ? "col-6"
                             : "collapsed-middle-column"
-                    }`}
+                    }`}*/
+
+                className={`middle-column h-100 ${
+                    selectedChapter === 1 || selectedChapter === 4 ? "collapsed-middle-column" :
+                        selectedChapter === 2 ?
+                            (showMap && collapseMap) ? 
+                                "collapsed-middle-column" : 
+                                "col-4 no-top-border" : 
+                            !communitySearch ? 
+                                "collapsed-middle-column" : !showMap ? 
+                                    "col-6" : collapseMap ? 
+                                        "collapsed-middle-column" : "col-4 no-top-border"
+
+
+                }`}
+
+
             >
-                {(selectedChapter === 2 ||
-                    (selectedChapter === 3 && communitySearch && showMap)) && (
-                        <IssuesMiddleColumn
-                            selectedIssue={selectedIssue}
-                            setSelectedIssue={setSelectedIssue}
-                            issues={issues}
-                            selectedSpecificIssue={selectedSpecificIssue}
-                            setSelectedSpecificIssue={setSelectedSpecificIssue}
-                            demographic={demographic}
-                            setDemographic={setDemographic}
-                            communitySearch={communitySearch}
-                            compareSearch={compareSearch}
-                            showDemographics={showDemographics}
-                            setShowDemographics={setShowDemographics}
-                            mapDemographics={mapDemographics}
-                            setMapDemographics={setMapDemographics}
-                            boundary={boundary}
-                            communities={communities}
-                            councils={councils}
-                            //legendBins={legendBins}
-                            colorRamps={colorRamps}
-                            toggleUnderperformers={toggleUnderperformers}
-                            setToggleUnderperformers={setToggleUnderperformers}
-                            selectedChapter={selectedChapter}
-                            issue_categories={issue_categories}
-                            toggleTransit={toggleTransit}
-                            setToggleTransit={setToggleTransit}
-                            toggleWalk={toggleWalk}
-                            setToggleWalk={setToggleWalk}
-                            toggleBike={toggleBike}
-                            setToggleBike={setToggleBike}
-                            dataScale={dataScale}
-                            setdataScale={setdataScale}
-                            demoColorRamp={demoColorRamp}
-                            demoLegendBins={demoLegendBins}
-                            setDemoColorRamp={setDemoColorRamp}
-                            setDemoLegendBins={setDemoLegendBins}
-                            setColorRamps={setColorRamps}
-                            handleLegend={handleLegend}
-                            zoomToggle={zoomToggle}
-                            demoLookup={demoLookup}
-                            showMap={showMap}
-                            info={info}
-                        />
-                    )}
+                {(!collapseMap && (selectedChapter === 2 ||
+                    (selectedChapter === 3 && communitySearch && showMap))) && (
+                    <IssuesMiddleColumn
+                        selectedIssue={selectedIssue}
+                        setSelectedIssue={setSelectedIssue}
+                        issues={issues}
+                        selectedSpecificIssue={selectedSpecificIssue}
+                        setSelectedSpecificIssue={setSelectedSpecificIssue}
+                        demographic={demographic}
+                        setDemographic={setDemographic}
+                        communitySearch={communitySearch}
+                        compareSearch={compareSearch}
+                        showDemographics={showDemographics}
+                        setShowDemographics={setShowDemographics}
+                        mapDemographics={mapDemographics}
+                        setMapDemographics={setMapDemographics}
+                        boundary={boundary}
+                        communities={communities}
+                        councils={councils}
+                        //legendBins={legendBins}
+                        colorRamps={colorRamps}
+                        toggleUnderperformers={toggleUnderperformers}
+                        setToggleUnderperformers={setToggleUnderperformers}
+                        selectedChapter={selectedChapter}
+                        issue_categories={issue_categories}
+                        toggleTransit={toggleTransit}
+                        setToggleTransit={setToggleTransit}
+                        toggleWalk={toggleWalk}
+                        setToggleWalk={setToggleWalk}
+                        toggleBike={toggleBike}
+                        setToggleBike={setToggleBike}
+                        dataScale={dataScale}
+                        setdataScale={setdataScale}
+                        demoColorRamp={demoColorRamp}
+                        demoLegendBins={demoLegendBins}
+                        setDemoColorRamp={setDemoColorRamp}
+                        setDemoLegendBins={setDemoLegendBins}
+                        setColorRamps={setColorRamps}
+                        handleLegend={handleLegend}
+                        zoomToggle={zoomToggle}
+                        demoLookup={demoLookup}
+                        showMap={showMap}
+                        info={info}
+                        setCollapseMap={setCollapseMap}
+                        collapseMap={collapseMap}
+                    />
+                )}
 
                 {selectedChapter === 3 && (
                     <CommunityMiddleColumn
@@ -133,14 +153,16 @@ export default function Content({
                         councils={councils}
                     />
                 )}
+
+
             </div>
 
             <div
                 className={`h-100 flex-grow-1 ${!selectedChapter || selectedChapter === 1 ? "no-left-border" : ""
-                    } ${selectedChapter === 3 && communitySearch && !selectedSpecificIssue
-                        ? "transparent-bg"
-                        : "white-bg"
-                    }`}
+                } ${selectedChapter === 3 && communitySearch && !selectedSpecificIssue
+                    ? "transparent-bg"
+                    : "white-bg"
+                }`}
                 id="right-column"
             >
 
@@ -153,7 +175,7 @@ export default function Content({
                         allowFullScreen></iframe>
                 )}
 
-                {selectedChapter === 2 && (
+                {(selectedChapter === 2 && !collapseMap) && (
                     <IssuesTileView
                         selectedSpecificIssue={selectedSpecificIssue}
                         issues={issues}
