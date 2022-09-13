@@ -132,6 +132,7 @@ export default function IssuesCard({
                     issues={issues}
                     boundary={boundary}
                     selectedSpecificIssue={specificIssue}
+                    selectedCommunity={selectedCommunity}
                 />
                 <div className={'m-0 small-text'}>
                     {getRankingNarrative(issues.specific_issues_data[specificIssue])}{' '}

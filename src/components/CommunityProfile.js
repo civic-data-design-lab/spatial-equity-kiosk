@@ -186,6 +186,7 @@ export default function CommunityProfile({
               compareSearch={compareSearch}
               communitySearch={communitySearch}
               boundary={boundary}
+              selectedCommunity={selectedCommunity}
             />
           </div>
         </>
@@ -229,6 +230,7 @@ export default function CommunityProfile({
               compareSearch={compareSearch}
               communitySearch={communitySearch}
               boundary={boundary}
+              selectedCommunity={selectedCommunity}
             />
           </div>
         </>

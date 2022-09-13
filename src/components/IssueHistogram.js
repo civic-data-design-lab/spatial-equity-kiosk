@@ -72,6 +72,7 @@ const IssueHistogram = ({
     issues,
     boundary,
     selectedSpecificIssue,
+    selectedCommunity
 }) => {
     const ref = useRef();
     const containerRef = useRef();
@@ -113,6 +114,8 @@ const IssueHistogram = ({
     // console.log('boundary', boundary)
     // console.log('json_id', issues.specific_issues_data[selectedSpecificIssue].json_id)
     // console.log('_RANKINGS', _RANKINGS[boundary])
+    // console.log('selectedCommunity', selectedCommunity)
+    // console.log('selectedCommunity.json_lookup', selectedCommunity.json_lookup)
     // console.log('------')
 
     let colorRamps = _CHAPTER_COLORS[colorRampsyType]
@@ -120,30 +123,29 @@ const IssueHistogram = ({
     let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
 
     useEffect(() => {
-        let svg = d3.select(ref.current)
-        const height = containerHeight ? containerHeight : 0;
-        const width = containerWidth ? containerWidth : 500;
+        // let svg = d3.select(ref.current)
+        // const height = containerHeight ? containerHeight : 0;
+        // const width = containerWidth ? containerWidth : 500;
 
         //  Init mouse line
-        svg.select('#mouseLine')
-            .style('stroke-width', 0);
+        // svg.select('#mouseLine')
+        //     .style('stroke-width', 0);
 
-        svg.select('#mouseTextUp')
-            .attr('text-anchor', 'end')
-            .attr('x', width - margin.right)
-            .attr("style", "font-family:Inter")
-            .attr("font-size", "14")
-            .attr("fill", "#000000")
-            .text('');
+        // svg.select('#mouseTextUp')
+        //     .attr('text-anchor', 'end')
+        //     .attr('x', width - margin.right)
+        //     .attr("style", "font-family:Inter")
+        //     .attr("font-size", "14")
+        //     .attr("fill", "#000000")
+        //     .text('');
 
-        svg.select('#mouseTextDown')
-            .attr('text-anchor', 'end')
-            .attr('x', width - margin.right)
-            .attr("style", "font-family:Inter")
-            .attr("font-size", "14")
-            .attr("fill", "#000000")
-            .text('');
-
+        // svg.select('#mouseTextDown')
+        //     .attr('text-anchor', 'end')
+        //     .attr('x', width - margin.right)
+        //     .attr("style", "font-family:Inter")
+        //     .attr("font-size", "14")
+        //     .attr("fill", "#000000")
+        //     .text('');
 
     }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight,])
 
@@ -157,9 +159,7 @@ const IssueHistogram = ({
         let barHeight = (height - margin.top - margin.bottom) / data.length;
         let minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
 
-        // let highlight_statement = issues.specific_issues_data[selectedSpecificIssue].highlight_statement;
-        // highlight_statement = removeFirstWord(highlight_statement);
-        // highlight_statement = highlight_statement.charAt(0).toUpperCase() + highlight_statement.slice(1);
+        
 
         let [hiStatement, lowStatement] = issues.specific_issues_data[selectedSpecificIssue].issue_hi_low
         hiStatement = hiStatement.charAt(0).toUpperCase() + hiStatement.slice(1);;
@@ -287,38 +287,6 @@ const IssueHistogram = ({
             .attr('y', 0)
             .attr('x', margin.left)
             .attr("fill", d3.rgb(0, 0, 0, 0))
-            .on('mousemove', function (event, d) {
-                let pt = d3.pointer(event)
-
-                let ycood = pt[1];
-                ycood = Math.max(ycood, yscale(0.5));
-                ycood = Math.min(ycood, yscale(data.length + 0.5));
-
-                let rectID = Math.floor(yscale.invert(ycood) - 0.5)
-
-                svg.select("#mouseLine")
-                    // .transition()
-                    // .duration(10)
-                    // .ease('linear') 
-                    .attr('y1', ycood)
-                    .attr('y2', ycood)
-                    .attr('x1', margin.left)
-                    .attr('x2', width - margin.right)
-                    .attr('lookupID', lookupArray[rectID])
-                    .style('stroke', 'black')
-                    .style('stroke-width', 2);
-
-                svg.select("#mouseTextUp")
-                    .attr('y', ycood - 5)
-                    .attr('lookupID', lookupArray[rectID])
-                    .text(`${boundary == "council" ? "Council" : ""} ${nameArray[rectID]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[rectID]].borough.join("/ ")}` : ""}`)
-
-                svg.select("#mouseTextDown")
-                    .attr('y', ycood + 15)
-                    .attr('lookupID', lookupArray[rectID])
-                    .text(`${data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand !== "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
-
-            })
 
 
         // move the interaction layer to front
@@ -342,21 +310,20 @@ const IssueHistogram = ({
                 <text id="avgTextDown" />
 
                 {/* Interactive Line */}
-                <line id="mouseLine" />
+                {/* <line id="mouseLine" />
                 <text id="mouseTextUp" />
                 <text id="mouseTextDown" />
-                <rect id="histBg" />
+                <rect id="histBg" /> */}
+
+                <line id="selectedLine" />
+                <text id="selectedTextUp" />
+                <text id="selectedTextDown" />
 
                 {/* Min/Max Line */}
                 <line id="maxLine" />
                 <line id="minLine" />
                 <text id="maxText" />
                 <text id="minText" />
-
-                {/* Reset Button */}
-                <text id="resetButton" >
-                    Clear All
-                </text>
             </svg>
         </div>
     );
