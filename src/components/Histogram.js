@@ -141,7 +141,7 @@ const Histogram = ({
 
   const margin = {
     top: 20,
-    left: 20,
+    left: 0,
     bottom: 40,
     right: 50,
   };
@@ -623,39 +623,39 @@ const Histogram = ({
     });
 
     // Draw all cancel button
-    svg
-      .selectAll('.cancelButton')
-      .data(data)
-      .enter()
-      .append('rect')
-      .attr('class', 'cancelButton')
-      .merge(svg.selectAll('.cancelButton').data(data))
-      .attr('y', (d, i) => yscale(i + 0.5))
-      .attr('x', 0)
-      .attr('width', margin.left)
-      .attr('height', yUnit >= 0 ? yUnit : 0)
-      .attr('visibility', 'hidden')
-      .attr('lookupID', (d, i) => lookupArray[i])
-      .attr('fill', '#FFFFFF');
+    // svg
+    //   .selectAll('.cancelButton')
+    //   .data(data)
+    //   .enter()
+    //   .append('rect')
+    //   .attr('class', 'cancelButton')
+    //   .merge(svg.selectAll('.cancelButton').data(data))
+    //   .attr('y', (d, i) => yscale(i + 0.5))
+    //   .attr('x', width - margin.right)
+    //   .attr('width', margin.right)
+    //   .attr('height', yUnit >= 0 ? yUnit : 0)
+    //   .attr('visibility', 'hidden')
+    //   .attr('lookupID', (d, i) => lookupArray[i])
+    //   .attr('fill', '#FFFFFF');
 
-    svg.selectAll('.cancelButton').each(function (d, i) {
-      d3.select(this).on('click', (e, d) => {
-        if (boundary == 'council')
-          setCouncilPinned(
-            councilPinned.filter(
-              (d, _) => d !== d3.select(this).attr('lookupID')
-            )
-          );
-        else
-          setCommunityPinned(
-            communityPinned.filter(
-              (d, _) => d !== d3.select(this).attr('lookupID')
-            )
-          );
-      });
-    });
+    // svg.selectAll('.cancelButton').each(function (d, i) {
+    //   d3.select(this).on('click', (e, d) => {
+    //     if (boundary == 'council')
+    //       setCouncilPinned(
+    //         councilPinned.filter(
+    //           (d, _) => d !== d3.select(this).attr('lookupID')
+    //         )
+    //       );
+    //     else
+    //       setCommunityPinned(
+    //         communityPinned.filter(
+    //           (d, _) => d !== d3.select(this).attr('lookupID')
+    //         )
+    //       );
+    //   });
+    // });
 
-    svg.selectAll('.cancelButton').data(data).exit().remove();
+    // svg.selectAll('.cancelButton').data(data).exit().remove();
 
     // Draw all cancel button text
     svg
@@ -666,7 +666,8 @@ const Histogram = ({
       .attr('class', 'cancelButtonText')
       .merge(svg.selectAll('.cancelButtonText').data(data))
       .attr('y', (d, i) => yscale(i + 1) + 5)
-      .attr('x', margin.left - 5)
+      //   .attr('x', margin.left - 5)
+      .attr('x', width - 25)
       .attr('text-anchor', 'end')
       .attr('visibility', 'hidden')
       .style('font-weight', 'bold')
@@ -695,40 +696,40 @@ const Histogram = ({
     svg.selectAll('.cancelButtonText').data(data).exit().remove();
 
     // draw goTo button
-    svg
-      .selectAll('.goToButton')
-      .data(data)
-      .enter()
-      .append('text')
-      .attr('class', 'goToButton')
-      .merge(svg.selectAll('.goToButton').data(data))
-      .attr('y', (d, i) => yscale(i + 1) + 10)
-      .attr('x', width - 25)
-      .attr('text-anchor', 'end')
-      .attr('visibility', 'hidden')
-      .style('font-weight', 'bold')
-      .attr('fill', '#000000')
-      .attr('font-size', '32')
-      .attr('stroke-width', '0.5px')
-      .text('🞂')
-      .attr('lookupID', (d, i) => lookupArray[i]);
+    // svg
+    //   .selectAll('.goToButton')
+    //   .data(data)
+    //   .enter()
+    //   .append('text')
+    //   .attr('class', 'goToButton')
+    //   .merge(svg.selectAll('.goToButton').data(data))
+    //   .attr('y', (d, i) => yscale(i + 1) + 10)
+    //   .attr('x', width - 25)
+    //   .attr('text-anchor', 'end')
+    //   .attr('visibility', 'hidden')
+    //   .style('font-weight', 'bold')
+    //   .attr('fill', '#000000')
+    //   .attr('font-size', '32')
+    //   .attr('stroke-width', '0.5px')
+    //   .text('🞂')
+    //   .attr('lookupID', (d, i) => lookupArray[i]);
 
-    svg.selectAll('.goToButton').each(function (d, i) {
-      d3.select(this).on('click', (e, d) => {
-        setSelectedChapter(3);
-        setCommunitySearch(d3.select(this).attr('lookupID'));
-      });
-      d3.select(this).on('mouseover', (e, d) => {
-        d3.select(this)
-          .attr('fill', 'rgb(255,255,255,0)')
-          .attr('stroke', '#000000');
-      });
-      d3.select(this).on('mouseout', (e, d) => {
-        d3.select(this).attr('fill', '#000000');
-      });
-    });
+    // svg.selectAll('.goToButton').each(function (d, i) {
+    //   d3.select(this).on('click', (e, d) => {
+    //     setSelectedChapter(3);
+    //     setCommunitySearch(d3.select(this).attr('lookupID'));
+    //   });
+    //   d3.select(this).on('mouseover', (e, d) => {
+    //     d3.select(this)
+    //       .attr('fill', 'rgb(255,255,255,0)')
+    //       .attr('stroke', '#000000');
+    //   });
+    //   d3.select(this).on('mouseout', (e, d) => {
+    //     d3.select(this).attr('fill', '#000000');
+    //   });
+    // });
 
-    svg.selectAll('.goToButton').data(data).exit().remove();
+    // svg.selectAll('.goToButton').data(data).exit().remove();
 
     // move the interaction layer to front
     svg.select('#histBg').raise();
@@ -771,7 +772,7 @@ const Histogram = ({
       '.pinnedLine',
       '.pinnedTextUp',
       '.pinnedTextDown',
-      '.goToButton',
+      //   '.goToButton',
     ]) {
       svg.selectAll(element).each(function (d, i) {
         if (boundary == 'council') {
@@ -932,7 +933,13 @@ const Histogram = ({
         width: '100%',
       }}
     >
-      <div>text</div>
+      <div
+        style={{
+          position: 'absolute',
+        }}
+      >
+        text
+      </div>
       <svg ref={ref}>
         {/* Main Chart */}
         <g />
