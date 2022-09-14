@@ -58,7 +58,7 @@ export default function Legend({
         }
     }
 
-    let textList; 
+    let textList;
     let percList;
     if (demoLookup) {
         textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
@@ -113,8 +113,44 @@ export default function Legend({
                 100 - Math.round(neighborhoodData[demoLookup.lookup] * 100)]
             }
         }
-        else {
-            percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+        else if (selectedChapter == 2) {
+            if (demoLookup.lookup == "F10_TrsBkW") {
+                if ((!toggleWalk) && (!toggleTransit) && (!toggleBike)) {
+                    percList = [Math.round(neighborhoodData[demoLookup.lookup] * 100),
+                    100 - Math.round(neighborhoodData[demoLookup.lookup] * 100)]
+                } else {
+
+                    let otherPrec = 100
+                    textList = []
+                    percList = []
+
+                    if (toggleWalk) {
+                        let perc = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name]['F11_Walk'];
+                        otherPrec -= perc;
+                        percList.push(perc);
+                        textList.push("Walk");
+                    }
+
+                    if (toggleTransit) {
+                        let perc = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name]['F8_PubTran'];
+                        otherPrec -= perc;
+                        percList.push(perc);
+                        textList.push("Ride Transit");
+                    }
+
+                    if (toggleBike) {
+                        let perc = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name]['F6_bike'];
+                        otherPrec -= perc;
+                        percList.push(perc);
+                        textList.push("Bike");
+                    }
+
+                    percList.push(otherPrec);
+                    textList.push("Others");
+                }
+            } else {
+                percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+            }
         }
     }
     // console.log("--------------------")
