@@ -516,7 +516,7 @@ const Histogram = ({
           // .ease('linear')
           .attr('y1', ycood)
           .attr('y2', ycood)
-          .attr('x1', margin.left)
+        //   .attr('x1', margin.left)
           .attr('x2', width - margin.right)
           .attr('lookupID', lookupArray[rectID])
           .style('stroke', 'black')
@@ -937,8 +937,8 @@ const Histogram = ({
             .attr('stroke', '#000000')
             .style('stroke-width', '2px');
           d3.select(this).raise();
-        //   svg.select('#mouseLine').attr('x1', d3.select(this).attr('x'));
-        //   svg.select('#avgLine').attr('x1', d3.select(this).attr('x'));
+          svg.select('#mouseLine').attr('x1', d3.select(this).attr('x'));
+          svg.select('#avgLine').attr('x1', d3.select(this).attr('x'));
         } else {
           d3.select(this).style('stroke-width', '0px');
           d3.select(this).style(
