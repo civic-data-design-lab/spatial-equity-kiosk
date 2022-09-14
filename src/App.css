@@ -231,6 +231,10 @@ a:active {
     flex-grow: 0;
 }
 
+.collapsed-nav:hover{
+    cursor: pointer;
+}
+
 .nav-chapters-content {
     max-height: 0;
     opacity: 0;
@@ -296,6 +300,10 @@ a:active {
 .dropdown-bar {
     padding: 0.25rem 0.5rem;
     column-gap: 0.25rem;
+}
+
+.dropdown-bar:hover{
+    cursor: pointer;
 }
 
 .dropdown-bar-black {

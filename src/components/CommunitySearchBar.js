@@ -157,7 +157,7 @@ export default function CommunitySearchBar({
                     <div className={"row w-100 p-0 m-0"}>
                         <div className={"col-10 m-0 p-0"}>
                             <span style={{fontWeight: "bold"}}>
-                                {v.center[0].toFixed(3) + " " + v.center[1].toFixed(3)}
+                                {/* {v.center[0].toFixed(3) + " " + v.center[1].toFixed(3)} */}
                             </span>{" "}
                             {v.place_name}
                         </div>
