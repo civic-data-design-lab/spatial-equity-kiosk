@@ -127,10 +127,7 @@ export default function Legend({
     } else if (selectedChapter == 2) {
       if (demoLookup.lookup == 'F10_TrsBkW') {
         if (!toggleWalk && !toggleTransit && !toggleBike) {
-          percList = [
-            Math.round(neighborhoodData[demoLookup.lookup] * 100),
-            100 - Math.round(neighborhoodData[demoLookup.lookup] * 100),
-          ];
+            percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
         } else {
           let otherPrec = 100;
           textList = [];
@@ -520,7 +517,6 @@ export default function Legend({
                     }}
                   />
 
-
                   <div className={'small-font'}>
                     0% → {(demoLegendBins[0] * 100).toFixed(0)}%
                   </div>
@@ -602,7 +598,6 @@ export default function Legend({
           // DEFAULT CASE - ADD D3 DEMOGRAPHICS COMPONENT HERE!
           let gridColorRamps;
 
-
           if (demoLookup.name == 'Race & Ethnicity') {
             gridColorRamps = [
               _ETHNICITY_COLORS.Latino.htmlFormat,
@@ -664,7 +659,10 @@ export default function Legend({
                       : 'mb-3 small-font'
                   }
                 >
-                  <span className={'bold'}>{percList[0]}</span>% of
+                  <span className={'bold'}>
+                    {100 - percList[percList.length - 1]}
+                  </span>
+                  % of
                   {demoLookup.name ===
                     'Households Living Below the Poverty Line' ||
                   demoLookup.name === 'Households Without a Car'
