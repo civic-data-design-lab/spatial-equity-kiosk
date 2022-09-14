@@ -31,7 +31,9 @@ export default function CommunitySearchBar({
                                                info,
                                                boundary,
                                                setCompareSearch,
-                                               setCommunitySearch
+                                               setCommunitySearch,
+                                               setUserPoints,
+                                               userPoints
                                            }) {
     const [value, setValue] = useState("");
     const [focus, setFocus] = useState(false);
@@ -219,14 +221,16 @@ export default function CommunitySearchBar({
                         e.stopPropagation();
                     }}
                     onFocus={(e) => {
+                        e.stopPropagation()
                         setFocus(true);
                     }}
                     onBlur={(e) => {
+                        e.stopPropagation()
                         setFocus(false);
                     }}
                     onKeyUp={(e) => {
                         // if (e.keyCode == 13) forwardGeocoding(value);
-
+                        e.stopPropagation()
                         if (e.key === "Escape") setFocus(false);
 
                         if (e.key === "Enter" && focus && searchItems.length > 0) {
@@ -244,15 +248,16 @@ export default function CommunitySearchBar({
                         }
                     }}
                     onChange={(e) => {
+                        e.stopPropagation()
                         callBack("");
                         setShowSearch(true);
                         setValue(e.target.value);
-
+                        console.log("userPOints ", userPoints)
                         if (primarySearch) {
-                            setSelectedCoord([]);
-                            setAddCompare(false);
+                            console.log("here")
+                            setUserPoints([[], userPoints[1]])
                         } else {
-                            setselectedCompareCoord([]);
+                            setUserPoints([userPoints[0], []])
                         }
                     }}
                     value={toggleValue || value}

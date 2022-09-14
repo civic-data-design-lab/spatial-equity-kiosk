@@ -44,10 +44,8 @@ function Nav({
   setSearchSource,
   errorCode,
   setErrorCode,
-  setUserPoints,
-  setMapDemographics,
-  info,
-  setCollapseMap,
+  setUserPoints, setMapDemographics, info, userPoints
+
 }) {
   const selectedChapterCache = useRef(null);
 
@@ -156,7 +154,6 @@ function Nav({
           setMoreIssues([]);
           if (selectedChapter !== 2) {
             setSelectedChapter(2);
-            setCollapseMap(false);
             setSearchSource(null);
             setUserPoints([], []);
             setBadSearch(0, 0);
@@ -229,7 +226,6 @@ function Nav({
           setCompareSearch(null);*/
           if (selectedChapter !== 3) {
             setSelectedChapter(3);
-            setCollapseMap(false);
             setSearchSource(null);
             setUserPoints([], []);
             setBadSearch(0, 0);
@@ -300,6 +296,8 @@ function Nav({
             errorCode={errorCode}
             setErrorCode={setErrorCode}
             info={info}
+            setUserPoints={setUserPoints}
+            userPoints={userPoints}
           />
         </div>
       </div>
