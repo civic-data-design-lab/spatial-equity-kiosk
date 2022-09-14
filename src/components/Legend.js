@@ -59,13 +59,22 @@ export default function Legend({
     let percList;
     if (selectedChapter == 3) {
         if (demoLookup.name == "Race & Ethnicity") {
-            percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+            percList = [Math.round(neighborhoodData['P_Hispanic'] * 100),
+            Math.round(neighborhoodData['P_White'] * 100),
+            Math.round(neighborhoodData['P_Black'] * 100),
+            Math.round(neighborhoodData['P_Asian'] * 100),
+            100 - (Math.round(neighborhoodData['P_Hispanic'] * 100)+
+            Math.round(neighborhoodData['P_White'] * 100)+
+            Math.round(neighborhoodData['P_Black'] * 100)+
+            Math.round(neighborhoodData['P_Asian'] * 100))]
         }
         else if (demoLookup.lookup == "F10_TrsBkW") {
-            percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
-        } 
+            percList = [Math.round(neighborhoodData[demoLookup.lookup] * 100),
+            100 - Math.round(neighborhoodData[demoLookup.lookup] * 100)]
+        }
         else {
-            percList = [Math.round(neighborhoodData[demoLookup.lookup] * 100), 100 - Math.round(neighborhoodData[demoLookup.lookup] * 100)]
+            percList = [Math.round(neighborhoodData[demoLookup.lookup] * 100),
+            100 - Math.round(neighborhoodData[demoLookup.lookup] * 100)]
         }
     }
     else {
