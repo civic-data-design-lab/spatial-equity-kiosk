@@ -36,7 +36,7 @@ export default function Legend({
   transitToggles = null,
   info,
   selectedChapter,
-  neighborhoodName = 'New York City',
+  neighborhoodName = 'citywide',
   neighborhoodID,
   toggleWalk,
   toggleTransit,
