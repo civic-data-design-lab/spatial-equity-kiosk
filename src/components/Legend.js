@@ -37,7 +37,10 @@ export default function Legend({
     info,
     selectedChapter,
     neighborhoodName = "New York City",
-    neighborhoodID
+    neighborhoodID,
+    toggleWalk,
+    toggleTransit,
+    toggleBike,
 }) {
     const communities = _COMMUNITIES;
     const councils = _COUNCILS;
@@ -63,10 +66,10 @@ export default function Legend({
             Math.round(neighborhoodData['P_White'] * 100),
             Math.round(neighborhoodData['P_Black'] * 100),
             Math.round(neighborhoodData['P_Asian'] * 100),
-            100 - (Math.round(neighborhoodData['P_Hispanic'] * 100)+
-            Math.round(neighborhoodData['P_White'] * 100)+
-            Math.round(neighborhoodData['P_Black'] * 100)+
-            Math.round(neighborhoodData['P_Asian'] * 100))]
+            100 - (Math.round(neighborhoodData['P_Hispanic'] * 100) +
+                Math.round(neighborhoodData['P_White'] * 100) +
+                Math.round(neighborhoodData['P_Black'] * 100) +
+                Math.round(neighborhoodData['P_Asian'] * 100))]
         }
         else if (demoLookup.lookup == "F10_TrsBkW") {
             percList = [Math.round(neighborhoodData[demoLookup.lookup] * 100),
@@ -94,9 +97,11 @@ export default function Legend({
     // console.log("demographics json ", _DEMOGRAPHIC_PERCENTAGED)
     // console.log("demoLookup.lookup", demoLookup.lookup)
     // console.log("neighborhoodData", Math.round(neighborhoodData[demoLookup.lookup] * 100))
-    console.log("percList", percList)
+    // console.log("percList", percList)
+    console.log("toggleWalk", toggleWalk)
+    console.log("toggleTransit", toggleTransit)
+    console.log("toggleBike", toggleBike)
     console.log("--------------------")
-
 
 
     const administrativeBoundary =
@@ -520,8 +525,8 @@ export default function Legend({
                     return (
                         <div style={{ flex: 1 }}>
                             {demoLookup.name == "Race & Ethnicity" ?
-                                (<p className={"mb-3 small-font"}>{(selectedChapter == 3) ? '' : 'Citywide'} {demoLookup.name} in <span className={"underline bold"}>{neighborhoodName}</span></p>) :
-                                (<p className={"mb-3 small-font"}><span className={"bold"}>{percList[0]}</span>% of
+                                (<p className={demoLookup.lookup == "F10_TrsBkW" ? "mb-1 small-font" : "mb-3 small-font"}>{(selectedChapter == 3) ? '' : 'Citywide'} {demoLookup.name} in <span className={"underline bold"}>{neighborhoodName}</span></p>) :
+                                (<p className={demoLookup.lookup == "F10_TrsBkW" ? "mb-1 small-font" : "mb-3 small-font"}><span className={"bold"}>{percList[0]}</span>% of
                                     {demoLookup.name === "Households Living Below the Poverty Line" || demoLookup.name === "Households Without a Car" ? " households " : " commuters "}
                                     in <span className={"underline bold"}>{neighborhoodName}</span> {demoLookup.name === "Households Living Below the Poverty Line" ? "live below the poverty line" :
                                         demoLookup.name === "Households Without a Car" ? "do not own a car" :
@@ -529,6 +534,13 @@ export default function Legend({
                                                 "bike, walk, or ride transit"}
 
                                 </p>)}
+
+                            {demoLookup.lookup !== "F10_TrsBkW" ? '' : (
+                                <div className={"d-flex col-gap"}>
+                                    <p className={"mb-1 small-font"}>Citywide Commuters Who</p>
+                                    {transitToggles}
+                                </div>
+                            )}
 
                             <div
                                 className={"placeholder-legend placeholder-legend-ethnicity"}
