@@ -58,13 +58,21 @@ export default function Legend({
     let textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
     let percList;
     if (selectedChapter == 3) {
-        percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+        if (demoLookup.name == "Race & Ethnicity") {
+            percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+        }
+        else if (demoLookup.lookup == "F10_TrsBkW") {
+            percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+        } 
+        else {
+            percList = [Math.round(neighborhoodData[demoLookup.lookup] * 100), 100 - Math.round(neighborhoodData[demoLookup.lookup] * 100)]
+        }
     }
     else {
         percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
     }
 
-    // console.log("--------------------")
+    console.log("--------------------")
     // console.log("demoLegendBins", demoLegendBins)
     // console.log("demoLookup", demoLookup)
     // console.log("forDemographic", forDemographic)
@@ -74,10 +82,13 @@ export default function Legend({
     // console.log("communitiesData", communitiesData)
     // console.log("councilsData", councilsData)
     // console.log("neighborhoodJsonLookup", neighborhoodJsonLookup)
-    // console.log("--------------------")
-
     // console.log("demographics json ", _DEMOGRAPHIC_PERCENTAGED)
-    // console.log("demoLookup ", demoLookup)
+    // console.log("demoLookup.lookup", demoLookup.lookup)
+    // console.log("neighborhoodData", Math.round(neighborhoodData[demoLookup.lookup] * 100))
+    console.log("percList", percList)
+    console.log("--------------------")
+
+
 
     const administrativeBoundary =
         (boundary === "council" ? "Council Districts" : "Community Boards");
@@ -496,7 +507,7 @@ export default function Legend({
                             _ETHNICITY_COLORS.Other.htmlFormat,
                         ];
                     }
-                    
+
                     return (
                         <div style={{ flex: 1 }}>
                             {demoLookup.name == "Race & Ethnicity" ?
