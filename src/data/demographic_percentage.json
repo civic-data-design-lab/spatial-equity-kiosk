@@ -9,18 +9,21 @@
     "textList": ["Households Living Below the Poverty Line", "Others"]
   },
   "Households Without a Car": {
-    "percList": [43, 57],
+    "percList": [47, 53],
     "lookup": "F7_CarFree",
     "textList": ["Households Without a Car", "Others"]
   },
   "Citywide Commuters Who Drive Alone to Work": {
-    "percList": [17, 83],
+    "percList": [22, 78],
     "lookup": "F9_DrvAlon",
     "textList": ["Citywide Commuters Who Drive Alone to Work", "Others"]
   },
   "Commuters Who Bike, Walk, or Ride Transit": {
     "lookup": "F10_TrsBkW",
-    "percList": [45, 55],
-    "textList": ["Commuters Who Bike, Walk, or Ride Transit", "Others"]
+    "percList": [57, 43],
+    "textList": ["Commuters Who Bike, Walk, or Ride Transit", "Others"],
+    "F6_bike": 1,
+    "F8_PubTran": 47,
+    "F11_Walk": 9
   }
 }

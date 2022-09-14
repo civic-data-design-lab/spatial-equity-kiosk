@@ -341,6 +341,8 @@ function App() {
         // console.log("showMap ", showMap)
         // console.log("show toggle ", showToggle)
         // console.log("add Compare ", addCompare)
+        // console.log("councils", councils)
+        // console.log("communities", communities)
         // console.log("community search ", communitySearch)
         // console.log("compare search ", compareSearch)
         // console.log("boundary ", boundary)
