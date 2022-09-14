@@ -224,6 +224,10 @@ export default function Demographics({
                 transitToggles={getTransitToggles()}
                 selectedChapter={selectedChapter}
                 info={info}
+                neighborhoodName={(councils[communitySearch] &&
+                    councils[communitySearch].name) ||
+                    (communities[communitySearch] &&
+                      communities[communitySearch].name)}
               />
 
               <div
@@ -257,14 +261,14 @@ export default function Demographics({
             <div id={"demographic-slider"} style={{ flex: 1 }}>
               <Slider>
                 <div>
-                  {currentValue === "1" && (
+                  {/* {currentValue === "1" && (
                     <p className={"m-0 small-font"}>
                       {(councils[communitySearch] &&
                         councils[communitySearch].name) ||
                         (communities[communitySearch] &&
                           communities[communitySearch].name)}
                     </p>
-                  )}
+                  )} */}
 
                   <Legend
                     mapDemographics={mapDemographics}
@@ -281,18 +285,22 @@ export default function Demographics({
                     transitToggles={getTransitToggles()}
                     selectedChapter={selectedChapter}
                     info={info}
+                    neighborhoodName={(councils[communitySearch] &&
+                        councils[communitySearch].name) ||
+                        (communities[communitySearch] &&
+                          communities[communitySearch].name)}
                   />
                 </div>
                 <div>
                   <div className={"d-flex flex-row justify-content-between"}>
-                    {currentValue === "1" && (
+                    {/* {currentValue === "1" && (
                       <p className={"m-0 small-font"}>
                         {(councils[compareSearch] &&
                           councils[compareSearch].name) ||
                           (communities[compareSearch] &&
                             communities[compareSearch].name)}
                       </p>
-                    )}
+                    )} */}
                   </div>
 
                   <Legend
@@ -310,6 +318,10 @@ export default function Demographics({
                     transitToggles={getTransitToggles()}
                     selectedChapter={selectedChapter}
                     info={info}
+                    neighborhoodName={(councils[compareSearch] &&
+                        councils[compareSearch].name) ||
+                        (communities[compareSearch] &&
+                          communities[compareSearch].name)}
                   />
                 </div>
               </Slider>

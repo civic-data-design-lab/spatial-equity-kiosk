@@ -31,6 +31,7 @@ export default function Legend({
     transitToggles = null,
     info,
     selectedChapter,
+    neighborhoodName = "New York City"
 }) {
     // console.log("demoLegendBins", demoLegendBins)
     // console.log("demoLookup", demoLookup)
@@ -42,7 +43,7 @@ export default function Legend({
 
     const administrativeBoundary =
         (boundary === "council" ? "Council Districts" : "Community Boards");
-        
+
     const getImpactStatement = () => {
         return issues.specific_issues_data[selectedSpecificIssue]
             ? `${issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units_sentence}`
@@ -297,7 +298,7 @@ export default function Legend({
                             <div>
                                 {<p className={"m-0 small-font"}><span className={"bold"}>{_DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList[0]}</span>% of
                                     {demoLookup.name === "Households Living Below the Poverty Line" || demoLookup.name === "Households Without a Car" ? " households " : " commuters "}
-                                    in <span className={"underline bold"}>{"New York City"}</span> {demoLookup.name === "Households Living Below the Poverty Line" ? "live below the poverty line" :
+                                    in <span className={"underline bold"}>{neighborhoodName}</span> {demoLookup.name === "Households Living Below the Poverty Line" ? "live below the poverty line" :
                                         demoLookup.name === "Households Without a Car" ? "do not own a car" :
                                             demoLookup.name === "Citywide Commuters Who Drive Alone to Work" ? "drive alone to work" :
                                                 "bike, walk, or ride transit"}
@@ -388,7 +389,7 @@ export default function Legend({
                     return (
                         <div className={"d-flex flex-column row-gap"} style={{ flex: 1 }}>
                             <div>
-                                <p className={"mb-3 small-font"}>Citywide {demoLookup.name}</p>
+                                <p className={"mb-3 small-font"}>{(selectedChapter == 3) ? '' : 'Citywide'} {demoLookup.name} in <span className={"underline bold"}>{neighborhoodName}</span></p>
                                 <div
                                     className={"placeholder-legend placeholder-legend-ethnicity"}
                                 >
@@ -459,7 +460,7 @@ export default function Legend({
                     }
                     console.log('info', info)
                     let percList;
-                    if (selectedChapter == 3) { 
+                    if (selectedChapter == 3) {
                         percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
 
                     }
@@ -471,8 +472,17 @@ export default function Legend({
 
                     return (
                         <div style={{ flex: 1 }}>
+                            {demoLookup.name == "Race & Ethnicity" ?
+                                (<p className={"mb-3 small-font"}>{(selectedChapter == 3) ? '' : 'Citywide'} {demoLookup.name} in <span className={"underline bold"}>{neighborhoodName}</span></p>) :
+                                (<p className={"mb-3 small-font"}><span className={"bold"}>{_DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList[0]}</span>% of
+                                    {demoLookup.name === "Households Living Below the Poverty Line" || demoLookup.name === "Households Without a Car" ? " households " : " commuters "}
+                                    in <span className={"underline bold"}>{neighborhoodName}</span> {demoLookup.name === "Households Living Below the Poverty Line" ? "live below the poverty line" :
+                                        demoLookup.name === "Households Without a Car" ? "do not own a car" :
+                                            demoLookup.name === "Citywide Commuters Who Drive Alone to Work" ? "drive alone to work" :
+                                                "bike, walk, or ride transit"}
 
-                            <p className={"mb-3 small-font"}>Citywide {demoLookup.name}</p>
+                                </p>)}
+
                             <div
                                 className={"placeholder-legend placeholder-legend-ethnicity"}
                             />
