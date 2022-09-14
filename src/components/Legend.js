@@ -58,63 +58,65 @@ export default function Legend({
         }
     }
 
-    let textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
+    let textList; 
     let percList;
-    if (selectedChapter == 3) {
-        if (demoLookup.name == "Race & Ethnicity") {
-            percList = [Math.round(neighborhoodData['P_Hispanic'] * 100),
-            Math.round(neighborhoodData['P_White'] * 100),
-            Math.round(neighborhoodData['P_Black'] * 100),
-            Math.round(neighborhoodData['P_Asian'] * 100),
-            100 - (Math.round(neighborhoodData['P_Hispanic'] * 100) +
-                Math.round(neighborhoodData['P_White'] * 100) +
-                Math.round(neighborhoodData['P_Black'] * 100) +
-                Math.round(neighborhoodData['P_Asian'] * 100))]
-        }
-        else if (demoLookup.lookup == "F10_TrsBkW") {
-            if ((!toggleWalk) && (!toggleTransit) && (!toggleBike)) {
+    if (demoLookup) {
+        textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
+        if (selectedChapter == 3) {
+            if (demoLookup.name == "Race & Ethnicity") {
+                percList = [Math.round(neighborhoodData['P_Hispanic'] * 100),
+                Math.round(neighborhoodData['P_White'] * 100),
+                Math.round(neighborhoodData['P_Black'] * 100),
+                Math.round(neighborhoodData['P_Asian'] * 100),
+                100 - (Math.round(neighborhoodData['P_Hispanic'] * 100) +
+                    Math.round(neighborhoodData['P_White'] * 100) +
+                    Math.round(neighborhoodData['P_Black'] * 100) +
+                    Math.round(neighborhoodData['P_Asian'] * 100))]
+            }
+            else if (demoLookup.lookup == "F10_TrsBkW") {
+                if ((!toggleWalk) && (!toggleTransit) && (!toggleBike)) {
+                    percList = [Math.round(neighborhoodData[demoLookup.lookup] * 100),
+                    100 - Math.round(neighborhoodData[demoLookup.lookup] * 100)]
+                } else {
+
+                    let otherPrec = 100
+                    textList = []
+                    percList = []
+
+                    if (toggleWalk) {
+                        let perc = Math.round(neighborhoodData['F11_Walk'] * 100);
+                        otherPrec -= perc;
+                        percList.push(perc);
+                        textList.push("Walk");
+                    }
+
+                    if (toggleTransit) {
+                        let perc = Math.round(neighborhoodData['F8_PubTran'] * 100);
+                        otherPrec -= perc;
+                        percList.push(perc);
+                        textList.push("Ride Transit");
+                    }
+
+                    if (toggleBike) {
+                        let perc = Math.round(neighborhoodData['F6_bike'] * 100);
+                        otherPrec -= perc;
+                        percList.push(perc);
+                        textList.push("Bike");
+                    }
+
+                    percList.push(otherPrec);
+                    textList.push("Others");
+                }
+            }
+            else {
                 percList = [Math.round(neighborhoodData[demoLookup.lookup] * 100),
                 100 - Math.round(neighborhoodData[demoLookup.lookup] * 100)]
-            } else {
-
-                let otherPrec = 100
-                textList = []
-                percList = []
-
-                if (toggleWalk) {
-                    let perc = Math.round(neighborhoodData['F11_Walk'] * 100);
-                    otherPrec -= perc;
-                    percList.push(perc);
-                    textList.push("Walk");
-                }
-
-                if (toggleTransit) {
-                    let perc = Math.round(neighborhoodData['F8_PubTran'] * 100);
-                    otherPrec -= perc;
-                    percList.push(perc);
-                    textList.push("Ride Transit");
-                }
-
-                if (toggleBike) {
-                    let perc = Math.round(neighborhoodData['F6_bike'] * 100);
-                    otherPrec -= perc;
-                    percList.push(perc);
-                    textList.push("Bike");
-                }
-
-                percList.push(otherPrec);
-                textList.push("Others");
             }
         }
         else {
-            percList = [Math.round(neighborhoodData[demoLookup.lookup] * 100),
-            100 - Math.round(neighborhoodData[demoLookup.lookup] * 100)]
+            percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
         }
     }
-    else {
-        percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
-    }
-
     // console.log("--------------------")
     // console.log("demoLegendBins", demoLegendBins)
     // console.log("demoLookup", demoLookup)
