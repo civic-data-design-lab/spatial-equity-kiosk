@@ -4,7 +4,7 @@ import ResizeObserver from "resize-observer-polyfill";
 
 export const useResizeObserver = (
   ref,
-  callback
+  callback=null
 ) => {
   const [width, setWidth] = useState();
   const [height, setHeight] = useState();

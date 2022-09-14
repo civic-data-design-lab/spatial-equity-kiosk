@@ -12,8 +12,9 @@ export default function IssuesTags({
                                        moreIssues,
                                        setMoreIssues,
                                        setMoreIssuesLength,
-                                       compareSearch, communitySearch
-
+                                       compareSearch, communitySearch,
+                                       boundary,
+                                       selectedCommunity
                                    }) {
 
     // TODO: all tags when communitySearch && compareSearch
@@ -39,6 +40,8 @@ export default function IssuesTags({
                                         issues={issues} setSelectedSpecificIssue={setSelectedSpecificIssue}
                                         setModal={setModal} forMoreIssues={true} setMoreIssues={setMoreIssues}
                                         moreIssues={moreIssues}
+                                        boundary={boundary}
+                                        selectedCommunity={selectedCommunity}
                             />
                         </div>
                     )
@@ -74,7 +77,7 @@ export default function IssuesTags({
                                         }}
                                     >
                                         <p className={"m-0"}>{issues.specific_issues_data[id].specific_issue_name}</p>
-                                        {(moreIssues && !moreIssues.includes(id)) ? <FontAwesomeIcon icon={faMinus}/> :
+                                        {(moreIssues && !moreIssues.includes(id)) ? <FontAwesomeIcon icon={faPlus}/> :
                                             <FontAwesomeIcon icon={faPlus}/>}
                                     </div>
                                 )

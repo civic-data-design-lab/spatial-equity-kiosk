@@ -4,6 +4,7 @@ import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _RANKINGS from "../data/rankings.json";
 import _COUNCILDISTRICTS from "../texts/councildistricts.json";
 import { useResizeObserver } from "../utils/useResizeObserver"
+import { getIssueType } from "../utils/getIssueType"
 
 
 const getRgb = (color) => {
@@ -14,7 +15,6 @@ const getRgb = (color) => {
         b
     }
 }
-
 
 const unique = (arr) => {
     return Array.from(new Set(arr))
@@ -38,7 +38,7 @@ const getDataToVis = (rawIssueData) => {
     let ascending;
     let lookupArray = []
 
-    rawIssueData.sort((a, b) => (a.rank > b.rank));
+    rawIssueData.sort((a, b) => (a.rank - b.rank));
 
     for (let [index, value] of Object.entries(rawIssueData)) {
         valueArray.push(Number(Number(value.data).toFixed(3)))
@@ -48,18 +48,20 @@ const getDataToVis = (rawIssueData) => {
 
     // get the corresponding index of average value
     let sum = valueArray.reduce((a, b) => a + b, 0);
-    let avg = Number((sum / valueArray.length).toFixed(3));
+    let avg = Number((sum / valueArray.length)) >= 10 ? Number((sum / valueArray.length).toFixed(1)) : Number((sum / valueArray.length).toFixed(3));
     let avgIndex;
+
+
 
     for (let i = 0; i < valueArray.length - 1; i++) {
         if ((valueArray[i] < avg) && (valueArray[i + 1] > avg)) {
-            avgIndex = i + (avg - valueArray[i]) / (valueArray[i + 1] - valueArray[i])
+            avgIndex = i + (avg - valueArray[i]) / (valueArray[i + 1] - valueArray[i]);
             ascending = true;
             break;
         }
 
         if ((valueArray[i] > avg) && (valueArray[i + 1] < avg)) {
-            avgIndex = i + (avg - valueArray[i + 1]) / (valueArray[i] - valueArray[i = 1])
+            avgIndex = i + 1 - (avg - valueArray[i + 1]) / (valueArray[i] - valueArray[i + 1]);
             ascending = false;
             break;
         }
@@ -68,16 +70,12 @@ const getDataToVis = (rawIssueData) => {
     return [valueArray, nameArray, avg, avgIndex, ascending, lookupArray]
 }
 
-const IssueHistogram = ({ colorRampsyType,
+const IssueHistogram = ({
+    colorRampsyType = 'health',
     issues,
     boundary,
     selectedSpecificIssue,
-    communityPinned,
-    setCommunityPinned,
-    councilPinned,
-    setCouncilPinned,
-    setCommunitySearch,
-    setSelectedChapter
+    selectedCommunity
 }) => {
     const ref = useRef();
     const containerRef = useRef();
@@ -85,7 +83,7 @@ const IssueHistogram = ({ colorRampsyType,
     const getIssueStatement = () => {
 
         if (selectedSpecificIssue) {
-            let words = issues.specific_issues_data[selectedSpecificIssue].highlight_statement.split(" ")
+            let words = issues.specific_issues_data[selectedSpecificIssue].specific_issue_units_sentence.split(" ")
             words.shift()
             const ignoreCapitalization = ["the", "of", "an", "a", "by"]
 
@@ -105,53 +103,31 @@ const IssueHistogram = ({ colorRampsyType,
 
 
     const textWidth = 50;
-
-    const [currentHoveredCommunityID, setCurrentHoveredCommunityID] = useState('')
-
-    const optionalCallback = (entry) => {
-    }
-
-    const [containerWidth, containerHeight] = useResizeObserver(containerRef, optionalCallback);
-
     const margin = {
         top: 20,
-        left: 20,
-        bottom: 40,
-        right: 50,
+        left: 25,
+        bottom: 20,
+        right: 20,
     }
+    const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
-
-    let colorRamps = _CHAPTER_COLORS[colorRampsyType]
+    let colorRamps = _CHAPTER_COLORS[getIssueType(issues, selectedSpecificIssue)]
     let rawIssueData = _RANKINGS[boundary][issues.specific_issues_data[selectedSpecificIssue].json_id];
     let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(rawIssueData);
+    let selectedIndex = selectedCommunity ? lookupArray.indexOf(selectedCommunity.json_lookup) : 0;
 
-    useEffect(() => {
-        let svg = d3.select(ref.current)
-        const height = containerHeight ? containerHeight : 0;
-        const width = containerWidth ? containerWidth : 500;
-
-        //  Init mouse line
-        svg.select('#mouseLine')
-            .style('stroke-width', 0);
-
-        svg.select('#mouseTextUp')
-            .attr('text-anchor', 'end')
-            .attr('x', width - margin.right)
-            .attr("style", "font-family:Inter")
-            .attr("font-size", "14")
-            .attr("fill", "#000000")
-            .text('');
-
-        svg.select('#mouseTextDown')
-            .attr('text-anchor', 'end')
-            .attr('x', width - margin.right)
-            .attr("style", "font-family:Inter")
-            .attr("font-size", "14")
-            .attr("fill", "#000000")
-            .text('');
-
-
-    }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight,])
+    // console.log('------')
+    // console.log('specificIssue', selectedSpecificIssue)
+    // console.log('issues', issues)
+    // console.log('issues', issues.issues_data['environment'].specific_issues_ID)
+    // console.log('issues type', getIssueType(issues, selectedSpecificIssue))
+    // console.log('boundary', boundary)
+    // console.log('json_id', issues.specific_issues_data[selectedSpecificIssue].json_id)
+    // console.log('_RANKINGS', _RANKINGS[boundary])
+    // console.log('selectedCommunity', selectedCommunity)
+    // console.log('selectedCommunity.json_lookup', selectedCommunity.json_lookup)
+    // console.log('rank', selectedIndex)
+    // console.log('------')
 
     useEffect(() => {
 
@@ -160,25 +136,25 @@ const IssueHistogram = ({ colorRampsyType,
 
         // histogram bars attr
         let barPadding = 0;
-        let barHeight = (height - margin.top - margin.bottom) / data.length;
+        let barWdith = (width - margin.right - margin.left) / data.length;
         let minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
+        let longestBarPadding = 0;
 
-        // let highlight_statement = issues.specific_issues_data[selectedSpecificIssue].highlight_statement;
-        // highlight_statement = removeFirstWord(highlight_statement);
-        // highlight_statement = highlight_statement.charAt(0).toUpperCase() + highlight_statement.slice(1);
 
-        let [hiStatement, lowStatement] = issues.specific_issues_data[selectedSpecificIssue].issue_hi_low
-        hiStatement = hiStatement.charAt(0).toUpperCase() + hiStatement.slice(1);;
-        lowStatement = lowStatement.charAt(0).toUpperCase() + lowStatement.slice(1);;
+        // let [hiStatement, lowStatement] = issues.specific_issues_data[selectedSpecificIssue].issue_hi_low
+        // hiStatement = hiStatement.charAt(0).toUpperCase() + hiStatement.slice(1);
+        // lowStatement = lowStatement.charAt(0).toUpperCase() + lowStatement.slice(1);
+        let [hiStatement, lowStatement] = ['Max', 'Min']
 
         let xscale = d3.scaleLinear()
-            // .domain([0, d3.max(data)])
-            .domain([d3.min(data) - minValueMargin, d3.max(data)])
-            .range([0, width - 100 - margin.right - margin.left])
-
-        let yscale = d3.scaleLinear()
             .domain([0, data.length])
-            .range([margin.top, height - margin.bottom])
+            .range([margin.left, width - margin.right - margin.left])
+
+        let yrange = (height - longestBarPadding - margin.bottom - margin.top > 0) ? (height - longestBarPadding - margin.bottom - margin.top) : 0
+        let yscale = d3.scaleLinear()
+            .domain([d3.min(data) >= 0 ? d3.min(data) - minValueMargin : d3.min(data), d3.max(data)])
+            .range([0, yrange])
+
 
         let yUnit = yscale(1) - yscale(0)
 
@@ -198,13 +174,18 @@ const IssueHistogram = ({ colorRampsyType,
                 .attr('class', 'rect')
                 .selectAll('rect')
                 .data(data))
-            .attr('height', (barHeight - barPadding) >= 0 ? (barHeight - barPadding) : 0)
-            .attr('width', d => d3.min(data) >= 0 ? xscale(d) : (d > 0 ? xscale(d) - xscale(0) : xscale(0) - xscale(d)))
-            .attr('y', (d, i) => yscale(i + 0.5))
-            .attr('x', d => d3.min(data) >= 0 ? margin.left : (d > 0 ? margin.left + xscale(0) : margin.left + xscale(d)))
+            .attr('width', (barWdith - barPadding) >= 0 ? (barWdith - barPadding) : 0)
+            .attr('height', d => d3.min(data) >= 0 ? yscale(d) : (d > 0 ? yscale(d) - yscale(0) : yscale(0) - yscale(d)))
+            .attr('x', (d, i) => xscale(i + 0.5))
+            .attr('y', d => d3.min(data) >= 0 ? height - yscale(d) - margin.top : (d > 0 ? margin.top + yscale(0) : margin.top + yscale(d)))
             .attr("fill", (d, i) => d3.rgb(...colorInterpolate(colorRamps[0], colorRamps[colorRamps.length - 1], i / data.length)))
             .attr('value', d => d)
 
+        svg.selectAll("rect")
+            .each(function (d, i) {
+                d3.select(this)
+                    .attr('y', d => d3.min(data) >= 0 ? height - d3.select(this).attr("height") - margin.top : (d > 0 ? height - d3.select(this).attr("height") - margin.top - yscale(0) : height - d3.select(this).attr("height") - margin.top - yscale(d)))
+            })
 
         // clear Chart
         svg.select('g')
@@ -216,447 +197,155 @@ const IssueHistogram = ({ colorRampsyType,
 
         // draw Lines
         svg.select('#minLine')
-            .attr('x1', margin.left)
-            .attr('y1', yscale(0.5))
-            .attr('x2', width - margin.right)
-            .attr('y2', yscale(0.5))
-            .style('stroke', 'black')
-            .style('stroke-width', 2);
-
-        svg.select('#maxLine')
-            .attr('x1', margin.left)
-            .attr('y1', yscale(data.length + 0.5))
-            .attr('x2', width - margin.right)
-            .attr('y2', yscale(data.length + 0.5))
-            .style('stroke', 'black')
-            .style('stroke-width', 2);
-
-        svg.select('#minText')
-            .attr('x', width - margin.right - textWidth)
-            .attr('y', yscale(0.5) - 5)
-            .attr("style", "font-family:Inter")
-            .attr("font-size", "14")
-            .attr("fill", "#000000")
-            .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
-
-        svg.select('#maxText')
-            .attr('x', width - margin.right - textWidth)
-            .attr('y', yscale(data.length + 0.5) + 15)
-            .attr("style", "font-family:Inter")
-            .attr("font-size", "14")
-            .attr("fill", "#000000")
-            .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
-
-        // draw reset button
-        d3.select('#resetButton')
-            .attr('x', margin.left)
-            .attr('y', yscale(data.length + 0.5) + 15)
-            .attr("style", "font-family:Inter")
-            .attr('visibility', 'hidden')
-            // .style('font-weight', 'bold')
-            .attr("font-size", "14")
-            .on('click', (event, d) => {
-                if (boundary == "council") {
-                    setCouncilPinned([]);
-                } else {
-                    setCommunityPinned([]);
-                }
-            })
-
-        // Adjust text position
-        svg.select('#maxText')
-            .attr('x', width - margin.right - svg.select('#maxText').node().getBoundingClientRect().width);
-
-        svg.select('#minText')
-            .attr('x', width - margin.right - svg.select('#minText').node().getBoundingClientRect().width);
-
-        svg.select('#avgLine')
-            .attr('x1', margin.left)
-            .attr('y1', yscale(avgIndex + 0.5))
-            .attr('x2', width - margin.right)
-            .attr('y2', yscale(avgIndex + 0.5))
-            .style('stroke', 'black')
-            .style('stroke-width', 2);
-
-        svg.select('#avgTextUp')
-            .attr('x', width - margin.right - textWidth)
-            .attr('y', yscale(avgIndex + 0.5) - 5)
-            .attr("style", "font-family:Inter")
-            .attr("font-size", "14")
-            .attr("fill", "#000000")
-            .text('Citywide Average');
-
-        svg.select('#avgTextDown')
-            .attr('x', width - margin.right - textWidth)
-            .attr('y', yscale(avgIndex + 0.5) + 15)
-            .attr("style", "font-family:Inter")
-            .attr("font-size", "14")
-            .attr("fill", "#000000")
-            .text(avg);
-
-        // Adjust text position
-        svg.select('#avgTextUp')
-            .attr('x', width - margin.right - svg.select('#avgTextUp').node().getBoundingClientRect().width);
-
-        svg.select('#avgTextDown')
-            .attr('x', width - margin.right - svg.select('#avgTextDown').node().getBoundingClientRect().width);
-
-        d3.select('#histBg')
-            .attr('height', (height >= 0) ? height : 0)
-            .attr('width', width - margin.left - margin.right)
-            .attr('y', 0)
-            .attr('x', margin.left)
-            .attr("fill", d3.rgb(0, 0, 0, 0))
-            .on('mousemove', function (event, d) {
-                let pt = d3.pointer(event)
-
-                let ycood = pt[1];
-                ycood = Math.max(ycood, yscale(0.5));
-                ycood = Math.min(ycood, yscale(data.length + 0.5));
-
-                let rectID = Math.floor(yscale.invert(ycood) - 0.5)
-                setCurrentHoveredCommunityID(lookupArray[rectID])
-
-                d3.select("#mouseLine")
-                    // .transition()
-                    // .duration(10)
-                    // .ease('linear') 
-                    .attr('y1', ycood)
-                    .attr('y2', ycood)
-                    .attr('x1', margin.left)
-                    .attr('x2', width - margin.right)
-                    .attr('lookupID', lookupArray[rectID])
-                    .style('stroke', 'black')
-                    .style('stroke-width', 2);
-
-                d3.select("#mouseTextUp")
-                    .attr('y', ycood - 5)
-                    .attr('lookupID', lookupArray[rectID])
-                    .text(`${boundary == "council" ? "Council" : ""} ${nameArray[rectID]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[rectID]].borough.join("/ ")}` : ""}`)
-
-                d3.select("#mouseTextDown")
-                    .attr('y', ycood + 15)
-                    .attr('lookupID', lookupArray[rectID])
-                    .text(`${data[rectID]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand !== "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
-
-                // Adjust text position
-                // svg.select('#mouseTextUp')
-                //     .attr('x', width - margin.right - svg.select('#mouseTextUp').node().getBoundingClientRect().width);
-
-                // svg.select('#mouseTextDown')
-                //     .attr('x', width - margin.right - svg.select('#mouseTextDown').node().getBoundingClientRect().width);
-
-            })
-            .on('click', (event, d) => {
-                let pt = d3.pointer(event)
-
-                let ycood = pt[1];
-                ycood = Math.max(ycood, yscale(0.5));
-                ycood = Math.min(ycood, yscale(data.length + 0.5));
-
-                let rectID = Math.floor(yscale.invert(ycood) - 0.5)
-
-                // console.log(lookupArray[rectID])
-                if (boundary == "council") setCouncilPinned(unique([...councilPinned, lookupArray[rectID]]))
-                else setCommunityPinned(unique([...communityPinned, lookupArray[rectID]]))
-            })
-
-
-        // Draw all the line and make them invisible
-        svg.selectAll(".pinnedLine")
-            .data(data)
-            .enter()
-            .append("line")
-            .attr("class", "pinnedLine")
-            .merge(svg.selectAll(".pinnedLine")
-                .data(data))
-            .attr('y1', (d, i) => yscale(i + 1))
-            .attr('y2', (d, i) => yscale(i + 1))
-            .attr('x1', margin.left)
-            .attr('x2', width - margin.right)
-            .attr('visibility', 'hidden')
-            .attr('lookupID', (d, i) => lookupArray[i])
+            .attr('class', 'dataLine')
+            .attr('y1', margin.top)
+            .attr('x1', xscale(0.5))
+            .attr('y2', height - margin.bottom)
+            .attr('x2', xscale(0.5))
             .style('stroke', 'black')
             .style('stroke-width', 2)
+            .attr('index', 0);
 
-        svg.selectAll(".pinnedLine")
-            .data(data)
-            .exit()
-            .remove();
+        svg.select('#maxLine')
+            .attr('class', 'dataLine')
+            .attr('y1', margin.top)
+            .attr('x1', xscale(data.length + 0.5))
+            .attr('y2', height - margin.bottom)
+            .attr('x2', xscale(data.length + 0.5))
+            .style('stroke', 'black')
+            .style('stroke-width', 2)
+            .attr('index', data.length - 1);
 
-        // Draw all the pinnedTextUp and make them invisible
-        svg.selectAll(".pinnedTextUp")
-            .data(data)
-            .enter()
-            .append("text")
-            .attr("class", "pinnedTextUp")
-            .merge(svg.selectAll(".pinnedTextUp")
-                .data(data))
-            .attr('y', (d, i) => yscale(i + 1) - 5)
-            .attr('x', width - margin.right)
-            .attr("text-anchor", "end")
-            .attr('visibility', 'hidden')
-            .attr('lookupID', (d, i) => lookupArray[i])
+        // draw avg Lines
+        svg.select('#avgLine')
+            .attr('class', 'dataLine')
+            .attr('y1', margin.top)
+            .attr('x1', xscale(avgIndex + 1))
+            .attr('y2', height - margin.bottom)
+            .attr('x2', xscale(avgIndex + 1))
+            .style('stroke', 'black')
+            .style('stroke-width', 2)
+            .attr('index', avgIndex);
+
+        // draw selected Lines
+        svg.select('#selectedLine')
+            .attr('class', 'dataLine')
+            .attr('y1', margin.top)
+            .attr('x1', xscale(selectedIndex + 1))
+            .attr('y2', height - margin.bottom)
+            .attr('x2', xscale(selectedIndex + 1))
+            .style('stroke', 'black')
+            .style('stroke-width', 4)
+            .attr('index', selectedIndex);
+
+        svg.selectAll(".dataLine")
+            .each(function (d, i) {
+                let index = Math.round(d3.select(this).attr('index'))
+                let length = d3.min(data) >= 0 ? yscale(data[index]) : (data[index] > 0 ? yscale(data[index]) - yscale(0) : yscale(0) - yscale(data[index]))
+                d3.select(this)
+                    .attr('y1', d3.min(data) >= 0 ? height - length - margin.top : (data[index] > 0 ? height - length - margin.top - yscale(0) : height - length - margin.top - yscale(data[index])))
+                d3.select(this)
+                    .attr('y2', Number(d3.select(this).attr('y1')) + length)
+
+                // svg.append('text')
+                //     .attr('class', 'smaller-text')
+                //     .attr('x', d3.select(this).attr('x1'))
+                //     .attr('y', d3.select(this).attr('y1') - 5)
+                //     .attr("style", "font-family:Inter")
+                //     .attr("font-size", "14")
+                //     .attr("fill", "#000000")
+                //     .attr("text-anchor", "middle")
+                //     .text(`${data[index]}`)
+            })
+
+        svg.select('#minTextDown')
+            .attr('x', xscale(0.5) - 5)
+            .attr('y', height - margin.bottom + 5)
+            .attr('class', 'smaller-text')
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((d, i) => `${boundary == "council" ? "Council" : ""} ${nameArray[i]}${boundary == "council" ? `, ${_COUNCILDISTRICTS[lookupArray[i]].borough.join("/ ")}` : ""}`)
-
-
-        svg.selectAll(".pinnedTextUp")
-            .data(data)
-            .exit()
-            .remove()
-
-        // Draw all the pinnedTextDown and make them invisible
-        svg.selectAll(".pinnedTextDown")
-            .data(data)
-            .enter()
-            .append("text")
-            .attr("class", "pinnedTextDown")
-            .merge(svg.selectAll(".pinnedTextDown")
-                .data(data))
-            .attr('y', (d, i) => yscale(i + 1) + 15)
-            .attr('x', width - margin.right)
             .attr("text-anchor", "end")
-            .attr('visibility', 'hidden')
-            .attr('lookupID', (d, i) => lookupArray[i])
+            // .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+            .text((!ascending ? `${hiStatement} ` : `${lowStatement} `));
+
+        svg.select('#maxTextDown')
+            .attr('x', xscale(data.length + 0.5) + 5)
+            .attr('y', height - margin.bottom + 5)
+            .attr('class', 'smaller-text')
             .attr("style", "font-family:Inter")
             .attr("font-size", "14")
             .attr("fill", "#000000")
-            .text((d, i) => `${data[i]} ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand != "" ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`)
+            // .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+            .text((ascending ? `${hiStatement} ` : `${lowStatement} `));
 
-        svg.selectAll(".pinnedTextDown")
-            .data(data)
-            .exit()
-            .remove();
-
-        // Add goto function on pinnedTextUp
-        svg.selectAll(".pinnedTextUp")
-            .each(function (d, i) {
-                d3.select(this)
-                    .on('click', (e, d) => {
-                        setSelectedChapter(3)
-                        setCommunitySearch(d3.select(this).attr("lookupID"))
-                    })
-            })
-
-        // Draw all cancel button
-        svg.selectAll(".cancelButton")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("class", "cancelButton")
-            .merge(svg.selectAll(".cancelButton")
-                .data(data))
-            .attr('y', (d, i) => yscale(i + 0.5))
-            .attr('x', 0)
-            .attr('width', margin.left)
-            .attr('height', yUnit >= 0 ? yUnit : 0)
-            .attr('visibility', 'hidden')
-            .attr('lookupID', (d, i) => lookupArray[i])
-            .attr("fill", "#FFFFFF")
-
-        svg.selectAll(".cancelButton")
-            .each(function (d, i) {
-                d3.select(this)
-                    .on('click', (e, d) => {
-                        if (boundary == "council") setCouncilPinned(councilPinned.filter((d, _) => d !== d3.select(this).attr("lookupID")))
-                        else setCommunityPinned(communityPinned.filter((d, _) => d !== d3.select(this).attr("lookupID")))
-                    })
-            })
-
-        svg.selectAll(".cancelButton")
-            .data(data)
-            .exit()
-            .remove();
-
-
-        // Draw all cancel button text
-        svg.selectAll(".cancelButtonText")
-            .data(data)
-            .enter()
-            .append("text")
-            .attr("class", "cancelButtonText")
-            .merge(svg.selectAll(".cancelButtonText")
-                .data(data))
-            .attr('y', (d, i) => yscale(i + 1) + 5)
-            .attr('x', margin.left - 5)
-            .attr("text-anchor", "end")
-            .attr('visibility', 'hidden')
-            .style('font-weight', 'bold')
-            .attr("fill", "#000000")
+        svg.select('#avgTextDown')
+            .attr('x', svg.select('#avgLine').attr('x1'))
+            .attr('y', height - margin.bottom + 15)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
             .attr("font-size", "14")
-            .text('✕')
-            .attr('lookupID', (d, i) => lookupArray[i])
-
-        svg.selectAll(".cancelButtonText")
-            .each(function (d, i) {
-                d3.select(this)
-                    .on('click', (e, d) => {
-                        if (boundary == "council") setCouncilPinned(councilPinned.filter((d, _) => d !== d3.select(this).attr("lookupID")))
-                        else setCommunityPinned(communityPinned.filter((d, _) => d !== d3.select(this).attr("lookupID")))
-                    })
-            })
-
-        svg.selectAll(".cancelButtonText")
-            .data(data)
-            .exit()
-            .remove();
-
-
-        // draw goTo button
-        svg.selectAll(".goToButton")
-            .data(data)
-            .enter()
-            .append("text")
-            .attr("class", "goToButton")
-            .merge(svg.selectAll(".goToButton")
-                .data(data))
-            .attr('y', (d, i) => yscale(i + 1) + 10)
-            .attr('x', width - 25)
-            .attr("text-anchor", "end")
-            .attr('visibility', 'hidden')
-            .style('font-weight', 'bold')
             .attr("fill", "#000000")
-            .attr("font-size", "32")
-            .text('🞂')
-            .attr('lookupID', (d, i) => lookupArray[i])
+            .attr("text-anchor", "middle")
+            .text('NYC');
 
-        svg.selectAll(".goToButton")
-            .each(function (d, i) {
-                d3.select(this)
-                    .on('click', (e, d) => {
-                        setSelectedChapter(3)
-                        setCommunitySearch(d3.select(this).attr("lookupID"))
-                    })
-            })
-
-        svg.selectAll(".goToButton")
-            .data(data)
-            .exit()
-            .remove();
-
-        // move the interaction layer to front
-        d3.select('#histBg')
-            .raise()
-        d3.select('#resetButton')
-            .raise()
-        svg.selectAll(".pinnedTextUp")
-            .raise()
-
-    }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight, councilPinned, communityPinned]);
-
-    useEffect(() => {
-        let svg = d3.select(ref.current);
-
-        svg.selectAll("#mouseLine").each(function (d, i) {
-
-            if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
-                else d3.select(this).attr('visibility', "visible")
-            } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
-                else d3.select(this).attr('visibility', "visible")
-            }
-        })
-
-        svg.selectAll("#mouseTextUp").each(function (d, i) {
-            if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
-                else d3.select(this).attr('visibility', "visible")
-            } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
-                else d3.select(this).attr('visibility', "visible")
-            }
-        })
-
-        svg.selectAll("#mouseTextDown").each(function (d, i) {
-            if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
-                else d3.select(this).attr('visibility', "visible")
-            } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) || !d3.select(this).attr("lookupID")) d3.select(this).attr('visibility', "hidden")
-                else d3.select(this).attr('visibility', "visible")
-            }
-        })
-
-        svg.selectAll(".pinnedLine").each(function (d, i) {
-            if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            }
-        })
-
-        svg.selectAll(".pinnedTextUp").each(function (d, i) {
-            if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            }
-        })
-
-        svg.selectAll(".pinnedTextDown").each(function (d, i) {
-            if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID"))) && (d3.select(this).attr("lookupID"))) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            }
-        })
-
-        svg.selectAll(".cancelButton").each(function (d, i) {
-            if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            }
-        })
-
-        svg.selectAll(".cancelButtonText").each(function (d, i) {
-            if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            }
-        })
-
-        svg.selectAll(".goToButton").each(function (d, i) {
-
-            d3.select(this).on("mouseover", function (d, i) { d3.select(this).attr("fill", "#ffffff").attr("stroke", "#000000") })
-            d3.select(this).on("mouseout", function (d, i) { d3.select(this).attr("fill", "#000000") })
-
-            if (boundary == "council") {
-                if ((councilPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            } else {
-                if ((communityPinned.includes(d3.select(this).attr("lookupID")))) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            }
-        })
-
-        svg.selectAll("#resetButton").each(function (d, i) {
-            if (boundary == "council") {
-                if (councilPinned.length > 0) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            } else {
-                if (communityPinned.length > 0) d3.select(this).attr('visibility', "visible")
-                else d3.select(this).attr('visibility', "hidden")
-            }
-        })
+        svg.select('#selectedTextDown')
+            .attr('x', svg.select('#selectedLine').attr('x1'))
+            .attr('y', height - margin.bottom + 15)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .attr("text-anchor", "middle")
+            .text(`${selectedCommunity ? selectedCommunity.name : 0}`);
 
 
-    }, [colorRamps, boundary, selectedSpecificIssue, containerWidth, containerHeight, councilPinned, communityPinned, currentHoveredCommunityID]);
+        svg.select('#minTextUp')
+            .attr('x', xscale(0.5))
+            .attr('y', svg.select('#minLine').attr('y1') - 5)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .attr("text-anchor", ((!ascending) ? "start " : "end"))
+            .text(`${data[0]}`);
+
+        svg.select('#maxTextUp')
+            .attr('x', xscale(data.length + 0.5))
+            .attr('y', svg.select('#maxLine').attr('y1') - 5)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .attr("text-anchor", ((!ascending) ? "start " : "end"))
+            .text(`${data[data.length - 1]}`);
+
+        svg.select('#avgTextUp')
+            .attr('x', svg.select('#avgLine').attr('x1'))
+            .attr('y', svg.select('#avgLine').attr('y1') - 5)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .attr("text-anchor", ((!ascending) ? "start " : "end"))
+            .text(`${data[Math.round(svg.select('#avgLine').attr('index'))]}`);
+
+        let showSelectedText = (!(Number(svg.select('#selectedLine').attr('index')) == data.length - 1));
+        svg.select('#selectedTextUp')
+            .attr('x', svg.select('#selectedLine').attr('x1'))
+            .attr('y', svg.select('#selectedLine').attr('y1') - 5)
+            .attr('class', 'smaller-text')
+            .attr("style", "font-family:Inter")
+            .attr("font-size", "14")
+            .attr("fill", "#000000")
+            .attr("text-anchor", ((!ascending) ? "start " : "end"))
+            .text(`${showSelectedText ? data[Math.round(svg.select('#selectedLine').attr('index'))] : ``}`);
+
+
+
+
+
+    }, [colorRamps, boundary, selectedSpecificIssue, selectedCommunity, containerWidth, containerHeight,]);
 
     return (
         <div ref={containerRef} style={{
@@ -672,22 +361,18 @@ const IssueHistogram = ({ colorRampsyType,
                 <text id="avgTextUp" />
                 <text id="avgTextDown" />
 
-                {/* Interactive Line */}
-                <line id="mouseLine" />
-                <text id="mouseTextUp" />
-                <text id="mouseTextDown" />
-                <rect id="histBg" />
+                {/* Selected Line */}
+                <line id="selectedLine" />
+                <text id="selectedTextUp" />
+                <text id="selectedTextDown" />
 
                 {/* Min/Max Line */}
                 <line id="maxLine" />
                 <line id="minLine" />
-                <text id="maxText" />
-                <text id="minText" />
-
-                {/* Reset Button */}
-                <text id="resetButton" >
-                    Clear All
-                </text>
+                <text id="maxTextUp" />
+                <text id="minTextUp" />
+                <text id="maxTextDown" />
+                <text id="minTextDown" />
             </svg>
         </div>
     );

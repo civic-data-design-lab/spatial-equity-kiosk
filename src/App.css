@@ -495,6 +495,7 @@ a:active {
     background-color: white;
     z-index: 3;
     border: 2px solid black;
+    /* border: none; */
     border-left: none;
     opacity: 1;
 }
@@ -567,6 +568,19 @@ a:active {
     height: 2em;
 }
 
+.floating-share {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 1rem;
+    z-index: 3;
+    display: normal;
+    width: auto;
+    height: auto;
+    padding: 0;
+
+}
+
 .issues-tile-body {
     padding: 1rem;
     display: flex;
@@ -599,8 +613,12 @@ a:active {
 }
 
 .ranking-button {
-    margin-top: 0.5rem;
+    /* margin-top: 0.25rem; */
+    font-size: 1.5rem;
+    cursor: pointer;
 }
+
+
 
 .issue-tile-viz {
     width: 50%;
@@ -690,15 +708,39 @@ a:active {
     opacity: 1;
 }
 
+.issue-container {
+    /* padding: 1em; */
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    background-color: white;
+    /* border: 1px solid black; */
+    height: 100%;
+}
+
+.issue-container .issue-writeup {
+    padding: 2.5em;
+    padding-top: 0;
+}
+
+.sticky-basic {
+    position: sticky;
+    top: 3.25em;
+    z-index: 3;
+    background-color: white;
+
+}
 
 /* Community Column */
 .community-profile-container {
-    padding: 1em;
+    padding: 2.5em;
+    padding-top: 0;
     display: flex;
     flex-direction: column;
     height: 100%;
     overflow: auto;
     background-color: white;
+    /* border: 1px solid black; */
 }
 
 
@@ -840,44 +882,45 @@ a:active {
     align-items: center;
     transition: color 0.5s, background-color 0.5s;
     border: 2px solid black;
+
 }
 
 /* Histogram */
-.cancelButtonText{
+.cancelButtonText {
     cursor: pointer;
     opacity: 0.6;
 }
 
-.cancelButtonText:hover{
+.cancelButtonText:hover {
     opacity: 1;
     text-decoration: underline;
 }
 
-#resetButton{
+#resetButton {
     cursor: pointer;
     opacity: 0.6;
 }
 
-#resetButton:hover{
+#resetButton:hover {
     opacity: 1;
     text-decoration: underline;
 }
 
-.pinnedTextUp{
+.pinnedTextUp {
     cursor: pointer;
-    opacity: 0.6;
+    /* opacity: 0.6; */
 }
 
-.pinnedTextUp:hover{
-    opacity: 1;
+.pinnedTextUp:hover {
+    /* opacity: 1; */
     text-decoration: underline;
 }
 
-.goToButton{
+.goToButton {
     cursor: pointer;
 }
 
-.pinnedTextUp:hover{
+.pinnedTextUp:hover {
     text-decoration: underline;
 }
 
@@ -950,6 +993,7 @@ a:active {
 .issues-card-container {
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 }
 
 .issues-card-container:hover {
@@ -1212,7 +1256,9 @@ a:active {
 
 .table {
     border: 2px solid black !important;
+    border-bottom: 1px solid black !important;
     border-spacing: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 .table>thead {
@@ -1242,7 +1288,7 @@ a:active {
 }
 
 .typewriter-container {
-     font-size: 3rem;
+    font-size: 3rem;
     font-weight: 500;
     color: white;
 }
@@ -1822,28 +1868,34 @@ input:checked+.slider:before {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 20vh;
+    height: 6vh;
     background-color: white;
-    top: 40vh;
+    top: 41vh;
     left: 0vw;
-    transition: width 0.5s;
-    border-top-right-radius: 5vh;
-    border-bottom-right-radius: 5vh;
+    transition: 0.5s ease-in-out;
+    /* border-top-right-radius: 10%; */
+    /* border-bottom-right-radius: 10%; */
     z-index: 5;
+    cursor: pointer;
 }
 
+.collapse-map-button:hover {
+    background-color: black;
+    color: white;
+}
 
 
 .collapse-map-tooltip {
     position: absolute;
     left: 6vh;
-    background-color: black;
-    opacity: 0.8;
-    color: white;
+    font-size: 0.75rem;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
     padding: 0.5rem 1rem;
     display: flex;
     flex-direction: row;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     width: fit-content;
 }
 

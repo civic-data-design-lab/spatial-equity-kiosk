@@ -20,7 +20,7 @@ import _COMMUNITIES from "./texts/communities.json";
 import _COUNCILS from "./texts/councildistricts.json";
 import _DEMOGRAPHICS from "./texts/demographics.json";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars, faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import {faBars, faChevronLeft, faChevronRight, faCaretLeft, faCaretRight} from "@fortawesome/free-solid-svg-icons";
 import _COUNCIL_DISTRICTS from "./data/council_districts.json";
 import _COMMUNITY_BOARDS from "./data/community_boards.json";
 import _NEIGHBORHOODS from "./data/neighborhoods.json";
@@ -81,6 +81,8 @@ function App() {
     const [councilPinned, setCouncilPinned] = useState([])
     const [collapseMap, setCollapseMap] = useState(false)
     const [collapseMapToggle, setCollapseMapToggle] = useState(false)
+
+    // console.log(collapseMap)
 
     // console.log(demoColorRamp)
     // map hooks
@@ -345,6 +347,7 @@ function App() {
         // console.log("demographic", demographic)
         //  console.log("colorRamps", colorRamps)
         // console.log("selectedCoord", selectedCoord)
+        // console.log("info", info)
         // console.log("-------------------------------------------")
 
         /* if (!selectedSpecificIssue) {
@@ -355,8 +358,6 @@ function App() {
                              setSelectedSpecificIssue(1)
                          }*/
 
-        console.log("communitySearch ", communitySearch)
-        console.log("CompareSearch ", compareSearch)
 
 
         const params = [];
@@ -621,9 +622,9 @@ function App() {
 
                                 <div className={`collapse-map-button`}
                                      style={{
-                                         width: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? "5vh" : 0,
+                                         width: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? "1.5vw" : 0,
                                          borderLeft: "none",
-                                         border: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? "1px solid black" : "none",
+                                         outline: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? "1px solid black" : "none",
                                          opacity: showMap && ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) ? 1 : 0,
                                      }}
                                      onClick={(e) => {
@@ -638,7 +639,7 @@ function App() {
                                          setCollapseMapToggle(false)
                                      }}
                                 >
-                                    {showMap && <FontAwesomeIcon icon={collapseMap ? faChevronRight : faChevronLeft}/>}
+                                    {showMap && <FontAwesomeIcon icon={collapseMap ? faCaretRight : faCaretLeft}/>}
 
                                     <div className={`collapse-map-tooltip ${collapseMapToggle ? "" : "d-none"}`}>
                                         {collapseMap ? "Show Panel" : "Collapse Panel"}
@@ -827,6 +828,7 @@ function App() {
                             setCommunityPinned={setCommunityPinned}
                             councilPinned={councilPinned}
                             setCouncilPinned={setCouncilPinned}
+                            info={info}
                         />
                     )}
                 </Container>

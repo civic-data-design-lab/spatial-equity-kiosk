@@ -3,7 +3,9 @@ import * as d3 from "d3";
 import { text, mouse } from "d3";
 import { useResizeObserver } from "../utils/useResizeObserver"
 
-const GridGraph = ({ colorRamps, percList, textList }) => {
+const GridGraph = ({ colorRamps,
+    percList,
+    textList,}) => {
     const svgRef = useRef();
     const textRef = useRef();
     const containerRef = useRef();
@@ -12,7 +14,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
     }
 
     const [width, height] = useResizeObserver(containerRef, optionalCallback);
-    
+
     useEffect(() => {
         // build SVG
         let svg = d3.select(svgRef.current)
