@@ -66,8 +66,8 @@ export default function Legend({
     }
   }
 
-  let textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
-  let percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+  let textList = demoLookup && _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
+  let percList = demoLookup && _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
   if (demoLookup && neighborhoodData) {
     textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
     if (selectedChapter == 3) {
