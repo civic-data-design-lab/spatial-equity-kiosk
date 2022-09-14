@@ -11,3 +11,20 @@ General
 
 next up:
 after selecting a neighborhood, switching between admin scales messes it up
+
+
+Chance:
+Vertical histogram
+Way to hide the line behind the histogram?
+flip values so bad neighborhoods are at the top
+Left allign the bar, put the x on the right side, remove the arrow
+Color legend for the histogram boroughs
+
+Bar chart:
+Walk Bike or Ride transit text needs to be fixed 
+
+Horizontal histogram
+min and max need to be replaced with more specific wording, like the vertical histogram
+number values should go at bottom of histogram
+add units when possible
+"Citywide Average" as opposed to "NYC"

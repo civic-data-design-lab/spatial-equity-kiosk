@@ -118,7 +118,9 @@
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(127, 255, 0);
+    /* background: rgb(127, 255, 0); */
+    background: white;
+    outline: 2px solid black;
 }
 
 /* Document */
