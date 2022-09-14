@@ -606,6 +606,7 @@ export default function DeckMap({
     function updateSearchEngine(searchEngine, searchEngineType) {
         //check if search engine is valid coordinates
         if (searchEngineType === 0 && selectedChapter === 3) {
+            console.log("in single search")
             if (selectedCoord.length === 2) {
                 const newCommunitySearch = getCommunitySearch(searchEngine, boundary)
                 if (newCommunitySearch.length > 0) {
@@ -626,6 +627,7 @@ export default function DeckMap({
                             setSelectedCoord([])
                             setCommunitySearch(null)
                             setUserPoints([[], userPoints[1]])
+                            setViewState(RESET_VIEW)
                         }
                     }
 
@@ -639,9 +641,11 @@ export default function DeckMap({
 
         if (searchEngineType === 1 && selectedChapter === 3
         ) {
+
             if (selectedCompareCoord.length === 2) {
                 const newCompareSearch = getCommunitySearch(searchEngine, boundary)
                 if (newCompareSearch.length > 0 && (newCompareSearch[0] !== communitySearch) && ((searchSource === "click" && newCompareSearch[0] !== compareSearch) || searchSource === "search") && selectedCoord.length === 2) {
+                    console.log("case 1")
                     setCompareSearch(newCompareSearch[0])
                     setBadSearch([badSearch[0], 0]);
                     const ptA = selectedCoord;
@@ -681,6 +685,7 @@ export default function DeckMap({
 
                     setUserPoints([userPoints[0], searchEngine]);
 
+
                     setViewState({
                         longitude: (ptA[0] + ptB[0]) / 2,
                         latitude: (ptA[1] + ptB[1]) / 2,
@@ -689,19 +694,37 @@ export default function DeckMap({
                         transitionInerpolator: new LinearInterpolator(),
                     });
                 } else if (newCompareSearch.length > 0 && (newCompareSearch[0] === compareSearch) && searchEngine.length === 2 && searchSource === "click") {
+                     console.log("case 2")
                     setSelectedCompareCoord([])
                     setCompareSearch(null)
                     setUserPoints([userPoints[0], []])
+                    setViewState({
+                        longitude: selectedCoord[0],
+                        latitude: selectedCoord[1],
+                        zoom: ZOOM_MAX - 0.5,
+                        transitionDuration: 500,
+                        transitionInerpolator: new LinearInterpolator(),
+                    });
                 } else if (newCompareSearch.length > 0 && (newCompareSearch[0] === communitySearch) && searchEngine.length === 2 && searchSource === "click") {
+                     console.log("case 3")
                     if (!compareSearch) {
                         setSelectedCoord([])
                         setCommunitySearch(null)
                         setUserPoints([[], []])
+                        setViewState(RESET_VIEW)
                     } else {
-                        setSelectedCoord(searchEngine)
+                        console.log("case 4")
                         setCommunitySearch(compareSearch)
-                        setUserPoints([searchEngine, []])
                         setCompareSearch(null)
+                        setSelectedCoord(userPoints[1])
+                        setUserPoints([userPoints[1], []])
+                        setViewState({
+                            longitude: userPoints[1][0],
+                            latitude: userPoints[1][1],
+                            zoom: ZOOM_MAX - 0.5,
+                            transitionDuration: 500,
+                            transitionInerpolator: new LinearInterpolator(),
+                        });
                         setSelectedCompareCoord([])
                     }
                 } else {
@@ -711,6 +734,11 @@ export default function DeckMap({
                 }
             }
         }
+
+        console.log("after")
+        console.log("userpoints ", userPoints)
+        console.log("communityCoords ", selectedCoord)
+        console.log("compareCoords ", selectedCompareCoord)
 
     }
 
@@ -882,7 +910,9 @@ export default function DeckMap({
   }*/
 
     useEffect(() => {
-        updateSearchEngine(selectedCoord, 0);
+        if (!addCompare || !communitySearch) {
+            updateSearchEngine(selectedCoord, 0);
+        }
     }, [selectedCoord, infoTransfer.selectedBoundary]);
 
     useEffect(() => {

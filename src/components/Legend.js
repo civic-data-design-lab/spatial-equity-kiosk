@@ -457,7 +457,7 @@ export default function Legend({
                             _ETHNICITY_COLORS.Other.htmlFormat,
                         ];
                     }
-                    console.log('info', info)
+//                    console.log('info', info)
                     let percList;
                     if (selectedChapter == 3) { 
                         percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;

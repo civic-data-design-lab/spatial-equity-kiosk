@@ -80,7 +80,7 @@ export default function Content({
                     }`}*/
 
                 className={`middle-column h-100 ${
-                    selectedChapter === 1 || selectedChapter === 4 ? "collapsed-middle-column" :
+                    selectedChapter === 1 || selectedChapter === 4 || !selectedChapter ? "collapsed-middle-column" :
                         selectedChapter === 2 ?
                             (showMap && collapseMap) ? 
                                 "collapsed-middle-column" : 

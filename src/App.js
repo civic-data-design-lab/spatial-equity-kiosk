@@ -331,6 +331,7 @@ function App() {
     }, [boundary, selectedSpecificIssue, selectedIssue, zoomToggle]);
 
     useEffect(() => {
+
         // console.log("userPoints ", userPoints)
         // console.log("demoLookup ", demoLookup);
         // console.log("HERE ARE THE STATES")
