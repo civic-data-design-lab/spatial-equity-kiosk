@@ -104,7 +104,7 @@ export default function IssuesTileView({
                   }
                 </p>
               </div>
-              <div style={{ flex: 1 }}>
+              <div style={{ flex: 1 }} className={'histogram-responsive-box'}>
                 <Histogram
                   colorRampsyType={colorRamps}
                   issues={issues}
@@ -126,7 +126,10 @@ export default function IssuesTileView({
               </p>
             </div>
 
-            <div className={'col-6 w-50 overflow-scroll'} style={{paddingRight: "2.5em"}}>
+            <div
+              className={'col-6 w-50 overflow-scroll'}
+              style={{ paddingRight: '2.5em' }}
+            >
               <IssueProfile
                 issues={issues}
                 selectedSpecificIssue={selectedSpecificIssue}

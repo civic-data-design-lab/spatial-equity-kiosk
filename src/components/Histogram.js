@@ -143,7 +143,7 @@ const Histogram = ({
   const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
   const margin = {
-    top: 40,
+    top: 20,
     left: 2,
     bottom: 40,
     right: 50,
@@ -968,19 +968,19 @@ const Histogram = ({
 
   return (
     <div
-      ref={containerRef}
+      className={'d-flex histogram-responsive-box'}
       style={{
-        height: '100%',
         width: '100%',
+        flexGrow: '1',
       }}
-      className={'position-relative'}
     >
       <div
-        className={'d-flex flex-row position-absolute'}
+        className={'d-flex flex-row position-relative'}
         style={{
-          height: '25px',
+          //   height: '25px',
           width: '100%',
-          top: '5px',
+          top: '10px',
+          alignItems: 'center',
         }}
       >
         <div className={'d-flex flex-column position-relative'}>
@@ -988,9 +988,11 @@ const Histogram = ({
             className={`big-button ${
               useBoroughColor ? 'big-button-active' : 'big-button-inactive'
             }`}
-            style={{
-              height: '25px',
-            }}
+            style={
+              {
+                //   height: '25px',
+              }
+            }
             onClick={() => {
               setUseBoroughColor(!useBoroughColor);
             }}
@@ -1009,109 +1011,122 @@ const Histogram = ({
             </div>
           </div>
         </div>
-        
-        {useBoroughColor?(
-        <div
-          className={'d-flex flex-row osition-relative'}
-          style={{
-            justifyContent: 'space-evenly',
-            flexGrow: '1',
-            marginLeft: '5px',
-            marginEight: '30px',
-            flexWrap: 'wrap',
-          }}
-        >
-          <div className={'d-flex flex-row'}>
-            <div
-              className={'mb-0 small-font'}
-              style={{
-                color: _BOROUGH_COLORS['Bronx'].htmlFormat,
-                marginRight: '2px',
-              }}
-            >
-              ■
-            </div>
-            <p className={'mb-0 small-font'}>Bronx</p>
-          </div>
-          <div className={'d-flex flex-row'}>
-            <div
-              className={'mb-0 small-font'}
-              style={{
-                color: _BOROUGH_COLORS['Brooklyn'].htmlFormat,
-                marginRight: '2px',
-              }}
-            >
-              ■
-            </div>
-            <p className={'mb-0 small-font'}>Brooklyn</p>
-          </div>
-          <div className={'d-flex flex-row'}>
-            <div
-              className={'mb-0 small-font'}
-              style={{
-                color: _BOROUGH_COLORS['Manhattan'].htmlFormat,
-                marginRight: '2px',
-              }}
-            >
-              ■
-            </div>
-            <p className={'mb-0 small-font'}>Manhattan</p>
-          </div>
-          <div className={'d-flex flex-row'}>
-            <div
-              className={'mb-0 small-font'}
-              style={{
-                color: _BOROUGH_COLORS['Queens'].htmlFormat,
-                marginRight: '2px',
-              }}
-            >
-              ■
-            </div>
-            <p className={'mb-0 small-font'}>Queens</p>
-          </div>
-          <div className={'d-flex flex-row'}>
-            <div
-              className={'mb-0 small-font'}
-              style={{
-                color: _BOROUGH_COLORS['Staten'].htmlFormat,
-                marginRight: '2px',
-              }}
-            >
-              ■
-            </div>
-            <p className={'mb-0 small-font'}>Staten Island</p>
-          </div>
-        </div>) : ('')}
 
+        {useBoroughColor ? (
+          <div
+            className={'d-flex flex-row osition-relative'}
+            style={{
+              justifyContent: 'space-evenly',
+              flexGrow: '1',
+              marginLeft: '3px',
+              marginEight: '30px',
+              flexWrap: 'wrap',
+            }}
+          >
+            <div className={'d-flex flex-row'}>
+              <div
+                className={'mb-0 small-font'}
+                style={{
+                  color: _BOROUGH_COLORS['Bronx'].htmlFormat,
+                  marginRight: '2px',
+                }}
+              >
+                ■
+              </div>
+              <p className={'mb-0 small-font'}>Bronx</p>
+            </div>
+            <div className={'d-flex flex-row'}>
+              <div
+                className={'mb-0 small-font'}
+                style={{
+                  color: _BOROUGH_COLORS['Brooklyn'].htmlFormat,
+                  marginRight: '2px',
+                }}
+              >
+                ■
+              </div>
+              <p className={'mb-0 small-font'}>Brooklyn</p>
+            </div>
+            <div className={'d-flex flex-row'}>
+              <div
+                className={'mb-0 small-font'}
+                style={{
+                  color: _BOROUGH_COLORS['Manhattan'].htmlFormat,
+                  marginRight: '2px',
+                }}
+              >
+                ■
+              </div>
+              <p className={'mb-0 small-font'}>Manhattan</p>
+            </div>
+            <div className={'d-flex flex-row'}>
+              <div
+                className={'mb-0 small-font'}
+                style={{
+                  color: _BOROUGH_COLORS['Queens'].htmlFormat,
+                  marginRight: '2px',
+                }}
+              >
+                ■
+              </div>
+              <p className={'mb-0 small-font'}>Queens</p>
+            </div>
+            <div className={'d-flex flex-row'}>
+              <div
+                className={'mb-0 small-font'}
+                style={{
+                  color: _BOROUGH_COLORS['Staten'].htmlFormat,
+                  marginRight: '2px',
+                }}
+              >
+                ■
+              </div>
+              <p className={'mb-0 small-font'}>Staten Island</p>
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
-      <svg ref={ref}>
-        <line id="mouseLine" />
-        <line id="avgLine" />
 
-        {/* Main Chart */}
-        <g />
+      <div
+        ref={containerRef}
+        style={{
+          // height: '100%',
+          width: '100%',
+          flexGrow: 1,
+        }}
+        className={'position-relative'}
+      >
+        <svg ref={ref}>
+          <line id="mouseLine" />
+          <line id="avgLine" />
 
-        {/* Avg Line */}
-        {/* <line id="avgLine" /> */}
-        <text id="avgTextUp" />
-        <text id="avgTextDown" />
+          {/* Main Chart */}
+          <g />
 
-        {/* Interactive Line */}
-        {/* <line id="mouseLine" /> */}
-        <text id="mouseTextUp" />
-        <text id="mouseTextDown" />
-        <rect id="histBg" />
+          {/* Avg Line */}
+          {/* <line id="avgLine" /> */}
+          <text id="avgTextUp" />
+          <text id="avgTextDown" />
 
-        {/* Min/Max Line */}
-        <line id="maxLine" />
-        <line id="minLine" />
-        <text id="maxText" />
-        <text id="minText" />
+          {/* Interactive Line */}
+          {/* <line id="mouseLine" /> */}
+          <text id="mouseTextUp" />
+          <text id="mouseTextDown" />
+          <rect id="histBg" />
 
-        {/* Reset Button */}
-        <text id="resetButton">Clear All</text>
-        <rect id="resetBg" />
-      </svg>
+          {/* Min/Max Line */}
+          <line id="maxLine" />
+          <line id="minLine" />
+          <text id="maxText" />
+          <text id="minText" />
+
+          {/* Reset Button */}
+          <text id="resetButton">Clear All</text>
+          <rect id="resetBg" />
+        </svg>
+      </div>
     </div>
   );
 };
