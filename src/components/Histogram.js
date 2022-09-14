@@ -981,6 +981,7 @@ const Histogram = ({
           width: '100%',
           top: '10px',
           alignItems: 'center',
+          flexWrap: 'wrap',
         }}
       >
         <div className={'d-flex flex-column position-relative'}>
@@ -1016,7 +1017,7 @@ const Histogram = ({
           <div
             className={'d-flex flex-row osition-relative'}
             style={{
-              justifyContent: 'space-evenly',
+              justifyContent: 'start',
               flexGrow: '1',
               marginLeft: '3px',
               marginEight: '30px',
@@ -1033,7 +1034,14 @@ const Histogram = ({
               >
                 ■
               </div>
-              <p className={'mb-0 small-font'}>Bronx</p>
+              <p
+                className={'mb-0 small-font'}
+                style={{
+                  marginRight: '8px',
+                }}
+              >
+                Bronx
+              </p>
             </div>
             <div className={'d-flex flex-row'}>
               <div
@@ -1045,7 +1053,14 @@ const Histogram = ({
               >
                 ■
               </div>
-              <p className={'mb-0 small-font'}>Brooklyn</p>
+              <p
+                className={'mb-0 small-font'}
+                style={{
+                  marginRight: '8px',
+                }}
+              >
+                Brooklyn
+              </p>
             </div>
             <div className={'d-flex flex-row'}>
               <div
@@ -1057,7 +1072,14 @@ const Histogram = ({
               >
                 ■
               </div>
-              <p className={'mb-0 small-font'}>Manhattan</p>
+              <p
+                className={'mb-0 small-font'}
+                style={{
+                  marginRight: '8px',
+                }}
+              >
+                Manhattan
+              </p>
             </div>
             <div className={'d-flex flex-row'}>
               <div
@@ -1069,7 +1091,14 @@ const Histogram = ({
               >
                 ■
               </div>
-              <p className={'mb-0 small-font'}>Queens</p>
+              <p
+                className={'mb-0 small-font'}
+                style={{
+                  marginRight: '8px',
+                }}
+              >
+                Queens
+              </p>
             </div>
             <div className={'d-flex flex-row'}>
               <div
