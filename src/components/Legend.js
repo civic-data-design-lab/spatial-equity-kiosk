@@ -520,6 +520,7 @@ export default function Legend({
                     }}
                   />
 
+
                   <div className={'small-font'}>
                     0% → {(demoLegendBins[0] * 100).toFixed(0)}%
                   </div>
@@ -600,6 +601,7 @@ export default function Legend({
         } else {
           // DEFAULT CASE - ADD D3 DEMOGRAPHICS COMPONENT HERE!
           let gridColorRamps;
+
 
           if (demoLookup.name == 'Race & Ethnicity') {
             gridColorRamps = [
