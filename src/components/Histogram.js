@@ -990,16 +990,19 @@ const Histogram = ({
       </div>
 
       <svg ref={ref}>
+        <line id="mouseLine" />
+        <line id="avgLine" />
+
         {/* Main Chart */}
         <g />
 
         {/* Avg Line */}
-        <line id="avgLine" />
+        {/* <line id="avgLine" /> */}
         <text id="avgTextUp" />
         <text id="avgTextDown" />
 
         {/* Interactive Line */}
-        <line id="mouseLine" />
+        {/* <line id="mouseLine" /> */}
         <text id="mouseTextUp" />
         <text id="mouseTextDown" />
         <rect id="histBg" />
