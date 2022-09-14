@@ -401,6 +401,22 @@ const Histogram = ({
         }
       });
 
+    svg
+      .select('#resetBg')
+      .attr('x', margin.left)
+      .attr('y', yscale(data.length + 0.5) + 1)
+      .attr('visibility', 'hidden')
+      .attr(
+        'width',
+        svg.select('#resetButton').node().getBoundingClientRect().width + 5
+      )
+      .attr(
+        'height',
+        svg.select('#resetButton').node().getBoundingClientRect().height
+      )
+      //   .attr('fill', '#000000');
+      .attr('fill', '#FFFFFF');
+
     // Adjust text position
     svg
       .select('#maxText')
@@ -736,6 +752,7 @@ const Histogram = ({
 
     // move the interaction layer to front
     svg.select('#histBg').raise();
+    svg.select('#resetBg').raise();
     svg.select('#resetButton').raise();
     svg.selectAll('.pinnedTextUp').raise();
   }, [
@@ -746,7 +763,7 @@ const Histogram = ({
     containerHeight,
     councilPinned,
     communityPinned,
-    useBoroughColor
+    useBoroughColor,
   ]);
 
   useEffect(() => {
@@ -810,18 +827,19 @@ const Histogram = ({
         }
       });
     }
-
-    svg.selectAll('#resetButton').each(function (d, i) {
-      if (boundary == 'council') {
-        if (councilPinned.length > 0)
-          d3.select(this).attr('visibility', 'visible');
-        else d3.select(this).attr('visibility', 'hidden');
-      } else {
-        if (communityPinned.length > 0)
-          d3.select(this).attr('visibility', 'visible');
-        else d3.select(this).attr('visibility', 'hidden');
-      }
-    });
+    for (let element of ['#resetButton', '#resetBg']) {
+      svg.selectAll(element).each(function (d, i) {
+        if (boundary == 'council') {
+          if (councilPinned.length > 0)
+            d3.select(this).attr('visibility', 'visible');
+          else d3.select(this).attr('visibility', 'hidden');
+        } else {
+          if (communityPinned.length > 0)
+            d3.select(this).attr('visibility', 'visible');
+          else d3.select(this).attr('visibility', 'hidden');
+        }
+      });
+    }
 
     // when avgline is close to mouseline or is overlapped with another pinned line, hide the avgline
     let hideAvgLine = false;
@@ -994,6 +1012,7 @@ const Histogram = ({
 
         {/* Reset Button */}
         <text id="resetButton">Clear All</text>
+        <rect id="resetBg" />
       </svg>
     </div>
   );
