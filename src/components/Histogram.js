@@ -143,7 +143,7 @@ const Histogram = ({
   const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
   const margin = {
-    top: 30,
+    top: 40,
     left: 2,
     bottom: 40,
     right: 50,
@@ -161,7 +161,7 @@ const Histogram = ({
   for (let i = 0; i < data.length; i++) {
     let boroughName =
       boundary == 'council'
-        ? _COUNCILDISTRICTS[lookupArray[i]].borough[0]
+        ? _COUNCILDISTRICTS[lookupArray[i]].borough[0].split(' ')[0]
         : nameArray[i].split(' ')[0];
     // console.log(boroughName)
     if (useBoroughColor) {
@@ -976,38 +976,46 @@ const Histogram = ({
       className={'position-relative'}
     >
       <div
-        className={'d-flex flex-column position-absolute'}
+        className={'d-flex flex-row position-absolute'}
         style={{
           height: '25px',
           top: '5px',
         }}
       >
-        <div
-          className={`big-button ${
-            useBoroughColor ? 'big-button-active' : 'big-button-inactive'
-          }`}
-          style={{
-            height: '25px',
-          }}
-          onClick={() => {
-            setUseBoroughColor(!useBoroughColor);
-          }}
-        >
-          <div>
-            <p className={'mb-0 small-font'}>
-              {useBoroughColor ? 'Hide Borough' : 'Show Borough'}
-            </p>
-          </div>
-          <div>
-            {useBoroughColor ? (
-              <FontAwesomeIcon icon={faMinus} />
-            ) : (
-              <FontAwesomeIcon icon={faPlus} />
-            )}
+        <div className={'d-flex flex-column position-relative'}>
+          <div
+            className={`big-button ${
+              useBoroughColor ? 'big-button-active' : 'big-button-inactive'
+            }`}
+            style={{
+              height: '25px',
+            }}
+            onClick={() => {
+              setUseBoroughColor(!useBoroughColor);
+            }}
+          >
+            <div>
+              <p className={'mb-0 small-font'}>
+                {useBoroughColor ? 'Hide Borough' : 'Show Borough'}
+              </p>
+            </div>
+            <div>
+              {useBoroughColor ? (
+                <FontAwesomeIcon icon={faMinus} />
+              ) : (
+                <FontAwesomeIcon icon={faPlus} />
+              )}
+            </div>
           </div>
         </div>
+        <div className={'d-flex flex-row osition-relative'}>
+          <div>Bronx</div>
+          <div>Brooklyn</div>
+          <div>Manhattan</div>
+          <div>Staten</div>
+          <div>Staten</div>
+        </div>
       </div>
-
       <svg ref={ref}>
         <line id="mouseLine" />
         <line id="avgLine" />

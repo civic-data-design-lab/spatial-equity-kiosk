@@ -15,12 +15,8 @@
         "deckFormat": [128, 63, 138],
         "htmlFormat": "rgb(128, 63, 138)"
     },
-    "Staten Island": {
+    "Staten": {
         "deckFormat": [252, 75, 56, 255],
         "htmlFormat": "rgb(252, 75, 56)"
-    },
-    "Staten": {
-        "deckFormat": [128, 63, 138],
-        "htmlFormat": "rgb(128, 63, 138)"
-    } 
+    }
 }
