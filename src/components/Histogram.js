@@ -979,6 +979,7 @@ const Histogram = ({
         className={'d-flex flex-row position-absolute'}
         style={{
           height: '25px',
+          width: '100%',
           top: '5px',
         }}
       >
@@ -1008,13 +1009,80 @@ const Histogram = ({
             </div>
           </div>
         </div>
-        <div className={'d-flex flex-row osition-relative'}>
-          <div>Bronx</div>
-          <div>Brooklyn</div>
-          <div>Manhattan</div>
-          <div>Staten</div>
-          <div>Staten</div>
-        </div>
+        
+        {useBoroughColor?(
+        <div
+          className={'d-flex flex-row osition-relative'}
+          style={{
+            justifyContent: 'space-evenly',
+            flexGrow: '1',
+            marginLeft: '5px',
+            marginEight: '30px',
+            flexWrap: 'wrap',
+          }}
+        >
+          <div className={'d-flex flex-row'}>
+            <div
+              className={'mb-0 small-font'}
+              style={{
+                color: _BOROUGH_COLORS['Bronx'].htmlFormat,
+                marginRight: '2px',
+              }}
+            >
+              ■
+            </div>
+            <p className={'mb-0 small-font'}>Bronx</p>
+          </div>
+          <div className={'d-flex flex-row'}>
+            <div
+              className={'mb-0 small-font'}
+              style={{
+                color: _BOROUGH_COLORS['Brooklyn'].htmlFormat,
+                marginRight: '2px',
+              }}
+            >
+              ■
+            </div>
+            <p className={'mb-0 small-font'}>Brooklyn</p>
+          </div>
+          <div className={'d-flex flex-row'}>
+            <div
+              className={'mb-0 small-font'}
+              style={{
+                color: _BOROUGH_COLORS['Manhattan'].htmlFormat,
+                marginRight: '2px',
+              }}
+            >
+              ■
+            </div>
+            <p className={'mb-0 small-font'}>Manhattan</p>
+          </div>
+          <div className={'d-flex flex-row'}>
+            <div
+              className={'mb-0 small-font'}
+              style={{
+                color: _BOROUGH_COLORS['Queens'].htmlFormat,
+                marginRight: '2px',
+              }}
+            >
+              ■
+            </div>
+            <p className={'mb-0 small-font'}>Queens</p>
+          </div>
+          <div className={'d-flex flex-row'}>
+            <div
+              className={'mb-0 small-font'}
+              style={{
+                color: _BOROUGH_COLORS['Staten'].htmlFormat,
+                marginRight: '2px',
+              }}
+            >
+              ■
+            </div>
+            <p className={'mb-0 small-font'}>Staten Island</p>
+          </div>
+        </div>) : ('')}
+
       </div>
       <svg ref={ref}>
         <line id="mouseLine" />
