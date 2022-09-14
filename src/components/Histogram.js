@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import _CHAPTER_COLORS from '../data/chapter_colors.json';
+import _BOROUGH_COLORS from '../data/borough_colors.json';
 import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import { useResizeObserver } from '../utils/useResizeObserver';
@@ -89,7 +90,7 @@ const Histogram = ({
 }) => {
     const ref = useRef();
     const containerRef = useRef();
-
+    let useBoroughColor = false;
     // console.log("colorRampsyType ", colorRampsyType)
 
     const getIssueStatement = () => {
@@ -153,14 +154,27 @@ const Histogram = ({
         getDataToVis(rawIssueData);
     let colorArray = []
 
-    for (let i = 0; i < data.length; i++)
-        colorArray.push(d3.rgb(
-            ...colorInterpolate(
-                colorRamps[0],
-                colorRamps[colorRamps.length - 1],
-                i / rawIssueData.length
-            )
-        ))
+    for (let i = 0; i < data.length; i++) {
+        let boroughName = boundary == 'council' ? _COUNCILDISTRICTS[lookupArray[i]].borough[0] : nameArray[i].split(' ')[0]
+        // console.log(boroughName)
+        if (useBoroughColor) {
+            colorArray.push(d3.rgb(
+                ...colorInterpolate(
+                    _BOROUGH_COLORS[boroughName].deckFormat,
+                    _BOROUGH_COLORS[boroughName].deckFormat,
+                    0
+                )
+            ))
+        } else {
+            colorArray.push(d3.rgb(
+                ...colorInterpolate(
+                    colorRamps[0],
+                    colorRamps[colorRamps.length - 1],
+                    i / rawIssueData.length
+                )
+            ))
+        }
+    }
 
     // console.log(avg)
 
