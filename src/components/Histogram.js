@@ -144,7 +144,7 @@ const Histogram = ({
 
   const margin = {
     top: 30,
-    left: 0,
+    left: 2,
     bottom: 40,
     right: 50,
   };
@@ -925,11 +925,22 @@ const Histogram = ({
       .each(function (d, i) {
         if (d3.select(this).attr('lookupID') == currentHoveredCommunityID) {
           // d3.select(this).style("fill", d3.rgb(d3.select(this).attr("initColor")).brighter(0.5))
-          d3.select(this).style(
-            'fill',
-            d3.rgb(d3.select(this).attr('initColor')).darker(0.5)
-          );
+
+          // dark filter
+          //   d3.select(this).style(
+          //     'fill',
+          //     d3.rgb(d3.select(this).attr('initColor')).darker(0.5)
+          //   );
+
+          // border + move back lines
+          d3.select(this)
+            .attr('stroke', '#000000')
+            .style('stroke-width', '2px');
+          d3.select(this).raise();
+        //   svg.select('#mouseLine').attr('x1', d3.select(this).attr('x'));
+        //   svg.select('#avgLine').attr('x1', d3.select(this).attr('x'));
         } else {
+          d3.select(this).style('stroke-width', '0px');
           d3.select(this).style(
             'fill',
             d3.rgb(d3.select(this).attr('initColor'))
