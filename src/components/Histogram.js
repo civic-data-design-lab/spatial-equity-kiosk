@@ -5,6 +5,8 @@ import _BOROUGH_COLORS from '../data/borough_colors.json';
 import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import { useResizeObserver } from '../utils/useResizeObserver';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const getRgb = (color) => {
   let [r, g, b] = Array.from(color);
@@ -90,7 +92,7 @@ const Histogram = ({
 }) => {
   const ref = useRef();
   const containerRef = useRef();
-  let useBoroughColor = false;
+  // let useBoroughColor = false;
   // console.log("colorRampsyType ", colorRampsyType)
 
   const getIssueStatement = () => {
@@ -136,11 +138,12 @@ const Histogram = ({
   // const [councilPinned, setCouncilPinned] = useState([])
   const [currentHoveredCommunityID, setCurrentHoveredCommunityID] =
     useState('');
+  const [useBoroughColor, setUseBoroughColor] = useState(false);
 
   const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
   const margin = {
-    top: 20,
+    top: 30,
     left: 0,
     bottom: 40,
     right: 50,
@@ -672,7 +675,7 @@ const Histogram = ({
       .attr('visibility', 'hidden')
       .style('font-weight', 'bold')
       .attr('fill', '#000000')
-      .attr('font-size', '14')
+      .attr('font-size', '20')
       .text('✕')
       .attr('lookupID', (d, i) => lookupArray[i]);
 
@@ -743,6 +746,7 @@ const Histogram = ({
     containerHeight,
     councilPinned,
     communityPinned,
+    useBoroughColor
   ]);
 
   useEffect(() => {
@@ -932,14 +936,41 @@ const Histogram = ({
         height: '100%',
         width: '100%',
       }}
+      className={'position-relative'}
     >
       <div
+        className={'d-flex flex-column position-absolute'}
         style={{
-          position: 'absolute',
+          height: '25px',
+          top: '5px',
         }}
       >
-        text
+        <div
+          className={`big-button ${
+            useBoroughColor ? 'big-button-active' : 'big-button-inactive'
+          }`}
+          style={{
+            height: '25px',
+          }}
+          onClick={() => {
+            setUseBoroughColor(!useBoroughColor);
+          }}
+        >
+          <div>
+            <p className={'mb-0 small-font'}>
+              {useBoroughColor ? 'Hide Borough' : 'Show Borough'}
+            </p>
+          </div>
+          <div>
+            {useBoroughColor ? (
+              <FontAwesomeIcon icon={faMinus} />
+            ) : (
+              <FontAwesomeIcon icon={faPlus} />
+            )}
+          </div>
+        </div>
       </div>
+
       <svg ref={ref}>
         {/* Main Chart */}
         <g />
