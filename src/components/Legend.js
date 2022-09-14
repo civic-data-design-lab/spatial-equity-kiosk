@@ -8,6 +8,11 @@ import _CHAPTER_COLORS from "../data/chapter_colors.json";
 import _ETHNICITY_COLORS from "../data/ethnicity_colors.json";
 import _DEMOGRAPHIC_PERCENTAGED from "../data/demographic_percentage.json";
 
+import _COMMUNITIES from "../texts/communities.json";
+import _COUNCILS from "../texts/councildistricts.json";
+import _COUNCIL_DISTRICTS from "../data/council_districts.json";
+import _COMMUNITY_BOARDS from "../data/community_boards.json";
+
 export default function Legend({
     issues,
     demographic,
@@ -31,11 +36,44 @@ export default function Legend({
     transitToggles = null,
     info,
     selectedChapter,
-    neighborhoodName = "New York City"
+    neighborhoodName = "New York City",
+    neighborhoodID
 }) {
+    const communities = _COMMUNITIES;
+    const councils = _COUNCILS;
+    const communitiesData = _COMMUNITY_BOARDS;
+    const councilsData = _COUNCIL_DISTRICTS;
+    const neighborhoodJsonLookup = (councils[neighborhoodID] && councils[neighborhoodID].json_lookup) || (communities[neighborhoodID] && communities[neighborhoodID].json_lookup)?.toString()
+    const selectedNeighborhood = boundary === "council" ? _COUNCIL_DISTRICTS : _COMMUNITY_BOARDS;
+
+    let neighborhoodData;
+    for (const [index, element,] of selectedNeighborhood.features.entries()) {
+        if (element.properties.CDTA2020?.toString() === neighborhoodJsonLookup || element.properties.CounDist?.toString() === neighborhoodJsonLookup) {
+            // console.log(element.properties)
+            neighborhoodData = element.properties;
+            break
+        }
+    }
+
+    let textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
+    let percList;
+    if (selectedChapter == 3) {
+        percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+    }
+    else {
+        percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+    }
+
+    // console.log("--------------------")
     // console.log("demoLegendBins", demoLegendBins)
     // console.log("demoLookup", demoLookup)
     // console.log("forDemographic", forDemographic)
+    // console.log("neighborhoodID", neighborhoodID)
+    // console.log("communities", communities)
+    // console.log("councils", councils)
+    // console.log("communitiesData", communitiesData)
+    // console.log("councilsData", councilsData)
+    // console.log("neighborhoodJsonLookup", neighborhoodJsonLookup)
     // console.log("--------------------")
 
     // console.log("demographics json ", _DEMOGRAPHIC_PERCENTAGED)
@@ -296,7 +334,7 @@ export default function Legend({
                     return (
                         <div className={"d-flex flex-column row-gap"} style={{ flex: 1 }}>
                             <div>
-                                {<p className={"m-0 small-font"}><span className={"bold"}>{_DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList[0]}</span>% of
+                                {<p className={"m-0 small-font"}><span className={"bold"}>{percList[0]}</span>% of
                                     {demoLookup.name === "Households Living Below the Poverty Line" || demoLookup.name === "Households Without a Car" ? " households " : " commuters "}
                                     in <span className={"underline bold"}>{neighborhoodName}</span> {demoLookup.name === "Households Living Below the Poverty Line" ? "live below the poverty line" :
                                         demoLookup.name === "Households Without a Car" ? "do not own a car" :
@@ -458,23 +496,12 @@ export default function Legend({
                             _ETHNICITY_COLORS.Other.htmlFormat,
                         ];
                     }
-                    console.log('info', info)
-                    let percList;
-                    if (selectedChapter == 3) {
-                        percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
-
-                    }
-                    else {
-                        percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
-                    }
-
-                    let textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
-
+                    
                     return (
                         <div style={{ flex: 1 }}>
                             {demoLookup.name == "Race & Ethnicity" ?
                                 (<p className={"mb-3 small-font"}>{(selectedChapter == 3) ? '' : 'Citywide'} {demoLookup.name} in <span className={"underline bold"}>{neighborhoodName}</span></p>) :
-                                (<p className={"mb-3 small-font"}><span className={"bold"}>{_DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList[0]}</span>% of
+                                (<p className={"mb-3 small-font"}><span className={"bold"}>{percList[0]}</span>% of
                                     {demoLookup.name === "Households Living Below the Poverty Line" || demoLookup.name === "Households Without a Car" ? " households " : " commuters "}
                                     in <span className={"underline bold"}>{neighborhoodName}</span> {demoLookup.name === "Households Living Below the Poverty Line" ? "live below the poverty line" :
                                         demoLookup.name === "Households Without a Car" ? "do not own a car" :

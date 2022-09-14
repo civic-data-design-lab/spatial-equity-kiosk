@@ -176,6 +176,7 @@ export default function Demographics({
               transitToggles={getTransitToggles()}
               selectedChapter={selectedChapter}
               info={info}
+              neighborhoodID={communitySearch}
             />
 
             {showMap && (
@@ -228,6 +229,7 @@ export default function Demographics({
                     councils[communitySearch].name) ||
                     (communities[communitySearch] &&
                       communities[communitySearch].name)}
+                neighborhoodID={communitySearch}
               />
 
               <div
@@ -289,6 +291,7 @@ export default function Demographics({
                         councils[communitySearch].name) ||
                         (communities[communitySearch] &&
                           communities[communitySearch].name)}
+                    neighborhoodID={communitySearch}
                   />
                 </div>
                 <div>
@@ -322,6 +325,7 @@ export default function Demographics({
                         councils[compareSearch].name) ||
                         (communities[compareSearch] &&
                           communities[compareSearch].name)}
+                    neighborhoodID={compareSearch}
                   />
                 </div>
               </Slider>
