@@ -72,8 +72,39 @@ export default function Legend({
                 Math.round(neighborhoodData['P_Asian'] * 100))]
         }
         else if (demoLookup.lookup == "F10_TrsBkW") {
-            percList = [Math.round(neighborhoodData[demoLookup.lookup] * 100),
-            100 - Math.round(neighborhoodData[demoLookup.lookup] * 100)]
+            if ((!toggleWalk) && (!toggleTransit) && (!toggleBike)) {
+                percList = [Math.round(neighborhoodData[demoLookup.lookup] * 100),
+                100 - Math.round(neighborhoodData[demoLookup.lookup] * 100)]
+            } else {
+
+                let otherPrec = 100
+                textList = []
+                percList = []
+
+                if (toggleWalk) {
+                    let perc = Math.round(neighborhoodData['F11_Walk'] * 100);
+                    otherPrec -= perc;
+                    percList.push(perc);
+                    textList.push("Walk");
+                }
+
+                if (toggleTransit) {
+                    let perc = Math.round(neighborhoodData['F8_PubTran'] * 100);
+                    otherPrec -= perc;
+                    percList.push(perc);
+                    textList.push("Ride Transit");
+                }
+
+                if (toggleBike) {
+                    let perc = Math.round(neighborhoodData['F6_bike'] * 100);
+                    otherPrec -= perc;
+                    percList.push(perc);
+                    textList.push("Bike");
+                }
+
+                percList.push(otherPrec);
+                textList.push("Others");
+            }
         }
         else {
             percList = [Math.round(neighborhoodData[demoLookup.lookup] * 100),
@@ -504,21 +535,34 @@ export default function Legend({
                     // DEFAULT CASE - ADD D3 DEMOGRAPHICS COMPONENT HERE!
                     let gridColorRamps;
 
-                    if (demoLookup.name !== "Race & Ethnicity") {
-                        gridColorRamps = [
-                            // `rgb(${demoLookup.colorRamp[0].join(",")})`,
-                            // `rgb(${demoLookup.colorRamp[1].join(",")})`,
-                            `rgb(${demoLookup.colorRamp[2].join(",")})`,
-                            // `rgb(${demoLookup.colorRamp[3].join(",")})`,
-                            `rgb(${demoLookup.colorRamp[4].join(",")})`,
-                        ];
-                    } else {
+                    if (demoLookup.name == "Race & Ethnicity") {
                         gridColorRamps = [
                             _ETHNICITY_COLORS.Latino.htmlFormat,
                             _ETHNICITY_COLORS.White.htmlFormat,
                             _ETHNICITY_COLORS.Black.htmlFormat,
                             _ETHNICITY_COLORS.Asian.htmlFormat,
                             _ETHNICITY_COLORS.Other.htmlFormat,
+                        ];
+                    } else if (demoLookup.lookup == "F10_TrsBkW") {
+                        if ((!toggleWalk) && (!toggleTransit) && (!toggleBike)) {
+                            gridColorRamps = [
+                                `rgb(${demoLookup.colorRamp[2].join(",")})`,
+                                `rgb(${demoLookup.colorRamp[4].join(",")})`,
+                            ];
+                        } else {
+                            gridColorRamps = []
+                            if (toggleWalk) gridColorRamps.push(`rgb(${demoLookup.colorRamp[1].join(",")})`);
+                            if (toggleTransit) gridColorRamps.push(`rgb(${demoLookup.colorRamp[2].join(",")})`);
+                            if (toggleBike) gridColorRamps.push(`rgb(${demoLookup.colorRamp[3].join(",")})`);
+                            gridColorRamps.push(`rgb(${demoLookup.colorRamp[4].join(",")})`);
+                        }
+                    } else {
+                        gridColorRamps = [
+                            // `rgb(${demoLookup.colorRamp[0].join(",")})`,
+                            // `rgb(${demoLookup.colorRamp[1].join(",")})`,
+                            `rgb(${demoLookup.colorRamp[2].join(",")})`,
+                            // `rgb(${demoLookup.colorRamp[3].join(",")})`,
+                            `rgb(${demoLookup.colorRamp[4].join(",")})`,
                         ];
                     }
 
