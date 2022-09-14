@@ -66,8 +66,10 @@ export default function Legend({
     }
   }
 
-  let textList = demoLookup && _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
-  let percList = demoLookup && _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+  let textList =
+    demoLookup && _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
+  let percList =
+    demoLookup && _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
   if (demoLookup && neighborhoodData) {
     textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
     if (selectedChapter == 3) {
@@ -86,8 +88,8 @@ export default function Legend({
       } else if (demoLookup.lookup == 'F10_TrsBkW') {
         if (!toggleWalk && !toggleTransit && !toggleBike) {
           percList = [
-            Math.round(neighborhoodData[demoLookup.lookup] * 100),
-            100 - Math.round(neighborhoodData[demoLookup.lookup] * 100),
+            Math.round(neighborhoodData[demoLookup.lookup]),
+            100 - Math.round(neighborhoodData[demoLookup.lookup]),
           ];
         } else {
           let otherPrec = 100;
@@ -95,21 +97,21 @@ export default function Legend({
           percList = [];
 
           if (toggleWalk) {
-            let perc = Math.round(neighborhoodData['F11_Walk'] * 100);
+            let perc = Math.round(neighborhoodData['F11_Walk']);
             otherPrec -= perc;
             percList.push(perc);
             textList.push('Walk');
           }
 
           if (toggleTransit) {
-            let perc = Math.round(neighborhoodData['F8_PubTran'] * 100);
+            let perc = Math.round(neighborhoodData['F8_PubTran']);
             otherPrec -= perc;
             percList.push(perc);
             textList.push('Ride Transit');
           }
 
           if (toggleBike) {
-            let perc = Math.round(neighborhoodData['F6_bike'] * 100);
+            let perc = Math.round(neighborhoodData['F6_bike']);
             otherPrec -= perc;
             percList.push(perc);
             textList.push('Bike');
@@ -120,14 +122,14 @@ export default function Legend({
         }
       } else {
         percList = [
-          Math.round(neighborhoodData[demoLookup.lookup] * 100),
-          100 - Math.round(neighborhoodData[demoLookup.lookup] * 100),
+          Math.round(neighborhoodData[demoLookup.lookup]),
+          100 - Math.round(neighborhoodData[demoLookup.lookup]),
         ];
       }
     } else if (selectedChapter == 2) {
       if (demoLookup.lookup == 'F10_TrsBkW') {
         if (!toggleWalk && !toggleTransit && !toggleBike) {
-            percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+          percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
         } else {
           let otherPrec = 100;
           textList = [];
@@ -174,7 +176,7 @@ export default function Legend({
   // console.log("neighborhoodJsonLookup", neighborhoodJsonLookup)
   // console.log("demographics json ", _DEMOGRAPHIC_PERCENTAGED)
   // console.log("demoLookup.lookup", demoLookup.lookup)
-  // console.log("neighborhoodData", Math.round(neighborhoodData[demoLookup.lookup] * 100))
+  // console.log("neighborhoodData", Math.round(neighborhoodData[demoLookup.lookup]))
   // console.log("percList", percList)
   // console.log("toggleWalk", toggleWalk)
   // console.log("toggleTransit", toggleTransit)
@@ -296,7 +298,7 @@ export default function Legend({
             const threshold =
               (max(selectedMetricArray) - min(selectedMetricArray)) / (binSize + 1);
             binList.push(
-              Math.round((threshold * (i + 1) + min(selectedMetricArray)) * 100) /
+              Math.round((threshold * (i + 1) + min(selectedMetricArray))) /
                 100
             );
           } else {
@@ -518,22 +520,22 @@ export default function Legend({
                   />
 
                   <div className={'small-font'}>
-                    0% → {(demoLegendBins[0] * 100).toFixed(0)}%
+                    0% → {demoLegendBins[0].toFixed(0)}%
                   </div>
                   <div className={'small-font'}>
-                    {(demoLegendBins[0] * 100).toFixed(0)}% →{' '}
-                    {(demoLegendBins[1] * 100).toFixed(0)}%
+                    {demoLegendBins[0].toFixed(0)}% →{' '}
+                    {demoLegendBins[1].toFixed(0)}%
                   </div>
                   <div className={'small-font'}>
-                    {(demoLegendBins[1] * 100).toFixed(0)}% →{' '}
-                    {(demoLegendBins[2] * 100).toFixed(0)}%
+                    {demoLegendBins[1].toFixed(0)}% →{' '}
+                    {demoLegendBins[2].toFixed(0)}%
                   </div>
                   <div className={'small-font'}>
-                    {(demoLegendBins[2] * 100).toFixed(0)}% →{' '}
-                    {(demoLegendBins[3] * 100).toFixed(0)}%
+                    {demoLegendBins[2].toFixed(0)}% →{' '}
+                    {demoLegendBins[3].toFixed(0)}%
                   </div>
                   <div className={'small-font'}>
-                    {(demoLegendBins[3] * 100).toFixed(0)}% +
+                    {demoLegendBins[3].toFixed(0)}% +
                   </div>
                 </div>
               </div>
