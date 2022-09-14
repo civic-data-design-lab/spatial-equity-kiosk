@@ -33,7 +33,7 @@ const getDataToVis = (rawIssueData) => {
     let ascending;
     let lookupArray = [];
 
-    rawIssueData.sort((a, b) => a.rank - b.rank);
+    rawIssueData.sort((a, b) => b.rank - a.rank);
 
     for (let [index, value] of Object.entries(rawIssueData)) {
         valueArray.push(Number(Number(value.data).toFixed(3)));
@@ -168,8 +168,8 @@ const Histogram = ({
         } else {
             colorArray.push(d3.rgb(
                 ...colorInterpolate(
-                    colorRamps[0],
                     colorRamps[colorRamps.length - 1],
+                    colorRamps[0],
                     i / rawIssueData.length
                 )
             ))
