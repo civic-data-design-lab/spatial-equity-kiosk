@@ -956,6 +956,7 @@ const Histogram = ({
     councilPinned,
     communityPinned,
     currentHoveredCommunityID,
+    useBoroughColor
   ]);
 
   return (
