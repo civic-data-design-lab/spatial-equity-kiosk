@@ -115,7 +115,7 @@ export default function Legend({
         percList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
     }
 
-    console.log("--------------------")
+    // console.log("--------------------")
     // console.log("demoLegendBins", demoLegendBins)
     // console.log("demoLookup", demoLookup)
     // console.log("forDemographic", forDemographic)
@@ -129,10 +129,10 @@ export default function Legend({
     // console.log("demoLookup.lookup", demoLookup.lookup)
     // console.log("neighborhoodData", Math.round(neighborhoodData[demoLookup.lookup] * 100))
     // console.log("percList", percList)
-    console.log("toggleWalk", toggleWalk)
-    console.log("toggleTransit", toggleTransit)
-    console.log("toggleBike", toggleBike)
-    console.log("--------------------")
+    // console.log("toggleWalk", toggleWalk)
+    // console.log("toggleTransit", toggleTransit)
+    // console.log("toggleBike", toggleBike)
+    // console.log("--------------------")
 
 
     const administrativeBoundary =
