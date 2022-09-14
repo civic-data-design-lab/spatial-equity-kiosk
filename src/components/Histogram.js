@@ -516,7 +516,7 @@ const Histogram = ({
           // .ease('linear')
           .attr('y1', ycood)
           .attr('y2', ycood)
-        //   .attr('x1', margin.left)
+          //   .attr('x1', margin.left)
           .attr('x2', width - margin.right)
           .attr('lookupID', lookupArray[rectID])
           .style('stroke', 'black')
@@ -925,7 +925,14 @@ const Histogram = ({
       .each(function (d, i) {
         if (d3.select(this).attr('lookupID') == currentHoveredCommunityID) {
           // d3.select(this).style("fill", d3.rgb(d3.select(this).attr("initColor")).brighter(0.5))
-
+          if (
+            (boundary == 'council' &&
+              councilPinned.includes(currentHoveredCommunityID)) ||
+            (boundary == 'community' &&
+              communityPinned.includes(currentHoveredCommunityID)) ||
+            !d3.select(this).attr('lookupID')
+          )
+            return;
           // dark filter
           //   d3.select(this).style(
           //     'fill',
@@ -956,7 +963,7 @@ const Histogram = ({
     councilPinned,
     communityPinned,
     currentHoveredCommunityID,
-    useBoroughColor
+    useBoroughColor,
   ]);
 
   return (
