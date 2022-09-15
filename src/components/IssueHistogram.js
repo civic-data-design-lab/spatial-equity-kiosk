@@ -103,9 +103,9 @@ const IssueHistogram = ({
   const textWidth = 50;
   const margin = {
     top: 20,
-    left: 25,
+    left: 20,
     bottom: 30,
-    right: 20,
+    right: 15,
   };
   const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
@@ -417,7 +417,11 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
-      .text(`${data[Math.round(svg.select('#avgLine').attr('index'))]}${metricSymbol}`);
+      .text(
+        `${
+          data[Math.round(svg.select('#avgLine').attr('index'))]
+        }${metricSymbol}`
+      );
 
     // let showSelectedText = !(
     //   Number(svg.select('#selectedLine').attr('index')) ==
@@ -434,7 +438,11 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
-      .text(`${data[Math.round(svg.select('#selectedLine').attr('index'))]}${metricSymbol}`);
+      .text(
+        `${
+          data[Math.round(svg.select('#selectedLine').attr('index'))]
+        }${metricSymbol}`
+      );
     //   .text(
     //     `${
     //       showSelectedText
@@ -444,7 +452,13 @@ const IssueHistogram = ({
     //   );
 
     // avoid overlapping between selected text and avg text
+
+    // case1,2: about selectedTex
+    svg.select('#selectedTextUp').attr('text-anchor', 'end');
+    svg.select('#selectedTextDown').attr('text-anchor', 'end');
+    
     // case1: selected on the right, avg left
+    let textPadding = 2;
     let selectedTextWidth = svg
       .select('#selectedTextDown')
       .node()
@@ -453,15 +467,12 @@ const IssueHistogram = ({
       Number(svg.select('#selectedLine').attr('x1')) -
       Number(svg.select('#avgLine').attr('x1'));
 
-    if (interval > 0 && interval < selectedTextWidth) {
+    if (interval > 0 && interval - selectedTextWidth < textPadding) {
       svg.select('#selectedTextUp').attr('text-anchor', 'start');
       svg.select('#selectedTextDown').attr('text-anchor', 'start');
-    } else {
-      svg.select('#selectedTextUp').attr('text-anchor', 'end');
-      svg.select('#selectedTextDown').attr('text-anchor', 'end');
     }
 
-    // case2: selected on the left end with the min text
+    // case2: selected on the left-end with the min text
     let selectedValueWidth = svg
       .select('#selectedTextUp')
       .node()
@@ -474,12 +485,12 @@ const IssueHistogram = ({
       Number(svg.select('#selectedLine').attr('x1')) -
       Number(svg.select('#minLine').attr('x1'));
 
-    if (interval > 0 && interval < selectedValueWidth + minValueWidth * 0.5) {
+    if (
+      interval > 0 &&
+      interval - (selectedValueWidth + minValueWidth * 0.5) < textPadding
+    ) {
       svg.select('#selectedTextUp').attr('text-anchor', 'start');
       svg.select('#selectedTextDown').attr('text-anchor', 'start');
-    } else {
-      svg.select('#selectedTextUp').attr('text-anchor', 'end');
-      svg.select('#selectedTextDown').attr('text-anchor', 'end');
     }
 
     // case3: selected on the left, avg right
@@ -492,7 +503,7 @@ const IssueHistogram = ({
       Number(svg.select('#selectedLine').attr('x1'));
     if (svg.select('#selectedTextUp').attr('text-anchor') == 'start')
       avgTextWidth += selectedValueWidth;
-    if (interval > 0 && interval < avgTextWidth) {
+    if (interval > 0 && interval - avgTextWidth < textPadding) {
       svg.select('#avgTextUp').attr('text-anchor', 'start');
       svg.select('#avgTextDown').attr('text-anchor', 'start');
     } else {
