@@ -355,6 +355,8 @@ const IssueHistogram = ({
       .attr('text-anchor', 'end')
       .text(`${selectedCommunity ? selectedCommunity.name : 0}`);
 
+    let showMinText = !(Number(svg.select('#selectedLine').attr('index')) == 0);
+
     svg
       .select('#minTextUp')
       .attr('x', xscale(0.5))
@@ -366,9 +368,10 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
-      .text(`${data[0]}`);
+      .text(`${data[0]}`)
+      .attr('visibility', showMinText ? 'visible' : 'hidden');;
 
-    let showSelectedText = !(
+    let showMaxText = !(
       Number(svg.select('#selectedLine').attr('index')) ==
       data.length - 1
     );
@@ -385,7 +388,7 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
       .text(`${data[data.length - 1]}`)
-      .attr('visibility', showSelectedText ? 'visible' : 'hidden');
+      .attr('visibility', showMaxText ? 'visible' : 'hidden');
 
     svg
       .select('#avgTextUp')
@@ -400,6 +403,10 @@ const IssueHistogram = ({
       .attr('text-anchor', 'end')
       .text(`${data[Math.round(svg.select('#avgLine').attr('index'))]}`);
 
+    // let showSelectedText = !(
+    //   Number(svg.select('#selectedLine').attr('index')) ==
+    //   data.length - 1
+    // );
     svg
       .select('#selectedTextUp')
       .attr('x', svg.select('#selectedLine').attr('x1'))
@@ -421,7 +428,7 @@ const IssueHistogram = ({
     //   );
 
     // avoid overlapping between selected text and avg text
-    
+
     let selectedTextWidth = svg
       .select('#selectedTextDown')
       .node()
@@ -429,7 +436,7 @@ const IssueHistogram = ({
     let interval =
       Number(svg.select('#selectedLine').attr('x1')) -
       Number(svg.select('#avgLine').attr('x1'));
-    
+
     if (interval > 0 && interval < selectedTextWidth) {
       svg.select('#selectedTextUp').attr('text-anchor', 'start');
       svg.select('#selectedTextDown').attr('text-anchor', 'start');
@@ -445,7 +452,7 @@ const IssueHistogram = ({
     interval =
       Number(svg.select('#avgLine').attr('x1')) -
       Number(svg.select('#selectedLine').attr('x1'));
-    
+
     if (interval > 0 && interval < avgTextWidth) {
       svg.select('#avgTextUp').attr('text-anchor', 'start');
       svg.select('#avgTextDown').attr('text-anchor', 'start');
@@ -453,8 +460,6 @@ const IssueHistogram = ({
       svg.select('#avgTextUp').attr('text-anchor', 'end');
       svg.select('#avgTextDown').attr('text-anchor', 'end');
     }
-
-
   }, [
     colorRamps,
     boundary,
