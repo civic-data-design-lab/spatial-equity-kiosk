@@ -120,6 +120,11 @@ const IssueHistogram = ({
     ? lookupArray.indexOf(selectedCommunity.json_lookup)
     : 0;
 
+  let metricSymbol =
+    issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !== ''
+      ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
+      : '';
+
   // console.log('------')
   // console.log('specificIssue', selectedSpecificIssue)
   // console.log('issues', issues)
@@ -143,7 +148,8 @@ const IssueHistogram = ({
     let minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
     let longestBarPadding = 0;
 
-    let [hiStatement, lowStatement] = issues.specific_issues_data[selectedSpecificIssue].issue_hi_low
+    let [hiStatement, lowStatement] =
+      issues.specific_issues_data[selectedSpecificIssue].issue_hi_low;
     hiStatement = hiStatement.charAt(0).toUpperCase() + hiStatement.slice(1);
     lowStatement = lowStatement.charAt(0).toUpperCase() + lowStatement.slice(1);
     // let [hiStatement, lowStatement] = ['Max', 'Min'];
@@ -317,8 +323,12 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //  .attr('text-anchor', 'end')
       .attr('text-anchor', 'start')
-    //   .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
-      .text((ascending ? `${hiStatement} ${getIssueStatement()}` : `${lowStatement} ${getIssueStatement()}`));
+      //   .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+      .text(
+        !ascending
+          ? `${hiStatement} ${getIssueStatement()}`
+          : `${lowStatement} ${getIssueStatement()}`
+      );
     //   .text(!ascending ? `${hiStatement} ` : `${lowStatement} `);
 
     svg
@@ -331,8 +341,12 @@ const IssueHistogram = ({
       .attr('font-size', '14')
       .attr('fill', '#000000')
       .attr('text-anchor', 'end')
-    //   .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
-      .text((ascending ? `${hiStatement} ${getIssueStatement()}` : `${lowStatement} ${getIssueStatement()}`));
+      //   .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+      .text(
+        ascending
+          ? `${hiStatement} ${getIssueStatement()}`
+          : `${lowStatement} ${getIssueStatement()}`
+      );
     //   .text(ascending ? `${hiStatement} ` : `${lowStatement} `);
 
     svg
@@ -370,7 +384,7 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
-      .text(`${data[0]}`)
+      .text(`${data[0]}${metricSymbol}`)
       .attr('visibility', showMinText ? 'visible' : 'hidden');
 
     let showMaxText = !(
@@ -389,7 +403,7 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
-      .text(`${data[data.length - 1]}`)
+      .text(`${data[data.length - 1]}${metricSymbol}`)
       .attr('visibility', showMaxText ? 'visible' : 'hidden');
 
     svg
@@ -403,7 +417,7 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
-      .text(`${data[Math.round(svg.select('#avgLine').attr('index'))]}`);
+      .text(`${data[Math.round(svg.select('#avgLine').attr('index'))]}${metricSymbol}`);
 
     // let showSelectedText = !(
     //   Number(svg.select('#selectedLine').attr('index')) ==
@@ -420,7 +434,7 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
-      .text(data[Math.round(svg.select('#selectedLine').attr('index'))]);
+      .text(`${data[Math.round(svg.select('#selectedLine').attr('index'))]}${metricSymbol}`);
     //   .text(
     //     `${
     //       showSelectedText
