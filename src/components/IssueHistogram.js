@@ -369,7 +369,7 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
       .text(`${data[0]}`)
-      .attr('visibility', showMinText ? 'visible' : 'hidden');;
+      .attr('visibility', showMinText ? 'visible' : 'hidden');
 
     let showMaxText = !(
       Number(svg.select('#selectedLine').attr('index')) ==
@@ -428,7 +428,7 @@ const IssueHistogram = ({
     //   );
 
     // avoid overlapping between selected text and avg text
-
+    // case1: selected on the right, avg left
     let selectedTextWidth = svg
       .select('#selectedTextDown')
       .node()
@@ -445,6 +445,28 @@ const IssueHistogram = ({
       svg.select('#selectedTextDown').attr('text-anchor', 'end');
     }
 
+    // case2: selected on the left end with the min text
+    let selectedValueWidth = svg
+      .select('#selectedTextUp')
+      .node()
+      .getBoundingClientRect().width;
+    let minValueWidth = svg
+      .select('#minTextUp')
+      .node()
+      .getBoundingClientRect().width;
+    interval =
+      Number(svg.select('#selectedLine').attr('x1')) -
+      Number(svg.select('#minLine').attr('x1'));
+
+    if (interval > 0 && interval < selectedValueWidth + minValueWidth * 0.5) {
+      svg.select('#selectedTextUp').attr('text-anchor', 'start');
+      svg.select('#selectedTextDown').attr('text-anchor', 'start');
+    } else {
+      svg.select('#selectedTextUp').attr('text-anchor', 'end');
+      svg.select('#selectedTextDown').attr('text-anchor', 'end');
+    }
+
+    // case3: selected on the left, avg right
     let avgTextWidth = svg
       .select('#avgTextDown')
       .node()
@@ -452,7 +474,8 @@ const IssueHistogram = ({
     interval =
       Number(svg.select('#avgLine').attr('x1')) -
       Number(svg.select('#selectedLine').attr('x1'));
-
+    if (svg.select('#selectedTextUp').attr('text-anchor') == 'start')
+      avgTextWidth += selectedValueWidth;
     if (interval > 0 && interval < avgTextWidth) {
       svg.select('#avgTextUp').attr('text-anchor', 'start');
       svg.select('#avgTextDown').attr('text-anchor', 'start');
