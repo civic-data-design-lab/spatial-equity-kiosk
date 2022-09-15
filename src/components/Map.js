@@ -926,6 +926,11 @@ export default function DeckMap({
   }, [selectedCoord, infoTransfer.selectedBoundary]);
 
   useEffect(() => {
+    updateSearchEngine(selectedCoord, 0);
+
+  }, [infoTransfer.selectedBoundary]);
+
+  useEffect(() => {
     updateSearchEngine(selectedCompareCoord, 1);
   }, [selectedCompareCoord, infoTransfer.selectedBoundary]);
 

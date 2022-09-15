@@ -361,6 +361,8 @@ function App() {
                              setSelectedSpecificIssue(1)
                          }*/
 
+        console.log("zoomToggle ", zoomToggle)
+        console.log("viewState ", viewState)
 
 
         const params = [];
@@ -386,10 +388,22 @@ function App() {
         if (toggleUnderperformers !== null)
             params.push(`tU=${toggleUnderperformers}`);
 
-        // TODO: ask what format of this statehook is
-        /*
-            if (userPoints[0]!==null && userPoints[1]!==null) params.push(`uP=[[${userPoints[0] && userPoints[0].toString()}],[${userPoints[1] && userPoints[1].toString()}]]`)
-    */
+
+        // TODO: save these states
+        if (viewState !== null) {
+            params.push(`lat=${viewState.latitude}`)
+            params.push(`lon=${viewState.longitude}`)
+            params.push(`z=${viewState.zoom}`)
+        }
+
+        if (userPoints[0]!==null) {
+
+        }
+
+        if (userPoints[1]!==null) {
+
+        }
+
 
         let path = window.location.href.split("?")[0];
         path = path.concat("?");
