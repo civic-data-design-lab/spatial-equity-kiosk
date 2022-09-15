@@ -143,10 +143,10 @@ const IssueHistogram = ({
     let minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
     let longestBarPadding = 0;
 
-    // let [hiStatement, lowStatement] = issues.specific_issues_data[selectedSpecificIssue].issue_hi_low
-    // hiStatement = hiStatement.charAt(0).toUpperCase() + hiStatement.slice(1);
-    // lowStatement = lowStatement.charAt(0).toUpperCase() + lowStatement.slice(1);
-    let [hiStatement, lowStatement] = ['Max', 'Min'];
+    let [hiStatement, lowStatement] = issues.specific_issues_data[selectedSpecificIssue].issue_hi_low
+    hiStatement = hiStatement.charAt(0).toUpperCase() + hiStatement.slice(1);
+    lowStatement = lowStatement.charAt(0).toUpperCase() + lowStatement.slice(1);
+    // let [hiStatement, lowStatement] = ['Max', 'Min'];
 
     let xscale = d3
       .scaleLinear()
@@ -317,8 +317,9 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //  .attr('text-anchor', 'end')
       .attr('text-anchor', 'start')
-      // .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
-      .text(!ascending ? `${hiStatement} ` : `${lowStatement} `);
+    //   .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+      .text((ascending ? `${hiStatement} ${getIssueStatement()}` : `${lowStatement} ${getIssueStatement()}`));
+    //   .text(!ascending ? `${hiStatement} ` : `${lowStatement} `);
 
     svg
       .select('#maxTextDown')
@@ -330,8 +331,9 @@ const IssueHistogram = ({
       .attr('font-size', '14')
       .attr('fill', '#000000')
       .attr('text-anchor', 'end')
-      // .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
-      .text(ascending ? `${hiStatement} ` : `${lowStatement} `);
+    //   .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
+      .text((ascending ? `${hiStatement} ${getIssueStatement()}` : `${lowStatement} ${getIssueStatement()}`));
+    //   .text(ascending ? `${hiStatement} ` : `${lowStatement} `);
 
     svg
       .select('#avgTextDown')
