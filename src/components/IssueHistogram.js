@@ -210,14 +210,12 @@ const IssueHistogram = ({
       .attr('value', (d) => d);
 
     svg.selectAll('rect').each(function (d, i) {
-      d3.select(this).attr(
-        'y',
-        (d) =>
-          (d3.min(data) >= 0
-            ? height - d3.select(this).attr('height') - margin.bottom
-            : d > 0
-            ? height - d3.select(this).attr('height') - margin.bottom - yscale(0)
-            : height - d3.select(this).attr('height') - margin.bottom - yscale(d))
+      d3.select(this).attr('y', (d) =>
+        d3.min(data) >= 0
+          ? height - d3.select(this).attr('height') - margin.bottom
+          : d > 0
+          ? height - d3.select(this).attr('height') - margin.bottom - yscale(0)
+          : height - d3.select(this).attr('height') - margin.bottom - yscale(d)
       );
     });
 
@@ -229,8 +227,8 @@ const IssueHistogram = ({
       .data(data)
       .exit()
       .remove();
-      
-    console.log(height - margin.bottom)
+
+    console.log(height - margin.bottom);
     // draw Lines
     svg
       .select('#minLine')
@@ -288,16 +286,15 @@ const IssueHistogram = ({
           ? yscale(data[index]) - yscale(0)
           : yscale(0) - yscale(data[index]);
 
-
-    //   d3.select(this).attr(
-    //     'y1',
-    //     d3.min(data) >= 0
-    //       ? height - length - margin.bottom
-    //       : data[index] > 0
-    //       ? height - length - margin.bottom - yscale(0)
-    //       : height - length - margin.bottom - yscale(data[index])
-    //   );
-    //   d3.select(this).attr('y2', Number(d3.select(this).attr('y1')) + length);
+      //   d3.select(this).attr(
+      //     'y1',
+      //     d3.min(data) >= 0
+      //       ? height - length - margin.bottom
+      //       : data[index] > 0
+      //       ? height - length - margin.bottom - yscale(0)
+      //       : height - length - margin.bottom - yscale(data[index])
+      //   );
+      //   d3.select(this).attr('y2', Number(d3.select(this).attr('y1')) + length);
 
       // svg.append('text')
       //     .attr('class', 'smaller-text')
@@ -313,102 +310,116 @@ const IssueHistogram = ({
     svg
       .select('#minTextDown')
       .attr('x', xscale(0.5) - 5)
-      .attr('y', height - margin.bottom + 5)
+      //   .attr('y', height - margin.bottom + 5)
+      .attr('y', svg.select('#maxLine').attr('y1') - 5)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
-      .attr('text-anchor', 'end')
+      //  .attr('text-anchor', 'end')
+      .attr('text-anchor', 'start')
       // .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
       .text(!ascending ? `${hiStatement} ` : `${lowStatement} `);
 
     svg
       .select('#maxTextDown')
       .attr('x', xscale(data.length + 0.5) + 5)
-      .attr('y', height - margin.bottom + 5)
+      //   .attr('y', height - margin.bottom + 5)
+      .attr('y', svg.select('#maxLine').attr('y1') - 5)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
+      .attr('text-anchor', 'end')
       // .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
       .text(ascending ? `${hiStatement} ` : `${lowStatement} `);
 
     svg
       .select('#avgTextDown')
       .attr('x', svg.select('#avgLine').attr('x1'))
-      .attr('y', height - margin.bottom + 25)
+      .attr('y', height - margin.bottom + 24)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
-      .attr('text-anchor', 'middle')
+      .attr('text-anchor', 'end')
       .text('Citywide Average');
 
     svg
       .select('#selectedTextDown')
       .attr('x', svg.select('#selectedLine').attr('x1'))
-      .attr('y', height - margin.bottom + 15)
+      .attr('y', height - margin.bottom + 24)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
-      .attr('text-anchor', 'middle')
+      .attr('text-anchor', 'end')
       .text(`${selectedCommunity ? selectedCommunity.name : 0}`);
 
     svg
       .select('#minTextUp')
       .attr('x', xscale(0.5))
-      .attr('y', svg.select('#minLine').attr('y1') - 5)
+      //   .attr('y', svg.select('#minLine').attr('y1') - 5)
+      .attr('y', height - margin.bottom + 12)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
-    //   .attr('text-anchor', !ascending ? 'start ' : 'end')
+      //   .attr('text-anchor', !ascending ? 'start ' : 'end')
+      .attr('text-anchor', 'middle')
       .text(`${data[0]}`);
-
-    svg
-      .select('#maxTextUp')
-      .attr('x', xscale(data.length + 0.5))
-      .attr('y', svg.select('#maxLine').attr('y1') - 5)
-      .attr('class', 'smaller-text')
-      .attr('style', 'font-family:Inter')
-      .attr('font-size', '14')
-      .attr('fill', '#000000')
-    //   .attr('text-anchor', !ascending ? 'start ' : 'end')
-      .text(`${data[data.length - 1]}`);
-
-    svg
-      .select('#avgTextUp')
-      .attr('x', svg.select('#avgLine').attr('x1'))
-      // .attr('y', svg.select('#avgLine').attr('y1') - 5)
-      .attr('y', height - margin.bottom + 15)
-      .attr('class', 'smaller-text')
-      .attr('style', 'font-family:Inter')
-      .attr('font-size', '14')
-      .attr('fill', '#000000')
-    //   .attr('text-anchor', !ascending ? 'start ' : 'end')
-      .text(`${data[Math.round(svg.select('#avgLine').attr('index'))]}`);
 
     let showSelectedText = !(
       Number(svg.select('#selectedLine').attr('index')) ==
       data.length - 1
     );
+
     svg
-      .select('#selectedTextUp')
-      .attr('x', svg.select('#selectedLine').attr('x1'))
-      .attr('y', svg.select('#selectedLine').attr('y1') - 5)
+      .select('#maxTextUp')
+      .attr('x', xscale(data.length + 0.5))
+      //   .attr('y', svg.select('#maxLine').attr('y1') - 5)
+      .attr('y', height - margin.bottom + 12)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
-    //   .attr('text-anchor', !ascending ? 'start ' : 'end')
-      .text(
-        `${
-          showSelectedText
-            ? data[Math.round(svg.select('#selectedLine').attr('index'))]
-            : ``
-        }`
-      );
+      //   .attr('text-anchor', !ascending ? 'start ' : 'end')
+      .attr('text-anchor', 'middle')
+      .text(`${data[data.length - 1]}`)
+      .attr('visibility', showSelectedText ? 'visible' : 'hidden');
+
+    svg
+      .select('#avgTextUp')
+      .attr('x', svg.select('#avgLine').attr('x1'))
+      // .attr('y', svg.select('#avgLine').attr('y1') - 5)
+      .attr('y', height - margin.bottom + 12)
+      .attr('class', 'smaller-text')
+      .attr('style', 'font-family:Inter')
+      .attr('font-size', '14')
+      .attr('fill', '#000000')
+      //   .attr('text-anchor', !ascending ? 'start ' : 'end')
+      .attr('text-anchor', 'end')
+      .text(`${data[Math.round(svg.select('#avgLine').attr('index'))]}`);
+
+    svg
+      .select('#selectedTextUp')
+      .attr('x', svg.select('#selectedLine').attr('x1'))
+      //   .attr('y', svg.select('#selectedLine').attr('y1') - 5)
+      .attr('y', height - margin.bottom + 12)
+      .attr('class', 'smaller-text')
+      .attr('style', 'font-family:Inter')
+      .attr('font-size', '14')
+      .attr('fill', '#000000')
+      //   .attr('text-anchor', !ascending ? 'start ' : 'end')
+      .attr('text-anchor', 'end')
+      .text(data[Math.round(svg.select('#selectedLine').attr('index'))]);
+    //   .text(
+    //     `${
+    //       showSelectedText
+    //         ? data[Math.round(svg.select('#selectedLine').attr('index'))]
+    //         : ``
+    //     }`
+    //   );
   }, [
     colorRamps,
     boundary,
