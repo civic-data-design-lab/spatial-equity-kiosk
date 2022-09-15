@@ -1497,6 +1497,7 @@ input:checked+.slider:before {
     column-gap: 0.25rem;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .big-button-active {
