@@ -30,7 +30,8 @@
     "resize-observer-polyfill": "^1.5.1",
     "rfs": "^9.0.6",
     "typewriter-effect": "^2.19.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "lossless-json": "^1.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

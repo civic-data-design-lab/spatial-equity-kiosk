@@ -606,7 +606,6 @@ export default function DeckMap({
   function updateSearchEngine(searchEngine, searchEngineType) {
     //check if search engine is valid coordinates
     if (searchEngineType === 0 && selectedChapter === 3) {
-      console.log('in single search');
       if (selectedCoord.length === 2) {
         const newCommunitySearch = getCommunitySearch(searchEngine, boundary);
         if (newCommunitySearch.length > 0) {
@@ -745,11 +744,6 @@ export default function DeckMap({
         }
       }
     }
-
-    console.log('after');
-    console.log('userpoints ', userPoints);
-    console.log('communityCoords ', selectedCoord);
-    console.log('compareCoords ', selectedCompareCoord);
   }
 
   // check if search engine falls in supported polygon bounds

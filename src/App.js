@@ -33,6 +33,7 @@ const communities = _COMMUNITIES;
 const councils = _COUNCILS;
 const demoLookup = _DEMOGRAPHICS;
 
+
 function App() {
     const [showMap, setShowMap] = useState(false);
     const [showToggle, setShowToggle] = useState(false);
@@ -101,6 +102,7 @@ function App() {
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
+        let createCoords = [[], []]
         for (let pair of queryParams.entries()) {
             switch (pair[0]) {
                 case "swM":
@@ -164,6 +166,18 @@ function App() {
                 case "tU":
                     setToggleUnderperformers(pair[1] === "true");
                     break;
+                case "ctC":
+                    createCoords = ([JSON.parse(pair[1]).map((item) => {
+                            return parseFloat(item.toString());
+                        }), createCoords[1]])
+                    break;
+
+                case "cpC":
+                     createCoords = ([createCoords[0], JSON.parse(pair[1]).map((item) => {
+                            return parseFloat(item.toString())
+                        })])
+                    break;
+
                 /*  case "uP":
                             console.log("pair[1] ", pair[1])
                             setUserPoints(
@@ -173,6 +187,7 @@ function App() {
                             )*/
             }
         }
+        setUserPoints(createCoords)
     }, []);
 
     const selectedBoundary = useMemo(() => {
@@ -361,8 +376,6 @@ function App() {
                              setSelectedSpecificIssue(1)
                          }*/
 
-        console.log("zoomToggle ", zoomToggle)
-        console.log("viewState ", viewState)
 
 
         const params = [];
@@ -390,18 +403,20 @@ function App() {
 
 
         // TODO: save these states
-        if (viewState !== null) {
-            params.push(`lat=${viewState.latitude}`)
-            params.push(`lon=${viewState.longitude}`)
-            params.push(`z=${viewState.zoom}`)
+       if (zoomToggle !== null) {params.push(`zT=${zoomToggle}`)}
+
+       /* if (viewState !== null) {
+            params.push(`lat=${viewState.primary.latitude}`)
+            params.push(`lon=${viewState.primary.longitude}`)
+            params.push(`z=${viewState.primary.zoom}`)
+        }*/
+
+        if (userPoints[0]?.length>0) {
+            params.push(`ctC=[${userPoints[0][0]},${userPoints[0][1]}]`)
         }
 
-        if (userPoints[0]!==null) {
-
-        }
-
-        if (userPoints[1]!==null) {
-
+        if (userPoints[1]?.length>0) {
+             params.push(`cpC=[${userPoints[1][0]},${userPoints[1][1]}]`)
         }
 
 
