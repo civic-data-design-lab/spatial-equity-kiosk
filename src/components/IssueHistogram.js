@@ -209,7 +209,9 @@ const IssueHistogram = ({
           ...colorInterpolate(
             colorRamps[0],
             colorRamps[colorRamps.length - 1],
-            i / data.length
+            (!ascending)
+              ? 1 - i / (rawIssueData.length - 1)
+              : i / (rawIssueData.length - 1)
           )
         )
       )

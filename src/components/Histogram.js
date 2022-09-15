@@ -180,7 +180,9 @@ const Histogram = ({
           ...colorInterpolate(
             colorRamps[colorRamps.length - 1],
             colorRamps[0],
-            i / rawIssueData.length
+            ascending
+              ? 1 - i / (rawIssueData.length - 1)
+              : i / (rawIssueData.length - 1)
           )
         )
       );
