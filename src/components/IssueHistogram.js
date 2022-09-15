@@ -228,7 +228,6 @@ const IssueHistogram = ({
       .exit()
       .remove();
 
-    console.log(height - margin.bottom);
     // draw Lines
     svg
       .select('#minLine')
@@ -420,6 +419,42 @@ const IssueHistogram = ({
     //         : ``
     //     }`
     //   );
+
+    // avoid overlapping between selected text and avg text
+    
+    let selectedTextWidth = svg
+      .select('#selectedTextDown')
+      .node()
+      .getBoundingClientRect().width;
+    let interval =
+      Number(svg.select('#selectedLine').attr('x1')) -
+      Number(svg.select('#avgLine').attr('x1'));
+    
+    if (interval > 0 && interval < selectedTextWidth) {
+      svg.select('#selectedTextUp').attr('text-anchor', 'start');
+      svg.select('#selectedTextDown').attr('text-anchor', 'start');
+    } else {
+      svg.select('#selectedTextUp').attr('text-anchor', 'end');
+      svg.select('#selectedTextDown').attr('text-anchor', 'end');
+    }
+
+    let avgTextWidth = svg
+      .select('#avgTextDown')
+      .node()
+      .getBoundingClientRect().width;
+    interval =
+      Number(svg.select('#avgLine').attr('x1')) -
+      Number(svg.select('#selectedLine').attr('x1'));
+    
+    if (interval > 0 && interval < avgTextWidth) {
+      svg.select('#avgTextUp').attr('text-anchor', 'start');
+      svg.select('#avgTextDown').attr('text-anchor', 'start');
+    } else {
+      svg.select('#avgTextUp').attr('text-anchor', 'end');
+      svg.select('#avgTextDown').attr('text-anchor', 'end');
+    }
+
+
   }, [
     colorRamps,
     boundary,
