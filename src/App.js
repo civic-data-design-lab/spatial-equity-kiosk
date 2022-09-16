@@ -365,8 +365,8 @@ function App() {
                              setSelectedSpecificIssue(1)
                          }*/
 
-        console.log("zoomToggle ", zoomToggle)
-        console.log("viewState ", viewState)
+        // console.log("zoomToggle ", zoomToggle)
+        // console.log("viewState ", viewState)
 
 
         const params = [];
@@ -731,6 +731,7 @@ function App() {
                                     userPoints={userPoints}
                                     setUserPoints={setUserPoints}
                                     colorRamp={colorRamps}
+                                    collapseMap={collapseMap}
                                 />
                             </div>
                         </div>

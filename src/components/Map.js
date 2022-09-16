@@ -1,7 +1,7 @@
 // dependencies
 import { useCallback, useEffect, useRef, useState } from 'react';
 import DeckGL from '@deck.gl/react';
-import { Map } from 'react-map-gl';
+import { Map, Popup } from 'react-map-gl';
 import { GeoJsonLayer, ScatterplotLayer, TextLayer } from '@deck.gl/layers';
 import { LinearInterpolator, MapView } from '@deck.gl/core';
 import { scaleQuantile, scaleThreshold } from 'd3-scale';
@@ -26,6 +26,7 @@ import _RANKINGS from '../data/rankings.json';
 
 // mapbox style
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { project } from 'deck.gl';
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -44,6 +45,8 @@ const LATITUDE_RANGE = [40.5, 40.9];
 function map_range(value, low1, high1, low2, high2) {
   return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
 }
+
+const popupOffset = 20;
 
 const RESET_VIEW = {
   longitude: -74,
@@ -192,10 +195,12 @@ export default function DeckMap({
   userPoints,
   setUserPoints,
   colorRamp,
+  collapseMap,
 }) {
   // map hooks
   const [underperformers, setUnderperformers] = useState(null);
 
+  const deckRef = useRef(null);
   const mapRef = useRef(null);
   const dataScale = useRef('q'); //set to "equal" for equal binning, "q" for quantile binning
   // const [searchPoint, setSearchPoint] = useState([[], []]);
@@ -396,6 +401,45 @@ export default function DeckMap({
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
 
   // 05 TOOLTIP ----------------------------------------------------------------------------------------------
+  const getRankingTooltip = (boundaryName) => {
+    const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
+      ? true
+      : false;
+    const maxRanking = metricCheck
+      ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
+      : '';
+    const ranking = metricCheck
+      ? _RANKINGS[boundary][infoTransfer.selectedMetric].find(
+          (t) => t.community_ID == boundaryName
+        ).rank
+      : '';
+
+    return metricCheck ? `${ranking}/${maxRanking}` : '';
+  };
+
+  const getMetricValueTooltip = (obj) => {
+    const accessor = obj.properties ? obj.properties : obj;
+    return `<strong> ${
+      infoTransfer.selectedMetric != null
+        ? accessor[infoTransfer.selectedMetric] >= 10
+          ? accessor[infoTransfer.selectedMetric].toFixed(0)
+          : accessor[infoTransfer.selectedMetric].toFixed(2)
+        : ''
+    }${
+      issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !=
+      ''
+        ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
+        : ''
+    }</strong> ${
+      typeof selectedSpecificIssue == 'number'
+        ? issues.specific_issues_data[selectedSpecificIssue]
+            .issue_units_shorthand != ''
+          ? `<strong>${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand}</strong>`
+          : ` ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`
+        : ''
+    }`;
+  };
+
   const getTooltip = (info) => {
     if (
       info.object &&
@@ -416,14 +460,6 @@ export default function DeckMap({
       const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
         ? true
         : false;
-      const maxRanking = metricCheck
-        ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
-        : '';
-      const ranking = metricCheck
-        ? _RANKINGS[boundary][infoTransfer.selectedMetric].find(
-            (t) => t.community_ID == boundaryName
-          ).rank
-        : '';
 
       const neighborhoodList =
         boundary == 'council'
@@ -473,39 +509,14 @@ export default function DeckMap({
           ${
             metricCheck
               ? `<div>
-            <div class=map-tooltip-info>${
-              metricCheck
-                ? `Ranks <strong>${
-                    metricCheck ? `${ranking} / ${maxRanking}` : ''
-                  }</strong> for ${
-                    typeof selectedSpecificIssue == 'number'
-                      ? issues.specific_issues_data[selectedSpecificIssue]
-                          .specific_issue_name
-                      : ''
-                  } with <strong>${
-                    metricCheck
-                      ? `${
-                          infoTransfer.selectedMetric != null
-                            ? obj.properties[infoTransfer.selectedMetric] >= 10
-                              ? obj.properties[
-                                  infoTransfer.selectedMetric
-                                ].toFixed(0)
-                              : obj.properties[
-                                  infoTransfer.selectedMetric
-                                ].toFixed(2)
-                            : ''
-                        }</strong>${
-                          typeof selectedSpecificIssue == 'number'
-                            ? issues.specific_issues_data[selectedSpecificIssue]
-                                .issue_units_shorthand != ''
-                              ? `<strong>${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand}</strong>`
-                              : ` ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`
-                            : ''
-                        }`
-                      : ''
-                  }.`
+            <div class=map-tooltip-info>${`Ranks <strong>${getRankingTooltip(
+              boundaryName
+            )}</strong> for ${
+              typeof selectedSpecificIssue == 'number'
+                ? issues.specific_issues_data[selectedSpecificIssue]
+                    .specific_issue_name
                 : ''
-            }</div>
+            } with ${`${getMetricValueTooltip(obj)}`}.`}</div>
           </div>`
               : ''
           }
@@ -576,6 +587,7 @@ export default function DeckMap({
 
   const getCommunitySearch = (coord, b) => {
     const searchItemFound = [];
+    const searchItemData = [];
     for (const [
       index,
       element,
@@ -594,9 +606,10 @@ export default function DeckMap({
             : null;
 
         searchItemFound.push(lookup);
+        searchItemData.push(element.properties);
       }
     }
-    return searchItemFound;
+    return [searchItemFound, searchItemData];
   };
 
   // 06 DIRECT PICKING ENGINE ---------------------------------------------------------------------------------------------
@@ -606,9 +619,12 @@ export default function DeckMap({
   function updateSearchEngine(searchEngine, searchEngineType) {
     //check if search engine is valid coordinates
     if (searchEngineType === 0 && selectedChapter === 3) {
-      console.log('in single search');
+      //   console.log('in single search');
       if (selectedCoord.length === 2) {
-        const newCommunitySearch = getCommunitySearch(searchEngine, boundary);
+        const newCommunitySearch = getCommunitySearch(
+          searchEngine,
+          boundary
+        )[0];
         if (newCommunitySearch.length > 0) {
           if (
             (searchSource === 'click' &&
@@ -644,7 +660,7 @@ export default function DeckMap({
 
     if (searchEngineType === 1 && selectedChapter === 3) {
       if (selectedCompareCoord.length === 2) {
-        const newCompareSearch = getCommunitySearch(searchEngine, boundary);
+        const newCompareSearch = getCommunitySearch(searchEngine, boundary)[0];
         if (
           newCompareSearch.length > 0 &&
           newCompareSearch[0] !== communitySearch &&
@@ -653,7 +669,7 @@ export default function DeckMap({
             searchSource === 'search') &&
           selectedCoord.length === 2
         ) {
-          console.log('case 1');
+          //   console.log('case 1');
           setCompareSearch(newCompareSearch[0]);
           setBadSearch([badSearch[0], 0]);
           const ptA = selectedCoord;
@@ -700,7 +716,7 @@ export default function DeckMap({
           searchEngine.length === 2 &&
           searchSource === 'click'
         ) {
-          console.log('case 2');
+          //   console.log('case 2');
           setSelectedCompareCoord([]);
           setCompareSearch(null);
           setUserPoints([userPoints[0], []]);
@@ -717,14 +733,14 @@ export default function DeckMap({
           searchEngine.length === 2 &&
           searchSource === 'click'
         ) {
-          console.log('case 3');
+          //   console.log('case 3');
           if (!compareSearch) {
             setSelectedCoord([]);
             setCommunitySearch(null);
             setUserPoints([[], []]);
             setViewState(RESET_VIEW);
           } else {
-            console.log('case 4');
+            // console.log('case 4');
             setCommunitySearch(compareSearch);
             setCompareSearch(null);
             setSelectedCoord(userPoints[1]);
@@ -746,10 +762,10 @@ export default function DeckMap({
       }
     }
 
-    console.log('after');
-    console.log('userpoints ', userPoints);
-    console.log('communityCoords ', selectedCoord);
-    console.log('compareCoords ', selectedCompareCoord);
+    // console.log('after');
+    // console.log('userpoints ', userPoints);
+    // console.log('communityCoords ', selectedCoord);
+    // console.log('compareCoords ', selectedCompareCoord);
   }
 
   // check if search engine falls in supported polygon bounds
@@ -927,7 +943,6 @@ export default function DeckMap({
 
   useEffect(() => {
     updateSearchEngine(selectedCoord, 0);
-
   }, [infoTransfer.selectedBoundary]);
 
   useEffect(() => {
@@ -962,6 +977,7 @@ export default function DeckMap({
     toggleBike,
     toggleWalk,
   ]);
+
   // 06 MAP LAYERS ----------------------------------------------------------------------------------------------
 
   const metricLayers = [
@@ -1008,6 +1024,9 @@ export default function DeckMap({
           return COLOR_SCALE(f.properties[infoTransfer.selectedMetric]);
         }
       },
+      pointType: 'text',
+      getText: 'test',
+      getTextSize: 320,
       opacity: CHOROPLETH_OPACITY,
       visible: zoomToggle,
 
@@ -1419,13 +1438,114 @@ export default function DeckMap({
       getFillColor: [0, 0, 0, 255],
       getLineColor: [255, 255, 255, 255],
     }),
+
+    new TextLayer({
+      id: 'text-layer-details',
+      data: userPoints,
+      getPosition: (d) => {
+        // console.log(d);
+        // console.log(project(d));
+        if (d.length == 2) return d;
+      },
+      getText: (d) => {
+        if (d.length == 2) {
+          //   const rank = 99;
+          const selection = getCommunitySearch(d, boundary);
+          const value = selection[1][0][[infoTransfer.selectedMetric]];
+
+          const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
+            ? true
+            : false;
+          return metricCheck
+            ? `Ranks ${getRankingTooltip(selection[0])} for ${
+                issues.specific_issues_data[selectedSpecificIssue]
+                  .specific_issue_name
+              } with ${
+                value >= 10
+                  ? value.toFixed(0)
+                  : value >= 1
+                  ? value.toFixed(1)
+                  : value.toFixed(3)
+              }${
+                issues.specific_issues_data[selectedSpecificIssue]
+                  .issue_units_symbol != ''
+                  ? issues.specific_issues_data[selectedSpecificIssue]
+                      .issue_units_symbol
+                  : ''
+              } ${
+                issues.specific_issues_data[selectedSpecificIssue]
+                  .issue_units_shorthand != ''
+                  ? issues.specific_issues_data[selectedSpecificIssue]
+                      .issue_units_shorthand
+                  : issues.specific_issues_data[selectedSpecificIssue]
+                      .specific_issue_units
+              }.`
+            : '';
+        }
+      },
+      visible: infoTransfer.selectedMetric ? true : false,
+      getSize: 12,
+      getPixelOffset: [popupOffset, popupOffset + 45],
+      maxWidth: boundary == 'community' ? 1150 : 1000,
+      background: true,
+      backgroundPadding: [10, 10, 10, 10],
+      getBackgroundColor: [255, 255, 255, 255],
+      getBorderWidth: 1,
+      getBorderColor: [0, 0, 0, 255],
+      getTextAnchor: 'start',
+      getAlignmentBaseline: 'top',
+      fontFamily: 'Roboto',
+      updateTriggers: {
+        getText: [infoTransfer.selectedBoundary, infoTransfer.selectedMetric],
+      },
+    }),
+
+    new TextLayer({
+      id: 'comparison-layer-title',
+      data: userPoints,
+      getPosition: (d) => {
+        if (d.length == 2) {
+          return d;
+        } else {
+          return;
+        }
+      },
+      getText: (d) => {
+        if (d.length == 2) {
+          const selection = getCommunitySearch(d, boundary);
+          return (
+            (boundary == 'council' ? 'Council District ' : 'Community Board ') +
+            selection[0]
+          );
+        }
+      },
+      getColor: [255, 255, 255, 255],
+      getSize: 16,
+      getPixelOffset: [popupOffset, popupOffset],
+      background: true,
+      backgroundPadding: [10, 10, 10, 10],
+      getBackgroundColor: [0, 0, 0, 255],
+      getBorderWidth: 1,
+      getBorderColor: [0, 0, 0, 255],
+      getTextAnchor: 'start',
+      getAlignmentBaseline: 'top',
+      fontFamily: 'Roboto',
+      fontWeight: '1000',
+      updateTriggers: {
+        getText: [infoTransfer.selectedBoundary, infoTransfer.selectedMetric],
+      },
+    }),
   ];
 
+  //   console.log(project(userPoints[0]));
+  //   console.log(userPoints);
+  //   console.log(infoTransfer.selectedBoundary.features[0].properties.X_Cent);
+
   const layerFilter = useCallback(({ layer, viewport }) => {
+    if (!showMap && selectedSpecificIssue) return false;
+
     const metricList = [];
     const annoList = [];
-
-    if (!showMap) return false;
 
     for (let i = 0; i < metricLayers.length; i++) {
       metricList.push(metricLayers[i].id);
@@ -1452,7 +1572,7 @@ export default function DeckMap({
         initialViewState={viewState}
         onViewStateChange={onViewStateChange}
         views={
-          showMap
+          showMap || (!showMap && !selectedSpecificIssue)
             ? mapDemographics
               ? [SPLIT_VIEW_LEFT, SPLIT_VIEW_RIGHT]
               : [MAIN_VIEW]
@@ -1462,6 +1582,7 @@ export default function DeckMap({
         getCursor={() => 'crosshair'}
         getTooltip={getTooltip}
         layerFilter={layerFilter}
+        ref={deckRef}
         // eventRecognizerOptions={
         //   isMobile ? { pan: { threshold: 10 }, tap: { threshold: 5 } } : {}
         // }
@@ -1478,9 +1599,21 @@ export default function DeckMap({
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
               logoPosition="top-right"
-              // onLoad={({ map }) => setMap(map)}
-              // onIdle={(map) => console.log(map)}
             />
+            {collapseMap && selectedSpecificIssue && (
+              <div style={SPLIT_SCREEN_POSITIONING}>
+                <div style={SPLIT_SCREEN_HEADER}>
+                  {
+                    issues.specific_issues_data[selectedSpecificIssue]
+                      .specific_issue_name
+                  }{' '}
+                  by{' '}
+                  {boundary == 'community'
+                    ? 'Community Boards'
+                    : 'City Districts'}
+                </div>
+              </div>
+            )}
           </MapView>
         )}
 
