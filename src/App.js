@@ -25,6 +25,10 @@ import _COUNCIL_DISTRICTS from "./data/council_districts.json";
 import _COMMUNITY_BOARDS from "./data/community_boards.json";
 import _NEIGHBORHOODS from "./data/neighborhoods.json";
 
+import Protect from "./utils/react-app-protect"
+let siteProtection = (process.env.REACT_APP_SITE_PROTECTION == 'false') ? false : (process.env.REACT_APP_SITE_PROTECTION == 'true') ? true : undefined;
+let sha512 = process.env.REACT_APP_SITE_PWD;
+
 // map data imports
 
 const issue_categories = _ISSUE_CATEGORIES;
@@ -378,6 +382,7 @@ function App() {
 
 
 
+
         const params = [];
 
         if (showMap !== null) params.push(`swM=${showMap.toString()}`);
@@ -533,9 +538,18 @@ function App() {
     };
 
     const [leftWidth, setLeftWidth] = useState(0);
+    
+    // console.log('siteProtection', process.env.REACT_APP_SITE_PROTECTION)
+    // console.log('sha512', process.env.REACT_APP_SITE_PWD)
+    if (typeof(siteProtection) == "undefined") siteProtection = true;
+    if (typeof(sha512) == "undefined") sha512 = 'EE26B0DD4AF7E749AA1A8EE3C10AE9923F618980772E473F8819A5D4940E0DB27AC185F8A0E1D5F84F88BC887FD67B143732C304CC5FA9AD8E6F57F50028A8FF';
+    // console.log('siteProtection', siteProtection)
+    // console.log('sha512', sha512)
 
     return (
-        <>
+        <Protect 
+        isEnabled={siteProtection}
+        sha512={sha512}>
             {useWindowSize().width >= 576 ? (
                 <Container fluid className={"h-100 p-0 m-0 d-flex flex-row"}>
                     <Nav
@@ -733,6 +747,7 @@ function App() {
                                     userPoints={userPoints}
                                     setUserPoints={setUserPoints}
                                     colorRamp={colorRamps}
+                                    collapseMap={collapseMap}
                                 />
                             </div>
                         </div>
@@ -865,7 +880,7 @@ function App() {
                     )}
                 </Container>
             )}
-        </>
+        </Protect>
     );
 }
 
