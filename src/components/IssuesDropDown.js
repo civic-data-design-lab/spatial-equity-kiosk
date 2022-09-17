@@ -66,7 +66,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                                         }
                                     }}
                                 >
-                                    <p className={"small-font mb-0"}>{item.specific_issue_name}</p>
+                                    <p className={"small-font mb-0 ellipses"}>{item.specific_issue_name}</p>
                                 </div>)
 
                         })}

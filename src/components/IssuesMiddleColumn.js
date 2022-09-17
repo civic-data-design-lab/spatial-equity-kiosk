@@ -145,7 +145,8 @@ export default function IssuesMiddleColumn({
             }, [selectedSpecificIssue])*/
 
   return (
-    <div className={'d-flex flex-column h-100 position-relative'}>
+    <div className={'d-flex flex-column position-relative'}
+    style={{height:"100vh"}}>
       <div
         className={`${selectedIssue === 1 ? 'issues-chapters-active' : ''} ${
           selectedIssue || showDemographics ? 'collapse-issue' : ''
@@ -462,7 +463,8 @@ export default function IssuesMiddleColumn({
       <div
         className={`${showDemographics ? 'expand-issue' : ''} accordion-body`}
       >
-        <div className={'h-100 position-relative'}>
+        <div className={'h-100 position-relative'}
+        >
           <Demographics
             currentValue={demographic}
             setValue={setDemographic}

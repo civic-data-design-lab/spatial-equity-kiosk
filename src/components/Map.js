@@ -765,172 +765,6 @@ export default function DeckMap({
 
   }
 
-  // check if search engine falls in supported polygon bounds
-  /* for (const [
-           index,
-           element,
-       ] of infoTransfer.selectedBoundary.features.entries()) {
-           if (
-               element &&
-               booleanPointInPolygon(point(searchEngine), element) &&
-               (boundary == "council" ||
-                   (boundary == "community" && element.properties.Data_YN == "Y"))
-           ) {
-               searchItemFound.push(index);
-               const lookup =
-                   boundary == "council"
-                       ? String(element.properties.CounDist)
-                       : boundary == "community" && element.properties.Data_YN == "Y"
-                           ? element.properties.CDTA2020
-                           : null;
-
-
-               // CASE 0 > FOR SINGLE SEARCH MODE
-               if (searchEngineType == 0 && selectedChapter == 3) {
-                   console.log("1")
-                   if (searchSource === "click") {
-                       if (lookup !== communitySearch) {
-                           console.log("idk")
-                           setBadSearch([0, badSearch[1]]);
-                           setUserPoints([searchEngine, []]);
-                           // move camera to new neighborhood
-                           setViewState({
-                               longitude: element.properties.X_Cent,
-                               latitude: element.properties.Y_Cent,
-                               zoom: ZOOM_MAX - 0.5,
-                               transitionDuration: 500,
-                               transitionInerpolator: new LinearInterpolator(),
-                           });
-                           // select new neighborhood
-                           setCommunitySearch(lookup);
-                           // setMapSelection(index, mapSelection[1]);
-                       } else {
-                           console.log("2")
-                           setCommunitySearch(null);
-                           setUserPoints([[], []]);
-
-                           setViewState(RESET_VIEW);
-                       }
-                   } else {
-                       if (lookup === communitySearch) {
-                           setBadSearch([0, badSearch[1]]);
-                           setUserPoints([searchEngine, []]);
-                           // move camera to new neighborhood
-                           setViewState({
-                               longitude: element.properties.X_Cent,
-                               latitude: element.properties.Y_Cent,
-                               zoom: ZOOM_MAX - 0.5,
-                               transitionDuration: 500,
-                               transitionInerpolator: new LinearInterpolator(),
-                           });
-                           // select new neighborhood
-                           setCommunitySearch(lookup);
-                           // setMapSelection(index, mapSelection[1]);
-                       } else {
-                           console.log("2")
-                           setCommunitySearch(null);
-                           setUserPoints([[], []]);
-                           setViewState(RESET_VIEW);
-                       }
-                   }
-               }
-
-               // CASE 1 > COMPARE MODE
-               if (searchEngineType == 1 && selectedChapter == 3) {
-                   if (lookup !== communitySearch && lookup !== compareSearch) {
-                       setBadSearch([badSearch[0], 0]);
-                       setUserPoints([userPoints[0], searchEngine]);
-                       if (addCompare) {
-                           // Select new neighborhood
-                           setCompareSearch(lookup);
-                       }
-                       if (
-                           selectedCoord.length === 2 &&
-                           selectedCompareCoord.length === 2
-                       ) {
-                           const ptA = selectedCoord;
-                           const ptB = selectedCompareCoord;
-                           const maxDistance = !mapDemographics ? 25 : 15;
-                           const ptCompareDistance =
-                               distance(point(ptA), point(ptB)) < maxDistance
-                                   ? distance(point(ptA), point(ptB))
-                                   : maxDistance;
-
-                           const remapZoom = !mapDemographics
-                               ? map_range(
-                                   ptCompareDistance,
-                                   0.3,
-                                   maxDistance,
-                                   ZOOM_MAX,
-                                   ZOOM_MIN
-                               )
-                               : mapDemographics &&
-                               map_range(
-                                   ptCompareDistance,
-                                   0.3,
-                                   maxDistance,
-                                   ZOOM_MAX,
-                                   ZOOM_MIN
-                               ) -
-                               0.5 >
-                               ZOOM_MIN
-                                   ? map_range(
-                                   ptCompareDistance,
-                                   0.3,
-                                   maxDistance,
-                                   ZOOM_MAX,
-                                   ZOOM_MIN
-                               ) - 0.5
-                                   : ZOOM_MIN;
-
-                           setViewState({
-                               longitude: (ptA[0] + ptB[0]) / 2,
-                               latitude: (ptA[1] + ptB[1]) / 2,
-                               zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
-                               transitionDuration: 500,
-                               transitionInerpolator: new LinearInterpolator(),
-                           });
-                       }
-                   } else if (lookup == communitySearch) {
-                       if (searchSource === "click") {
-                           setCommunitySearch(compareSearch ? compareSearch : null);
-                           setCompareSearch(null);
-                           setUserPoints([userPoints[1], []]);
-
-                           if (!compareSearch) {
-                               setViewState(RESET_VIEW);
-                               setAddCompare(false);
-                           }
-                       } else {
-                           setUserPoints([searchEngine, userPoints[1]]);
-                           setBadSearch([badSearch[0], 1]);
-                           setErrorCode(1);
-                       }
-                   } else if (lookup == compareSearch) {
-                       if (searchSource === "click") {
-
-                           setCompareSearch(null);
-                           setUserPoints([userPoints[0], []]);
-                       } else {
-                           setUserPoints([userPoints[0], searchEngine]);
-                       }
-                   }
-               }
-           } else if (searchItemFound.length == 0) {
-               setErrorCode(0);
-           }
-       }
-
-       if (searchItemFound.length == 0) {
-           if (searchEngineType == 0) {
-               setBadSearch([1, badSearch[1]]);
-           }
-           if (searchEngineType == 1) {
-               setBadSearch([badSearch[0], 1]);
-           }
-       }
-   }
-  }*/
 
   useEffect(() => {
     if (!addCompare || !communitySearch) {
@@ -954,7 +788,11 @@ export default function DeckMap({
 
   // fix view on resize
   useEffect(() => {
-    if (searchSource !== 'click') {
+    if (searchSource !== 'click' && selectedChapter === 2) {
+      setViewState(RESET_VIEW);
+    } else  if (selectedChapter === 3) {
+      setViewState(viewState)
+    } else {
       setViewState(RESET_VIEW);
     }
   }, [selectedChapter]);

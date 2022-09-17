@@ -612,6 +612,8 @@ function App() {
                         setMapDemographics={setMapDemographics}
                         info={info}
                         userPoints={userPoints}
+                        viewState={viewState}
+                        setViewState={setViewState}
                     />
 
                     <Content

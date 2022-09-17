@@ -5,6 +5,7 @@ import IssueProfile from './IssuesProfile';
 import ShareButton from './ShareButton';
 import MapToggle from './MapToggle';
 import Typewriter from 'typewriter-effect';
+import {useEffect} from 'react';
 
 export default function CommunityRightColumn({
   communitySearch,
@@ -27,6 +28,18 @@ export default function CommunityRightColumn({
   setSelectedChapter,
   setCommunitySearch,
 }) {
+
+    useEffect(()=>{
+    if (selectedSpecificIssue) {
+        let div = document.getElementById('issue-container');
+        div.scrollBy({
+            top: -div.scrollHeight,
+            behavior: 'smooth'
+        })
+    }
+  }, [selectedSpecificIssue])
+
+
   return (
     <>
       {/* {!communitySearch && <div className={"d-flex flex-row align-items-center h-100 p-5 col-gap w-100"}>
@@ -93,7 +106,7 @@ export default function CommunityRightColumn({
       )}
 
       {communitySearch && selectedSpecificIssue && (
-        <div className={'issue-container d-flex flex-column'}>
+        <div className={'issue-container d-flex flex-column'} id={"issue-container"}>
           <div className={'issues-tile-header floating-share'}>
             <div className={'toggle-share-container'}>
               <div id={'share-container'}>

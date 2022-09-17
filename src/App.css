@@ -329,10 +329,11 @@ a:active {
     width: 100%;
     max-height: 25vh;
     height: fit-content;
-    overflow: auto;
+    overflow-y: auto;
     border-top: none;
     background-color: white;
     z-index: 3;
+    overflow-x: hidden;
 }
 
 .dropdown-item {
@@ -340,6 +341,11 @@ a:active {
     border: 2px solid black !important;
     border-top: none !important;
     padding-right: 1em !important;
+
+    min-width: 0 !important;
+    display: block !important;
+    width: 100% !important;
+
 }
 
 
@@ -700,8 +706,10 @@ a:active {
     flex-grow: 2;
     font-size: 1rem;
     opacity: 1;
-    padding: 1rem !important;
+    margin: 1rem 0rem !important;
+    padding: 0 1rem !important;
     pointer-events: all;
+    overflow: auto;
 }
 
 .issues-arrow {
@@ -1133,6 +1141,12 @@ a:active {
 
 .small-font {
     font-size: .75em;
+}
+
+.ellipses {
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
 }
 
 .smaller-font {
@@ -1676,14 +1690,15 @@ input:checked+.slider:before {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    transition: color 0.5s, background-color 0.5s;
 }
 
 .demographics-container {
-    height: 100%;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+
 }
 
 
