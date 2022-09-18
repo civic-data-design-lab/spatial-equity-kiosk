@@ -14,7 +14,7 @@ export default function CommunityProfile({
   moreIssues,
   setMoreIssuesLength,
   boundary,
-  councils,
+  councils, setSelectedChapter, setSelectedAbout
 }) {
   useEffect(() => {
     if (moreIssues && communitySearch) {
@@ -94,23 +94,8 @@ export default function CommunityProfile({
             }
             <p className={'mt-3'}>
               {communitySearch
-                ? ` Below are the three worst spatial equity indicators in ${
-                    communitySearch
-                      ? boundary == 'council'
-                        ? councils[communitySearch]
-                          ? `City Council ${councils[communitySearch].name}`
-                          : ''
-                        : communities[communitySearch]
-                        ? `${communities[communitySearch].name
-                            .split(' ')
-                            .slice(0, -1)} Community Board ${communities[
-                            communitySearch
-                          ].name
-                            .split(' ')
-                            .slice(-1)}`
-                        : ''
-                      : ''
-                  }.`
+                ? ` Below are the three worst spatial equity indicators in this 
+                ${boundary==="council"?"district":"community board"}.`
                 : ``}
             </p>
             <div
@@ -139,6 +124,8 @@ export default function CommunityProfile({
                           issues={issues}
                           specificIssue={issue}
                           setModal={setModal}
+                          setSelectedChapter={setSelectedChapter}
+                          setSelectedAbout={setSelectedAbout}
                         />
                       </div>
                     );
@@ -165,6 +152,8 @@ export default function CommunityProfile({
                             issues={issues}
                             specificIssue={issue}
                             setModal={setModal}
+                            setSelectedChapter={setSelectedChapter}
+                            setSelectedAbout={setSelectedAbout}
                           />
                         </div>
                       );
@@ -209,6 +198,8 @@ export default function CommunityProfile({
               communitySearch={communitySearch}
               boundary={boundary}
               selectedCommunity={selectedCommunity}
+              setSelectedChapter={setSelectedChapter}
+              setSelectedAbout={setSelectedAbout}
             />
           </div>
         </>
@@ -217,7 +208,7 @@ export default function CommunityProfile({
           <div className={'standard-padding'}>
             {
               <h5 className={'mb-3'}>
-                Topics of Interest -{' '}
+                Compare Indicators in {' '}
                 {(communities[communitySearch] &&
                   communities[communitySearch].name) ||
                   (councils[communitySearch] &&
@@ -229,8 +220,7 @@ export default function CommunityProfile({
               </h5>
             }
             <p className={'mt-3'}>
-              A few sentences on how these topics of interest were selected. A
-              few sentences on how these topics of interest were selected.{' '}
+               Choose one or more indicators to compare spatial equity in these {boundary==="council"?"districts":"community boards"}.
             </p>
 
             <IssuesTags
@@ -253,6 +243,8 @@ export default function CommunityProfile({
               communitySearch={communitySearch}
               boundary={boundary}
               selectedCommunity={selectedCommunity}
+              setSelectedChapter={setSelectedChapter}
+              setSelectedAbout={setSelectedAbout}
             />
           </div>
         </>
@@ -270,6 +262,8 @@ export default function CommunityProfile({
               specificIssue={modal}
               setModal={setModal}
               modalVersion={true}
+              setSelectedChapter={setSelectedChapter}
+              setSelectedAbout={setSelectedAbout}
             />
           </div>
         </div>

@@ -10,7 +10,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                                        }) {
 
     const [showDropdownItems, setShowDropdownItems] = useState(false)
-    const [toggleText, setToggleText] = useState("Select an issue to explore")
+    const [toggleText, setToggleText] = useState("Select an indicator to explore")
     const [included, setIncluded] = useState(false)
 
 
@@ -24,7 +24,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
             }
         })
         if (!changed) {
-            setToggleText("Select an issue to explore")
+            setToggleText("Select an indicator to explore")
             setIncluded(false)
         }
     })
@@ -58,7 +58,7 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                                         setToggleText(item.specific_issue_name)
                                         if (currentValue === item.specific_issue_ID) {
                                             setValue(false)
-                                            setToggleText("Select an issue to explore")
+                                            setToggleText("Select an indicator to explore")
                                             setShowDemographics(false)
                                         } else {
                                             setValue(item.specific_issue_ID)
@@ -66,7 +66,11 @@ export default function IssuesDropDown({currentValue = null, items, setValue = n
                                         }
                                     }}
                                 >
-                                    <p className={"small-font mb-0 ellipses"}>{item.specific_issue_name}</p>
+                                    <p className={"small-font mb-0 ellipses"}>{item.specific_issue_ID!==6 && item.specific_issue_ID!==5?
+                                        item.specific_issue_name :
+                                        item.specific_issue_ID===6?"Permeable Surfaces":
+                                            "Heat"
+                                    }</p>
                                 </div>)
 
                         })}

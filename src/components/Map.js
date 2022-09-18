@@ -414,7 +414,11 @@ export default function DeckMap({
         ).rank
       : '';
 
-    return metricCheck ? `${ranking}/${maxRanking}` : '';
+    const suffix = {
+      1:"st", 2:"nd", 3:"rd", 4:"th", 5:"th", 6:"th", 7:"th", 8:"th", 9:"th"
+    }
+
+    return metricCheck ? `${ranking}${suffix[ranking%10]} of ${maxRanking} ${boundary==="council"?"council districts":"community boards"}` : '';
   };
 
   const getMetricValueTooltip = (obj) => {
@@ -643,14 +647,15 @@ export default function DeckMap({
               transitionDuration: 500,
               transitionInerpolator: new LinearInterpolator(),
             });
-          } else {
+          }
+          /*else {
             if (searchSource === 'click' || searchSource === 'search') {
               setSelectedCoord([]);
               setCommunitySearch(null);
               setUserPoints([[], userPoints[1]]);
               setViewState(RESET_VIEW);
             }
-          }
+          }*/
         }
       } else {
         setBadSearch([1, badSearch[1]]);
@@ -736,10 +741,10 @@ export default function DeckMap({
         ) {
           //   console.log('case 3');
           if (!compareSearch) {
-            setSelectedCoord([]);
+            /*setSelectedCoord([]);
             setCommunitySearch(null);
             setUserPoints([[], []]);
-            setViewState(RESET_VIEW);
+            setViewState(RESET_VIEW);*/
           } else {
             // console.log('case 4');
             setCommunitySearch(compareSearch);

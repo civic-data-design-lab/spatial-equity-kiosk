@@ -27,12 +27,14 @@ export default function CommunityNav({
                                          errorCode,
                                          setErrorCode,
                                          info,
-                                         setUserPoints, userPoints
+                                         setUserPoints, userPoints, selectedChapter
                                      }) {
 
 
     const [showSearch, setShowSearch] = useState(false);
     const [showCompareSearch, setShowCompareSearch] = useState(false);
+    const [notClickable, setNotClickable] = useState(false)
+
 
     const getSearchItems = (forSearch, boundary) => {
         let searchItems = [];
@@ -151,8 +153,11 @@ export default function CommunityNav({
             className={
                 "community-nav-container d-flex flex-column justify-content-between h-100"
             }
+
         >
-            <div className={"position-relative"}>
+            <div className={`position-relative`}
+                 style={{pointerEvents:selectedChapter===3?"":"none"}}
+            >
                 <CommunitySearchBar
                     selectedCompareCoord={selectedCompareCoord}
                     setselectedCompareCoord={setselectedCompareCoord}

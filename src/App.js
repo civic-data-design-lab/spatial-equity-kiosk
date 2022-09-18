@@ -398,6 +398,8 @@ function App() {
                              setSelectedSpecificIssue(1)
                          }*/
 
+        console.log("selected about ", selectedAbout)
+
 
         const params = [];
 

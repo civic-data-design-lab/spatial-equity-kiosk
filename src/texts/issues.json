@@ -18,7 +18,7 @@
     "1": {
       "specific_issue_ID": 1,
       "specific_issue_name": "Asthma",
-      "specific_issue_units": "Annual Emergency Department Visits (Adults) Per 10,000 Residents - Average Annual Age-Adjusted Rate",
+      "specific_issue_units": "Per 10,000 Residents",
       "issue_units_shorthand": "",
       "specific_issue_units_sentence": "asthma per 10,000 residents",
       "issue_units_symbol": "",
@@ -550,35 +550,6 @@
             {
               "text": " could address this inequity where it is most needed."
             }
-          ],
-          [
-            {
-              "text": "Install midblock playgrounds",
-              "bolded": true
-            },
-            {
-              "text": " around all parks that are four acres (one city block) or smaller in districts with limited park acreage. Larger parks provide ",
-              "hyperlink": "more health benefits",
-              "source": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3079030/pdf/11524_2011_Article_9551.pdf"
-            },
-            {
-              "text": " than smaller ones. Existing New York City parks provide ",
-              "hyperlink": "$9.1 billion",
-              "source": "https://www.tpl.org/media-room/parks-provide-billions-dollars-benefits-nyc-residents-every-year"
-            },
-            {
-              "text": " in recreational value, ",
-              "hyperlink": "$1.1 billion",
-              "source": "https://www.tpl.org/media-room/parks-provide-billions-dollars-benefits-nyc-residents-every-year"
-            },
-            {
-              "text": " in healthcare savings, and ",
-              "hyperlink": "$20.3 billion",
-              "source": "https://www.tpl.org/media-room/parks-provide-billions-dollars-benefits-nyc-residents-every-year"
-            },
-            {
-              "text": " in emissions reductions."
-            }
           ]
         ]
       },
@@ -593,10 +564,10 @@
     },
     "5": {
       "specific_issue_ID": 5,
-      "specific_issue_name": "Heat (Daytime Summer Surface Temperatures)",
-      "specific_issue_units": "Temperature Deviation from Mean (℉)",
+      "specific_issue_name": "Heat",
+      "specific_issue_units": "Summer surface temperature deviation from mean",
       "issue_units_shorthand": "Surface Temperature",
-      "specific_issue_units_sentence": "daytime summer surface temperature",
+      "specific_issue_units_sentence": "summer surface temperature",
       "issue_units_symbol": "°F",
 
       "specific_issue_description": [
@@ -753,10 +724,10 @@
     },
     "6": {
       "specific_issue_ID": 6,
-      "specific_issue_name": "Permeable Surfaces (Stormwater, Greenstreets, and Bioswales)",
-      "specific_issue_units": "Square Feet Per Average City Block Area",
+      "specific_issue_name": "Permeable Surfaces",
+      "specific_issue_units": "Square Feet of Stormwater Greenstreets and Bioswales per Block",
       "issue_units_shorthand": "Permeable Surface per Block",
-      "specific_issue_units_sentence": "square feet of stormwater, greenstreet, and bioswales per block",
+      "specific_issue_units_sentence": "Permeable Surfaces",
       "issue_units_symbol": "ft²",
 
       "specific_issue_description": [
@@ -931,7 +902,7 @@
     "7": {
       "specific_issue_ID": 7,
       "specific_issue_name": "Noise Pollution",
-      "specific_issue_units": "Decibels, Averaged",
+      "specific_issue_units": "Average Decibels",
       "issue_units_shorthand": "",
       "specific_issue_units_sentence": "noise pollution levels",
       "issue_units_symbol": "dB",
@@ -1086,7 +1057,7 @@
     "8": {
       "specific_issue_ID": 8,
       "specific_issue_name": "Bike Parking",
-      "specific_issue_units": "Bike Parking Spaces Per 10,000 Residents",
+      "specific_issue_units": "Spaces per 10,000 Residents",
       "issue_units_shorthand": "Bike Parking per 10,000 Residents",
       "specific_issue_units_sentence": "bike parking spaces per 10,000 residents",
       "issue_units_symbol": "",
@@ -1222,8 +1193,8 @@
     },
     "9": {
       "specific_issue_ID": 9,
-      "specific_issue_name": "Seating",
-      "specific_issue_units": "Benches Per 10,000 Residents",
+      "specific_issue_name": "Benches",
+      "specific_issue_units": "Per 10,000 Residents",
       "issue_units_shorthand": "",
       "specific_issue_units_sentence": "benches per 10,000 residents",
       "issue_units_symbol": "",
@@ -1339,7 +1310,7 @@
       "issue_type_ID": 3,
       "good_or_bad": 0,
       "json_id": "F23_CtyBea",
-      "issue_hi_low": ["most", "least"],
+      "issue_hi_low": ["most", "fewest"],
       "specific_issue_source": "Department of Transportation (DOT)",
       "year": "2020",
       "link": "https://data.cityofnewyork.us/d/kuxa-tauh/visualization",
@@ -1348,7 +1319,7 @@
     "10": {
       "specific_issue_ID": 10,
       "specific_issue_name": "Air Pollution",
-      "specific_issue_units": "Microgram Per Cubic Meter",
+      "specific_issue_units": "PM 2.5 Micrograms per Cubic Meter",
       "issue_units_shorthand": "",
       "specific_issue_units_sentence": "PM 2.5 levels",
       "issue_units_symbol": "",
@@ -1632,7 +1603,7 @@
     "12": {
       "specific_issue_ID": 12,
       "specific_issue_name": "Traffic Density",
-      "specific_issue_units": "Million Miles Per Square Kilometer, Annual Vehicle Miles Traveled",
+      "specific_issue_units": "Annual Million Vehicle Miles Traveled per Square Kilometer",
       "issue_units_shorthand": "",
       "specific_issue_units_sentence": "vehicle miles traveled",
       "issue_units_symbol": "",
@@ -2058,40 +2029,6 @@
             {
               "text": " reduction in crashes."
             }
-          ],
-          [
-            {
-              "text": "Build “local traffic only” Open Streets",
-              "bolded": true
-            },
-            {
-              "text": " by closing streets to through traffic. Open Streets increase the likelihood of ",
-              "hyperlink": "walking and biking",
-              "source": "https://www.transalt.org/open-streets-forever-nyc"
-            },
-            {
-              "text": " while reducing ",
-              "hyperlink": "traffic injuries",
-              "source": "https://www.transalt.org/open-streets-forever-nyc"
-            },
-            {
-              "text": " by as much as ",
-              "hyperlink": "46 percent",
-              "source": "https://www.transalt.org/open-streets-forever-nyc"
-            },
-            {
-              "text": ". After the City of New York eliminated through traffic on the ",
-              "hyperlink": "34th Avenue Open Street",
-              "source": "https://twitter.com/34_ave"
-            },
-            {
-              "text": " in Queens, injuries fell by ",
-              "hyperlink": "89 percent",
-              "source": "https://nyc.streetsblog.org/2022/01/11/by-the-numbers-car-free-streets-are-simply-safer-data-continue-to-show/"
-            },
-            {
-              "text": "."
-            }
           ]
         ]
       },
@@ -2107,7 +2044,7 @@
     "15": {
       "specific_issue_ID": 15,
       "specific_issue_name": "Tree Canopy Cover",
-      "specific_issue_units": "Tree Canopy Cover as Percent of Total Land",
+      "specific_issue_units": "Percent of Total Land",
       "issue_units_shorthand": "",
       "specific_issue_units_sentence": "tree canopy cover",
       "issue_units_symbol": "%",

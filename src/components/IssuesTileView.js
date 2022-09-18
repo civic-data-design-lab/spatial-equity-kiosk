@@ -79,6 +79,7 @@ export default function IssuesTileView({
                   showToggle={showToggle}
                   showMap={showMap}
                   setShowMap={setShowMap}
+                  boundary={boundary}
                 />
               </div>
             </div>
@@ -119,7 +120,7 @@ export default function IssuesTileView({
                 />
               </div>
               <p className={'m-0 small-font'}>
-                {
+                Source: {
                   issues.specific_issues_data[selectedSpecificIssue]
                     .specific_issue_source
                 }
@@ -128,7 +129,7 @@ export default function IssuesTileView({
 
             <div
               className={'col-6 w-50 overflow-scroll'}
-              style={{ paddingRight: '2.5em' }}
+              //style={{ paddingRight: '2.5em' }}
             >
               <IssueProfile
                 issues={issues}

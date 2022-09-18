@@ -14,7 +14,8 @@ export default function IssuesTags({
                                        setMoreIssuesLength,
                                        compareSearch, communitySearch,
                                        boundary,
-                                       selectedCommunity
+                                       selectedCommunity,
+    setSelectedChapter, setSelectedAbout
                                    }) {
 
     // TODO: all tags when communitySearch && compareSearch
@@ -42,6 +43,8 @@ export default function IssuesTags({
                                         moreIssues={moreIssues}
                                         boundary={boundary}
                                         selectedCommunity={selectedCommunity}
+                                        setSelectedChapter={setSelectedChapter}
+                                        setSelectedAbout={setSelectedAbout}
                             />
                         </div>
                     )
@@ -76,7 +79,13 @@ export default function IssuesTags({
                                             }
                                         }}
                                     >
-                                        <p className={"m-0"}>{issues.specific_issues_data[id].specific_issue_name}</p>
+                                        <p className={"m-0"}>
+
+                                            {id!==6 && id!==5?
+                                        issues.specific_issues_data[id].specific_issue_name :
+                                        issues.specific_issues_data[id].specific_issue_ID===6?"Permeable Surfaces":
+                                            "Heat"
+                                    }</p>
                                         {(moreIssues && !moreIssues.includes(id)) ? <FontAwesomeIcon icon={faPlus}/> :
                                             <FontAwesomeIcon icon={faPlus}/>}
                                     </div>

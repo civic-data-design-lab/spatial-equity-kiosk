@@ -141,12 +141,13 @@ export default function IssueProfile({
                 borderBottom: '2px solid black',
                 marginBottom: '0',
                 padding: '0.75em 0',
+                width:'100%'
               }}
             >
               {getIssueStatement()} by{' '}
-              {boundary == 'council' ? 'Council Districts' : 'Community Boards'}
+              {boundary == 'council' ? 'Council District' : 'Community Board'}
             </h5>
-            <div className={'smaller-font'}>
+            <div className={'small-font'}>
               <Table bordered>
                 <thead>
                   <tr>
@@ -266,7 +267,7 @@ export default function IssueProfile({
             <div className={'fst-italic'}>Related: {getRelatedIssues()}</div>
           </div>
           <div className={'issues-tile-solutions issues-tile-text'}>
-            <h5 className={'issues-tile-heading bold'}>Take Action</h5>
+            <h5 className={'issues-tile-heading bold'}>Solutions</h5>
             <div>
               {getHyperlinkText(
                 issues.specific_issues_data[selectedSpecificIssue]

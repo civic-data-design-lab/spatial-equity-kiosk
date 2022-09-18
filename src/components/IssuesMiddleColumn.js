@@ -108,7 +108,7 @@ export default function IssuesMiddleColumn({
 
     if (possible_keys.includes(selectedSpecificIssue)) {
       return (
-        <p className={'mb-3 small-font'}>
+        <p className={'mb-0 small-font'}>
           {boundary === 'council'
             ? `City Council ${boundaryPhrase.community} in ${councilDistrictBorough} ranks `
             : `Community Board ${boundaryPhrase.community} ranks `}
@@ -163,9 +163,9 @@ export default function IssuesMiddleColumn({
         }}
       >
         <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Health</h5>
-        <h5 className={`${selectedIssue ? 'invis' : 'vis'}`}>
-          Health issues imperdiet dui accumsan sit amet. Diam donec adipiscing.
-        </h5>
+        <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
+          Policies about the use of public space in New York City affect the physical and mental health of New Yorkers. Health indicators of spatial equity include air pollution, asthma, noise pollution, traffic injuries, and traffic fatalities.
+        </p>
       </div>
 
       <div
@@ -187,24 +187,17 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
-          <div className={`d-flex flex-column h-100 justify-content-between`}>
-            <div>
+
               {selectedSpecificIssue &&
                 (!showDemographics || !showMap) &&
                 getRankingNarrative(health_issues)}
-              {/* {!selectedSpecificIssue && (
-                                <p className={"mb-3 small-font"}>
-                                    This is where you will hear about the topic that you select.
-                                    Topics include a range of health metrics.
-                                </p>
-                            )} */}
 
               {(!showMap || !showDemographics || !selectedSpecificIssue) && (
                 <p className={'m-0 small-font'}>
                   {issue_categories.descriptions[selectedIssue]}
                 </p>
               )}
-            </div>
+
 
             {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
             {showMap && (
@@ -231,7 +224,6 @@ export default function IssuesMiddleColumn({
                 selectedChapter={selectedChapter}
               />
             )}
-          </div>
         </div>
       </div>
 
@@ -260,9 +252,9 @@ export default function IssuesMiddleColumn({
         }}
       >
         <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Environment</h5>
-        <h5 className={`${selectedIssue ? 'invis' : 'vis'}`}>
-          Environment imperdiet dui accumsan sit amet. Diam donec adipiscing.
-        </h5>
+        <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
+          Policies about the use of public space in New York City affect the resilience and sustainability of the physical environment. Environmental indicators of spatial equity include heat, parkland, permeable surfaces, and trees.
+        </p>
       </div>
       <div
         className={`${
@@ -283,8 +275,7 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
-          <div className={`d-flex flex-column h-100 justify-content-between`}>
-            <div>
+
               {selectedSpecificIssue &&
                 (!showDemographics || !showMap) &&
                 getRankingNarrative(environment_issues)}
@@ -300,7 +291,7 @@ export default function IssuesMiddleColumn({
                   {issue_categories.descriptions[selectedIssue]}
                 </p>
               )}
-            </div>
+
 
             {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
             {showMap && (
@@ -327,7 +318,7 @@ export default function IssuesMiddleColumn({
                 selectedChapter={selectedChapter}
               />
             )}
-          </div>
+
         </div>
       </div>
       <div
@@ -355,9 +346,9 @@ export default function IssuesMiddleColumn({
         }}
       >
         <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Infrastructure</h5>
-        <h5 className={`${selectedIssue ? 'invis' : 'vis'}`}>
-          Infrastructure imperdiet dui accumsan sit amet. Diam donec adipiscing.
-        </h5>
+        <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
+          Policies about the use of public space in New York City affect mobility and access to the built environment. Infrastructure indicators of spatial equity include bike parking, bus lanes and busways, bus speeds, protected bike lanes, seating, and traffic density.
+        </p>
       </div>
       <div
         className={`${
@@ -378,8 +369,6 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
-          <div className={`d-flex flex-column h-100 justify-content-between`}>
-            <div>
               {selectedSpecificIssue &&
                 (!showDemographics || !showMap) &&
                 getRankingNarrative(infrastructure_issues)}
@@ -395,7 +384,6 @@ export default function IssuesMiddleColumn({
                   {issue_categories.descriptions[selectedIssue]}
                 </p>
               )}
-            </div>
 
             {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
             {showMap && (
@@ -422,7 +410,6 @@ export default function IssuesMiddleColumn({
                 selectedChapter={selectedChapter}
               />
             )}
-          </div>
         </div>
       </div>
 

@@ -184,7 +184,7 @@ export default function Legend({
   // console.log("--------------------")
 
   const administrativeBoundary =
-    boundary === 'council' ? 'Council Districts' : 'Community Boards';
+    boundary === 'council' ? 'Council districts' : 'Community Boards';
 
   const getImpactStatement = () => {
     return issues.specific_issues_data[selectedSpecificIssue]
@@ -340,7 +340,8 @@ export default function Legend({
         } else {
           return (
             <>
-              <div className={'d-flex flex-column justify-content-between'}>
+              <>
+                <div>
                 <p className={'small-font mb-1'}>
                   {
                     issues.specific_issues_data[selectedSpecificIssue]
@@ -407,7 +408,8 @@ export default function Legend({
                   </div>
                   <div className={'small-font'}>{cleanNumbers[3]}+</div>
                 </div>
-              </div>
+                  </div>
+              </>
 
               {showMap && (
                 <div

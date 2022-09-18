@@ -46,7 +46,7 @@ export default function Demographics({
         2: "Poverty Level",
         3: "No Car Ownership",
         4: "Drive Alone to Work",
-        5: "Walked, Biked, or Ride Transit",
+        5: "Walk, Bike, or Ride Transit",
     };
 
     const [showDropdownItems, setShowDropdownItems] = useState(false);

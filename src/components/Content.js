@@ -152,7 +152,7 @@ export default function Content({
             setMoreIssuesLength={setMoreIssuesLength}
             boundary={boundary}
             councils={councils}
-            info={info}
+            info={info} setSelectedChapter={setSelectedChapter} setSelectedAbout={setSelectedAbout}
           />
         )}
       </div>

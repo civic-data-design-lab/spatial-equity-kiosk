@@ -21,6 +21,7 @@ export default function IssuesCard({
     setMoreIssues = null,
     boundary,
     selectedCommunity,
+    setSelectedChapter, setSelectedAbout
 }) {
     const [showInfo, setShowInfo] = useState(false);
 
@@ -89,6 +90,13 @@ export default function IssuesCard({
                         }}
                         onMouseLeave={() => {
                             setShowInfo(false);
+                        }}
+
+                        onClick={(e)=>{
+                            e.stopPropagation()
+                            console.log("here")
+                            setSelectedAbout(9)
+                            setSelectedChapter(4)
                         }}
                     >
                         <FontAwesomeIcon

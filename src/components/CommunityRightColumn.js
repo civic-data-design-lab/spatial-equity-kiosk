@@ -32,10 +32,12 @@ export default function CommunityRightColumn({
     useEffect(()=>{
     if (selectedSpecificIssue) {
         let div = document.getElementById('issue-container');
-        div.scrollBy({
+        if (div) {
+            div.scrollBy({
             top: -div.scrollHeight,
             behavior: 'smooth'
         })
+        }
     }
   }, [selectedSpecificIssue])
 
