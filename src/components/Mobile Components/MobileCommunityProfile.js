@@ -11,11 +11,11 @@ import {default as _GLOBE_BLACK} from "../../img/globe_black.svg";
 import ShareButton from "../ShareButton";
 import CommunityProfile from "../CommunityProfile";
 import Histogram from "../Histogram";
+import categories from "../../texts/issue_categories.json";
 import IssueProfile from "../IssuesProfile";
 import Demographics from "../Demographics";
 import Carousel from "../Carousel";
 import Legend from "../Legend";
-import categories from "../../texts/issue_categories.json";
 
 export default function MobileCommunityProfile({
                                                    selectedChapter,
@@ -54,10 +54,38 @@ export default function MobileCommunityProfile({
                                                    userPoints,
                                                    viewState,
                                                    setViewState,
-    demographic,setDemographic,setShowDemographics, showDemographics, mapDemographics,toggleTransit,setToggleTransit, toggleBike, setToggleBike,
-    toggleWalk, setToggleWalk, demoLookup, demoColorRamp, demoLegendBins, setDemoColorRamp, setDemoLegendBins, zoomToggle, binList, setToggleUnderperformers, toggleUnderperformers,
-    handleLegend, dataScale, setdataScale,
-                                                   showMap, moreIssues, setSelectedAbout, moreIssuesLength, colorRamps, communityPinned, setCommunityPinned, councilPinned, setCouncilPinned
+                                                   demographic,
+                                                   setDemographic,
+                                                   setShowDemographics,
+                                                   showDemographics,
+                                                   mapDemographics,
+                                                   toggleTransit,
+                                                   setToggleTransit,
+                                                   toggleBike,
+                                                   setToggleBike,
+                                                   toggleWalk,
+                                                   setToggleWalk,
+                                                   demoLookup,
+                                                   demoColorRamp,
+                                                   demoLegendBins,
+                                                   setDemoColorRamp,
+                                                   setDemoLegendBins,
+                                                   zoomToggle,
+                                                   binList,
+                                                   setToggleUnderperformers,
+                                                   toggleUnderperformers,
+                                                   handleLegend,
+                                                   dataScale,
+                                                   setdataScale,
+                                                   showMap,
+                                                   moreIssues,
+                                                   setSelectedAbout,
+                                                   moreIssuesLength,
+                                                   colorRamps,
+                                                   communityPinned,
+                                                   setCommunityPinned,
+                                                   councilPinned,
+                                                   setCouncilPinned
                                                }) {
 
     const [searching, setSearching] = useState(false)
@@ -317,7 +345,7 @@ export default function MobileCommunityProfile({
 
                 <div
                     style={{
-                        height:"calc(100vh - 4.025rem - .3vw - 5vh - 7vh)"
+                        height: "calc(100vh - 4.025rem - .3vw - 5vh - 7vh)"
                     }}
                 >{!showMap &&
                     <CommunityProfile
@@ -335,28 +363,29 @@ export default function MobileCommunityProfile({
                 <div className={"selected-issue-card"}
                      style={{
                          transition: "height 0.5s",
-                         height:!selectedSpecificIssue?"0":"calc(100vh - 5vh - 4.025rem - .3vw)",
-                         backgroundColor:"white",
-                         position:"absolute",
-                         zIndex:2,
+                         height: !selectedSpecificIssue ? "0" : (!showMap && showDemographics) || (showMap && showLegend) ? "calc(60vh - 5vh - 4.025rem - .3vw)" : "calc(100vh - 5vh - 4.025rem - .3vw)",
+                         backgroundColor: "white",
+                         position: "absolute",
+                         zIndex: 2,
                          width: "100vw",
-                         bottom:"0"
+                         bottom: "0"
                      }}
                 >
-                    <div className={"selected-issue-card-header d-flex flex-row align-items-center justify-content-between"}
-                         style={{
-                         height:"5vh",
-                         backgroundColor:"black",
-                             color:"white",
-                             padding:"1rem"
-                     }}
+                    <div
+                        className={"selected-issue-card-header d-flex flex-row align-items-center justify-content-between"}
+                        style={{
+                            height: "5vh",
+                            backgroundColor: "black",
+                            color: "white",
+                            padding: "1rem"
+                        }}
                     >
                         <p className={"mb-0"}>{issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_name || null}</p>
                         <p className={'m-0 smaller-text'}>
-                        ({issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_units || null})</p>
+                            ({issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_units || null})</p>
                         <ShareButton/>
                         <FontAwesomeIcon icon={faXmark}
-                                         onClick={()=>{
+                                         onClick={() => {
                                              setSelectedSpecificIssue(null)
                                          }}
                         />
@@ -365,25 +394,199 @@ export default function MobileCommunityProfile({
                     </div>
 
                     <div
-                        className={"selected-issue-card-body d-flex flex-column justify-content-between"}
-                         style={{
-                         height:"calc(90vh - 4.025rem - 0.3vw)",
-                         backgroundColor:"white",
-                             color:"black",
-                             padding:"1rem",
-                             overflow:"auto"
-                     }}
+                        className={"selected-issue-card-body"}
+                        style={{
+                            height: "calc(83vh - 4.025rem - 0.3vw)",
+                            backgroundColor: "white",
+                            color: "black",
+                            padding: "1rem",
+                            overflow: "auto"
+                        }}
                     >
 
-                         <div>
-                                {issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_ranking_narrative}
+                        <div>
+                            {issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_ranking_narrative}
+                        </div>
+                        {selectedSpecificIssue &&
+                            <>
+                            <div style={{flex: 1, height: "70vh"}} className={'histogram-responsive-box'}>
+
+                                <Histogram
+                                    colorRampsyType={colorRamps}
+                                    issues={issues}
+                                    boundary={boundary}
+                                    selectedSpecificIssue={selectedSpecificIssue}
+                                    communityPinned={communityPinned}
+                                    setCommunityPinned={setCommunityPinned}
+                                    councilPinned={councilPinned}
+                                    setCouncilPinned={setCouncilPinned}
+                                    setCommunitySearch={setCommunitySearch}
+                                    setSelectedChapter={setSelectedChapter}
+                                />
+
                             </div>
-                            <div style={{ flex: 1, height:"70vh" }} className={'histogram-responsive-box'}>
+                            <IssueProfile
+                                    issues={issues}
+                                    selectedSpecificIssue={selectedSpecificIssue}
+                                    boundary={boundary}
+                                    setSelectedSpecificIssue={setSelectedSpecificIssue}
+                                    setCommunitySearch={setCommunitySearch}
+                                    setSelectedChapter={setSelectedChapter}
+                                    councils={councils}
+                                    communities={communities}
+                                />
+                            </>
+                        }
 
 
                     </div>
 
+                    <div
+                    className={`mobile-demographics-toggle ${(!showMap && showDemographics) || (showMap && showLegend) ? "active-scheme" : "inactive-scheme"}`}
+                    onClick={() => {
+                        if (!showMap) {
+                            setShowDemographics(!showDemographics)
+                        } else {
+                            setShowDemographics(true)
+                            setShowLegend(!showLegend)
+                        }
+                    }}
+                >
+                    <div>
+                        {!showMap && showDemographics ? "Hide Demographics"
+                            : !showMap && !showDemographics ? "Show Demographics"
+                                : showMap && showLegend ? "Hide Legend"
+                                    : "Show Legend"
 
+                        }
+                    </div>
+
+                    <FontAwesomeIcon
+                        icon={(!showMap && showDemographics) || (showMap && showLegend) ? faMinus : faPlus}/>
+                </div>
+                <div className={"mobile-demographics-container"}
+                     style={{
+                         height: (!showMap && showDemographics) || (showMap && showLegend) ? "calc(100vh - 19vh  - 48vh)" : "0"
+                     }}
+                >
+                    {selectedSpecificIssue && !showMap &&
+                        <Demographics
+                            currentValue={demographic}
+                            setValue={setDemographic}
+                            selectedSpecificIssue={selectedSpecificIssue}
+                            setShowDemographics={setShowDemographics}
+                            showDemographics={showDemographics}
+                            communitySearch={communitySearch}
+                            compareSearch={compareSearch}
+                            mapDemographics={mapDemographics}
+                            setMapDemographics={setMapDemographics}
+                            boundary={boundary}
+                            communities={communities}
+                            councils={councils}
+                            selectedChapter={selectedChapter}
+                            toggleTransit={toggleTransit}
+                            setToggleTransit={setToggleTransit}
+                            toggleBike={toggleBike}
+                            setToggleBike={setToggleBike}
+                            toggleWalk={toggleWalk}
+                            setToggleWalk={setToggleWalk}
+                            colorRamps={colorRamps} // legendBins={legendBins}
+                            demoColorRamp={demoColorRamp}
+                            demoLegendBins={demoLegendBins}
+                            setDemoColorRamp={setDemoColorRamp}
+                            setDemoLegendBins={setDemoLegendBins}
+                            demoLookup={demoLookup[demographic]}
+                            showMap={showMap}
+                            info={info}
+                        />}
+
+                    {selectedSpecificIssue && showMap &&
+                        <Carousel>
+                            <div
+                                className={"d-flex flex-column justify-content-between"}
+                                style={{height: "calc(100vh - 19vh  - 48vh - 5rem)"}}>
+                                <p className={"mb-0"}>
+                                    Description
+                                </p>
+                                <p className="mb-0">{getHyperlinkText(issues.specific_issues_data[selectedSpecificIssue].specific_issue_description)}</p>
+                            </div>
+
+                            <div
+                                className={"d-flex flex-column justify-content-between"}
+                                style={{height: "calc(100vh - 19vh  - 48vh - 5rem)"}}>
+                                <p className={"mb-0"}>Data Legend</p>
+
+                                <Legend
+                                    mapDemographics={mapDemographics}
+                                    demoColorRamp={demoColorRamp}
+                                    demoLegendBins={demoLegendBins}
+                                    demoLookup={demoLookup[demographic]}
+                                    demographic={demographic}
+                                    dataScale={dataScale}
+                                    setdataScale={setdataScale}
+                                    issues={issues}
+                                    selectedSpecificIssue={selectedSpecificIssue}
+                                    colorRamps={colorRamps}
+                                    toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
+                                    setToggleUnderperformers={setToggleUnderperformers}
+                                    boundary={boundary}
+                                    handleLegend={handleLegend}
+                                    selectedIssue={selectedSpecificIssue}
+                                    zoomToggle={zoomToggle}
+                                    showMap={showMap}
+                                    binList={binList}
+                                    info={info}
+                                    selectedChapter={selectedChapter}
+                                />
+
+                            </div>
+
+                            <div
+                                className={"d-flex flex-column justify-content-between"}
+                                style={{
+                                    transition: "height 0.5s",
+                                    height: `${showMap && showLegend ? "calc(100vh - 19vh  - 48vh - 5rem)" : "0"}`
+                                }}>
+                                <p className={"mb-0"}>
+                                    Demographics
+                                </p>
+
+
+                                <div style={{position: "relative", zIndex: 1, height: "100%"}}>
+                                    <Demographics
+                                        currentValue={demographic}
+                                        setValue={setDemographic}
+                                        selectedSpecificIssue={selectedSpecificIssue}
+                                        setShowDemographics={setShowDemographics}
+                                        showDemographics={showDemographics}
+                                        communitySearch={communitySearch}
+                                        compareSearch={compareSearch}
+                                        mapDemographics={mapDemographics}
+                                        setMapDemographics={setMapDemographics}
+                                        boundary={boundary}
+                                        communities={communities}
+                                        councils={councils}
+                                        selectedChapter={selectedChapter}
+                                        toggleTransit={toggleTransit}
+                                        setToggleTransit={setToggleTransit}
+                                        toggleBike={toggleBike}
+                                        setToggleBike={setToggleBike}
+                                        toggleWalk={toggleWalk}
+                                        setToggleWalk={setToggleWalk}
+                                        colorRamps={colorRamps} // legendBins={legendBins}
+                                        demoColorRamp={demoColorRamp}
+                                        demoLegendBins={demoLegendBins}
+                                        setDemoColorRamp={setDemoColorRamp}
+                                        setDemoLegendBins={setDemoLegendBins}
+                                        demoLookup={demoLookup[demographic]}
+                                        showMap={showMap}
+                                        info={info}
+                                    />
+                                </div>
+
+                            </div>
+                        </Carousel>
+                    }
                 </div>
 
                 </div>

@@ -486,32 +486,32 @@ export default function CitywideData({
                             <div>
                                 {issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}
                             </div>
-                            <div style={{ flex: 1, height:"70vh" }} className={'histogram-responsive-box'}>
-                <Histogram
-                  colorRampsyType={colorRamps}
-                  issues={issues}
-                  boundary={boundary}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  communityPinned={communityPinned}
-                  setCommunityPinned={setCommunityPinned}
-                  councilPinned={councilPinned}
-                  setCouncilPinned={setCouncilPinned}
-                  setCommunitySearch={setCommunitySearch}
-                  setSelectedChapter={setSelectedChapter}
-                />
-              </div>
-                        <IssueProfile
-                        issues={issues}
-                        selectedSpecificIssue={selectedSpecificIssue}
-                        boundary={boundary}
-                        setSelectedSpecificIssue={setSelectedSpecificIssue}
-                        setCommunitySearch={setCommunitySearch}
-                        setSelectedChapter={setSelectedChapter}
-                        councils={councils}
-                        communities={communities}
-                    />
+                            <div style={{flex: 1, height: "70vh"}} className={'histogram-responsive-box'}>
+                                <Histogram
+                                    colorRampsyType={colorRamps}
+                                    issues={issues}
+                                    boundary={boundary}
+                                    selectedSpecificIssue={selectedSpecificIssue}
+                                    communityPinned={communityPinned}
+                                    setCommunityPinned={setCommunityPinned}
+                                    councilPinned={councilPinned}
+                                    setCouncilPinned={setCouncilPinned}
+                                    setCommunitySearch={setCommunitySearch}
+                                    setSelectedChapter={setSelectedChapter}
+                                />
+                            </div>
+                            <IssueProfile
+                                issues={issues}
+                                selectedSpecificIssue={selectedSpecificIssue}
+                                boundary={boundary}
+                                setSelectedSpecificIssue={setSelectedSpecificIssue}
+                                setCommunitySearch={setCommunitySearch}
+                                setSelectedChapter={setSelectedChapter}
+                                councils={councils}
+                                communities={communities}
+                            />
                         </>
-                        }
+                    }
                 </div>
 
                 <div
@@ -617,44 +617,45 @@ export default function CitywideData({
                             <div
                                 className={"d-flex flex-column justify-content-between"}
                                 style={{
-                                    transition:"height 0.5s",
-                                    height: `${showMap && showLegend ? "calc(100vh - 19vh  - 48vh - 5rem)" : "0"}`}}>
+                                    transition: "height 0.5s",
+                                    height: `${showMap && showLegend ? "calc(100vh - 19vh  - 48vh - 5rem)" : "0"}`
+                                }}>
                                 <p className={"mb-0"}>
                                     Demographics
                                 </p>
 
 
-                                  <div style={{position:"relative", zIndex:1, height:"100%"}}>
-                                      <Demographics
-                            currentValue={demographic}
-                            setValue={setDemographic}
-                            selectedSpecificIssue={selectedSpecificIssue}
-                            setShowDemographics={setShowDemographics}
-                            showDemographics={showDemographics}
-                            communitySearch={communitySearch}
-                            compareSearch={compareSearch}
-                            mapDemographics={mapDemographics}
-                            setMapDemographics={setMapDemographics}
-                            boundary={boundary}
-                            communities={communities}
-                            councils={councils}
-                            selectedChapter={selectedChapter}
-                            toggleTransit={toggleTransit}
-                            setToggleTransit={setToggleTransit}
-                            toggleBike={toggleBike}
-                            setToggleBike={setToggleBike}
-                            toggleWalk={toggleWalk}
-                            setToggleWalk={setToggleWalk}
-                            colorRamps={colorRamps} // legendBins={legendBins}
-                            demoColorRamp={demoColorRamp}
-                            demoLegendBins={demoLegendBins}
-                            setDemoColorRamp={setDemoColorRamp}
-                            setDemoLegendBins={setDemoLegendBins}
-                            demoLookup={demoLookup[demographic]}
-                            showMap={showMap}
-                            info={info}
-                        />
-                                  </div>
+                                <div style={{position: "relative", zIndex: 1, height: "100%"}}>
+                                    <Demographics
+                                        currentValue={demographic}
+                                        setValue={setDemographic}
+                                        selectedSpecificIssue={selectedSpecificIssue}
+                                        setShowDemographics={setShowDemographics}
+                                        showDemographics={showDemographics}
+                                        communitySearch={communitySearch}
+                                        compareSearch={compareSearch}
+                                        mapDemographics={mapDemographics}
+                                        setMapDemographics={setMapDemographics}
+                                        boundary={boundary}
+                                        communities={communities}
+                                        councils={councils}
+                                        selectedChapter={selectedChapter}
+                                        toggleTransit={toggleTransit}
+                                        setToggleTransit={setToggleTransit}
+                                        toggleBike={toggleBike}
+                                        setToggleBike={setToggleBike}
+                                        toggleWalk={toggleWalk}
+                                        setToggleWalk={setToggleWalk}
+                                        colorRamps={colorRamps} // legendBins={legendBins}
+                                        demoColorRamp={demoColorRamp}
+                                        demoLegendBins={demoLegendBins}
+                                        setDemoColorRamp={setDemoColorRamp}
+                                        setDemoLegendBins={setDemoLegendBins}
+                                        demoLookup={demoLookup[demographic]}
+                                        showMap={showMap}
+                                        info={info}
+                                    />
+                                </div>
 
                             </div>
                         </Carousel>
