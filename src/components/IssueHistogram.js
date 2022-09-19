@@ -209,7 +209,7 @@ const IssueHistogram = ({
           ...colorInterpolate(
             colorRamps[0],
             colorRamps[colorRamps.length - 1],
-            (!ascending)
+            !ascending
               ? 1 - i / (rawIssueData.length - 1)
               : i / (rawIssueData.length - 1)
           )
@@ -386,7 +386,7 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
-      .text(`${data[0]}${metricSymbol}`)
+      .text(`${data[0].toFixed(1)}${metricSymbol}`)
       .attr('visibility', showMinText ? 'visible' : 'hidden');
 
     let showMaxText = !(
@@ -405,7 +405,7 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
-      .text(`${data[data.length - 1]}${metricSymbol}`)
+      .text(`${data[data.length - 1].toFixed(1)}${metricSymbol}`)
       .attr('visibility', showMaxText ? 'visible' : 'hidden');
 
     svg
@@ -420,9 +420,9 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
-        `${
-          data[Math.round(svg.select('#avgLine').attr('index'))]
-        }${metricSymbol}`
+        `${data[Math.round(svg.select('#avgLine').attr('index'))].toFixed(
+          1
+        )}${metricSymbol}`
       );
 
     // let showSelectedText = !(
@@ -441,9 +441,9 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
-        `${
-          data[Math.round(svg.select('#selectedLine').attr('index'))]
-        }${metricSymbol}`
+        `${data[Math.round(svg.select('#selectedLine').attr('index'))].toFixed(
+          1
+        )}${metricSymbol}`
       );
     //   .text(
     //     `${
@@ -458,7 +458,7 @@ const IssueHistogram = ({
     // case1,2: about selectedTex
     svg.select('#selectedTextUp').attr('text-anchor', 'end');
     svg.select('#selectedTextDown').attr('text-anchor', 'end');
-    
+
     // case1: selected on the right, avg left
     let textPadding = 2;
     let selectedTextWidth = svg

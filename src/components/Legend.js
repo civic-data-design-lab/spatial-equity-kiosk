@@ -187,8 +187,12 @@ export default function Legend({
     boundary === 'council' ? 'Council districts' : 'Community Boards';
 
   const getImpactStatement = () => {
+    const connotation = issues.specific_issues_data[selectedSpecificIssue]
+      .good_or_bad
+      ? issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[0]
+      : issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1];
     return issues.specific_issues_data[selectedSpecificIssue]
-      ? `${issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1]} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units_sentence}`
+      ? `${connotation} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units_sentence}`
       : '';
   };
 
@@ -342,73 +346,74 @@ export default function Legend({
             <>
               <>
                 <div>
-                <p className={'small-font mb-1'}>
-                  {
-                    issues.specific_issues_data[selectedSpecificIssue]
-                      .specific_issue_units
-                  }
-                </p>
-                <div className={'placeholder-legend'}>
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `rgb(${_CHAPTER_COLORS[
-                        colorRamps
-                      ][0].toString()})`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `rgb(${_CHAPTER_COLORS[
-                        colorRamps
-                      ][1].toString()})`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `rgb(${_CHAPTER_COLORS[
-                        colorRamps
-                      ][2].toString()})`,
-                      fontFamily: 'Arial',
-                    }}
-                  />{' '}
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `rgb(${_CHAPTER_COLORS[
-                        colorRamps
-                      ][3].toString()})`,
-                      fontFamily: 'Arial',
-                    }}
-                  />{' '}
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `rgb(${_CHAPTER_COLORS[
-                        colorRamps
-                      ][4].toString()})`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
-                  <div className={'small-font'}>
-                    {legendBins[0] < 0 ? legendBins[0] : 0} → {cleanNumbers[0]}
+                  <p className={'small-font mb-1'}>
+                    {
+                      issues.specific_issues_data[selectedSpecificIssue]
+                        .specific_issue_units
+                    }
+                  </p>
+                  <div className={'placeholder-legend'}>
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `rgb(${_CHAPTER_COLORS[
+                          colorRamps
+                        ][0].toString()})`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `rgb(${_CHAPTER_COLORS[
+                          colorRamps
+                        ][1].toString()})`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `rgb(${_CHAPTER_COLORS[
+                          colorRamps
+                        ][2].toString()})`,
+                        fontFamily: 'Arial',
+                      }}
+                    />{' '}
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `rgb(${_CHAPTER_COLORS[
+                          colorRamps
+                        ][3].toString()})`,
+                        fontFamily: 'Arial',
+                      }}
+                    />{' '}
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `rgb(${_CHAPTER_COLORS[
+                          colorRamps
+                        ][4].toString()})`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
+                    <div className={'small-font'}>
+                      {legendBins[0] < 0 ? legendBins[0] : 0} →{' '}
+                      {cleanNumbers[0]}
+                    </div>
+                    <div className={'small-font'}>
+                      {cleanNumbers[0]} → {cleanNumbers[1]}
+                    </div>{' '}
+                    <div className={'small-font'}>
+                      {cleanNumbers[1]} → {cleanNumbers[2]}
+                    </div>
+                    <div className={'small-font'}>
+                      {cleanNumbers[2]} → {cleanNumbers[3]}
+                    </div>
+                    <div className={'small-font'}>{cleanNumbers[3]}+</div>
                   </div>
-                  <div className={'small-font'}>
-                    {cleanNumbers[0]} → {cleanNumbers[1]}
-                  </div>{' '}
-                  <div className={'small-font'}>
-                    {cleanNumbers[1]} → {cleanNumbers[2]}
-                  </div>
-                  <div className={'small-font'}>
-                    {cleanNumbers[2]} → {cleanNumbers[3]}
-                  </div>
-                  <div className={'small-font'}>{cleanNumbers[3]}+</div>
                 </div>
-                  </div>
               </>
 
               {showMap && (
