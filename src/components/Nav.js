@@ -242,8 +242,8 @@ function Nav({
                         selectedChapterCache.current = selectedSpecificIssue;
                         //setSelectedSpecificIssue(null);
                         if (selectedCoordsCache?.current) setUserPoints(selectedCoordsCache.current);
-                        if (selectedCommunitiesCache?.current[0]) setCommunitySearch(selectedCommunitiesCache.current[0]);
-                        if (selectedCommunitiesCache?.current[1]) setCompareSearch(selectedCommunitiesCache.current[1]);
+                        if (selectedCommunitiesCache?.current[0]) setCommunitySearch(selectedCommunitiesCache?.current[0]);
+                        if (selectedCommunitiesCache?.current[1]) setCompareSearch(selectedCommunitiesCache?.current[1]);
                         if (viewStateCache?.current) setViewState(viewStateCache.current)
                     } else {
                         setSelectedChapter(null);

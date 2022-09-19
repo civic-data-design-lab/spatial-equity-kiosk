@@ -228,7 +228,7 @@ export default function CommunitySearchBar({
                         e.stopPropagation()
                         setFocus(false);
                     }}
-                    onKeyUp={(e) => {
+                    /*onKeyUp={(e) => {
                         // if (e.keyCode == 13) forwardGeocoding(value);
                         e.stopPropagation()
                         if (e.key === "Escape") setFocus(false);
@@ -246,7 +246,7 @@ export default function CommunitySearchBar({
                                 e.target.blur();
                             }
                         }
-                    }}
+                    }}*/
                     onChange={(e) => {
                         e.stopPropagation()
                         callBack("");

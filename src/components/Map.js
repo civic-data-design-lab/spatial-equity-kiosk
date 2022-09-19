@@ -415,6 +415,7 @@ export default function DeckMap({
       : '';
 
     const suffix = {
+      0:"th",
       1: 'st',
       2: 'nd',
       3: 'rd',
