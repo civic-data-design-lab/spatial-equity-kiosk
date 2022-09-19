@@ -398,7 +398,7 @@ function App() {
                              setSelectedSpecificIssue(1)
                          }*/
 
-        console.log("selected about ", selectedAbout)
+        console.log("demoLookup ", demoLookup)
 
 
         const params = [];
@@ -732,8 +732,7 @@ function App() {
                                     demoLookup={demoLookup}
                                     selectedChapter={selectedChapter}
                                     setSelectedChapter={setSelectedChapter}
-                                    communitySearch={communitySearch}
-                                    setCommunitySearch={setCommunitySearch}
+                                     setCommunitySearch={setCommunitySearch}
                                     addCompare={addCompare}
                                     setAddCompare={setAddCompare}
                                     compareSearch={compareSearch}
@@ -807,14 +806,11 @@ function App() {
                         </div>
                         {/*TODO: animate bars into x*/}
 
-                        <FontAwesomeIcon
-                            icon={faBars}
-                            className={"fa-lg"}
-                            onClick={() => {
-                                setShowMenu(!showMenu);
-                                setSelectedIssue(null);
-                            }}
-                        />
+                        <div className={`${showMenu?"toggle-menu-active":""} toggle-menu`}
+                                onClick={()=>setShowMenu(!showMenu)}
+                        >
+                            <span className={`${showMenu?"toggle-menu-span-active":""} toggle-menu-span`}></span>
+                        </div>
                     </div>
 
                     <div
@@ -901,9 +897,69 @@ function App() {
                             setCommunityPinned={setCommunityPinned}
                             councilPinned={councilPinned}
                             setCouncilPinned={setCouncilPinned}
-                            info={info}
+                            info={info} setToggleUnderperformers={setToggleUnderperformers} binList={info.binList}
                         />
                     )}
+
+                    <div className={"position-absolute"}
+                         style={{height:"100%", width:"100%", top:0, zIndex:0}}
+                    >
+                        <Map
+                                    issues={issues}
+                                    selectedIssue={selectedIssue}
+                                    selectedSpecificIssue={selectedSpecificIssue}
+                                    boundary={boundary}
+                                    showDemographics={showDemographics}
+                                    mapDemographics={mapDemographics}
+                                    demographic={demographic}
+                                    setColorRamps={setColorRamps}
+                                    toggleUnderperformers={toggleUnderperformers}
+                                    demoLookup={demoLookup}
+                                    selectedChapter={selectedChapter}
+                                    setSelectedChapter={setSelectedChapter}
+                                     setCommunitySearch={setCommunitySearch}
+                                    addCompare={addCompare}
+                                    setAddCompare={setAddCompare}
+                                    compareSearch={compareSearch}
+                                    setCompareSearch={setCompareSearch}
+                                    showMap={showMap}
+                                    setShowMap={setShowMap}
+                                    communities={communities}
+                                    councils={councils}
+                                    viewState={viewState}
+                                    setViewState={setViewState}
+                                    mapSelection={mapSelection}
+                                    setMapSelection={setMapSelection}
+                                    zoomToggle={zoomToggle}
+                                    setzoomToggle={setzoomToggle}
+                                    handleLegend={handleLegend}
+                                    sethandleLegend={sethandleLegend}
+                                    coordinateLookup={coordinateLookup}
+                                    setCoordinateLookup={setCoordinateLookup}
+                                    dataScale={dataScale}
+                                    setdataScale={setdataScale}
+                                    highlightFeature={highlightFeature}
+                                    sethighlightFeature={sethighlightFeature}
+                                    toggleTransit={toggleTransit}
+                                    toggleBike={toggleBike}
+                                    toggleWalk={toggleWalk}
+                                    setDemoLegendBins={setDemoLegendBins}
+                                    selectedCoord={selectedCoord}
+                                    selectedCompareCoord={selectedCompareCoord}
+                                    setSelectedCoord={setSelectedCoord}
+                                    setSelectedCompareCoord={setselectedCompareCoord}
+                                    badSearch={badSearch}
+                                    setBadSearch={setBadSearch}
+                                    searchSource={searchSource}
+                                    setSearchSource={setSearchSource}
+                                    setErrorCode={setErrorCode}
+                                    infoTransfer={info}
+                                    userPoints={userPoints}
+                                    setUserPoints={setUserPoints}
+                                    colorRamp={colorRamps}
+                                    collapseMap={collapseMap}
+                                />
+                    </div>
                 </Container>
             )}
         </Protect>

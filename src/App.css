@@ -100,6 +100,10 @@
     transition: height 1s;
 }
 
+.half-height-transition {
+    transition: height 0.5s;
+}
+
 .quarter-height {
     height: calc(100vh / 4);
 }
@@ -1169,6 +1173,10 @@ a:active {
     transition: opacity 0.5s 0.5s;
 }
 
+.transition-color {
+    transition: background-color 0.5s;
+}
+
 
 .ranking-chart {
     display: grid;
@@ -1182,6 +1190,7 @@ a:active {
 
 .carousel-item {
     height: 100%;
+    overflow: auto;
 }
 
 .carousel-inner {
@@ -1627,18 +1636,20 @@ input:checked + .slider:before {
 .mobile-citywide {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - (4.025rem + .3vw));;
+    height: calc(100vh - (4.025rem + .3vw));
 }
 
-.mobile-nav-chapter,
-.mobile-citywide-chapter {
+.mobile-nav-chapter {
     cursor: pointer;
     transition: flex-grow 0.5s, padding 0.25s 0.25s, background-color 0.5s, color 0.5s;
 }
 
 .mobile-citywide-chapter {
+    display: flex;
+    flex-direction: column;
     cursor: pointer;
-    transition: flex-grow 0.5s, padding 0.5s 0.5s, background-color 0.5s, color 0.5s;
+    transition: flex-grow 0.5s, padding 0.5s 0.5s, background-color 0.5s, color 0.5s, height 0.6s;
+    min-height: 0;
 }
 
 .mobile-citywide-content {
@@ -1674,11 +1685,28 @@ input:checked + .slider:before {
 
 
 .mobile-demographics-toggle {
+    border-top: 1px solid black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.5s, color 0.5s;
+    padding: 0.25rem 1rem;
+    height: 7vh;
+    z-index: 1;
+    position: relative;
+}
+
+.mobile-demographics-container {
+    flex-grow: 2;
+    padding: 1rem;
+    overflow: auto;
+    max-height: 40vh;
+    min-height: 0;
+    background-color: white;
+    z-index: 1;
+    position: relative;
+    transition: height 0.5s;
 }
 
 .citywide-nav {
@@ -1729,10 +1757,67 @@ input:checked + .slider:before {
     border: 1px solid black;
 }
 
-.mobile-map-toggle {
-    width: 10vh;
-    height: 100%;
 
+
+.mobile-issues-profile-container {
+    border: 1px solid black;
+}
+
+.mobile-citywide-nav {
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    z-index: 1;
+    position: relative;
+    background-color: white;
+}
+.mobile-citywide-nav-dropdown {
+   height: 5vh;
+    width: calc(100vw - 10vh);
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 0.25rem 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 3vw;
+    z-index: 1;
+}
+
+.mobile-citywide-nav-dropdown-item {
+    width: calc(100vw - 10vh - 1px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    transition: height 0.5s, padding 0.4s, opacity 0.4s;
+     z-index: 2;
+    position: relative;
+}
+
+.mobile-citywide-nav-dropdown-item-grow {
+    height: 5vh;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    padding: 0.25rem 1rem;
+    opacity: 1;
+
+}
+
+.mobile-citywide-nav-dropdown-item-shrink {
+    height: 0;
+    border-right: none;
+    border-bottom: none;
+    padding: 0;
+    opacity: 0;
+}
+
+.mobile-citywide-nav-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 3vw;
 }
 
 .attributions {
@@ -1748,7 +1833,25 @@ input:checked + .slider:before {
 }
 
 
+
+.mobile-boundary-nav {
+    height: 7vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    background-color: white;
+}
+
+
 @media screen and (max-width: 576px) {
+
+    .small-text {
+        font-size: 0.9rem;
+    }
     .dropdown-body {
         width: calc(100% - 2rem - 2px);
     }
@@ -1767,9 +1870,8 @@ input:checked + .slider:before {
 
     }
 
-    .demographics-container {
-        height: 40vh;
-    }
+
+
 
 
 }
@@ -1809,16 +1911,13 @@ input:checked + .slider:before {
 }
 
 .no-padding {
-    padding: 0rem;
+    padding: 0rem !important;
 }
 
 .big-text {
     font-size: calc(1.375rem + 1.5vw);
 }
 
-.small-text {
-    font-size: 1rem;
-}
 
 .smaller-text {
     font-size: 0.75rem;
@@ -1844,8 +1943,10 @@ input:checked + .slider:before {
 }
 
 .mobile-transition-font {
-    transition: font-size 0.25s 0.25s, opacity 0.25s;
+    transition: font-size 0.25s 0.25s, opacity 0.45s;
 }
+
+
 
 
 .issues-profile-table-row {
@@ -1902,6 +2003,116 @@ input:checked + .slider:before {
     flex-direction: column;
     justify-content: start;
 }
+
+
+/*ANIMATED HAMBURGER MENU*/
+.toggle-menu {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    height: calc(4.025rem + 0.3vw - 2rem);
+    outline: none;
+    padding: 0;
+    pointer-events: initial;
+    position: relative;
+    vertical-align: middle;
+    width: calc(4.025rem + 0.3vw - 2rem);
+    z-index: 5;
+}
+
+.toggle-menu-span-active::before,
+.toggle-menu-span-active::after {
+    transition: top 0.2s ease-out, transform 0.2s 0.2s ease-out;
+    background-color: white;
+}
+
+.toggle-menu-span-active::before {
+    top: 0;
+    transform: rotate3d(0, 0, 1, -45deg);
+}
+
+.toggle-menu-span-active::after {
+    top: 0;
+    transform: rotate3d(0, 0, 1, 45deg);
+}
+
+.toggle-menu-span {
+    background-color: white;
+    content: '';
+    display: block;
+    height: 2px;
+    left: calc(50% - 13px);
+    position: absolute;
+    top: calc(50% - 1px);
+    transform-origin: 50% 50%;
+    transition: background-color 0.2s ease-in-out, top 0.2s 0.2s ease-out,
+    transform 0.2s linear;
+    width: 26px;
+}
+
+.toggle-menu-span-active {
+    background-color: transparent;
+    transition: background 0.2s ease-out;
+}
+
+.toggle-menu-span::before,
+.toggle-menu-span::after {
+    background-color: white;
+    content: '';
+    display: block;
+    height: 2px;
+    position: absolute;
+    transform-origin: 50% 50%;
+    transition: background-color 0.2s ease-in-out, top 0.2s 0.2s ease-out,
+    transform 0.2s linear;
+    width: 26px;
+}
+
+.toggle-menu-span::before {
+    top: 7px;
+}
+
+.toggle-menu-span::after {
+    top: -7px;
+}
+
+.toggle-menu-span-active::before {
+    top: 0px;
+}
+
+.toggle-menu-span-active::after {
+    top: 0px;
+}
+
+.mobile-issue-dropdown {
+    transition: height 0.4s;
+    border: none!important;
+    /*
+    border-right: 1px solid black !important;
+    */
+
+}
+
+.mobile-issue-dropdown-shrink {
+    max-height: 0;
+}
+
+.mobile-issue-dropdown-grow {
+    max-height: 20vh;
+}
+
+.mobile-issue-dropdown-item {
+    transition: padding 0.2s 0.1s, font-size 0.2s 0.1s;
+}
+
+.mobile-map-toggle {
+    height: 100%;
+    width: 5vh;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    transition: background-color 0.5s;
+}
+
 
 
 /*TODO: print preview*/
