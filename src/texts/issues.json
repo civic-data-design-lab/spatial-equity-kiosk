@@ -164,10 +164,10 @@
     },
     "2": {
       "specific_issue_ID": 2,
-      "specific_issue_name": "Bus Speed",
+      "specific_issue_name": "Bus Speeds",
       "specific_issue_units": "Average Miles Per Hour",
       "issue_units_shorthand": "",
-      "specific_issue_units_sentence": "average bus speed",
+      "specific_issue_units_sentence": "average bus speeds",
       "issue_units_symbol": "mph",
 
       "specific_issue_description": [
@@ -566,8 +566,8 @@
       "specific_issue_ID": 5,
       "specific_issue_name": "Heat",
       "specific_issue_units": "Summer surface temperature deviation from mean",
-      "issue_units_shorthand": "Surface Temperature",
-      "specific_issue_units_sentence": "summer surface temperature",
+      "issue_units_shorthand": "Average Surface Temperatures",
+      "specific_issue_units_sentence": "average summer surface temperatures",
       "issue_units_symbol": "°F",
 
       "specific_issue_description": [

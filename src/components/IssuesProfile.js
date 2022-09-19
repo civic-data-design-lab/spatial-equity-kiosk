@@ -103,7 +103,7 @@ export default function IssueProfile({
     return issues.specific_issues_data[
       selectedSpecificIssue
     ].specific_issue_solutions.solutions_list.map((solution) => {
-      return <li>{getHyperlinkText(solution)}</li>;
+      return <li style={{ padding: '2rem' }}>{getHyperlinkText(solution)}</li>;
     });
   };
 
