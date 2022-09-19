@@ -284,7 +284,7 @@ export default function CommunitySearchBar({
             {focus && searchItems.length > 0 && (
                 <div>
                     {/* {searchItems.length > 0 && showSearch && <div> */}
-                    <ul className={`list-unstyled community-dropdown w-100`}>
+                    <ul className={`list-unstyled community-dropdown`}>
                         {getSearchItems()}
                         {searchItems}
                     </ul>

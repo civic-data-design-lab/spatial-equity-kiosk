@@ -29,6 +29,7 @@ export default function IssuesTags({
     }, [])*/
 
 
+
     return (
         <div className={"more-issues-container"}>
             {moreIssues.length > 0 && <div className={"d-flex flex-column row-gap"}>
@@ -57,7 +58,7 @@ export default function IssuesTags({
                 <div className={"issue-tags-container"}>
                     {
                         issues.all_issues_id
-                            .filter(id => !leastPerforming.includes(id) && (moreIssues && !moreIssues.includes(id)))
+                            .filter(id => (leastPerforming && !leastPerforming.includes(id)) && (moreIssues && !moreIssues.includes(id)))
                             .map((id, index) => {
                                 return (
                                     <div

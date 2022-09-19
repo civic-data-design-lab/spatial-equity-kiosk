@@ -152,7 +152,7 @@ const Histogram = ({
   let colorRamps = _CHAPTER_COLORS[colorRampsyType];
   let rawIssueData =
     _RANKINGS[boundary][
-      issues.specific_issues_data[selectedSpecificIssue].json_id
+      issues.specific_issues_data[selectedSpecificIssue]?.json_id
     ];
   let [data, nameArray, avg, avgIndex, avgRectID, ascending, lookupArray] =
     getDataToVis(rawIssueData);

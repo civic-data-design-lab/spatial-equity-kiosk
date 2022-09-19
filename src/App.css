@@ -446,7 +446,6 @@ a:active {
     /* Firefox */
     z-index: 2;
     padding: 0;
-
 }
 
 .shorter {
@@ -1306,6 +1305,46 @@ a:active {
     color: white;
 }
 
+.mobile-community-search-screen .typewriter-container {
+    color: black;
+}
+
+.mobile-community-search-screen .boundary-toggle {
+    border: 1px solid black;
+    border-top: 1px solid white;
+    margin-bottom: 0 !important;
+}
+
+.mobile-community-search-screen .boundary-toggle-item {
+    border: 1px solid black;
+}
+
+.mobile-community-search-screen .community-search {
+   background-color: white;
+    color: black;
+}
+
+.mobile-community-search-screen .search-item {
+    border: 1px solid black;
+    width: calc(100vw - 2rem);
+}
+
+.mobile-community-search-screen .community-dropdown {
+    width: calc(100vw - 2rem - 2px);
+    border: 1px solid black;
+}
+
+.mobile-community-search-screen .community-search-container {
+    border: 1px solid black;
+    margin-top: 0 !important;
+    height: 5vh;
+}
+
+.mobile-community-search-screen .community-profile-container {
+    padding: 1rem;
+}
+
+
 .Typewriter__wrapper {
     text-decoration-line: underline !important;
 }
@@ -1610,6 +1649,7 @@ input:checked + .slider:before {
     transition: height 1s;
     display: flex;
     flex-direction: column;
+    z-index: 3;
 }
 
 .mobile-menu {
@@ -1633,7 +1673,7 @@ input:checked + .slider:before {
 }
 
 
-.mobile-citywide {
+.mobile-citywide, .mobile-community {
     display: flex;
     flex-direction: column;
     height: calc(100vh - (4.025rem + .3vw));
@@ -1650,6 +1690,8 @@ input:checked + .slider:before {
     cursor: pointer;
     transition: flex-grow 0.5s, padding 0.5s 0.5s, background-color 0.5s, color 0.5s, height 0.6s;
     min-height: 0;
+    background-color: white;
+    z-index: 1;
 }
 
 .mobile-citywide-content {
@@ -2112,6 +2154,17 @@ input:checked + .slider:before {
     border-bottom: 1px solid black;
     transition: background-color 0.5s;
 }
+
+.mobile-community-search-screen {
+    background-color: white;
+    z-index: 1;
+    transition: height 0.5s, padding 0.4s;
+}
+
+.mobile-community-search-screen .sticky-basic {
+    display: none;
+}
+
 
 
 

@@ -12,6 +12,7 @@ import ShareButton from "../ShareButton";
 import Carousel from "../Carousel";
 import categories from "../../texts/issue_categories.json";
 import Legend from "../Legend";
+import Histogram from "../Histogram";
 
 
 export default function CitywideData({
@@ -452,7 +453,7 @@ export default function CitywideData({
                            style={{textDecorationLine: boundary !== "council" ? "underline" : ""}}
                         >Community <br/> Board</p>
                         <div
-                            className={`${showToggle ? "d-flex" : "d-none"} switch-container flex-row justify-content-between`}>
+                            className={`d-flex switch-container flex-row justify-content-between`}>
                             <label className="switch">
                                 <input type="checkbox" checked={boundary === "council"}
                                        onChange={(e) => {
@@ -471,6 +472,7 @@ export default function CitywideData({
                 </div>
 
                 <div
+
                     style={{
                         zIndex: showMap ? "0" : "1",
                         height: (!showMap && !showDemographics) || (showMap && !showLegend) ? "calc(100vh - 19vh - (4.025rem + .3vw))" : "calc(100vh - 52vh - (4.025rem + .3vw))",
@@ -479,7 +481,26 @@ export default function CitywideData({
                         position: "relative",
                         backgroundColor: "white"
                     }}>
-                    {selectedSpecificIssue && <IssueProfile
+                    {selectedSpecificIssue &&
+                        <>
+                            <div>
+                                {issues.specific_issues_data[selectedSpecificIssue].specific_issue_ranking_narrative}
+                            </div>
+                            <div style={{ flex: 1, height:"70vh" }} className={'histogram-responsive-box'}>
+                <Histogram
+                  colorRampsyType={colorRamps}
+                  issues={issues}
+                  boundary={boundary}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  communityPinned={communityPinned}
+                  setCommunityPinned={setCommunityPinned}
+                  councilPinned={councilPinned}
+                  setCouncilPinned={setCouncilPinned}
+                  setCommunitySearch={setCommunitySearch}
+                  setSelectedChapter={setSelectedChapter}
+                />
+              </div>
+                        <IssueProfile
                         issues={issues}
                         selectedSpecificIssue={selectedSpecificIssue}
                         boundary={boundary}
@@ -488,7 +509,9 @@ export default function CitywideData({
                         setSelectedChapter={setSelectedChapter}
                         councils={councils}
                         communities={communities}
-                    />}
+                    />
+                        </>
+                        }
                 </div>
 
                 <div

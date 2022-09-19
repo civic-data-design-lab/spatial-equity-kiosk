@@ -168,7 +168,7 @@ export default function CommunityProfile({
               style={{
                 top: '0em',
                 padding: '0.75em 0',
-                zIndex: '3',
+                zIndex: '1',
               }}
             >
               More Indicators

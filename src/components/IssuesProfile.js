@@ -159,14 +159,14 @@ export default function IssueProfile({
                     </th>
                     <th>
                       {issues.specific_issues_data[selectedSpecificIssue]
-                        .issue_units_shorthand != ''
+                        ?.issue_units_shorthand != ''
                         ? issues.specific_issues_data[selectedSpecificIssue]
-                            .issue_units_shorthand
+                            ?.issue_units_shorthand
                         : issues.specific_issues_data[selectedSpecificIssue]
-                            .specific_issue_units}{' '}
+                            ?.specific_issue_units}{' '}
                       {
                         issues.specific_issues_data[selectedSpecificIssue]
-                          .issue_units_symbol
+                          ?.issue_units_symbol
                       }
                     </th>
                   </tr>
@@ -174,7 +174,7 @@ export default function IssueProfile({
                 <tbody>
                   {/*TODO: populate chart with ranking data*/}
                   {rankings[boundary][
-                    issues.specific_issues_data[selectedSpecificIssue].json_id
+                    issues.specific_issues_data[selectedSpecificIssue]?.json_id
                   ]
 
                     .map((entry, index) => {

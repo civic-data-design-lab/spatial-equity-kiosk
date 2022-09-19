@@ -20,12 +20,13 @@ import _COMMUNITIES from "./texts/communities.json";
 import _COUNCILS from "./texts/councildistricts.json";
 import _DEMOGRAPHICS from "./texts/demographics.json";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars, faCaretLeft, faCaretRight} from "@fortawesome/free-solid-svg-icons";
+import {faCaretLeft, faCaretRight} from "@fortawesome/free-solid-svg-icons";
 import _COUNCIL_DISTRICTS from "./data/council_districts.json";
 import _COMMUNITY_BOARDS from "./data/community_boards.json";
 import _NEIGHBORHOODS from "./data/neighborhoods.json";
 
 import Protect from "./utils/react-app-protect"
+import MobileCommunityProfile from "./components/Mobile Components/MobileCommunityProfile";
 
 let siteProtection = (process.env.REACT_APP_SITE_PROTECTION == 'false') ? false : (process.env.REACT_APP_SITE_PROTECTION == 'true') ? true : undefined;
 let sha512 = process.env.REACT_APP_SITE_PWD;
@@ -109,9 +110,9 @@ function App() {
         const queryParams = new URLSearchParams(location.search);
         let createCoords = [[], []]
         let createViewState = {
-            latitude:40.7131,
-            longitude:-74,
-            zoom:9.5
+            latitude: 40.7131,
+            longitude: -74,
+            zoom: 9.5
         }
         for (let pair of queryParams.entries()) {
             switch (pair[0]) {
@@ -732,7 +733,7 @@ function App() {
                                     demoLookup={demoLookup}
                                     selectedChapter={selectedChapter}
                                     setSelectedChapter={setSelectedChapter}
-                                     setCommunitySearch={setCommunitySearch}
+                                    setCommunitySearch={setCommunitySearch}
                                     addCompare={addCompare}
                                     setAddCompare={setAddCompare}
                                     compareSearch={compareSearch}
@@ -806,17 +807,17 @@ function App() {
                         </div>
                         {/*TODO: animate bars into x*/}
 
-                        <div className={`${showMenu?"toggle-menu-active":""} toggle-menu`}
-                                onClick={()=>setShowMenu(!showMenu)}
+                        <div className={`${showMenu ? "toggle-menu-active" : ""} toggle-menu`}
+                             onClick={() => setShowMenu(!showMenu)}
                         >
-                            <span className={`${showMenu?"toggle-menu-span-active":""} toggle-menu-span`}></span>
+                            <span className={`${showMenu ? "toggle-menu-span-active" : ""} toggle-menu-span`}></span>
                         </div>
                     </div>
 
                     <div
                         className={"w-100 position-absolute"}
                         style={{
-                            zIndex: 2,
+                            zIndex: 3,
                         }}
                     >
                         <MobileNav
@@ -828,7 +829,7 @@ function App() {
 
                     {!selectedChapter ? (
                         <div></div>
-                    ) : (
+                    ) : selectedChapter === 2 ?
                         <CitywideData
                             selectedIssue={selectedIssue}
                             setSelectedIssue={setSelectedIssue}
@@ -898,67 +899,137 @@ function App() {
                             councilPinned={councilPinned}
                             setCouncilPinned={setCouncilPinned}
                             info={info} setToggleUnderperformers={setToggleUnderperformers} binList={info.binList}
-                        />
-                    )}
+                        /> : selectedChapter === 3 ?
+                            <MobileCommunityProfile
+
+                                setShowMap={setShowMap}
+                                selectedChapter={selectedChapter}
+                                setSelectedChapter={setSelectedChapter}
+                                selectedIssue={selectedIssue}
+                                setSelectedIssue={setSelectedIssue}
+                                selectedSpecificIssue={selectedSpecificIssue}
+                                setSelectedSpecificIssue={setSelectedSpecificIssue}
+                                boundary={boundary}
+                                setBoundary={setBoundary}
+                                communitySearch={communitySearch}
+                                setCommunitySearch={setCommunitySearch}
+                                compareSearch={compareSearch}
+                                setCompareSearch={setCompareSearch}
+                                setMoreIssues={setMoreIssues}
+                                setMoreIssuesLength={setMoreIssuesLength}
+                                addCompare={addCompare}
+                                setAddCompare={setAddCompare}
+                                issues={issues}
+                                communities={communities}
+                                councils={councils}
+                                issue_categories={issue_categories}
+                                highlightFeature={highlightFeature}
+                                sethighlightFeature={sethighlightFeature}
+                                selectedCoord={selectedCoord}
+                                setSelectedCoord={setSelectedCoord}
+                                selectedCompareCoord={selectedCompareCoord}
+                                setselectedCompareCoord={setselectedCompareCoord}
+                                isMobile={false}
+                                badSearch={badSearch}
+                                setBadSearch={setBadSearch}
+                                setSearchSource={setSearchSource}
+                                errorCode={errorCode}
+                                setErrorCode={setErrorCode}
+                                setUserPoints={setUserPoints}
+                                setMapDemographics={setMapDemographics}
+                                info={info}
+                                userPoints={userPoints}
+                                viewState={viewState}
+                                setViewState={setViewState}
+                                showMap={showMap}
+                                setSelectedAbout={setSelectedAbout}
+                                moreIssuesLength={moreIssuesLength}
+                                moreIssues={moreIssues}
+                                colorRamps={colorRamps}
+                                communityPinned={communityPinned}
+                                setCommunityPinned={setCommunityPinned}
+                                councilPinned={councilPinned}
+                                setCouncilPinned={setCouncilPinned}
+
+
+                                demographic={demographic}
+                                setDemographic={setDemographic}
+                                setShowDemographics={setShowDemographics} showDemographics={showDemographics}
+                                mapDemographics={mapDemographics}
+                                toggleTransit={toggleTransit}
+                                setToggleTransit={setToggleTransit}
+                                toggleBike={toggleBike}
+                                setToggleBike={setToggleBike}
+                                toggleWalk={toggleWalk}
+                                setToggleWalk={setToggleWalk}
+                        demoLookup={demoLookup}
+                                demoColorRamp={demoColorRamp} demoLegendBins={demoLegendBins} setDemoColorRamp={setDemoColorRamp}
+                                setDemoLegendBins={setDemoLegendBins} zoomToggle={zoomToggle} binList={info.binList}
+                                setToggleUnderperformers={setToggleBike} toggleUnderperformers={toggleUnderperformers}
+    handleLegend={handleLegend} dataScale={dataScale} setdataScale={setdataScale}
+
+                            /> : null
+
+                    }
 
                     <div className={"position-absolute"}
-                         style={{height:"100%", width:"100%", top:0, zIndex:0}}
+                         style={{height: "100%", width: "100%", top: 0, zIndex: 0}}
                     >
                         <Map
-                                    issues={issues}
-                                    selectedIssue={selectedIssue}
-                                    selectedSpecificIssue={selectedSpecificIssue}
-                                    boundary={boundary}
-                                    showDemographics={showDemographics}
-                                    mapDemographics={mapDemographics}
-                                    demographic={demographic}
-                                    setColorRamps={setColorRamps}
-                                    toggleUnderperformers={toggleUnderperformers}
-                                    demoLookup={demoLookup}
-                                    selectedChapter={selectedChapter}
-                                    setSelectedChapter={setSelectedChapter}
-                                     setCommunitySearch={setCommunitySearch}
-                                    addCompare={addCompare}
-                                    setAddCompare={setAddCompare}
-                                    compareSearch={compareSearch}
-                                    setCompareSearch={setCompareSearch}
-                                    showMap={showMap}
-                                    setShowMap={setShowMap}
-                                    communities={communities}
-                                    councils={councils}
-                                    viewState={viewState}
-                                    setViewState={setViewState}
-                                    mapSelection={mapSelection}
-                                    setMapSelection={setMapSelection}
-                                    zoomToggle={zoomToggle}
-                                    setzoomToggle={setzoomToggle}
-                                    handleLegend={handleLegend}
-                                    sethandleLegend={sethandleLegend}
-                                    coordinateLookup={coordinateLookup}
-                                    setCoordinateLookup={setCoordinateLookup}
-                                    dataScale={dataScale}
-                                    setdataScale={setdataScale}
-                                    highlightFeature={highlightFeature}
-                                    sethighlightFeature={sethighlightFeature}
-                                    toggleTransit={toggleTransit}
-                                    toggleBike={toggleBike}
-                                    toggleWalk={toggleWalk}
-                                    setDemoLegendBins={setDemoLegendBins}
-                                    selectedCoord={selectedCoord}
-                                    selectedCompareCoord={selectedCompareCoord}
-                                    setSelectedCoord={setSelectedCoord}
-                                    setSelectedCompareCoord={setselectedCompareCoord}
-                                    badSearch={badSearch}
-                                    setBadSearch={setBadSearch}
-                                    searchSource={searchSource}
-                                    setSearchSource={setSearchSource}
-                                    setErrorCode={setErrorCode}
-                                    infoTransfer={info}
-                                    userPoints={userPoints}
-                                    setUserPoints={setUserPoints}
-                                    colorRamp={colorRamps}
-                                    collapseMap={collapseMap}
-                                />
+                            issues={issues}
+                            selectedIssue={selectedIssue}
+                            selectedSpecificIssue={selectedSpecificIssue}
+                            boundary={boundary}
+                            showDemographics={showDemographics}
+                            mapDemographics={mapDemographics}
+                            demographic={demographic}
+                            setColorRamps={setColorRamps}
+                            toggleUnderperformers={toggleUnderperformers}
+                            demoLookup={demoLookup}
+                            selectedChapter={selectedChapter}
+                            setSelectedChapter={setSelectedChapter}
+                            setCommunitySearch={setCommunitySearch}
+                            addCompare={addCompare}
+                            setAddCompare={setAddCompare}
+                            compareSearch={compareSearch}
+                            setCompareSearch={setCompareSearch}
+                            showMap={showMap}
+                            setShowMap={setShowMap}
+                            communities={communities}
+                            councils={councils}
+                            viewState={viewState}
+                            setViewState={setViewState}
+                            mapSelection={mapSelection}
+                            setMapSelection={setMapSelection}
+                            zoomToggle={zoomToggle}
+                            setzoomToggle={setzoomToggle}
+                            handleLegend={handleLegend}
+                            sethandleLegend={sethandleLegend}
+                            coordinateLookup={coordinateLookup}
+                            setCoordinateLookup={setCoordinateLookup}
+                            dataScale={dataScale}
+                            setdataScale={setdataScale}
+                            highlightFeature={highlightFeature}
+                            sethighlightFeature={sethighlightFeature}
+                            toggleTransit={toggleTransit}
+                            toggleBike={toggleBike}
+                            toggleWalk={toggleWalk}
+                            setDemoLegendBins={setDemoLegendBins}
+                            selectedCoord={selectedCoord}
+                            selectedCompareCoord={selectedCompareCoord}
+                            setSelectedCoord={setSelectedCoord}
+                            setSelectedCompareCoord={setselectedCompareCoord}
+                            badSearch={badSearch}
+                            setBadSearch={setBadSearch}
+                            searchSource={searchSource}
+                            setSearchSource={setSearchSource}
+                            setErrorCode={setErrorCode}
+                            infoTransfer={info}
+                            userPoints={userPoints}
+                            setUserPoints={setUserPoints}
+                            colorRamp={colorRamps}
+                            collapseMap={collapseMap}
+                        />
                     </div>
                 </Container>
             )}
