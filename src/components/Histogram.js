@@ -38,7 +38,7 @@ const getDataToVis = (rawIssueData) => {
   rawIssueData.sort((a, b) => b.rank - a.rank);
 
   for (let [index, value] of Object.entries(rawIssueData)) {
-    valueArray.push(Number(Number(value.data).toFixed(3)));
+    valueArray.push(Number(Number(value.data).toFixed(1)));
     nameArray.push(value.community);
     lookupArray.push(value.community_ID);
   }
@@ -349,15 +349,15 @@ const Histogram = ({
               d3.max(data) >= 10
                 ? d3.max(data).toFixed(0)
                 : d3.max(data) >= 1
-                ? d3.max(data).toFixed(2)
+                ? d3.max(data).toFixed(1)
                 : d3.max(data)
             }${metricSymbol}`
           : `${lowStatement} ${getIssueStatement()} ${
               d3.min(data) >= 10
                 ? d3.min(data).toFixed(0)
                 : d3.min(data) >= 1
-                ? d3.min(data).toFixed(2)
-                : d3.min(data).toFixed(3)
+                ? d3.min(data).toFixed(1)
+                : d3.min(data).toFixed(1)
             }${metricSymbol}`
       );
 
@@ -374,15 +374,15 @@ const Histogram = ({
               d3.max(data) >= 10
                 ? d3.max(data).toFixed(0)
                 : d3.max(data) >= 1
-                ? d3.max(data).toFixed(2)
+                ? d3.max(data).toFixed(1)
                 : d3.max(data)
             }`
           : `${lowStatement} ${getIssueStatement()} ${
               d3.min(data) >= 10
                 ? d3.min(data).toFixed(0)
                 : d3.min(data) >= 1
-                ? d3.min(data).toFixed(2)
-                : d3.min(data).toFixed(3)
+                ? d3.min(data).toFixed(1)
+                : d3.min(data).toFixed(1)
             } ${metricSymbol}`
       );
 
@@ -468,8 +468,8 @@ const Histogram = ({
           avg >= 10
             ? avg.toFixed(0)
             : avg >= 1
-            ? avg.toFixed(2)
-            : avg.toFixed(3)
+            ? avg.toFixed(1)
+            : avg.toFixed(1)
         }${metricSymbol} ${getIssueStatement()}`
       );
 

@@ -415,10 +415,22 @@ export default function DeckMap({
       : '';
 
     const suffix = {
-      1:"st", 2:"nd", 3:"rd", 4:"th", 5:"th", 6:"th", 7:"th", 8:"th", 9:"th"
-    }
+      1: 'st',
+      2: 'nd',
+      3: 'rd',
+      4: 'th',
+      5: 'th',
+      6: 'th',
+      7: 'th',
+      8: 'th',
+      9: 'th',
+    };
 
-    return metricCheck ? `${ranking}${suffix[ranking%10]} of ${maxRanking} ${boundary==="council"?"council districts":"community boards"}` : '';
+    return metricCheck
+      ? `${ranking}${suffix[ranking % 10]} of ${maxRanking} ${
+          boundary === 'council' ? 'council districts' : 'community boards'
+        }`
+      : '';
   };
 
   const getMetricValueTooltip = (obj) => {
@@ -427,7 +439,7 @@ export default function DeckMap({
       infoTransfer.selectedMetric != null
         ? accessor[infoTransfer.selectedMetric] >= 10
           ? accessor[infoTransfer.selectedMetric].toFixed(0)
-          : accessor[infoTransfer.selectedMetric].toFixed(2)
+          : accessor[infoTransfer.selectedMetric].toFixed(1)
         : ''
     }${
       issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !=
@@ -620,11 +632,10 @@ export default function DeckMap({
   // 00 update via search engine
   // 06 DIRECT PICKING ENGINE ---------------------------------------------------------------------------------------------
   // 00 update via search engine
+
   function updateSearchEngine(searchEngine, searchEngineType) {
     //check if search engine is valid coordinates
     if (searchEngineType === 0 && selectedChapter === 3) {
-
-
       if (selectedCoord.length === 2) {
         const newCommunitySearch = getCommunitySearch(
           searchEngine,
@@ -767,9 +778,7 @@ export default function DeckMap({
         }
       }
     }
-
   }
-
 
   useEffect(() => {
     if (!addCompare || !communitySearch) {
@@ -795,8 +804,8 @@ export default function DeckMap({
   useEffect(() => {
     if (searchSource !== 'click' && selectedChapter === 2) {
       setViewState(RESET_VIEW);
-    } else  if (selectedChapter === 3) {
-      setViewState(viewState)
+    } else if (selectedChapter === 3) {
+      setViewState(viewState);
     } else {
       setViewState(RESET_VIEW);
     }
@@ -1235,15 +1244,6 @@ export default function DeckMap({
           communitySearch,
           compareSearch,
         ],
-        getFillColor: [
-          infoTransfer.selectedMetric,
-          addCompare,
-          communitySearch,
-          compareSearch,
-        ],
-      },
-      parameters: {
-        mixBlendMode: 'difference',
       },
     }),
 
@@ -1300,13 +1300,7 @@ export default function DeckMap({
             ? `Ranks ${getRankingTooltip(selection[0])} for ${
                 issues.specific_issues_data[selectedSpecificIssue]
                   .specific_issue_name
-              } with ${
-                value >= 10
-                  ? value.toFixed(0)
-                  : value >= 1
-                  ? value.toFixed(1)
-                  : value.toFixed(3)
-              }${
+              } with ${value >= 10 ? value.toFixed(0) : value.toFixed(1)}${
                 issues.specific_issues_data[selectedSpecificIssue]
                   .issue_units_symbol != ''
                   ? issues.specific_issues_data[selectedSpecificIssue]

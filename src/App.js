@@ -399,7 +399,7 @@ function App() {
                              setSelectedSpecificIssue(1)
                          }*/
 
-        console.log("demoLookup ", demoLookup)
+        // console.log("demoLookup ", demoLookup)
 
 
         const params = [];
@@ -733,6 +733,7 @@ function App() {
                                     demoLookup={demoLookup}
                                     selectedChapter={selectedChapter}
                                     setSelectedChapter={setSelectedChapter}
+                                    communitySearch={communitySearch}
                                     setCommunitySearch={setCommunitySearch}
                                     addCompare={addCompare}
                                     setAddCompare={setAddCompare}

@@ -23,7 +23,6 @@ export default function IssueProfile({
 }) {
   const [expand, setExpand] = useState(false);
 
-
   const getIssueName = () => {
     return (
       issues.specific_issues_data[selectedSpecificIssue].specific_issue_name ||
@@ -141,7 +140,7 @@ export default function IssueProfile({
                 borderBottom: '2px solid black',
                 marginBottom: '0',
                 padding: '0.75em 0',
-                width:'100%'
+                width: '100%',
               }}
             >
               {getIssueStatement()} by{' '}
