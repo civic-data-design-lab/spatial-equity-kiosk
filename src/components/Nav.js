@@ -1,8 +1,6 @@
 import BoundaryToggle from './BoundaryToggle';
 import CommunityNav from './CommunityNav';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-
-import {LinearInterpolator} from '@deck.gl/core';
 import {faInstagram, faLinkedinIn, faSquareFacebook, faTwitter,} from '@fortawesome/free-brands-svg-icons';
 import _CDDL from '../img/cddl_logo_white.svg';
 import _LCAU from '../img/Logo_LCAU logo_white.svg';
@@ -44,9 +42,7 @@ function Nav({
                  setUserPoints, setMapDemographics, info, userPoints, viewState, setViewState
 
              }) {
-
-    //const selectedChapterCache = useRef(null);
-
+    const selectedChapterCache = useRef(null);
     const selectedCoordsCache = useRef(null);
     const selectedCommunitiesCache = useRef(null);
     const viewStateCache = useRef(null);
@@ -69,17 +65,17 @@ function Nav({
                     setMoreIssuesLength(0);
                     setMoreIssues([]);
                     setMapDemographics(false);
-
-                    selectedCoordsCache.current = userPoints;
-                    selectedCommunitiesCache.current = [communitySearch, compareSearch];
-                    viewStateCache.current = {...viewState, transitionDuration: 500};
-                    setShowMap(false);
+                    if (selectedChapter === 3) {
+                        selectedCoordsCache.current = userPoints;
+                        selectedCommunitiesCache.current = [communitySearch, compareSearch];
+                        viewStateCache.current = viewState
+                    }
                     if (selectedChapter !== 1) {
                         setSelectedChapter(1);
                         setShowMap(false);
                     } else {
                         setSelectedChapter(null);
-
+                        setShowMap(false);
                     }
                 }}
             >
@@ -159,14 +155,11 @@ function Nav({
                     setMapDemographics(false);
                     setMoreIssuesLength(0);
                     setMoreIssues([]);
-
-                    selectedCoordsCache.current = userPoints;
-                    selectedCommunitiesCache.current = [communitySearch, compareSearch];
-                    viewStateCache.current = {
-                        ...viewState,
-                        transitionDuration: 500,
-                        transitionInterpolator: new LinearInterpolator()
-                    };
+                    if (selectedChapter === 3) {
+                        selectedCoordsCache.current = userPoints;
+                        selectedCommunitiesCache.current = [communitySearch, compareSearch];
+                        viewStateCache.current = viewState
+                    }
                     setCommunitySearch(null);
                     setCompareSearch(null);
                     setShowMap(false);
@@ -175,7 +168,7 @@ function Nav({
                         setSearchSource(null);
                         setUserPoints([], []);
                         setBadSearch(0, 0);
-
+                        if (selectedChapterCache.current) setSelectedSpecificIssue(selectedChapterCache.current);
                     } else {
                         setSelectedChapter(null);
                     }
@@ -246,20 +239,15 @@ function Nav({
                         setSearchSource(null);
                         setUserPoints([], []);
                         setBadSearch(0, 0);
-
-                        //selectedChapterCache.current = selectedSpecificIssue;
+                        selectedChapterCache.current = selectedSpecificIssue;
                         //setSelectedSpecificIssue(null);
-                        setUserPoints(selectedCoordsCache.current);
-                        setCommunitySearch(selectedCommunitiesCache.current[0]);
-                        setCompareSearch(selectedCommunitiesCache.current[1]);
-                        setViewState(viewStateCache.current)
+                        if (selectedCoordsCache?.current) setUserPoints(selectedCoordsCache.current);
+                        if (selectedCommunitiesCache?.current[0]) setCommunitySearch(selectedCommunitiesCache?.current[0]);
+                        if (selectedCommunitiesCache?.current[1]) setCompareSearch(selectedCommunitiesCache?.current[1]);
+                        if (viewStateCache?.current) setViewState(viewStateCache.current)
                     } else {
                         setSelectedChapter(null);
                         setShowMap(false);
-                        selectedCoordsCache.current = userPoints;
-                        selectedCommunitiesCache.current = [communitySearch, compareSearch];
-                        viewStateCache.current = {...viewState, transitionDuration: 500};
-
                     }
                 }}
             >
@@ -324,7 +312,7 @@ function Nav({
                         info={info}
                         setUserPoints={setUserPoints}
                         userPoints={userPoints}
-
+                        selectedChapter={selectedChapter}
                     />
                 </div>
             </div>
@@ -344,11 +332,11 @@ function Nav({
                     setMapDemographics(false);
                     setMoreIssuesLength(0);
                     setMoreIssues([]);
-
-                    selectedCoordsCache.current = userPoints;
-                    selectedCommunitiesCache.current = [communitySearch, compareSearch];
-                    viewStateCache.current = {...viewState, transitionDuration: 500};
-
+                    if (selectedChapter === 3) {
+                        selectedCoordsCache.current = userPoints;
+                        selectedCommunitiesCache.current = [communitySearch, compareSearch];
+                        viewStateCache.current = viewState
+                    }
                     if (selectedChapter !== 4) {
                         setSelectedChapter(4);
                         setShowMap(false);
