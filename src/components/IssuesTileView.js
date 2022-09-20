@@ -120,7 +120,8 @@ export default function IssuesTileView({
                 />
               </div>
               <p className={'m-0 small-font'}>
-                Source: {
+                Source:{' '}
+                {
                   issues.specific_issues_data[selectedSpecificIssue]
                     .specific_issue_source
                 }

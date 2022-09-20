@@ -529,13 +529,7 @@ const Histogram = ({
           .attr('y', ycood - 5)
           .attr('lookupID', lookupArray[rectID])
           .text(
-            `${boundary == 'council' ? 'Council' : ''} ${nameArray[rectID]}${
-              boundary == 'council'
-                ? `, ${_COUNCILDISTRICTS[lookupArray[rectID]].borough.join(
-                    '/ '
-                  )}`
-                : ''
-            }`
+            `${boundary == 'council' ? 'Council' : ''} ${nameArray[rectID]}`
           );
 
         svg
@@ -600,12 +594,7 @@ const Histogram = ({
       .attr('font-size', '14')
       .attr('fill', '#000000')
       .text(
-        (d, i) =>
-          `${boundary == 'council' ? 'Council' : ''} ${nameArray[i]}${
-            boundary == 'council'
-              ? `, ${_COUNCILDISTRICTS[lookupArray[i]].borough.join('/ ')}`
-              : ''
-          }`
+        (d, i) => `${boundary == 'council' ? 'Council' : ''} ${nameArray[i]}`
       );
 
     svg.selectAll('.pinnedTextUp').data(data).exit().remove();

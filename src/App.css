@@ -600,6 +600,7 @@ a:active {
     display: flex;
     flex-direction: column;
     row-gap: 1.5rem;
+    padding-right: 1.5rem;
 
 }
 

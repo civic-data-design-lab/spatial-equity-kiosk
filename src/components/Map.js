@@ -436,6 +436,14 @@ export default function DeckMap({
 
   const getMetricValueTooltip = (obj) => {
     const accessor = obj.properties ? obj.properties : obj;
+
+    const isTemperatureMetric =
+      infoTransfer.selectedMetric == 'F14_TmpDev'
+        ? accessor[infoTransfer.selectedMetric] > 0
+          ? 'Above Citywide'
+          : 'Below Citywide'
+        : '';
+
     return `<strong> ${
       infoTransfer.selectedMetric != null
         ? accessor[infoTransfer.selectedMetric] >= 10
@@ -447,11 +455,11 @@ export default function DeckMap({
       ''
         ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
         : ''
-    }</strong> ${
+    }</strong> ${isTemperatureMetric} ${
       typeof selectedSpecificIssue == 'number'
         ? issues.specific_issues_data[selectedSpecificIssue]
             .issue_units_shorthand != ''
-          ? `<strong>${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand}</strong>`
+          ? ` ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand}`
           : ` ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`
         : ''
     }`;

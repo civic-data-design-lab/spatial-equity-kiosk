@@ -657,7 +657,8 @@ export default function Legend({
                       : 'mb-3 small-font'
                   }
                 >
-                  {selectedChapter == 3 ? '' : 'Citywide'} {demoLookup.name} in{' '}
+                  {selectedChapter == 3 ? '' : 'Citywide'} {demoLookup.name}{' '}
+                  {selectedChapter == 3 ? 'in' : ''}{' '}
                   <span className={'underline bold'}>{neighborhoodName}</span>
                 </p>
               ) : (
@@ -677,7 +678,7 @@ export default function Legend({
                   demoLookup.name === 'Households Without a Car'
                     ? ' households '
                     : ' commuters '}
-                  in{' '}
+                  {selectedChapter == 3 ? 'in' : ''}{' '}
                   <span className={'underline bold'}>{neighborhoodName}</span>{' '}
                   {demoLookup.name ===
                   'Households Living Below the Poverty Line'
