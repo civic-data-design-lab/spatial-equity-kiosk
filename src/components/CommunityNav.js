@@ -61,7 +61,7 @@ export default function CommunityNav({
                                 } col search-item p-2`}
                                 onMouseDown={(e) => {
                                     e.stopPropagation(e);
-                                    setCommunitySearch(key);
+                                    /*setCommunitySearch(key);*/
                                     setShowSearch(false);
                                     setSearchSource("search")
                                     for (const [
@@ -236,7 +236,52 @@ export default function CommunityNav({
                 </div>
 
 
-                {communitySearch && addCompare && (
+
+
+                {(badSearch[0] == 1 || badSearch[1] == 1) && (
+                    <div className={"small-font"}>
+                        {errorCode == 1
+                            ? `${
+                                communitySearch
+                                    ? boundary === "council"
+                                        ? councils[communitySearch]
+                                            ? councils[communitySearch].name
+                                            : ""
+                                        : communities[communitySearch]
+                                            ? communities[communitySearch].name
+                                            : ""
+                                    : ""
+                            } is already selected!`
+                            : `Nothing found. Try searching for something else.`}
+                    </div>
+                )}
+
+                {!communitySearch && <div className={"d-flex flex-column align-items-start w-100 mt-3 mb-3"}>
+
+                    {/*
+                    <FontAwesomeIcon icon={faArrowLeft} className={"fa-lg"}/>
+*/}
+                    <p className={"m-0"}
+                       style={{fontSize: "1.75rem"}}
+                    >Try searching for &thinsp;</p>
+
+                    <div className={"typewriter-container"}>
+                        <Typewriter
+                            options={{
+                                strings: (boundary === "community" ? ['your address', 'Hamilton Heights', '111 John Street',
+                                    "Bronx 9", 'Bedford Stuyvesant', '350 5th Avenue'] : ["your address", "Washington Heights", "350 5th Avenue", "District 5", "111 John Street",
+                                    "Bensonhurst"]),
+                                autoStart: true,
+                                loop: true,
+                                pauseFor: 2000,
+                            }}
+                        />
+                    </div>
+
+
+                </div>}
+
+                {(communitySearch || compareSearch) && addCompare && (
                     <CommunitySearchBar
                         selectedCompareCoord={selectedCompareCoord}
                         setselectedCompareCoord={setselectedCompareCoord}
@@ -268,49 +313,6 @@ export default function CommunityNav({
                         {getSearchItems(false, boundary)}
                     </CommunitySearchBar>
                 )}
-
-                {(badSearch[0] == 1 || badSearch[1] == 1) && (
-                    <div className={"small-font"}>
-                        {errorCode == 1
-                            ? `${
-                                communitySearch
-                                    ? boundary === "council"
-                                        ? councils[communitySearch]
-                                            ? councils[communitySearch].name
-                                            : ""
-                                        : communities[communitySearch]
-                                            ? communities[communitySearch].name
-                                            : ""
-                                    : ""
-                            } is already selected!`
-                            : `Nothing found. Try searching for something else.`}
-                    </div>
-                )}
-
-                {!communitySearch && <div className={"d-flex flex-column align-items-start h-100 w-100 mt-3"}>
-
-                    {/*
-                    <FontAwesomeIcon icon={faArrowLeft} className={"fa-lg"}/>
-*/}
-                    <p className={"m-0"}
-                       style={{fontSize: "1.75rem", paddingTop: "3rem"}}
-                    >Try searching for &thinsp;</p>
-
-                    <div className={"typewriter-container"}>
-                        <Typewriter
-                            options={{
-                                strings: (boundary === "community" ? ['your address', 'Hamilton Heights', '111 John Street',
-                                    "Bronx 9", 'Bedford Stuyvesant', '350 5th Avenue'] : ["your address", "Washington Heights", "350 5th Avenue", "District 5", "111 John Street",
-                                    "Bensonhurst"]),
-                                autoStart: true,
-                                loop: true,
-                                pauseFor: 2000,
-                            }}
-                        />
-                    </div>
-
-
-                </div>}
 
 
                 {communitySearch && !addCompare && (

@@ -8,8 +8,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
 import categories from '../texts/issue_categories.json';
-
 import rankings from '../data/rankings.json';
+import image from '../images/test_image.jpeg'
 
 export default function IssueProfile({
   issues,
@@ -29,6 +29,15 @@ export default function IssueProfile({
       null
     );
   };
+
+  const getImages = () => {
+    if (issues.specific_issues_data[selectedSpecificIssue].image_ids) {
+      return issues.specific_issues_data[selectedSpecificIssue].image_ids.map((id)=>{
+      return (<img src={`../images/${id}`} alt={"alt text"}/>)
+    })
+    }
+  }
+
 
   const getIssueStatement = () => {
     if (selectedSpecificIssue) {
@@ -272,9 +281,13 @@ export default function IssueProfile({
                 issues.specific_issues_data[selectedSpecificIssue]
                   .specific_issue_solutions.base_text
               )}
+              <div>{getImages()}</div>
 
               <ol>{getListSolution()}</ol>
             </div>
+
+
+
           </div>
         </div>
       )}

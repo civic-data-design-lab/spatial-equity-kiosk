@@ -174,9 +174,6 @@ function App() {
                 case "cR":
                     setColorRamps(pair[1]);
                     break;
-                case "tU":
-                    setToggleUnderperformers(pair[1] === "true");
-                    break;
                 case "ctC":
                     createCoords = ([JSON.parse(pair[1]).map((item) => {
                         return parseFloat(item.toString());
@@ -422,8 +419,6 @@ function App() {
             params.push(`mD=${mapDemographics.toString()}`);
         if (addCompare !== null) params.push(`aC=${addCompare.toString()}`);
         if (colorRamps !== null) params.push(`cR=${colorRamps}`);
-        if (toggleUnderperformers !== null)
-            params.push(`tU=${toggleUnderperformers}`);
 
 
         // TODO: save these states
@@ -441,11 +436,13 @@ function App() {
              params.push(`z=${viewState.primary.zoom}`)
          }*/
 
-        if (userPoints[0]?.length > 0) {
+
+        if (userPoints && userPoints[0]?.length > 0) {
+
             params.push(`ctC=[${userPoints[0][0]},${userPoints[0][1]}]`)
         }
 
-        if (userPoints[1]?.length > 0) {
+        if (userPoints && userPoints[1]?.length > 0) {
             params.push(`cpC=[${userPoints[1][0]},${userPoints[1][1]}]`)
         }
 

@@ -1757,7 +1757,7 @@
       "issue_units_shorthand": "Fatalities per 10,000 Residents",
       "specific_issue_units_sentence": "traffic fatalities per 10,000 residents",
       "issue_units_symbol": "",
-
+      "image_ids": ["test_image.jpeg"],
       "specific_issue_description": [
         {
           "text": "Traffic crashes kill approximately 250 New Yorkers every year. ",

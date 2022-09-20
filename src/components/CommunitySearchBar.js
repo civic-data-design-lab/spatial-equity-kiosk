@@ -128,11 +128,7 @@ export default function CommunitySearchBar({
                             ]);
                             setShowSearch(false);
                             const newCommunitySearch = getCommunitySearch([parseFloat(v.center[0].toFixed(3)), parseFloat(v.center[1].toFixed(3))], boundary)
-                            if (newCommunitySearch.length > 0) {
-                                setCommunitySearch(newCommunitySearch[0])
-                            } else {
-                                setCommunitySearch(null)
-                            }
+
                             e.target.blur();
                         } else {
                             setSearchSource("search");
@@ -219,6 +215,12 @@ export default function CommunitySearchBar({
                     }}
                     onClick={(e) => {
                         e.stopPropagation();
+                        callBack(null)
+                        if (forSearch) {
+                            setUserPoints([[], userPoints[1]])
+                        } else {
+                            setUserPoints([userPoints[0], []])
+                        }
                     }}
                     onFocus={(e) => {
                         e.stopPropagation()
@@ -249,16 +251,11 @@ export default function CommunitySearchBar({
                     }}*/
                     onChange={(e) => {
                         e.stopPropagation()
-                        callBack("");
+                        callBack(null);
                         setShowSearch(true);
                         setValue(e.target.value);
                         console.log("userPOints ", userPoints)
-                        if (primarySearch) {
-                            console.log("here")
-                            setUserPoints([[], userPoints[1]])
-                        } else {
-                            setUserPoints([userPoints[0], []])
-                        }
+
                     }}
                     value={toggleValue || value}
                 />

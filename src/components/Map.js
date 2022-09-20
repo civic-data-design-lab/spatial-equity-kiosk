@@ -651,14 +651,52 @@ export default function DeckMap({
             setCommunitySearch(newCommunitySearch[0]);
             setBadSearch([0, badSearch[1]]);
             setUserPoints([searchEngine, userPoints[1]]);
-            // move camera to new neighborhood
-            setViewState({
+
+            if (!compareSearch) {
+              setViewState({
               longitude: selectedCoord[0],
               latitude: selectedCoord[1],
               zoom: ZOOM_MAX - 0.5,
               transitionDuration: 500,
               transitionInerpolator: new LinearInterpolator(),
             });
+            } else {
+              const ptA = selectedCoord;
+          const ptB = selectedCompareCoord;
+          const maxDistance = !mapDemographics ? 25 : 15;
+          const ptCompareDistance =
+            distance(point(ptA), point(ptB)) < maxDistance
+              ? distance(point(ptA), point(ptB))
+              : maxDistance;
+
+          const remapZoom = !mapDemographics
+            ? map_range(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
+            : mapDemographics &&
+              map_range(
+                ptCompareDistance,
+                0.3,
+                maxDistance,
+                ZOOM_MAX,
+                ZOOM_MIN
+              ) -
+                0.5 >
+                ZOOM_MIN
+            ? map_range(
+                ptCompareDistance,
+                0.3,
+                maxDistance,
+                ZOOM_MAX,
+                ZOOM_MIN
+              ) - 0.5
+            : ZOOM_MIN;
+              setViewState({
+            longitude: (ptA[0] + ptB[0]) / 2,
+            latitude: (ptA[1] + ptB[1]) / 2,
+            zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
+            transitionDuration: 500,
+            transitionInerpolator: new LinearInterpolator(),
+          });
+            }
           }
           /*else {
             if (searchSource === 'click' || searchSource === 'search') {
@@ -782,6 +820,7 @@ export default function DeckMap({
   }
 
   useEffect(() => {
+    console.log('triggered communitySearch engine ', communitySearch)
     if (!addCompare || !communitySearch) {
       updateSearchEngine(selectedCoord, 0);
     }
