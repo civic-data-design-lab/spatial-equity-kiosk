@@ -33,7 +33,7 @@ export default function IssueProfile({
   const getImages = () => {
     if (issues.specific_issues_data[selectedSpecificIssue].image_ids) {
       return issues.specific_issues_data[selectedSpecificIssue].image_ids.map((id)=>{
-      return (<img src={`../images/${id}`} alt={"alt text"}/>)
+      return (<img src={`../../images/${id}`} alt={"alt text"}/>)
     })
     }
   }
@@ -181,7 +181,30 @@ export default function IssueProfile({
                 </thead>
                 <tbody>
                   {/*TODO: populate chart with ranking data*/}
-                  {rankings[boundary][
+                  {issues.specific_issues_data[selectedSpecificIssue].good_or_bad === 1 ?
+                      rankings[boundary][
+                    issues.specific_issues_data[selectedSpecificIssue]?.json_id
+                  ]
+
+                    .map((entry, index) => {
+                      return (
+                        <tr key={index} className={'issues-profile-table-row'}>
+                          <td>{entry.rank}</td>
+                          <td
+                            onClick={() => {
+                              setCommunitySearch(entry.community_ID);
+                              setSelectedChapter(3);
+                            }}
+                            className={'issues-profile-community-jump'}
+                          >
+                            {entry.community}
+                          </td>
+                          <td>{entry.data}</td>
+                        </tr>
+                      );
+                    }).reverse().slice(0, 5)
+                    :
+                      rankings[boundary][
                     issues.specific_issues_data[selectedSpecificIssue]?.json_id
                   ]
 
@@ -202,11 +225,35 @@ export default function IssueProfile({
                         </tr>
                       );
                     })
-                    .reverse()
-                    .slice(0, 5)}
+                    .slice(0, 5)
+                  }
 
-                  {expand &&
-                    rankings[boundary][
+                  {expand && issues.specific_issues_data[selectedSpecificIssue].good_or_bad === 1 ?
+                      rankings[boundary][
+                      issues.specific_issues_data[selectedSpecificIssue].json_id
+                    ]
+                      .map((entry, index) => {
+                        return (
+                          <tr
+                            key={index}
+                            className={'issues-profile-table-row'}
+                          >
+                            <td>{entry.rank}</td>
+                            <td
+                              onClick={() => {
+                                setCommunitySearch(entry.community_ID);
+                                setSelectedChapter(3);
+                              }}
+                              className={'issues-profile-community-jump'}
+                            >
+                              {entry.community}
+                            </td>
+                            <td>{entry.data}</td>
+                          </tr>
+                        );
+                      }).reverse().slice(5)
+                      : expand && issues.specific_issues_data[selectedSpecificIssue].good_or_bad === 0 ?
+                      rankings[boundary][
                       issues.specific_issues_data[selectedSpecificIssue].json_id
                     ]
                       .map((entry, index) => {
@@ -229,8 +276,8 @@ export default function IssueProfile({
                           </tr>
                         );
                       })
-                      .reverse()
-                      .slice(5)}
+                      .slice(5) : null
+                  }
                 </tbody>
               </Table>
 

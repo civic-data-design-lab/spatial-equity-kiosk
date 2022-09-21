@@ -53,12 +53,53 @@ export default function IssuesTags({
             </div>}
 
 
+            {!compareSearch ?
+                <div className={"issue-tags-container"}>
+                {
+                    issues.all_issues_id
+                        .filter(id => (leastPerforming && !leastPerforming.includes(id)) && (moreIssues && !moreIssues.includes(id)))
+                        .map((id, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className={`${(moreIssues && !moreIssues.includes(id)) ? "inactive-tag" : "active-tag"} issues-tag col-gap`}
 
+                                    onClick={() => {
+                                        if ((moreIssues && !moreIssues.includes(id))) {
+                                            let newMoreIssues = moreIssues
+                                            newMoreIssues.push(id)
+                                            setMoreIssues(newMoreIssues)
+                                            setMoreIssuesLength(moreIssues + 1)
+
+                                        } else {
+                                            let newMoreIssues = moreIssues
+                                            newMoreIssues = newMoreIssues.filter(issue => issue !== id)
+                                            setMoreIssues(newMoreIssues)
+                                            setMoreIssuesLength(moreIssues - 1)
+                                        }
+                                    }}
+                                >
+                                    <p className={"m-0"}>
+
+                                        {id !== 6 && id !== 5 ?
+                                            issues.specific_issues_data[id].specific_issue_name :
+                                            issues.specific_issues_data[id].specific_issue_ID === 6 ? "Permeable Surfaces" :
+                                                "Heat"
+                                        }</p>
+                                    {(moreIssues && !moreIssues.includes(id)) ? <FontAwesomeIcon icon={faPlus}/> :
+                                        <FontAwesomeIcon icon={faPlus}/>}
+                                </div>
+                            )
+                        })
+
+
+                }
+
+            </div> :
 
                 <div className={"issue-tags-container"}>
                     {
                         issues.all_issues_id
-                            .filter(id => (leastPerforming && !leastPerforming.includes(id)) && (moreIssues && !moreIssues.includes(id)))
                             .map((id, index) => {
                                 return (
                                     <div
@@ -97,6 +138,8 @@ export default function IssuesTags({
                     }
 
                 </div>
+
+            }
 
 
         </div>)
