@@ -35,18 +35,14 @@ const getDataToVis = (rawIssueData, selectedSpecificIssue, issues) => {
   let ascending;
   let lookupArray = [];
 
-  if (issues.specific_issues_data[selectedSpecificIssue].good_or_bad > 0 ) {
+  if (issues.specific_issues_data[selectedSpecificIssue].good_or_bad > 0) {
     rawIssueData.sort((a, b) => a.rank - b.rank);
   } else {
     rawIssueData.sort((a, b) => b.rank - a.rank);
   }
 
-
-
-
-
   for (let [index, value] of Object.entries(rawIssueData)) {
-    valueArray.push(Number(Number(value.data).toFixed(1)));
+    valueArray.push(Number(Number(value.data).toFixed(3)));
     nameArray.push(value.community);
     lookupArray.push(value.community_ID);
   }
@@ -365,7 +361,7 @@ const Histogram = ({
                 ? d3.min(data).toFixed(0)
                 : d3.min(data) >= 1
                 ? d3.min(data).toFixed(1)
-                : d3.min(data).toFixed(1)
+                : d3.min(data).toFixed(2)
             }${metricSymbol}`
       );
 
@@ -383,15 +379,15 @@ const Histogram = ({
                 ? d3.max(data).toFixed(0)
                 : d3.max(data) >= 1
                 ? d3.max(data).toFixed(1)
-                : d3.max(data)
-            }`
+                : d3.max(data).toFixed(2)
+            }${metricSymbol}`
           : `${lowStatement} ${getIssueStatement()} ${
               d3.min(data) >= 10
                 ? d3.min(data).toFixed(0)
                 : d3.min(data) >= 1
                 ? d3.min(data).toFixed(1)
-                : d3.min(data).toFixed(1)
-            } ${metricSymbol}`
+                : d3.min(data).toFixed(2)
+            }${metricSymbol}`
       );
 
     // draw reset button
@@ -477,7 +473,7 @@ const Histogram = ({
             ? avg.toFixed(0)
             : avg >= 1
             ? avg.toFixed(1)
-            : avg.toFixed(1)
+            : avg.toFixed(2)
         }${metricSymbol} ${getIssueStatement()}`
       );
 
@@ -546,7 +542,11 @@ const Histogram = ({
           .attr('lookupID', lookupArray[rectID])
           .text(
             `${
-              data[rectID] >= 10 ? data[rectID].toFixed(0) : data[rectID]
+              data[rectID] >= 10
+                ? data[rectID].toFixed(0)
+                : data[rectID] >= 1
+                ? data[rectID].toFixed(1)
+                : data[rectID].toFixed(2)
             }${metricSymbol} ${getIssueStatement()}`
           );
       })
