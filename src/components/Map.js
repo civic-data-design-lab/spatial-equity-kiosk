@@ -448,7 +448,9 @@ export default function DeckMap({
       infoTransfer.selectedMetric != null
         ? accessor[infoTransfer.selectedMetric] >= 10
           ? accessor[infoTransfer.selectedMetric].toFixed(0)
-          : accessor[infoTransfer.selectedMetric].toFixed(1)
+          : accessor[infoTransfer.selectedMetric] >= 1
+          ? accessor[infoTransfer.selectedMetric].toFixed(1)
+          : accessor[infoTransfer.selectedMetric].toFixed(2)
         : ''
     }${
       issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !=
@@ -1497,8 +1499,8 @@ export default function DeckMap({
                   }{' '}
                   by{' '}
                   {boundary == 'community'
-                    ? 'Community Boards'
-                    : 'City Districts'}
+                    ? 'Community Board'
+                    : 'City Council Districts'}
                 </div>
               </div>
             )}
@@ -1525,8 +1527,8 @@ export default function DeckMap({
                   }{' '}
                   by{' '}
                   {boundary == 'community'
-                    ? 'Community Boards'
-                    : 'City Districts'}
+                    ? 'Community Board'
+                    : 'City Council Districts'}
                 </div>
               </div>
             )}
