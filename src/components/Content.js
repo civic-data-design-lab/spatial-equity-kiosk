@@ -67,6 +67,8 @@ export default function Content({
   setCouncilPinned,
   setCollapseMap,
   collapseMap,
+  adultAsthma,
+  setAdultAsthma
 }) {
   return (
     <div className={`d-flex flex-row col-9`}>
@@ -134,6 +136,8 @@ export default function Content({
                         info={info}
                         setCollapseMap={setCollapseMap}
                         collapseMap={collapseMap}
+                        adultAsthma={adultAsthma}
+                        setAdultAsthma={setAdultAsthma}
                     />
                 )}
 
@@ -170,7 +174,7 @@ export default function Content({
         {(!selectedChapter || selectedChapter === 1) && (
           <iframe
             className={'video'}
-            src="https://www.youtube.com/embed/Tkculqh0Ha8"
+            src="https://www.youtube.com/embed/Tkculqh0Ha8?autoplay=1&mute=1"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

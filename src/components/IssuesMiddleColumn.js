@@ -48,7 +48,8 @@ export default function IssuesMiddleColumn({
   showMap,
   binList,
   info,
-  collapseMap,
+  adultAsthma,
+  setAdultAsthma
 }) {
   // console.log("demoLegend in issuesmiddle ", demoLegendBins)
 
@@ -222,6 +223,9 @@ export default function IssuesMiddleColumn({
                 binList={binList}
                 info={info}
                 selectedChapter={selectedChapter}
+                adultAsthma={adultAsthma}
+                setAdultAsthma={setAdultAsthma}
+                setSelectedSpecificIssue={setSelectedSpecificIssue}
               />
             )}
         </div>
@@ -316,6 +320,9 @@ export default function IssuesMiddleColumn({
                 binList={binList}
                 info={info}
                 selectedChapter={selectedChapter}
+                adultAsthma={adultAsthma}
+                setAdultAsthma={setAdultAsthma}
+                setSelectedSpecificIssue={setSelectedSpecificIssue}
               />
             )}
 
@@ -345,9 +352,9 @@ export default function IssuesMiddleColumn({
           }
         }}
       >
-        <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Infrastructure</h5>
+        <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Mobility</h5>
         <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
-          Policies about the use of public space in New York City affect mobility and access to the built environment. Infrastructure indicators of spatial equity include bike parking, bus lanes and busways, bus speeds, protected bike lanes, seating, and traffic density.
+          Policies about the use of public space in New York City affect mobility and access to the built environment. Mobility indicators of spatial equity include bike parking, bus lanes and busways, bus speeds, protected bike lanes, seating, and traffic density.
         </p>
       </div>
       <div
@@ -408,6 +415,9 @@ export default function IssuesMiddleColumn({
                 binList={binList}
                 info={info}
                 selectedChapter={selectedChapter}
+                adultAsthma={adultAsthma}
+                setAdultAsthma={setAdultAsthma}
+                setSelectedSpecificIssue={setSelectedSpecificIssue}
               />
             )}
         </div>

@@ -1,16 +1,16 @@
 {
-  "all_issues_id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+  "all_issues_id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
   "issues_data": {
     "health": {
-      "specific_issues_ID": [1, 7, 13, 14],
+      "specific_issues_ID": [1, 7, 13, 14, 10, 16],
       "issue_description": "Health Description"
     },
     "environment": {
-      "specific_issues_ID": [10, 5, 6, 15],
+      "specific_issues_ID": [5, 6, 15, 4],
       "issue_description": "Environment Description"
     },
     "infrastructure": {
-      "specific_issues_ID": [8, 3, 2, 4, 11, 12, 9],
+      "specific_issues_ID": [8, 3, 2, 11, 12, 9],
       "issue_description": "Infrastructure Description"
     }
   },
@@ -106,7 +106,7 @@
               "source": "https://pubmed.ncbi.nlm.nih.gov/24215538/"
             },
             {
-              "text": "."
+              "text": " fewer indoor particulate pollutants than a street with none."
             }
           ],
           [
@@ -553,7 +553,7 @@
           ]
         ]
       },
-      "issue_type_ID": 3,
+      "issue_type_ID": 2,
       "good_or_bad": 0,
       "json_id": "F26_ParkAc",
       "issue_hi_low": ["most", "fewest"],
@@ -630,7 +630,7 @@
               "bolded": true
             },
             {
-              "text": "by replacing one parking lane on north-south streets (which are ",
+              "text": " by replacing one parking lane on north-south streets (which are ",
               "hyperlink": "hotter than",
               "source": "https://gothamist.com/news/see-how-temperatures-in-manhattan-differ-from-block-to-block"
             },
@@ -724,10 +724,10 @@
     },
     "6": {
       "specific_issue_ID": 6,
-      "specific_issue_name": "Permeable Surfaces",
+      "specific_issue_name": "Road Permeability",
       "specific_issue_units": "Square Feet of Stormwater Greenstreets and Bioswales per Block",
       "issue_units_shorthand": "Permeable Surface per Block",
-      "specific_issue_units_sentence": "Permeable Surfaces",
+      "specific_issue_units_sentence": "Road Permeability",
       "issue_units_symbol": "ft²",
 
       "specific_issue_description": [
@@ -1457,7 +1457,7 @@
           ]
         ]
       },
-      "issue_type_ID": 2,
+      "issue_type_ID": 1,
       "good_or_bad": 1,
       "json_id": "F15_PM25Me",
       "issue_hi_low": ["highest", "lowest"],
@@ -1687,7 +1687,7 @@
               "source": "https://nyc25x25.org/methodology.html"
             },
             {
-              "text": " of New York City’s parking spaces are metered. The introduction of demand-based metered parking has been shown to traffic density by ",
+              "text": " of New York City’s parking spaces are metered. The introduction of demand-based metered parking has been shown to decrease traffic density by ",
               "hyperlink": "30 percent",
               "source": "https://www.sfmta.com/sites/default/files/reports-and-documents/2018/08/sfpark_pilot_project_evaluation.pdf"
             },
@@ -1978,7 +1978,7 @@
               "source": "https://www1.nyc.gov/html/dot/downloads/pdf/safety-treatment-evaluation-2005-2018.pdf"
             },
             {
-              "text": ".",
+              "text": ". ",
               "hyperlink": "Chicanes",
               "source": "https://nacto.org/publication/urban-street-design-guide/street-design-elements/curb-extensions/chicane/"
             },
@@ -2220,6 +2220,22 @@
       "year": "2014",
       "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/VisualizationData.aspx?id=2157,719b87,104,Summarize",
       "related": [10, 1, 5]
+    },
+    "16": {
+      "specific_issue_ID": 1,
+      "specific_issue_name": "Asthma",
+      "specific_issue_units": "Per 10,000 Residents",
+      "issue_units_shorthand": "",
+      "specific_issue_units_sentence": "asthma per 10,000 residents",
+      "issue_units_symbol": "",
+      "issue_type_ID": 1,
+      "good_or_bad": 1,
+      "json_id": "P_Adt_Asth",
+      "issue_hi_low": ["most", "fewest"],
+      "specific_issue_source": "New York State Statewide Planning and Research Cooperative System (SPARCS) Deidentified Hospital Discharge Data",
+      "year": "2017",
+      "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/Subtopic.aspx?theme_code=2,3&subtopic_id=11",
+      "related": [10, 12, 15]
     }
   }
 }

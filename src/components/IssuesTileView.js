@@ -85,7 +85,7 @@ export default function IssuesTileView({
             </div>
           </div>
 
-          <div className={'issues-tile-body h-100 m-0 pt-0'}>
+          <div className={'issues-tile-body h-100'}>
             <div className={'issue-tile-viz'}>
               <div>
                 <h5

@@ -89,6 +89,8 @@ function App() {
     const [collapseMap, setCollapseMap] = useState(false)
     const [collapseMapToggle, setCollapseMapToggle] = useState(false)
 
+    const [adultAsthma, setAdultAsthma] = useState(true)
+
     // console.log(collapseMap)
 
     // console.log(demoColorRamp)
@@ -673,6 +675,8 @@ function App() {
                         setCouncilPinned={setCouncilPinned}
                         setCollapseMap={setCollapseMap}
                         collapseMap={collapseMap}
+                        adultAsthma={adultAsthma}
+                        setAdultAsthma={setAdultAsthma}
                     />
 
                     <div className={`${showMap ? "show-map" : "hide-map"} map-container`}>

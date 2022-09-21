@@ -332,6 +332,7 @@ function Nav({
                     setMapDemographics(false);
                     setMoreIssuesLength(0);
                     setMoreIssues([]);
+                    setShowMap(false)
                     if (selectedChapter === 3) {
                         selectedCoordsCache.current = userPoints;
                         selectedCommunitiesCache.current = [communitySearch, compareSearch];
@@ -339,10 +340,8 @@ function Nav({
                     }
                     if (selectedChapter !== 4) {
                         setSelectedChapter(4);
-                        setShowMap(false);
                     } else {
                         setSelectedChapter(null);
-                        setShowMap(false);
                     }
                 }}
             >
@@ -390,7 +389,7 @@ function Nav({
                                     e.stopPropagation();
                                 }}
                             >
-                                <a target="_blank" href={`//www.twitter.com/transalt`}>
+                                <a target="_blank" href={`//www.instagram.com/transportationalternatives/`}>
                                     <FontAwesomeIcon icon={faInstagram}/>
                                 </a>
                             </div>
@@ -401,7 +400,7 @@ function Nav({
                             >
                                 <a
                                     target="_blank"
-                                    href={`//www.instagram.com/transportationalternatives/`}
+                                    href={`//www.twitter.com/transalt`}
                                 >
                                     <FontAwesomeIcon icon={faTwitter}/>
                                 </a>
