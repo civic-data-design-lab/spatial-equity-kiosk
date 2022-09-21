@@ -857,7 +857,7 @@ export default function DeckMap({
   }
 
   useEffect(() => {
-    console.log('triggered communitySearch engine ', communitySearch);
+    // console.log('triggered communitySearch engine ', communitySearch);
     if (!addCompare || !communitySearch) {
       updateSearchEngine(selectedCoord, 0);
     }
