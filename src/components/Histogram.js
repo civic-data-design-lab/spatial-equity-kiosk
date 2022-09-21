@@ -29,13 +29,21 @@ const colorInterpolate = (colorA, colorB, intval) => {
   return [colorVal('r'), colorVal('g'), colorVal('b')];
 };
 
-const getDataToVis = (rawIssueData) => {
+const getDataToVis = (rawIssueData, selectedSpecificIssue, issues) => {
   let valueArray = [];
   let nameArray = [];
   let ascending;
   let lookupArray = [];
 
-  rawIssueData.sort((a, b) => b.rank - a.rank);
+  if (issues.specific_issues_data[selectedSpecificIssue].good_or_bad > 0 ) {
+    rawIssueData.sort((a, b) => a.rank - b.rank);
+  } else {
+    rawIssueData.sort((a, b) => b.rank - a.rank);
+  }
+
+
+
+
 
   for (let [index, value] of Object.entries(rawIssueData)) {
     valueArray.push(Number(Number(value.data).toFixed(1)));
@@ -155,7 +163,7 @@ const Histogram = ({
       issues.specific_issues_data[selectedSpecificIssue]?.json_id
     ];
   let [data, nameArray, avg, avgIndex, avgRectID, ascending, lookupArray] =
-    getDataToVis(rawIssueData);
+    getDataToVis(rawIssueData, selectedSpecificIssue, issues);
   let colorArray = [];
 
   for (let i = 0; i < data.length; i++) {
