@@ -415,7 +415,7 @@ export default function DeckMap({
       : '';
 
     const suffix = {
-      0:"th",
+      0: 'th',
       1: 'st',
       2: 'nd',
       3: 'rd',
@@ -662,48 +662,54 @@ export default function DeckMap({
 
             if (!compareSearch) {
               setViewState({
-              longitude: selectedCoord[0],
-              latitude: selectedCoord[1],
-              zoom: ZOOM_MAX - 0.5,
-              transitionDuration: 500,
-              transitionInerpolator: new LinearInterpolator(),
-            });
+                longitude: selectedCoord[0],
+                latitude: selectedCoord[1],
+                zoom: ZOOM_MAX - 0.5,
+                transitionDuration: 500,
+                transitionInerpolator: new LinearInterpolator(),
+              });
             } else {
               const ptA = selectedCoord;
-          const ptB = selectedCompareCoord;
-          const maxDistance = !mapDemographics ? 25 : 15;
-          const ptCompareDistance =
-            distance(point(ptA), point(ptB)) < maxDistance
-              ? distance(point(ptA), point(ptB))
-              : maxDistance;
+              const ptB = selectedCompareCoord;
+              const maxDistance = !mapDemographics ? 25 : 15;
+              const ptCompareDistance =
+                distance(point(ptA), point(ptB)) < maxDistance
+                  ? distance(point(ptA), point(ptB))
+                  : maxDistance;
 
-          const remapZoom = !mapDemographics
-            ? map_range(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
-            : mapDemographics &&
-              map_range(
-                ptCompareDistance,
-                0.3,
-                maxDistance,
-                ZOOM_MAX,
-                ZOOM_MIN
-              ) -
-                0.5 >
-                ZOOM_MIN
-            ? map_range(
-                ptCompareDistance,
-                0.3,
-                maxDistance,
-                ZOOM_MAX,
-                ZOOM_MIN
-              ) - 0.5
-            : ZOOM_MIN;
+              const remapZoom = !mapDemographics
+                ? map_range(
+                    ptCompareDistance,
+                    0.3,
+                    maxDistance,
+                    ZOOM_MAX,
+                    ZOOM_MIN
+                  )
+                : mapDemographics &&
+                  map_range(
+                    ptCompareDistance,
+                    0.3,
+                    maxDistance,
+                    ZOOM_MAX,
+                    ZOOM_MIN
+                  ) -
+                    0.5 >
+                    ZOOM_MIN
+                ? map_range(
+                    ptCompareDistance,
+                    0.3,
+                    maxDistance,
+                    ZOOM_MAX,
+                    ZOOM_MIN
+                  ) - 0.5
+                : ZOOM_MIN;
               setViewState({
-            longitude: (ptA[0] + ptB[0]) / 2,
-            latitude: (ptA[1] + ptB[1]) / 2,
-            zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
-            transitionDuration: 500,
-            transitionInerpolator: new LinearInterpolator(),
-          });
+                longitude: (ptA[0] + ptB[0]) / 2,
+                latitude: (ptA[1] + ptB[1]) / 2,
+                zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
+                transitionDuration: 500,
+                transitionInerpolator: new LinearInterpolator(),
+              });
             }
           }
           /*else {
@@ -828,7 +834,7 @@ export default function DeckMap({
   }
 
   useEffect(() => {
-    console.log('triggered communitySearch engine ', communitySearch)
+    console.log('triggered communitySearch engine ', communitySearch);
     if (!addCompare || !communitySearch) {
       updateSearchEngine(selectedCoord, 0);
     }
@@ -1159,19 +1165,19 @@ export default function DeckMap({
       getFillColor: (d) => {
         let color;
         switch (d.properties.EthnicityCode) {
-          case '1':
+          case 1:
             color = ethnicityColors.Latino.deckFormat; // latino
             break;
-          case '2':
+          case 2:
             return ethnicityColors.White.deckFormat; // white
             break;
-          case '3':
+          case 3:
             return ethnicityColors.Black.deckFormat; // black
             break;
-          case '4':
+          case 4:
             return ethnicityColors.Indigenous.deckFormat; // indigenous
             break;
-          case '5':
+          case 5:
             return ethnicityColors.Asian.deckFormat; // asian
             break;
           default:
