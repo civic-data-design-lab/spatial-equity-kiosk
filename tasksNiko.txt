@@ -1,30 +1,10 @@
-Bug Fix:
-Pressing enter should close the dropdown (or pressing enter)
-escaping the search box then disables the search results show up 
-legend reflects the map domain and range, but it becomes misleading in tile view
-
-Map
-    - revert to original scroll method and figure out how to update viewstate that way. (WIP works but get non-breaking error)
-
-General
-    - introduction text should always be available on Spatial Equity chapter?
-
-next up:
-after selecting a neighborhood, switching between admin scales messes it up
-
-
 Chance:
-Vertical histogram
-Way to hide the line behind the histogram?
 flip values so bad neighborhoods are at the top
-Left allign the bar, put the x on the right side, remove the arrow
-Color legend for the histogram boroughs
 
-Bar chart:
-Walk Bike or Ride transit text needs to be fixed 
+Niko
+new data upload
+race and ethnicity scatterplot
 
-Horizontal histogram
-min and max need to be replaced with more specific wording, like the vertical histogram
-number values should go at bottom of histogram
-add units when possible
-"Citywide Average" as opposed to "NYC"
+symbol on legend
+scale up tree canopy cover
+need to have the selected districts highlighted on the table
