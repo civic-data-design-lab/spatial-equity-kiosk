@@ -32,9 +32,11 @@ export default function IssueProfile({
   const getImages = () => {
     const ids = issues.specific_issues_data[selectedSpecificIssue].image_ids;
     if (ids) {
-      return ids.map((id)=>{
-        return <img className={"issue-tile-image"}  src={`/${id}`} alt={"alt text"}/>;
-      })
+      return (<div>
+        {ids.map((id, index)=>{
+          return <img className={`issue-tile-image ${index>0?"mt-2":""}`}  src={`/${id}`} alt={"alt text"}/>;
+        })}
+      </div>)
     }
   }
 
