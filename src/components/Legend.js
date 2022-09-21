@@ -560,9 +560,8 @@ export default function Legend({
                       : 'mb-3 small-font'
                   }
                 >
-                  {selectedChapter == 3 ? '' : 'Citywide'} {demoLookup.name}{' '}
-                  {selectedChapter == 3 ? 'in' : ''}{' '}
-                  <span className={'underline bold'}>{neighborhoodName}</span>
+                  {demoLookup.name} {selectedChapter == 3 ? 'in' : ''}{' '}
+                  <span className={'underline bold'}>{neighborhoodName}.</span>
                 </p>
               ) : (
                 <p
@@ -592,6 +591,7 @@ export default function Legend({
                       'Citywide Commuters Who Drive Alone to Work'
                     ? 'drive alone to work'
                     : 'bike, walk, or ride transit'}
+                  .
                 </p>
               )}
 
