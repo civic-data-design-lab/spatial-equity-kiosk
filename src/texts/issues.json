@@ -1754,9 +1754,9 @@
     "13": {
       "specific_issue_ID": 13,
       "specific_issue_name": "Traffic Fatalities",
-      "specific_issue_units": "Per 10,000 Residents",
-      "issue_units_shorthand": "Fatalities per 10,000 Residents",
-      "specific_issue_units_sentence": "traffic fatalities per 10,000 residents",
+      "specific_issue_units": "Per 10,000 Residents (2014-2022)",
+      "issue_units_shorthand": "Fatalities per 10,000 Residents (2014-2022)",
+      "specific_issue_units_sentence": "traffic fatalities per 10,000 residents (2014-2022)",
       "issue_units_symbol": "",
       "image_ids": ["F20_TrfKil_1.jpeg", "F20_TrfKil_2.jpeg"],
       "specific_issue_description": [
@@ -1909,9 +1909,9 @@
     "14": {
       "specific_issue_ID": 14,
       "specific_issue_name": "Traffic Injuries",
-      "specific_issue_units": "Per 10,000 residents",
-      "issue_units_shorthand": "Injuries per 10,000 Residents",
-      "specific_issue_units_sentence": "traffic injuries per 10,000 residents",
+      "specific_issue_units": "Per 10,000 residents (2014-2022)",
+      "issue_units_shorthand": "Injuries per 10,000 Residents (2014-2022)",
+      "specific_issue_units_sentence": "traffic injuries per 10,000 residents (2014-2022)",
       "issue_units_symbol": "",
       "image_ids": ["F21_TrfInj_1.jpeg", "F21_TrfInj_2.jpeg"],
       "specific_issue_description": [

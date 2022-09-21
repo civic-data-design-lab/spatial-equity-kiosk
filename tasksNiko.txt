@@ -1,13 +1,6 @@
-Chance:
-flip values so bad neighborhoods are at the top
-
 Niko
-new data upload
-race and ethnicity scatterplot
-
-symbol on legend
-scale up tree canopy cover
 need to have the selected districts highlighted on the table
 fix margin on scrollbar jesus crhoist
-
 check how the citywide stats are being calculated
+on first click, zoom doesn't work
+zoom out further when the community profiles tab is open so you can see both communities
