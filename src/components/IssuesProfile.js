@@ -9,7 +9,6 @@ import {
 import Table from 'react-bootstrap/Table';
 import categories from '../texts/issue_categories.json';
 import rankings from '../data/rankings.json';
-import image from '../images/test_image.jpeg'
 
 export default function IssueProfile({
   issues,
@@ -31,10 +30,11 @@ export default function IssueProfile({
   };
 
   const getImages = () => {
-    if (issues.specific_issues_data[selectedSpecificIssue].image_ids) {
-      return issues.specific_issues_data[selectedSpecificIssue].image_ids.map((id)=>{
-      return (<img src={`../../images/${id}`} alt={"alt text"}/>)
-    })
+    const ids = issues.specific_issues_data[selectedSpecificIssue].image_ids;
+    if (ids) {
+      return ids.map((id)=>{
+        return <img className={"issue-tile-image"}  src={`/${id}`} alt={"alt text"}/>;
+      })
     }
   }
 
