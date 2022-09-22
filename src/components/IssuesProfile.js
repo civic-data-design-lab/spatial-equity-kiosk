@@ -17,7 +17,7 @@ export default function IssueProfile({
 }) {
   const [expand, setExpand] = useState(false);
 
-  console.log('communitySearch ', communitySearch);
+  // console.log('communitySearch ', communitySearch);
 
   const getIssueName = () => {
     return (
@@ -36,7 +36,7 @@ export default function IssueProfile({
               <img
                 className={`issue-tile-image ${index > 0 ? 'mt-2' : ''}`}
                 src={`/${id}`}
-                alt={'alt text'}
+                alt={''}
               />
             );
           })}
@@ -118,7 +118,7 @@ export default function IssueProfile({
     return issues.specific_issues_data[
       selectedSpecificIssue
     ].specific_issue_solutions.solutions_list.map((solution) => {
-      return <li style={{ padding: '2rem' }}>{getHyperlinkText(solution)}</li>;
+      return <li style={{ padding: '1rem' }}>{getHyperlinkText(solution)}</li>;
     });
   };
 
@@ -128,12 +128,12 @@ export default function IssueProfile({
         <div className={'issues-tile-text-container'}>
           <div className={'issues-tile-solutions issues-tile-text'}>
             <h5 className={'d-inline-block bold py-3'}>Solutions</h5>
-            <div>
+            <div className="small-font">
               {getHyperlinkText(
                 issues.specific_issues_data[selectedSpecificIssue]
                   .specific_issue_solutions.base_text
               )}
-              <div>{getImages()}</div>
+              <div className={'pb-3'}>{getImages()}</div>
 
               <ol>{getListSolution()}</ol>
             </div>

@@ -92,7 +92,12 @@ export default function IssuesTileView({
           <div className={'issues-tile-body h-100'}>
             <div className={'issue-tile-viz'}>
               <div>
-                <h5 className={'d-inline-block bold py-3'}>{getIssueName()}</h5>
+                <h5
+                  className={'d-inline-block bold py-3'}
+                  style={{ paddingRight: '1rem' }}
+                >
+                  {getIssueName()}
+                </h5>
                 <div
                   onMouseEnter={() => {
                     setShowInfo(true);

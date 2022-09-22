@@ -2,8 +2,6 @@ Kelly
 on first click, zoom doesn't work
 
 Niko
-move the table to the histogram column > solutions go up, remove bold from solutions text
-create little I for source info
 abbreviate histogram text to just name
 zoom out further when the community profiles tab is open so you can see both communities
 check how the citywide stats are being calculated

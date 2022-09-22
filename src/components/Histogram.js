@@ -982,9 +982,7 @@ const Histogram = ({
               <input
                 type="checkbox"
                 onChange={(e) => {
-                  console.log(toggleDisplayMode);
                   setToggleDisplayMode(!toggleDisplayMode);
-                  //if (e.target.checked) {}
                 }}
               />
               <span className="slider round"></span>
@@ -1027,9 +1025,11 @@ const Histogram = ({
           )}
         </div>
 
-        {useBoroughColor && !toggleDisplayMode ? (
+        {!toggleDisplayMode ? (
           <div
-            className={'d-flex flex-row osition-relative'}
+            className={`${
+              useBoroughColor ? '' : 'invisible'
+            } d-flex flex-row osition-relativ`}
             style={{
               justifyContent: 'start',
               flexGrow: '1',

@@ -2190,7 +2190,10 @@ input:checked+.slider:before {
 .issue-tile-image {
     object-fit: cover;
     width: 100%;
+    border: 1px solid black;
+    cursor: pointer;
 }
+
 
 
 
