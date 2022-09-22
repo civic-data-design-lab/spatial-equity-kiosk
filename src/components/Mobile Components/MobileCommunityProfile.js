@@ -345,6 +345,8 @@ export default function MobileCommunityProfile({
 
                 <div
                     style={{
+                        position:"relative",
+                        zIndex:1,
                         height: "calc(100vh - 4.025rem - .3vw - 5vh - 7vh)"
                     }}
                 >{!showMap &&
@@ -362,13 +364,13 @@ export default function MobileCommunityProfile({
 
                 <div className={"selected-issue-card"}
                      style={{
-                         transition: "height 0.5s",
-                         height: !selectedSpecificIssue ? "0" : (!showMap && showDemographics) || (showMap && showLegend) ? "calc(60vh - 5vh - 4.025rem - .3vw)" : "calc(100vh - 5vh - 4.025rem - .3vw)",
+                         transition: "height 0.5s, top 0.5s",
+                         height: "calc(100vh - 5vh - 4.025rem - .3vw)",
                          backgroundColor: "white",
                          position: "absolute",
                          zIndex: 2,
                          width: "100vw",
-                         bottom: "0"
+                         top: `${!selectedSpecificIssue ? "100vh" : "calc(4.025rem + .3vw + 5vh"}`
                      }}
                 >
                     <div
@@ -396,11 +398,12 @@ export default function MobileCommunityProfile({
                     <div
                         className={"selected-issue-card-body"}
                         style={{
-                            height: "calc(83vh - 4.025rem - 0.3vw)",
+                            height: `${(!showMap && showDemographics) || (showMap && showLegend) ? "calc(50vh - 4.025rem - 0.3vw)" : "calc(83vh - 4.025rem - 0.3vw)"}`,
                             backgroundColor: "white",
                             color: "black",
                             padding: "1rem",
-                            overflow: "auto"
+                            overflow: "auto",
+                            transition: "height 0.5s"
                         }}
                     >
 
