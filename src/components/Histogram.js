@@ -7,6 +7,8 @@ import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import { useResizeObserver } from '../utils/useResizeObserver';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import Table from 'react-bootstrap/Table';
+import rankings from '../data/rankings.json';
 
 const getRgb = (color) => {
   let [r, g, b] = Array.from(color);
@@ -93,6 +95,8 @@ const Histogram = ({
   setCouncilPinned,
   setCommunitySearch,
   setSelectedChapter,
+  communitySearch,
+  compareSearch,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
@@ -143,6 +147,9 @@ const Histogram = ({
   const [currentHoveredCommunityID, setCurrentHoveredCommunityID] =
     useState('');
   const [useBoroughColor, setUseBoroughColor] = useState(false);
+
+  const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
+  const [expand, setExpand] = useState(true);
 
   const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
@@ -637,13 +644,13 @@ const Histogram = ({
     //     if (boundary == 'council')
     //       setCouncilPinned(
     //         councilPinned.filter(
-    //           (d, _) => d !== d3.select(this).attr('lookupID')
+    // (d, _) => d !== d3.select(this).attr('lookupID')
     //         )
     //       );
     //     else
     //       setCommunityPinned(
     //         communityPinned.filter(
-    //           (d, _) => d !== d3.select(this).attr('lookupID')
+    // (d, _) => d !== d3.select(this).attr('lookupID')
     //         )
     //       );
     //   });
@@ -959,36 +966,68 @@ const Histogram = ({
           flexWrap: 'wrap',
         }}
       >
-        <div className={'d-flex flex-column position-relative'}>
-          <div
-            className={`big-button ${
-              useBoroughColor ? 'big-button-active' : 'big-button-inactive'
-            }`}
-            style={
-              {
-                //   height: '25px',
-              }
-            }
-            onClick={() => {
-              setUseBoroughColor(!useBoroughColor);
-            }}
-          >
-            <div>
-              <p className={'mb-0 small-font'}>
-                {useBoroughColor ? 'Hide Borough' : 'Show Borough'}
-              </p>
-            </div>
-            <div>
-              {useBoroughColor ? (
-                <FontAwesomeIcon icon={faMinus} />
-              ) : (
-                <FontAwesomeIcon icon={faPlus} />
-              )}
-            </div>
+        <div
+          // className={
+          //   'd-flex flex-row justify-content-between align-items-center col-gap'
+          // }
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'auto auto',
+            alignContent: 'start',
+            width: '100%',
+          }}
+        >
+          <div className={`d-flex switch-container flex-row `}>
+            <label className="switch">
+              <input
+                type="checkbox"
+                onChange={(e) => {
+                  console.log(toggleDisplayMode);
+                  setToggleDisplayMode(!toggleDisplayMode);
+                  //if (e.target.checked) {}
+                }}
+              />
+              <span className="slider round"></span>
+            </label>
+
+            <p className={'small-font d-inline-block big-button border-0'}>
+              {toggleDisplayMode ? `Show Rankings` : `Show Chart`}
+            </p>
           </div>
+
+          {!toggleDisplayMode && (
+            <div>
+              <div
+                className={`big-button ${
+                  useBoroughColor ? 'big-button-active' : 'big-button-inactive'
+                } small-font`}
+                style={{
+                  display: 'inline-block',
+                  justifyContent: '',
+                  width: 'auto',
+                }}
+                onClick={() => {
+                  setUseBoroughColor(!useBoroughColor);
+                }}
+              >
+                {useBoroughColor ? `Hide Borough ` : `Show Borough `}
+                {useBoroughColor ? (
+                  <FontAwesomeIcon
+                    className={'mb-0 small-font'}
+                    icon={faMinus}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    className={'mb-0 small-font'}
+                    icon={faPlus}
+                  />
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
-        {useBoroughColor ? (
+        {useBoroughColor && !toggleDisplayMode ? (
           <div
             className={'d-flex flex-row osition-relative'}
             style={{
@@ -1095,14 +1134,18 @@ const Histogram = ({
 
       <div
         ref={containerRef}
-        style={{
-          // height: '100%',
-          width: '100%',
-          flexGrow: 1,
-        }}
+        style={
+          !toggleDisplayMode
+            ? {
+                width: '100%',
+                flexGrow: 1,
+                padding: '0.5rem 0 0 0',
+              }
+            : { width: '100%', flexGrow: 1, padding: '1rem 0' }
+        }
         className={'position-relative'}
       >
-        <svg ref={ref}>
+        <svg display={toggleDisplayMode ? 'none' : ''} ref={ref}>
           <line id="mouseLine" />
           <line id="avgLine" />
 
@@ -1130,6 +1173,174 @@ const Histogram = ({
           <text id="resetButton">Clear All</text>
           <rect id="resetBg" />
         </svg>
+
+        <div
+          style={{ display: !toggleDisplayMode ? 'none' : '' }}
+          className={'small-font'}
+        >
+          <Table bordered>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>
+                  {boundary == 'council' ? 'City Council' : 'Community Board'}
+                </th>
+                <th>
+                  {issues.specific_issues_data[selectedSpecificIssue]
+                    ?.issue_units_shorthand != ''
+                    ? issues.specific_issues_data[selectedSpecificIssue]
+                        ?.issue_units_shorthand
+                    : issues.specific_issues_data[selectedSpecificIssue]
+                        ?.specific_issue_units}{' '}
+                  {
+                    issues.specific_issues_data[selectedSpecificIssue]
+                      ?.issue_units_symbol
+                  }
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {issues.specific_issues_data[selectedSpecificIssue]
+                .good_or_bad === 1
+                ? rankings[boundary][
+                    issues.specific_issues_data[selectedSpecificIssue]?.json_id
+                  ]
+
+                    .map((entry, index) => {
+                      return (
+                        <tr
+                          key={index}
+                          className={`issues-profile-table-row 
+     ${
+       entry.community_ID === communitySearch ||
+       entry.community_ID === compareSearch
+         ? 'active-scheme'
+         : ''
+     }`}
+                        >
+                          <td>{entry.rank}</td>
+                          <td
+                            onClick={() => {
+                              setCommunitySearch(entry.community_ID);
+                              setSelectedChapter(3);
+                            }}
+                            className={'issues-profile-community-jump'}
+                          >
+                            {entry.community}
+                          </td>
+                          <td>{entry.data}</td>
+                        </tr>
+                      );
+                    })
+                    .reverse()
+                    .slice(0, 5)
+                : rankings[boundary][
+                    issues.specific_issues_data[selectedSpecificIssue]?.json_id
+                  ]
+
+                    .map((entry, index) => {
+                      return (
+                        <tr
+                          key={index}
+                          className={`issues-profile-table-row
+       ${
+         entry.community_ID === communitySearch ||
+         entry.community_ID === compareSearch
+           ? 'active-scheme'
+           : ''
+       }}>
+`}
+                        >
+                          <td>{entry.rank}</td>
+                          <td
+                            onClick={() => {
+                              setCommunitySearch(entry.community_ID);
+                              setSelectedChapter(3);
+                            }}
+                            className={'issues-profile-community-jump'}
+                          >
+                            {entry.community}
+                          </td>
+                          <td>{entry.data}</td>
+                        </tr>
+                      );
+                    })
+                    .slice(0, 5)}
+
+              {expand &&
+              issues.specific_issues_data[selectedSpecificIssue].good_or_bad ===
+                1
+                ? rankings[boundary][
+                    issues.specific_issues_data[selectedSpecificIssue].json_id
+                  ]
+                    .map((entry, index) => {
+                      return (
+                        <tr
+                          key={index}
+                          className={`issues-profile-table-row
+${
+  entry.community_ID === communitySearch || entry.community_ID === compareSearch
+    ? 'active-scheme'
+    : ''
+}
+
+`}
+                        >
+                          <td>{entry.rank}</td>
+                          <td
+                            onClick={() => {
+                              setCommunitySearch(entry.community_ID);
+                              setSelectedChapter(3);
+                            }}
+                            className={'issues-profile-community-jump'}
+                          >
+                            {entry.community}
+                          </td>
+                          <td>{entry.data}</td>
+                        </tr>
+                      );
+                    })
+                    .reverse()
+                    .slice(5)
+                : expand &&
+                  issues.specific_issues_data[selectedSpecificIssue]
+                    .good_or_bad === 0
+                ? rankings[boundary][
+                    issues.specific_issues_data[selectedSpecificIssue].json_id
+                  ]
+                    .map((entry, index) => {
+                      return (
+                        <tr
+                          key={index}
+                          className={`issues-profile-table-row
+      ${
+        entry.community_ID === communitySearch ||
+        entry.community_ID === compareSearch
+          ? 'active-scheme'
+          : ''
+      }
+
+`}
+                        >
+                          <td>{entry.rank}</td>
+                          <td
+                            onClick={() => {
+                              setCommunitySearch(entry.community_ID);
+                              setSelectedChapter(3);
+                            }}
+                            className={'issues-profile-community-jump'}
+                          >
+                            {entry.community}
+                          </td>
+                          <td>{entry.data}</td>
+                        </tr>
+                      );
+                    })
+                    .slice(5)
+                : null}
+            </tbody>
+          </Table>
+        </div>
       </div>
     </div>
   );

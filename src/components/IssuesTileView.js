@@ -92,16 +92,7 @@ export default function IssuesTileView({
           <div className={'issues-tile-body h-100'}>
             <div className={'issue-tile-viz'}>
               <div>
-                <h5
-                  className={'m-0 d-inline-block'}
-                  style={{
-                    top: '0em',
-                    padding: '0.75em',
-                    paddingLeft: '0em',
-                  }}
-                >
-                  {getIssueName()}
-                </h5>
+                <h5 className={'d-inline-block bold py-3'}>{getIssueName()}</h5>
                 <div
                   onMouseEnter={() => {
                     setShowInfo(true);
@@ -150,6 +141,8 @@ export default function IssuesTileView({
                   setCouncilPinned={setCouncilPinned}
                   setCommunitySearch={setCommunitySearch}
                   setSelectedChapter={setSelectedChapter}
+                  communitySearch={communitySearch}
+                  compareSearch={compareSearch}
                 />
               </div>
               {/* <p className={'m-0 small-font'}>

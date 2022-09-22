@@ -637,7 +637,7 @@ a:active {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
+    overflow: auto;
 }
 
 
@@ -1103,6 +1103,7 @@ a:active {
     color: black;
     padding: 0.25rem 0.5rem;
     z-index: 10;
+    max-width: 20rem;
 }
 
 
