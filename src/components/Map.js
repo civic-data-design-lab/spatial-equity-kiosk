@@ -200,6 +200,36 @@ export default function DeckMap({
   // map hooks
   const [underperformers, setUnderperformers] = useState(null);
 
+  const [transportationModesArray, setTransportationModesArray] = useState([]);
+
+  const getTransportationModes = () => {
+    if (transportationModesArray.length > 2) {
+      const last = transportationModesArray[2];
+      return `${[...transportationModesArray.slice(0, 2)].join(
+        ', '
+      )}, or ${last}`;
+    } else if (transportationModesArray.length > 0) {
+      return `${transportationModesArray.join(' or ') || ''}`;
+    } else {
+      return '...';
+    }
+  };
+
+  useEffect(() => {
+    const modes = [];
+    if (toggleWalk) {
+      modes.push('Walk');
+    }
+    if (toggleBike) {
+      modes.push('Bike');
+    }
+    if (toggleTransit) {
+      modes.push('Ride Transit');
+    }
+
+    setTransportationModesArray(modes);
+  }, [toggleTransit, toggleBike, toggleWalk]);
+
   const deckRef = useRef(null);
   const mapRef = useRef(null);
   const dataScale = useRef('q'); //set to "equal" for equal binning, "q" for quantile binning
@@ -495,24 +525,15 @@ export default function DeckMap({
           ? communities[obj.properties.CDTA2020].neighborhoods
           : null;
 
-      const transportationModesArray = [];
-      if (toggleTransit) {
-        transportationModesArray.push('Public Transit');
-      }
-      if (toggleBike) {
-        transportationModesArray.push('Bike');
-      }
-      if (toggleWalk) {
-        transportationModesArray.push('Walk');
-      }
-      let transportationModes = transportationModesArray.join(' & ');
+      const insert = (arr, index, newItem) => [
+        // part of the array before the specified index
+        ...arr.slice(0, index),
+        // inserted item
+        newItem,
+        // part of the array after the specified index
+      ];
 
-      if (transportationModesArray.length > 2) {
-        const last = transportationModesArray.pop();
-        transportationModes = ` ${transportationModesArray.join(
-          ', '
-        )}, & ${last}`;
-      }
+      let transportationModes = getTransportationModes();
 
       if (boundary == 'council' || boundary == 'community') {
         // return the tooltip for the selected boundary with selected metric and selected demographic
@@ -836,7 +857,7 @@ export default function DeckMap({
   }
 
   useEffect(() => {
-    console.log('triggered communitySearch engine ', communitySearch);
+    // console.log('triggered communitySearch engine ', communitySearch);
     if (!addCompare || !communitySearch) {
       updateSearchEngine(selectedCoord, 0);
     }
@@ -1548,7 +1569,9 @@ export default function DeckMap({
             {demographic && (
               <div style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
-                  {demoLookup[demographic].name}
+                  {demoLookup[demographic].lookup == 'F10_TrsBkW'
+                    ? `Commuters Who ${getTransportationModes()}`
+                    : demoLookup[demographic].name}
                 </div>
               </div>
             )}

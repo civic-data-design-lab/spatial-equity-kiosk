@@ -349,20 +349,8 @@ const Histogram = ({
       .attr('fill', '#000000')
       .text(
         !ascending
-          ? `${hiStatement} ${getIssueStatement()} ${
-              d3.max(data) >= 10
-                ? d3.max(data).toFixed(0)
-                : d3.max(data) >= 1
-                ? d3.max(data).toFixed(1)
-                : d3.max(data)
-            }${metricSymbol}`
-          : `${lowStatement} ${getIssueStatement()} ${
-              d3.min(data) >= 10
-                ? d3.min(data).toFixed(0)
-                : d3.min(data) >= 1
-                ? d3.min(data).toFixed(1)
-                : d3.min(data).toFixed(2)
-            }${metricSymbol}`
+          ? `${hiStatement} ${getIssueStatement()}`
+          : `${lowStatement} ${getIssueStatement()}`
       );
 
     svg
@@ -374,20 +362,8 @@ const Histogram = ({
       .attr('fill', '#000000')
       .text(
         ascending
-          ? `${hiStatement} ${getIssueStatement()} ${
-              d3.max(data) >= 10
-                ? d3.max(data).toFixed(0)
-                : d3.max(data) >= 1
-                ? d3.max(data).toFixed(1)
-                : d3.max(data).toFixed(2)
-            }${metricSymbol}`
-          : `${lowStatement} ${getIssueStatement()} ${
-              d3.min(data) >= 10
-                ? d3.min(data).toFixed(0)
-                : d3.min(data) >= 1
-                ? d3.min(data).toFixed(1)
-                : d3.min(data).toFixed(2)
-            }${metricSymbol}`
+          ? `${hiStatement} ${getIssueStatement()}`
+          : `${lowStatement} ${getIssueStatement()}`
       );
 
     // draw reset button
