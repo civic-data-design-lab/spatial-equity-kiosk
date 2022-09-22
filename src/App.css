@@ -503,9 +503,6 @@ a:active {
     opacity: 1;
 }
 
-.middle-column::-webkit-scrollbar * {
-    display: none;
-}
 
 .collapsed-middle-column {
     width: 0;
@@ -711,8 +708,8 @@ a:active {
 }
 
 .expand-issue::-webkit-scrollbar {
-    /* display: none; */
-    width: 2px;
+    display: none;
+    /* width: 3px; */
 }
 
 .issues-arrow {

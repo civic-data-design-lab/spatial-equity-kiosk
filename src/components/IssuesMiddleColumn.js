@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
+import categories from '../texts/issue_categories.json';
 
 export default function IssuesMiddleColumn({
   issues,
@@ -49,8 +50,64 @@ export default function IssuesMiddleColumn({
   binList,
   info,
   adultAsthma,
-  setAdultAsthma
+  setAdultAsthma,
 }) {
+  const getHyperlinkText = (texts) => {
+    return (
+      <p>
+        {texts.map((texts) => {
+          return (
+            <span className={texts.bolded ? 'bold' : ''}>
+              {texts.text}
+              {texts.hyperlink && (
+                <span
+                  className={`${
+                    categories.labels[
+                      issues.specific_issues_data[selectedSpecificIssue]
+                        .issue_type_ID
+                    ]
+                  }`}
+                >
+                  <a
+                    className={`hyperlink ${
+                      categories.labels[
+                        issues.specific_issues_data[selectedSpecificIssue]
+                          .issue_type_ID
+                      ]
+                    }`}
+                    href={texts.source}
+                    target="_blank"
+                  >
+                    {texts.hyperlink}
+                  </a>
+                </span>
+              )}
+            </span>
+          );
+        })}
+      </p>
+    );
+  };
+  const getRelatedIssues = () => {
+    return issues.specific_issues_data[selectedSpecificIssue].related.map(
+      (issue, index) => {
+        return (
+          <span>
+            {' '}
+            <a
+              onClick={() => {
+                setSelectedSpecificIssue(issue);
+              }}
+            >
+              {issues.specific_issues_data[issue].specific_issue_name}
+            </a>
+            {index === 2 ? '.' : ','}
+          </span>
+        );
+      }
+    );
+  };
+
   // console.log("demoLegend in issuesmiddle ", demoLegendBins)
 
   const health_issues = issues.issues_data['health'].specific_issues_ID.map(
@@ -146,8 +203,10 @@ export default function IssuesMiddleColumn({
             }, [selectedSpecificIssue])*/
 
   return (
-    <div className={'d-flex flex-column position-relative'}
-    style={{height:"100vh"}}>
+    <div
+      className={'d-flex flex-column position-relative'}
+      style={{ height: '100vh' }}
+    >
       <div
         className={`${selectedIssue === 1 ? 'issues-chapters-active' : ''} ${
           selectedIssue || showDemographics ? 'collapse-issue' : ''
@@ -165,7 +224,10 @@ export default function IssuesMiddleColumn({
       >
         <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Health</h5>
         <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
-          Policies about the use of public space in New York City affect the physical and mental health of New Yorkers. Health indicators of spatial equity include air pollution, asthma, noise pollution, traffic injuries, and traffic fatalities.
+          Policies about the use of public space in New York City affect the
+          physical and mental health of New Yorkers. Health indicators of
+          spatial equity include air pollution, asthma, noise pollution, traffic
+          injuries, and traffic fatalities.
         </p>
       </div>
 
@@ -174,11 +236,7 @@ export default function IssuesMiddleColumn({
           selectedIssue === 1 ? 'expand-issue' : ''
         } accordion-body`}
       >
-        <div
-          className={
-            'h-100 position-relative d-flex flex-column justify-content-between row-gap'
-          }
-        >
+        <div className={'h-100 position-relative d-flex flex-column row-gap'}>
           <IssuesDropDown
             items={health_issues}
             currentValue={selectedSpecificIssue}
@@ -188,46 +246,58 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
+          {selectedSpecificIssue &&
+            (!showDemographics || !showMap) &&
+            getRankingNarrative(health_issues)}
 
-              {selectedSpecificIssue &&
-                (!showDemographics || !showMap) &&
-                getRankingNarrative(health_issues)}
-
-              {(!showMap || !showDemographics || !selectedSpecificIssue) && (
-                <p className={'m-0 small-font'}>
-                  {issue_categories.descriptions[selectedIssue]}
-                </p>
+          {(!showMap || !showDemographics) && (
+            <div className={'m-0 small-font'}>
+              {!selectedSpecificIssue ? (
+                <p>{issue_categories.descriptions[selectedIssue]}</p>
+              ) : (
+                <div>
+                  <div>
+                    {getHyperlinkText(
+                      issues.specific_issues_data[selectedSpecificIssue]
+                        .specific_issue_description
+                    )}
+                  </div>
+                  <div className={'fst-italic'}>
+                    Related: {getRelatedIssues()}
+                  </div>
+                </div>
               )}
+            </div>
+          )}
 
-
-            {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
-            {showMap && (
-              <Legend
-                mapDemographics={mapDemographics}
-                demoColorRamp={demoColorRamp}
-                demoLegendBins={demoLegendBins}
-                demoLookup={demoLookup}
-                demographic={demographic}
-                dataScale={dataScale}
-                setdataScale={setdataScale}
-                issues={issues}
-                selectedSpecificIssue={selectedSpecificIssue}
-                colorRamps={colorRamps}
-                toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
-                setToggleUnderperformers={setToggleUnderperformers}
-                boundary={boundary}
-                handleLegend={handleLegend}
-                selectedIssue={selectedSpecificIssue}
-                zoomToggle={zoomToggle}
-                showMap={showMap}
-                binList={binList}
-                info={info}
-                selectedChapter={selectedChapter}
-                adultAsthma={adultAsthma}
-                setAdultAsthma={setAdultAsthma}
-                setSelectedSpecificIssue={setSelectedSpecificIssue}
-              />
-            )}
+          {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
+          {showMap && (
+            <Legend
+              mapDemographics={mapDemographics}
+              demoColorRamp={demoColorRamp}
+              demoLegendBins={demoLegendBins}
+              demoLookup={demoLookup}
+              demographic={demographic}
+              dataScale={dataScale}
+              setdataScale={setdataScale}
+              issues={issues}
+              selectedSpecificIssue={selectedSpecificIssue}
+              colorRamps={colorRamps}
+              toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
+              setToggleUnderperformers={setToggleUnderperformers}
+              boundary={boundary}
+              handleLegend={handleLegend}
+              selectedIssue={selectedSpecificIssue}
+              zoomToggle={zoomToggle}
+              showMap={showMap}
+              binList={binList}
+              info={info}
+              selectedChapter={selectedChapter}
+              adultAsthma={adultAsthma}
+              setAdultAsthma={setAdultAsthma}
+              setSelectedSpecificIssue={setSelectedSpecificIssue}
+            />
+          )}
         </div>
       </div>
 
@@ -257,7 +327,10 @@ export default function IssuesMiddleColumn({
       >
         <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Environment</h5>
         <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
-          Policies about the use of public space in New York City affect the resilience and sustainability of the physical environment. Environmental indicators of spatial equity include heat, parkland, permeable surfaces, and trees.
+          Policies about the use of public space in New York City affect the
+          resilience and sustainability of the physical environment.
+          Environmental indicators of spatial equity include heat, parkland,
+          permeable surfaces, and trees.
         </p>
       </div>
       <div
@@ -265,11 +338,7 @@ export default function IssuesMiddleColumn({
           selectedIssue === 2 ? 'expand-issue' : ''
         } accordion-body`}
       >
-        <div
-          className={
-            'h-100 position-relative d-flex flex-column justify-content-between row-gap'
-          }
-        >
+        <div className={'h-100 position-relative d-flex flex-column row-gap'}>
           <IssuesDropDown
             items={environment_issues}
             currentValue={selectedSpecificIssue}
@@ -279,53 +348,64 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
-
-              {selectedSpecificIssue &&
-                (!showDemographics || !showMap) &&
-                getRankingNarrative(environment_issues)}
-              {/* {!selectedSpecificIssue && (
+          {selectedSpecificIssue &&
+            (!showDemographics || !showMap) &&
+            getRankingNarrative(environment_issues)}
+          {/* {!selectedSpecificIssue && (
                                 <p className={"mb-3 small-font"}>
                                     This is where you will hear about the topic that you select.
                                     Topics include a range of environment metrics.
                                 </p>
                             )} */}
 
-              {(!showMap || !showDemographics || !selectedSpecificIssue) && (
-                <p className={'m-0 small-font'}>
-                  {issue_categories.descriptions[selectedIssue]}
-                </p>
+          {(!showMap || !showDemographics) && (
+            <div className={'m-0 small-font'}>
+              {!selectedSpecificIssue ? (
+                <p>{issue_categories.descriptions[selectedIssue]}</p>
+              ) : (
+                <div>
+                  <div>
+                    {getHyperlinkText(
+                      issues.specific_issues_data[selectedSpecificIssue]
+                        .specific_issue_description
+                    )}
+                  </div>
+                  <div className={'fst-italic'}>
+                    Related: {getRelatedIssues()}
+                  </div>
+                </div>
               )}
+            </div>
+          )}
 
-
-            {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
-            {showMap && (
-              <Legend
-                mapDemographics={mapDemographics}
-                demoColorRamp={demoColorRamp}
-                demoLegendBins={demoLegendBins}
-                demoLookup={demoLookup}
-                demographic={demographic}
-                dataScale={dataScale}
-                setdataScale={setdataScale}
-                issues={issues}
-                selectedSpecificIssue={selectedSpecificIssue}
-                colorRamps={colorRamps}
-                toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
-                setToggleUnderperformers={setToggleUnderperformers}
-                boundary={boundary}
-                handleLegend={handleLegend}
-                selectedIssue={selectedSpecificIssue}
-                zoomToggle={zoomToggle}
-                showMap={showMap}
-                binList={binList}
-                info={info}
-                selectedChapter={selectedChapter}
-                adultAsthma={adultAsthma}
-                setAdultAsthma={setAdultAsthma}
-                setSelectedSpecificIssue={setSelectedSpecificIssue}
-              />
-            )}
-
+          {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
+          {showMap && (
+            <Legend
+              mapDemographics={mapDemographics}
+              demoColorRamp={demoColorRamp}
+              demoLegendBins={demoLegendBins}
+              demoLookup={demoLookup}
+              demographic={demographic}
+              dataScale={dataScale}
+              setdataScale={setdataScale}
+              issues={issues}
+              selectedSpecificIssue={selectedSpecificIssue}
+              colorRamps={colorRamps}
+              toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
+              setToggleUnderperformers={setToggleUnderperformers}
+              boundary={boundary}
+              handleLegend={handleLegend}
+              selectedIssue={selectedSpecificIssue}
+              zoomToggle={zoomToggle}
+              showMap={showMap}
+              binList={binList}
+              info={info}
+              selectedChapter={selectedChapter}
+              adultAsthma={adultAsthma}
+              setAdultAsthma={setAdultAsthma}
+              setSelectedSpecificIssue={setSelectedSpecificIssue}
+            />
+          )}
         </div>
       </div>
       <div
@@ -354,7 +434,10 @@ export default function IssuesMiddleColumn({
       >
         <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Mobility</h5>
         <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
-          Policies about the use of public space in New York City affect mobility and access to the built environment. Mobility indicators of spatial equity include bike parking, bus lanes and busways, bus speeds, protected bike lanes, seating, and traffic density.
+          Policies about the use of public space in New York City affect
+          mobility and access to the built environment. Mobility indicators of
+          spatial equity include bike parking, bus lanes and busways, bus
+          speeds, protected bike lanes, seating, and traffic density.
         </p>
       </div>
       <div
@@ -362,11 +445,7 @@ export default function IssuesMiddleColumn({
           selectedIssue === 3 ? 'expand-issue' : ''
         } accordion-body`}
       >
-        <div
-          className={
-            'h-100 position-relative d-flex flex-column justify-content-between row-gap'
-          }
-        >
+        <div className={'h-100 position-relative d-flex flex-column row-gap'}>
           <IssuesDropDown
             items={infrastructure_issues}
             currentValue={selectedSpecificIssue}
@@ -376,50 +455,64 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
-              {selectedSpecificIssue &&
-                (!showDemographics || !showMap) &&
-                getRankingNarrative(infrastructure_issues)}
-              {/* {!selectedSpecificIssue && (
+          {selectedSpecificIssue &&
+            (!showDemographics || !showMap) &&
+            getRankingNarrative(infrastructure_issues)}
+          {/* {!selectedSpecificIssue && (
                                 <p className={"mb-3 small-font"}>
                                     This is where you will hear about the topic that you select.
                                     Topics include a range of infrastructure metrics.
                                 </p>
                             )} */}
 
-              {(!showMap || !showDemographics || !selectedSpecificIssue) && (
-                <p className={'m-0 small-font'}>
-                  {issue_categories.descriptions[selectedIssue]}
-                </p>
+          {(!showMap || !showDemographics) && (
+            <div className={'m-0 small-font'}>
+              {!selectedSpecificIssue ? (
+                <p>{issue_categories.descriptions[selectedIssue]}</p>
+              ) : (
+                <div>
+                  <div>
+                    {getHyperlinkText(
+                      issues.specific_issues_data[selectedSpecificIssue]
+                        .specific_issue_description
+                    )}
+                  </div>
+                  <div className={'fst-italic'}>
+                    Related: {getRelatedIssues()}
+                  </div>
+                </div>
               )}
+            </div>
+          )}
 
-            {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
-            {showMap && (
-              <Legend
-                mapDemographics={mapDemographics}
-                demoColorRamp={demoColorRamp}
-                demoLegendBins={demoLegendBins}
-                demoLookup={demoLookup}
-                demographic={demographic}
-                dataScale={dataScale}
-                setdataScale={setdataScale}
-                issues={issues}
-                selectedSpecificIssue={selectedSpecificIssue}
-                colorRamps={colorRamps}
-                toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
-                setToggleUnderperformers={setToggleUnderperformers}
-                boundary={boundary}
-                handleLegend={handleLegend}
-                selectedIssue={selectedSpecificIssue}
-                zoomToggle={zoomToggle}
-                showMap={showMap}
-                binList={binList}
-                info={info}
-                selectedChapter={selectedChapter}
-                adultAsthma={adultAsthma}
-                setAdultAsthma={setAdultAsthma}
-                setSelectedSpecificIssue={setSelectedSpecificIssue}
-              />
-            )}
+          {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
+          {showMap && (
+            <Legend
+              mapDemographics={mapDemographics}
+              demoColorRamp={demoColorRamp}
+              demoLegendBins={demoLegendBins}
+              demoLookup={demoLookup}
+              demographic={demographic}
+              dataScale={dataScale}
+              setdataScale={setdataScale}
+              issues={issues}
+              selectedSpecificIssue={selectedSpecificIssue}
+              colorRamps={colorRamps}
+              toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
+              setToggleUnderperformers={setToggleUnderperformers}
+              boundary={boundary}
+              handleLegend={handleLegend}
+              selectedIssue={selectedSpecificIssue}
+              zoomToggle={zoomToggle}
+              showMap={showMap}
+              binList={binList}
+              info={info}
+              selectedChapter={selectedChapter}
+              adultAsthma={adultAsthma}
+              setAdultAsthma={setAdultAsthma}
+              setSelectedSpecificIssue={setSelectedSpecificIssue}
+            />
+          )}
         </div>
       </div>
 
@@ -460,8 +553,7 @@ export default function IssuesMiddleColumn({
       <div
         className={`${showDemographics ? 'expand-issue' : ''} accordion-body`}
       >
-        <div className={'h-100 position-relative'}
-        >
+        <div className={'h-100 position-relative'}>
           <Demographics
             currentValue={demographic}
             setValue={setDemographic}

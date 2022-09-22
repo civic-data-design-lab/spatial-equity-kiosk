@@ -129,7 +129,7 @@ export default function IssuesTileView({
             </div>
 
             <div
-              className={'col-6 w-50 overflow-scroll'}
+              className={'col-6 w-50 overflow-auto'}
               //style={{ paddingRight: '2.5em' }}
             >
               <IssueProfile
