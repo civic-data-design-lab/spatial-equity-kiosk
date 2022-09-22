@@ -150,6 +150,8 @@ export default function CommunityRightColumn({
               setSelectedChapter={setSelectedChapter}
               setCommunitySearch={setCommunitySearch}
               showMap={showMap}
+              compareSearch={compareSearch}
+              communitySearch={communitySearch}
             />
           </div>
         </div>

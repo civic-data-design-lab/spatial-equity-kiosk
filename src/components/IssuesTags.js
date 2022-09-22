@@ -100,6 +100,7 @@ export default function IssuesTags({
                 <div className={"issue-tags-container"}>
                     {
                         issues.all_issues_id
+                            .filter(id => (moreIssues && !moreIssues.includes(id)))
                             .map((id, index) => {
                                 return (
                                     <div

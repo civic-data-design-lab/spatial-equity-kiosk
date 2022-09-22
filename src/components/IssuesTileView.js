@@ -141,6 +141,8 @@ export default function IssuesTileView({
                 setSelectedChapter={setSelectedChapter}
                 councils={councils}
                 communities={communities}
+                communitySearch={communitySearch}
+                compareSearch={compareSearch}
               />
             </div>
           </div>
