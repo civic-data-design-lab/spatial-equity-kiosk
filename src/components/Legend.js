@@ -357,8 +357,7 @@ export default function Legend({
                     demoLookup.name === 'Households Without a Car'
                       ? ' households '
                       : ' commuters '}
-                    in{' '}
-                    <span className={'underline bold'}>{neighborhoodName}</span>{' '}
+                    in <span className={'bold'}>{neighborhoodName}</span>{' '}
                     {demoLookup.name ===
                     'Households Living Below the Poverty Line'
                       ? 'live below the poverty line'
@@ -457,7 +456,7 @@ export default function Legend({
               <div>
                 <p className={'mb-3 small-font'}>
                   {selectedChapter == 3 ? '' : 'Citywide'} {demoLookup.name} in{' '}
-                  <span className={'underline bold'}>{neighborhoodName}</span>
+                  <span className={'bold'}>{neighborhoodName}</span>
                 </p>
                 <div
                   className={'placeholder-legend placeholder-legend-ethnicity'}
@@ -561,7 +560,7 @@ export default function Legend({
                   }
                 >
                   {demoLookup.name} {selectedChapter == 3 ? 'in' : ''}{' '}
-                  <span className={'underline bold'}>{neighborhoodName}.</span>
+                  <span className={'bold'}>{neighborhoodName}.</span>
                 </p>
               ) : (
                 <p
@@ -581,7 +580,7 @@ export default function Legend({
                     ? ' households '
                     : ' commuters '}
                   {selectedChapter == 3 ? 'in' : ''}{' '}
-                  <span className={'underline bold'}>{neighborhoodName}</span>{' '}
+                  <span className={'bold'}>{neighborhoodName}</span>{' '}
                   {demoLookup.name ===
                   'Households Living Below the Poverty Line'
                     ? 'live below the poverty line'
