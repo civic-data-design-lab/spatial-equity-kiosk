@@ -347,15 +347,7 @@ export default function IssueProfile({
             </div>
           </div>
 
-          <div className={'issues-tile-description issues-tile-text'}>
-            {/* <div>
-                            {getHyperlinkText(
-                                issues.specific_issues_data[selectedSpecificIssue]
-                                    .specific_issue_description
-                            )}
-                        </div>
-                        <div className={'fst-italic'}>Related: {getRelatedIssues()}</div> */}
-          </div>
+          <div className={'issues-tile-description issues-tile-text'}></div>
           <div className={'issues-tile-solutions issues-tile-text'}>
             <h5 className={'issues-tile-heading bold'}>Solutions</h5>
             <div>

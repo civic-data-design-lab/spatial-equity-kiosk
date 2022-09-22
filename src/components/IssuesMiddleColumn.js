@@ -95,6 +95,7 @@ export default function IssuesMiddleColumn({
           <span>
             {' '}
             <a
+              style={{ textDecoration: 'underline' }}
               onClick={() => {
                 setSelectedSpecificIssue(issue);
               }}
@@ -262,8 +263,8 @@ export default function IssuesMiddleColumn({
                         .specific_issue_description
                     )}
                   </div>
-                  <div className={'fst-italic'}>
-                    Related: {getRelatedIssues()}
+                  <div className={'link-underline'}>
+                    <strong>Related:</strong> {getRelatedIssues()}
                   </div>
                 </div>
               )}
@@ -370,8 +371,8 @@ export default function IssuesMiddleColumn({
                         .specific_issue_description
                     )}
                   </div>
-                  <div className={'fst-italic'}>
-                    Related: {getRelatedIssues()}
+                  <div className={'link-underline'}>
+                    <strong>Related:</strong> {getRelatedIssues()}
                   </div>
                 </div>
               )}
@@ -477,8 +478,8 @@ export default function IssuesMiddleColumn({
                         .specific_issue_description
                     )}
                   </div>
-                  <div className={'fst-italic'}>
-                    Related: {getRelatedIssues()}
+                  <div className={'link-underline'}>
+                    <strong>Related:</strong> {getRelatedIssues()}
                   </div>
                 </div>
               )}

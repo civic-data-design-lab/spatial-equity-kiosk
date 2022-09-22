@@ -1796,6 +1796,16 @@ input:checked+.slider:before {
     border-left: none;
 }
 
+.link-underline>span:hover {
+    content: "";
+    cursor: pointer;
+}
+
+.link-underline>span:hover::before {
+    content: "→";
+    cursor: pointer;
+}
+
 .citywide-issue-dropdown {
     min-width: 0;
 }
