@@ -80,22 +80,7 @@ const IssueHistogram = ({
 
   const getIssueStatement = () => {
     if (selectedSpecificIssue) {
-      let words =
-        issues.specific_issues_data[
-          selectedSpecificIssue
-        ].specific_issue_units_sentence.split(' ');
-      words.shift();
-      const ignoreCapitalization = ['the', 'of', 'an', 'a', 'by'];
-
-      for (let i = 0; i < words.length; i++) {
-        if (!ignoreCapitalization.includes(words[i].toLowerCase())) {
-          words[i] = words[i][0].toUpperCase() + words[i].substr(1);
-        } else {
-          words[i] = words[i];
-        }
-      }
-      const sentence = words.join(' ');
-      return sentence || null;
+      return `${issues.specific_issues_data[selectedSpecificIssue].specific_issue_name} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_append} `;
     }
     return null;
   };

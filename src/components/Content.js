@@ -70,6 +70,7 @@ export default function Content({
   adultAsthma,
   setAdultAsthma
 }) {
+
   return (
     <div className={`d-flex flex-row col-9`}>
       <div
@@ -90,7 +91,7 @@ export default function Content({
                             (!communitySearch && !compareSearch) ? 
                                 "collapsed-middle-column" : !showMap ? 
                                     "col-6" : collapseMap ? 
-                                        "collapsed-middle-column" : "col-4 no-top-border"}`}>
+                                        "collapsed-middle-column" : "col-4 no-top-border"}`} style={!showMap ? {borderRight: "none"} : {}}>
        {(selectedChapter === 2 ||
                     (selectedChapter === 3 && (communitySearch || compareSearch) && showMap)) && (
                     <IssuesMiddleColumn
