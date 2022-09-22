@@ -2,7 +2,6 @@ Kelly
 on first click, zoom doesn't work
 
 Niko
-move the selected metric text to below the dropdown
 move the table to the histogram column > solutions go up, remove bold from solutions text
 create little I for source info
 abbreviate histogram text to just name
