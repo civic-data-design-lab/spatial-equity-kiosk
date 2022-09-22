@@ -459,10 +459,6 @@ a:active {
     ;
 }
 
-.community-dropdown::-webkit-scrollbar {
-    display: none;
-}
-
 .search-item {
     font-size: 11px;
     border: 2px solid white;
@@ -505,6 +501,10 @@ a:active {
     /* border: none; */
     border-left: none;
     opacity: 1;
+}
+
+.middle-column::-webkit-scrollbar * {
+    display: none;
 }
 
 .collapsed-middle-column {
@@ -708,6 +708,11 @@ a:active {
     padding: 0 1rem !important;
     pointer-events: all;
     overflow: auto;
+}
+
+.expand-issue::-webkit-scrollbar {
+    /* display: none; */
+    width: 2px;
 }
 
 .issues-arrow {

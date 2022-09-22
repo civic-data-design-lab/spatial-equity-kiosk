@@ -68,9 +68,8 @@ export default function Content({
   setCollapseMap,
   collapseMap,
   adultAsthma,
-  setAdultAsthma
+  setAdultAsthma,
 }) {
-
   return (
     <div className={`d-flex flex-row col-9`}>
       <div
@@ -82,66 +81,74 @@ export default function Content({
                             : "collapsed-middle-column"
                     }`}*/
 
-                className={`middle-column h-100 ${
-                    selectedChapter === 1 || selectedChapter === 4 || !selectedChapter ? "collapsed-middle-column" :
-                        selectedChapter === 2 ?
-                            (showMap && collapseMap) ? 
-                                "collapsed-middle-column" : 
-                                "col-4 no-top-border" :
-                            (!communitySearch && !compareSearch) ? 
-                                "collapsed-middle-column" : !showMap ? 
-                                    "col-6" : collapseMap ? 
-                                        "collapsed-middle-column" : "col-4 no-top-border"}`} style={!showMap ? {borderRight: "none"} : {}}>
-       {(selectedChapter === 2 ||
-                    (selectedChapter === 3 && (communitySearch || compareSearch) && showMap)) && (
-                    <IssuesMiddleColumn
-                        selectedIssue={selectedIssue}
-                        setSelectedIssue={setSelectedIssue}
-                        issues={issues}
-                        selectedSpecificIssue={selectedSpecificIssue}
-                        setSelectedSpecificIssue={setSelectedSpecificIssue}
-                        demographic={demographic}
-                        setDemographic={setDemographic}
-                        communitySearch={communitySearch}
-                        compareSearch={compareSearch}
-                        showDemographics={showDemographics}
-                        setShowDemographics={setShowDemographics}
-                        mapDemographics={mapDemographics}
-                        setMapDemographics={setMapDemographics}
-                        boundary={boundary}
-                        communities={communities}
-                        councils={councils}
-                        //legendBins={legendBins}
-                        colorRamps={colorRamps}
-                        toggleUnderperformers={toggleUnderperformers}
-                        setToggleUnderperformers={setToggleUnderperformers}
-                        selectedChapter={selectedChapter}
-                        issue_categories={issue_categories}
-                        toggleTransit={toggleTransit}
-                        setToggleTransit={setToggleTransit}
-                        toggleWalk={toggleWalk}
-                        setToggleWalk={setToggleWalk}
-                        toggleBike={toggleBike}
-                        setToggleBike={setToggleBike}
-                        dataScale={dataScale}
-                        setdataScale={setdataScale}
-                        demoColorRamp={demoColorRamp}
-                        demoLegendBins={demoLegendBins}
-                        setDemoColorRamp={setDemoColorRamp}
-                        setDemoLegendBins={setDemoLegendBins}
-                        setColorRamps={setColorRamps}
-                        handleLegend={handleLegend}
-                        zoomToggle={zoomToggle}
-                        demoLookup={demoLookup}
-                        showMap={showMap}
-                        info={info}
-                        setCollapseMap={setCollapseMap}
-                        collapseMap={collapseMap}
-                        adultAsthma={adultAsthma}
-                        setAdultAsthma={setAdultAsthma}
-                    />
-                )}
-
+        className={`middle-column h-100 ${
+          selectedChapter === 1 || selectedChapter === 4 || !selectedChapter
+            ? 'collapsed-middle-column'
+            : selectedChapter === 2
+            ? showMap && collapseMap
+              ? 'collapsed-middle-column'
+              : 'col-4 no-top-border'
+            : !communitySearch && !compareSearch
+            ? 'collapsed-middle-column'
+            : !showMap
+            ? 'col-6'
+            : collapseMap
+            ? 'collapsed-middle-column'
+            : 'col-4 no-top-border'
+        }`}
+        style={!showMap && selectedChapter == 3 ? { borderRight: 'none' } : {}}
+      >
+        {(selectedChapter === 2 ||
+          (selectedChapter === 3 &&
+            (communitySearch || compareSearch) &&
+            showMap)) && (
+          <IssuesMiddleColumn
+            selectedIssue={selectedIssue}
+            setSelectedIssue={setSelectedIssue}
+            issues={issues}
+            selectedSpecificIssue={selectedSpecificIssue}
+            setSelectedSpecificIssue={setSelectedSpecificIssue}
+            demographic={demographic}
+            setDemographic={setDemographic}
+            communitySearch={communitySearch}
+            compareSearch={compareSearch}
+            showDemographics={showDemographics}
+            setShowDemographics={setShowDemographics}
+            mapDemographics={mapDemographics}
+            setMapDemographics={setMapDemographics}
+            boundary={boundary}
+            communities={communities}
+            councils={councils}
+            //legendBins={legendBins}
+            colorRamps={colorRamps}
+            toggleUnderperformers={toggleUnderperformers}
+            setToggleUnderperformers={setToggleUnderperformers}
+            selectedChapter={selectedChapter}
+            issue_categories={issue_categories}
+            toggleTransit={toggleTransit}
+            setToggleTransit={setToggleTransit}
+            toggleWalk={toggleWalk}
+            setToggleWalk={setToggleWalk}
+            toggleBike={toggleBike}
+            setToggleBike={setToggleBike}
+            dataScale={dataScale}
+            setdataScale={setdataScale}
+            demoColorRamp={demoColorRamp}
+            demoLegendBins={demoLegendBins}
+            setDemoColorRamp={setDemoColorRamp}
+            setDemoLegendBins={setDemoLegendBins}
+            setColorRamps={setColorRamps}
+            handleLegend={handleLegend}
+            zoomToggle={zoomToggle}
+            demoLookup={demoLookup}
+            showMap={showMap}
+            info={info}
+            setCollapseMap={setCollapseMap}
+            collapseMap={collapseMap}
+            adultAsthma={adultAsthma}
+            setAdultAsthma={setAdultAsthma}
+          />
+        )}
 
         {selectedChapter === 3 && (
           <CommunityMiddleColumn
@@ -157,7 +164,9 @@ export default function Content({
             setMoreIssuesLength={setMoreIssuesLength}
             boundary={boundary}
             councils={councils}
-            info={info} setSelectedChapter={setSelectedChapter} setSelectedAbout={setSelectedAbout}
+            info={info}
+            setSelectedChapter={setSelectedChapter}
+            setSelectedAbout={setSelectedAbout}
           />
         )}
       </div>
@@ -213,7 +222,6 @@ export default function Content({
             setCouncilPinned={setCouncilPinned}
           />
         )}
-
 
         {selectedChapter === 3 && (
           <CommunityRightColumn

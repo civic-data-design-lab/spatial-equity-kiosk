@@ -4,3 +4,15 @@ fix margin on scrollbar jesus crhoist
 check how the citywide stats are being calculated
 on first click, zoom doesn't work
 zoom out further when the community profiles tab is open so you can see both communities
+
+get the black line back
+
+make demographics not pop up when picking the metric
+
+move the selected metric text to below the dropdown
+
+move the table to the histogram column > solutions go up, remove bold from solutions text
+
+create little I for source info
+
+abbreviate histogram text to just name
