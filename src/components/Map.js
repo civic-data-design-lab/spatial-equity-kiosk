@@ -577,7 +577,7 @@ export default function DeckMap({
                 ? demographic !== '5'
                   ? `${demoLookup[demographic].name}—`
                   : toggleTransit || toggleBike || toggleWalk
-                  ? `${transportationModes}—`
+                  ? `Citywide Commuters Who ${transportationModes}—`
                   : `Check off one of the transportation options above the demographics legend to see how people are getting around.`
                 : ''
             } ${
