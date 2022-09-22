@@ -192,7 +192,7 @@ export default function Content({
           ></iframe>
         )}
 
-        {selectedChapter === 2 && !collapseMap && (
+        {selectedChapter === 2 && (
           <IssuesTileView
             selectedSpecificIssue={selectedSpecificIssue}
             issues={issues}
@@ -220,6 +220,7 @@ export default function Content({
             setCommunityPinned={setCommunityPinned}
             councilPinned={councilPinned}
             setCouncilPinned={setCouncilPinned}
+            collapseMap={collapseMap}
           />
         )}
 

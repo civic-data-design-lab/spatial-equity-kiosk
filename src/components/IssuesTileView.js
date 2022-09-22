@@ -34,6 +34,7 @@ export default function IssuesTileView({
   setCommunityPinned,
   councilPinned,
   setCouncilPinned,
+  collapseMap,
 }) {
   const [expand, setExpand] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
@@ -135,20 +136,22 @@ export default function IssuesTileView({
                 </div>
               </div>
               <div style={{ flex: 1 }} className={'histogram-responsive-box'}>
-                <Histogram
-                  colorRampsyType={colorRamps}
-                  issues={issues}
-                  boundary={boundary}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  communityPinned={communityPinned}
-                  setCommunityPinned={setCommunityPinned}
-                  councilPinned={councilPinned}
-                  setCouncilPinned={setCouncilPinned}
-                  setCommunitySearch={setCommunitySearch}
-                  setSelectedChapter={setSelectedChapter}
-                  communitySearch={communitySearch}
-                  compareSearch={compareSearch}
-                />
+                {!collapseMap && (
+                  <Histogram
+                    colorRampsyType={colorRamps}
+                    issues={issues}
+                    boundary={boundary}
+                    selectedSpecificIssue={selectedSpecificIssue}
+                    communityPinned={communityPinned}
+                    setCommunityPinned={setCommunityPinned}
+                    councilPinned={councilPinned}
+                    setCouncilPinned={setCouncilPinned}
+                    setCommunitySearch={setCommunitySearch}
+                    setSelectedChapter={setSelectedChapter}
+                    communitySearch={communitySearch}
+                    compareSearch={compareSearch}
+                  />
+                )}
               </div>
               {/* <p className={'m-0 small-font'}>
                 Source:{' '}
@@ -163,18 +166,20 @@ export default function IssuesTileView({
               className={'col-6 w-50 overflow-auto'}
               //style={{ paddingRight: '2.5em' }}
             >
-              <IssueProfile
-                issues={issues}
-                selectedSpecificIssue={selectedSpecificIssue}
-                boundary={boundary}
-                setSelectedSpecificIssue={setSelectedSpecificIssue}
-                setCommunitySearch={setCommunitySearch}
-                setSelectedChapter={setSelectedChapter}
-                councils={councils}
-                communities={communities}
-                communitySearch={communitySearch}
-                compareSearch={compareSearch}
-              />
+              {!collapseMap && (
+                <IssueProfile
+                  issues={issues}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  boundary={boundary}
+                  setSelectedSpecificIssue={setSelectedSpecificIssue}
+                  setCommunitySearch={setCommunitySearch}
+                  setSelectedChapter={setSelectedChapter}
+                  councils={councils}
+                  communities={communities}
+                  communitySearch={communitySearch}
+                  compareSearch={compareSearch}
+                />
+              )}
             </div>
           </div>
         </div>
