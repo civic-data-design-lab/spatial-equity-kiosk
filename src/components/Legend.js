@@ -434,16 +434,36 @@ export default function Legend({
 
                   <div className={'small-font'}>0%</div>
                   <div className={'small-font'}>
-                    {demoLegendBins[0].toFixed(0)}%
+                    {demoLegendBins[0] > 10
+                      ? demoLegendBins[0].toFixed(0)
+                      : demoLegendBins[0] > 1
+                      ? demoLegendBins[0].toFixed(1)
+                      : demoLegendBins[0].toFixed(2)}
+                    %
                   </div>
                   <div className={'small-font'}>
-                    {demoLegendBins[1].toFixed(0)}%
+                    {demoLegendBins[1] > 10
+                      ? demoLegendBins[1].toFixed(0)
+                      : demoLegendBins[1] > 1
+                      ? demoLegendBins[1].toFixed(1)
+                      : demoLegendBins[1].toFixed(2)}
+                    %
                   </div>
                   <div className={'small-font'}>
-                    {demoLegendBins[2].toFixed(0)}%
+                    {demoLegendBins[2] > 10
+                      ? demoLegendBins[2].toFixed(0)
+                      : demoLegendBins[2] > 1
+                      ? demoLegendBins[2].toFixed(1)
+                      : demoLegendBins[2].toFixed(2)}
+                    %
                   </div>
                   <div className={'small-font'}>
-                    {demoLegendBins[3].toFixed(0)}% +
+                    {demoLegendBins[3] > 10
+                      ? demoLegendBins[3].toFixed(0)
+                      : demoLegendBins[3] > 1
+                      ? demoLegendBins[3].toFixed(1)
+                      : demoLegendBins[3].toFixed(2)}
+                    % +
                   </div>
                 </div>
               </div>
