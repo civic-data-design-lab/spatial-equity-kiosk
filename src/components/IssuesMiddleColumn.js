@@ -247,9 +247,9 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
-          {selectedSpecificIssue &&
+          {/* {selectedSpecificIssue &&
             (!showDemographics || !showMap) &&
-            getRankingNarrative(health_issues)}
+            getRankingNarrative(health_issues)} */}
 
           {(!showMap || !showDemographics) && (
             <div className={'m-0 small-font'}>
@@ -349,15 +349,9 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
-          {selectedSpecificIssue &&
+          {/* {selectedSpecificIssue &&
             (!showDemographics || !showMap) &&
-            getRankingNarrative(environment_issues)}
-          {/* {!selectedSpecificIssue && (
-                                <p className={"mb-3 small-font"}>
-                                    This is where you will hear about the topic that you select.
-                                    Topics include a range of environment metrics.
-                                </p>
-                            )} */}
+            getRankingNarrative(environment_issues)} */}
 
           {(!showMap || !showDemographics) && (
             <div className={'m-0 small-font'}>
@@ -456,15 +450,9 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
           />
 
-          {selectedSpecificIssue &&
+          {/* {selectedSpecificIssue &&
             (!showDemographics || !showMap) &&
-            getRankingNarrative(infrastructure_issues)}
-          {/* {!selectedSpecificIssue && (
-                                <p className={"mb-3 small-font"}>
-                                    This is where you will hear about the topic that you select.
-                                    Topics include a range of infrastructure metrics.
-                                </p>
-                            )} */}
+            getRankingNarrative(infrastructure_issues)} */}
 
           {(!showMap || !showDemographics) && (
             <div className={'m-0 small-font'}>

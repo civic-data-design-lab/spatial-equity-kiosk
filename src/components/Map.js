@@ -474,7 +474,7 @@ export default function DeckMap({
           : 'Below Citywide'
         : '';
 
-    return `<strong> ${
+    return `${
       infoTransfer.selectedMetric != null
         ? accessor[infoTransfer.selectedMetric] >= 10
           ? accessor[infoTransfer.selectedMetric].toFixed(0)
@@ -487,7 +487,7 @@ export default function DeckMap({
       ''
         ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
         : ''
-    }</strong> ${isTemperatureMetric} ${
+    }${isTemperatureMetric} ${
       typeof selectedSpecificIssue == 'number'
         ? issues.specific_issues_data[selectedSpecificIssue]
             .issue_units_shorthand != ''

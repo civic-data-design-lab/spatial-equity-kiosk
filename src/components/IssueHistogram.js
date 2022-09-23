@@ -128,7 +128,9 @@ const IssueHistogram = ({
 
       return (
         <p>
-          {` ${boundaryGrammatical} ranks ${metricRanking} out of ${lastItem} citywide in ${fullIssueName}.`}
+          {` ${boundaryGrammatical} ranks `}
+          <strong>{`${metricRanking} out of ${lastItem}`}</strong>{' '}
+          {`citywide in ${fullIssueName}.`}
         </p>
       );
     }
@@ -464,9 +466,17 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
-        `${data[Math.round(svg.select('#avgLine').attr('index'))].toFixed(
-          1
-        )}${metricSymbol}`
+        `${
+          Number(data[Math.round(svg.select('#avgLine').attr('index'))]) > 10
+            ? Number(
+                data[Math.round(svg.select('#avgLine').attr('index'))]
+              ).toFixed(0)
+            : Number(data[Math.round(svg.select('#avgLine').attr('index'))]) > 1
+            ? Number(
+                data[Math.round(svg.select('#avgLine').attr('index'))]
+              ).toFixed(1)
+            : Number(data[Math.round(svg.select('#avgLine').attr('index'))])
+        }${metricSymbol}`
       );
 
     // let showSelectedText = !(
@@ -485,9 +495,17 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
-        `${data[Math.round(svg.select('#selectedLine').attr('index'))].toFixed(
-          1
-        )}${metricSymbol}`
+        `${
+          data[Math.round(svg.select('#selectedLine').attr('index'))] > 10
+            ? data[
+                Math.round(svg.select('#selectedLine').attr('index'))
+              ].toFixed(0)
+            : data[Math.round(svg.select('#selectedLine').attr('index'))] > 1
+            ? data[
+                Math.round(svg.select('#selectedLine').attr('index'))
+              ].toFixed(1)
+            : data[Math.round(svg.select('#selectedLine').attr('index'))]
+        }${metricSymbol}`
       );
     //   .text(
     //     `${
