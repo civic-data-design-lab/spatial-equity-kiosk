@@ -114,6 +114,12 @@ export default function CommunityProfile({
                         }
                       >
                         <IssuesCard
+                          target={
+                            selectedSpecificIssue &&
+                            selectedSpecificIssue !== issue
+                              ? false
+                              : true
+                          }
                           setCommunitySearch={setCommunitySearch}
                           communitySearch={communitySearch}
                           compareSearch={compareSearch}
@@ -145,6 +151,12 @@ export default function CommunityProfile({
                           }
                         >
                           <IssuesCard
+                            target={
+                              selectedSpecificIssue &&
+                              selectedSpecificIssue !== issue
+                                ? false
+                                : true
+                            }
                             setCommunitySearch={setCommunitySearch}
                             communitySearch={communitySearch}
                             compareSearch={compareSearch}
@@ -251,6 +263,7 @@ export default function CommunityProfile({
         <div className="modal-background">
           <div className={'modal-card'}>
             <IssuesCard
+              target={true}
               setCommunitySearch={setCommunitySearch}
               setSelectedChapter={setSelectedChapter}
               compareSearch={compareSearch}

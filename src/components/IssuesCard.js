@@ -26,6 +26,7 @@ export default function IssuesCard({
   setCommunitySearch,
   communitySearch,
   compareSearch,
+  target = false,
 }) {
   const [showInfo, setShowInfo] = useState(false);
   const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
@@ -36,87 +37,56 @@ export default function IssuesCard({
     );
   };
 
-  const getRankingNarrative = (obj) => {
-    if (selectedCommunity) {
-      const subject = obj.json_id;
-      const fullIssueName = obj.specific_issue_name;
-
-      const lastItem = boundary == 'council' ? '51' : '59';
-
-      const metricRanking =
-        boundary == 'council'
-          ? _RANKINGS.council[subject].find(
-              (f) => f.community_ID == selectedCommunity.json_lookup
-            ).rank
-          : _RANKINGS.community[subject].find(
-              (f) => f.community_ID == selectedCommunity.json_lookup
-            ).rank;
-
-      const boundaryGrammatical =
-        boundary == 'council'
-          ? `City Council ${selectedCommunity.name}`
-          : `${selectedCommunity.name
-              .split(' ')
-              .slice(0, -1)} Community Board ${selectedCommunity.name
-              .split(' ')
-              .slice(1)}`;
-
-      return (
-        <p>
-          {` ${boundaryGrammatical} ranks ${metricRanking} out of ${lastItem} citywide in ${fullIssueName}.`}
-        </p>
-      );
-    }
-    return null;
-  };
-
   return (
     <div
       className={'issues-card-container pb-3'}
       onClick={() => {
         if (selectedSpecificIssue === specificIssue) {
-          setSelectedSpecificIssue(null);
         } else {
           setSelectedSpecificIssue(specificIssue);
         }
       }}
     >
-      <div className={'m-0 lh-1'}>
-        {getRankingNarrative(issues.specific_issues_data[specificIssue])}{' '}
-      </div>
-      <div className={'issues-card-header'}>
+      <div
+        className={'issues-card-header'}
+        style={
+          target && toggleDisplayMode
+            ? { position: 'sticky', top: '0' }
+            : { position: 'relative' }
+        }
+      >
         <div className={'issues-card-title-container col-gap'}>
           <p className={'m-0'}>{getIssueName()}</p>
-          <p className={'m-0 smaller-text'}>
+
+          <p className={'m-0 smaller-text'} style={{ paddingRight: '0.5rem' }}>
             {issues.specific_issues_data[specificIssue].specific_issue_units}
           </p>
-          <div
-            style={{
-              margin: '1rem 1rem 0 0',
-              display: 'grid',
-              gridTemplateColumns: 'auto auto',
-              alignContent: 'start',
-              width: '100%',
-            }}
-          >
-            <div className={`d-flex switch-container flex-row `}>
-              <label className="switch">
+        </div>
+        <div className={'issues-card-button-container col-gap'}>
+          {target && (
+            <div
+              className={`${
+                target && selectedSpecificIssue ? `d-flex` : `d-none`
+              } switch-container flex-row`}
+              style={{
+                alignContent: 'start',
+              }}
+            >
+              <p className={'m-0 d-inline-block smaller-text'}>
+                {toggleDisplayMode ? `Show Chart` : `Show Rankings`}
+              </p>
+              <label className="m-0 switch">
                 <input
+                  checked={toggleDisplayMode}
                   type="checkbox"
                   onChange={(e) => {
                     setToggleDisplayMode(!toggleDisplayMode);
                   }}
                 />
-                <span className="slider round"></span>
+                <span className="slider round m-0"></span>
               </label>
-
-              <p className={'small-font d-inline-block big-button border-0'}>
-                {toggleDisplayMode ? `Show Chart` : `Show Rankings`}
-              </p>
             </div>
-          </div>
-        </div>
-        <div className={'issues-card-button-container col-gap'}>
+          )}
           <div
             onMouseEnter={() => {
               setShowInfo(true);
@@ -126,9 +96,8 @@ export default function IssuesCard({
             }}
             onClick={(e) => {
               e.stopPropagation();
-              console.log('here');
-              setSelectedAbout(9);
               setSelectedChapter(4);
+              setSelectedAbout(9);
             }}
           >
             <FontAwesomeIcon
@@ -182,7 +151,7 @@ export default function IssuesCard({
           communitySearch={communitySearch}
           compareSearch={compareSearch}
           toggleDisplayMode={toggleDisplayMode}
-          setToggleDisplayMode={setToggleDisplayMode}
+          specificIssue={specificIssue}
         />
       </div>
     </div>

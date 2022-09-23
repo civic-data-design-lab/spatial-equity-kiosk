@@ -89,16 +89,48 @@ const IssueHistogram = ({
   communitySearch,
   compareSearch,
   toggleDisplayMode,
-  setToggleDisplayMode,
+  specificIssue,
 }) => {
-  const [expand, setExpand] = useState(false);
-
   const ref = useRef();
   const containerRef = useRef();
 
   const getIssueStatement = () => {
     if (selectedSpecificIssue) {
       return `${issues.specific_issues_data[selectedSpecificIssue].specific_issue_name} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_append} `;
+    }
+    return null;
+  };
+
+  const getRankingNarrative = (obj) => {
+    if (selectedCommunity) {
+      const subject = obj.json_id;
+      const fullIssueName = obj.specific_issue_name;
+
+      const lastItem = boundary == 'council' ? '51' : '59';
+
+      const metricRanking =
+        boundary == 'council'
+          ? _RANKINGS.council[subject].find(
+              (f) => f.community_ID == selectedCommunity.json_lookup
+            ).rank
+          : _RANKINGS.community[subject].find(
+              (f) => f.community_ID == selectedCommunity.json_lookup
+            ).rank;
+
+      const boundaryGrammatical =
+        boundary == 'council'
+          ? `City Council ${selectedCommunity.name}`
+          : `${selectedCommunity.name
+              .split(' ')
+              .slice(0, -1)} Community Board ${selectedCommunity.name
+              .split(' ')
+              .slice(1)}`;
+
+      return (
+        <p>
+          {` ${boundaryGrammatical} ranks ${metricRanking} out of ${lastItem} citywide in ${fullIssueName}.`}
+        </p>
+      );
     }
     return null;
   };
@@ -525,45 +557,55 @@ const IssueHistogram = ({
   ]);
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        height: '100%',
-        width: '100%',
-      }}
-    >
-      <svg style={{ display: toggleDisplayMode ? 'none' : '' }} ref={ref}>
-        {/* Main Chart */}
-        <g />
+    <div>
+      <div
+        style={{ display: toggleDisplayMode ? 'none' : '' }}
+        className={'m-0 smaller-text'}
+      >
+        {getRankingNarrative(issues.specific_issues_data[specificIssue])}{' '}
+      </div>
 
-        {/* Avg Line */}
-        <line id="avgLine" />
-        <text id="avgTextUp" />
-        <text id="avgTextDown" />
+      <div
+        ref={containerRef}
+        style={{
+          height: '100%',
+          width: '100%',
+        }}
+      >
+        <svg style={{ display: toggleDisplayMode ? 'none' : '' }} ref={ref}>
+          {/* Main Chart */}
+          <g />
 
-        {/* Selected Line */}
-        <line id="selectedLine" />
-        <text id="selectedTextUp" />
-        <text id="selectedTextDown" />
+          {/* Avg Line */}
+          <line id="avgLine" />
+          <text id="avgTextUp" />
+          <text id="avgTextDown" />
 
-        {/* Min/Max Line */}
-        <line id="maxLine" />
-        <line id="minLine" />
-        <text id="maxTextUp" />
-        <text id="minTextUp" />
-        <text id="maxTextDown" />
-        <text id="minTextDown" />
-      </svg>
-      <RankingTable
-        issues={issues}
-        boundary={boundary}
-        selectedSpecificIssue={selectedSpecificIssue}
-        setCommunitySearch={setCommunitySearch}
-        setSelectedChapter={setSelectedChapter}
-        communitySearch={communitySearch}
-        compareSearch={compareSearch}
-        toggleDisplayMode={toggleDisplayMode}
-      />
+          {/* Selected Line */}
+          <line id="selectedLine" />
+          <text id="selectedTextUp" />
+          <text id="selectedTextDown" />
+
+          {/* Min/Max Line */}
+          <line id="maxLine" />
+          <line id="minLine" />
+          <text id="maxTextUp" />
+          <text id="minTextUp" />
+          <text id="maxTextDown" />
+          <text id="minTextDown" />
+        </svg>
+
+        <RankingTable
+          issues={issues}
+          boundary={boundary}
+          selectedSpecificIssue={selectedSpecificIssue}
+          setCommunitySearch={setCommunitySearch}
+          setSelectedChapter={setSelectedChapter}
+          communitySearch={communitySearch}
+          compareSearch={compareSearch}
+          toggleDisplayMode={toggleDisplayMode}
+        />
+      </div>
     </div>
   );
 };

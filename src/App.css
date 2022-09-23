@@ -751,8 +751,7 @@ a:active {
 
 /* Community Column */
 .community-profile-container {
-    padding: 2.5em;
-    padding-top: 0;
+    padding: 0 2em;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -1043,6 +1042,7 @@ a:active {
 /* Issue Tags */
 .issue-tags-container {
     display: flex;
+    padding: 1em 0;
     flex-direction: row;
     flex-wrap: wrap;
     column-gap: 0.5rem;

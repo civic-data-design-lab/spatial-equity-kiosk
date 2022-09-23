@@ -18,7 +18,7 @@ const RankingTable = ({
   compareSearch,
   toggleDisplayMode,
 }) => {
-  const [expand, setExpand] = useState(true);
+  const [expand, setExpand] = useState(false);
 
   return (
     <div
@@ -51,7 +51,6 @@ const RankingTable = ({
             ? rankings[boundary][
                 issues.specific_issues_data[selectedSpecificIssue]?.json_id
               ]
-
                 .map((entry, index) => {
                   return (
                     <tr
@@ -190,7 +189,6 @@ ${
         style={
           expand
             ? {
-                border: '2px solid black',
                 borderTop: '1px solid black',
                 background: 'white',
                 position: 'sticky',
