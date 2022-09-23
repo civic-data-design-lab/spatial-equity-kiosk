@@ -456,8 +456,8 @@ export default function MobileCommunityProfile({
                     }}
                 >
                     <div>
-                        {!showMap && showDemographics ? "Hide Demographics"
-                            : !showMap && !showDemographics ? "Show Demographics"
+                        {!showMap && showDemographics ? "Show U.S. Census Data"
+                            : !showMap && !showDemographics ? "Show U.S. Census Data"
                                 : showMap && showLegend ? "Hide Legend"
                                     : "Show Legend"
 

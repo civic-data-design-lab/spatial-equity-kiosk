@@ -20,7 +20,7 @@ export default function CommunityProfile({
   setCommunitySearch,
 }) {
   useEffect(() => {
-    if (moreIssues && communitySearch) {
+    if (moreIssues && communitySearch  && !compareSearch) {
       let leastPerfIssues =
         councils[communitySearch]?.least_performing_issues ||
         communities[communitySearch]?.least_performing_issues;

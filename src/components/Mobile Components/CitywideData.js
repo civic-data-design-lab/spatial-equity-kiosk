@@ -526,8 +526,8 @@ export default function CitywideData({
                     }}
                 >
                     <div>
-                        {!showMap && showDemographics ? "Hide Demographics"
-                            : !showMap && !showDemographics ? "Show Demographics"
+                        {!showMap && showDemographics ? "Hide U.S. Census Data"
+                            : !showMap && !showDemographics ? "Show U.S. Census Data"
                                 : showMap && showLegend ? "Hide Legend"
                                     : "Show Legend"
 
