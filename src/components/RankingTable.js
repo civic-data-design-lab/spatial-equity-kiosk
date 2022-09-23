@@ -17,8 +17,9 @@ const RankingTable = ({
   communitySearch,
   compareSearch,
   toggleDisplayMode,
+  defaultOpen = false,
 }) => {
-  const [expand, setExpand] = useState(false);
+  const [expand, setExpand] = useState(defaultOpen);
 
   return (
     <div

@@ -983,6 +983,7 @@ const Histogram = ({
             <label className="switch">
               <input
                 type="checkbox"
+                checked={toggleDisplayMode}
                 onChange={(e) => {
                   setToggleDisplayMode(!toggleDisplayMode);
                 }}
@@ -1185,6 +1186,7 @@ const Histogram = ({
           communitySearch={communitySearch}
           compareSearch={compareSearch}
           toggleDisplayMode={toggleDisplayMode}
+          defaultOpen={true}
         />
       </div>
     </div>
