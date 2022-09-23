@@ -609,13 +609,13 @@ export default function Legend({
                 </div>
               )}
 
-              {demoLookup.lookup !== 'F10_TrsBkW' ? (
+              {/* {demoLookup.lookup !== 'F10_TrsBkW' ? (
                 ''
               ) : (
                 <div className={'d-flex col-gap'}>
                   <p className={'mb-1 small-font'}>Citywide Commuters Who</p>
                 </div>
-              )}
+              )} */}
 
               <div
                 className={'placeholder-legend placeholder-legend-ethnicity'}
