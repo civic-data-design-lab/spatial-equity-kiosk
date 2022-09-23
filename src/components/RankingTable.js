@@ -20,7 +20,6 @@ const RankingTable = ({
   defaultOpen = false,
 }) => {
   const [expand, setExpand] = useState(defaultOpen);
-
   return (
     <div
       style={{ display: !toggleDisplayMode ? 'none' : '' }}
@@ -48,7 +47,7 @@ const RankingTable = ({
           </tr>
         </thead>
         <tbody>
-          {issues.specific_issues_data[selectedSpecificIssue].good_or_bad === 1
+          {issues.specific_issues_data[selectedSpecificIssue].good_or_bad === 0
             ? rankings[boundary][
                 issues.specific_issues_data[selectedSpecificIssue]?.json_id
               ]
@@ -57,12 +56,12 @@ const RankingTable = ({
                     <tr
                       key={index}
                       className={`issues-profile-table-row 
-   ${
-     entry.community_ID === communitySearch ||
-     entry.community_ID === compareSearch
-       ? 'active-scheme'
-       : ''
-   }`}
+                    ${
+                      entry.community_ID === communitySearch ||
+                      entry.community_ID === compareSearch
+                        ? 'active-scheme'
+                        : ''
+                    }`}
                     >
                       <td>{entry.rank}</td>
                       <td
@@ -74,7 +73,13 @@ const RankingTable = ({
                       >
                         {entry.community}
                       </td>
-                      <td>{entry.data}</td>
+                      <td>
+                        {Number(entry.data) > 10
+                          ? Number(entry.data).toFixed(0)
+                          : Number(entry.data) > 1
+                          ? Number(entry.data).toFixed(1)
+                          : Number(entry.data)}
+                      </td>
                     </tr>
                   );
                 })
@@ -107,14 +112,20 @@ const RankingTable = ({
                       >
                         {entry.community}
                       </td>
-                      <td>{entry.data}</td>
+                      <td>
+                        {Number(entry.data) > 10
+                          ? Number(entry.data).toFixed(0)
+                          : Number(entry.data) > 1
+                          ? Number(entry.data).toFixed(1)
+                          : Number(entry.data)}
+                      </td>
                     </tr>
                   );
                 })
                 .slice(0, 5)}
 
           {expand &&
-          issues.specific_issues_data[selectedSpecificIssue].good_or_bad === 1
+          issues.specific_issues_data[selectedSpecificIssue].good_or_bad === 0
             ? rankings[boundary][
                 issues.specific_issues_data[selectedSpecificIssue].json_id
               ]
@@ -141,7 +152,13 @@ ${
                       >
                         {entry.community}
                       </td>
-                      <td>{entry.data}</td>
+                      <td>
+                        {Number(entry.data) > 10
+                          ? Number(entry.data).toFixed(0)
+                          : Number(entry.data) > 1
+                          ? Number(entry.data).toFixed(1)
+                          : Number(entry.data)}
+                      </td>
                     </tr>
                   );
                 })
@@ -149,7 +166,7 @@ ${
                 .slice(5)
             : expand &&
               issues.specific_issues_data[selectedSpecificIssue].good_or_bad ===
-                0
+                1
             ? rankings[boundary][
                 issues.specific_issues_data[selectedSpecificIssue].json_id
               ]
@@ -177,7 +194,13 @@ ${
                       >
                         {entry.community}
                       </td>
-                      <td>{entry.data}</td>
+                      <td>
+                        {Number(entry.data) > 10
+                          ? Number(entry.data).toFixed(0)
+                          : Number(entry.data) > 1
+                          ? Number(entry.data).toFixed(1)
+                          : Number(entry.data)}
+                      </td>
                     </tr>
                   );
                 })
