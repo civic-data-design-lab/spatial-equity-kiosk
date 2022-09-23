@@ -295,20 +295,19 @@ export default function Legend({
                       }}
                     />
                     <div className={'small-font'}>
-                      {legendBins[0] < 0 ? legendBins[0] : 0} →{' '}
-                      {cleanNumbers[0]}
+                      {legendBins[0] < 0 ? legendBins[0] : 0}
                       {symbol}
                     </div>
                     <div className={'small-font'}>
-                      {cleanNumbers[0]} → {cleanNumbers[1]}
+                      {cleanNumbers[0]}
                       {symbol}
                     </div>{' '}
                     <div className={'small-font'}>
-                      {cleanNumbers[1]} → {cleanNumbers[2]}
+                      {cleanNumbers[1]}
                       {symbol}
                     </div>
                     <div className={'small-font'}>
-                      {cleanNumbers[2]} → {cleanNumbers[3]}
+                      {cleanNumbers[2]}
                       {symbol}
                     </div>
                     <div className={'small-font'}>
@@ -428,20 +427,15 @@ export default function Legend({
                     }}
                   />
 
+                  <div className={'small-font'}>0%</div>
                   <div className={'small-font'}>
-                    0% → {demoLegendBins[0].toFixed(0)}%
+                    {demoLegendBins[0].toFixed(0)}%
                   </div>
                   <div className={'small-font'}>
-                    {demoLegendBins[0].toFixed(0)}% →{' '}
                     {demoLegendBins[1].toFixed(0)}%
                   </div>
                   <div className={'small-font'}>
-                    {demoLegendBins[1].toFixed(0)}% →{' '}
                     {demoLegendBins[2].toFixed(0)}%
-                  </div>
-                  <div className={'small-font'}>
-                    {demoLegendBins[2].toFixed(0)}% →{' '}
-                    {demoLegendBins[3].toFixed(0)}%
                   </div>
                   <div className={'small-font'}>
                     {demoLegendBins[3].toFixed(0)}% +

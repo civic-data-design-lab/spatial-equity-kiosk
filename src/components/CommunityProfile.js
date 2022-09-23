@@ -14,7 +14,10 @@ export default function CommunityProfile({
   moreIssues,
   setMoreIssuesLength,
   boundary,
-  councils, setSelectedChapter, setSelectedAbout
+  councils,
+  setSelectedChapter,
+  setSelectedAbout,
+  setCommunitySearch,
 }) {
   useEffect(() => {
     if (moreIssues && communitySearch) {
@@ -66,11 +69,9 @@ export default function CommunityProfile({
           <div>
             {
               <h5
-                class={'sticky-basic'}
+                class={'bold py-3'}
                 style={{
-                  top: '0em',
                   padding: '0.75em 0',
-                  zIndex: '3',
                 }}
               >
                 Notable Indicators—{' '}
@@ -95,13 +96,9 @@ export default function CommunityProfile({
             <p className={'mt-3'}>
               {communitySearch
                 ? ` Below are the three worst spatial equity indicators in this 
-                ${boundary==="council"?"district":"community board"}.`
+                ${boundary === 'council' ? 'district' : 'community board'}.`
                 : ``}
             </p>
-            <div
-              class={'sticky-basic'}
-              style={{ borderBottom: '2px solid black' }}
-            ></div>
             <div className={'d-flex flex-column row-gap'}>
               {(communities[communitySearch] &&
                 communities[communitySearch].least_performing_issues.map(
@@ -117,6 +114,15 @@ export default function CommunityProfile({
                         }
                       >
                         <IssuesCard
+                          target={
+                            selectedSpecificIssue &&
+                            selectedSpecificIssue !== issue
+                              ? false
+                              : true
+                          }
+                          setCommunitySearch={setCommunitySearch}
+                          communitySearch={communitySearch}
+                          compareSearch={compareSearch}
                           selectedCommunity={selectedCommunity}
                           boundary={boundary}
                           selectedSpecificIssue={selectedSpecificIssue}
@@ -145,6 +151,15 @@ export default function CommunityProfile({
                           }
                         >
                           <IssuesCard
+                            target={
+                              selectedSpecificIssue &&
+                              selectedSpecificIssue !== issue
+                                ? false
+                                : true
+                            }
+                            setCommunitySearch={setCommunitySearch}
+                            communitySearch={communitySearch}
+                            compareSearch={compareSearch}
                             selectedCommunity={selectedCommunity}
                             boundary={boundary}
                             selectedSpecificIssue={selectedSpecificIssue}
@@ -164,20 +179,13 @@ export default function CommunityProfile({
 
           <div className={'pt-3'}>
             <h5
-              class={'sticky-basic'}
+              class={'bold'}
               style={{
-                top: '0em',
                 padding: '0.75em 0',
-                zIndex: '1',
               }}
             >
               More Indicators
             </h5>
-            <div
-              class={'sticky-basic'}
-              style={{ borderBottom: '2px solid black' }}
-            ></div>
-
             <IssuesTags
               issues={issues}
               leastPerforming={
@@ -208,7 +216,7 @@ export default function CommunityProfile({
           <div className={'standard-padding'}>
             {
               <h5 className={'mb-3'}>
-                Compare Indicators in {' '}
+                Compare Indicators in{' '}
                 {(communities[communitySearch] &&
                   communities[communitySearch].name) ||
                   (councils[communitySearch] &&
@@ -220,7 +228,8 @@ export default function CommunityProfile({
               </h5>
             }
             <p className={'mt-3'}>
-               Choose one or more indicators to compare spatial equity in these {boundary==="council"?"districts":"community boards"}.
+              Choose one or more indicators to compare spatial equity in these{' '}
+              {boundary === 'council' ? 'districts' : 'community boards'}.
             </p>
 
             <IssuesTags
@@ -254,6 +263,10 @@ export default function CommunityProfile({
         <div className="modal-background">
           <div className={'modal-card'}>
             <IssuesCard
+              target={true}
+              setCommunitySearch={setCommunitySearch}
+              setSelectedChapter={setSelectedChapter}
+              compareSearch={compareSearch}
               selectedCommunity={selectedCommunity}
               boundary={boundary}
               selectedSpecificIssue={selectedSpecificIssue}
@@ -262,7 +275,6 @@ export default function CommunityProfile({
               specificIssue={modal}
               setModal={setModal}
               modalVersion={true}
-              setSelectedChapter={setSelectedChapter}
               setSelectedAbout={setSelectedAbout}
             />
           </div>

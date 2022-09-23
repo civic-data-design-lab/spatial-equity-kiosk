@@ -5,6 +5,16 @@ import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import { useResizeObserver } from '../utils/useResizeObserver';
 import { getIssueType } from '../utils/getIssueType';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faMinus,
+  faPlus,
+  faCaretDown,
+  faCaretUp,
+} from '@fortawesome/free-solid-svg-icons';
+import Table from 'react-bootstrap/Table';
+import rankings from '../data/rankings.json';
+import RankingTable from './RankingTable';
 
 const getRgb = (color) => {
   let [r, g, b] = Array.from(color);
@@ -74,28 +84,53 @@ const IssueHistogram = ({
   boundary,
   selectedSpecificIssue,
   selectedCommunity,
+  setCommunitySearch,
+  setSelectedChapter,
+  communitySearch,
+  compareSearch,
+  toggleDisplayMode,
+  specificIssue,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
 
   const getIssueStatement = () => {
     if (selectedSpecificIssue) {
-      let words =
-        issues.specific_issues_data[
-          selectedSpecificIssue
-        ].specific_issue_units_sentence.split(' ');
-      words.shift();
-      const ignoreCapitalization = ['the', 'of', 'an', 'a', 'by'];
+      return `${issues.specific_issues_data[selectedSpecificIssue].specific_issue_name} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_append} `;
+    }
+    return null;
+  };
 
-      for (let i = 0; i < words.length; i++) {
-        if (!ignoreCapitalization.includes(words[i].toLowerCase())) {
-          words[i] = words[i][0].toUpperCase() + words[i].substr(1);
-        } else {
-          words[i] = words[i];
-        }
-      }
-      const sentence = words.join(' ');
-      return sentence || null;
+  const getRankingNarrative = (obj) => {
+    if (selectedCommunity) {
+      const subject = obj.json_id;
+      const fullIssueName = obj.specific_issue_name;
+
+      const lastItem = boundary == 'council' ? '51' : '59';
+
+      const metricRanking =
+        boundary == 'council'
+          ? _RANKINGS.council[subject].find(
+              (f) => f.community_ID == selectedCommunity.json_lookup
+            ).rank
+          : _RANKINGS.community[subject].find(
+              (f) => f.community_ID == selectedCommunity.json_lookup
+            ).rank;
+
+      const boundaryGrammatical =
+        boundary == 'council'
+          ? `City Council ${selectedCommunity.name}`
+          : `${selectedCommunity.name
+              .split(' ')
+              .slice(0, -1)} Community Board ${selectedCommunity.name
+              .split(' ')
+              .slice(1)}`;
+
+      return (
+        <p>
+          {` ${boundaryGrammatical} ranks ${metricRanking} out of ${lastItem} citywide in ${fullIssueName}.`}
+        </p>
+      );
     }
     return null;
   };
@@ -246,7 +281,8 @@ const IssueHistogram = ({
       .attr('x2', xscale(0.5))
       .style('stroke', 'black')
       .style('stroke-width', 2)
-      .attr('index', 0);
+      .attr('index', 0)
+      .attr('visibility', 'hidden');
 
     svg
       .select('#maxLine')
@@ -257,7 +293,8 @@ const IssueHistogram = ({
       .attr('x2', xscale(data.length + 0.5))
       .style('stroke', 'black')
       .style('stroke-width', 2)
-      .attr('index', data.length - 1);
+      .attr('index', data.length - 1)
+      .attr('visibility', 'hidden');
 
     // draw avg Lines
     svg
@@ -268,7 +305,7 @@ const IssueHistogram = ({
       .attr('y2', height - margin.bottom)
       .attr('x2', xscale(avgIndex + 1))
       .style('stroke', 'black')
-      .style('stroke-width', 2)
+      .style('stroke-width', 1)
       .attr('index', avgIndex);
 
     // draw selected Lines
@@ -280,7 +317,7 @@ const IssueHistogram = ({
       .attr('y2', height - margin.bottom)
       .attr('x2', xscale(selectedIndex + 1))
       .style('stroke', 'black')
-      .style('stroke-width', 4)
+      .style('stroke-width', 1)
       .attr('index', selectedIndex);
 
     // Align the line length with the bars
@@ -318,7 +355,8 @@ const IssueHistogram = ({
       .select('#minTextDown')
       .attr('x', xscale(0.5) - 5)
       //   .attr('y', height - margin.bottom + 5)
-      .attr('y', svg.select('#maxLine').attr('y1') - 5)
+      // .attr('y', svg.select('#maxLine').attr('y1') - 5)
+      .attr('y', height - margin.bottom + 15)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -337,7 +375,8 @@ const IssueHistogram = ({
       .select('#maxTextDown')
       .attr('x', xscale(data.length + 0.5) + 5)
       //   .attr('y', height - margin.bottom + 5)
-      .attr('y', svg.select('#maxLine').attr('y1') - 5)
+      // .attr('y', svg.select('#maxLine').attr('y1') - 5)
+      .attr('y', height - margin.bottom + 15)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -354,7 +393,8 @@ const IssueHistogram = ({
     svg
       .select('#avgTextDown')
       .attr('x', svg.select('#avgLine').attr('x1'))
-      .attr('y', height - margin.bottom + 24)
+      // .attr('y', height - margin.bottom + 15)
+      .attr('y', svg.select('#avgLine').attr('y1') - 12)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -365,7 +405,8 @@ const IssueHistogram = ({
     svg
       .select('#selectedTextDown')
       .attr('x', svg.select('#selectedLine').attr('x1'))
-      .attr('y', height - margin.bottom + 24)
+      // .attr('y', height - margin.bottom + 15)
+      .attr('y', svg.select('#selectedLine').attr('y1') - 12)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -387,7 +428,8 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
       .text(`${data[0].toFixed(1)}${metricSymbol}`)
-      .attr('visibility', showMinText ? 'visible' : 'hidden');
+      // .attr('visibility', showMinText ? 'visible' : 'hidden');
+      .attr('visibility', 'hidden');
 
     let showMaxText = !(
       Number(svg.select('#selectedLine').attr('index')) ==
@@ -406,13 +448,15 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
       .text(`${data[data.length - 1].toFixed(1)}${metricSymbol}`)
-      .attr('visibility', showMaxText ? 'visible' : 'hidden');
+      // .attr('visibility', showMaxText ? 'visible' : 'hidden');
+      .attr('visibility', 'hidden');
 
     svg
       .select('#avgTextUp')
       .attr('x', svg.select('#avgLine').attr('x1'))
       // .attr('y', svg.select('#avgLine').attr('y1') - 5)
-      .attr('y', height - margin.bottom + 12)
+      // .attr('y', height - margin.bottom + 12)
+      .attr('y', svg.select('#selectedLine').attr('y1'))
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -432,8 +476,8 @@ const IssueHistogram = ({
     svg
       .select('#selectedTextUp')
       .attr('x', svg.select('#selectedLine').attr('x1'))
-      //   .attr('y', svg.select('#selectedLine').attr('y1') - 5)
-      .attr('y', height - margin.bottom + 12)
+      .attr('y', svg.select('#selectedLine').attr('y1'))
+      // .attr('y', height - margin.bottom + 12)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -522,35 +566,55 @@ const IssueHistogram = ({
   ]);
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        height: '100%',
-        width: '100%',
-      }}
-    >
-      <svg ref={ref}>
-        {/* Main Chart */}
-        <g />
+    <div>
+      <div
+        style={{ display: toggleDisplayMode ? 'none' : '' }}
+        className={'m-0 smaller-text'}
+      >
+        {getRankingNarrative(issues.specific_issues_data[specificIssue])}{' '}
+      </div>
 
-        {/* Avg Line */}
-        <line id="avgLine" />
-        <text id="avgTextUp" />
-        <text id="avgTextDown" />
+      <div
+        ref={containerRef}
+        style={{
+          height: '100%',
+          width: '100%',
+        }}
+      >
+        <svg style={{ display: toggleDisplayMode ? 'none' : '' }} ref={ref}>
+          {/* Main Chart */}
+          <g />
 
-        {/* Selected Line */}
-        <line id="selectedLine" />
-        <text id="selectedTextUp" />
-        <text id="selectedTextDown" />
+          {/* Avg Line */}
+          <line id="avgLine" />
+          <text id="avgTextUp" />
+          <text id="avgTextDown" />
 
-        {/* Min/Max Line */}
-        <line id="maxLine" />
-        <line id="minLine" />
-        <text id="maxTextUp" />
-        <text id="minTextUp" />
-        <text id="maxTextDown" />
-        <text id="minTextDown" />
-      </svg>
+          {/* Selected Line */}
+          <line id="selectedLine" />
+          <text id="selectedTextUp" />
+          <text id="selectedTextDown" />
+
+          {/* Min/Max Line */}
+          <line id="maxLine" />
+          <line id="minLine" />
+          <text id="maxTextUp" />
+          <text id="minTextUp" />
+          <text id="maxTextDown" />
+          <text id="minTextDown" />
+        </svg>
+
+        <RankingTable
+          issues={issues}
+          boundary={boundary}
+          selectedSpecificIssue={selectedSpecificIssue}
+          setCommunitySearch={setCommunitySearch}
+          setSelectedChapter={setSelectedChapter}
+          communitySearch={communitySearch}
+          compareSearch={compareSearch}
+          toggleDisplayMode={toggleDisplayMode}
+        />
+      </div>
     </div>
   );
 };

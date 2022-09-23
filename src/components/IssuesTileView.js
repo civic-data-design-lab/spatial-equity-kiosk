@@ -4,6 +4,9 @@ import ShareButton from './ShareButton';
 import IssueProfile from './IssuesProfile';
 import Histogram from './Histogram';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+
 export default function IssuesTileView({
   selectedSpecificIssue,
   issues,
@@ -31,8 +34,10 @@ export default function IssuesTileView({
   setCommunityPinned,
   councilPinned,
   setCouncilPinned,
+  collapseMap,
 }) {
   const [expand, setExpand] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   const getIssueName = () => {
     return (
@@ -89,61 +94,92 @@ export default function IssuesTileView({
             <div className={'issue-tile-viz'}>
               <div>
                 <h5
-                  className={'m-0'}
-                  style={{
-                    top: '0em',
-                    // marginBottom: '0',
-                    padding: '0.75em 0',
-                  }}
+                  className={'d-inline-block bold py-3'}
+                  style={{ paddingRight: '1rem' }}
                 >
                   {getIssueName()}
                 </h5>
-                <p className={'m-0 small-font'}>
-                  {
-                    issues.specific_issues_data[selectedSpecificIssue]
-                      .specific_issue_units
-                  }
-                </p>
+                <div
+                  onMouseEnter={() => {
+                    setShowInfo(true);
+                  }}
+                  onMouseLeave={() => {
+                    setShowInfo(false);
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // setSelectedAbout(9);
+                    setSelectedChapter(4);
+                  }}
+                  className={'d-inline-block'}
+                >
+                  <FontAwesomeIcon
+                    style={
+                      showInfo
+                        ? { cursor: 'pointer', transform: 'scale(1.1)' }
+                        : { cursor: 'pointer' }
+                    }
+                    icon={faCircleInfo}
+                  />
+                  <div
+                    className={`${
+                      showInfo ? '' : 'd-none'
+                    } position-absolute info-tooltip smaller-text`}
+                  >
+                    <p className={'m-0'}>
+                      {`Source: ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}`}
+                    </p>
+                  </div>
+                </div>
+                <div className={'m-0 small-font'}>
+                  {`${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units} `}
+                </div>
               </div>
               <div style={{ flex: 1 }} className={'histogram-responsive-box'}>
-                <Histogram
-                  colorRampsyType={colorRamps}
-                  issues={issues}
-                  boundary={boundary}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  communityPinned={communityPinned}
-                  setCommunityPinned={setCommunityPinned}
-                  councilPinned={councilPinned}
-                  setCouncilPinned={setCouncilPinned}
-                  setCommunitySearch={setCommunitySearch}
-                  setSelectedChapter={setSelectedChapter}
-                />
+                {!collapseMap && (
+                  <Histogram
+                    colorRampsyType={colorRamps}
+                    issues={issues}
+                    boundary={boundary}
+                    selectedSpecificIssue={selectedSpecificIssue}
+                    communityPinned={communityPinned}
+                    setCommunityPinned={setCommunityPinned}
+                    councilPinned={councilPinned}
+                    setCouncilPinned={setCouncilPinned}
+                    setCommunitySearch={setCommunitySearch}
+                    setSelectedChapter={setSelectedChapter}
+                    communitySearch={communitySearch}
+                    compareSearch={compareSearch}
+                  />
+                )}
               </div>
-              <p className={'m-0 small-font'}>
+              {/* <p className={'m-0 small-font'}>
                 Source:{' '}
                 {
                   issues.specific_issues_data[selectedSpecificIssue]
                     .specific_issue_source
                 }
-              </p>
+              </p> */}
             </div>
 
             <div
-              className={'col-6 w-50 overflow-scroll'}
+              className={'col-6 w-50 overflow-auto'}
               //style={{ paddingRight: '2.5em' }}
             >
-              <IssueProfile
-                issues={issues}
-                selectedSpecificIssue={selectedSpecificIssue}
-                boundary={boundary}
-                setSelectedSpecificIssue={setSelectedSpecificIssue}
-                setCommunitySearch={setCommunitySearch}
-                setSelectedChapter={setSelectedChapter}
-                councils={councils}
-                communities={communities}
-                communitySearch={communitySearch}
-                compareSearch={compareSearch}
-              />
+              {!collapseMap && (
+                <IssueProfile
+                  issues={issues}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  boundary={boundary}
+                  setSelectedSpecificIssue={setSelectedSpecificIssue}
+                  setCommunitySearch={setCommunitySearch}
+                  setSelectedChapter={setSelectedChapter}
+                  councils={councils}
+                  communities={communities}
+                  communitySearch={communitySearch}
+                  compareSearch={compareSearch}
+                />
+              )}
             </div>
           </div>
         </div>

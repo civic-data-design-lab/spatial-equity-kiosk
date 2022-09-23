@@ -6,7 +6,15 @@ import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import { useResizeObserver } from '../utils/useResizeObserver';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faMinus,
+  faPlus,
+  faCaretDown,
+  faCaretUp,
+} from '@fortawesome/free-solid-svg-icons';
+import Table from 'react-bootstrap/Table';
+import rankings from '../data/rankings.json';
+import RankingTable from './RankingTable';
 
 const getRgb = (color) => {
   let [r, g, b] = Array.from(color);
@@ -93,6 +101,8 @@ const Histogram = ({
   setCouncilPinned,
   setCommunitySearch,
   setSelectedChapter,
+  communitySearch,
+  compareSearch,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
@@ -143,6 +153,8 @@ const Histogram = ({
   const [currentHoveredCommunityID, setCurrentHoveredCommunityID] =
     useState('');
   const [useBoroughColor, setUseBoroughColor] = useState(false);
+
+  const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
 
   const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
@@ -637,13 +649,13 @@ const Histogram = ({
     //     if (boundary == 'council')
     //       setCouncilPinned(
     //         councilPinned.filter(
-    //           (d, _) => d !== d3.select(this).attr('lookupID')
+    // (d, _) => d !== d3.select(this).attr('lookupID')
     //         )
     //       );
     //     else
     //       setCommunityPinned(
     //         communityPinned.filter(
-    //           (d, _) => d !== d3.select(this).attr('lookupID')
+    // (d, _) => d !== d3.select(this).attr('lookupID')
     //         )
     //       );
     //   });
@@ -959,38 +971,67 @@ const Histogram = ({
           flexWrap: 'wrap',
         }}
       >
-        <div className={'d-flex flex-column position-relative'}>
-          <div
-            className={`big-button ${
-              useBoroughColor ? 'big-button-active' : 'big-button-inactive'
-            }`}
-            style={
-              {
-                //   height: '25px',
-              }
-            }
-            onClick={() => {
-              setUseBoroughColor(!useBoroughColor);
-            }}
-          >
-            <div>
-              <p className={'mb-0 small-font'}>
-                {useBoroughColor ? 'Hide Borough' : 'Show Borough'}
-              </p>
-            </div>
-            <div>
-              {useBoroughColor ? (
-                <FontAwesomeIcon icon={faMinus} />
-              ) : (
-                <FontAwesomeIcon icon={faPlus} />
-              )}
-            </div>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'auto auto',
+            alignContent: 'start',
+            width: '100%',
+          }}
+        >
+          <div className={`d-flex switch-container flex-row `}>
+            <label className="switch">
+              <input
+                type="checkbox"
+                onChange={(e) => {
+                  setToggleDisplayMode(!toggleDisplayMode);
+                }}
+              />
+              <span className="slider round"></span>
+            </label>
+
+            <p className={'small-font d-inline-block big-button border-0'}>
+              {toggleDisplayMode ? `Show Chart` : `Show Rankings`}
+            </p>
           </div>
+
+          {!toggleDisplayMode && (
+            <div>
+              <div
+                className={`big-button ${
+                  useBoroughColor ? 'big-button-active' : 'big-button-inactive'
+                } small-font`}
+                style={{
+                  display: 'inline-block',
+                  justifyContent: '',
+                  width: 'auto',
+                }}
+                onClick={() => {
+                  setUseBoroughColor(!useBoroughColor);
+                }}
+              >
+                {useBoroughColor ? `Hide Borough ` : `Show Borough `}
+                {useBoroughColor ? (
+                  <FontAwesomeIcon
+                    className={'mb-0 small-font'}
+                    icon={faMinus}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    className={'mb-0 small-font'}
+                    icon={faPlus}
+                  />
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
-        {useBoroughColor ? (
+        {!toggleDisplayMode ? (
           <div
-            className={'d-flex flex-row osition-relative'}
+            className={`${
+              useBoroughColor ? '' : 'invisible'
+            } d-flex flex-row osition-relativ`}
             style={{
               justifyContent: 'start',
               flexGrow: '1',
@@ -1095,14 +1136,18 @@ const Histogram = ({
 
       <div
         ref={containerRef}
-        style={{
-          // height: '100%',
-          width: '100%',
-          flexGrow: 1,
-        }}
+        style={
+          !toggleDisplayMode
+            ? {
+                width: '100%',
+                flexGrow: 1,
+                padding: '0.5rem 0 0 0',
+              }
+            : { width: '100%', flexGrow: 1, padding: '1rem 0' }
+        }
         className={'position-relative'}
       >
-        <svg ref={ref}>
+        <svg display={toggleDisplayMode ? 'none' : ''} ref={ref}>
           <line id="mouseLine" />
           <line id="avgLine" />
 
@@ -1130,6 +1175,17 @@ const Histogram = ({
           <text id="resetButton">Clear All</text>
           <rect id="resetBg" />
         </svg>
+
+        <RankingTable
+          issues={issues}
+          boundary={boundary}
+          selectedSpecificIssue={selectedSpecificIssue}
+          setCommunitySearch={setCommunitySearch}
+          setSelectedChapter={setSelectedChapter}
+          communitySearch={communitySearch}
+          compareSearch={compareSearch}
+          toggleDisplayMode={toggleDisplayMode}
+        />
       </div>
     </div>
   );
