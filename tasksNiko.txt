@@ -2,8 +2,8 @@ Kelly
 on first click, zoom doesn't work
 
 Niko
+make the table a component
 abbreviate histogram text to just name
 zoom out further when the community profiles tab is open so you can see both communities
 check how the citywide stats are being calculated
-fix sticky stuff
-bootstrap modal popup
+language updates
