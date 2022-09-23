@@ -20,11 +20,15 @@ export default function IssuesCard({
   forMoreIssues = false,
   setMoreIssues = null,
   boundary,
-  selectedCommunity,
   setSelectedChapter,
   setSelectedAbout,
+  selectedCommunity,
+  setCommunitySearch,
+  communitySearch,
+  compareSearch,
 }) {
   const [showInfo, setShowInfo] = useState(false);
+  const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
 
   const getIssueName = () => {
     return (
@@ -68,7 +72,7 @@ export default function IssuesCard({
 
   return (
     <div
-      className={'issues-card-container'}
+      className={'issues-card-container pb-3'}
       onClick={() => {
         if (selectedSpecificIssue === specificIssue) {
           setSelectedSpecificIssue(null);
@@ -77,12 +81,40 @@ export default function IssuesCard({
         }
       }}
     >
+      <div className={'m-0 lh-1'}>
+        {getRankingNarrative(issues.specific_issues_data[specificIssue])}{' '}
+      </div>
       <div className={'issues-card-header'}>
         <div className={'issues-card-title-container col-gap'}>
           <p className={'m-0'}>{getIssueName()}</p>
           <p className={'m-0 smaller-text'}>
             {issues.specific_issues_data[specificIssue].specific_issue_units}
           </p>
+          <div
+            style={{
+              margin: '1rem 1rem 0 0',
+              display: 'grid',
+              gridTemplateColumns: 'auto auto',
+              alignContent: 'start',
+              width: '100%',
+            }}
+          >
+            <div className={`d-flex switch-container flex-row `}>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  onChange={(e) => {
+                    setToggleDisplayMode(!toggleDisplayMode);
+                  }}
+                />
+                <span className="slider round"></span>
+              </label>
+
+              <p className={'small-font d-inline-block big-button border-0'}>
+                {toggleDisplayMode ? `Show Chart` : `Show Rankings`}
+              </p>
+            </div>
+          </div>
         </div>
         <div className={'issues-card-button-container col-gap'}>
           <div
@@ -135,17 +167,23 @@ export default function IssuesCard({
           )}
         </div>
       </div>
-      <div className={'issues-card-body'}>
+      <div
+        className={'issues-card-body'}
+        style={toggleDisplayMode ? { padding: '0', border: '0' } : {}}
+      >
         <IssueHistogram
           colorRampsyType={'health'}
           issues={issues}
           boundary={boundary}
           selectedSpecificIssue={specificIssue}
           selectedCommunity={selectedCommunity}
+          setCommunitySearch={setCommunitySearch}
+          setSelectedChapter={setSelectedChapter}
+          communitySearch={communitySearch}
+          compareSearch={compareSearch}
+          toggleDisplayMode={toggleDisplayMode}
+          setToggleDisplayMode={setToggleDisplayMode}
         />
-        <div className={'m-0 small-text'}>
-          {getRankingNarrative(issues.specific_issues_data[specificIssue])}{' '}
-        </div>
       </div>
     </div>
   );

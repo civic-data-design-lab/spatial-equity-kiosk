@@ -1007,9 +1007,9 @@ a:active {
     cursor: pointer;
 }
 
-.issues-card-container:hover {
+/* .issues-card-container:hover {
     transform: scale(1.02);
-}
+} */
 
 .issues-card-header {
     background-color: black;

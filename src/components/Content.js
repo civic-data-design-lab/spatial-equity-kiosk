@@ -96,7 +96,11 @@ export default function Content({
             ? 'collapsed-middle-column'
             : 'col-4 no-top-border'
         }`}
-        style={!showMap && selectedChapter == 3 ? { borderRight: 'none' } : {}}
+        style={
+          !showMap && selectedChapter == 3 && selectedSpecificIssue
+            ? { borderRight: 'none' }
+            : {}
+        }
       >
         {(selectedChapter === 2 ||
           (selectedChapter === 3 &&
@@ -167,6 +171,7 @@ export default function Content({
             info={info}
             setSelectedChapter={setSelectedChapter}
             setSelectedAbout={setSelectedAbout}
+            setCommunitySearch={setCommunitySearch}
           />
         )}
       </div>

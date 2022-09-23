@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import categories from '../texts/issue_categories.json';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function IssueProfile({
   issues,
@@ -16,15 +15,6 @@ export default function IssueProfile({
   compareSearch,
 }) {
   const [expand, setExpand] = useState(false);
-
-  // console.log('communitySearch ', communitySearch);
-
-  const getIssueName = () => {
-    return (
-      issues.specific_issues_data[selectedSpecificIssue].specific_issue_name ||
-      null
-    );
-  };
 
   const getImages = () => {
     const ids = issues.specific_issues_data[selectedSpecificIssue].image_ids;
@@ -43,38 +33,6 @@ export default function IssueProfile({
         </div>
       );
     }
-  };
-
-  const getIssueStatement = () => {
-    if (selectedSpecificIssue) {
-      let goodOrBad =
-        issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
-
-      let attitude =
-        issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[
-          Number(!goodOrBad)
-        ];
-      attitude = attitude[0].toUpperCase() + attitude.substr(1);
-
-      const words =
-        issues.specific_issues_data[
-          selectedSpecificIssue
-        ].specific_issue_units_sentence.split(' ');
-
-      const ignoreCapitalization = ['the', 'of', 'an', 'a', 'by'];
-
-      for (let i = 0; i < words.length; i++) {
-        if (!ignoreCapitalization.includes(words[i].toLowerCase())) {
-          words[i] = words[i][0].toUpperCase() + words[i].substr(1);
-        } else {
-          words[i] = words[i];
-        }
-      }
-
-      const sentence = `${attitude} ${words.join(' ')}`;
-      return sentence || null;
-    }
-    return null;
   };
 
   const getHyperlinkText = (texts) => {

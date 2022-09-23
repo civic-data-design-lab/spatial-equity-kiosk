@@ -17,6 +17,7 @@ export default function CommunityProfile({
   councils,
   setSelectedChapter,
   setSelectedAbout,
+  setCommunitySearch,
 }) {
   useEffect(() => {
     if (moreIssues && communitySearch) {
@@ -113,6 +114,9 @@ export default function CommunityProfile({
                         }
                       >
                         <IssuesCard
+                          setCommunitySearch={setCommunitySearch}
+                          communitySearch={communitySearch}
+                          compareSearch={compareSearch}
                           selectedCommunity={selectedCommunity}
                           boundary={boundary}
                           selectedSpecificIssue={selectedSpecificIssue}
@@ -141,6 +145,9 @@ export default function CommunityProfile({
                           }
                         >
                           <IssuesCard
+                            setCommunitySearch={setCommunitySearch}
+                            communitySearch={communitySearch}
+                            compareSearch={compareSearch}
                             selectedCommunity={selectedCommunity}
                             boundary={boundary}
                             selectedSpecificIssue={selectedSpecificIssue}
@@ -244,6 +251,9 @@ export default function CommunityProfile({
         <div className="modal-background">
           <div className={'modal-card'}>
             <IssuesCard
+              setCommunitySearch={setCommunitySearch}
+              setSelectedChapter={setSelectedChapter}
+              compareSearch={compareSearch}
               selectedCommunity={selectedCommunity}
               boundary={boundary}
               selectedSpecificIssue={selectedSpecificIssue}
@@ -252,7 +262,6 @@ export default function CommunityProfile({
               specificIssue={modal}
               setModal={setModal}
               modalVersion={true}
-              setSelectedChapter={setSelectedChapter}
               setSelectedAbout={setSelectedAbout}
             />
           </div>

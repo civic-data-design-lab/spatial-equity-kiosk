@@ -6,7 +6,12 @@ import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import { useResizeObserver } from '../utils/useResizeObserver';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faMinus,
+  faPlus,
+  faCaretDown,
+  faCaretUp,
+} from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
 import rankings from '../data/rankings.json';
 
@@ -967,9 +972,6 @@ const Histogram = ({
         }}
       >
         <div
-          // className={
-          //   'd-flex flex-row justify-content-between align-items-center col-gap'
-          // }
           style={{
             display: 'grid',
             gridTemplateColumns: 'auto auto',
@@ -989,7 +991,7 @@ const Histogram = ({
             </label>
 
             <p className={'small-font d-inline-block big-button border-0'}>
-              {toggleDisplayMode ? `Show Rankings` : `Show Chart`}
+              {toggleDisplayMode ? `Show Chart` : `Show Rankings`}
             </p>
           </div>
 
@@ -1340,6 +1342,29 @@ ${
                 : null}
             </tbody>
           </Table>
+          <div
+            className={'d-flex flex-row justify-content-center ranking-button'}
+            style={
+              expand
+                ? {
+                    border: '2px solid black',
+                    borderTop: '1px solid black',
+                    background: 'white',
+                    position: 'sticky',
+                    bottom: '0em',
+                  }
+                : { borderTop: '1px solid black' }
+            }
+            onClick={() => {
+              setExpand(!expand);
+            }}
+          >
+            {expand ? (
+              <FontAwesomeIcon icon={faCaretUp} />
+            ) : (
+              <FontAwesomeIcon icon={faCaretDown} />
+            )}
+          </div>
         </div>
       </div>
     </div>
