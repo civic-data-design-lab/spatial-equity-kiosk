@@ -281,7 +281,8 @@ const IssueHistogram = ({
       .attr('x2', xscale(0.5))
       .style('stroke', 'black')
       .style('stroke-width', 2)
-      .attr('index', 0);
+      .attr('index', 0)
+      .attr('visibility', 'hidden');
 
     svg
       .select('#maxLine')
@@ -292,7 +293,8 @@ const IssueHistogram = ({
       .attr('x2', xscale(data.length + 0.5))
       .style('stroke', 'black')
       .style('stroke-width', 2)
-      .attr('index', data.length - 1);
+      .attr('index', data.length - 1)
+      .attr('visibility', 'hidden');
 
     // draw avg Lines
     svg
@@ -303,7 +305,7 @@ const IssueHistogram = ({
       .attr('y2', height - margin.bottom)
       .attr('x2', xscale(avgIndex + 1))
       .style('stroke', 'black')
-      .style('stroke-width', 2)
+      .style('stroke-width', 1)
       .attr('index', avgIndex);
 
     // draw selected Lines
@@ -315,7 +317,7 @@ const IssueHistogram = ({
       .attr('y2', height - margin.bottom)
       .attr('x2', xscale(selectedIndex + 1))
       .style('stroke', 'black')
-      .style('stroke-width', 4)
+      .style('stroke-width', 1)
       .attr('index', selectedIndex);
 
     // Align the line length with the bars
@@ -353,7 +355,8 @@ const IssueHistogram = ({
       .select('#minTextDown')
       .attr('x', xscale(0.5) - 5)
       //   .attr('y', height - margin.bottom + 5)
-      .attr('y', svg.select('#maxLine').attr('y1') - 5)
+      // .attr('y', svg.select('#maxLine').attr('y1') - 5)
+      .attr('y', height - margin.bottom + 15)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -372,7 +375,8 @@ const IssueHistogram = ({
       .select('#maxTextDown')
       .attr('x', xscale(data.length + 0.5) + 5)
       //   .attr('y', height - margin.bottom + 5)
-      .attr('y', svg.select('#maxLine').attr('y1') - 5)
+      // .attr('y', svg.select('#maxLine').attr('y1') - 5)
+      .attr('y', height - margin.bottom + 15)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -389,7 +393,8 @@ const IssueHistogram = ({
     svg
       .select('#avgTextDown')
       .attr('x', svg.select('#avgLine').attr('x1'))
-      .attr('y', height - margin.bottom + 24)
+      // .attr('y', height - margin.bottom + 15)
+      .attr('y', svg.select('#avgLine').attr('y1') - 12)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -400,7 +405,8 @@ const IssueHistogram = ({
     svg
       .select('#selectedTextDown')
       .attr('x', svg.select('#selectedLine').attr('x1'))
-      .attr('y', height - margin.bottom + 24)
+      // .attr('y', height - margin.bottom + 15)
+      .attr('y', svg.select('#selectedLine').attr('y1') - 12)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -422,7 +428,8 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
       .text(`${data[0].toFixed(1)}${metricSymbol}`)
-      .attr('visibility', showMinText ? 'visible' : 'hidden');
+      // .attr('visibility', showMinText ? 'visible' : 'hidden');
+      .attr('visibility', 'hidden');
 
     let showMaxText = !(
       Number(svg.select('#selectedLine').attr('index')) ==
@@ -441,13 +448,15 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
       .text(`${data[data.length - 1].toFixed(1)}${metricSymbol}`)
-      .attr('visibility', showMaxText ? 'visible' : 'hidden');
+      // .attr('visibility', showMaxText ? 'visible' : 'hidden');
+      .attr('visibility', 'hidden');
 
     svg
       .select('#avgTextUp')
       .attr('x', svg.select('#avgLine').attr('x1'))
       // .attr('y', svg.select('#avgLine').attr('y1') - 5)
-      .attr('y', height - margin.bottom + 12)
+      // .attr('y', height - margin.bottom + 12)
+      .attr('y', svg.select('#selectedLine').attr('y1'))
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -467,8 +476,8 @@ const IssueHistogram = ({
     svg
       .select('#selectedTextUp')
       .attr('x', svg.select('#selectedLine').attr('x1'))
-      //   .attr('y', svg.select('#selectedLine').attr('y1') - 5)
-      .attr('y', height - margin.bottom + 12)
+      .attr('y', svg.select('#selectedLine').attr('y1'))
+      // .attr('y', height - margin.bottom + 12)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
