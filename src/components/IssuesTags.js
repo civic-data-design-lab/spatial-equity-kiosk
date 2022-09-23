@@ -60,6 +60,8 @@ export default function IssuesTags({
                   selectedCommunity={selectedCommunity}
                   setSelectedChapter={setSelectedChapter}
                   setSelectedAbout={setSelectedAbout}
+                  compareSearch={compareSearch}
+                  communitySearch={communitySearch}
                 />
               </div>
             );

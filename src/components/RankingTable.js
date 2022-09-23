@@ -20,6 +20,7 @@ const RankingTable = ({
 }) => {
   const [expand, setExpand] = useState(false);
 
+
   return (
     <div
       style={{ display: !toggleDisplayMode ? 'none' : '' }}

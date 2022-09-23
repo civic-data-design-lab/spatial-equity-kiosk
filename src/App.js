@@ -112,6 +112,7 @@ function App() {
   const [zoomToggle, setzoomToggle] = useState(0);
   const [handleLegend, sethandleLegend] = useState(0);
 
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     let createCoords = [[], []];
