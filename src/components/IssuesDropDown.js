@@ -63,7 +63,8 @@ export default function IssuesDropDown({
             return (
               <div
                 key={index}
-                className={`dropdown-item ${
+                className={`dropdown-item 
+                ${
                   currentValue === item.specific_issue_ID
                     ? 'dropdown-item-active'
                     : ''

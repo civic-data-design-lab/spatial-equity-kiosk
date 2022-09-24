@@ -252,7 +252,7 @@ export default function IssuesMiddleColumn({
             getRankingNarrative(health_issues)} */}
 
           {(!showMap || !showDemographics) && (
-            <div className={'m-0 small-font'}>
+            <div className={'m-0 readable-font'}>
               {!selectedSpecificIssue ? (
                 <p>{issue_categories.descriptions[selectedIssue]}</p>
               ) : (
@@ -354,7 +354,7 @@ export default function IssuesMiddleColumn({
             getRankingNarrative(environment_issues)} */}
 
           {(!showMap || !showDemographics) && (
-            <div className={'m-0 small-font'}>
+            <div className={'m-0 readable-font'}>
               {!selectedSpecificIssue ? (
                 <p>{issue_categories.descriptions[selectedIssue]}</p>
               ) : (
@@ -455,7 +455,7 @@ export default function IssuesMiddleColumn({
             getRankingNarrative(infrastructure_issues)} */}
 
           {(!showMap || !showDemographics) && (
-            <div className={'m-0 small-font'}>
+            <div className={'m-0 readable-font'}>
               {!selectedSpecificIssue ? (
                 <p>{issue_categories.descriptions[selectedIssue]}</p>
               ) : (

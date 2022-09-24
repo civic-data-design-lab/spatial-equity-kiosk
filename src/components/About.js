@@ -149,6 +149,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                     href={
                       "https://www.google.com/url?q=https://www.transalt.org/committees&sa=D&source=docs&ust=1662266468853716&usg=AOvVaw2kd6M879VV3M8JNi-ZiMZ9"
                     }
+                    target={"_blank"}
                   >
                     Join an activist committee where you live
                   </a>
@@ -159,6 +160,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   <a
                     style={{ textDecorationLine: "underline" }}
                     href={"https://www.transalt.org/membership"}
+                    target={"_blank"}
                   >
                     becoming a TA member
                   </a>
@@ -300,6 +302,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   <a
                     style={{ textDecorationLine: "underline" }}
                     href={"https://nyc25x25.org/25x25report.html"}
+                    target={"_blank"}
                   >
                     NYC 25x25: A Challenge to New York City’s Next Leaders to
                     Give Streets Back to People.
@@ -350,6 +353,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   <a
                     style={{ textDecorationLine: "underline" }}
                     href={"https://nyc25x25.org/coalition.html"}
+                    target={"_blank"}
                   >
                     here
                   </a>

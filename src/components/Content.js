@@ -189,7 +189,7 @@ export default function Content({
         {(!selectedChapter || selectedChapter === 1) && (
           <iframe
             className={'video'}
-            src="https://www.youtube.com/embed/Tkculqh0Ha8?autoplay=1&mute=1"
+            src="https://www.youtube.com/embed/Tkculqh0Ha8"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

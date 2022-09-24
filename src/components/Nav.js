@@ -253,6 +253,7 @@ function Nav({
             setSearchSource(null);
             setUserPoints([], []);
             setBadSearch(0, 0);
+            setShowMap(false);
             selectedChapterCache.current = selectedSpecificIssue;
             //setSelectedSpecificIssue(null);
             if (selectedCoordsCache?.current)
@@ -264,7 +265,6 @@ function Nav({
             if (viewStateCache?.current) setViewState(viewStateCache.current);
           } else {
             setSelectedChapter(null);
-            setShowMap(false);
           }
         }}
       >
@@ -442,9 +442,9 @@ function Nav({
               Spatial Equity NYC is a project of Transportation Alternatives and
               MIT.
             </p>
-            <div className="attributions">
-              <a target="_blank" href={`https://www.transalt.org/`}>
-                <img src={_TA} height={40} />
+            <div className={`attributions ${selectedChapter===4?"pe-auto":"pe-none"}`} onClick={(e)=>{e.stopPropagation()}}>
+              <a href={`https://www.transalt.org/`} target={"_blank"}>
+                  <img src={_TA} height={40} />
               </a>
               <a target="_blank" href={'https://www.mit.edu/'}>
                 <img src={_MIT} height={25} />
