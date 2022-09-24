@@ -224,7 +224,7 @@ export default function DeckMap({
       modes.push('Bike');
     }
     if (toggleTransit) {
-      modes.push('Ride Transit');
+      modes.push('Take Public Transit');
     }
 
     setTransportationModesArray(modes);

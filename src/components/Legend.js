@@ -349,14 +349,21 @@ export default function Legend({
             <div className={'d-flex flex-column row-gap'} style={{ flex: 1 }}>
               <div>
                 {
-                  <p className={'m-0 small-font'}>
-                    <span className={'bold'}>{percList[0]}</span>% of
+                  <div
+                    className={
+                      demoLookup.lookup == 'F10_TrsBkW'
+                        ? 'mb-1 small-font'
+                        : 'mb-3 small-font'
+                    }
+                    style={{ display: 'inline-block' }}
+                  >
+                    {100 - percList[percList.length - 1]}% of
                     {demoLookup.name ===
                       'Households Living Below the Poverty Line' ||
                     demoLookup.name === 'Households Without a Car'
                       ? ' households '
                       : ' commuters '}
-                    in <span className={'bold'}>{neighborhoodName}</span>{' '}
+                    {selectedChapter == 3 ? 'in' : ''} {neighborhoodName}
                     {demoLookup.name ===
                     'Households Living Below the Poverty Line'
                       ? 'live below the poverty line'
@@ -365,8 +372,9 @@ export default function Legend({
                       : demoLookup.name ===
                         'Citywide Commuters Who Drive Alone to Work'
                       ? 'drive alone to work'
-                      : 'bike, walk, or ride transit'}
-                  </p>
+                      : ` `}
+                    {transitToggles}.
+                  </div>
                 }
                 {/* {demoLookup.name !== "Population Using Alternative Transportation" && <p className={"mb-3 small-font"}>
                                     {demoLookup.metric_units}{" "}
@@ -374,10 +382,7 @@ export default function Legend({
                 {demoLookup.lookup !== 'F10_TrsBkW' ? (
                   <p className={'mb-1 small-font'}>{demoLookup.name}</p>
                 ) : (
-                  <div className={'d-flex col-gap'}>
-                    <p className={'mb-1 small-font'}>Citywide Commuters Who</p>
-                    {transitToggles}
-                  </div>
+                  <div className={'d-flex col-gap'}></div>
                 )}
 
                 <div className={'placeholder-legend'}>
@@ -429,16 +434,36 @@ export default function Legend({
 
                   <div className={'small-font'}>0%</div>
                   <div className={'small-font'}>
-                    {demoLegendBins[0].toFixed(0)}%
+                    {demoLegendBins[0] > 10
+                      ? demoLegendBins[0].toFixed(0)
+                      : demoLegendBins[0] > 1
+                      ? demoLegendBins[0].toFixed(1)
+                      : demoLegendBins[0].toFixed(2)}
+                    %
                   </div>
                   <div className={'small-font'}>
-                    {demoLegendBins[1].toFixed(0)}%
+                    {demoLegendBins[1] > 10
+                      ? demoLegendBins[1].toFixed(0)
+                      : demoLegendBins[1] > 1
+                      ? demoLegendBins[1].toFixed(1)
+                      : demoLegendBins[1].toFixed(2)}
+                    %
                   </div>
                   <div className={'small-font'}>
-                    {demoLegendBins[2].toFixed(0)}%
+                    {demoLegendBins[2] > 10
+                      ? demoLegendBins[2].toFixed(0)
+                      : demoLegendBins[2] > 1
+                      ? demoLegendBins[2].toFixed(1)
+                      : demoLegendBins[2].toFixed(2)}
+                    %
                   </div>
                   <div className={'small-font'}>
-                    {demoLegendBins[3].toFixed(0)}% +
+                    {demoLegendBins[3] > 10
+                      ? demoLegendBins[3].toFixed(0)
+                      : demoLegendBins[3] > 1
+                      ? demoLegendBins[3].toFixed(1)
+                      : demoLegendBins[3].toFixed(2)}
+                    % +
                   </div>
                 </div>
               </div>
@@ -450,7 +475,7 @@ export default function Legend({
               <div>
                 <p className={'mb-3 small-font'}>
                   {selectedChapter == 3 ? '' : 'Citywide'} {demoLookup.name} in{' '}
-                  <span className={'bold'}>{neighborhoodName}</span>
+                  {neighborhoodName}
                 </p>
                 <div
                   className={'placeholder-legend placeholder-legend-ethnicity'}
@@ -500,7 +525,6 @@ export default function Legend({
             </div>
           );
         } else {
-          // DEFAULT CASE - ADD D3 DEMOGRAPHICS COMPONENT HERE!
           let gridColorRamps;
 
           if (demoLookup.name == 'Race & Ethnicity') {
@@ -554,27 +578,24 @@ export default function Legend({
                   }
                 >
                   {demoLookup.name} {selectedChapter == 3 ? 'in' : ''}{' '}
-                  <span className={'bold'}>{neighborhoodName}.</span>
+                  {neighborhoodName}.
                 </p>
               ) : (
-                <p
+                <div
                   className={
                     demoLookup.lookup == 'F10_TrsBkW'
                       ? 'mb-1 small-font'
                       : 'mb-3 small-font'
                   }
+                  style={{ display: 'inline-block' }}
                 >
-                  <span className={'bold'}>
-                    {100 - percList[percList.length - 1]}
-                  </span>
-                  % of
+                  {100 - percList[percList.length - 1]}% of
                   {demoLookup.name ===
                     'Households Living Below the Poverty Line' ||
                   demoLookup.name === 'Households Without a Car'
                     ? ' households '
                     : ' commuters '}
-                  {selectedChapter == 3 ? 'in' : ''}{' '}
-                  <span className={'bold'}>{neighborhoodName}</span>{' '}
+                  {selectedChapter == 3 ? 'in' : ''} {neighborhoodName}
                   {demoLookup.name ===
                   'Households Living Below the Poverty Line'
                     ? 'live below the poverty line'
@@ -583,19 +604,18 @@ export default function Legend({
                     : demoLookup.name ===
                       'Citywide Commuters Who Drive Alone to Work'
                     ? 'drive alone to work'
-                    : 'bike, walk, or ride transit'}
-                  .
-                </p>
+                    : ` `}
+                  {transitToggles}.
+                </div>
               )}
 
-              {demoLookup.lookup !== 'F10_TrsBkW' ? (
+              {/* {demoLookup.lookup !== 'F10_TrsBkW' ? (
                 ''
               ) : (
                 <div className={'d-flex col-gap'}>
                   <p className={'mb-1 small-font'}>Citywide Commuters Who</p>
-                  {transitToggles}
                 </div>
-              )}
+              )} */}
 
               <div
                 className={'placeholder-legend placeholder-legend-ethnicity'}

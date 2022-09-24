@@ -1485,10 +1485,18 @@ input:checked+.slider:before {
 }
 
 .transit-toggle {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    /* display: inline-flex; */
+    /* flex-direction: row; */
+    justify-content: start;
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
     font-size: 0.75rem;
+
+}
+
+.transit-toggle * {
+    padding: 0 0 0 0.2rem !important;
+    margin: 0 !important;
 
 }
 
