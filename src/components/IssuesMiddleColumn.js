@@ -55,9 +55,9 @@ export default function IssuesMiddleColumn({
   const getHyperlinkText = (texts) => {
     return (
       <p>
-        {texts.map((texts) => {
+        {texts.map((texts, index) => {
           return (
-            <span className={texts.bolded ? 'bold' : ''}>
+            <span key={index} className={texts.bolded ? 'bold' : ''}>
               {texts.text}
               {texts.hyperlink && (
                 <span
@@ -92,7 +92,7 @@ export default function IssuesMiddleColumn({
     return issues.specific_issues_data[selectedSpecificIssue].related.map(
       (issue, index) => {
         return (
-          <span>
+          <span key={index}>
             {' '}
             <a
               style={{ textDecoration: 'underline' }}

@@ -421,11 +421,11 @@ export default function DeckMap({
 
     // 04.3 toggle based on zoom level
     if (viewState.zoom > 12.25) {
-      setzoomToggle(0);
-      sethandleLegend(0);
+      if (zoomToggle == 1) setzoomToggle(0);
+      if (handleLegend == 1) sethandleLegend(0);
     } else {
-      setzoomToggle(1);
-      sethandleLegend(1);
+      if (zoomToggle == 0) setzoomToggle(1);
+      if (handleLegend == 0) sethandleLegend(1);
     }
   }, []);
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
@@ -1356,96 +1356,6 @@ export default function DeckMap({
       getLineColor: [255, 255, 255, 255],
     }),
 
-    // new TextLayer({
-    //   id: 'text-layer-details',
-    //   data: userPoints,
-    //   getPosition: (d) => {
-    //     // console.log(d);
-    //     // console.log(project(d));
-    //     if (d.length == 2) return d;
-    //   },
-    //   getText: (d) => {
-    //     if (d.length == 2) {
-    //       //   const rank = 99;
-    //       const selection = getCommunitySearch(d, boundary);
-    //       const value = selection[1][0][[infoTransfer.selectedMetric]];
-
-    //       const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
-    //         ? true
-    //         : false;
-    //       return metricCheck
-    //         ? `Ranks ${getRankingTooltip(selection[0])} for ${
-    //             issues.specific_issues_data[selectedSpecificIssue]
-    //               .specific_issue_name
-    //           } with ${value >= 10 ? value.toFixed(0) : value.toFixed(1)}${
-    //             issues.specific_issues_data[selectedSpecificIssue]
-    //               .issue_units_symbol != ''
-    //               ? issues.specific_issues_data[selectedSpecificIssue]
-    //                   .issue_units_symbol
-    //               : ''
-    //           } ${
-    //             issues.specific_issues_data[selectedSpecificIssue]
-    //               .issue_units_shorthand != ''
-    //               ? issues.specific_issues_data[selectedSpecificIssue]
-    //                   .issue_units_shorthand
-    //               : issues.specific_issues_data[selectedSpecificIssue]
-    //                   .specific_issue_units
-    //           }.`
-    //         : '';
-    //     }
-    //   },
-    //   visible: infoTransfer.selectedMetric ? true : false,
-    //   getSize: 12,
-    //   getPixelOffset: [popupOffset, popupOffset + 45],
-    //   maxWidth: boundary == 'community' ? 1150 : 1000,
-    //   background: true,
-    //   backgroundPadding: [10, 10, 10, 10],
-    //   getBackgroundColor: [255, 255, 255, 255],
-    //   getBorderWidth: 1,
-    //   getBorderColor: [0, 0, 0, 255],
-    //   getTextAnchor: 'start',
-    //   getAlignmentBaseline: 'top',
-    //   fontFamily: 'Roboto',
-    //   updateTriggers: {
-    //     getText: [infoTransfer.selectedBoundary, infoTransfer.selectedMetric],
-    //   },
-    // }),
-
-    // new TextLayer({
-    //   id: 'comparison-layer-title',
-    //   data: userPoints,
-    //   getPosition: (d) => {
-    //     if (d.length == 2) {
-    //       return d;
-    //     } else {
-    //       return;
-    //     }
-    //   },
-    //   getText: (d) => {
-    //     if (d.length == 2) {
-    //       const selection = getCommunitySearch(d, boundary);
-    //       return (
-    //         (boundary == 'council' ? 'Council District ' : 'Community Board ') +
-    //         selection[0]
-    //       );
-    //     }
-    //   },
-    //   getColor: [255, 255, 255, 255],
-    //   getSize: 16,
-    //   getPixelOffset: [popupOffset, popupOffset],
-    //   background: true,
-    //   backgroundPadding: [10, 10, 10, 10],
-    //   getBackgroundColor: [0, 0, 0, 255],
-    //   getBorderWidth: 1,
-    //   getBorderColor: [0, 0, 0, 255],
-    //   getTextAnchor: 'start',
-    //   getAlignmentBaseline: 'top',
-    //   fontFamily: 'Roboto',
-    //   fontWeight: '1000',
-    //   updateTriggers: {
-    //     getText: [infoTransfer.selectedBoundary, infoTransfer.selectedMetric],
-    //   },
-    // }),
   ];
 
   //   console.log(project(userPoints[0]));
@@ -1503,6 +1413,7 @@ export default function DeckMap({
         {!mapDemographics && (
           <MapView id="primary">
             <Map
+              key={"map-key"}
               ref={mapRef}
               reuseMaps
               mapStyle={MAP_STYLE}
@@ -1512,7 +1423,7 @@ export default function DeckMap({
               logoPosition="top-right"
             />
             {collapseMap && selectedSpecificIssue && (
-              <div style={SPLIT_SCREEN_POSITIONING}>
+              <div key={"map-header"} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
                   {
                     issues.specific_issues_data[selectedSpecificIssue]
