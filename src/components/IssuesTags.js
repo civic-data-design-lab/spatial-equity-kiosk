@@ -109,7 +109,7 @@ export default function IssuesTags({
                       ? issues.specific_issues_data[id].specific_issue_name
                       : issues.specific_issues_data[id].specific_issue_ID === 6
                       ? 'Permeable Surfaces'
-                      : 'Heat'}
+                      : 'Surface Temperature'}
                   </p>
                   {moreIssues && !moreIssues.includes(id) ? (
                     <FontAwesomeIcon icon={faPlus} />
@@ -154,7 +154,7 @@ export default function IssuesTags({
                       ? issues.specific_issues_data[id].specific_issue_name
                       : issues.specific_issues_data[id].specific_issue_ID === 6
                       ? 'Permeable Surfaces'
-                      : 'Heat'}
+                      : 'Surface Temperature'}
                   </p>
                   {moreIssues && !moreIssues.includes(id) ? (
                     <FontAwesomeIcon icon={faPlus} />

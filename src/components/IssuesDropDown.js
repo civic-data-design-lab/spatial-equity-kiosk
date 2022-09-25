@@ -87,7 +87,7 @@ export default function IssuesDropDown({
                     ? item.specific_issue_name
                     : item.specific_issue_ID === 6
                     ? 'Permeable Surfaces'
-                    : 'Heat'}
+                    : 'Surface Temperature'}
                 </p>
               </div>
             );

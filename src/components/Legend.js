@@ -363,7 +363,7 @@ export default function Legend({
                     demoLookup.name === 'Households Without a Car'
                       ? ' households '
                       : ' commuters '}
-                    {selectedChapter == 3 ? 'in' : ''} {neighborhoodName}
+                    {selectedChapter == 3 ? 'in' : ''} {neighborhoodName}{" "}
                     {demoLookup.name ===
                     'Households Living Below the Poverty Line'
                       ? 'live below the poverty line'
@@ -595,7 +595,7 @@ export default function Legend({
                   demoLookup.name === 'Households Without a Car'
                     ? ' households '
                     : ' commuters '}
-                  {selectedChapter == 3 ? 'in' : ''} {neighborhoodName}
+                  {selectedChapter == 3 ? 'in' : ''} {neighborhoodName}{" "}
                   {demoLookup.name ===
                   'Households Living Below the Poverty Line'
                     ? 'live below the poverty line'

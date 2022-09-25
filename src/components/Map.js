@@ -7,6 +7,10 @@ import { LinearInterpolator, MapView } from '@deck.gl/core';
 import { scaleQuantile, scaleThreshold } from 'd3-scale';
 import { FillStyleExtension } from '@deck.gl/extensions';
 import { max, min } from 'd3-array';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+
+
 
 // geospatial dependencies
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
@@ -38,6 +42,7 @@ const BIN_SIZE = 5; // number of bins in the color ramp
 // Map Viewport settings
 const ZOOM_MIN = 9.5;
 const ZOOM_MAX = 13;
+const buttomZoomStep = 0.5
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
@@ -395,12 +400,15 @@ export default function DeckMap({
 
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
   const onViewStateChange = useCallback(({ viewState }) => {
+
+
     // setViewState(viewState);
     setViewState(() => ({
       primary: viewState,
       splitLeft: viewState,
       splitRight: viewState,
     }));
+
     // 04.1 set constraints on view state
 
     viewState.longitude = Math.min(
@@ -428,6 +436,70 @@ export default function DeckMap({
       if (handleLegend == 0) sethandleLegend(1);
     }
   }, []);
+
+  const zoomIn = useCallback(({ }) => {
+    if (!viewState.zoom) {
+      if (!mapDemographics) {
+        setViewState(() => ({
+          primary: {
+            ...viewState.primary,
+            zoom: viewState.primary.zoom + buttomZoomStep,
+            transitionDuration: 250,
+            transitionInerpolator: new LinearInterpolator(),
+          },
+        }));
+      } else {
+        setViewState(() => ({
+          splitLeft: {
+            ...viewState.splitLeft,
+            zoom: viewState.splitLeft.zoom + buttomZoomStep,
+            transitionDuration: 250,
+            transitionInerpolator: new LinearInterpolator(),
+          },
+          splitRight: {
+            ...viewState.splitRight,
+            zoom: viewState.splitRight.zoom + buttomZoomStep,
+            transitionDuration: 250,
+            transitionInerpolator: new LinearInterpolator(),
+          }
+        }));
+      }
+    }
+
+
+  }, [viewState]);
+
+  const zoomOut = useCallback(({ }) => {
+    if (!viewState.zoom) {
+      if (!mapDemographics) {
+        setViewState(() => ({
+          primary: {
+            ...viewState.primary,
+            zoom: viewState.primary.zoom - buttomZoomStep,
+            transitionDuration: 250,
+            transitionInerpolator: new LinearInterpolator(),
+          },
+        }));
+      } else {
+        setViewState(() => ({
+          splitLeft: {
+            ...viewState.splitLeft,
+            zoom: viewState.splitLeft.zoom - buttomZoomStep,
+            transitionDuration: 250,
+            transitionInerpolator: new LinearInterpolator(),
+          },
+          splitRight: {
+            ...viewState.splitRight,
+            zoom: viewState.splitRight.zoom - buttomZoomStep,
+            transitionDuration: 250,
+            transitionInerpolator: new LinearInterpolator(),
+          }
+        }));
+      }
+    }
+
+
+  }, [viewState]);
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
 
   // 05 TOOLTIP ----------------------------------------------------------------------------------------------
@@ -474,12 +546,12 @@ export default function DeckMap({
         : '';
 
     return `${infoTransfer.selectedMetric != null
-        ? accessor[infoTransfer.selectedMetric] >= 10
-          ? accessor[infoTransfer.selectedMetric].toFixed(0)
-          : accessor[infoTransfer.selectedMetric] >= 1
-            ? accessor[infoTransfer.selectedMetric].toFixed(1)
-            : accessor[infoTransfer.selectedMetric].toFixed(2)
-        : ''
+      ? accessor[infoTransfer.selectedMetric] >= 10
+        ? accessor[infoTransfer.selectedMetric].toFixed(0)
+        : accessor[infoTransfer.selectedMetric] >= 1
+          ? accessor[infoTransfer.selectedMetric].toFixed(1)
+          : accessor[infoTransfer.selectedMetric].toFixed(2)
+      : ''
       }${issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !=
         ''
         ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
@@ -1373,6 +1445,14 @@ export default function DeckMap({
   // console.log(map ? map : "no map");
   return (
     <div>
+      {showMap && (<div className='map-zoom-buttons-container'>
+        <FontAwesomeIcon onClick={zoomIn}
+          icon={faPlus}
+        />
+        <FontAwesomeIcon onClick={zoomOut}
+          icon={faMinus}
+        />
+      </div>)}
       <DeckGL
         // viewState={viewState}
         style={{ backgroundColor: 'black' }}
