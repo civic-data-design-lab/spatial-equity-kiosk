@@ -545,7 +545,7 @@ export default function DeckMap({
           : 'Below Citywide'
         : '';
 
-    return `${infoTransfer.selectedMetric != null
+    return `${accessor[infoTransfer.selectedMetric] 
       ? accessor[infoTransfer.selectedMetric] >= 10
         ? accessor[infoTransfer.selectedMetric].toFixed(0)
         : accessor[infoTransfer.selectedMetric] >= 1
