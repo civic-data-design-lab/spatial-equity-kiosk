@@ -2043,6 +2043,7 @@ input:checked+.slider:before {
     position: absolute;
     display: flex;
     flex-direction: row;
+    border: 1px solid black;
     align-items: center;
     justify-content: center;
     height: 6vh;
@@ -2074,6 +2075,7 @@ input:checked+.slider:before {
     flex-direction: row;
     /* border-radius: 8px; */
     width: fit-content;
+    pointer-events: none;
 }
 
 .histogram-responsive-box {
