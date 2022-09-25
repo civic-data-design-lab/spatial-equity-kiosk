@@ -429,11 +429,11 @@ export default function DeckMap({
 
     // 04.3 toggle based on zoom level
     if (viewState.zoom > 12.25) {
-      if (zoomToggle == 1) setzoomToggle(0);
-      if (handleLegend == 1) sethandleLegend(0);
+      setzoomToggle(0)
+      sethandleLegend(0)
     } else {
-      if (zoomToggle == 0) setzoomToggle(1);
-      if (handleLegend == 0) sethandleLegend(1);
+      setzoomToggle(1)
+      sethandleLegend(1)
     }
   }, []);
 
@@ -545,7 +545,7 @@ export default function DeckMap({
           : 'Below Citywide'
         : '';
 
-    return `${accessor[infoTransfer.selectedMetric] 
+    return `${accessor[infoTransfer.selectedMetric]
       ? accessor[infoTransfer.selectedMetric] >= 10
         ? accessor[infoTransfer.selectedMetric].toFixed(0)
         : accessor[infoTransfer.selectedMetric] >= 1
@@ -621,8 +621,9 @@ export default function DeckMap({
             },
             html: `\
           <!-- select metric -->
+          
           <div class=map-tooltip-header>${tooltipBounds} <strong>${boundaryName}</strong></div>
-          ${metricCheck
+          ${selectedChapter == 3 && metricCheck
                 ? `<div>
             <div class=map-tooltip-info>${`Ranks <strong>${getRankingTooltip(
                   boundaryName
