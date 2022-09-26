@@ -69,7 +69,7 @@ export default function CommunityProfile({
           <div>
             {
               <h5
-                class={'bold py-3'}
+                className={'bold py-3'}
                 style={{
                   padding: '0.75em 0',
                 }}
@@ -179,7 +179,7 @@ export default function CommunityProfile({
 
           <div className={'pt-3'}>
             <h5
-              class={'bold'}
+              className={'bold'}
               style={{
                 padding: '0.75em 0',
               }}

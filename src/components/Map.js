@@ -7,6 +7,10 @@ import { LinearInterpolator, MapView } from '@deck.gl/core';
 import { scaleQuantile, scaleThreshold } from 'd3-scale';
 import { FillStyleExtension } from '@deck.gl/extensions';
 import { max, min } from 'd3-array';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+
+
 
 // geospatial dependencies
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
@@ -38,6 +42,7 @@ const BIN_SIZE = 5; // number of bins in the color ramp
 // Map Viewport settings
 const ZOOM_MIN = 9.5;
 const ZOOM_MAX = 13;
+const buttomZoomStep = 0.5
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
@@ -240,11 +245,11 @@ export default function DeckMap({
   const COLOR_SCALE =
     dataScale == 'equal'
       ? scaleThreshold()
-          .domain(infoTransfer.binList)
-          .range(_CHAPTER_COLORS[colorRamp])
+        .domain(infoTransfer.binList)
+        .range(_CHAPTER_COLORS[colorRamp])
       : scaleQuantile()
-          .domain(infoTransfer.uniqueValueArray)
-          .range(_CHAPTER_COLORS[colorRamp]); //quantile bins
+        .domain(infoTransfer.uniqueValueArray)
+        .range(_CHAPTER_COLORS[colorRamp]); //quantile bins
 
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 
@@ -298,7 +303,7 @@ export default function DeckMap({
   const demoBinList = []; // derived from the selectedDemoArray array, this is the list of bins for the legend
 
   // 03.1 toggle demographics on off and pick which to display
-  if (showDemographics && mapDemographics) {
+  if (showDemographics) {
     selectedDemographic = demoLookup[demographic].lookup;
     if (demographic === '1' && toggleScatterPlot === false) {
       toggleScatterPlot = true;
@@ -395,12 +400,15 @@ export default function DeckMap({
 
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
   const onViewStateChange = useCallback(({ viewState }) => {
+
+
     // setViewState(viewState);
     setViewState(() => ({
       primary: viewState,
       splitLeft: viewState,
       splitRight: viewState,
     }));
+
     // 04.1 set constraints on view state
 
     viewState.longitude = Math.min(
@@ -421,13 +429,77 @@ export default function DeckMap({
 
     // 04.3 toggle based on zoom level
     if (viewState.zoom > 12.25) {
-      setzoomToggle(0);
-      sethandleLegend(0);
+      setzoomToggle(0)
+      sethandleLegend(0)
     } else {
-      setzoomToggle(1);
-      sethandleLegend(1);
+      setzoomToggle(1)
+      sethandleLegend(1)
     }
   }, []);
+
+  const zoomIn = useCallback(({ }) => {
+    if (!viewState.zoom) {
+      if (!mapDemographics) {
+        setViewState(() => ({
+          primary: {
+            ...viewState.primary,
+            zoom: viewState.primary.zoom + buttomZoomStep,
+            transitionDuration: 250,
+            transitionInerpolator: new LinearInterpolator(),
+          },
+        }));
+      } else {
+        setViewState(() => ({
+          splitLeft: {
+            ...viewState.splitLeft,
+            zoom: viewState.splitLeft.zoom + buttomZoomStep,
+            transitionDuration: 250,
+            transitionInerpolator: new LinearInterpolator(),
+          },
+          splitRight: {
+            ...viewState.splitRight,
+            zoom: viewState.splitRight.zoom + buttomZoomStep,
+            transitionDuration: 250,
+            transitionInerpolator: new LinearInterpolator(),
+          }
+        }));
+      }
+    }
+
+
+  }, [viewState]);
+
+  const zoomOut = useCallback(({ }) => {
+    if (!viewState.zoom) {
+      if (!mapDemographics) {
+        setViewState(() => ({
+          primary: {
+            ...viewState.primary,
+            zoom: viewState.primary.zoom - buttomZoomStep,
+            transitionDuration: 250,
+            transitionInerpolator: new LinearInterpolator(),
+          },
+        }));
+      } else {
+        setViewState(() => ({
+          splitLeft: {
+            ...viewState.splitLeft,
+            zoom: viewState.splitLeft.zoom - buttomZoomStep,
+            transitionDuration: 250,
+            transitionInerpolator: new LinearInterpolator(),
+          },
+          splitRight: {
+            ...viewState.splitRight,
+            zoom: viewState.splitRight.zoom - buttomZoomStep,
+            transitionDuration: 250,
+            transitionInerpolator: new LinearInterpolator(),
+          }
+        }));
+      }
+    }
+
+
+  }, [viewState]);
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
 
   // 05 TOOLTIP ----------------------------------------------------------------------------------------------
@@ -440,8 +512,8 @@ export default function DeckMap({
       : '';
     const ranking = metricCheck
       ? _RANKINGS[boundary][infoTransfer.selectedMetric].find(
-          (t) => t.community_ID == boundaryName
-        ).rank
+        (t) => t.community_ID == boundaryName
+      ).rank
       : '';
 
     const suffix = {
@@ -458,9 +530,8 @@ export default function DeckMap({
     };
 
     return metricCheck
-      ? `${ranking}${suffix[ranking % 10]} of ${maxRanking} ${
-          boundary === 'council' ? 'council districts' : 'community boards'
-        }`
+      ? `${ranking}${suffix[ranking % 10]} of ${maxRanking} ${boundary === 'council' ? 'council districts' : 'community boards'
+      }`
       : '';
   };
 
@@ -474,27 +545,24 @@ export default function DeckMap({
           : 'Below Citywide'
         : '';
 
-    return `${
-      infoTransfer.selectedMetric != null
-        ? accessor[infoTransfer.selectedMetric] >= 10
-          ? accessor[infoTransfer.selectedMetric].toFixed(0)
-          : accessor[infoTransfer.selectedMetric] >= 1
+    return `${accessor[infoTransfer.selectedMetric]
+      ? accessor[infoTransfer.selectedMetric] >= 10
+        ? accessor[infoTransfer.selectedMetric].toFixed(0)
+        : accessor[infoTransfer.selectedMetric] >= 1
           ? accessor[infoTransfer.selectedMetric].toFixed(1)
           : accessor[infoTransfer.selectedMetric].toFixed(2)
-        : ''
-    }${
-      issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !=
-      ''
+      : ''
+      }${issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !=
+        ''
         ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
         : ''
-    }${isTemperatureMetric} ${
-      typeof selectedSpecificIssue == 'number'
+      }${isTemperatureMetric} ${typeof selectedSpecificIssue == 'number'
         ? issues.specific_issues_data[selectedSpecificIssue]
-            .issue_units_shorthand != ''
+          .issue_units_shorthand != ''
           ? ` ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand}`
           : ` ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`
         : ''
-    }`;
+      }`;
   };
 
   const getTooltip = (info) => {
@@ -522,8 +590,8 @@ export default function DeckMap({
         boundary == 'council'
           ? councils[String(obj.properties.CounDist)].neighborhoods
           : boundary == 'community'
-          ? communities[obj.properties.CDTA2020].neighborhoods
-          : null;
+            ? communities[obj.properties.CDTA2020].neighborhoods
+            : null;
 
       const insert = (arr, index, newItem) => [
         // part of the array before the specified index
@@ -553,77 +621,68 @@ export default function DeckMap({
             },
             html: `\
           <!-- select metric -->
+          
           <div class=map-tooltip-header>${tooltipBounds} <strong>${boundaryName}</strong></div>
-          ${
-            metricCheck
-              ? `<div>
+          ${selectedChapter == 3 && metricCheck
+                ? `<div>
             <div class=map-tooltip-info>${`Ranks <strong>${getRankingTooltip(
-              boundaryName
-            )}</strong> for ${
-              typeof selectedSpecificIssue == 'number'
-                ? issues.specific_issues_data[selectedSpecificIssue]
+                  boundaryName
+                )}</strong> for ${typeof selectedSpecificIssue == 'number'
+                  ? issues.specific_issues_data[selectedSpecificIssue]
                     .specific_issue_name
-                : ''
-            } with ${`${getMetricValueTooltip(obj)}`}.`}</div>
+                  : ''
+                } with ${`${getMetricValueTooltip(obj)}`}.`}</div>
           </div>`
-              : ''
-          }
-          <!-- select demographic -->
-          ${
-            selectedDemographic != null
-              ? `<div class=map-tooltip-info>
-            ${
-              selectedDemographic != null
-                ? demographic !== '5'
-                  ? `${demoLookup[demographic].name}—`
-                  : toggleTransit || toggleBike || toggleWalk
-                  ? `Citywide Commuters Who ${transportationModes}—`
-                  : `Check off one of the transportation options above the demographics legend to see how people are getting around.`
                 : ''
-            } ${
-                  selectedDemographic != null
-                    ? demographic !== '1'
-                      ? demographic !== '5'
-                        ? `<strong>${obj.properties[
-                            selectedDemographic
-                          ].toFixed(0)}% </strong>`
-                        : toggleTransit || toggleBike || toggleWalk
-                        ? `<strong>${selectedDemoArray[info.index].toFixed(
-                            0
-                          )}%</strong>`
+              }
+          <!-- select demographic -->
+          ${selectedDemographic != null
+                ? `<div class=map-tooltip-info>
+            ${selectedDemographic != null
+                  ? demographic !== '5'
+                    ? `${demoLookup[demographic].name}—`
+                    : toggleTransit || toggleBike || toggleWalk
+                      ? `Citywide Commuters Who ${transportationModes}—`
+                      : `Check off one of the transportation options above the demographics legend to see how people are getting around.`
+                  : ''
+                } ${selectedDemographic != null
+                  ? demographic !== '1'
+                    ? demographic !== '5'
+                      ? `${obj.properties[
+                        selectedDemographic
+                      ].toFixed(0)}%`
+                      : toggleTransit || toggleBike || toggleWalk
+                        ? `${selectedDemoArray[info.index].toFixed(
+                          0
+                        )}%`
                         : ''
-                      : `\
+                    : `\
                   <div class=tooltip-grid>
-                    <div style="color:${
-                      ethnicityColors.Latino.htmlFormat
+                    <div style="color:${ethnicityColors.Latino.htmlFormat
                     }">■</div>
                     <div>${Math.round(obj.properties.P_Hispanic * 100)}%</div>
                     <div>Latino</div>
-                    <div style="color:${
-                      ethnicityColors.White.htmlFormat
+                    <div style="color:${ethnicityColors.White.htmlFormat
                     }">■</div>
                     <div>${Math.round(obj.properties.P_White * 100)}%</div>
                     <div>White</div>
-                    <div style="color:${
-                      ethnicityColors.Black.htmlFormat
+                    <div style="color:${ethnicityColors.Black.htmlFormat
                     }">■</div>
                     <div>${Math.round(obj.properties.P_Black * 100)}%</div>
                     <div>Black</div>
-                    <div style="color:${
-                      ethnicityColors.Asian.htmlFormat
+                    <div style="color:${ethnicityColors.Asian.htmlFormat
                     }">■</div>
                     <div>${Math.round(obj.properties.P_Asian * 100)}%</div>
                     <div>Asian</div>
-                    <div style="color:${
-                      ethnicityColors.Other.htmlFormat
+                    <div style="color:${ethnicityColors.Other.htmlFormat
                     }">■</div>
                     <div>${Math.round(obj.properties.P_Other * 100)}%</div>
                     <div>Other</div>
                   </div>`
-                    : ''
+                  : ''
                 }</div>`
-              : ''
-          }
+                : ''
+              }
             `,
           }
         );
@@ -650,8 +709,8 @@ export default function DeckMap({
           b == 'council'
             ? String(element.properties.CounDist)
             : b == 'community' && element.properties.Data_YN == 'Y'
-            ? element.properties.CDTA2020
-            : null;
+              ? element.properties.CDTA2020
+              : null;
 
         searchItemFound.push(lookup);
         searchItemData.push(element.properties);
@@ -702,12 +761,12 @@ export default function DeckMap({
 
               const remapZoom = !mapDemographics
                 ? map_range(
-                    ptCompareDistance,
-                    0.3,
-                    maxDistance,
-                    ZOOM_MAX,
-                    ZOOM_MIN
-                  )
+                  ptCompareDistance,
+                  0.3,
+                  maxDistance,
+                  ZOOM_MAX,
+                  ZOOM_MIN
+                )
                 : mapDemographics &&
                   map_range(
                     ptCompareDistance,
@@ -716,16 +775,16 @@ export default function DeckMap({
                     ZOOM_MAX,
                     ZOOM_MIN
                   ) -
-                    0.5 >
-                    ZOOM_MIN
-                ? map_range(
+                  0.5 >
+                  ZOOM_MIN
+                  ? map_range(
                     ptCompareDistance,
                     0.3,
                     maxDistance,
                     ZOOM_MAX,
                     ZOOM_MIN
                   ) - 0.5
-                : ZOOM_MIN;
+                  : ZOOM_MIN;
               setViewState({
                 longitude: (ptA[0] + ptB[0]) / 2,
                 latitude: (ptA[1] + ptB[1]) / 2,
@@ -735,17 +794,17 @@ export default function DeckMap({
               });
             }
           }
-          /*else {
-            if (searchSource === 'click' || searchSource === 'search') {
+          else {
+            if (searchSource === 'click') {
               setSelectedCoord([]);
               setCommunitySearch(null);
               setUserPoints([[], userPoints[1]]);
               setViewState(RESET_VIEW);
             }
-          }*/
+          }
         }
       } else {
-        setBadSearch([1, badSearch[1]]);
+        // setBadSearch([1, badSearch[1]]);
         setUserPoints([[], []]);
         setViewState(RESET_VIEW);
       }
@@ -782,16 +841,16 @@ export default function DeckMap({
                 ZOOM_MAX,
                 ZOOM_MIN
               ) -
-                0.5 >
-                ZOOM_MIN
-            ? map_range(
+              0.5 >
+              ZOOM_MIN
+              ? map_range(
                 ptCompareDistance,
                 0.3,
                 maxDistance,
                 ZOOM_MAX,
                 ZOOM_MIN
               ) - 0.5
-            : ZOOM_MIN;
+              : ZOOM_MIN;
 
           setUserPoints([userPoints[0], searchEngine]);
 
@@ -826,10 +885,10 @@ export default function DeckMap({
           searchSource === 'click'
         ) {
           if (!compareSearch) {
-            /*setSelectedCoord([]);
+            setSelectedCoord([]);
             setCommunitySearch(null);
             setUserPoints([[], []]);
-            setViewState(RESET_VIEW);*/
+            setViewState(RESET_VIEW);
           } else {
             setCommunitySearch(compareSearch);
             setCompareSearch(null);
@@ -874,16 +933,6 @@ export default function DeckMap({
     }
   }, [addCompare]);
 
-  // fix view on resize
-  useEffect(() => {
-    if (searchSource !== 'click' && selectedChapter === 2) {
-      setViewState(RESET_VIEW);
-    } else if (selectedChapter === 3) {
-      setViewState(viewState);
-    } else {
-      setViewState(RESET_VIEW);
-    }
-  }, [selectedChapter]);
 
   // 06 Render lifecycle
   useEffect(() => {
@@ -1257,8 +1306,8 @@ export default function DeckMap({
           boundary == 'council'
             ? String(obj.properties.CounDist)
             : boundary == 'community' && obj.properties.Data_YN == 'Y'
-            ? obj.properties.CDTA2020
-            : null;
+              ? obj.properties.CDTA2020
+              : null;
 
         if (
           (boundary == 'community' && obj.properties.Data_YN == 'Y') ||
@@ -1352,96 +1401,6 @@ export default function DeckMap({
       getLineColor: [255, 255, 255, 255],
     }),
 
-    // new TextLayer({
-    //   id: 'text-layer-details',
-    //   data: userPoints,
-    //   getPosition: (d) => {
-    //     // console.log(d);
-    //     // console.log(project(d));
-    //     if (d.length == 2) return d;
-    //   },
-    //   getText: (d) => {
-    //     if (d.length == 2) {
-    //       //   const rank = 99;
-    //       const selection = getCommunitySearch(d, boundary);
-    //       const value = selection[1][0][[infoTransfer.selectedMetric]];
-
-    //       const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
-    //         ? true
-    //         : false;
-    //       return metricCheck
-    //         ? `Ranks ${getRankingTooltip(selection[0])} for ${
-    //             issues.specific_issues_data[selectedSpecificIssue]
-    //               .specific_issue_name
-    //           } with ${value >= 10 ? value.toFixed(0) : value.toFixed(1)}${
-    //             issues.specific_issues_data[selectedSpecificIssue]
-    //               .issue_units_symbol != ''
-    //               ? issues.specific_issues_data[selectedSpecificIssue]
-    //                   .issue_units_symbol
-    //               : ''
-    //           } ${
-    //             issues.specific_issues_data[selectedSpecificIssue]
-    //               .issue_units_shorthand != ''
-    //               ? issues.specific_issues_data[selectedSpecificIssue]
-    //                   .issue_units_shorthand
-    //               : issues.specific_issues_data[selectedSpecificIssue]
-    //                   .specific_issue_units
-    //           }.`
-    //         : '';
-    //     }
-    //   },
-    //   visible: infoTransfer.selectedMetric ? true : false,
-    //   getSize: 12,
-    //   getPixelOffset: [popupOffset, popupOffset + 45],
-    //   maxWidth: boundary == 'community' ? 1150 : 1000,
-    //   background: true,
-    //   backgroundPadding: [10, 10, 10, 10],
-    //   getBackgroundColor: [255, 255, 255, 255],
-    //   getBorderWidth: 1,
-    //   getBorderColor: [0, 0, 0, 255],
-    //   getTextAnchor: 'start',
-    //   getAlignmentBaseline: 'top',
-    //   fontFamily: 'Roboto',
-    //   updateTriggers: {
-    //     getText: [infoTransfer.selectedBoundary, infoTransfer.selectedMetric],
-    //   },
-    // }),
-
-    // new TextLayer({
-    //   id: 'comparison-layer-title',
-    //   data: userPoints,
-    //   getPosition: (d) => {
-    //     if (d.length == 2) {
-    //       return d;
-    //     } else {
-    //       return;
-    //     }
-    //   },
-    //   getText: (d) => {
-    //     if (d.length == 2) {
-    //       const selection = getCommunitySearch(d, boundary);
-    //       return (
-    //         (boundary == 'council' ? 'Council District ' : 'Community Board ') +
-    //         selection[0]
-    //       );
-    //     }
-    //   },
-    //   getColor: [255, 255, 255, 255],
-    //   getSize: 16,
-    //   getPixelOffset: [popupOffset, popupOffset],
-    //   background: true,
-    //   backgroundPadding: [10, 10, 10, 10],
-    //   getBackgroundColor: [0, 0, 0, 255],
-    //   getBorderWidth: 1,
-    //   getBorderColor: [0, 0, 0, 255],
-    //   getTextAnchor: 'start',
-    //   getAlignmentBaseline: 'top',
-    //   fontFamily: 'Roboto',
-    //   fontWeight: '1000',
-    //   updateTriggers: {
-    //     getText: [infoTransfer.selectedBoundary, infoTransfer.selectedMetric],
-    //   },
-    // }),
   ];
 
   //   console.log(project(userPoints[0]));
@@ -1473,6 +1432,14 @@ export default function DeckMap({
   // console.log(map ? map : "no map");
   return (
     <div>
+      {showMap && (<div className='map-zoom-buttons-container'>
+        <FontAwesomeIcon onClick={zoomIn}
+          icon={faPlus}
+        />
+        <FontAwesomeIcon onClick={zoomOut}
+          icon={faMinus}
+        />
+      </div>)}
       <DeckGL
         // viewState={viewState}
         style={{ backgroundColor: 'black' }}
@@ -1490,15 +1457,16 @@ export default function DeckMap({
         getTooltip={getTooltip}
         layerFilter={layerFilter}
         ref={deckRef}
-        // eventRecognizerOptions={
-        //   isMobile ? { pan: { threshold: 10 }, tap: { threshold: 5 } } : {}
-        // }
-        // style={{ mixBlendMode: "multiply" }}
-        // _pickable={isMobile ? false : true}
+      // eventRecognizerOptions={
+      //   isMobile ? { pan: { threshold: 10 }, tap: { threshold: 5 } } : {}
+      // }
+      // style={{ mixBlendMode: "multiply" }}
+      // _pickable={isMobile ? false : true}
       >
         {!mapDemographics && (
           <MapView id="primary">
             <Map
+              key={"map-key"}
               ref={mapRef}
               reuseMaps
               mapStyle={MAP_STYLE}
@@ -1508,7 +1476,7 @@ export default function DeckMap({
               logoPosition="top-right"
             />
             {collapseMap && selectedSpecificIssue && (
-              <div style={SPLIT_SCREEN_POSITIONING}>
+              <div key={"map-header"} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
                   {
                     issues.specific_issues_data[selectedSpecificIssue]
@@ -1527,6 +1495,7 @@ export default function DeckMap({
         {mapDemographics && (
           <MapView id="splitLeft">
             <Map
+              key={"map-key-left"}
               reuseMaps
               mapStyle={MAP_STYLE}
               preventStyleDiffing={true}
@@ -1536,7 +1505,7 @@ export default function DeckMap({
             />
             <div style={MAP_BACKGROUND_STYLE} />
             {selectedSpecificIssue && (
-              <div style={SPLIT_SCREEN_POSITIONING}>
+              <div key={"map-header-left"} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
                   {
                     issues.specific_issues_data[selectedSpecificIssue]
@@ -1554,6 +1523,7 @@ export default function DeckMap({
         {mapDemographics && (
           <MapView id="splitRight">
             <Map
+              key={"map-key-right"}
               reuseMaps
               mapStyle={MAP_STYLE}
               preventStyleDiffing={true}
@@ -1563,7 +1533,7 @@ export default function DeckMap({
             />
             <div style={MAP_BACKGROUND_STYLE} />
             {demographic && (
-              <div style={SPLIT_SCREEN_POSITIONING}>
+              <div key={"map-header-right"} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
                   {demoLookup[demographic].lookup == 'F10_TrsBkW'
                     ? `Commuters Who ${getTransportationModes()}`

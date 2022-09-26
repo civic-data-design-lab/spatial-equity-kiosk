@@ -56,7 +56,7 @@ export default function ShareButton({}) {
     <>
       <div
         // className={"share"}
-        className={"newShare"}
+        className={"newShare noselect"}
         onMouseEnter={() => {
           setClicked(true);
         }}

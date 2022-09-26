@@ -108,8 +108,8 @@ export default function IssuesTags({
                     {id !== 6 && id !== 5
                       ? issues.specific_issues_data[id].specific_issue_name
                       : issues.specific_issues_data[id].specific_issue_ID === 6
-                      ? 'Permeable Surfaces'
-                      : 'Heat'}
+                      ? 'Permeable Surface Area'
+                      : 'Surface Temperature'}
                   </p>
                   {moreIssues && !moreIssues.includes(id) ? (
                     <FontAwesomeIcon icon={faPlus} />
@@ -153,8 +153,8 @@ export default function IssuesTags({
                     {id !== 6 && id !== 5
                       ? issues.specific_issues_data[id].specific_issue_name
                       : issues.specific_issues_data[id].specific_issue_ID === 6
-                      ? 'Permeable Surfaces'
-                      : 'Heat'}
+                      ? 'Permeable Surface Area'
+                      : 'Surface Temperature'}
                   </p>
                   {moreIssues && !moreIssues.includes(id) ? (
                     <FontAwesomeIcon icon={faPlus} />

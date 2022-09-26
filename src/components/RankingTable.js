@@ -18,6 +18,7 @@ const RankingTable = ({
   compareSearch,
   toggleDisplayMode,
   defaultOpen = false,
+  citywideTab = false,
 }) => {
 
   const [expand, setExpand] = useState(defaultOpen);
@@ -27,23 +28,14 @@ const RankingTable = ({
       className={'small-font'}
     >
       <Table bordered>
-        <thead>
+        <thead style={citywideTab ? {position: "sticky", top: "-1px"} : {}}>
           <tr>
             <th>Rank</th>
             <th>
               {boundary == 'council' ? 'City Council' : 'Community Board'}
             </th>
             <th>
-              {issues.specific_issues_data[selectedSpecificIssue]
-                ?.issue_units_shorthand != ''
-                ? issues.specific_issues_data[selectedSpecificIssue]
-                    ?.issue_units_shorthand
-                : issues.specific_issues_data[selectedSpecificIssue]
-                    ?.specific_issue_units}{' '}
-              {
-                issues.specific_issues_data[selectedSpecificIssue]
-                  ?.issue_units_symbol
-              }
+              {issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}
             </th>
           </tr>
         </thead>

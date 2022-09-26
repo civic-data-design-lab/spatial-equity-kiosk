@@ -185,6 +185,13 @@ function Nav({
           } else {
             setSelectedChapter(null);
           }
+          setCollapseMap(false);
+          setSearchSource(null);
+          setUserPoints([], []);
+          setBadSearch(0, 0);
+          setCommunitySearch(null)
+          setCompareSearch(null)
+
 
           /*if (selectedSpecificIssue) {
                                   setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
@@ -254,6 +261,7 @@ function Nav({
             setUserPoints([], []);
             setBadSearch(0, 0);
             setShowMap(false);
+
             selectedChapterCache.current = selectedSpecificIssue;
             //setSelectedSpecificIssue(null);
             if (selectedCoordsCache?.current)
@@ -268,7 +276,17 @@ function Nav({
             selectedCoordsCache.current = userPoints;
             selectedCommunitiesCache.current = [communitySearch, compareSearch];
             viewStateCache.current = viewState;
+
           }
+          setShowMap(false);
+          setCollapseMap(false);
+          setSearchSource(null);
+          setUserPoints([], []);
+          setCommunitySearch(null)
+          setCompareSearch(null)
+          setBadSearch(0, 0);
+
+
         }}
       >
         <div>
@@ -363,6 +381,8 @@ function Nav({
             setCollapseMap(false);
             //setSearchSource(null);
             setUserPoints([], []);
+            setCommunitySearch(null)
+            setCompareSearch(null)  
             setBadSearch(0, 0);
           } else {
             setSelectedChapter(null);

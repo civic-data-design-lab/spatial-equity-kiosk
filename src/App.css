@@ -209,6 +209,7 @@ a:active {
     border: 2px solid black;
     border-top: none;
     min-height: 0;
+    cursor: pointer;
 }
 
 
@@ -249,6 +250,7 @@ a:active {
 .transition-font {
     transition: font-size 1s;
     white-space: pre-line;
+    cursor: pointer;
 }
 
 .nav-title {
@@ -528,7 +530,8 @@ a:active {
 .boundary-toggle-item-active {
     background-color: white;
     color: black;
-    cursor: auto;
+    cursor: default;
+
 }
 
 .boundary-toggle-item-inactive {
@@ -866,6 +869,7 @@ a:active {
     text-decoration: none !important;
 }
 
+
 /* Map Toggle */
 #toggle-container {
     z-index: 3;
@@ -880,6 +884,38 @@ a:active {
     /*visibility: hidden;*/
 }
 
+/* map zoom buttons */
+.map-zoom-buttons-container{
+    position: absolute;
+    display: grid;
+    height: 4em;
+    width: 2em;
+    grid-template-rows: auto auto;
+    bottom: 0;
+    right: 0;
+    margin: 7rem 1rem;
+    place-content: center center;
+    text-align: center;
+    z-index: 10;
+}
+
+.map-zoom-buttons-container >* {
+    font-size: 1.33rem;
+    padding: 0.25rem;
+    color: black;
+    border: 1px solid black;
+    background-color: white;
+    transition: 0.25s ease-in-out;
+    
+}
+
+.map-zoom-buttons-container >:hover{
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+
 .map-toggle-container {
     margin-left: 1rem;
     width: 4em;
@@ -887,6 +923,9 @@ a:active {
     display: grid;
     grid-template-columns: 1fr 1fr;
     cursor: pointer;
+    border: 1px solid black;
+    overflow: hidden;
+
 }
 
 .map-toggle {
@@ -895,9 +934,11 @@ a:active {
     justify-content: center;
     align-items: center;
     transition: color 0.5s, background-color 0.5s;
-    border: 2px solid black;
-
+    background-color: white;
 }
+
+
+
 
 /* Histogram */
 .cancelButtonText {
@@ -1002,6 +1043,16 @@ a:active {
     transition: 0.5s ease-in-out;
 }
 
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+  }
+
 
 /* Issue Cards */
 .issues-card-container {
@@ -1067,9 +1118,19 @@ a:active {
     background-color: black;
 }
 
+.inactive-tag:hover {
+    background-color: white;
+    color: black;
+}
+
 .active-tag {
     background-color: white;
     color: black;
+}
+
+.map-toggle:hover  *{
+    color: black;
+
 }
 
 
@@ -2043,6 +2104,7 @@ input:checked+.slider:before {
     position: absolute;
     display: flex;
     flex-direction: row;
+    border: 1px solid black;
     align-items: center;
     justify-content: center;
     height: 6vh;
@@ -2074,6 +2136,7 @@ input:checked+.slider:before {
     flex-direction: row;
     /* border-radius: 8px; */
     width: fit-content;
+    pointer-events: none;
 }
 
 .histogram-responsive-box {
