@@ -40,10 +40,17 @@ export default function IssuesTileView({
   const [showInfo, setShowInfo] = useState(false);
 
   const getIssueName = () => {
-    return (
-      issues.specific_issues_data[selectedSpecificIssue].specific_issue_name ||
-      null
-    );
+    const bounds =
+      boundary == 'council' ? 'Council Districts' : 'Community Boards';
+
+    const sentence = [
+      bounds,
+      'Ranked by',
+      issues.specific_issues_data[selectedSpecificIssue]
+        .specific_issue_title_sentence,
+    ].join(' ');
+
+    return sentence || null;
   };
 
   const getIssueSolutions = () => {
@@ -93,44 +100,46 @@ export default function IssuesTileView({
           <div className={'issues-tile-body h-100'}>
             <div className={'issue-tile-viz'}>
               <div>
-                <h5
-                  className={'d-inline-block bold py-3'}
-                  style={{ paddingRight: '1rem' }}
-                >
-                  {getIssueName()}
-                </h5>
-                <div
-                  onMouseEnter={() => {
-                    setShowInfo(true);
-                  }}
-                  onMouseLeave={() => {
-                    setShowInfo(false);
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // setSelectedAbout(9);
-                    setSelectedChapter(4);
-                  }}
-                  className={'d-inline-block'}
-                >
-                  <FontAwesomeIcon
-                    style={
-                      showInfo
-                        ? { cursor: 'pointer', transform: 'scale(1.1)' }
-                        : { cursor: 'pointer' }
-                    }
-                    icon={faCircleInfo}
-                  />
+                <h5 className={'d-inline-block bold py-3'}>
+                  {getIssueName()}{' '}
                   <div
-                    className={`${
-                      showInfo ? '' : 'd-none'
-                    } position-absolute info-tooltip smaller-text`}
+                    onMouseEnter={() => {
+                      setShowInfo(true);
+                    }}
+                    onMouseLeave={() => {
+                      setShowInfo(false);
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // setSelectedAbout(9);
+                      setSelectedChapter(4);
+                    }}
+                    className={'d-inline-block'}
                   >
-                    <p className={'m-0'}>
-                      {`Source: ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}`}
-                    </p>
+                    <FontAwesomeIcon
+                      style={
+                        showInfo
+                          ? {
+                              fontSize: '1rem',
+                              cursor: 'pointer',
+                              transform: 'scale(1.1)',
+                            }
+                          : { fontSize: '1rem', cursor: 'pointer' }
+                      }
+                      icon={faCircleInfo}
+                    />
+                    <div
+                      className={`${
+                        showInfo ? '' : 'd-none'
+                      } position-absolute info-tooltip smaller-text`}
+                    >
+                      <p className={'m-0'}>
+                        {`Source: ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}`}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </h5>
+
                 <div className={'m-0 small-font'}>
                   {`${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units} `}
                 </div>
