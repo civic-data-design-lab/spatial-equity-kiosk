@@ -21,7 +21,7 @@
       "specific_issue_units": "Cases Per 10,000 Residents",
       "issue_units_shorthand": "Cases",
       "specific_issue_units_sentence": "asthma cases per 10,000 residents",
-      "specific_issue_append": "Cases",
+      "specific_issue_append": "cases per 10,000 adults",
       "issue_units_symbol": "",
       "image_ids": ["F18_AsthmR_1.jpeg", "F18_AsthmR_2.jpeg"],
       "specific_issue_description": [
@@ -296,7 +296,7 @@
       "specific_issue_units": "Percent of Street Miles with a Bus Lane or Busway",
       "issue_units_shorthand": "",
       "specific_issue_units_sentence": "bus lanes and busways per street mile",
-      "specific_issue_append": "",
+      "specific_issue_append": "of street miles with a bus lane or busway",
       "issue_units_symbol": "%",
       "image_ids": ["F25_BusLan_1.png", "F25_BusLan_2.png"],
       "specific_issue_description": [
@@ -468,10 +468,10 @@
     "4": {
       "specific_issue_ID": 4,
       "specific_issue_name": "Parkland",
-      "specific_issue_units": "Park and Playground Acres Per 1,000 Residents",
+      "specific_issue_units": "Park & Playground Acres Per 1,000 Residents",
       "issue_units_shorthand": "Acres",
       "specific_issue_units_sentence": "parkland acres per 1,000 residents",
-      "specific_issue_append": "",
+      "specific_issue_append": "acres per 1,000 residents",
       "issue_units_symbol": "",
       "image_ids": ["F26_ParkAc_1.jpeg", "F26_ParkAc_2.png"],
       "specific_issue_description": [
@@ -573,7 +573,7 @@
       "specific_issue_units": "Average Summer Deviation from Mean",
       "issue_units_shorthand": "Mean",
       "specific_issue_units_sentence": "average summer surface temperatures",
-      "specific_issue_append": "",
+      "specific_issue_append": "Mean",
       "issue_units_symbol": "°F",
       "image_ids": ["F14_TmpDev_1.jpeg"],
       "specific_issue_description": [
@@ -734,7 +734,7 @@
       "specific_issue_units": "Average Square Feet of Stormwater Greenstreets and Bioswales per Block",
       "issue_units_shorthand": "Square Feet",
       "specific_issue_units_sentence": "Road Permeability",
-      "specific_issue_append": "",
+      "specific_issue_append": "square feet per block",
       "issue_units_symbol": "",
       "image_ids": ["F17_GreInf_1.jpeg", "F17_GreInf_2.jpeg"],
       "specific_issue_description": [
@@ -912,7 +912,7 @@
       "specific_issue_units": "Average Decibels",
       "issue_units_shorthand": "Decibels",
       "specific_issue_units_sentence": "noise pollution levels",
-      "specific_issue_append": "",
+      "specific_issue_append": "average decibels",
       "issue_units_symbol": "",
       "image_ids": ["F19_Noise__1.png", "F19_Noise__2.jpeg"],
       "specific_issue_description": [
@@ -1068,7 +1068,7 @@
       "specific_issue_units": "Per 10,000 Residents",
       "issue_units_shorthand": "Spaces",
       "specific_issue_units_sentence": "bike parking spaces per 10,000 residents",
-      "specific_issue_append": "",
+      "specific_issue_append": "spaces per 10,000 residents",
       "issue_units_symbol": "",
       "image_ids": ["F22_BikRac_1.png"],
       "specific_issue_description": [
@@ -1206,7 +1206,7 @@
       "specific_issue_units": "City Benches per 10,000 Residents",
       "issue_units_shorthand": "Benches",
       "specific_issue_units_sentence": "benches per 10,000 residents",
-      "specific_issue_append": "",
+      "specific_issue_append": "city benches per 10,000 residents",
       "issue_units_symbol": "",
       "image_ids": ["F23_CtyBea_1.png", "F23_CtyBea_2.png"],
       "specific_issue_description": [
@@ -1332,7 +1332,7 @@
       "specific_issue_units": "PM 2.5 Micrograms per Cubic Meter",
       "issue_units_shorthand": "Micrograms",
       "specific_issue_units_sentence": "PM 2.5 levels",
-      "specific_issue_append": "",
+      "specific_issue_append": "PM 2.5 Micrograms per Cubic Meter",
       "issue_units_symbol": "",
       "image_ids": ["F15_PM25Me_1.jpeg"],
       "specific_issue_description": [
@@ -1483,7 +1483,7 @@
       "specific_issue_units": "Percent of Street Miles with a Protected Bike Lane",
       "issue_units_shorthand": "",
       "specific_issue_units_sentence": "protected bike lanes per street mile",
-      "specific_issue_append": "",
+      "specific_issue_append": "of street miles with a protected bike lane",
       "issue_units_symbol": "%",
       "image_ids": ["F24_BikLan_1.jpeg"],
       "specific_issue_description": [
@@ -1769,7 +1769,7 @@
       "specific_issue_units": "Per 10,000 Residents from 2014 to 2022",
       "issue_units_shorthand": "Fatalities",
       "specific_issue_units_sentence": "traffic fatalities per 10,000 residents (2014-2022)",
-      "specific_issue_append": "",
+      "specific_issue_append": "deaths per 10,000 residents from 2014-2022",
       "issue_units_symbol": "",
       "image_ids": ["F20_TrfKil_1.jpeg", "F20_TrfKil_2.jpeg"],
       "specific_issue_description": [
@@ -1925,7 +1925,7 @@
       "specific_issue_units": "Per 10,000 Residents from 2014 to 2022",
       "issue_units_shorthand": "Injuries",
       "specific_issue_units_sentence": "traffic injuries per 10,000 residents (2014-2022)",
-      "specific_issue_append": "",
+      "specific_issue_append": "injuries per 10,000 residents from 2014-2022",
       "issue_units_symbol": "",
       "image_ids": ["F21_TrfInj_1.jpeg", "F21_TrfInj_2.jpeg"],
       "specific_issue_description": [
@@ -2062,7 +2062,7 @@
       "specific_issue_units": "Percent of Total Land Covered",
       "issue_units_shorthand": "",
       "specific_issue_units_sentence": "tree canopy cover",
-      "specific_issue_append": "",
+      "specific_issue_append": "percent of total land covered ",
       "issue_units_symbol": "%",
       "image_ids": ["F16_TreCan_1.png", "F16_TreCan_2.jpeg"],
       "specific_issue_description": [

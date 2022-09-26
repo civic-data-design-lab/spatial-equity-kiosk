@@ -350,6 +350,7 @@ a:active {
     min-width: 0 !important;
     display: block !important;
     width: 100% !important;
+    cursor: pointer;
 
 }
 
