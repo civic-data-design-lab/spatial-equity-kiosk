@@ -209,6 +209,7 @@ a:active {
     border: 2px solid black;
     border-top: none;
     min-height: 0;
+    cursor: pointer;
 }
 
 
@@ -249,6 +250,7 @@ a:active {
 .transition-font {
     transition: font-size 1s;
     white-space: pre-line;
+    cursor: pointer;
 }
 
 .nav-title {
@@ -528,7 +530,8 @@ a:active {
 .boundary-toggle-item-active {
     background-color: white;
     color: black;
-    cursor: auto;
+    cursor: default;
+
 }
 
 .boundary-toggle-item-inactive {

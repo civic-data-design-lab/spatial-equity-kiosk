@@ -9,11 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faMinus,
   faPlus,
-  faCaretDown,
-  faCaretUp,
 } from '@fortawesome/free-solid-svg-icons';
-import Table from 'react-bootstrap/Table';
-import rankings from '../data/rankings.json';
 import RankingTable from './RankingTable';
 
 const getRgb = (color) => {
@@ -109,19 +105,20 @@ const Histogram = ({
   // let useBoroughColor = false;
   // console.log("colorRampsyType ", colorRampsyType)
 
-  const getIssueStatement = () => {
+  const getIssueStatement = (value, average) => {
     if (selectedSpecificIssue) {
       let words =
         issues.specific_issues_data[selectedSpecificIssue]
           .issue_units_shorthand != ''
           ? issues.specific_issues_data[
-              selectedSpecificIssue
-            ].issue_units_shorthand.split(' ')
+            selectedSpecificIssue
+          ].issue_units_shorthand.split(' ')
           : issues.specific_issues_data[
-              selectedSpecificIssue
-            ].specific_issue_units_sentence.split(' ');
+            selectedSpecificIssue
+          ].specific_issue_units_sentence.split(' ');
 
       const ignoreCapitalization = ['the', 'of', 'an', 'a', 'by'];
+
 
       for (let i = 0; i < words.length; i++) {
         if (!ignoreCapitalization.includes(words[i].toLowerCase())) {
@@ -135,9 +132,18 @@ const Histogram = ({
         }
       }
 
-      const sentence = words.join(' ');
+      let sentence = words.join(' ');
 
-      // console.log(sentence)
+      // special case where just the symbol is sufficient
+      if (["F16_TreCan", "F27_BusSpe"].includes(issues.specific_issues_data[selectedSpecificIssue].json_id)) {
+        return ""
+      }
+
+      if (issues.specific_issues_data[selectedSpecificIssue].json_id == "F14_TmpDev") {
+        sentence = [value > average ? "Above" : value == average ? "" : "Below", sentence].join(" ")
+      }
+
+
       return sentence || null;
     }
     return null;
@@ -168,7 +174,7 @@ const Histogram = ({
   let colorRamps = _CHAPTER_COLORS[colorRampsyType];
   let rawIssueData =
     _RANKINGS[boundary][
-      issues.specific_issues_data[selectedSpecificIssue]?.json_id
+    issues.specific_issues_data[selectedSpecificIssue]?.json_id
     ];
   let [data, nameArray, avg, avgIndex, avgRectID, ascending, lookupArray] =
     getDataToVis(rawIssueData, selectedSpecificIssue, issues);
@@ -268,7 +274,7 @@ const Histogram = ({
 
     const metricSymbol =
       issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !==
-      ''
+        ''
         ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
         : '';
 
@@ -308,16 +314,16 @@ const Histogram = ({
         d3.min(data) >= 0
           ? xscale(d)
           : d > 0
-          ? xscale(d) - xscale(0)
-          : xscale(0) - xscale(d)
+            ? xscale(d) - xscale(0)
+            : xscale(0) - xscale(d)
       )
       .attr('y', (d, i) => yscale(i + 0.5))
       .attr('x', (d) =>
         d3.min(data) >= 0
           ? margin.left
           : d > 0
-          ? margin.left + xscale(0)
-          : margin.left + xscale(d)
+            ? margin.left + xscale(0)
+            : margin.left + xscale(d)
       )
       .attr('initColor', (d, i) => colorArray[i])
       .style('fill', (d, i) => colorArray[i])
@@ -417,8 +423,8 @@ const Histogram = ({
       .attr(
         'x',
         width -
-          margin.right -
-          svg.select('#maxText').node().getBoundingClientRect().width
+        margin.right -
+        svg.select('#maxText').node().getBoundingClientRect().width
       );
 
     svg
@@ -426,8 +432,8 @@ const Histogram = ({
       .attr(
         'x',
         width -
-          margin.right -
-          svg.select('#minText').node().getBoundingClientRect().width
+        margin.right -
+        svg.select('#minText').node().getBoundingClientRect().width
       );
 
     svg
@@ -456,10 +462,9 @@ const Histogram = ({
       .attr('font-size', '14')
       .attr('fill', '#000000')
       .text(
-        `${
-          avg >= 10
-            ? avg.toFixed(0)
-            : avg >= 1
+        `${avg >= 10
+          ? avg.toFixed(0)
+          : avg >= 1
             ? avg.toFixed(1)
             : avg.toFixed(2)
         }${metricSymbol} ${getIssueStatement()}`
@@ -471,8 +476,8 @@ const Histogram = ({
       .attr(
         'x',
         width -
-          margin.right -
-          svg.select('#avgTextUp').node().getBoundingClientRect().width
+        margin.right -
+        svg.select('#avgTextUp').node().getBoundingClientRect().width
       );
 
     svg
@@ -480,8 +485,8 @@ const Histogram = ({
       .attr(
         'x',
         width -
-          margin.right -
-          svg.select('#avgTextDown').node().getBoundingClientRect().width
+        margin.right -
+        svg.select('#avgTextDown').node().getBoundingClientRect().width
       );
 
     svg
@@ -529,13 +534,12 @@ const Histogram = ({
           .attr('y', ycood + 15)
           .attr('lookupID', lookupArray[rectID])
           .text(
-            `${
-              data[rectID] >= 10
-                ? data[rectID].toFixed(0)
-                : data[rectID] >= 1
+            `${data[rectID] >= 10
+              ? data[rectID].toFixed(0)
+              : data[rectID] >= 1
                 ? data[rectID].toFixed(1)
                 : data[rectID].toFixed(2)
-            }${metricSymbol} ${getIssueStatement()}`
+            }${metricSymbol} ${getIssueStatement(data[rectID], avg)}`
           );
       })
       .on('click', (event, d) => {
@@ -613,9 +617,8 @@ const Histogram = ({
       .attr('fill', '#000000')
       .text(
         (d, i) =>
-          `${
-            data[i] >= 10 ? data[i].toFixed(0) : data[i]
-          }${metricSymbol} ${getIssueStatement()}`
+          `${data[i] >= 10 ? data[i].toFixed(0) : data[i]
+          }${metricSymbol} ${getIssueStatement(data[i], avg)}`
       );
 
     svg.selectAll('.pinnedTextDown').data(data).exit().remove();
@@ -999,9 +1002,8 @@ const Histogram = ({
           {!toggleDisplayMode && (
             <div>
               <div
-                className={`big-button ${
-                  useBoroughColor ? 'big-button-active' : 'big-button-inactive'
-                } small-font`}
+                className={`big-button ${useBoroughColor ? 'big-button-active' : 'big-button-inactive'
+                  } small-font`}
                 style={{
                   display: 'inline-block',
                   justifyContent: '',
@@ -1030,9 +1032,8 @@ const Histogram = ({
 
         {!toggleDisplayMode ? (
           <div
-            className={`${
-              useBoroughColor ? '' : 'invisible'
-            } d-flex flex-row osition-relativ`}
+            className={`${useBoroughColor ? '' : 'invisible'
+              } d-flex flex-row osition-relativ`}
             style={{
               justifyContent: 'start',
               flexGrow: '1',
@@ -1140,10 +1141,10 @@ const Histogram = ({
         style={
           !toggleDisplayMode
             ? {
-                width: '100%',
-                flexGrow: 1,
-                padding: '0.5rem 0 0 0',
-              }
+              width: '100%',
+              flexGrow: 1,
+              padding: '0.5rem 0 0 0',
+            }
             : { width: '100%', flexGrow: 1, padding: '1rem 0' }
         }
         className={'position-relative'}
@@ -1187,6 +1188,7 @@ const Histogram = ({
           compareSearch={compareSearch}
           toggleDisplayMode={toggleDisplayMode}
           defaultOpen={true}
+          citywideTab={true}
         />
       </div>
     </div>

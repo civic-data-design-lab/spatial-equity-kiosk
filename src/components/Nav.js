@@ -176,15 +176,18 @@ function Nav({
           setShowMap(false);
           if (selectedChapter !== 2) {
             setSelectedChapter(2);
-            setCollapseMap(false);
-            setSearchSource(null);
-            setUserPoints([], []);
-            setBadSearch(0, 0);
             if (selectedChapterCache.current)
               setSelectedSpecificIssue(selectedChapterCache.current);
           } else {
             setSelectedChapter(null);
           }
+          setCollapseMap(false);
+          setSearchSource(null);
+          setUserPoints([], []);
+          setBadSearch(0, 0);
+          setCommunitySearch(null)
+          setCompareSearch(null)
+
 
           /*if (selectedSpecificIssue) {
                                   setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
@@ -269,6 +272,8 @@ function Nav({
           setCollapseMap(false);
           setSearchSource(null);
           setUserPoints([], []);
+          setCommunitySearch(null)
+          setCompareSearch(null)
           setBadSearch(0, 0);
 
 
@@ -366,6 +371,8 @@ function Nav({
             setCollapseMap(false);
             setSearchSource(null);
             setUserPoints([], []);
+            setCommunitySearch(null)
+            setCompareSearch(null)  
             setBadSearch(0, 0);
           } else {
             setSelectedChapter(null);

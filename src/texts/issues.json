@@ -735,7 +735,7 @@
       "issue_units_shorthand": "Square Feet",
       "specific_issue_units_sentence": "Road Permeability",
       "specific_issue_append": "",
-      "issue_units_symbol": "ft²",
+      "issue_units_symbol": "",
       "image_ids": ["F17_GreInf_1.jpeg", "F17_GreInf_2.jpeg"],
       "specific_issue_description": [
         {
@@ -1766,7 +1766,7 @@
     "13": {
       "specific_issue_ID": 13,
       "specific_issue_name": "Traffic Fatalities",
-      "specific_issue_units": "Per 10,000 Residents (2014-2022)",
+      "specific_issue_units": "Per 10,000 Residents from 2014 to 2022",
       "issue_units_shorthand": "Fatalities",
       "specific_issue_units_sentence": "traffic fatalities per 10,000 residents (2014-2022)",
       "specific_issue_append": "",
@@ -1922,7 +1922,7 @@
     "14": {
       "specific_issue_ID": 14,
       "specific_issue_name": "Traffic Injuries",
-      "specific_issue_units": "Per 10,000 residents (2014-2022)",
+      "specific_issue_units": "Per 10,000 Residents from 2014 to 2022",
       "issue_units_shorthand": "Injuries",
       "specific_issue_units_sentence": "traffic injuries per 10,000 residents (2014-2022)",
       "specific_issue_append": "",

@@ -15,6 +15,7 @@ import {
 import Table from 'react-bootstrap/Table';
 import rankings from '../data/rankings.json';
 import RankingTable from './RankingTable';
+import { select } from 'd3';
 
 const getRgb = (color) => {
   let [r, g, b] = Array.from(color);
@@ -111,18 +112,18 @@ const IssueHistogram = ({
       const metricRanking =
         boundary == 'council'
           ? _RANKINGS.council[subject].find(
-              (f) => f.community_ID == selectedCommunity.json_lookup
-            ).rank
+            (f) => f.community_ID == selectedCommunity.json_lookup
+          ).rank
           : _RANKINGS.community[subject].find(
-              (f) => f.community_ID == selectedCommunity.json_lookup
-            ).rank;
+            (f) => f.community_ID == selectedCommunity.json_lookup
+          ).rank;
 
       const boundaryGrammatical =
         boundary == 'council'
           ? `City Council ${selectedCommunity.name}`
           : `${selectedCommunity.name
-              .split(' ')
-              .slice(0, -1)} Community Board ${selectedCommunity.name
+            .split(' ')
+            .slice(0, -1)} Community Board ${selectedCommunity.name
               .split(' ')
               .slice(1)}`;
 
@@ -134,7 +135,7 @@ const IssueHistogram = ({
         </p>
       );
     }
-    return null;
+    return "";
   };
 
   const textWidth = 50;
@@ -149,7 +150,7 @@ const IssueHistogram = ({
   let colorRamps = _CHAPTER_COLORS[getIssueType(issues, selectedSpecificIssue)];
   let rawIssueData =
     _RANKINGS[boundary][
-      issues.specific_issues_data[selectedSpecificIssue].json_id
+    issues.specific_issues_data[selectedSpecificIssue].json_id
     ];
   let [data, nameArray, avg, avgIndex, ascending, lookupArray] =
     getDataToVis(rawIssueData);
@@ -230,16 +231,16 @@ const IssueHistogram = ({
         d3.min(data) >= 0
           ? yscale(d)
           : d > 0
-          ? yscale(d) - yscale(0)
-          : yscale(0) - yscale(d)
+            ? yscale(d) - yscale(0)
+            : yscale(0) - yscale(d)
       )
       .attr('x', (d, i) => xscale(i + 0.5))
       .attr('y', (d) =>
         d3.min(data) >= 0
           ? height - yscale(d) - margin.bottom
           : d > 0
-          ? margin.bottom + yscale(0)
-          : margin.bottom + yscale(d)
+            ? margin.bottom + yscale(0)
+            : margin.bottom + yscale(d)
       )
       .attr('fill', (d, i) =>
         d3.rgb(
@@ -259,8 +260,8 @@ const IssueHistogram = ({
         d3.min(data) >= 0
           ? height - d3.select(this).attr('height') - margin.bottom
           : d > 0
-          ? height - d3.select(this).attr('height') - margin.bottom - yscale(0)
-          : height - d3.select(this).attr('height') - margin.bottom - yscale(d)
+            ? height - d3.select(this).attr('height') - margin.bottom - yscale(0)
+            : height - d3.select(this).attr('height') - margin.bottom - yscale(d)
       );
     });
 
@@ -329,8 +330,8 @@ const IssueHistogram = ({
         d3.min(data) >= 0
           ? yscale(data[index])
           : data[index] > 0
-          ? yscale(data[index]) - yscale(0)
-          : yscale(0) - yscale(data[index]);
+            ? yscale(data[index]) - yscale(0)
+            : yscale(0) - yscale(data[index]);
 
       //   d3.select(this).attr(
       //     'y1',
@@ -466,15 +467,14 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
-        `${
-          Number(data[Math.round(svg.select('#avgLine').attr('index'))]) > 10
+        `${Number(data[Math.round(svg.select('#avgLine').attr('index'))]) > 10
+          ? Number(
+            data[Math.round(svg.select('#avgLine').attr('index'))]
+          ).toFixed(0)
+          : Number(data[Math.round(svg.select('#avgLine').attr('index'))]) > 1
             ? Number(
-                data[Math.round(svg.select('#avgLine').attr('index'))]
-              ).toFixed(0)
-            : Number(data[Math.round(svg.select('#avgLine').attr('index'))]) > 1
-            ? Number(
-                data[Math.round(svg.select('#avgLine').attr('index'))]
-              ).toFixed(1)
+              data[Math.round(svg.select('#avgLine').attr('index'))]
+            ).toFixed(1)
             : Number(data[Math.round(svg.select('#avgLine').attr('index'))])
         }${metricSymbol}`
       );
@@ -495,15 +495,14 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
-        `${
-          data[Math.round(svg.select('#selectedLine').attr('index'))] > 10
+        `${data[Math.round(svg.select('#selectedLine').attr('index'))] > 10
+          ? data[
+            Math.round(svg.select('#selectedLine').attr('index'))
+          ].toFixed(0)
+          : data[Math.round(svg.select('#selectedLine').attr('index'))] > 1
             ? data[
-                Math.round(svg.select('#selectedLine').attr('index'))
-              ].toFixed(0)
-            : data[Math.round(svg.select('#selectedLine').attr('index'))] > 1
-            ? data[
-                Math.round(svg.select('#selectedLine').attr('index'))
-              ].toFixed(1)
+              Math.round(svg.select('#selectedLine').attr('index'))
+            ].toFixed(1)
             : data[Math.round(svg.select('#selectedLine').attr('index'))]
         }${metricSymbol}`
       );

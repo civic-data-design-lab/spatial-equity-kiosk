@@ -83,10 +83,10 @@ export default function Legend({
           Math.round(neighborhoodData['P_Black'] * 100),
           Math.round(neighborhoodData['P_Asian'] * 100),
           100 -
-            (Math.round(neighborhoodData['P_Hispanic'] * 100) +
-              Math.round(neighborhoodData['P_White'] * 100) +
-              Math.round(neighborhoodData['P_Black'] * 100) +
-              Math.round(neighborhoodData['P_Asian'] * 100)),
+          (Math.round(neighborhoodData['P_Hispanic'] * 100) +
+            Math.round(neighborhoodData['P_White'] * 100) +
+            Math.round(neighborhoodData['P_Black'] * 100) +
+            Math.round(neighborhoodData['P_Asian'] * 100)),
         ];
       } else if (demoLookup.lookup == 'F10_TrsBkW') {
         if (!toggleWalk && !toggleTransit && !toggleBike) {
@@ -197,14 +197,17 @@ export default function Legend({
 
         let symbol = selectedSpecificIssue
           ? issues.specific_issues_data[selectedSpecificIssue]
-              .issue_units_symbol
+            .issue_units_symbol
           : '';
 
         let cleanNumbers = isNaN(legendBins[1][0])
           ? ''
           : min(legendBins[1]) >= 10
-          ? legendBins[1].map((d) => Math.round(d))
-          : legendBins[1];
+            ? legendBins[1].map((d) => d.toFixed(0))
+            : min(legendBins[1]) >= 1
+              ? legendBins[1].map((d) => d.toFixed(1))
+              : legendBins[1].map((d) => d.toFixed(2))
+
         if (!selectedSpecificIssue) {
           return <div className={'placeholder-legend'}></div>;
         } else {
@@ -320,11 +323,10 @@ export default function Legend({
 
               {showMap && (
                 <div
-                  className={`big-button small-font ${
-                    toggleUnderperformers
+                  className={`big-button small-font ${toggleUnderperformers
                       ? 'big-button-active'
                       : 'big-button-inactive'
-                  }`}
+                    }`}
                   onClick={() => {
                     setToggleUnderperformers(!toggleUnderperformers);
                   }}
@@ -360,19 +362,19 @@ export default function Legend({
                     {100 - percList[percList.length - 1]}% of
                     {demoLookup.name ===
                       'Households Living Below the Poverty Line' ||
-                    demoLookup.name === 'Households Without a Car'
+                      demoLookup.name === 'Households Without a Car'
                       ? ' households '
                       : ' commuters '}
                     {selectedChapter == 3 ? 'in' : ''} {neighborhoodName}{" "}
                     {demoLookup.name ===
-                    'Households Living Below the Poverty Line'
+                      'Households Living Below the Poverty Line'
                       ? 'live below the poverty line'
                       : demoLookup.name === 'Households Without a Car'
-                      ? 'do not own a car'
-                      : demoLookup.name ===
-                        'Citywide Commuters Who Drive Alone to Work'
-                      ? 'drive alone to work'
-                      : ` `}
+                        ? 'do not own a car'
+                        : demoLookup.name ===
+                          'Citywide Commuters Who Drive Alone to Work'
+                          ? 'drive alone to work'
+                          : ` `}
                     {transitToggles}.
                   </div>
                 }
@@ -437,32 +439,32 @@ export default function Legend({
                     {demoLegendBins[0] > 10
                       ? demoLegendBins[0].toFixed(0)
                       : demoLegendBins[0] > 1
-                      ? demoLegendBins[0].toFixed(1)
-                      : demoLegendBins[0].toFixed(2)}
+                        ? demoLegendBins[0].toFixed(1)
+                        : demoLegendBins[0].toFixed(2)}
                     %
                   </div>
                   <div className={'small-font'}>
                     {demoLegendBins[1] > 10
                       ? demoLegendBins[1].toFixed(0)
                       : demoLegendBins[1] > 1
-                      ? demoLegendBins[1].toFixed(1)
-                      : demoLegendBins[1].toFixed(2)}
+                        ? demoLegendBins[1].toFixed(1)
+                        : demoLegendBins[1].toFixed(2)}
                     %
                   </div>
                   <div className={'small-font'}>
                     {demoLegendBins[2] > 10
                       ? demoLegendBins[2].toFixed(0)
                       : demoLegendBins[2] > 1
-                      ? demoLegendBins[2].toFixed(1)
-                      : demoLegendBins[2].toFixed(2)}
+                        ? demoLegendBins[2].toFixed(1)
+                        : demoLegendBins[2].toFixed(2)}
                     %
                   </div>
                   <div className={'small-font'}>
                     {demoLegendBins[3] > 10
                       ? demoLegendBins[3].toFixed(0)
                       : demoLegendBins[3] > 1
-                      ? demoLegendBins[3].toFixed(1)
-                      : demoLegendBins[3].toFixed(2)}
+                        ? demoLegendBins[3].toFixed(1)
+                        : demoLegendBins[3].toFixed(2)}
                     % +
                   </div>
                 </div>
@@ -592,19 +594,19 @@ export default function Legend({
                   {100 - percList[percList.length - 1]}% of
                   {demoLookup.name ===
                     'Households Living Below the Poverty Line' ||
-                  demoLookup.name === 'Households Without a Car'
+                    demoLookup.name === 'Households Without a Car'
                     ? ' households '
                     : ' commuters '}
                   {selectedChapter == 3 ? 'in' : ''} {neighborhoodName}{" "}
                   {demoLookup.name ===
-                  'Households Living Below the Poverty Line'
+                    'Households Living Below the Poverty Line'
                     ? 'live below the poverty line'
                     : demoLookup.name === 'Households Without a Car'
-                    ? 'do not own a car'
-                    : demoLookup.name ===
-                      'Citywide Commuters Who Drive Alone to Work'
-                    ? 'drive alone to work'
-                    : ` `}
+                      ? 'do not own a car'
+                      : demoLookup.name ===
+                        'Citywide Commuters Who Drive Alone to Work'
+                        ? 'drive alone to work'
+                        : ` `}
                   {transitToggles}.
                 </div>
               )}
