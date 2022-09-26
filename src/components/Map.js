@@ -743,6 +743,7 @@ export default function DeckMap({
             setUserPoints([searchEngine, userPoints[1]]);
 
             if (!compareSearch) {
+              console.log(selectedCoord[0], selectedCoord[1], "HI")
               setViewState({
                 longitude: selectedCoord[0],
                 latitude: selectedCoord[1],
@@ -936,16 +937,6 @@ export default function DeckMap({
     }
   }, [addCompare]);
 
-  // fix view on resize
-  useEffect(() => {
-    if (searchSource !== 'click' && selectedChapter === 2) {
-      setViewState(RESET_VIEW);
-    } else if (selectedChapter === 3) {
-      setViewState(viewState);
-    } else {
-      setViewState(RESET_VIEW);
-    }
-  }, [selectedChapter]);
 
   // 06 Render lifecycle
   useEffect(() => {

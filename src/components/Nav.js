@@ -249,11 +249,7 @@ function Nav({
                     setCompareSearch(null);*/
           if (selectedChapter !== 3) {
             setSelectedChapter(3);
-            setCollapseMap(false);
-            setSearchSource(null);
-            setUserPoints([], []);
-            setBadSearch(0, 0);
-            setShowMap(false);
+                        // setShowMap(false);
             selectedChapterCache.current = selectedSpecificIssue;
             //setSelectedSpecificIssue(null);
             if (selectedCoordsCache?.current)
@@ -265,7 +261,17 @@ function Nav({
             if (viewStateCache?.current) setViewState(viewStateCache.current);
           } else {
             setSelectedChapter(null);
+
+
+
           }
+          setShowMap(false);
+          setCollapseMap(false);
+          setSearchSource(null);
+          setUserPoints([], []);
+          setBadSearch(0, 0);
+
+
         }}
       >
         <div>
