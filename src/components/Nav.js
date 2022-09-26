@@ -177,7 +177,7 @@ function Nav({
           if (selectedChapter !== 2) {
             setSelectedChapter(2);
             setCollapseMap(false);
-            setSearchSource(null);
+            //setSearchSource(null);
             setUserPoints([], []);
             setBadSearch(0, 0);
             if (selectedChapterCache.current)
@@ -250,7 +250,7 @@ function Nav({
           if (selectedChapter !== 3) {
             setSelectedChapter(3);
             setCollapseMap(false);
-            setSearchSource(null);
+            //setSearchSource(null);
             setUserPoints([], []);
             setBadSearch(0, 0);
             setShowMap(false);
@@ -265,6 +265,9 @@ function Nav({
             if (viewStateCache?.current) setViewState(viewStateCache.current);
           } else {
             setSelectedChapter(null);
+            selectedCoordsCache.current = userPoints;
+            selectedCommunitiesCache.current = [communitySearch, compareSearch];
+            viewStateCache.current = viewState;
           }
         }}
       >
@@ -358,7 +361,7 @@ function Nav({
           if (selectedChapter !== 4) {
             setSelectedChapter(4);
             setCollapseMap(false);
-            setSearchSource(null);
+            //setSearchSource(null);
             setUserPoints([], []);
             setBadSearch(0, 0);
           } else {

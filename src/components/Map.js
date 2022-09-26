@@ -762,7 +762,6 @@ export default function DeckMap({
             searchSource === 'search') &&
           selectedCoord.length === 2
         ) {
-          //   console.log('case 1');
           setCompareSearch(newCompareSearch[0]);
           setBadSearch([badSearch[0], 0]);
           const ptA = selectedCoord;
@@ -809,7 +808,7 @@ export default function DeckMap({
           searchEngine.length === 2 &&
           searchSource === 'click'
         ) {
-          //   console.log('case 2');
+          console.log("2")
           setSelectedCompareCoord([]);
           setCompareSearch(null);
           setUserPoints([userPoints[0], []]);
@@ -826,14 +825,12 @@ export default function DeckMap({
           searchEngine.length === 2 &&
           searchSource === 'click'
         ) {
-          //   console.log('case 3');
           if (!compareSearch) {
             /*setSelectedCoord([]);
             setCommunitySearch(null);
             setUserPoints([[], []]);
             setViewState(RESET_VIEW);*/
           } else {
-            // console.log('case 4');
             setCommunitySearch(compareSearch);
             setCompareSearch(null);
             setSelectedCoord(userPoints[1]);
@@ -845,6 +842,7 @@ export default function DeckMap({
               transitionDuration: 500,
               transitionInerpolator: new LinearInterpolator(),
             });
+            console.log("4")
             setSelectedCompareCoord([]);
           }
         } else {
@@ -857,7 +855,6 @@ export default function DeckMap({
   }
 
   useEffect(() => {
-    // console.log('triggered communitySearch engine ', communitySearch);
     if (!addCompare || !communitySearch) {
       updateSearchEngine(selectedCoord, 0);
     }
@@ -1052,7 +1049,6 @@ export default function DeckMap({
       getFillPattern: (f) => {
         let fillValue = parseFloat(f.properties[infoTransfer.selectedMetric]);
         if (toggleUnderperformers === true && f.properties.AnsUnt_YN == 'Y') {
-          // console.log(toggleUnderperformers, underperformers);
           if (infoTransfer.metricGoodorBad == 1) {
             return fillValue >= underperformers ? 'hatch-small' : 'hatch-solid';
           } else {

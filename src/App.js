@@ -79,7 +79,7 @@ function App() {
     [255, 0, 255]
   );
   const [demoLegendBins, setDemoLegendBins] = useState([1, 1, 1, 1, 1]);
-  const [searchSource, setSearchSource] = useState(null);
+  const [searchSource, setSearchSource] = useState('search');
   const [selectedCoord, setSelectedCoord] = useState([]);
   const [selectedCompareCoord, setselectedCompareCoord] = useState([]);
   const [badSearch, setBadSearch] = useState([0, 0]);
@@ -195,6 +195,10 @@ function App() {
             }),
             createCoords[1],
           ];
+          setSelectedCoord(JSON.parse(pair[1]).map((item) => {
+              return parseFloat(item.toString());
+            }))
+          setselectedCompareCoord(createCoords[1])
           break;
 
         case 'cpC':
@@ -204,6 +208,10 @@ function App() {
               return parseFloat(item.toString());
             }),
           ];
+          setSelectedCoord(createCoords[0])
+          setselectedCompareCoord(JSON.parse(pair[1]).map((item) => {
+              return parseFloat(item.toString());
+            }))
           break;
 
         case 'lat':
@@ -215,6 +223,9 @@ function App() {
         case 'z':
           createViewState.zoom = parseFloat(pair[1].toString());
           break;
+        case 'sS':
+          setSearchSource(pair[1]);
+          break
 
         /*  case "uP":
                             console.log("pair[1] ", pair[1])
@@ -229,13 +240,17 @@ function App() {
     setUserPoints(createCoords);
   }, []);
 
+ /* useEffect(()=>{
+    console.log("user points ", userPoints)
+  })*/
+
   const selectedBoundary = useMemo(() => {
     if (boundary === 'council') {
       return _COUNCIL_DISTRICTS;
     } else if (boundary === 'community') {
       return _COMMUNITY_BOARDS;
     } else {
-      return _COUNCIL_DISTRICTS;
+      return _COMMUNITY_BOARDS;
     }
   }, [boundary]);
 
@@ -385,6 +400,8 @@ function App() {
     // console.log("info ", info)
   }, [boundary, selectedSpecificIssue, selectedIssue, zoomToggle]);
 
+
+
   useEffect(() => {
     // console.log("userPoints ", userPoints)
     // console.log("demoLookup ", demoLookup);
@@ -450,6 +467,8 @@ function App() {
     if (viewState.primary && viewState.primary.zoom !== null)
       params.push(`z=${viewState.primary.zoom}`);
 
+   //if (searchSource!==null) params.push(`sS=${searchSource}`)
+
     /* if (viewState !== null) {
              params.push(`lat=${viewState.primary.latitude}`)
              params.push(`lon=${viewState.primary.longitude}`)
@@ -493,89 +512,12 @@ function App() {
     }
   }, [selectedSpecificIssue]);
 
-  /*useEffect(() => {
-          if (selectedSpecificIssue) {
-              if (!moreIssues.includes(selectedSpecificIssue)) {
-                  let newMore = moreIssues;
-                  newMore.push(selectedSpecificIssue);
-                  setMoreIssues(newMore);
-                  setMoreIssuesLength(moreIssuesLength + 1);
-              }
-          }
-      }, [selectedSpecificIssue]);*/
+  useEffect(()=>{
+    console.log("selectdCompareCoord ", selectedCompareCoord)
+    console.log("userpoints ", userPoints)
+  }, [selectedCompareCoord, userPoints])
 
-  const [assistivePos, setAssistivePos] = useState({ x: 0, y: 0 });
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [mouseDown, setMouseDown] = useState(false);
-  const [mouseMove, setMouseMove] = useState(false);
 
-  useEffect(() => {
-    window.addEventListener('mouseup', () => {
-      setMouseDown(false);
-    });
-
-    /*window.addEventListener("mousemove", (e) => {
-                        e.preventDefault()
-                        console.log("mouseDOwn in event listener is ", mouseDown)
-                        if (mouseDown) {
-                            setMouseMove(true)
-                            let div = document.getElementById("assistive-touch-div")
-                            const mousePos = {x: e.clientX, y: e.clientY};
-                            // div.style.transform = `translate(0px, 0px)`;;
-                            div.style.left = (mousePos.x + offset.x) + 'px';
-                            div.style.top = (mousePos.y + offset.y) + 'px';
-                        }
-                })*/
-
-    return () => {
-      window.removeEventListener('mouseup', () => {
-        setMouseDown(false);
-      });
-
-      /*window.removeEventListener("mousemove", (e) => {
-                              e.preventDefault()
-                              if (mouseDown) {
-                                  setMouseMove(true)
-                                  let div = document.getElementById("assistive-touch-div")
-                                  const mousePos = {x: e.clientX, y: e.clientY};
-                                  // div.style.transform = `translate(0px, 0px)`;;
-                                  div.style.left = (mousePos.x + offset.x) + 'px';
-                                  div.style.top = (mousePos.y + offset.y) + 'px';
-                              }
-                      })*/
-    };
-  }, []);
-
-  const expandAssist = () => {
-    let div = document.getElementById('assistive-touch-div');
-    let offset = div.getBoundingClientRect();
-    const offsetLeft = offset.left;
-    const offsetTop = offset.top;
-    setAssistivePos({ x: offsetLeft, y: offsetTop });
-
-    div.style.top = ``;
-    div.style.left = ``;
-
-    div.style.transition =
-      'height 0.5s 0.2s, width 0.5s 0.2s, background-color 1s, color 1s';
-    div.style.transform = `translate(${offsetLeft}px, ${offsetTop}px)`;
-    setTimeout(() => {
-      div.style.transition =
-        'transform 0.5s, height 0.5s 0.2s, width 0.5s 0.2s, background-color 1s, color 1s';
-      div.style.transform = `translate(0px, 0px)`;
-    }, 50);
-  };
-
-  const collapseAssist = () => {
-    let div = document.getElementById('assistive-touch-div');
-    const offsetLeft = assistivePos.x;
-    const offsetTop = assistivePos.y;
-    div.style.transform = `translate(${offsetLeft}px, ${offsetTop}px)`;
-    div.style.top = ``;
-    div.style.left = ``;
-  };
-
-  const [leftWidth, setLeftWidth] = useState(0);
 
   // console.log('siteProtection', process.env.REACT_APP_SITE_PROTECTION)
   // console.log('sha512', process.env.REACT_APP_SITE_PWD)
@@ -704,7 +646,7 @@ function App() {
                   width:
                     (selectedChapter === 3 &&
                       !communitySearch &&
-                      !compareSearch) ||
+                      !compareSearch) || !selectedChapter ||
                     ((selectedChapter === 2 || selectedChapter === 3) &&
                       collapseMap)
                       ? '75vw'
