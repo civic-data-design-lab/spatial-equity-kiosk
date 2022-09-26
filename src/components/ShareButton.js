@@ -10,14 +10,18 @@ import {
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { default as _SHARE } from "../img/share.svg";
 
-const SHARE_HASHTAGS = ["nyc", "spatialequity"];
+const SHARE_HASHTAGS = [];
 const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
 const FACEBOOK_SHARE_URL = "https://www.facebook.com/sharer/sharer.php";
 const LINKEDIN_SHARE_URL = "https://linkedin.com/sharing/share-offsite";
 
 export default function ShareButton({}) {
   const [clicked, setClicked] = useState(false);
-  const [shareText, setShareText] = useState("Check out this site:");
+  const [shareText, setShareText] = useState(
+`Not all neighborhoods are created equal.
+
+Public health, mobility, and the environment are affected by policies about the use of public space. Check out where your community ranks with #SpatialEquityNYC — a new tool from @transalt and @MIT. `
+);
   const [shareUrl, setShareUrl] = useState("https://nyc25x25.org/");
 
   const copyURL = () => {
@@ -27,29 +31,6 @@ export default function ShareButton({}) {
   const pickColor = (e) => {
     const color = "rgb(127, 255, 0)";
     e.target.style.color = color;
-  };
-
-  const uploadTwitter = () => {
-    const endpoint = "https://upload.twitter.com/1.1/media/upload.json";
-    axios
-      .post(
-        endpoint,
-        {
-          Name: "Name",
-          command: "INIT",
-          total_bytes: "10240",
-          body: "This is a new post.",
-          media_type: "image/jpeg",
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-      });
   };
 
   return (
