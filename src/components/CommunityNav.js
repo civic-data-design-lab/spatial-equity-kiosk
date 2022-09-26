@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRight, faMinus, faPlus,} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight,  faMinus, faPlus,} from "@fortawesome/free-solid-svg-icons";
 
 import CommunitySearchBar from "./CommunitySearchBar";
 import Typewriter from "typewriter-effect";
@@ -34,6 +34,19 @@ export default function CommunityNav({
     const [showSearch, setShowSearch] = useState(false);
     const [showCompareSearch, setShowCompareSearch] = useState(false);
     const [notClickable, setNotClickable] = useState(false)
+    const [compareSearchItems, setCompareSearchItems] = useState([])
+    const [communitySearchItems, setCommunitySearchItems] = useState([])
+    const [changed, setChanged] = useState(false)
+/*
+    useEffect(()=>{
+        console.log("boundar is ", boundary)
+        setCommunitySearchItems(getSearchItems(true, boundary))
+    }, [boundary, changed])
+
+    useEffect(()=>{
+        console.log("boundar is ", boundary)
+        setCompareSearchItems(getSearchItems(false, boundary))
+    }, [boundary, changed])*/
 
 
     const getSearchItems = (forSearch, boundary) => {
@@ -48,11 +61,16 @@ export default function CommunityNav({
             case true:
                 for (let [key, value] of Object.entries(boundaryData)) {
                     if (key !== compareSearch) {
+                        const matched = info.selectedBoundary.features.find(element => (element.properties.CDTA2020?.toString() === key || element.properties.CounDist?.toString() === key))
                         searchItems.push(
                             <div
+                                coords={matched?[matched.properties.X_Cent, matched.properties.Y_Cent]:null}
+                                lookup={{"council": `${matched?.properties?.CounDist}`,
+                                    "community": `${matched?.properties?.CDTA2020}`}}
                                 key={key}
                                 onClick={(e) => {
                                     e.stopPropagation();
+                                    console.log("clicked")
                                 }}
                                 className={`${
                                     communitySearch && communitySearch.startsWith(key)
@@ -61,7 +79,7 @@ export default function CommunityNav({
                                 } col search-item p-2`}
                                 onMouseDown={(e) => {
                                     e.stopPropagation(e);
-                                    /*setCommunitySearch(key);*/
+                                    console.log("mousedown")
                                     setShowSearch(false);
                                     setSearchSource("search")
                                     for (const [
@@ -70,10 +88,12 @@ export default function CommunityNav({
                                     ] of info.selectedBoundary.features.entries()) {
                                         if (element.properties.CDTA2020?.toString() === key || element.properties.CounDist?.toString() === key) {
                                             setSelectedCoord([element.properties.X_Cent, element.properties.Y_Cent])
+                                            setUserPoints([[element.properties.X_Cent, element.properties.Y_Cent], userPoints[1]])
                                             break
                                         }
                                     }
                                         e.target.blur();
+
                                 }}
                             >
                                 <div className={"row w-100 p-0 m-0"}>
@@ -99,17 +119,23 @@ export default function CommunityNav({
             case false:
                 for (let [key, value] of Object.entries(boundaryData)) {
                     if (key !== communitySearch) {
+                        const matched = info.selectedBoundary.features.find(element => (element.properties.CDTA2020?.toString() === key || element.properties.CounDist?.toString() === key))
                         searchItems.push(
                             <div
                                 key={key}
+                                coords={matched?[matched.properties.X_Cent, matched.properties.Y_Cent]:null}
+                                lookup={{"council": `${matched?.properties?.CounDist}`,
+                                    "community": `${matched?.properties?.CDTA2020}`}}
                                 className={`${
                                     compareSearch && compareSearch.startsWith(key)
                                         ? "search-item-active"
                                         : "search-item-inactive"
                                 } col search-item p-2`}
+                                onClick={(e)=>{
+                                    e.stopPropagation()
+                                }}
                                 onMouseDown={(e) => {
                                     e.stopPropagation()
-                                    setCompareSearch(key);
                                     setShowCompareSearch(false);
                                     setSearchSource("search")
                                     for (const [
@@ -118,6 +144,7 @@ export default function CommunityNav({
                                     ] of info.selectedBoundary.features.entries()) {
                                         if (element.properties.CDTA2020?.toString() === key || element.properties.CounDist?.toString() === key) {
                                             setselectedCompareCoord([element.properties.X_Cent, element.properties.Y_Cent])
+                                            setUserPoints([userPoints[0], [element.properties.X_Cent, element.properties.Y_Cent]])
                                             break
                                         }
                                     }
@@ -186,6 +213,9 @@ export default function CommunityNav({
                     setAddCompare={setAddCompare}
                     setUserPoints={setUserPoints}
                     userPoints={userPoints}
+                    changed={changed}
+                    setChanged={setChanged}
+                    getSearchItems={getSearchItems}
                 >
                     {getSearchItems(true, boundary)}
                 </CommunitySearchBar>
@@ -258,9 +288,8 @@ export default function CommunityNav({
 
                 {!communitySearch && <div className={"d-flex flex-column align-items-start w-100 mt-3 mb-3"}>
 
-                    {/*
-                    <FontAwesomeIcon icon={faArrowLeft} className={"fa-lg"}/>
-*/}
+
+
                     <p className={"m-0"}
                        style={{fontSize: "1.75rem"}}
                     >Try searching for &thinsp;</p>
@@ -309,6 +338,9 @@ export default function CommunityNav({
                         info={info}
                         setUserPoints={setUserPoints}
                         userPoints={userPoints}
+                        changed={changed}
+                        setChanged={setChanged}
+                        getSearch={getSearchItems}
                     >
                         {getSearchItems(false, boundary)}
                     </CommunitySearchBar>

@@ -229,6 +229,10 @@ function App() {
     setUserPoints(createCoords);
   }, []);
 
+  useEffect(()=>{
+    console.log("userp ", userPoints)
+  })
+
   const selectedBoundary = useMemo(() => {
     if (boundary === 'council') {
       return _COUNCIL_DISTRICTS;

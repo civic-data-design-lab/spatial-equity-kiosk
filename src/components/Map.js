@@ -667,8 +667,10 @@ export default function DeckMap({
 
   function updateSearchEngine(searchEngine, searchEngineType) {
     //check if search engine is valid coordinates
+    console.log("search engine type is ", searchEngineType)
     if (searchEngineType === 0 && selectedChapter === 3) {
       if (selectedCoord.length === 2) {
+        console.log("1")
         const newCommunitySearch = getCommunitySearch(
           searchEngine,
           boundary
@@ -692,6 +694,7 @@ export default function DeckMap({
                 transitionInerpolator: new LinearInterpolator(),
               });
             } else {
+              console.log("2 ", selectedCoord, selectedCompareCoord)
               const ptA = selectedCoord;
               const ptB = selectedCompareCoord;
               const maxDistance = !mapDemographics ? 25 : 15;

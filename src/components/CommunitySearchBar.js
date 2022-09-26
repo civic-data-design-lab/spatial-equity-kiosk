@@ -33,7 +33,7 @@ export default function CommunitySearchBar({
                                                setCompareSearch,
                                                setCommunitySearch,
                                                setUserPoints,
-                                               userPoints
+                                               userPoints, changed, setChanged, getSearch
                                            }) {
     const [value, setValue] = useState("");
     const [focus, setFocus] = useState(false);
@@ -41,9 +41,16 @@ export default function CommunitySearchBar({
     const [loading, setloading] = useState(true);
     const [response, setResponse] = useState(null);
     const [firstMatchedRes, setFirstMatchedRes] = useState([]);
+    const [defaultItems, setDefaultItems] = useState([])
+    const [firstMatchedDefault, setFirstMatchedDefault] = useState(null)
 
-    // console.log('!!!c', communitySearch, )
-    // console.log('!!!s', selectedCoord)
+    useEffect(()=>{
+      if (!showSearch) {
+          setFirstMatchedDefault(null)
+          setFirstMatchedRes(null)
+      }
+    }, [showSearch])
+
     const forwardGeocoding = (address) => {
         const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${MAPBOX_ACCESS_TOKEN}&autocomplete=false&limit=5&bbox=${NYC_BBOX}`;
         axios
@@ -84,7 +91,6 @@ export default function CommunitySearchBar({
             }
         }
 
-        console.log(searchItemFound)
         return searchItemFound
 
     }
@@ -174,8 +180,9 @@ export default function CommunitySearchBar({
         setSearchItems(resItems);
     }, [response, selectedCoord]); // monitor at response and selectedCoord updates
 
-    const getSearchItems = () => {
-        return React.Children.toArray(children).filter(
+
+     const getSearchItems = () => {
+        const matched = React.Children.toArray(children).filter(
             (child) =>
                 (value.trim())
                 &&
@@ -186,7 +193,14 @@ export default function CommunitySearchBar({
                         .toLowerCase()
                         .includes(value.trim().toLowerCase()))
         );
+
+       if (matched) setFirstMatchedDefault([matched[0]?.props.lookup[boundary], matched[0]?.props.coords])
+        return matched
     };
+
+    useEffect(()=>{
+       setDefaultItems(getSearchItems())
+    }, [value, boundary])
 
     return (
         <>
@@ -216,11 +230,13 @@ export default function CommunitySearchBar({
                     onClick={(e) => {
                         e.stopPropagation();
                         callBack(null)
+                        getSearchItems()
                         if (forSearch) {
                             setUserPoints([[], userPoints[1]])
                         } else {
                             setUserPoints([userPoints[0], []])
                         }
+                        setChanged(!setChanged)
                     }}
                     onFocus={(e) => {
                         e.stopPropagation()
@@ -230,31 +246,52 @@ export default function CommunitySearchBar({
                         e.stopPropagation()
                         setFocus(false);
                     }}
-                    /*onKeyUp={(e) => {
+                    onKeyUp={(e) => {
                         // if (e.keyCode == 13) forwardGeocoding(value);
                         e.stopPropagation()
                         if (e.key === "Escape") setFocus(false);
-
-                        if (e.key === "Enter" && focus && searchItems.length > 0) {
-                            // console.log(firstMatchedRes);
-
-                            if (primarySearch) {
-                                setSelectedCoord(firstMatchedRes);
+                        if (e.key === "Enter" && focus && firstMatchedDefault && firstMatchedDefault[0] && firstMatchedDefault[1]) {
+                             console.log("in conditional ", firstMatchedDefault);
+                            if (primarySearch && firstMatchedDefault.length === 2) {
+                                setShowSearch(false);
+                                    setSearchSource("search")
+                                setSelectedCoord(firstMatchedDefault[1]);
+                                setUserPoints([firstMatchedDefault[1], userPoints[1]])
+                                callBack(firstMatchedDefault[0])
                                 setShowSearch(false);
                                 e.target.blur();
-                            } else {
-                                setselectedCompareCoord(firstMatchedRes);
+                            } else if (firstMatchedDefault.length === 2) {
+                                setSearchSource("search")
+                                setselectedCompareCoord(firstMatchedDefault[1]);
+                                setUserPoints([userPoints[0], firstMatchedDefault[1]])
                                 setShowSearch(false);
+                                callBack(firstMatchedDefault[0])
                                 e.target.blur();
                             }
+                        } else if (e.key === "Enter" && focus && firstMatchedRes) {
+                            console.log("in firstMatchedRes ", firstMatchedRes)
+                            if (primarySearch) {
+                                setUserPoints([[parseFloat(firstMatchedRes[0]), parseFloat(firstMatchedRes[1])], userPoints[1]])
+                                setSelectedCoord([parseFloat(firstMatchedRes[0]), parseFloat(firstMatchedRes[1])])
+                                setShowSearch(false);
+                                setSearchSource("search")
+                                let newCommunitySearch =  getCommunitySearch([parseFloat(firstMatchedRes[0]), parseFloat(firstMatchedRes[1])], boundary)
+                                callBack(newCommunitySearch[0])
+                            } else {
+                                setUserPoints([userPoints[0], [parseFloat(firstMatchedRes[0]), parseFloat(firstMatchedRes[1])]])
+                                setselectedCompareCoord([parseFloat(firstMatchedRes[0]), parseFloat(firstMatchedRes[1])])
+                                setShowSearch(false);
+                                setSearchSource("search")
+                                let newCompareSearch = getCommunitySearch([parseFloat(firstMatchedRes[0]), parseFloat(firstMatchedRes[1])], boundary)
+                                callBack(newCompareSearch[0])
+                            }
                         }
-                    }}*/
+                    }}
                     onChange={(e) => {
                         e.stopPropagation()
                         callBack(null);
                         setShowSearch(true);
                         setValue(e.target.value);
-                        console.log("userPOints ", userPoints)
 
                     }}
                     value={toggleValue || value}
@@ -282,7 +319,7 @@ export default function CommunitySearchBar({
                 <div>
                     {/* {searchItems.length > 0 && showSearch && <div> */}
                     <ul className={`list-unstyled community-dropdown`}>
-                        {getSearchItems()}
+                        {defaultItems}
                         {searchItems}
                     </ul>
                 </div>

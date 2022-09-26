@@ -19,6 +19,9 @@ export default function CommunityProfile({
   setSelectedAbout,
   setCommunitySearch,
 }) {
+
+
+
   useEffect(() => {
     if (moreIssues && communitySearch  && !compareSearch) {
       let leastPerfIssues =
@@ -69,7 +72,7 @@ export default function CommunityProfile({
           <div>
             {
               <h5
-                class={'bold py-3'}
+                className={'bold py-3'}
                 style={{
                   padding: '0.75em 0',
                 }}
