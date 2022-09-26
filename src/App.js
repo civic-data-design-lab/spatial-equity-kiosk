@@ -434,6 +434,8 @@ function App() {
 
     // console.log("demoLookup ", demoLookup)
 
+    console.log("updating browser history")
+
     const params = [];
 
     if (showMap !== null) params.push(`swM=${showMap.toString()}`);
