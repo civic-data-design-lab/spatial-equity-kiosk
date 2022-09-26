@@ -97,41 +97,65 @@ const IssueHistogram = ({
 
   const getIssueStatement = () => {
     if (selectedSpecificIssue) {
-      return `${issues.specific_issues_data[selectedSpecificIssue].specific_issue_name} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_append} `;
+      return `${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`;
     }
     return null;
   };
 
-  const getRankingNarrative = (obj) => {
+  const getRankingNarrative = (obj, average) => {
     if (selectedCommunity) {
+
+      const suffix = {
+        0: 'th',
+        1: 'st',
+        2: 'nd',
+        3: 'rd',
+        4: 'th',
+        5: 'th',
+        6: 'th',
+        7: 'th',
+        8: 'th',
+        9: 'th',
+      };
+
       const subject = obj.json_id;
       const fullIssueName = obj.specific_issue_name;
+      const problemTerm = obj.issue_hi_low[Number(!obj.good_or_bad)]
 
       const lastItem = boundary == 'council' ? '51' : '59';
 
-      const metricRanking =
-        boundary == 'council'
-          ? _RANKINGS.council[subject].find(
+      const sentenceStructure = boundary == 'council' ? {
+        bounds: "City Council districts",
+        selectedObject:
+          _RANKINGS.council[subject].find(
             (f) => f.community_ID == selectedCommunity.json_lookup
-          ).rank
-          : _RANKINGS.community[subject].find(
-            (f) => f.community_ID == selectedCommunity.json_lookup
-          ).rank;
-
-      const boundaryGrammatical =
-        boundary == 'council'
-          ? `City Council ${selectedCommunity.name}`
-          : `${selectedCommunity.name
+          ),
+        boundaryGrammatical: `City Council ${selectedCommunity.name}`
+      }
+        : {
+          bounds: "Community Boards",
+          selectedObject:
+            _RANKINGS.community[subject].find(
+              (f) => f.community_ID == selectedCommunity.json_lookup
+            ),
+          boundaryGrammatical: `${selectedCommunity.name
             .split(' ')
             .slice(0, -1)} Community Board ${selectedCommunity.name
               .split(' ')
-              .slice(1)}`;
+              .slice(1)}`
+        }
+
+      const rank = sentenceStructure.selectedObject.rank
+      let value = Number(sentenceStructure.selectedObject.data)
+      value = value > 10 ? value.toFixed(0) : value > 1 ? value.toFixed(1) : value.toFixed(2)
+      const joiningWord = issues.specific_issues_data[selectedSpecificIssue].json_id == "F27_BusSpe" ? "at" : "with"
+
+      let sentenceEnd = issues.specific_issues_data[selectedSpecificIssue].json_id == "F14_TmpDev" ? [value > average ? "above" : value == average ? "" : "below", obj.specific_issue_append].join(' ').toLowerCase() : obj.specific_issue_append
 
       return (
         <p>
-          {` ${boundaryGrammatical} ranks `}
-          <strong>{`${metricRanking} out of ${lastItem}`}</strong>{' '}
-          {`citywide in ${fullIssueName}.`}
+          {` ${sentenceStructure.boundaryGrammatical} ranks `}
+          <strong>{`${rank}${suffix[rank % 10]} out of ${lastItem}`}</strong>{` ${sentenceStructure.bounds} for ${problemTerm} ${fullIssueName.toLowerCase()} ${joiningWord} ${value}${obj.issue_units_symbol} ${sentenceEnd}.`}
         </p>
       );
     }
@@ -588,7 +612,7 @@ const IssueHistogram = ({
         style={{ display: toggleDisplayMode ? 'none' : '' }}
         className={'m-0 smaller-text'}
       >
-        {getRankingNarrative(issues.specific_issues_data[specificIssue])}{' '}
+        {getRankingNarrative(issues.specific_issues_data[specificIssue], avg)}{' '}
       </div>
 
       <div
