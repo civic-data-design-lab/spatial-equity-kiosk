@@ -65,7 +65,7 @@ export default function CommunityRightColumn({
 
             </div>} */}
 
-      {communitySearch && !selectedSpecificIssue && (
+      {!selectedSpecificIssue && (
         <div className={'d-flex flex-row h-100 col-gap standard-padding'}>
           <div className={'issues-tile-header floating-share'}>
             <div className={'toggle-share-container'}>
@@ -107,7 +107,7 @@ export default function CommunityRightColumn({
         </div>
       )}
 
-      {communitySearch && selectedSpecificIssue && (
+      {selectedSpecificIssue && (
         <div className={'issue-container d-flex flex-column'} id={"issue-container"}>
           <div className={'issues-tile-header floating-share'}>
             <div className={'toggle-share-container'}>
@@ -140,7 +140,7 @@ export default function CommunityRightColumn({
               </div>
             </div>
           </div>
-          <div className={'issue-writeup'}>
+          {communitySearch && (<div className={'issue-writeup'}>
             <IssueProfile
               issues={issues}
               selectedSpecificIssue={selectedSpecificIssue}
@@ -153,7 +153,7 @@ export default function CommunityRightColumn({
               compareSearch={compareSearch}
               communitySearch={communitySearch}
             />
-          </div>
+          </div>)}
         </div>
       )}
     </>

@@ -743,7 +743,6 @@ export default function DeckMap({
             setUserPoints([searchEngine, userPoints[1]]);
 
             if (!compareSearch) {
-              console.log(selectedCoord[0], selectedCoord[1], "HI")
               setViewState({
                 longitude: selectedCoord[0],
                 latitude: selectedCoord[1],
@@ -795,17 +794,17 @@ export default function DeckMap({
               });
             }
           }
-          /*else {
-            if (searchSource === 'click' || searchSource === 'search') {
+          else {
+            if (searchSource === 'click') {
               setSelectedCoord([]);
               setCommunitySearch(null);
               setUserPoints([[], userPoints[1]]);
               setViewState(RESET_VIEW);
             }
-          }*/
+          }
         }
       } else {
-        setBadSearch([1, badSearch[1]]);
+        // setBadSearch([1, badSearch[1]]);
         setUserPoints([[], []]);
         setViewState(RESET_VIEW);
       }
@@ -888,10 +887,10 @@ export default function DeckMap({
         ) {
           //   console.log('case 3');
           if (!compareSearch) {
-            /*setSelectedCoord([]);
+            setSelectedCoord([]);
             setCommunitySearch(null);
             setUserPoints([[], []]);
-            setViewState(RESET_VIEW);*/
+            setViewState(RESET_VIEW);
           } else {
             // console.log('case 4');
             setCommunitySearch(compareSearch);
