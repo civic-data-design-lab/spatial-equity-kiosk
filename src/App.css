@@ -675,6 +675,7 @@ a:active {
     justify-content: space-between;
     border-bottom: 2px solid black;
     border-left: 1px solid white;
+    cursor: pointer;
 }
 
 .issues-chapters:hover,
@@ -728,8 +729,8 @@ a:active {
 }
 
 .expand-issue::-webkit-scrollbar {
-    /* display: none; */
-    width: 3px;
+    display: none;
+    /* width: 3px; */
 }
 
 .issues-arrow {

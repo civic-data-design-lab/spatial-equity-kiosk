@@ -252,7 +252,7 @@ export default function IssuesMiddleColumn({
             getRankingNarrative(health_issues)} */}
 
           {(!showMap || !showDemographics) && (
-            <div className={'m-0 readable-font'}>
+            <div className={'m-0 small-font'}>
               {!selectedSpecificIssue ? (
                 <p>{issue_categories.descriptions[selectedIssue]}</p>
               ) : (
@@ -326,7 +326,9 @@ export default function IssuesMiddleColumn({
           }
         }}
       >
-        <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Environment</h5>
+        <h5 className={`${selectedIssue ? 'mb-0 pe-none' : ''}`}>
+          Environment
+        </h5>
         <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
           Policies about the use of public space in New York City affect the
           resilience and sustainability of the physical environment.
@@ -354,7 +356,7 @@ export default function IssuesMiddleColumn({
             getRankingNarrative(environment_issues)} */}
 
           {(!showMap || !showDemographics) && (
-            <div className={'m-0 readable-font'}>
+            <div className={'m-0 small-font'}>
               {!selectedSpecificIssue ? (
                 <p>{issue_categories.descriptions[selectedIssue]}</p>
               ) : (
@@ -455,7 +457,7 @@ export default function IssuesMiddleColumn({
             getRankingNarrative(infrastructure_issues)} */}
 
           {(!showMap || !showDemographics) && (
-            <div className={'m-0 readable-font'}>
+            <div className={'m-0 small-font'}>
               {!selectedSpecificIssue ? (
                 <p>{issue_categories.descriptions[selectedIssue]}</p>
               ) : (

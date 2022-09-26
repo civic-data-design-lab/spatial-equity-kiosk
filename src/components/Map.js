@@ -218,6 +218,10 @@ export default function DeckMap({
     }
   };
 
+  // Temp calculations
+
+  //
+
   useEffect(() => {
     const modes = [];
     if (toggleWalk) {
@@ -533,10 +537,15 @@ export default function DeckMap({
     };
 
     return metricCheck
-      ? `${ranking}${suffix[ranking % 10]} of ${maxRanking} ${
+      ? `Ranks <strong>${ranking}${suffix[ranking % 10]} of ${maxRanking} ${
           boundary === 'council' ? 'council districts' : 'community boards'
-        }`
+        }</strong>`
       : '';
+  };
+
+  const getTooltipHeader = (props) => {
+    return `
+    ${props.tooltipBounds} <strong>${props.boundaryName}</strong>`;
   };
 
   const getMetricValueTooltip = (obj) => {
@@ -549,7 +558,13 @@ export default function DeckMap({
           : 'Below Citywide'
         : '';
 
-    return `${
+    return `
+    for ${
+      typeof selectedSpecificIssue == 'number'
+        ? issues.specific_issues_data[selectedSpecificIssue].specific_issue_name
+        : ''
+    } with 
+    ${
       accessor[infoTransfer.selectedMetric]
         ? accessor[infoTransfer.selectedMetric] >= 10
           ? accessor[infoTransfer.selectedMetric].toFixed(0)
@@ -574,8 +589,8 @@ export default function DeckMap({
 
   const getDemographicTooltip = (info, transportationModes) => {
     const obj = info.object;
-    console.log(obj.properties[selectedDemographic]);
     return `
+    
     <div class=map-tooltip-info>
     ${
       selectedDemographic != null
@@ -633,12 +648,17 @@ export default function DeckMap({
         boundary == 'council')
     ) {
       const obj = info.object;
-      const tooltipBounds =
-        boundary == 'community' ? 'Community Board' : 'Council District';
-      const boundaryName =
+
+      const props =
         boundary == 'community'
-          ? obj.properties.CDTA2020
-          : obj.properties.CounDist;
+          ? {
+              tooltipBounds: 'Community Board',
+              boundaryName: obj.properties.CDTA2020,
+            }
+          : {
+              tooltipBounds: 'Council District',
+              boundaryName: obj.properties.CounDist,
+            };
 
       // update auto highlight
       sethighlightFeature(info.index);
@@ -646,13 +666,6 @@ export default function DeckMap({
       const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
         ? true
         : false;
-
-      const neighborhoodList =
-        boundary == 'council'
-          ? councils[String(obj.properties.CounDist)].neighborhoods
-          : boundary == 'community'
-          ? communities[obj.properties.CDTA2020].neighborhoods
-          : null;
 
       let transportationModes = getTransportationModes();
 
@@ -672,23 +685,22 @@ export default function DeckMap({
             html: `\
           <!-- select metric -->
           
-          <div class=map-tooltip-header>${tooltipBounds} <strong>${boundaryName}</strong></div>
+          <div class=map-tooltip-header>${getTooltipHeader(
+            props
+          )}</strong></div>
           ${
-            selectedChapter == 3 && metricCheck
+            selectedChapter == 3 && selectedCoord.length == 2 && metricCheck
               ? `<div>
-            <div class=map-tooltip-info>${`Ranks <strong>${getRankingTooltip(
-              boundaryName
-            )}</strong> for ${
-              typeof selectedSpecificIssue == 'number'
-                ? issues.specific_issues_data[selectedSpecificIssue]
-                    .specific_issue_name
-                : ''
-            } with ${`${getMetricValueTooltip(obj)}`}.`}</div>
+            <div class=map-tooltip-info>${`${getRankingTooltip(
+              props.boundaryName
+            )} ${`${getMetricValueTooltip(obj)}`}.`}</div>
           </div>`
               : ''
           }
           <!-- select demographic -->
           ${
+            selectedChapter == 3 &&
+            selectedCoord.length == 2 &&
             selectedDemographic != null
               ? `${getDemographicTooltip(info, transportationModes)}`
               : ''
