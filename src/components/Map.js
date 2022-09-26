@@ -304,7 +304,7 @@ export default function DeckMap({
 
   // 03.1 toggle demographics on off and pick which to display
   if (showDemographics) {
-    selectedDemographic = demoLookup[demographic].lookup;
+    selectedDemographic = demoLookup[demographic]?.lookup;
     if (demographic === '1' && toggleScatterPlot === false) {
       toggleScatterPlot = true;
     } else if (parseFloat(demographic) > 1 && toggleDemChoropleth === false) {
