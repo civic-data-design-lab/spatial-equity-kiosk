@@ -247,7 +247,10 @@ const Histogram = ({
       .select('#mouseTextUp')
       .attr('text-anchor', 'end')
       .attr('x', width - margin.right)
-      .attr('style', 'font-family:Inter')
+      .attr(
+        'style',
+        'font-family:Inter; text-shadow:rgb(255 255 255) -1px -1px 0px, rgb(255 255 255) -1px 1px 0px, rgb(255 255 255) 1px -1px 0px, rgb(255 255 255) 1px 1px 0px'
+      )
       .attr('font-size', '14')
       .attr('fill', '#000000')
       .text('');
@@ -256,7 +259,10 @@ const Histogram = ({
       .select('#mouseTextDown')
       .attr('text-anchor', 'end')
       .attr('x', width - margin.right)
-      .attr('style', 'font-family:Inter')
+      .attr(
+        'style',
+        'font-family:Inter; text-shadow:rgb(255 255 255) -1px -1px 0px, rgb(255 255 255) -1px 1px 0px, rgb(255 255 255) 1px -1px 0px, rgb(255 255 255) 1px 1px 0px'
+      )
       .attr('font-size', '14')
       .attr('fill', '#000000')
       .text('');
