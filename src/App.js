@@ -95,6 +95,8 @@ function App() {
 
   const [adultAsthma, setAdultAsthma] = useState(true);
 
+  // console.log(userPoints);
+
   // console.log(collapseMap)
 
   // console.log(demoColorRamp)
@@ -635,6 +637,8 @@ function App() {
             collapseMap={collapseMap}
             adultAsthma={adultAsthma}
             setAdultAsthma={setAdultAsthma}
+            userPoints={userPoints}
+            setUserPoints={setUserPoints}
           />
 
           <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>

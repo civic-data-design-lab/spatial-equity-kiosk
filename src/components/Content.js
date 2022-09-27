@@ -69,6 +69,8 @@ export default function Content({
   collapseMap,
   adultAsthma,
   setAdultAsthma,
+  userPoints,
+  setUserPoints,
 }) {
   return (
     <div className={`d-flex flex-row col-9`}>
@@ -151,6 +153,8 @@ export default function Content({
             collapseMap={collapseMap}
             adultAsthma={adultAsthma}
             setAdultAsthma={setAdultAsthma}
+            userPoints={userPoints}
+            setUserPoints={setUserPoints}
           />
         )}
 
@@ -226,6 +230,8 @@ export default function Content({
             councilPinned={councilPinned}
             setCouncilPinned={setCouncilPinned}
             collapseMap={collapseMap}
+            userPoints={userPoints}
+            setUserPoints={setUserPoints}
           />
         )}
 

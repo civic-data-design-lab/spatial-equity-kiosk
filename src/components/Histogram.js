@@ -3,11 +3,13 @@ import * as d3 from 'd3';
 import _CHAPTER_COLORS from '../data/chapter_colors.json';
 import _BOROUGH_COLORS from '../data/borough_colors.json';
 import _RANKINGS from '../data/rankings.json';
-import _COUNCILDISTRICTS from '../texts/councildistricts.json';
+import _COUNCILDISTRICTS_TEXTS from '../texts/councildistricts.json';
 import { useResizeObserver } from '../utils/useResizeObserver';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import RankingTable from './RankingTable';
+import _COUNCILDISTRICTS from '../data/council_districts.json';
+import _COMMUNITYBOARDS from '../data/community_boards.json';
 
 const getRgb = (color) => {
   let [r, g, b] = Array.from(color);
@@ -102,6 +104,8 @@ const Histogram = ({
   setSelectedChapter,
   communitySearch,
   compareSearch,
+  userPoints,
+  setUserPoints,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
@@ -194,7 +198,7 @@ const Histogram = ({
   for (let i = 0; i < data.length; i++) {
     let boroughName =
       boundary == 'council'
-        ? _COUNCILDISTRICTS[lookupArray[i]].borough[0].split(' ')[0]
+        ? _COUNCILDISTRICTS_TEXTS[lookupArray[i]].borough[0].split(' ')[0]
         : nameArray[i].split(' ')[0];
     // console.log(boroughName)
     if (useBoroughColor) {
@@ -648,6 +652,28 @@ const Histogram = ({
       d3.select(this).on('click', (e, d) => {
         setSelectedChapter(3);
         setCommunitySearch(d3.select(this).attr('lookupID'));
+
+        const boundInfo =
+          boundary == 'council'
+            ? {
+                bound: _COUNCILDISTRICTS.features,
+                query: 'CounDist',
+                id: Number(d3.select(this).attr('lookupID')),
+              }
+            : {
+                bound: _COMMUNITYBOARDS.features,
+                query: 'CDTA2020',
+                id: d3.select(this).attr('lookupID'),
+              };
+
+        const community = boundInfo.bound.find(
+          (d) => d.properties[boundInfo.query] === boundInfo.id
+        ).properties;
+
+        console.log(community);
+        const coords = [community.X_Cent, community.Y_Cent];
+
+        setUserPoints([coords, userPoints.length == 2 ? userPoints[1] : []]);
       });
     });
 

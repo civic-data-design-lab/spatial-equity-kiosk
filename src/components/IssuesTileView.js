@@ -35,6 +35,8 @@ export default function IssuesTileView({
   councilPinned,
   setCouncilPinned,
   collapseMap,
+  userPoints,
+  setUserPoints,
 }) {
   const [expand, setExpand] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
@@ -159,6 +161,8 @@ export default function IssuesTileView({
                     setSelectedChapter={setSelectedChapter}
                     communitySearch={communitySearch}
                     compareSearch={compareSearch}
+                    userPoints={userPoints}
+                    setUserPoints={setUserPoints}
                   />
                 )}
               </div>

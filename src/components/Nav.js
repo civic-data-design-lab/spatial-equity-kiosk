@@ -189,9 +189,8 @@ function Nav({
           setSearchSource(null);
           setUserPoints([], []);
           setBadSearch(0, 0);
-          setCommunitySearch(null)
-          setCompareSearch(null)
-
+          setCommunitySearch(null);
+          setCompareSearch(null);
 
           /*if (selectedSpecificIssue) {
                                   setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
@@ -260,7 +259,6 @@ function Nav({
             //setSearchSource(null);
             setUserPoints([], []);
             setBadSearch(0, 0);
-            setShowMap(false);
 
             selectedChapterCache.current = selectedSpecificIssue;
             //setSelectedSpecificIssue(null);
@@ -276,17 +274,14 @@ function Nav({
             selectedCoordsCache.current = userPoints;
             selectedCommunitiesCache.current = [communitySearch, compareSearch];
             viewStateCache.current = viewState;
-
           }
-          setShowMap(false);
           setCollapseMap(false);
           setSearchSource(null);
           setUserPoints([], []);
-          setCommunitySearch(null)
-          setCompareSearch(null)
+          setCommunitySearch(null);
+          setCompareSearch(null);
           setBadSearch(0, 0);
-
-
+          setAddCompare(false);
         }}
       >
         <div>
@@ -381,8 +376,8 @@ function Nav({
             setCollapseMap(false);
             //setSearchSource(null);
             setUserPoints([], []);
-            setCommunitySearch(null)
-            setCompareSearch(null)  
+            setCommunitySearch(null);
+            setCompareSearch(null);
             setBadSearch(0, 0);
           } else {
             setSelectedChapter(null);
@@ -465,9 +460,16 @@ function Nav({
               Spatial Equity NYC is a project of Transportation Alternatives and
               MIT.
             </p>
-            <div className={`attributions ${selectedChapter===4?"pe-auto":"pe-none"}`} onClick={(e)=>{e.stopPropagation()}}>
-              <a href={`https://www.transalt.org/`} target={"_blank"}>
-                  <img src={_TA} height={40} />
+            <div
+              className={`attributions ${
+                selectedChapter === 4 ? 'pe-auto' : 'pe-none'
+              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <a href={`https://www.transalt.org/`} target={'_blank'}>
+                <img src={_TA} height={40} />
               </a>
               <a target="_blank" href={'https://www.mit.edu/'}>
                 <img src={_MIT} height={25} />
