@@ -245,6 +245,7 @@ export default function IssuesMiddleColumn({
             setShowDemographics={setShowDemographics}
             issues={issues}
             issue_categories={issue_categories}
+            showDemographics={showDemographics}
           />
 
           {/* {selectedSpecificIssue &&
@@ -347,6 +348,7 @@ export default function IssuesMiddleColumn({
             setShowDemographics={setShowDemographics}
             issues={issues}
             issue_categories={issue_categories}
+            showDemographics={showDemographics}
           />
 
           {/* {selectedSpecificIssue &&
@@ -448,6 +450,7 @@ export default function IssuesMiddleColumn({
             setShowDemographics={setShowDemographics}
             issues={issues}
             issue_categories={issue_categories}
+            showDemographics={showDemographics}
           />
 
           {/* {selectedSpecificIssue &&

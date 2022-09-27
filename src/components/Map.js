@@ -438,7 +438,7 @@ export default function DeckMap({
   }, []);
 
   const zoomIn = useCallback(({ }) => {
-    /*if (!viewState.zoom) {
+    if (!viewState.zoom) {
       if (!mapDemographics) {
         setViewState(() => ({
           primary: {
@@ -464,13 +464,13 @@ export default function DeckMap({
           }
         }));
       }
-    }*/
+    }
 
 
   }, [viewState]);
 
   const zoomOut = useCallback(({ }) => {
-   /* if (!viewState.zoom) {
+    if (!viewState.zoom) {
       if (!mapDemographics) {
         setViewState(() => ({
           primary: {
@@ -496,7 +496,7 @@ export default function DeckMap({
           }
         }));
       }
-    }*/
+    }
 
 
   }, [viewState]);

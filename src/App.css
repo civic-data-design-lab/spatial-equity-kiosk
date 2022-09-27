@@ -340,7 +340,6 @@ a:active {
 
 .dropdown-body {
     width: 100%;
-    max-height: 20vh;
     height: fit-content;
     overflow-y: auto;
     border: 1px solid black;
@@ -349,6 +348,15 @@ a:active {
     background-color: white;
     z-index: 3;
     overflow-x: hidden;
+    transition: max-height 0.5s;
+}
+
+.short-dropdown {
+    max-height: 20vh;
+}
+
+.long-dropdown {
+    max-height: 50vh;
 }
 
 .dropdown-item {
@@ -691,6 +699,21 @@ a:active {
     pointer-events: none;
     transition: flex 1s, font-size 1s, height 1s;
     padding: 0 !important;
+}
+
+.expand-demo {
+    height: 30vh;
+    padding: 1rem;
+}
+
+.collapse-demo {
+    height: 0vh;
+    padding: 0;
+}
+
+.demo-body {
+    transition: height 0.5s, padding 0.4s;
+    overflow: scroll;
 }
 
 .invis {

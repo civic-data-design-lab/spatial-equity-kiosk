@@ -2,7 +2,7 @@
   "all_issues_id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
   "issues_data": {
     "health": {
-      "specific_issues_ID": [1, 7, 13, 14, 10, 16],
+      "specific_issues_ID": [1, 7, 13, 14, 10],
       "issue_description": "Health Description"
     },
     "environment": {
@@ -2236,23 +2236,6 @@
       "year": "2014",
       "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/VisualizationData.aspx?id=2157,719b87,104,Summarize",
       "related": [10, 1, 5]
-    },
-    "16": {
-      "specific_issue_ID": 1,
-      "specific_issue_name": "Asthma",
-      "specific_issue_units": "Per 10,000 Residents",
-      "issue_units_shorthand": "",
-      "specific_issue_units_sentence": "asthma cases per 10,000 residents",
-      "specific_issue_append": "Cases",
-      "issue_units_symbol": "",
-      "issue_type_ID": 1,
-      "good_or_bad": 1,
-      "json_id": "P_Adt_Asth",
-      "issue_hi_low": ["most", "fewest"],
-      "specific_issue_source": "New York State Statewide Planning and Research Cooperative System (SPARCS) Deidentified Hospital Discharge Data",
-      "year": "2017",
-      "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/Subtopic.aspx?theme_code=2,3&subtopic_id=11",
-      "related": [10, 12, 15]
     }
   }
 }

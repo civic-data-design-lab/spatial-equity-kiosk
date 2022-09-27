@@ -9,6 +9,7 @@ export default function IssuesDropDown({
   setShowDemographics,
   issues,
   issue_categories,
+    showDemographics
 }) {
   const [showDropdownItems, setShowDropdownItems] = useState(false);
   const [toggleText, setToggleText] = useState(
@@ -57,7 +58,8 @@ export default function IssuesDropDown({
         <div
           className={`${
             showDropdownItems ? 'd-block' : 'd-none'
-          } dropdown-body position-absolute`}
+          } ${showDemographics? "short-dropdown" : "long-dropdown"}
+          dropdown-body position-absolute`}
         >
           {items.map((item, index) => {
             return (
