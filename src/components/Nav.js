@@ -179,7 +179,7 @@ function Nav({
             setCollapseMap(false);
             //setSearchSource(null);
             setUserPoints([], []);
-            setBadSearch(0, 0);
+            setBadSearch([0, 0]);
             if (selectedChapterCache.current)
               setSelectedSpecificIssue(selectedChapterCache.current);
           } else {
@@ -188,7 +188,7 @@ function Nav({
           setCollapseMap(false);
           setSearchSource(null);
           setUserPoints([], []);
-          setBadSearch(0, 0);
+          setBadSearch([0, 0]);
           setCommunitySearch(null);
           setCompareSearch(null);
 
@@ -258,7 +258,7 @@ function Nav({
             setCollapseMap(false);
             //setSearchSource(null);
             setUserPoints([], []);
-            setBadSearch(0, 0);
+            setBadSearch([0, 0]);
 
             selectedChapterCache.current = selectedSpecificIssue;
             //setSelectedSpecificIssue(null);
@@ -280,7 +280,7 @@ function Nav({
           setUserPoints([], []);
           setCommunitySearch(null);
           setCompareSearch(null);
-          setBadSearch(0, 0);
+          setBadSearch([0, 0]);
           setAddCompare(false);
         }}
       >
@@ -378,7 +378,7 @@ function Nav({
             setUserPoints([], []);
             setCommunitySearch(null);
             setCompareSearch(null);
-            setBadSearch(0, 0);
+            setBadSearch([0, 0]);
           } else {
             setSelectedChapter(null);
           }

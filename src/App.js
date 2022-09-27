@@ -95,11 +95,7 @@ function App() {
 
   const [adultAsthma, setAdultAsthma] = useState(true);
 
-  // console.log(userPoints);
-
-  // console.log(collapseMap)
-
-  // console.log(demoColorRamp)
+  // console.log(badSearch);
   // map hooks
 
   // map starting position and view state constraints

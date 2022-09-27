@@ -496,7 +496,6 @@ export default function DeckMap({
     [viewState]
   );
 
-
   const zoomOut = useCallback(
     ({}) => {
       if (!viewState.zoom) {
@@ -537,7 +536,6 @@ export default function DeckMap({
     return `
     ${props.tooltipBounds} <strong>${props.boundaryName}</strong>`;
   };
-
 
   const getRankingTooltip = (props, obj) => {
     const accessor = obj.properties ? obj.properties : obj;
@@ -888,9 +886,10 @@ export default function DeckMap({
               setViewState(RESET_VIEW);
             }
           }
+        } else {
+          setBadSearch([1, badSearch[1]]);
         }
       } else {
-        // setBadSearch([1, badSearch[1]]);
         setUserPoints([[], []]);
         setViewState(RESET_VIEW);
       }
