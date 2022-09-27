@@ -198,9 +198,9 @@ const IssueHistogram = ({
 
   const textWidth = 50;
   const margin = {
-    top: 20,
+    top: 25,
     left: 20,
-    bottom: 30,
+    bottom: 25,
     right: 15,
   };
   const [containerWidth, containerHeight] = useResizeObserver(containerRef);
