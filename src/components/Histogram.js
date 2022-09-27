@@ -1150,18 +1150,19 @@ const Histogram = ({
         className={'position-relative'}
       >
         <svg display={toggleDisplayMode ? 'none' : ''} ref={ref}>
+            {/* Interactive Line */}
           <line id="mouseLine" />
-          <line id="avgLine" />
 
           {/* Main Chart */}
           <g />
 
           {/* Avg Line */}
+          <line id="avgLine" />
+
           {/* <line id="avgLine" /> */}
           <text id="avgTextUp" />
           <text id="avgTextDown" />
-
-          {/* Interactive Line */}
+          
           {/* <line id="mouseLine" /> */}
           <text id="mouseTextUp" />
           <text id="mouseTextDown" />
