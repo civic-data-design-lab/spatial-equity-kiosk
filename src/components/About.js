@@ -162,7 +162,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                     href={"https://www.transalt.org/membership"}
                     target={"_blank"}
                   >
-                    becoming a TA member
+                    become a TA member
                   </a>
                 </span>
                 .
