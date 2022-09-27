@@ -97,14 +97,19 @@ const IssueHistogram = ({
 
   const getIssueStatement = () => {
     if (selectedSpecificIssue) {
-      return `${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand ? issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand : issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`;
+      return `${
+        issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand
+          ? issues.specific_issues_data[selectedSpecificIssue]
+              .issue_units_shorthand
+          : issues.specific_issues_data[selectedSpecificIssue]
+              .specific_issue_units
+      }`;
     }
     return null;
   };
 
   const getRankingNarrative = (obj, average) => {
     if (selectedCommunity) {
-
       const suffix = {
         0: 'th',
         1: 'st',
@@ -118,48 +123,77 @@ const IssueHistogram = ({
         9: 'th',
       };
 
+      // const communityData = boundary == 'council' ? selectedCommunity
+
       const subject = obj.json_id;
       const fullIssueName = obj.specific_issue_name;
-      const problemTerm = obj.issue_hi_low[Number(!obj.good_or_bad)]
+      const problemTerm = obj.issue_hi_low[Number(!obj.good_or_bad)];
 
       const lastItem = boundary == 'council' ? '51' : '59';
 
-      const sentenceStructure = boundary == 'council' ? {
-        bounds: "City Council districts",
-        selectedObject:
-          _RANKINGS.council[subject].find(
-            (f) => f.community_ID == selectedCommunity.json_lookup
-          ),
-        boundaryGrammatical: `City Council ${selectedCommunity.name}`
-      }
-        : {
-          bounds: "Community Boards",
-          selectedObject:
-            _RANKINGS.community[subject].find(
-              (f) => f.community_ID == selectedCommunity.json_lookup
-            ),
-          boundaryGrammatical: `${selectedCommunity.name
-            .split(' ')
-            .slice(0, -1)} Community Board ${selectedCommunity.name
-              .split(' ')
-              .slice(1)}`
-        }
+      const sentenceStructure =
+        boundary == 'council'
+          ? {
+              bounds: 'City Council districts',
+              selectedObject: _RANKINGS.council[subject].find(
+                (f) => f.community_ID == selectedCommunity.json_lookup
+              ),
+              boundaryGrammatical: `City Council ${selectedCommunity.name}`,
+            }
+          : {
+              bounds: 'Community Boards',
+              selectedObject: _RANKINGS.community[subject].find(
+                (f) => f.community_ID == selectedCommunity.json_lookup
+              ),
+              boundaryGrammatical: `${selectedCommunity.name
+                .split(' ')
+                .slice(0, selectedCommunity.name.split(' ').length - 1)
+                .join(' ')} Community Board ${selectedCommunity.name
+                .split(' ')
+                .slice(selectedCommunity.name.split(' ').length - 1)}`,
+            };
 
-      const rank = sentenceStructure.selectedObject.rank
-      let value = Number(sentenceStructure.selectedObject.data)
-      value = value > 10 ? value.toFixed(0) : value > 1 ? value.toFixed(1) : value.toFixed(2)
-      const joiningWord = issues.specific_issues_data[selectedSpecificIssue].json_id == "F27_BusSpe" ? "at" : "with"
+      const rank = sentenceStructure.selectedObject.rank;
+      let value = Number(sentenceStructure.selectedObject.data);
 
-      let sentenceEnd = issues.specific_issues_data[selectedSpecificIssue].json_id == "F14_TmpDev" ? [value > average ? "above" : value == average ? "" : "below", obj.specific_issue_append].join(' ').toLowerCase() : obj.specific_issue_append
+      value =
+        value == 0
+          ? 0
+          : value > 10
+          ? value.toFixed(0)
+          : value > 1
+          ? value.toFixed(1)
+          : value.toFixed(2);
+      const joiningWord =
+        issues.specific_issues_data[selectedSpecificIssue].json_id ==
+        'F27_BusSpe'
+          ? 'at'
+          : 'with';
+
+      let sentenceEnd =
+        issues.specific_issues_data[selectedSpecificIssue].json_id ==
+        'F14_TmpDev'
+          ? [
+              value > average ? 'above' : value == average ? '' : 'below',
+              obj.specific_issue_append,
+            ]
+              .join(' ')
+              .toLowerCase()
+          : obj.specific_issue_append;
 
       return (
         <p>
-          {` ${sentenceStructure.boundaryGrammatical} ranks `}
-          <strong>{`${rank}${suffix[rank % 10]} out of ${lastItem}`}</strong>{` ${sentenceStructure.bounds} for ${problemTerm} ${fullIssueName.toLowerCase()} ${joiningWord} ${value}${obj.issue_units_symbol} ${sentenceEnd}.`}
+          {`${sentenceStructure.boundaryGrammatical} ranks `}
+          <strong>{`${rank}${suffix[rank % 10]} out of ${lastItem}`}</strong>
+          {` ${
+            sentenceStructure.bounds
+          } for ${problemTerm} ${fullIssueName.toLowerCase()} ${joiningWord} ${value}${
+            obj.issue_units_symbol
+          } ${sentenceEnd}.`}
         </p>
       );
     }
-    return "";
+    return '';
   };
 
   const textWidth = 50;
@@ -174,7 +208,7 @@ const IssueHistogram = ({
   let colorRamps = _CHAPTER_COLORS[getIssueType(issues, selectedSpecificIssue)];
   let rawIssueData =
     _RANKINGS[boundary][
-    issues.specific_issues_data[selectedSpecificIssue].json_id
+      issues.specific_issues_data[selectedSpecificIssue].json_id
     ];
   let [data, nameArray, avg, avgIndex, ascending, lookupArray] =
     getDataToVis(rawIssueData);
@@ -255,16 +289,16 @@ const IssueHistogram = ({
         d3.min(data) >= 0
           ? yscale(d)
           : d > 0
-            ? yscale(d) - yscale(0)
-            : yscale(0) - yscale(d)
+          ? yscale(d) - yscale(0)
+          : yscale(0) - yscale(d)
       )
       .attr('x', (d, i) => xscale(i + 0.5))
       .attr('y', (d) =>
         d3.min(data) >= 0
           ? height - yscale(d) - margin.bottom
           : d > 0
-            ? margin.bottom + yscale(0)
-            : margin.bottom + yscale(d)
+          ? margin.bottom + yscale(0)
+          : margin.bottom + yscale(d)
       )
       .attr('fill', (d, i) =>
         d3.rgb(
@@ -284,8 +318,8 @@ const IssueHistogram = ({
         d3.min(data) >= 0
           ? height - d3.select(this).attr('height') - margin.bottom
           : d > 0
-            ? height - d3.select(this).attr('height') - margin.bottom - yscale(0)
-            : height - d3.select(this).attr('height') - margin.bottom - yscale(d)
+          ? height - d3.select(this).attr('height') - margin.bottom - yscale(0)
+          : height - d3.select(this).attr('height') - margin.bottom - yscale(d)
       );
     });
 
@@ -354,8 +388,8 @@ const IssueHistogram = ({
         d3.min(data) >= 0
           ? yscale(data[index])
           : data[index] > 0
-            ? yscale(data[index]) - yscale(0)
-            : yscale(0) - yscale(data[index]);
+          ? yscale(data[index]) - yscale(0)
+          : yscale(0) - yscale(data[index]);
 
       //   d3.select(this).attr(
       //     'y1',
@@ -491,14 +525,15 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
-        `${Number(data[Math.round(svg.select('#avgLine').attr('index'))]) > 10
-          ? Number(
-            data[Math.round(svg.select('#avgLine').attr('index'))]
-          ).toFixed(0)
-          : Number(data[Math.round(svg.select('#avgLine').attr('index'))]) > 1
+        `${
+          Number(data[Math.round(svg.select('#avgLine').attr('index'))]) > 10
             ? Number(
-              data[Math.round(svg.select('#avgLine').attr('index'))]
-            ).toFixed(1)
+                data[Math.round(svg.select('#avgLine').attr('index'))]
+              ).toFixed(0)
+            : Number(data[Math.round(svg.select('#avgLine').attr('index'))]) > 1
+            ? Number(
+                data[Math.round(svg.select('#avgLine').attr('index'))]
+              ).toFixed(1)
             : Number(data[Math.round(svg.select('#avgLine').attr('index'))])
         }${metricSymbol}`
       );
@@ -519,14 +554,15 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
-        `${data[Math.round(svg.select('#selectedLine').attr('index'))] > 10
-          ? data[
-            Math.round(svg.select('#selectedLine').attr('index'))
-          ].toFixed(0)
-          : data[Math.round(svg.select('#selectedLine').attr('index'))] > 1
+        `${
+          data[Math.round(svg.select('#selectedLine').attr('index'))] > 10
             ? data[
-              Math.round(svg.select('#selectedLine').attr('index'))
-            ].toFixed(1)
+                Math.round(svg.select('#selectedLine').attr('index'))
+              ].toFixed(0)
+            : data[Math.round(svg.select('#selectedLine').attr('index'))] > 1
+            ? data[
+                Math.round(svg.select('#selectedLine').attr('index'))
+              ].toFixed(1)
             : data[Math.round(svg.select('#selectedLine').attr('index'))]
         }${metricSymbol}`
       );

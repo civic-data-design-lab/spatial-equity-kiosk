@@ -1,8 +1,6 @@
-Kelly
-on first click, zoom doesn't work
+
 
 Niko
-abbreviate histogram text to just name
 zoom out further when the community profiles tab is open so you can see both communities
 check how the citywide stats are being calculated
 language updates

@@ -49,8 +49,6 @@ function map_range(value, low1, high1, low2, high2) {
   return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
 }
 
-const popupOffset = 20;
-
 const RESET_VIEW = {
   longitude: -74,
   latitude: 40.7131,
@@ -202,6 +200,7 @@ export default function DeckMap({
 }) {
   // map hooks
   const [underperformers, setUnderperformers] = useState(null);
+  // const [metricAverage, setMetricAverage] = useState(null);
 
   const [transportationModesArray, setTransportationModesArray] = useState([]);
 
@@ -218,9 +217,31 @@ export default function DeckMap({
     }
   };
 
-  // Temp calculations
+  const selectedCommunity = communitySearch
+    ? boundary == 'council'
+      ? councils[communitySearch]
+      : communities[communitySearch]
+    : null;
 
-  //
+  // get average for tooltip
+  // useEffect(() => {
+  //   if (infoTransfer.selectedMetric) {
+  //     let rawIssueData = _RANKINGS[boundary][infoTransfer.selectedMetric];
+  //     let valueArray = [];
+
+  //     for (let [index, value] of Object.entries(rawIssueData)) {
+  //       valueArray.push(Number(Number(value.data).toFixed(3)));
+  //     }
+
+  //     // get the corresponding index of average value
+  //     let sum = valueArray.reduce((a, b) => a + b, 0);
+  //     setMetricAverage(
+  //       Number(sum / valueArray.length) >= 10
+  //         ? Number((sum / valueArray.length).toFixed(1))
+  //         : Number((sum / valueArray.length).toFixed(3))
+  //     );
+  //   }
+  // }, [issues, selectedSpecificIssue, boundary]);
 
   useEffect(() => {
     const modes = [];
@@ -510,16 +531,56 @@ export default function DeckMap({
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
 
   // 05 TOOLTIP ----------------------------------------------------------------------------------------------
-  const getRankingTooltip = (boundaryName) => {
+
+  const getTooltipHeader = (props) => {
+    return `
+    ${props.tooltipBounds} <strong>${props.boundaryName}</strong>`;
+  };
+
+  const getRankingTooltip = (props, obj) => {
+    const accessor = obj.properties ? obj.properties : obj;
+
+    // boundary name grammatically correct
+    const boroughData =
+      boundary == 'community'
+        ? {
+            boroughID: props.boundaryName.slice(0, 2),
+            boundaryNumber: Number(props.boundaryName.slice(2)),
+          }
+        : {
+            boroughID: '',
+            boundaryNumber: props.boundaryName,
+          };
+
+    const boroughName =
+      boroughData.boroughID == 'MN'
+        ? 'Manhattan'
+        : boroughData.boroughID == 'BX'
+        ? 'Bronx'
+        : boroughData.boroughID == 'BK'
+        ? 'Brooklyn'
+        : boroughData.boroughID == 'QN'
+        ? 'Queens'
+        : boroughData.boroughID == 'SI'
+        ? 'Staten Island'
+        : '';
+
+    //value for specific metric and boundary
+    const value = accessor[infoTransfer.selectedMetric]
+      ? accessor[infoTransfer.selectedMetric] >= 10
+        ? accessor[infoTransfer.selectedMetric].toFixed(0)
+        : accessor[infoTransfer.selectedMetric] >= 1
+        ? accessor[infoTransfer.selectedMetric].toFixed(1)
+        : accessor[infoTransfer.selectedMetric].toFixed(2)
+      : '';
+
     const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
       ? true
       : false;
-    const maxRanking = metricCheck
-      ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
-      : '';
+    //get boundary ranking
     const ranking = metricCheck
       ? _RANKINGS[boundary][infoTransfer.selectedMetric].find(
-          (t) => t.community_ID == boundaryName
+          (t) => t.community_ID == props.boundaryName
         ).rank
       : '';
 
@@ -536,55 +597,57 @@ export default function DeckMap({
       9: 'th',
     };
 
-    return metricCheck
-      ? `Ranks <strong>${ranking}${suffix[ranking % 10]} of ${maxRanking} ${
-          boundary === 'council' ? 'council districts' : 'community boards'
-        }</strong>`
+    //get total number of boundaries
+    const maxRanking = metricCheck
+      ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
       : '';
-  };
 
-  const getTooltipHeader = (props) => {
-    return `
-    ${props.tooltipBounds} <strong>${props.boundaryName}</strong>`;
-  };
+    //get term to describe bad condition
+    const hiLowWord = issues.specific_issues_data[selectedSpecificIssue]
+      .good_or_bad
+      ? issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[0]
+      : issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1];
 
-  const getMetricValueTooltip = (obj) => {
-    const accessor = obj.properties ? obj.properties : obj;
+    // join sentence with either "at" or "with"
+    const joiningWord =
+      issues.specific_issues_data[selectedSpecificIssue].json_id == 'F27_BusSpe'
+        ? 'at'
+        : 'with';
 
-    const isTemperatureMetric =
-      infoTransfer.selectedMetric == 'F14_TmpDev'
-        ? accessor[infoTransfer.selectedMetric] > 0
-          ? 'Above Citywide'
-          : 'Below Citywide'
-        : '';
+    // get unit of particular metric
+    let sentenceEnd =
+      issues.specific_issues_data[selectedSpecificIssue].json_id == 'F14_TmpDev'
+        ? [
+            value > 0 ? 'above' : value == 0 ? '' : 'below',
+            issues.specific_issues_data[selectedSpecificIssue]
+              .specific_issue_append,
+          ]
+            .join(' ')
+            .toLowerCase()
+        : issues.specific_issues_data[selectedSpecificIssue]
+            .specific_issue_append;
 
-    return `
-    for ${
-      typeof selectedSpecificIssue == 'number'
-        ? issues.specific_issues_data[selectedSpecificIssue].specific_issue_name
-        : ''
-    } with 
-    ${
-      accessor[infoTransfer.selectedMetric]
-        ? accessor[infoTransfer.selectedMetric] >= 10
-          ? accessor[infoTransfer.selectedMetric].toFixed(0)
-          : accessor[infoTransfer.selectedMetric] >= 1
-          ? accessor[infoTransfer.selectedMetric].toFixed(1)
-          : accessor[infoTransfer.selectedMetric].toFixed(2)
-        : ''
-    }${
-      issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !=
-      ''
-        ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
-        : ''
-    }${isTemperatureMetric} ${
-      typeof selectedSpecificIssue == 'number'
-        ? issues.specific_issues_data[selectedSpecificIssue]
-            .issue_units_shorthand != ''
-          ? ` ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand}`
-          : ` ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`
-        : ''
-    }`;
+    return metricCheck
+      ? `${boroughName} ${props.tooltipBounds} ${
+          boroughData.boundaryNumber
+        } Ranks <strong>${ranking}${
+          suffix[ranking % 10]
+        } out of ${maxRanking}</strong> ${
+          boundary === 'council' ? 'City Council districts' : 'Community Boards'
+        } for ${hiLowWord} ${
+          typeof selectedSpecificIssue == 'number'
+            ? issues.specific_issues_data[selectedSpecificIssue]
+                .specific_issue_name
+            : ''
+        } ${joiningWord} 
+        ${value}${
+          issues.specific_issues_data[selectedSpecificIssue]
+            .issue_units_symbol != ''
+            ? issues.specific_issues_data[selectedSpecificIssue]
+                .issue_units_symbol
+            : ''
+        } ${sentenceEnd}`
+      : '';
   };
 
   const getDemographicTooltip = (info, transportationModes) => {
@@ -656,7 +719,7 @@ export default function DeckMap({
               boundaryName: obj.properties.CDTA2020,
             }
           : {
-              tooltipBounds: 'Council District',
+              tooltipBounds: 'City Council District',
               boundaryName: obj.properties.CounDist,
             };
 
@@ -692,8 +755,9 @@ export default function DeckMap({
             selectedChapter == 3 && selectedCoord.length == 2 && metricCheck
               ? `<div>
             <div class=map-tooltip-info>${`${getRankingTooltip(
-              props.boundaryName
-            )} ${`${getMetricValueTooltip(obj)}`}.`}</div>
+              props,
+              obj
+            )}.`}</div>
           </div>`
               : ''
           }
