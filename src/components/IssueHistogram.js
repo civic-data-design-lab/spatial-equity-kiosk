@@ -101,6 +101,14 @@ const IssueHistogram = ({
   const ref = useRef();
   const containerRef = useRef();
 
+  const communitySearchName =
+    (councils[communitySearch] && councils[communitySearch].name) ||
+    (communities[communitySearch] && communities[communitySearch].name);
+
+  const compareSearchName =
+    (councils[compareSearch] && councils[compareSearch].name) ||
+    (communities[compareSearch] && communities[compareSearch].name);
+
   const getIssueStatement = () => {
     if (selectedSpecificIssue) {
       return `${
@@ -142,21 +150,21 @@ const IssueHistogram = ({
           ? {
               bounds: 'City Council districts',
               selectedObject: _RANKINGS.council[subject].find(
-                (f) => f.community_ID == selectedCommunity.json_lookup
+                (f) => f.community_ID == communitySearch
               ),
-              boundaryGrammatical: `City Council ${selectedCommunity.name}`,
+              boundaryGrammatical: `City Council ${communitySearchName}`,
             }
           : {
               bounds: 'Community Boards',
               selectedObject: _RANKINGS.community[subject].find(
-                (f) => f.community_ID == selectedCommunity.json_lookup
+                (f) => f.community_ID == communitySearch
               ),
-              boundaryGrammatical: `${selectedCommunity.name
+              boundaryGrammatical: `${communitySearchName
                 .split(' ')
-                .slice(0, selectedCommunity.name.split(' ').length - 1)
-                .join(' ')} Community Board ${selectedCommunity.name
+                .slice(0, communitySearchName.split(' ').length - 1)
+                .join(' ')} Community Board ${communitySearchName
                 .split(' ')
-                .slice(selectedCommunity.name.split(' ').length - 1)}`,
+                .slice(communitySearchName.split(' ').length - 1)}`,
             };
 
       const rank = sentenceStructure.selectedObject.rank;
@@ -501,7 +509,7 @@ const IssueHistogram = ({
       .attr('font-size', '14')
       .attr('fill', '#000000')
       .attr('text-anchor', 'end')
-      .text(`${selectedCommunity ? selectedCommunity.name : 0}`);
+      .text(`${communitySearch ? communitySearchName : 0}`);
 
     if (compareSearch) {
       svg
@@ -514,7 +522,7 @@ const IssueHistogram = ({
         .attr('font-size', '14')
         .attr('fill', '#000000')
         .attr('text-anchor', 'end')
-        .text(`${selectedCommunity ? selectedCommunity.name : 0}`);
+        .text(`${compareSearch ? compareSearchName : 0}`);
     }
 
     let showMinText = !(Number(svg.select('#selectedLine').attr('index')) == 0);
