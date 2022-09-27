@@ -10,8 +10,6 @@ import { max, min } from 'd3-array';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-
-
 // geospatial dependencies
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import { point } from '@turf/helpers';
@@ -42,7 +40,7 @@ const BIN_SIZE = 5; // number of bins in the color ramp
 // Map Viewport settings
 const ZOOM_MIN = 9.5;
 const ZOOM_MAX = 13;
-const buttomZoomStep = 0.5
+const buttomZoomStep = 0.5;
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
@@ -50,8 +48,6 @@ const LATITUDE_RANGE = [40.5, 40.9];
 function map_range(value, low1, high1, low2, high2) {
   return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
 }
-
-const popupOffset = 20;
 
 const RESET_VIEW = {
   longitude: -74,
@@ -103,11 +99,11 @@ const MAIN_VIEW = new MapView({
   controller: {
     dragRotate: false,
     doubleClickZoom: false,
-    scrollZoom: {
-      smooth: true,
-      speed: 0.02,
-    },
-    inertia: 500,
+    // scrollZoom: {
+    //   smooth: true,
+    //   speed: 0.02,
+    // },
+    // inertia: 500,
   },
   x: 0,
   y: 0,
@@ -121,11 +117,11 @@ const SPLIT_VIEW_LEFT = new MapView({
   controller: {
     dragRotate: false,
     doubleClickZoom: false,
-    scrollZoom: {
-      smooth: true,
-      speed: 0.02,
-    },
-    inertia: 500,
+    // scrollZoom: {
+    //   smooth: true,
+    //   speed: 0.02,
+    // },
+    // inertia: 500,
   },
   x: 0,
   y: 0,
@@ -139,11 +135,11 @@ const SPLIT_VIEW_RIGHT = new MapView({
   controller: {
     dragRotate: false,
     doubleClickZoom: false,
-    scrollZoom: {
-      smooth: true,
-      speed: 0.02,
-    },
-    inertia: 500,
+    // scrollZoom: {
+    //   smooth: true,
+    //   speed: 0.02,
+    // },
+    // inertia: 500,
   },
   x: '50%',
   y: 0,
@@ -204,6 +200,7 @@ export default function DeckMap({
 }) {
   // map hooks
   const [underperformers, setUnderperformers] = useState(null);
+  // const [metricAverage, setMetricAverage] = useState(null);
 
   const [transportationModesArray, setTransportationModesArray] = useState([]);
 
@@ -219,6 +216,32 @@ export default function DeckMap({
       return '...';
     }
   };
+
+  const selectedCommunity = communitySearch
+    ? boundary == 'council'
+      ? councils[communitySearch]
+      : communities[communitySearch]
+    : null;
+
+  // get average for tooltip
+  // useEffect(() => {
+  //   if (infoTransfer.selectedMetric) {
+  //     let rawIssueData = _RANKINGS[boundary][infoTransfer.selectedMetric];
+  //     let valueArray = [];
+
+  //     for (let [index, value] of Object.entries(rawIssueData)) {
+  //       valueArray.push(Number(Number(value.data).toFixed(3)));
+  //     }
+
+  //     // get the corresponding index of average value
+  //     let sum = valueArray.reduce((a, b) => a + b, 0);
+  //     setMetricAverage(
+  //       Number(sum / valueArray.length) >= 10
+  //         ? Number((sum / valueArray.length).toFixed(1))
+  //         : Number((sum / valueArray.length).toFixed(3))
+  //     );
+  //   }
+  // }, [issues, selectedSpecificIssue, boundary]);
 
   useEffect(() => {
     const modes = [];
@@ -245,11 +268,11 @@ export default function DeckMap({
   const COLOR_SCALE =
     dataScale == 'equal'
       ? scaleThreshold()
-        .domain(infoTransfer.binList)
-        .range(_CHAPTER_COLORS[colorRamp])
+          .domain(infoTransfer.binList)
+          .range(_CHAPTER_COLORS[colorRamp])
       : scaleQuantile()
-        .domain(infoTransfer.uniqueValueArray)
-        .range(_CHAPTER_COLORS[colorRamp]); //quantile bins
+          .domain(infoTransfer.uniqueValueArray)
+          .range(_CHAPTER_COLORS[colorRamp]); //quantile bins
 
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 
@@ -399,121 +422,168 @@ export default function DeckMap({
   // 03 DEMOGRAPHICS END ----------------------------------------------------------------------------------------------
 
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
-  const onViewStateChange = useCallback(({ viewState }) => {
+  const onViewStateChange = useCallback(
+    ({ viewState }) => {
+      // console.log('viewstate', viewState, 'newViewState', newViewState);
 
+      // if (!mapDemographics) {
+      //   setViewState(() => ({
+      //     primary: viewState,
+      //     splitLeft: viewState,
+      //     splitRight: viewState,
+      //   }));
+      // }
+      // 04.1 set constraints on view state
 
-   /* // setViewState(viewState);
-    setViewState(() => ({
-      primary: viewState,
-      splitLeft: viewState,
-      splitRight: viewState,
-    }));
+      viewState.longitude = Math.min(
+        LONGITUDE_RANGE[1],
+        Math.max(LONGITUDE_RANGE[0], viewState.longitude)
+      );
+      viewState.latitude = Math.min(
+        LATITUDE_RANGE[1],
+        Math.max(LATITUDE_RANGE[0], viewState.latitude)
+      );
 
-    // 04.1 set constraints on view state
+      // max zoom
+      viewState.zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, viewState.zoom));
 
-    viewState.longitude = Math.min(
-      LONGITUDE_RANGE[1],
-      Math.max(LONGITUDE_RANGE[0], viewState.longitude)
-    );
-    viewState.latitude = Math.min(
-      LATITUDE_RANGE[1],
-      Math.max(LATITUDE_RANGE[0], viewState.latitude)
-    );
+      viewState.width = '100%';
 
-    // max zoom
-    viewState.zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, viewState.zoom));
+      // 04.2 ramp in/out based on zoom level
 
-    viewState.width = '100%';
-
-    // 04.2 ramp in/out based on zoom level
-
-    // 04.3 toggle based on zoom level
-    if (viewState.zoom > 12.25) {
-      setzoomToggle(0)
-      sethandleLegend(0)
-    } else {
-      setzoomToggle(1)
-      sethandleLegend(1)
-    }*/
-  }, []);
-
-  const zoomIn = useCallback(({ }) => {
-    if (!viewState.zoom) {
-      if (!mapDemographics) {
-        setViewState(() => ({
-          primary: {
-            ...viewState.primary,
-            zoom: viewState.primary.zoom + buttomZoomStep,
-            transitionDuration: 250,
-            transitionInerpolator: new LinearInterpolator(),
-          },
-        }));
+      // 04.3 toggle based on zoom level
+      if (viewState.zoom > 12.25) {
+        setzoomToggle(0);
+        sethandleLegend(0);
       } else {
-        setViewState(() => ({
-          splitLeft: {
-            ...viewState.splitLeft,
-            zoom: viewState.splitLeft.zoom + buttomZoomStep,
-            transitionDuration: 250,
-            transitionInerpolator: new LinearInterpolator(),
-          },
-          splitRight: {
-            ...viewState.splitRight,
-            zoom: viewState.splitRight.zoom + buttomZoomStep,
-            transitionDuration: 250,
-            transitionInerpolator: new LinearInterpolator(),
-          }
-        }));
+        setzoomToggle(1);
+        sethandleLegend(1);
       }
-    }
+    },
+    [viewState]
+  );
 
-
-  }, [viewState]);
-
-  const zoomOut = useCallback(({ }) => {
-    if (!viewState.zoom) {
-      if (!mapDemographics) {
-        setViewState(() => ({
-          primary: {
-            ...viewState.primary,
-            zoom: viewState.primary.zoom - buttomZoomStep,
-            transitionDuration: 250,
-            transitionInerpolator: new LinearInterpolator(),
-          },
-        }));
-      } else {
-        setViewState(() => ({
-          splitLeft: {
-            ...viewState.splitLeft,
-            zoom: viewState.splitLeft.zoom - buttomZoomStep,
-            transitionDuration: 250,
-            transitionInerpolator: new LinearInterpolator(),
-          },
-          splitRight: {
-            ...viewState.splitRight,
-            zoom: viewState.splitRight.zoom - buttomZoomStep,
-            transitionDuration: 250,
-            transitionInerpolator: new LinearInterpolator(),
-          }
-        }));
+  const zoomIn = useCallback(
+    ({}) => {
+      if (!viewState.zoom) {
+        if (!mapDemographics) {
+          setViewState(() => ({
+            primary: {
+              ...viewState.primary,
+              zoom: viewState.primary.zoom + buttomZoomStep,
+              transitionDuration: 250,
+              transitionInerpolator: new LinearInterpolator(),
+            },
+          }));
+        } else {
+          setViewState(() => ({
+            splitLeft: {
+              ...viewState.splitLeft,
+              zoom: viewState.splitLeft.zoom + buttomZoomStep,
+              transitionDuration: 250,
+              transitionInerpolator: new LinearInterpolator(),
+            },
+            splitRight: {
+              ...viewState.splitRight,
+              zoom: viewState.splitRight.zoom + buttomZoomStep,
+              transitionDuration: 250,
+              transitionInerpolator: new LinearInterpolator(),
+            },
+          }));
+        }
       }
-    }
+    },
+    [viewState]
+  );
 
 
-  }, [viewState]);
+  const zoomOut = useCallback(
+    ({}) => {
+      if (!viewState.zoom) {
+        if (!mapDemographics) {
+          setViewState(() => ({
+            primary: {
+              ...viewState.primary,
+              zoom: viewState.primary.zoom - buttomZoomStep,
+              transitionDuration: 250,
+              transitionInerpolator: new LinearInterpolator(),
+            },
+          }));
+        } else {
+          setViewState(() => ({
+            splitLeft: {
+              ...viewState.splitLeft,
+              zoom: viewState.splitLeft.zoom - buttomZoomStep,
+              transitionDuration: 250,
+              transitionInerpolator: new LinearInterpolator(),
+            },
+            splitRight: {
+              ...viewState.splitRight,
+              zoom: viewState.splitRight.zoom - buttomZoomStep,
+              transitionDuration: 250,
+              transitionInerpolator: new LinearInterpolator(),
+            },
+          }));
+        }
+      }
+    },
+    [viewState]
+  );
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
 
   // 05 TOOLTIP ----------------------------------------------------------------------------------------------
-  const getRankingTooltip = (boundaryName) => {
+
+  const getTooltipHeader = (props) => {
+    return `
+    ${props.tooltipBounds} <strong>${props.boundaryName}</strong>`;
+  };
+
+
+  const getRankingTooltip = (props, obj) => {
+    const accessor = obj.properties ? obj.properties : obj;
+
+    // boundary name grammatically correct
+    const boroughData =
+      boundary == 'community'
+        ? {
+            boroughID: props.boundaryName.slice(0, 2),
+            boundaryNumber: Number(props.boundaryName.slice(2)),
+          }
+        : {
+            boroughID: '',
+            boundaryNumber: props.boundaryName,
+          };
+
+    const boroughName =
+      boroughData.boroughID == 'MN'
+        ? 'Manhattan'
+        : boroughData.boroughID == 'BX'
+        ? 'Bronx'
+        : boroughData.boroughID == 'BK'
+        ? 'Brooklyn'
+        : boroughData.boroughID == 'QN'
+        ? 'Queens'
+        : boroughData.boroughID == 'SI'
+        ? 'Staten Island'
+        : '';
+
+    //value for specific metric and boundary
+    const value = accessor[infoTransfer.selectedMetric]
+      ? accessor[infoTransfer.selectedMetric] >= 10
+        ? accessor[infoTransfer.selectedMetric].toFixed(0)
+        : accessor[infoTransfer.selectedMetric] >= 1
+        ? accessor[infoTransfer.selectedMetric].toFixed(1)
+        : accessor[infoTransfer.selectedMetric].toFixed(2)
+      : '';
+
     const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
       ? true
       : false;
-    const maxRanking = metricCheck
-      ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
-      : '';
+    //get boundary ranking
     const ranking = metricCheck
       ? _RANKINGS[boundary][infoTransfer.selectedMetric].find(
-        (t) => t.community_ID == boundaryName
-      ).rank
+          (t) => t.community_ID == props.boundaryName
+        ).rank
       : '';
 
     const suffix = {
@@ -529,40 +599,111 @@ export default function DeckMap({
       9: 'th',
     };
 
+    //get total number of boundaries
+    const maxRanking = metricCheck
+      ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
+      : '';
+
+    //get term to describe bad condition
+    const hiLowWord = issues.specific_issues_data[selectedSpecificIssue]
+      .good_or_bad
+      ? issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[0]
+      : issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1];
+
+    // join sentence with either "at" or "with"
+    const joiningWord =
+      issues.specific_issues_data[selectedSpecificIssue].json_id == 'F27_BusSpe'
+        ? 'at'
+        : 'with';
+
+    // get unit of particular metric
+    let sentenceEnd =
+      issues.specific_issues_data[selectedSpecificIssue].json_id == 'F14_TmpDev'
+        ? [
+            value > 0 ? 'above' : value == 0 ? '' : 'below',
+            issues.specific_issues_data[selectedSpecificIssue]
+              .specific_issue_append,
+          ]
+            .join(' ')
+            .toLowerCase()
+        : issues.specific_issues_data[selectedSpecificIssue]
+            .specific_issue_append;
+
     return metricCheck
-      ? `${ranking}${suffix[ranking % 10]} of ${maxRanking} ${boundary === 'council' ? 'council districts' : 'community boards'
-      }`
+      ? `${boroughName} ${props.tooltipBounds} ${
+          boroughData.boundaryNumber
+        } Ranks <strong>${ranking}${
+          suffix[ranking % 10]
+        } out of ${maxRanking}</strong> ${
+          boundary === 'council' ? 'City Council districts' : 'Community Boards'
+        } for ${hiLowWord} ${
+          typeof selectedSpecificIssue == 'number'
+            ? issues.specific_issues_data[selectedSpecificIssue]
+                .specific_issue_name
+            : ''
+        } ${joiningWord} 
+        ${value}${
+          issues.specific_issues_data[selectedSpecificIssue]
+            .issue_units_symbol != ''
+            ? issues.specific_issues_data[selectedSpecificIssue]
+                .issue_units_symbol
+            : ''
+        } ${sentenceEnd}`
       : '';
   };
 
-  const getMetricValueTooltip = (obj) => {
-    const accessor = obj.properties ? obj.properties : obj;
-
-    const isTemperatureMetric =
-      infoTransfer.selectedMetric == 'F14_TmpDev'
-        ? accessor[infoTransfer.selectedMetric] > 0
-          ? 'Above Citywide'
-          : 'Below Citywide'
-        : '';
-
-    return `${accessor[infoTransfer.selectedMetric]
-      ? accessor[infoTransfer.selectedMetric] >= 10
-        ? accessor[infoTransfer.selectedMetric].toFixed(0)
-        : accessor[infoTransfer.selectedMetric] >= 1
-          ? accessor[infoTransfer.selectedMetric].toFixed(1)
-          : accessor[infoTransfer.selectedMetric].toFixed(2)
-      : ''
-      }${issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !=
-        ''
-        ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
+  const getDemographicTooltip = (info, transportationModes) => {
+    const obj = info.object;
+    return `
+    
+    <div class=map-tooltip-info>
+    ${
+      selectedDemographic != null
+        ? demographic !== '5'
+          ? `${demoLookup[demographic].name}—`
+          : toggleTransit || toggleBike || toggleWalk
+          ? `Citywide Commuters Who ${transportationModes}—`
+          : `Check off one of the transportation options above the demographics legend to see how people are getting around.`
         : ''
-      }${isTemperatureMetric} ${typeof selectedSpecificIssue == 'number'
-        ? issues.specific_issues_data[selectedSpecificIssue]
-          .issue_units_shorthand != ''
-          ? ` ${issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand}`
-          : ` ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}`
+    } ${
+      selectedDemographic != null
+        ? demographic !== '1'
+          ? demographic !== '5'
+            ? `${obj.properties[selectedDemographic].toFixed(0)}%`
+            : toggleTransit || toggleBike || toggleWalk
+            ? `${selectedDemoArray[info.index].toFixed(0)}%`
+            : ''
+          : `\
+                  <div class=tooltip-grid>
+                    <div style="color:${
+                      ethnicityColors.Latino.htmlFormat
+                    }">■</div>
+                    <div>${Math.round(obj.properties.P_Hispanic * 100)}%</div>
+                    <div>Latino</div>
+                    <div style="color:${
+                      ethnicityColors.White.htmlFormat
+                    }">■</div>
+                    <div>${Math.round(obj.properties.P_White * 100)}%</div>
+                    <div>White</div>
+                    <div style="color:${
+                      ethnicityColors.Black.htmlFormat
+                    }">■</div>
+                    <div>${Math.round(obj.properties.P_Black * 100)}%</div>
+                    <div>Black</div>
+                    <div style="color:${
+                      ethnicityColors.Asian.htmlFormat
+                    }">■</div>
+                    <div>${Math.round(obj.properties.P_Asian * 100)}%</div>
+                    <div>Asian</div>
+                    <div style="color:${
+                      ethnicityColors.Other.htmlFormat
+                    }">■</div>
+                    <div>${Math.round(obj.properties.P_Other * 100)}%</div>
+                    <div>Other</div>
+            </div>`
         : ''
-      }`;
+    }</div>
+                `;
   };
 
   const getTooltip = (info) => {
@@ -572,12 +713,17 @@ export default function DeckMap({
         boundary == 'council')
     ) {
       const obj = info.object;
-      const tooltipBounds =
-        boundary == 'community' ? 'Community Board' : 'Council District';
-      const boundaryName =
+
+      const props =
         boundary == 'community'
-          ? obj.properties.CDTA2020
-          : obj.properties.CounDist;
+          ? {
+              tooltipBounds: 'Community Board',
+              boundaryName: obj.properties.CDTA2020,
+            }
+          : {
+              tooltipBounds: 'City Council District',
+              boundaryName: obj.properties.CounDist,
+            };
 
       // update auto highlight
       sethighlightFeature(info.index);
@@ -586,29 +732,11 @@ export default function DeckMap({
         ? true
         : false;
 
-      const neighborhoodList =
-        boundary == 'council'
-          ? councils[String(obj.properties.CounDist)].neighborhoods
-          : boundary == 'community'
-            ? communities[obj.properties.CDTA2020].neighborhoods
-            : null;
-
-      const insert = (arr, index, newItem) => [
-        // part of the array before the specified index
-        ...arr.slice(0, index),
-        // inserted item
-        newItem,
-        // part of the array after the specified index
-      ];
-
       let transportationModes = getTransportationModes();
 
       if (boundary == 'council' || boundary == 'community') {
         // return the tooltip for the selected boundary with selected metric and selected demographic
 
-        //debug get mouse x and y
-        const x = info.x.toFixed(0);
-        const y = info.y.toFixed(0);
         return (
           obj && {
             className: 'map-tooltip',
@@ -622,68 +750,27 @@ export default function DeckMap({
             html: `\
           <!-- select metric -->
           
-          <div class=map-tooltip-header>${tooltipBounds} <strong>${boundaryName}</strong></div>
-          ${selectedChapter == 3 && metricCheck
-                ? `<div>
-            <div class=map-tooltip-info>${`Ranks <strong>${getRankingTooltip(
-                  boundaryName
-                )}</strong> for ${typeof selectedSpecificIssue == 'number'
-                  ? issues.specific_issues_data[selectedSpecificIssue]
-                    .specific_issue_name
-                  : ''
-                } with ${`${getMetricValueTooltip(obj)}`}.`}</div>
+          <div class=map-tooltip-header>${getTooltipHeader(
+            props
+          )}</strong></div>
+          ${
+            selectedChapter == 3 && selectedCoord.length == 2 && metricCheck
+              ? `<div>
+            <div class=map-tooltip-info>${`${getRankingTooltip(
+              props,
+              obj
+            )}.`}</div>
           </div>`
-                : ''
-              }
+              : ''
+          }
           <!-- select demographic -->
-          ${selectedDemographic != null
-                ? `<div class=map-tooltip-info>
-            ${selectedDemographic != null
-                  ? demographic !== '5'
-                    ? `${demoLookup[demographic].name}—`
-                    : toggleTransit || toggleBike || toggleWalk
-                      ? `Citywide Commuters Who ${transportationModes}—`
-                      : `Check off one of the transportation options above the demographics legend to see how people are getting around.`
-                  : ''
-                } ${selectedDemographic != null
-                  ? demographic !== '1'
-                    ? demographic !== '5'
-                      ? `${obj.properties[
-                        selectedDemographic
-                      ].toFixed(0)}%`
-                      : toggleTransit || toggleBike || toggleWalk
-                        ? `${selectedDemoArray[info.index].toFixed(
-                          0
-                        )}%`
-                        : ''
-                    : `\
-                  <div class=tooltip-grid>
-                    <div style="color:${ethnicityColors.Latino.htmlFormat
-                    }">■</div>
-                    <div>${Math.round(obj.properties.P_Hispanic * 100)}%</div>
-                    <div>Latino</div>
-                    <div style="color:${ethnicityColors.White.htmlFormat
-                    }">■</div>
-                    <div>${Math.round(obj.properties.P_White * 100)}%</div>
-                    <div>White</div>
-                    <div style="color:${ethnicityColors.Black.htmlFormat
-                    }">■</div>
-                    <div>${Math.round(obj.properties.P_Black * 100)}%</div>
-                    <div>Black</div>
-                    <div style="color:${ethnicityColors.Asian.htmlFormat
-                    }">■</div>
-                    <div>${Math.round(obj.properties.P_Asian * 100)}%</div>
-                    <div>Asian</div>
-                    <div style="color:${ethnicityColors.Other.htmlFormat
-                    }">■</div>
-                    <div>${Math.round(obj.properties.P_Other * 100)}%</div>
-                    <div>Other</div>
-                  </div>`
-                  : ''
-                }</div>`
-                : ''
-              }
-            `,
+          ${
+            selectedChapter == 3 &&
+            selectedCoord.length == 2 &&
+            selectedDemographic != null
+              ? `${getDemographicTooltip(info, transportationModes)}`
+              : ''
+          }`,
           }
         );
       }
@@ -709,8 +796,8 @@ export default function DeckMap({
           b == 'council'
             ? String(element.properties.CounDist)
             : b == 'community' && element.properties.Data_YN == 'Y'
-              ? element.properties.CDTA2020
-              : null;
+            ? element.properties.CDTA2020
+            : null;
 
         searchItemFound.push(lookup);
         searchItemData.push(element.properties);
@@ -761,12 +848,12 @@ export default function DeckMap({
 
               const remapZoom = !mapDemographics
                 ? map_range(
-                  ptCompareDistance,
-                  0.3,
-                  maxDistance,
-                  ZOOM_MAX,
-                  ZOOM_MIN
-                )
+                    ptCompareDistance,
+                    0.3,
+                    maxDistance,
+                    ZOOM_MAX,
+                    ZOOM_MIN
+                  )
                 : mapDemographics &&
                   map_range(
                     ptCompareDistance,
@@ -775,16 +862,16 @@ export default function DeckMap({
                     ZOOM_MAX,
                     ZOOM_MIN
                   ) -
-                  0.5 >
-                  ZOOM_MIN
-                  ? map_range(
+                    0.5 >
+                    ZOOM_MIN
+                ? map_range(
                     ptCompareDistance,
                     0.3,
                     maxDistance,
                     ZOOM_MAX,
                     ZOOM_MIN
                   ) - 0.5
-                  : ZOOM_MIN;
+                : ZOOM_MIN;
               setViewState({
                 longitude: (ptA[0] + ptB[0]) / 2,
                 latitude: (ptA[1] + ptB[1]) / 2,
@@ -793,8 +880,7 @@ export default function DeckMap({
                 transitionInerpolator: new LinearInterpolator(),
               });
             }
-          }
-          else {
+          } else {
             if (searchSource === 'click') {
               setSelectedCoord([]);
               setCommunitySearch(null);
@@ -841,16 +927,16 @@ export default function DeckMap({
                 ZOOM_MAX,
                 ZOOM_MIN
               ) -
-              0.5 >
-              ZOOM_MIN
-              ? map_range(
+                0.5 >
+                ZOOM_MIN
+            ? map_range(
                 ptCompareDistance,
                 0.3,
                 maxDistance,
                 ZOOM_MAX,
                 ZOOM_MIN
               ) - 0.5
-              : ZOOM_MIN;
+            : ZOOM_MIN;
 
           setUserPoints([userPoints[0], searchEngine]);
 
@@ -867,7 +953,7 @@ export default function DeckMap({
           searchEngine.length === 2 &&
           searchSource === 'click'
         ) {
-          console.log("2")
+          console.log('2');
           setSelectedCompareCoord([]);
           setCompareSearch(null);
           setUserPoints([userPoints[0], []]);
@@ -901,7 +987,7 @@ export default function DeckMap({
               transitionDuration: 500,
               transitionInerpolator: new LinearInterpolator(),
             });
-            console.log("4")
+            console.log('4');
             setSelectedCompareCoord([]);
           }
         } else {
@@ -932,7 +1018,6 @@ export default function DeckMap({
       setUserPoints([userPoints[0], []]);
     }
   }, [addCompare]);
-
 
   // 06 Render lifecycle
   useEffect(() => {
@@ -1306,8 +1391,8 @@ export default function DeckMap({
           boundary == 'council'
             ? String(obj.properties.CounDist)
             : boundary == 'community' && obj.properties.Data_YN == 'Y'
-              ? obj.properties.CDTA2020
-              : null;
+            ? obj.properties.CDTA2020
+            : null;
 
         if (
           (boundary == 'community' && obj.properties.Data_YN == 'Y') ||
@@ -1400,7 +1485,6 @@ export default function DeckMap({
       getFillColor: [0, 0, 0, 255],
       getLineColor: [255, 255, 255, 255],
     }),
-
   ];
 
   //   console.log(project(userPoints[0]));
@@ -1432,14 +1516,12 @@ export default function DeckMap({
   // console.log(map ? map : "no map");
   return (
     <div>
-      {showMap && (<div className='map-zoom-buttons-container'>
-        <FontAwesomeIcon onClick={zoomIn}
-          icon={faPlus}
-        />
-        <FontAwesomeIcon onClick={zoomOut}
-          icon={faMinus}
-        />
-      </div>)}
+      {showMap && (
+        <div className="map-zoom-buttons-container">
+          <FontAwesomeIcon onClick={zoomIn} icon={faPlus} />
+          <FontAwesomeIcon onClick={zoomOut} icon={faMinus} />
+        </div>
+      )}
       <DeckGL
         // viewState={viewState}
         style={{ backgroundColor: 'black' }}
@@ -1457,16 +1539,16 @@ export default function DeckMap({
         getTooltip={getTooltip}
         layerFilter={layerFilter}
         ref={deckRef}
-      // eventRecognizerOptions={
-      //   isMobile ? { pan: { threshold: 10 }, tap: { threshold: 5 } } : {}
-      // }
-      // style={{ mixBlendMode: "multiply" }}
-      // _pickable={isMobile ? false : true}
+        // eventRecognizerOptions={
+        //   isMobile ? { pan: { threshold: 10 }, tap: { threshold: 5 } } : {}
+        // }
+        // style={{ mixBlendMode: "multiply" }}
+        // _pickable={isMobile ? false : true}
       >
         {!mapDemographics && (
           <MapView id="primary">
             <Map
-              key={"map-key"}
+              key={'map-key'}
               ref={mapRef}
               reuseMaps
               mapStyle={MAP_STYLE}
@@ -1476,7 +1558,7 @@ export default function DeckMap({
               logoPosition="top-right"
             />
             {collapseMap && selectedSpecificIssue && (
-              <div key={"map-header"} style={SPLIT_SCREEN_POSITIONING}>
+              <div key={'map-header'} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
                   {
                     issues.specific_issues_data[selectedSpecificIssue]
@@ -1495,7 +1577,7 @@ export default function DeckMap({
         {mapDemographics && (
           <MapView id="splitLeft">
             <Map
-              key={"map-key-left"}
+              key={'map-key-left'}
               reuseMaps
               mapStyle={MAP_STYLE}
               preventStyleDiffing={true}
@@ -1505,7 +1587,7 @@ export default function DeckMap({
             />
             <div style={MAP_BACKGROUND_STYLE} />
             {selectedSpecificIssue && (
-              <div key={"map-header-left"} style={SPLIT_SCREEN_POSITIONING}>
+              <div key={'map-header-left'} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
                   {
                     issues.specific_issues_data[selectedSpecificIssue]
@@ -1523,7 +1605,7 @@ export default function DeckMap({
         {mapDemographics && (
           <MapView id="splitRight">
             <Map
-              key={"map-key-right"}
+              key={'map-key-right'}
               reuseMaps
               mapStyle={MAP_STYLE}
               preventStyleDiffing={true}
@@ -1533,7 +1615,7 @@ export default function DeckMap({
             />
             <div style={MAP_BACKGROUND_STYLE} />
             {demographic && (
-              <div key={"map-header-right"} style={SPLIT_SCREEN_POSITIONING}>
+              <div key={'map-header-right'} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
                   {demoLookup[demographic].lookup == 'F10_TrsBkW'
                     ? `Commuters Who ${getTransportationModes()}`

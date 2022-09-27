@@ -112,7 +112,6 @@ function App() {
   const [zoomToggle, setzoomToggle] = useState(0);
   const [handleLegend, sethandleLegend] = useState(0);
 
-
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     let createCoords = [[], []];
@@ -195,10 +194,12 @@ function App() {
             }),
             createCoords[1],
           ];
-          setSelectedCoord(JSON.parse(pair[1]).map((item) => {
+          setSelectedCoord(
+            JSON.parse(pair[1]).map((item) => {
               return parseFloat(item.toString());
-            }))
-          setselectedCompareCoord(createCoords[1])
+            })
+          );
+          setselectedCompareCoord(createCoords[1]);
           break;
 
         case 'cpC':
@@ -208,10 +209,12 @@ function App() {
               return parseFloat(item.toString());
             }),
           ];
-          setSelectedCoord(createCoords[0])
-          setselectedCompareCoord(JSON.parse(pair[1]).map((item) => {
+          setSelectedCoord(createCoords[0]);
+          setselectedCompareCoord(
+            JSON.parse(pair[1]).map((item) => {
               return parseFloat(item.toString());
-            }))
+            })
+          );
           break;
 
         case 'lat':
@@ -225,7 +228,7 @@ function App() {
           break;
         case 'sS':
           setSearchSource(pair[1]);
-          break
+          break;
 
         /*  case "uP":
                             console.log("pair[1] ", pair[1])
@@ -240,7 +243,7 @@ function App() {
     setUserPoints(createCoords);
   }, []);
 
- /* useEffect(()=>{
+  /* useEffect(()=>{
     console.log("user points ", userPoints)
   })*/
 
@@ -400,8 +403,6 @@ function App() {
     // console.log("info ", info)
   }, [boundary, selectedSpecificIssue, selectedIssue, zoomToggle]);
 
-
-
   useEffect(() => {
     // console.log("userPoints ", userPoints)
     // console.log("demoLookup ", demoLookup);
@@ -434,7 +435,7 @@ function App() {
 
     // console.log("demoLookup ", demoLookup)
 
-    console.log("updating browser history")
+    // console.log("updating browser history")
 
     const params = [];
 
@@ -469,7 +470,7 @@ function App() {
     if (viewState.primary && viewState.primary.zoom !== null)
       params.push(`z=${viewState.primary.zoom}`);
 
-   //if (searchSource!==null) params.push(`sS=${searchSource}`)
+    //if (searchSource!==null) params.push(`sS=${searchSource}`)
 
     /* if (viewState !== null) {
              params.push(`lat=${viewState.primary.latitude}`)
@@ -514,12 +515,10 @@ function App() {
     }
   }, [selectedSpecificIssue]);
 
-  useEffect(()=>{
-    console.log("selectdCompareCoord ", selectedCompareCoord)
-    console.log("userpoints ", userPoints)
-  }, [selectedCompareCoord, userPoints])
-
-
+  useEffect(() => {
+    console.log('selectdCompareCoord ', selectedCompareCoord);
+    console.log('userpoints ', userPoints);
+  }, [selectedCompareCoord, userPoints]);
 
   // console.log('siteProtection', process.env.REACT_APP_SITE_PROTECTION)
   // console.log('sha512', process.env.REACT_APP_SITE_PWD)
@@ -648,7 +647,8 @@ function App() {
                   width:
                     (selectedChapter === 3 &&
                       !communitySearch &&
-                      !compareSearch) || !selectedChapter ||
+                      !compareSearch) ||
+                    !selectedChapter ||
                     ((selectedChapter === 2 || selectedChapter === 3) &&
                       collapseMap)
                       ? '75vw'

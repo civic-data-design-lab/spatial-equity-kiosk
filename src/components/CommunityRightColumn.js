@@ -5,7 +5,7 @@ import IssueProfile from './IssuesProfile';
 import ShareButton from './ShareButton';
 import MapToggle from './MapToggle';
 import Typewriter from 'typewriter-effect';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
 export default function CommunityRightColumn({
   communitySearch,
@@ -28,19 +28,17 @@ export default function CommunityRightColumn({
   setSelectedChapter,
   setCommunitySearch,
 }) {
-
-    useEffect(()=>{
+  useEffect(() => {
     if (selectedSpecificIssue) {
-        let div = document.getElementById('issue-container');
-        if (div) {
-            div.scrollBy({
-            top: -div.scrollHeight,
-            behavior: 'smooth'
-        })
-        }
+      let div = document.getElementById('issue-container');
+      if (div) {
+        div.scrollBy({
+          top: -div.scrollHeight,
+          behavior: 'smooth',
+        });
+      }
     }
-  }, [selectedSpecificIssue])
-
+  }, [selectedSpecificIssue]);
 
   return (
     <>
@@ -90,11 +88,13 @@ export default function CommunityRightColumn({
                 />
               </div>
               <div id={'toggle-container'}>
-                <MapToggle
-                  showToggle={showToggle}
-                  showMap={showMap}
-                  setShowMap={setShowMap}
-                />
+                {communitySearch && (
+                  <MapToggle
+                    showToggle={showToggle}
+                    showMap={showMap}
+                    setShowMap={setShowMap}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -108,7 +108,10 @@ export default function CommunityRightColumn({
       )}
 
       {selectedSpecificIssue && (
-        <div className={'issue-container d-flex flex-column'} id={"issue-container"}>
+        <div
+          className={'issue-container d-flex flex-column'}
+          id={'issue-container'}
+        >
           <div className={'issues-tile-header floating-share'}>
             <div className={'toggle-share-container'}>
               <div id={'share-container'}>
@@ -132,28 +135,32 @@ export default function CommunityRightColumn({
                 />
               </div>
               <div id={'toggle-container'}>
-                <MapToggle
-                  showToggle={showToggle}
-                  showMap={showMap}
-                  setShowMap={setShowMap}
-                />
+                {communitySearch && (
+                  <MapToggle
+                    showToggle={showToggle}
+                    showMap={showMap}
+                    setShowMap={setShowMap}
+                  />
+                )}
               </div>
             </div>
           </div>
-          {communitySearch && (<div className={'issue-writeup'}>
-            <IssueProfile
-              issues={issues}
-              selectedSpecificIssue={selectedSpecificIssue}
-              rankingProse={true}
-              boundary={boundary}
-              setSelectedSpecificIssue={setSelectedSpecificIssue}
-              setSelectedChapter={setSelectedChapter}
-              setCommunitySearch={setCommunitySearch}
-              showMap={showMap}
-              compareSearch={compareSearch}
-              communitySearch={communitySearch}
-            />
-          </div>)}
+          {communitySearch && (
+            <div className={'issue-writeup'}>
+              <IssueProfile
+                issues={issues}
+                selectedSpecificIssue={selectedSpecificIssue}
+                rankingProse={true}
+                boundary={boundary}
+                setSelectedSpecificIssue={setSelectedSpecificIssue}
+                setSelectedChapter={setSelectedChapter}
+                setCommunitySearch={setCommunitySearch}
+                showMap={showMap}
+                compareSearch={compareSearch}
+                communitySearch={communitySearch}
+              />
+            </div>
+          )}
         </div>
       )}
     </>
