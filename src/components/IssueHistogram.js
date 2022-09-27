@@ -3,6 +3,9 @@ import * as d3 from 'd3';
 import _CHAPTER_COLORS from '../data/chapter_colors.json';
 import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
+import _COMMUNITIES from '../texts/communities.json';
+import _COUNCILS from '../texts/councildistricts.json';
+
 import { useResizeObserver } from '../utils/useResizeObserver';
 import { getIssueType } from '../utils/getIssueType';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,6 +19,9 @@ import Table from 'react-bootstrap/Table';
 import rankings from '../data/rankings.json';
 import RankingTable from './RankingTable';
 import { select } from 'd3';
+
+const communities = _COMMUNITIES;
+const councils = _COUNCILS;
 
 const getRgb = (color) => {
   let [r, g, b] = Array.from(color);
@@ -88,7 +94,7 @@ const IssueHistogram = ({
   setCommunitySearch,
   setSelectedChapter,
   communitySearch,
-  compareSearch,
+  compareSearch = null,
   toggleDisplayMode,
   specificIssue,
 }) => {
@@ -212,27 +218,35 @@ const IssueHistogram = ({
     ];
   let [data, nameArray, avg, avgIndex, ascending, lookupArray] =
     getDataToVis(rawIssueData);
-  let selectedIndex = selectedCommunity
-    ? lookupArray.indexOf(selectedCommunity.json_lookup)
+
+  let selectedIndex = communitySearch
+    ? lookupArray.indexOf(communitySearch)
     : 0;
+
+  let compareIndex = compareSearch ? lookupArray.indexOf(compareSearch) : 0;
 
   let metricSymbol =
     issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !== ''
       ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
       : '';
 
-  // console.log('------')
-  // console.log('specificIssue', selectedSpecificIssue)
-  // console.log('issues', issues)
-  // console.log('issues', issues.issues_data['environment'].specific_issues_ID)
-  // console.log('issues type', getIssueType(issues, selectedSpecificIssue))
-  // console.log('boundary', boundary)
-  // console.log('json_id', issues.specific_issues_data[selectedSpecificIssue].json_id)
-  // console.log('_RANKINGS', _RANKINGS[boundary])
-  // console.log('selectedCommunity', selectedCommunity)
-  // console.log('selectedCommunity.json_lookup', selectedCommunity.json_lookup)
-  // console.log('rank', selectedIndex)
-  // console.log('------')
+  //   console.log('------');
+  //   console.log('specificIssue', selectedSpecificIssue);
+  //   console.log('issues', issues);
+  //   console.log('issues', issues.issues_data['environment'].specific_issues_ID);
+  //   console.log('issues type', getIssueType(issues, selectedSpecificIssue));
+  //   console.log('boundary', boundary);
+  //   console.log(
+  //     'json_id',
+  //     issues.specific_issues_data[selectedSpecificIssue].json_id
+  //   );
+  //   console.log('_RANKINGS', _RANKINGS[boundary]);
+  //   console.log('selectedCommunity', selectedCommunity);
+  //   console.log('communitySearch', communitySearch);
+  //   console.log('compareSearch', compareSearch);
+  //   console.log('selectedCommunity.json_lookup', selectedCommunity.json_lookup);
+  //   console.log('rank', selectedIndex);
+  //   console.log('------');
 
   useEffect(() => {
     const height = containerHeight ? containerHeight : 0;
@@ -381,6 +395,20 @@ const IssueHistogram = ({
       .style('stroke-width', 1)
       .attr('index', selectedIndex);
 
+    // draw Compare Lines
+    if (compareSearch) {
+      svg
+        .select('#compareLine')
+        .attr('class', 'dataLine')
+        .attr('y1', margin.top)
+        .attr('x1', xscale(compareIndex + 1))
+        .attr('y2', height - margin.bottom)
+        .attr('x2', xscale(compareIndex + 1))
+        .style('stroke', 'black')
+        .style('stroke-width', 1)
+        .attr('index', compareIndex);
+    }
+
     // Align the line length with the bars
     svg.selectAll('.dataLine').each(function (d, i) {
       let index = Math.round(d3.select(this).attr('index'));
@@ -474,6 +502,20 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       .attr('text-anchor', 'end')
       .text(`${selectedCommunity ? selectedCommunity.name : 0}`);
+
+    if (compareSearch) {
+      svg
+        .select('#compareTextDown')
+        .attr('x', svg.select('#compareLine').attr('x1'))
+        // .attr('y', height - margin.bottom + 15)
+        .attr('y', svg.select('#compareLine').attr('y1') - 12)
+        .attr('class', 'smaller-text')
+        .attr('style', 'font-family:Inter')
+        .attr('font-size', '14')
+        .attr('fill', '#000000')
+        .attr('text-anchor', 'end')
+        .text(`${selectedCommunity ? selectedCommunity.name : 0}`);
+    }
 
     let showMinText = !(Number(svg.select('#selectedLine').attr('index')) == 0);
 
@@ -574,6 +616,40 @@ const IssueHistogram = ({
     //     }`
     //   );
 
+    if (compareSearch) {
+      svg
+        .select('#compareTextUp')
+        .attr('x', svg.select('#compareLine').attr('x1'))
+        .attr('y', svg.select('#compareLine').attr('y1'))
+        // .attr('y', height - margin.bottom + 12)
+        .attr('class', 'smaller-text')
+        .attr('style', 'font-family:Inter')
+        .attr('font-size', '14')
+        .attr('fill', '#000000')
+        //   .attr('text-anchor', !ascending ? 'start ' : 'end')
+        .attr('text-anchor', 'end')
+        .text(
+          `${
+            data[Math.round(svg.select('#compareLine').attr('index'))] > 10
+              ? data[
+                  Math.round(svg.select('#compareLine').attr('index'))
+                ].toFixed(0)
+              : data[Math.round(svg.select('#compareLine').attr('index'))] > 1
+              ? data[
+                  Math.round(svg.select('#compareLine').attr('index'))
+                ].toFixed(1)
+              : data[Math.round(svg.select('#compareLine').attr('index'))]
+          }${metricSymbol}`
+        );
+      //   .text(
+      //     `${
+      //       showSelectedText
+      //         ? data[Math.round(svg.select('#selectedLine').attr('index'))]
+      //         : ``
+      //     }`
+      //   );
+    }
+
     // avoid overlapping between selected text and avg text
 
     // case1,2: about selectedTex
@@ -640,6 +716,8 @@ const IssueHistogram = ({
     selectedCommunity,
     containerWidth,
     containerHeight,
+    communitySearch,
+    compareSearch,
   ]);
 
   return (
@@ -671,6 +749,11 @@ const IssueHistogram = ({
           <line id="selectedLine" />
           <text id="selectedTextUp" />
           <text id="selectedTextDown" />
+
+          {/* Compared Line */}
+          <line id="compareLine" />
+          <text id="compareTextUp" />
+          <text id="compareTextDown" />
 
           {/* Min/Max Line */}
           <line id="maxLine" />
