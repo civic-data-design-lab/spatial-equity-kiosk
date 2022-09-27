@@ -6,10 +6,7 @@ import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import { useResizeObserver } from '../utils/useResizeObserver';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faMinus,
-  faPlus,
-} from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import RankingTable from './RankingTable';
 
 const getRgb = (color) => {
@@ -111,14 +108,13 @@ const Histogram = ({
         issues.specific_issues_data[selectedSpecificIssue]
           .issue_units_shorthand != ''
           ? issues.specific_issues_data[
-            selectedSpecificIssue
-          ].issue_units_shorthand.split(' ')
+              selectedSpecificIssue
+            ].issue_units_shorthand.split(' ')
           : issues.specific_issues_data[
-            selectedSpecificIssue
-          ].specific_issue_units_sentence.split(' ');
+              selectedSpecificIssue
+            ].specific_issue_units_sentence.split(' ');
 
       const ignoreCapitalization = ['the', 'of', 'an', 'a', 'by'];
-
 
       for (let i = 0; i < words.length; i++) {
         if (!ignoreCapitalization.includes(words[i].toLowerCase())) {
@@ -135,14 +131,23 @@ const Histogram = ({
       let sentence = words.join(' ');
 
       // special case where just the symbol is sufficient
-      if (["F16_TreCan", "F27_BusSpe"].includes(issues.specific_issues_data[selectedSpecificIssue].json_id)) {
-        return ""
+      if (
+        ['F16_TreCan', 'F27_BusSpe'].includes(
+          issues.specific_issues_data[selectedSpecificIssue].json_id
+        )
+      ) {
+        return '';
       }
 
-      if (issues.specific_issues_data[selectedSpecificIssue].json_id == "F14_TmpDev") {
-        sentence = [value > average ? "Above" : value == average ? "" : "Below", sentence].join(" ")
+      if (
+        issues.specific_issues_data[selectedSpecificIssue].json_id ==
+        'F14_TmpDev'
+      ) {
+        sentence = [
+          value > average ? 'Above' : value == average ? '' : 'Below',
+          sentence,
+        ].join(' ');
       }
-
 
       return sentence || null;
     }
@@ -174,7 +179,7 @@ const Histogram = ({
   let colorRamps = _CHAPTER_COLORS[colorRampsyType];
   let rawIssueData =
     _RANKINGS[boundary][
-    issues.specific_issues_data[selectedSpecificIssue]?.json_id
+      issues.specific_issues_data[selectedSpecificIssue]?.json_id
     ];
   let [data, nameArray, avg, avgIndex, avgRectID, ascending, lookupArray] =
     getDataToVis(rawIssueData, selectedSpecificIssue, issues);
@@ -274,7 +279,7 @@ const Histogram = ({
 
     const metricSymbol =
       issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !==
-        ''
+      ''
         ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
         : '';
 
@@ -314,16 +319,16 @@ const Histogram = ({
         d3.min(data) >= 0
           ? xscale(d)
           : d > 0
-            ? xscale(d) - xscale(0)
-            : xscale(0) - xscale(d)
+          ? xscale(d) - xscale(0)
+          : xscale(0) - xscale(d)
       )
       .attr('y', (d, i) => yscale(i + 0.5))
       .attr('x', (d) =>
         d3.min(data) >= 0
           ? margin.left
           : d > 0
-            ? margin.left + xscale(0)
-            : margin.left + xscale(d)
+          ? margin.left + xscale(0)
+          : margin.left + xscale(d)
       )
       .attr('initColor', (d, i) => colorArray[i])
       .style('fill', (d, i) => colorArray[i])
@@ -423,8 +428,8 @@ const Histogram = ({
       .attr(
         'x',
         width -
-        margin.right -
-        svg.select('#maxText').node().getBoundingClientRect().width
+          margin.right -
+          svg.select('#maxText').node().getBoundingClientRect().width
       );
 
     svg
@@ -432,8 +437,8 @@ const Histogram = ({
       .attr(
         'x',
         width -
-        margin.right -
-        svg.select('#minText').node().getBoundingClientRect().width
+          margin.right -
+          svg.select('#minText').node().getBoundingClientRect().width
       );
 
     svg
@@ -462,9 +467,10 @@ const Histogram = ({
       .attr('font-size', '14')
       .attr('fill', '#000000')
       .text(
-        `${avg >= 10
-          ? avg.toFixed(0)
-          : avg >= 1
+        `${
+          avg >= 10
+            ? avg.toFixed(0)
+            : avg >= 1
             ? avg.toFixed(1)
             : avg.toFixed(2)
         }${metricSymbol} ${getIssueStatement()}`
@@ -476,8 +482,8 @@ const Histogram = ({
       .attr(
         'x',
         width -
-        margin.right -
-        svg.select('#avgTextUp').node().getBoundingClientRect().width
+          margin.right -
+          svg.select('#avgTextUp').node().getBoundingClientRect().width
       );
 
     svg
@@ -485,8 +491,8 @@ const Histogram = ({
       .attr(
         'x',
         width -
-        margin.right -
-        svg.select('#avgTextDown').node().getBoundingClientRect().width
+          margin.right -
+          svg.select('#avgTextDown').node().getBoundingClientRect().width
       );
 
     svg
@@ -534,9 +540,10 @@ const Histogram = ({
           .attr('y', ycood + 15)
           .attr('lookupID', lookupArray[rectID])
           .text(
-            `${data[rectID] >= 10
-              ? data[rectID].toFixed(0)
-              : data[rectID] >= 1
+            `${
+              data[rectID] >= 10
+                ? data[rectID].toFixed(0)
+                : data[rectID] >= 1
                 ? data[rectID].toFixed(1)
                 : data[rectID].toFixed(2)
             }${metricSymbol} ${getIssueStatement(data[rectID], avg)}`
@@ -617,7 +624,8 @@ const Histogram = ({
       .attr('fill', '#000000')
       .text(
         (d, i) =>
-          `${data[i] >= 10 ? data[i].toFixed(0) : data[i]
+          `${
+            data[i] >= 10 ? data[i].toFixed(0) : data[i]
           }${metricSymbol} ${getIssueStatement(data[i], avg)}`
       );
 
@@ -745,6 +753,8 @@ const Histogram = ({
     svg.select('#resetBg').raise();
     svg.select('#resetButton').raise();
     svg.selectAll('.pinnedTextUp').raise();
+    svg.selectAll('.pinnedLine').lower();
+    svg.select('#mouseLine').lower();
   }, [
     colorRamps,
     boundary,
@@ -913,16 +923,24 @@ const Histogram = ({
       .select('g')
       .selectAll('rect')
       .each(function (d, i) {
-        if (d3.select(this).attr('lookupID') == currentHoveredCommunityID) {
-          // d3.select(this).style("fill", d3.rgb(d3.select(this).attr("initColor")).brighter(0.5))
-          if (
-            (boundary == 'council' &&
-              councilPinned.includes(currentHoveredCommunityID)) ||
+        if (
+          d3.select(this).attr('lookupID') == currentHoveredCommunityID ||
+          (boundary == 'council' &&
+            councilPinned.includes(d3.select(this).attr('lookupID'))) ||
             (boundary == 'community' &&
-              communityPinned.includes(currentHoveredCommunityID)) ||
-            !d3.select(this).attr('lookupID')
-          )
-            return;
+            communityPinned.includes(d3.select(this).attr('lookupID')))
+        ) {
+          // d3.select(this).style("fill", d3.rgb(d3.select(this).attr("initColor")).brighter(0.5))
+
+          //   if (
+          //     (boundary == 'council' &&
+          //       councilPinned.includes(currentHoveredCommunityID)) ||
+          //     (boundary == 'community' &&
+          //       communityPinned.includes(currentHoveredCommunityID)) ||
+          //     !d3.select(this).attr('lookupID')
+          //   )
+          //     return;
+
           // dark filter
           //   d3.select(this).style(
           //     'fill',
@@ -1002,8 +1020,9 @@ const Histogram = ({
           {!toggleDisplayMode && (
             <div>
               <div
-                className={`big-button ${useBoroughColor ? 'big-button-active' : 'big-button-inactive'
-                  } small-font`}
+                className={`big-button ${
+                  useBoroughColor ? 'big-button-active' : 'big-button-inactive'
+                } small-font`}
                 style={{
                   display: 'inline-block',
                   justifyContent: '',
@@ -1032,8 +1051,9 @@ const Histogram = ({
 
         {!toggleDisplayMode ? (
           <div
-            className={`${useBoroughColor ? '' : 'invisible'
-              } d-flex flex-row osition-relativ`}
+            className={`${
+              useBoroughColor ? '' : 'invisible'
+            } d-flex flex-row osition-relativ`}
             style={{
               justifyContent: 'start',
               flexGrow: '1',
@@ -1141,29 +1161,25 @@ const Histogram = ({
         style={
           !toggleDisplayMode
             ? {
-              width: '100%',
-              flexGrow: 1,
-              padding: '0.5rem 0 0 0',
-            }
+                width: '100%',
+                flexGrow: 1,
+                padding: '0.5rem 0 0 0',
+              }
             : { width: '100%', flexGrow: 1, padding: '1rem 0' }
         }
         className={'position-relative'}
       >
         <svg display={toggleDisplayMode ? 'none' : ''} ref={ref}>
-            {/* Interactive Line */}
-          <line id="mouseLine" />
-
           {/* Main Chart */}
           <g />
 
           {/* Avg Line */}
           <line id="avgLine" />
-
-          {/* <line id="avgLine" /> */}
           <text id="avgTextUp" />
           <text id="avgTextDown" />
-          
-          {/* <line id="mouseLine" /> */}
+
+          {/* Interactive Line */}
+          <line id="mouseLine" />
           <text id="mouseTextUp" />
           <text id="mouseTextDown" />
           <rect id="histBg" />
