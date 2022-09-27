@@ -18,6 +18,12 @@ const getRgb = (color) => {
   };
 };
 
+const getBbox = (selection) => {
+  selection.each(function (d) {
+    d.bbox = this.getBBox();
+  });
+};
+
 const unique = (arr) => {
   return Array.from(new Set(arr));
 };
@@ -789,6 +795,29 @@ const Histogram = ({
       });
     }
 
+    // mouse text white bg
+    svg
+      .select('#mouseTextUp')
+      .attr(
+        'width',
+        svg.select('#mouseTextUp').node().getBoundingClientRect().width
+      )
+      .attr(
+        'height',
+        svg.select('#mouseTextUp').node().getBoundingClientRect().height
+      );
+
+    svg
+      .select('#mouseTextDown')
+      .attr(
+        'width',
+        svg.select('#mouseTextDown').node().getBoundingClientRect().width
+      )
+      .attr(
+        'height',
+        svg.select('#mouseTextDown').node().getBoundingClientRect().height
+      );
+
     for (let element of [
       '.pinnedLine',
       '.pinnedTextUp',
@@ -927,7 +956,7 @@ const Histogram = ({
           d3.select(this).attr('lookupID') == currentHoveredCommunityID ||
           (boundary == 'council' &&
             councilPinned.includes(d3.select(this).attr('lookupID'))) ||
-            (boundary == 'community' &&
+          (boundary == 'community' &&
             communityPinned.includes(d3.select(this).attr('lookupID')))
         ) {
           // d3.select(this).style("fill", d3.rgb(d3.select(this).attr("initColor")).brighter(0.5))
