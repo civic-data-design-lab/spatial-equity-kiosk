@@ -276,6 +276,7 @@ export default function CommunityNav({
             info={info}
             setUserPoints={setUserPoints}
             userPoints={userPoints}
+            setCompareSearch={setCompareSearch}
           >
             {getSearchItems(false, boundary)}
           </CommunitySearchBar>
