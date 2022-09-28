@@ -809,21 +809,15 @@ export default function DeckMap({
   // 06 DIRECT PICKING ENGINE ---------------------------------------------------------------------------------------------
   // 00 update via search engine
 
-  function updateSearchEngine(
-    searchEngine,
-    searchEngineType,
-    internalizedBoundary
-  ) {
+  function updateSearchEngine(searchEngine, searchEngineType) {
     //check if search engine is valid coordinates
     if (searchEngineType === 0 && selectedChapter === 3) {
       if (selectedCoord.length === 2) {
         const newCommunitySearch = getCommunitySearch(
           searchEngine,
-          internalizedBoundary
+          boundary
         )[0];
 
-        // console.log('coords', searchEngine, 'comm', newCommunitySearch);
-        console.log(searchSource);
         if (newCommunitySearch.length > 0) {
           if (
             (searchSource === 'click' &&
@@ -894,6 +888,7 @@ export default function DeckMap({
             }
           }
         } else {
+          setErrorCode(0);
           setBadSearch([1, badSearch[1]]);
         }
       } else {
@@ -904,10 +899,7 @@ export default function DeckMap({
 
     if (searchEngineType === 1 && selectedChapter === 3) {
       if (selectedCompareCoord.length === 2) {
-        const newCompareSearch = getCommunitySearch(
-          searchEngine,
-          internalizedBoundary
-        )[0];
+        const newCompareSearch = getCommunitySearch(searchEngine, boundary)[0];
         if (
           newCompareSearch.length > 0 &&
           newCompareSearch[0] !== communitySearch &&
@@ -962,7 +954,6 @@ export default function DeckMap({
           searchEngine.length === 2 &&
           searchSource === 'click'
         ) {
-          console.log('2');
           setSelectedCompareCoord([]);
           setCompareSearch(null);
           setUserPoints([userPoints[0], []]);
@@ -976,31 +967,36 @@ export default function DeckMap({
         } else if (
           newCompareSearch.length > 0 &&
           newCompareSearch[0] === communitySearch &&
-          searchEngine.length === 2 &&
-          searchSource === 'click'
+          searchEngine.length === 2
         ) {
-          if (!compareSearch) {
-            setSelectedCoord([]);
-            setCommunitySearch(null);
-            setUserPoints([[], []]);
-            setViewState(RESET_VIEW);
-          } else {
-            setCommunitySearch(compareSearch);
-            setCompareSearch(null);
-            setSelectedCoord(userPoints[1]);
-            setUserPoints([userPoints[1], []]);
-            setViewState({
-              longitude: userPoints[1][0],
-              latitude: userPoints[1][1],
-              zoom: ZOOM_MAX - 0.5,
-              transitionDuration: 500,
-              transitionInerpolator: new LinearInterpolator(),
-            });
-            console.log('4');
-            setSelectedCompareCoord([]);
+          if (searchSource === 'search') {
+            setErrorCode(1);
+            setBadSearch([badSearch[0], 1]);
+          }
+          if (searchSource === 'click') {
+            if (!compareSearch) {
+              setSelectedCoord([]);
+              setCommunitySearch(null);
+              setUserPoints([[], []]);
+              setViewState(RESET_VIEW);
+            } else {
+              setCommunitySearch(compareSearch);
+              setCompareSearch(null);
+              setSelectedCoord(userPoints[1]);
+              setUserPoints([userPoints[1], []]);
+              setViewState({
+                longitude: userPoints[1][0],
+                latitude: userPoints[1][1],
+                zoom: ZOOM_MAX - 0.5,
+                transitionDuration: 500,
+                transitionInerpolator: new LinearInterpolator(),
+              });
+              setSelectedCompareCoord([]);
+            }
           }
         } else {
           if (searchEngineType == 1) {
+            setErrorCode(0);
             setBadSearch([badSearch[0], 1]);
           }
         }
@@ -1008,15 +1004,19 @@ export default function DeckMap({
     }
   }
 
+  const scale = useRef(boundary); //had to add this to check if the useEffect was coming from new scale or new boundary
   useEffect(() => {
     // console.log('1');
-    updateSearchEngine(selectedCoord, 0, boundary);
+    if (!addCompare || !communitySearch || boundary !== scale.current) {
+      updateSearchEngine(selectedCoord, 0);
+    }
+    scale.current = boundary;
   }, [selectedCoord, infoTransfer.selectedBoundary]);
 
   useEffect(() => {
     // console.log('2');
     if (addCompare) {
-      updateSearchEngine(selectedCompareCoord, 1, boundary);
+      updateSearchEngine(selectedCompareCoord, 1);
     }
   }, [selectedCompareCoord, infoTransfer.selectedBoundary]);
 
