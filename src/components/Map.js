@@ -633,7 +633,7 @@ export default function DeckMap({
         } Ranks <strong>${ranking}${
           suffix[ranking % 10]
         } out of ${maxRanking}</strong> ${
-          boundary === 'council' ? 'City Council districts' : 'Community Boards'
+          boundary === 'council' ? 'City Council districts' : 'community boards'
         } for ${hiLowWord} ${
           typeof selectedSpecificIssue == 'number'
             ? issues.specific_issues_data[selectedSpecificIssue]
