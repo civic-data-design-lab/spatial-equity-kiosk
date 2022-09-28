@@ -203,7 +203,7 @@ const IssueHistogram = ({
             sentenceStructure.bounds
           } for ${problemTerm} ${fullIssueName.toLowerCase()} ${joiningWord} ${value}${
             obj.issue_units_symbol
-          } ${sentenceEnd}.`}
+          }${sentenceEnd != '' ? ` ${sentenceEnd}` : ''}.`}
         </p>
       );
     }

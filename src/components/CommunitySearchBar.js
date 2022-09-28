@@ -84,7 +84,7 @@ export default function CommunitySearchBar({
       }
     }
 
-    console.log(searchItemFound);
+    // console.log(searchItemFound);
     return searchItemFound;
   };
 
@@ -268,7 +268,7 @@ export default function CommunitySearchBar({
             callBack(null);
             setShowSearch(true);
             setValue(e.target.value);
-            console.log('userPOints ', userPoints);
+            // console.log('userPOints ', userPoints);
           }}
           value={toggleValue || value}
         />

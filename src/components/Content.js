@@ -71,6 +71,9 @@ export default function Content({
   setAdultAsthma,
   userPoints,
   setUserPoints,
+  selectedCoord,
+  setSelectedCoord,
+  setSearchSource,
 }) {
   return (
     <div className={`d-flex flex-row col-9`}>
@@ -232,6 +235,9 @@ export default function Content({
             collapseMap={collapseMap}
             userPoints={userPoints}
             setUserPoints={setUserPoints}
+            selectedCoord={selectedCoord}
+            setSelectedCoord={setSelectedCoord}
+            setSearchSource={setSearchSource}
           />
         )}
 

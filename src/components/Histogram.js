@@ -106,6 +106,9 @@ const Histogram = ({
   compareSearch,
   userPoints,
   setUserPoints,
+  selectedCoord,
+  setSelectedCoord,
+  setSearchSource,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
@@ -670,10 +673,11 @@ const Histogram = ({
           (d) => d.properties[boundInfo.query] === boundInfo.id
         ).properties;
 
-        console.log(community);
         const coords = [community.X_Cent, community.Y_Cent];
 
         setUserPoints([coords, userPoints.length == 2 ? userPoints[1] : []]);
+        setSelectedCoord(coords);
+        setSearchSource('search');
       });
     });
 

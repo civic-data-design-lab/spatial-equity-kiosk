@@ -809,14 +809,21 @@ export default function DeckMap({
   // 06 DIRECT PICKING ENGINE ---------------------------------------------------------------------------------------------
   // 00 update via search engine
 
-  function updateSearchEngine(searchEngine, searchEngineType) {
+  function updateSearchEngine(
+    searchEngine,
+    searchEngineType,
+    internalizedBoundary
+  ) {
     //check if search engine is valid coordinates
     if (searchEngineType === 0 && selectedChapter === 3) {
       if (selectedCoord.length === 2) {
         const newCommunitySearch = getCommunitySearch(
           searchEngine,
-          boundary
+          internalizedBoundary
         )[0];
+
+        // console.log('coords', searchEngine, 'comm', newCommunitySearch);
+        console.log(searchSource);
         if (newCommunitySearch.length > 0) {
           if (
             (searchSource === 'click' &&
@@ -897,7 +904,10 @@ export default function DeckMap({
 
     if (searchEngineType === 1 && selectedChapter === 3) {
       if (selectedCompareCoord.length === 2) {
-        const newCompareSearch = getCommunitySearch(searchEngine, boundary)[0];
+        const newCompareSearch = getCommunitySearch(
+          searchEngine,
+          internalizedBoundary
+        )[0];
         if (
           newCompareSearch.length > 0 &&
           newCompareSearch[0] !== communitySearch &&
@@ -999,17 +1009,15 @@ export default function DeckMap({
   }
 
   useEffect(() => {
-    if (!addCompare || !communitySearch) {
-      updateSearchEngine(selectedCoord, 0);
-    }
+    // console.log('1');
+    updateSearchEngine(selectedCoord, 0, boundary);
   }, [selectedCoord, infoTransfer.selectedBoundary]);
 
   useEffect(() => {
-    updateSearchEngine(selectedCoord, 0);
-  }, [infoTransfer.selectedBoundary]);
-
-  useEffect(() => {
-    updateSearchEngine(selectedCompareCoord, 1);
+    // console.log('2');
+    if (addCompare) {
+      updateSearchEngine(selectedCompareCoord, 1, boundary);
+    }
   }, [selectedCompareCoord, infoTransfer.selectedBoundary]);
 
   useEffect(() => {

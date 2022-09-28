@@ -37,6 +37,9 @@ export default function IssuesTileView({
   collapseMap,
   userPoints,
   setUserPoints,
+  selectedCoord,
+  setSelectedCoord,
+  setSearchSource,
 }) {
   const [expand, setExpand] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
@@ -163,6 +166,9 @@ export default function IssuesTileView({
                     compareSearch={compareSearch}
                     userPoints={userPoints}
                     setUserPoints={setUserPoints}
+                    selectedCoord={selectedCoord}
+                    setSelectedCoord={setSelectedCoord}
+                    setSearchSource={setSearchSource}
                   />
                 )}
               </div>

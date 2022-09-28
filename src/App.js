@@ -514,8 +514,8 @@ function App() {
   }, [selectedSpecificIssue]);
 
   useEffect(() => {
-    console.log('selectdCompareCoord ', selectedCompareCoord);
-    console.log('userpoints ', userPoints);
+    // console.log('selectdCompareCoord ', selectedCompareCoord);
+    // console.log('userpoints ', userPoints);
   }, [selectedCompareCoord, userPoints]);
 
   // console.log('siteProtection', process.env.REACT_APP_SITE_PROTECTION)
@@ -635,6 +635,9 @@ function App() {
             setAdultAsthma={setAdultAsthma}
             userPoints={userPoints}
             setUserPoints={setUserPoints}
+            selectedCoord={selectedCoord}
+            setSelectedCoord={setSelectedCoord}
+            setSearchSource={setSearchSource}
           />
 
           <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>
