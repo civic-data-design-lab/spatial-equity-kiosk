@@ -1,26 +1,26 @@
 {
     "Latino": {
-        "deckFormat": [2, 95, 190, 255],
-        "htmlFormat": "rgb(2, 95, 190)"
+        "deckFormat": [244, 133, 0, 255],
+        "htmlFormat": "rgb(244, 133, 0)"
     },
     "White": {
-        "deckFormat": [245, 200, 1, 255],
-        "htmlFormat": "rgb(245, 200, 1)"
+        "deckFormat": [29, 168, 39, 255],
+        "htmlFormat": "rgb(29, 168, 39)"
     },
     "Black": {
-        "deckFormat": [8, 133, 105, 255],
-        "htmlFormat": "rgb(8, 133, 105)"
+        "deckFormat": [80, 128, 234, 255],
+        "htmlFormat": "rgb(80, 128, 234)"
     },
     "Indigenous": {
-        "deckFormat": [111, 65, 160, 255],
-        "htmlFormat": "rgb(111, 65, 160)"
+        "deckFormat": [128, 63, 138, 255],
+        "htmlFormat": "rgb(128, 63, 138)"
     },
     "Asian": {
-        "deckFormat": [214, 61, 43, 255],
-        "htmlFormat": "rgb(214, 61, 43)"
+        "deckFormat": [252, 75, 56, 255],
+        "htmlFormat": "rgb(252, 75, 56)"
     },
     "Other": {
-        "deckFormat": [111, 65, 160, 255],
-        "htmlFormat": "rgb(111, 65, 160)"
+        "deckFormat": [128, 63, 138, 255],
+        "htmlFormat": "rgb(128, 63, 138)"
     } 
 }
