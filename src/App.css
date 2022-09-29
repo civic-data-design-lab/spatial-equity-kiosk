@@ -279,7 +279,7 @@ a:active {
 }
 
 .collapse-text {
-    font-size: 1.1em;
+    font-size: 1.25em;
     margin: 0;
 }
 
@@ -731,7 +731,7 @@ a:active {
     height: fit-content;
     max-height: 100vh;
     opacity: 1;
-    font-size: 0.8rem;
+    font-size: 1rem;
     transition: font-size 0.3s, opacity 0.8s 0.3s, max-height 1s ease-out;
 }
 
