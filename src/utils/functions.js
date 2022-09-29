@@ -53,3 +53,17 @@ export function getBoroughName(boroughId) {
       return '';
   }
 }
+
+/**
+ * Returns a title string of the tooltip's bounds given the boundary type.
+ * 
+ * @param {string} boundary
+ * @returns {string}
+ */
+export function getTooltipBounds(boundary) {
+  if (boundary === 'community') {
+    return 'Community Board';
+  }
+  return 'City Council District';
+};
+

@@ -1,5 +1,9 @@
 import _RANKINGS from '../data/rankings.json';
-import { getBoroughName, getTransportationModes } from '../utils/functions';
+import {
+  getBoroughName,
+  getTooltipBounds,
+  getTransportationModes,
+} from '../utils/functions';
 
 export const TOOLTIP_STYLE = {
   border: '1px solid black',
@@ -35,13 +39,6 @@ const MapTooltip = ({
     return _RANKINGS[boundary][infoTransfer.selectedMetric];
   };
 
-  const getTooltipBounds = () => {
-    if (boundary === 'community') {
-      return 'Community Board';
-    }
-    return 'City Council District';
-  };
-
   const getBoundaryName = () => {
     if (boundary === 'community') {
       return tooltipProperties.CDTA2020;
@@ -52,7 +49,7 @@ const MapTooltip = ({
   const getTooltipHeader = () => {
     return (
       <>
-        {getTooltipBounds()} <strong>{getBoundaryName()}</strong>
+        {getTooltipBounds(boundary)} <strong>{getBoundaryName()}</strong>
       </>
     );
   };
@@ -64,9 +61,21 @@ const MapTooltip = ({
       return <></>;
     }
 
-    const boundaryName = getBoundaryName()
+    // No need to show ranking if no issue is selected
+    if (selectedSpecificIssue === null) {
+      return <></>;
+    }
 
-    const accessor = tooltipProperties ? tooltipProperties : pickingInfo.object;
+    const boundaryName = getBoundaryName();
+    const tooltipBounds = getTooltipBounds(boundary);
+
+    const accessor = tooltipProperties
+      ? tooltipProperties
+      : pickingInfo?.object;
+    if (!accessor) {
+      console.error('Could not get data accessor for tooltip');
+      return;
+    }
 
     // boundary name grammatically correct
     let boroughData = {
@@ -91,9 +100,9 @@ const MapTooltip = ({
         : accessor[infoTransfer.selectedMetric].toFixed(2)
       : '';
 
-    //get boundary ranking   
+    //get boundary ranking
     const ranking = metricCheck.find(
-      // Allow string 'x' equal number x 
+      // Allow string 'x' equal number x
       (t) => t.community_ID == boundaryName
     ).rank;
 
@@ -139,7 +148,7 @@ const MapTooltip = ({
 
     return (
       <>
-        {boroughName} {getTooltipBounds()} {boroughData.boundaryNumber} Ranks{' '}
+        {boroughName} {tooltipBounds} {boroughData.boundaryNumber} Ranks{' '}
         <strong>
           {ranking}
           {suffix[ranking % 10]} out of {maxRanking}
@@ -149,8 +158,7 @@ const MapTooltip = ({
         {typeof selectedSpecificIssue === 'number'
           ? selectedIssue.specific_issue_name
           : ''}{' '}
-        {joiningWord}{' '}
-        {value}
+        {joiningWord} {value}
         {selectedIssue.issue_units_symbol !== ''
           ? selectedIssue.issue_units_symbol
           : ''}{' '}
@@ -212,9 +220,10 @@ const MapTooltip = ({
 
     if (
       boundary !== 'council' &&
-      !(boundary === 'community' && tooltipProperties.Data_YN === 'Y')
-    )
+      !(boundary === 'community' && tooltipProperties?.Data_YN === 'Y')
+    ) {
       return <></>;
+    }
 
     if (boundary !== 'council' && boundary !== 'community') {
       return <></>;

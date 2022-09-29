@@ -31,7 +31,7 @@ import _RANKINGS from '../data/rankings.json';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { project } from 'deck.gl';
 import MapTooltip, { TOOLTIP_STYLE } from './MapTooltip';
-import { getTransportationModes, mapRange } from '../utils/functions'
+import { getTransportationModes, mapRange } from '../utils/functions';
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -198,6 +198,22 @@ export default function DeckMap({
   collapseMap,
 }) {
   // map hooks
+  
+  /**
+   * @typedef TooltipCompData
+   * 
+   * @property {pickingInfo} - The entire picking information object from
+   *    Deck.gl.
+   * @property {object} tooltipProperties - Tooltip properties from the Deck.gl
+   *    picking information, mainly for convenience.
+   * @property {number[]} coords - Lng/Lat coordinates of the tooltip
+   * @property {object} pos - The projection onto screen-space, an object with
+   *    `x` and `y` properties representing the number of pixels from the left
+   *    and top, respectively.  
+   */
+  const [tooltipCompData1, setTooltipCompData1] = useState(null);
+  const [tooltipCompData2, setTooltipCompData2] = useState(null);
+
   const [underperformers, setUnderperformers] = useState(null);
   // const [metricAverage, setMetricAverage] = useState(null);
 
@@ -248,6 +264,21 @@ export default function DeckMap({
   const mapRef = useRef(null);
   const dataScale = useRef('q'); //set to "equal" for equal binning, "q" for quantile binning
   // const [searchPoint, setSearchPoint] = useState([[], []]);
+
+  const updateTooltipPositions = () => {
+    // Update tooltip 1
+    if (tooltipCompData1?.tooltipProperties) {
+      const projection = mapRef.current?.getMap()?.project(tooltipCompData1.coords)
+      setTooltipCompData1({...tooltipCompData1, pos: projection})
+    }
+
+    // Update tooltip 2
+    if (tooltipCompData2?.tooltipProperties) {
+      const projection = mapRef.current?.getMap()?.project(tooltipCompData2.coords)
+      setTooltipCompData2({...tooltipCompData2, pos: projection})
+    }
+  }
+
 
   // 01.4 Color Scale function
 
@@ -451,6 +482,7 @@ export default function DeckMap({
 
   const zoomIn = useCallback(
     ({}) => {
+      updateTooltipPositions()
       if (!viewState.zoom) {
         if (!mapDemographics) {
           setViewState(() => ({
@@ -484,6 +516,7 @@ export default function DeckMap({
 
   const zoomOut = useCallback(
     ({}) => {
+      updateTooltipPositions()
       if (!viewState.zoom) {
         if (!mapDemographics) {
           setViewState(() => ({
@@ -521,38 +554,37 @@ export default function DeckMap({
     // update auto highlight
     sethighlightFeature(info.index);
 
-    const tooltipElement = <MapTooltip
-      infoTransfer={infoTransfer}
-      boundary={boundary}
-      selectedChapter={selectedChapter}
-      selectedCoord={selectedCoord}
-      issues={issues}
-      selectedDemographic={selectedDemographic}
-      toggleTransit={toggleTransit}
-      toggleBike={toggleBike}
-      toggleWalk={toggleWalk}
-      demographic={demographic}
-      selectedSpecificIssue={selectedSpecificIssue}
-      demoLookup={demoLookup}
-      transportationModesArray={transportationModesArray}
-      selectedDemoArray={selectedDemoArray}
-      ethnicityColors={ethnicityColors}
-      pickingInfo={info}
-      tooltipProperties={info.object?.properties}
-    />
+    const tooltipElement = (
+      <MapTooltip
+        infoTransfer={infoTransfer}
+        boundary={boundary}
+        selectedChapter={selectedChapter}
+        selectedCoord={selectedCoord}
+        issues={issues}
+        selectedDemographic={selectedDemographic}
+        toggleTransit={toggleTransit}
+        toggleBike={toggleBike}
+        toggleWalk={toggleWalk}
+        demographic={demographic}
+        selectedSpecificIssue={selectedSpecificIssue}
+        demoLookup={demoLookup}
+        transportationModesArray={transportationModesArray}
+        selectedDemoArray={selectedDemoArray}
+        ethnicityColors={ethnicityColors}
+        pickingInfo={info}
+        tooltipProperties={info.object?.properties}
+      />
+    );
 
-    const tooltipHtml = ReactDOMServer.renderToStaticMarkup(tooltipElement)
+    const tooltipHtml = ReactDOMServer.renderToStaticMarkup(tooltipElement);
 
     if (tooltipHtml) {
-      return (
-        {
-          className: 'map-tooltip',
-          style: TOOLTIP_STYLE,
-          html: tooltipHtml,
-        }
-      );
+      return {
+        className: 'map-tooltip',
+        style: TOOLTIP_STYLE,
+        html: tooltipHtml,
+      };
     }
-
   };
 
   // 05 TOOLTIP END ----------------------------------------------------------------------------------------------
@@ -1181,6 +1213,26 @@ export default function DeckMap({
             ? obj.properties.CDTA2020
             : null;
 
+
+        // Boundary was clicked, update the tooltip data
+        const properties = obj?.properties
+        const coords = properties && [properties.X_Cent,properties.Y_Cent]
+
+        // If we are adding the comparison boundary, update the second tooltip
+        if (addCompare) {
+          setTooltipCompData2({
+            pickingInfo: info,
+            tooltipProperties: properties,
+            coords: coords,
+          });
+        } else {
+          setTooltipCompData1({
+            pickingInfo: info,
+            tooltipProperties: properties,
+            coords: coords,
+          });
+        }
+
         if (
           (boundary == 'community' && obj.properties.Data_YN == 'Y') ||
           boundary == 'council'
@@ -1309,11 +1361,82 @@ export default function DeckMap({
           <FontAwesomeIcon onClick={zoomOut} icon={faMinus} />
         </div>
       )}
+      {/* Only show static tooltips if two boundaries are being compared. */}
+      {tooltipCompData1?.pos && tooltipCompData2?.pos && (
+        <>
+        <div
+          style={{
+            position: 'absolute',
+            zIndex: '1',
+            left: tooltipCompData1.pos.x,
+            top: tooltipCompData1.pos.y,
+          }}
+        >
+          <div style={TOOLTIP_STYLE}>
+            {compareSearch && (
+              <MapTooltip
+                infoTransfer={infoTransfer}
+                boundary={boundary}
+                selectedChapter={selectedChapter}
+                selectedCoord={selectedCoord}
+                issues={issues}
+                selectedDemographic={selectedDemographic}
+                toggleTransit={toggleTransit}
+                toggleBike={toggleBike}
+                toggleWalk={toggleWalk}
+                demographic={demographic}
+                selectedSpecificIssue={selectedSpecificIssue}
+                demoLookup={demoLookup}
+                transportationModesArray={transportationModesArray}
+                selectedDemoArray={selectedDemoArray}
+                ethnicityColors={ethnicityColors}
+                tooltipProperties={tooltipCompData1?.tooltipProperties}
+                pickingInfo={tooltipCompData1?.pickingInfo}
+              />
+            )}
+          </div>
+        </div>
+        {/* Second tooltip */}
+        <div
+          style={{
+            position: 'absolute',
+            zIndex: '1',
+            left: tooltipCompData2.pos.x,
+            top: tooltipCompData2.pos.y,
+          }}
+        >
+          <div style={TOOLTIP_STYLE}>
+            {compareSearch && (
+              <MapTooltip
+                infoTransfer={infoTransfer}
+                boundary={boundary}
+                selectedChapter={selectedChapter}
+                selectedCoord={selectedCoord}
+                issues={issues}
+                selectedDemographic={selectedDemographic}
+                toggleTransit={toggleTransit}
+                toggleBike={toggleBike}
+                toggleWalk={toggleWalk}
+                demographic={demographic}
+                selectedSpecificIssue={selectedSpecificIssue}
+                demoLookup={demoLookup}
+                transportationModesArray={transportationModesArray}
+                selectedDemoArray={selectedDemoArray}
+                ethnicityColors={ethnicityColors}
+                tooltipProperties={tooltipCompData2?.tooltipProperties}
+                pickingInfo={tooltipCompData2?.pickingInfo}
+              />
+            )}
+          </div>
+        </div>
+        </>
+      )}
       <DeckGL
         // viewState={viewState}
         style={{ backgroundColor: 'black' }}
         initialViewState={viewState}
         onViewStateChange={onViewStateChange}
+        onInteractionStateChange={updateTooltipPositions}
         views={
           showMap || (!showMap && !selectedSpecificIssue)
             ? mapDemographics
@@ -1343,7 +1466,6 @@ export default function DeckMap({
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
               logoPosition="top-right"
-              // onViewportChange={() => updateCoords()}
             />
             {collapseMap && selectedSpecificIssue && (
               <div key={'map-header'} style={SPLIT_SCREEN_POSITIONING}>
@@ -1406,7 +1528,9 @@ export default function DeckMap({
               <div key={'map-header-right'} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
                   {demoLookup[demographic].lookup == 'F10_TrsBkW'
-                    ? `Commuters Who ${getTransportationModes(transportationModesArray)}`
+                    ? `Commuters Who ${getTransportationModes(
+                        transportationModesArray
+                      )}`
                     : demoLookup[demographic].name}
                 </div>
               </div>
