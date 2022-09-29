@@ -82,47 +82,5 @@
     ],
     "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
     "link": ""
-  },
-  "6": {
-    "name": "Bike to Work",
-    "lookup": "F6_bike",
-    "metric_units": "Percent",
-    "colorRamp": [
-      [255, 255, 204],
-      [161, 218, 180],
-      [65, 182, 196],
-      [44, 127, 184],
-      [37, 52, 148]
-    ],
-    "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
-    "link": ""
-  },
-  "7": {
-    "name": "Public Transit to Work",
-    "lookup": "F8_PubTran",
-    "metric_units": "Percent",
-    "colorRamp": [
-      [254, 240, 217],
-      [253, 204, 138],
-      [252, 141, 89],
-      [227, 74, 51],
-      [179, 0, 0]
-    ],
-    "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
-    "link": ""
-  },
-  "8": {
-    "name": "Walk",
-    "lookup": "F11_Walk",
-    "metric_units": "Percent",
-    "colorRamp": [
-      [254, 237, 222],
-      [253, 190, 133],
-      [253, 141, 60],
-      [230, 85, 13],
-      [166, 54, 3]
-    ],
-    "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
-    "link": ""
   }
 }
