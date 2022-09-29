@@ -2152,7 +2152,7 @@ input:checked+.slider:before {
     justify-content: center;
     height: 6vh;
     background-color: white;
-    top: 41vh;
+    top: 47vh;
     left: 0vw;
     transition: 0.5s ease-in-out;
     /* border-top-right-radius: 10%; */
