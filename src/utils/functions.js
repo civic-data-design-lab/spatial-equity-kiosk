@@ -1,0 +1,55 @@
+/**
+ * TODO:
+ *
+ * @param {number} value
+ * @param {number} low1
+ * @param {number} high1
+ * @param {number} low2
+ * @param {number} high2
+ * @returns
+ */
+export function mapRange(value, low1, high1, low2, high2) {
+  return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
+}
+
+/**
+ * Stringifies the transportation modes.
+ *
+ * @param {string[]} transportationModesArray
+ * @returns {string}
+ */
+export function getTransportationModes(transportationModesArray) {
+  if (transportationModesArray.length > 2) {
+    const last = transportationModesArray[2];
+    return `${[...transportationModesArray.slice(0, 2)].join(
+      ', '
+    )}, or ${last}`;
+  } else if (transportationModesArray.length > 0) {
+    return `${transportationModesArray.join(' or ') || ''}`;
+  } else {
+    return '...';
+  }
+}
+
+/**
+ * Gets the NYC borough name given its ID.
+ *
+ * @param {string} boroughId
+ * @returns {string}
+ */
+export function getBoroughName(boroughId) {
+  switch (boroughId) {
+    case 'MN':
+      return 'Manhattan';
+    case 'BX':
+      return 'Bronx';
+    case 'BK':
+      return 'Brooklyn';
+    case 'QN':
+      return 'Queens';
+    case 'SI':
+      return 'Staten Island';
+    default:
+      return '';
+  }
+}

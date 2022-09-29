@@ -9,6 +9,7 @@ import { FillStyleExtension } from '@deck.gl/extensions';
 import { max, min } from 'd3-array';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import * as ReactDOMServer from 'react-dom/server';
 
 // geospatial dependencies
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
@@ -29,6 +30,8 @@ import _RANKINGS from '../data/rankings.json';
 // mapbox style
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { project } from 'deck.gl';
+import MapTooltip, { TOOLTIP_STYLE } from './MapTooltip';
+import { getTransportationModes, mapRange } from '../utils/functions'
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -44,10 +47,6 @@ const buttomZoomStep = 0.5;
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
-
-function map_range(value, low1, high1, low2, high2) {
-  return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
-}
 
 const RESET_VIEW = {
   longitude: -74,
@@ -203,19 +202,6 @@ export default function DeckMap({
   // const [metricAverage, setMetricAverage] = useState(null);
 
   const [transportationModesArray, setTransportationModesArray] = useState([]);
-
-  const getTransportationModes = () => {
-    if (transportationModesArray.length > 2) {
-      const last = transportationModesArray[2];
-      return `${[...transportationModesArray.slice(0, 2)].join(
-        ', '
-      )}, or ${last}`;
-    } else if (transportationModesArray.length > 0) {
-      return `${transportationModesArray.join(' or ') || ''}`;
-    } else {
-      return '...';
-    }
-  };
 
   const selectedCommunity = communitySearch
     ? boundary == 'council'
@@ -531,336 +517,42 @@ export default function DeckMap({
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
 
   // 05 TOOLTIP ----------------------------------------------------------------------------------------------
+  const getDeckGlTooltip = (info) => {
+    // update auto highlight
+    sethighlightFeature(info.index);
 
-  const getTooltipHeader = (props) => {
-    return `
-    ${props.tooltipBounds} <strong>${props.boundaryName}</strong>`;
-  };
+    const tooltipElement = <MapTooltip
+      infoTransfer={infoTransfer}
+      boundary={boundary}
+      selectedChapter={selectedChapter}
+      selectedCoord={selectedCoord}
+      issues={issues}
+      selectedDemographic={selectedDemographic}
+      toggleTransit={toggleTransit}
+      toggleBike={toggleBike}
+      toggleWalk={toggleWalk}
+      demographic={demographic}
+      selectedSpecificIssue={selectedSpecificIssue}
+      demoLookup={demoLookup}
+      transportationModesArray={transportationModesArray}
+      selectedDemoArray={selectedDemoArray}
+      ethnicityColors={ethnicityColors}
+      pickingInfo={info}
+      tooltipProperties={info.object?.properties}
+    />
 
-  const getRankingTooltip = (props, obj) => {
-    const accessor = obj.properties ? obj.properties : obj;
+    const tooltipHtml = ReactDOMServer.renderToStaticMarkup(tooltipElement)
 
-    // boundary name grammatically correct
-    const boroughData =
-      boundary == 'community'
-        ? {
-            boroughID: props.boundaryName.slice(0, 2),
-            boundaryNumber: Number(props.boundaryName.slice(2)),
-          }
-        : {
-            boroughID: '',
-            boundaryNumber: props.boundaryName,
-          };
-
-    const boroughName =
-      boroughData.boroughID == 'MN'
-        ? 'Manhattan'
-        : boroughData.boroughID == 'BX'
-        ? 'Bronx'
-        : boroughData.boroughID == 'BK'
-        ? 'Brooklyn'
-        : boroughData.boroughID == 'QN'
-        ? 'Queens'
-        : boroughData.boroughID == 'SI'
-        ? 'Staten Island'
-        : '';
-
-    //value for specific metric and boundary
-    const value = accessor[infoTransfer.selectedMetric]
-      ? accessor[infoTransfer.selectedMetric] >= 10
-        ? accessor[infoTransfer.selectedMetric].toFixed(0)
-        : accessor[infoTransfer.selectedMetric] >= 1
-        ? accessor[infoTransfer.selectedMetric].toFixed(1)
-        : accessor[infoTransfer.selectedMetric].toFixed(2)
-      : '';
-
-    const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
-      ? true
-      : false;
-    //get boundary ranking
-    const ranking = metricCheck
-      ? _RANKINGS[boundary][infoTransfer.selectedMetric].find(
-          (t) => t.community_ID == props.boundaryName
-        ).rank
-      : '';
-
-    const suffix = {
-      0: 'th',
-      1: 'st',
-      2: 'nd',
-      3: 'rd',
-      4: 'th',
-      5: 'th',
-      6: 'th',
-      7: 'th',
-      8: 'th',
-      9: 'th',
-    };
-
-    //get total number of boundaries
-    const maxRanking = metricCheck
-      ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
-      : '';
-
-    //get term to describe bad condition
-    const hiLowWord = issues.specific_issues_data[selectedSpecificIssue]
-      .good_or_bad
-      ? issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[0]
-      : issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1];
-
-    // join sentence with either "at" or "with"
-    const joiningWord =
-      issues.specific_issues_data[selectedSpecificIssue].json_id == 'F27_BusSpe'
-        ? 'at'
-        : 'with';
-
-    // get unit of particular metric
-    let sentenceEnd =
-      issues.specific_issues_data[selectedSpecificIssue].json_id == 'F14_TmpDev'
-        ? [
-            value > 0 ? 'above' : value == 0 ? '' : 'below',
-            issues.specific_issues_data[selectedSpecificIssue]
-              .specific_issue_append,
-          ]
-            .join(' ')
-            .toLowerCase()
-        : issues.specific_issues_data[selectedSpecificIssue]
-            .specific_issue_append;
-
-    return metricCheck
-      ? `${boroughName} ${props.tooltipBounds} ${
-          boroughData.boundaryNumber
-        } Ranks <strong>${ranking}${
-          suffix[ranking % 10]
-        } out of ${maxRanking}</strong> ${
-          boundary === 'council' ? 'City Council districts' : 'community boards'
-        } for ${hiLowWord} ${
-          typeof selectedSpecificIssue == 'number'
-            ? issues.specific_issues_data[selectedSpecificIssue]
-                .specific_issue_name
-            : ''
-        } ${joiningWord} 
-        ${value}${
-          issues.specific_issues_data[selectedSpecificIssue]
-            .issue_units_symbol != ''
-            ? issues.specific_issues_data[selectedSpecificIssue]
-                .issue_units_symbol
-            : ''
-        } ${sentenceEnd}`
-      : '';
-  };
-
-  const getDemographicTooltip = (props, info, transportationModes) => {
-    const obj = info.object;
-    const accessor = obj.properties ? obj.properties : obj;
-
-    // boundary name grammatically correct
-    const boroughData =
-      boundary == 'community'
-        ? {
-            boroughID: props.boundaryName.slice(0, 2),
-            boundaryNumber: Number(props.boundaryName.slice(2)),
-          }
-        : {
-            boroughID: '',
-            boundaryNumber: props.boundaryName,
-          };
-
-    const boroughName =
-      boroughData.boroughID == 'MN'
-        ? `Manhattan Community Board`
-        : boroughData.boroughID == 'BX'
-        ? `Bronx Community Board`
-        : boroughData.boroughID == 'BK'
-        ? `Brooklyn Community Board`
-        : boroughData.boroughID == 'QN'
-        ? `Queens Community Board`
-        : boroughData.boroughID == 'SI'
-        ? `Staten Island Community Board`
-        : 'City Council District';
-
-    const locationSentence = `${boroughName} ${boroughData.boundaryNumber} `;
-
-    //value for specific metric and boundary
-    const value = accessor[infoTransfer.selectedMetric]
-      ? accessor[infoTransfer.selectedMetric] >= 10
-        ? accessor[infoTransfer.selectedMetric].toFixed(0)
-        : accessor[infoTransfer.selectedMetric] >= 1
-        ? accessor[infoTransfer.selectedMetric].toFixed(1)
-        : accessor[infoTransfer.selectedMetric].toFixed(2)
-      : '';
-
-    const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
-      ? true
-      : false;
-    //get boundary ranking
-    const ranking = metricCheck
-      ? _RANKINGS[boundary][infoTransfer.selectedMetric].find(
-          (t) => t.community_ID == props.boundaryName
-        ).rank
-      : '';
-
-    //get total number of boundaries
-    const maxRanking = metricCheck
-      ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
-      : '';
-
-    //get term to describe bad condition
-    const hiLowWord = issues.specific_issues_data[selectedSpecificIssue]
-      .good_or_bad
-      ? issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[0]
-      : issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1];
-
-    // join sentence with either "at" or "with"
-    const joiningWord =
-      issues.specific_issues_data[selectedSpecificIssue].json_id == 'F27_BusSpe'
-        ? 'at'
-        : 'with';
-
-    const householdsOrCommuters = ['1', '4', '5'].includes(demographic)
-      ? 'commuters'
-      : 'households';
-
-    const midSentence = `${householdsOrCommuters} in ${locationSentence}`;
-
-    let sentenceEnd = [
-      '',
-      'Race & Ethnicity',
-      'live below the poverty line',
-      'do not own a car',
-      'drive alone to work',
-      '',
-    ];
-
-    // return if not (bike walk or transit) or (race and ethnicity)
-    if (demographic !== '1' && demographic !== '5') {
-      return `\
-      <div class=map-tooltip-info>
-        ${obj.properties[selectedDemographic].toFixed(0)}% of ${midSentence} ${
-        sentenceEnd[Number(demographic)]
-      }.
-      </div>`;
+    if (tooltipHtml) {
+      return (
+        {
+          className: 'map-tooltip',
+          style: TOOLTIP_STYLE,
+          html: tooltipHtml,
+        }
+      );
     }
 
-    // return if (bike walk or transit)
-    if (demographic == '5') {
-      return `\
-      <div class=map-tooltip-info>
-      ${
-        toggleTransit || toggleBike || toggleWalk
-          ? `${obj.properties[selectedDemographic].toFixed(
-              0
-            )}% of ${midSentence} ${transportationModes}.`
-          : `Check off one of the transportation options above the demographics legend to see how people are getting around.`
-      }
-      </div>`;
-    }
-
-    // return if (race and ethnicity)
-    if (demographic == '1') {
-      return `\
-    <div class=map-tooltip-info>
-    ${locationSentence} is—
-      <div class=tooltip-grid>
-        <div style="color:${
-          ethnicityColors.Latino.htmlFormat
-        }">■</div><div>${Math.round(
-        obj.properties.P_Hispanic * 100
-      )}%</div><div>Latino</div>
-          <div style="color:${
-            ethnicityColors.White.htmlFormat
-          }">■</div><div>${Math.round(
-        obj.properties.P_White * 100
-      )}%</div><div>White</div>
-          <div style="color:${
-            ethnicityColors.Black.htmlFormat
-          }">■</div><div>${Math.round(
-        obj.properties.P_Black * 100
-      )}%</div><div>Black</div>
-          <div style="color:${
-            ethnicityColors.Asian.htmlFormat
-          }">■</div><div>${Math.round(
-        obj.properties.P_Asian * 100
-      )}%</div><div>Asian</div>
-          <div style="color:${
-            ethnicityColors.Other.htmlFormat
-          }">■</div><div>${Math.round(
-        obj.properties.P_Other * 100
-      )}%</div><div>Other</div>
-      </div>
-    </div>`;
-    }
-  };
-
-  const getTooltip = (info) => {
-    if (
-      info.object &&
-      ((boundary == 'community' && info.object.properties.Data_YN == 'Y') ||
-        boundary == 'council')
-    ) {
-      const obj = info.object;
-
-      const props =
-        boundary == 'community'
-          ? {
-              tooltipBounds: 'Community Board',
-              boundaryName: obj.properties.CDTA2020,
-            }
-          : {
-              tooltipBounds: 'City Council District',
-              boundaryName: obj.properties.CounDist,
-            };
-
-      // update auto highlight
-      sethighlightFeature(info.index);
-
-      const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
-        ? true
-        : false;
-
-      let transportationModes = getTransportationModes();
-
-      if (boundary == 'council' || boundary == 'community') {
-        // return the tooltip for the selected boundary with selected metric and selected demographic
-
-        return (
-          obj && {
-            className: 'map-tooltip',
-            style: {
-              border: '1px solid black',
-              background: 'white',
-              color: 'black',
-              padding: '0px',
-              maxWidth: '250px',
-            },
-            html: `\
-          <!-- select metric -->
-          
-          <div class=map-tooltip-header>${getTooltipHeader(
-            props
-          )}</strong></div>
-          ${
-            selectedChapter == 3 && selectedCoord.length == 2 && metricCheck
-              ? `<div>
-            <div class=map-tooltip-info>${`${getRankingTooltip(
-              props,
-              obj
-            )}.`}</div>
-          </div>`
-              : ''
-          }
-          <!-- select demographic -->
-          ${
-            selectedChapter == 3 &&
-            selectedCoord.length == 2 &&
-            selectedDemographic != null
-              ? `${getDemographicTooltip(props, info, transportationModes)}`
-              : ''
-          }`,
-          }
-        );
-      }
-    }
   };
 
   // 05 TOOLTIP END ----------------------------------------------------------------------------------------------
@@ -934,7 +626,7 @@ export default function DeckMap({
                   : maxDistance;
 
               const remapZoom = !mapDemographics
-                ? map_range(
+                ? mapRange(
                     ptCompareDistance,
                     0.3,
                     maxDistance,
@@ -942,7 +634,7 @@ export default function DeckMap({
                     ZOOM_MIN
                   )
                 : mapDemographics &&
-                  map_range(
+                  mapRange(
                     ptCompareDistance,
                     0.3,
                     maxDistance,
@@ -951,7 +643,7 @@ export default function DeckMap({
                   ) -
                     0.5 >
                     ZOOM_MIN
-                ? map_range(
+                ? mapRange(
                     ptCompareDistance,
                     0.3,
                     maxDistance,
@@ -1007,9 +699,9 @@ export default function DeckMap({
               : maxDistance;
 
           const remapZoom = !mapDemographics
-            ? map_range(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
+            ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
             : mapDemographics &&
-              map_range(
+              mapRange(
                 ptCompareDistance,
                 0.3,
                 maxDistance,
@@ -1018,7 +710,7 @@ export default function DeckMap({
               ) -
                 0.5 >
                 ZOOM_MIN
-            ? map_range(
+            ? mapRange(
                 ptCompareDistance,
                 0.3,
                 maxDistance,
@@ -1631,7 +1323,7 @@ export default function DeckMap({
         }
         layers={[metricLayers, demoLayers, annoLayers]}
         getCursor={() => 'crosshair'}
-        getTooltip={getTooltip}
+        getTooltip={getDeckGlTooltip}
         layerFilter={layerFilter}
         ref={deckRef}
         // eventRecognizerOptions={
@@ -1651,6 +1343,7 @@ export default function DeckMap({
               mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
               attributionControl={false}
               logoPosition="top-right"
+              // onViewportChange={() => updateCoords()}
             />
             {collapseMap && selectedSpecificIssue && (
               <div key={'map-header'} style={SPLIT_SCREEN_POSITIONING}>
@@ -1713,7 +1406,7 @@ export default function DeckMap({
               <div key={'map-header-right'} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
                   {demoLookup[demographic].lookup == 'F10_TrsBkW'
-                    ? `Commuters Who ${getTransportationModes()}`
+                    ? `Commuters Who ${getTransportationModes(transportationModesArray)}`
                     : demoLookup[demographic].name}
                 </div>
               </div>
