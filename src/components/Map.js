@@ -246,6 +246,18 @@ export default function DeckMap({
   // }, [issues, selectedSpecificIssue, boundary]);
 
   useEffect(() => {
+    // Remove comparison tooltips if the user deselects comparisons from the
+    // search bar
+    if (communitySearch === null) {
+      setTooltipCompData1(null);
+    }
+
+    if (compareSearch === null) {
+      setTooltipCompData2(null);
+    }
+  }, [compareSearch, communitySearch]);
+
+  useEffect(() => {
     const modes = [];
     if (toggleWalk) {
       modes.push('Walk');
@@ -267,7 +279,7 @@ export default function DeckMap({
 
   const updateTooltipPositions = () => {
     // Update tooltip 1
-    if (tooltipCompData1?.tooltipProperties) {
+    if (tooltipCompData1?.coords) {
       let projection = mapRef.current
         ?.getMap()
         ?.project(tooltipCompData1.coords);
@@ -277,7 +289,7 @@ export default function DeckMap({
     }
 
     // Update tooltip 2
-    if (tooltipCompData2?.tooltipProperties) {
+    if (tooltipCompData2?.coords) {
       let projection = mapRef.current
         ?.getMap()
         ?.project(tooltipCompData2.coords);
@@ -578,7 +590,8 @@ export default function DeckMap({
         transportationModesArray={transportationModesArray}
         selectedDemoArray={selectedDemoArray}
         ethnicityColors={ethnicityColors}
-        pickingInfo={info}
+        pickingInfoObject={info.object}
+        pickingInfoIndex={info.index}
         tooltipProperties={info.object?.properties}
       />
     );
@@ -617,7 +630,11 @@ export default function DeckMap({
             : null;
 
         searchItemFound.push(lookup);
-        searchItemData.push(element.properties);
+        searchItemData.push({
+          index: index,
+          object: element,
+          properties: element.properties,
+        });
       }
     }
     return [searchItemFound, searchItemData];
@@ -630,15 +647,19 @@ export default function DeckMap({
 
   function updateSearchEngine(searchEngine, searchEngineType) {
     //check if search engine is valid coordinates
+
+    // PRIMARY COMMUNITY SEARCH
     if (searchEngineType === 0 && selectedChapter === 3) {
       if (selectedCoord.length !== 2) {
-        console.debug("No coordinates, reset the view")
+        console.debug('No coordinates, reset the view');
         setUserPoints([[], []]);
         setViewState(RESET_VIEW);
+        setTooltipCompData1(null);
         return;
       }
 
-      const newCommunitySearch = getCommunitySearch(searchEngine, boundary)[0];
+      const communitySearchResult = getCommunitySearch(searchEngine, boundary);
+      const newCommunitySearch = communitySearchResult[0];
 
       if (!newCommunitySearch.length) {
         // Bad search, no results found
@@ -660,17 +681,29 @@ export default function DeckMap({
           setCommunitySearch(null);
           setUserPoints([[], userPoints[1]]);
           setViewState(RESET_VIEW);
-          setTooltipCompData1(null)
+          setTooltipCompData1(null);
         }
         return;
       }
 
       console.debug('User clicked on map to get the primary community');
+
       // User clicked on the map for the community search
       setCommunitySearch(newCommunitySearch[0]);
       setBadSearch([0, badSearch[1]]);
       setUserPoints([searchEngine, userPoints[1]]);
-      
+
+      // Get the data of the selected community from the community search
+      const pickingInfo = communitySearchResult[1][0];
+      const coords = pickingInfo.properties && [
+        pickingInfo.properties.X_Cent,
+        pickingInfo.properties.Y_Cent,
+      ];
+      // Set the tooltip data of the primary community
+      setTooltipCompData1({
+        ...pickingInfo,
+        coords: coords,
+      });
 
       if (!compareSearch) {
         setViewState({
@@ -712,10 +745,13 @@ export default function DeckMap({
     // SELECT COMPARISON COMMUNITY
     if (searchEngineType === 1 && selectedChapter === 3) {
       if (selectedCompareCoord.length !== 2) {
+        setTooltipCompData2(null);
         return;
       }
 
-      const newCompareSearch = getCommunitySearch(searchEngine, boundary)[0];
+      const communitySearchResult = getCommunitySearch(searchEngine, boundary);
+      const newCompareSearch = communitySearchResult[0];
+
       if (
         newCompareSearch.length > 0 &&
         newCompareSearch[0] !== communitySearch &&
@@ -747,6 +783,18 @@ export default function DeckMap({
 
         setUserPoints([userPoints[0], searchEngine]);
 
+        // Get the data of the selected community from the community search
+        const pickingInfo = communitySearchResult[1][0];
+        const coords = pickingInfo.properties && [
+          pickingInfo.properties.X_Cent,
+          pickingInfo.properties.Y_Cent,
+        ];
+        // Set the tooltip data of the comparison community
+        setTooltipCompData2({
+          ...pickingInfo,
+          coords: coords,
+        });
+
         setViewState({
           longitude: (ptA[0] + ptB[0]) / 2,
           latitude: (ptA[1] + ptB[1]) / 2,
@@ -775,6 +823,7 @@ export default function DeckMap({
           transitionDuration: 500,
           transitionInerpolator: new LinearInterpolator(),
         });
+        setTooltipCompData2(null);
         return;
       }
 
@@ -784,7 +833,7 @@ export default function DeckMap({
         searchEngine.length === 2
       ) {
         if (searchSource === 'search') {
-          console.log('L');
+          console.debug('L');
           setErrorCode(1);
           setBadSearch([badSearch[0], 1]);
           return;
@@ -793,17 +842,23 @@ export default function DeckMap({
         if (!compareSearch) {
           // User selected the primary community as the comparison community;
           // reset search data
-          console.debug('User selected the primary community as the comparison community');
+          console.debug(
+            'User selected the primary community as the comparison community'
+          );
           setSelectedCoord([]);
           setCommunitySearch(null);
           setUserPoints([[], []]);
           setViewState(RESET_VIEW);
+          setTooltipCompData1(null);
+          setTooltipCompData2(null);
           return;
         }
 
         // Update the search data
         // User unselected primary community, make the comparison one the primary one
-        console.debug('User unselected primary community, make the comparison one the primary one');
+        console.debug(
+          'User unselected primary community, make the comparison one the primary one'
+        );
         setCommunitySearch(compareSearch);
         setCompareSearch(null);
         setSelectedCoord(userPoints[1]);
@@ -816,6 +871,9 @@ export default function DeckMap({
           transitionInerpolator: new LinearInterpolator(),
         });
         setSelectedCompareCoord([]);
+        // Swap tooltip data
+        setTooltipCompData1(tooltipCompData2);
+        setTooltipCompData2(null);
         return;
       }
 
@@ -1223,25 +1281,6 @@ export default function DeckMap({
             ? obj.properties.CDTA2020
             : null;
 
-        // Boundary was clicked, update the tooltip data
-        const properties = obj?.properties;
-        const coords = properties && [properties.X_Cent, properties.Y_Cent];
-
-        // If we are adding the comparison boundary, update the second tooltip
-        if (addCompare) {
-          setTooltipCompData2({
-            pickingInfo: info,
-            tooltipProperties: properties,
-            coords: coords,
-          });
-        } else {
-          setTooltipCompData1({
-            pickingInfo: info,
-            tooltipProperties: properties,
-            coords: coords,
-          });
-        }
-
         if (
           (boundary == 'community' && obj.properties.Data_YN == 'Y') ||
           boundary == 'council'
@@ -1383,27 +1422,26 @@ export default function DeckMap({
             }}
           >
             <div style={TOOLTIP_STYLE}>
-              {compareSearch && (
-                <MapTooltip
-                  infoTransfer={infoTransfer}
-                  boundary={boundary}
-                  selectedChapter={selectedChapter}
-                  selectedCoord={selectedCoord}
-                  issues={issues}
-                  selectedDemographic={selectedDemographic}
-                  toggleTransit={toggleTransit}
-                  toggleBike={toggleBike}
-                  toggleWalk={toggleWalk}
-                  demographic={demographic}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  demoLookup={demoLookup}
-                  transportationModesArray={transportationModesArray}
-                  selectedDemoArray={selectedDemoArray}
-                  ethnicityColors={ethnicityColors}
-                  tooltipProperties={tooltipCompData1?.tooltipProperties}
-                  pickingInfo={tooltipCompData1?.pickingInfo}
-                />
-              )}
+              <MapTooltip
+                infoTransfer={infoTransfer}
+                boundary={boundary}
+                selectedChapter={selectedChapter}
+                selectedCoord={selectedCoord}
+                issues={issues}
+                selectedDemographic={selectedDemographic}
+                toggleTransit={toggleTransit}
+                toggleBike={toggleBike}
+                toggleWalk={toggleWalk}
+                demographic={demographic}
+                selectedSpecificIssue={selectedSpecificIssue}
+                demoLookup={demoLookup}
+                transportationModesArray={transportationModesArray}
+                selectedDemoArray={selectedDemoArray}
+                ethnicityColors={ethnicityColors}
+                tooltipProperties={tooltipCompData1?.properties}
+                pickingInfoObject={tooltipCompData1?.object}
+                pickingInfoIndex={tooltipCompData1?.index}
+              />
             </div>
           </div>
           {/* Second tooltip */}
@@ -1417,27 +1455,26 @@ export default function DeckMap({
             }}
           >
             <div style={TOOLTIP_STYLE}>
-              {compareSearch && (
-                <MapTooltip
-                  infoTransfer={infoTransfer}
-                  boundary={boundary}
-                  selectedChapter={selectedChapter}
-                  selectedCoord={selectedCoord}
-                  issues={issues}
-                  selectedDemographic={selectedDemographic}
-                  toggleTransit={toggleTransit}
-                  toggleBike={toggleBike}
-                  toggleWalk={toggleWalk}
-                  demographic={demographic}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  demoLookup={demoLookup}
-                  transportationModesArray={transportationModesArray}
-                  selectedDemoArray={selectedDemoArray}
-                  ethnicityColors={ethnicityColors}
-                  tooltipProperties={tooltipCompData2?.tooltipProperties}
-                  pickingInfo={tooltipCompData2?.pickingInfo}
-                />
-              )}
+              <MapTooltip
+                infoTransfer={infoTransfer}
+                boundary={boundary}
+                selectedChapter={selectedChapter}
+                selectedCoord={selectedCoord}
+                issues={issues}
+                selectedDemographic={selectedDemographic}
+                toggleTransit={toggleTransit}
+                toggleBike={toggleBike}
+                toggleWalk={toggleWalk}
+                demographic={demographic}
+                selectedSpecificIssue={selectedSpecificIssue}
+                demoLookup={demoLookup}
+                transportationModesArray={transportationModesArray}
+                selectedDemoArray={selectedDemoArray}
+                ethnicityColors={ethnicityColors}
+                tooltipProperties={tooltipCompData2?.properties}
+                pickingInfoObject={tooltipCompData2?.object}
+                pickingInfoIndex={tooltipCompData2?.index}
+              />
             </div>
           </div>
         </>

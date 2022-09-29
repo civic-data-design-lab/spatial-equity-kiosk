@@ -32,7 +32,8 @@ const MapTooltip = ({
   selectedDemoArray,
   ethnicityColors,
   // v Specific props for tooltip v
-  pickingInfo,
+  pickingInfoIndex,
+  pickingInfoObject,
   tooltipProperties,
 }) => {
   const getMetricCheck = () => {
@@ -71,7 +72,7 @@ const MapTooltip = ({
 
     const accessor = tooltipProperties
       ? tooltipProperties
-      : pickingInfo?.object;
+      : pickingInfoObject;
     if (!accessor) {
       console.error('Could not get data accessor for tooltip');
       return;
@@ -186,7 +187,7 @@ const MapTooltip = ({
           demographic !== '5' ? (
             `${tooltipProperties[selectedDemographic].toFixed(0)}%`
           ) : toggleTransit || toggleBike || toggleWalk ? (
-            `${selectedDemoArray[pickingInfo.index].toFixed(0)}%`
+            `${selectedDemoArray[pickingInfoIndex].toFixed(0)}%`
           ) : (
             ''
           )
