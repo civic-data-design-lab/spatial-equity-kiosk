@@ -342,8 +342,8 @@ a:active {
     width: 100%;
     height: fit-content;
     overflow-y: auto;
-    border: 1px solid black;
-    border-right: 1px solid black;
+    border: 2px solid black;
+    border-right: 2px solid black;
     border-top: none;
     background-color: white;
     z-index: 3;
@@ -361,7 +361,7 @@ a:active {
 
 .dropdown-item {
     background-color: white !important;
-    border: 1px solid black !important;
+    /* border: 2px solid black !important; */
     border-right: none;
     border-top: none;
     border-bottom: none !important;
@@ -925,7 +925,7 @@ a:active {
 .map-zoom-buttons-container {
     position: absolute;
     display: grid;
-    height: 4em;
+    height: 4em - 2px;
     width: 2em;
     grid-template-rows: auto auto;
     bottom: 0;
@@ -938,9 +938,9 @@ a:active {
 
 .map-zoom-buttons-container>* {
     font-size: 1.33rem;
-    padding: 0.25rem;
+    padding: 0.3rem;
     color: black;
-    border: 1px solid black;
+    border: 2px solid black;
     background-color: white;
     transition: 0.25s ease-in-out;
 
@@ -960,7 +960,7 @@ a:active {
     display: grid;
     grid-template-columns: 1fr 1fr;
     cursor: pointer;
-    border: 1px solid black;
+    border: 2px solid black;
     overflow: hidden;
 
 }
@@ -1075,8 +1075,8 @@ a:active {
     z-index: 3;
 
     background-color: white;
-    border: 1px solid black;
-    padding: 0 1rem;
+    border: 2px solid black;
+    padding: 0 .5rem;
     transition: 0.5s ease-in-out;
 }
 
@@ -1673,13 +1673,13 @@ input:checked+.slider:before {
 .big-button-active {
     color: white;
     background-color: black;
-    border: 1.5px solid white;
+    border: 2px solid white;
 }
 
 .big-button-inactive {
     color: black;
     background-color: white;
-    border: 1.5px solid black;
+    border: 2px solid black;
 }
 
 
