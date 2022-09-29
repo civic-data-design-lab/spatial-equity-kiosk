@@ -631,195 +631,198 @@ export default function DeckMap({
   function updateSearchEngine(searchEngine, searchEngineType) {
     //check if search engine is valid coordinates
     if (searchEngineType === 0 && selectedChapter === 3) {
-      if (selectedCoord.length === 2) {
-        const newCommunitySearch = getCommunitySearch(
-          searchEngine,
-          boundary
-        )[0];
-
-        if (newCommunitySearch.length > 0) {
-          if (
-            (searchSource === 'click' &&
-              newCommunitySearch[0] !== communitySearch) ||
-            searchSource === 'search'
-          ) {
-            setCommunitySearch(newCommunitySearch[0]);
-            setBadSearch([0, badSearch[1]]);
-            setUserPoints([searchEngine, userPoints[1]]);
-
-            if (!compareSearch) {
-              setViewState({
-                longitude: selectedCoord[0],
-                latitude: selectedCoord[1],
-                zoom: ZOOM_MAX - 0.5,
-                transitionDuration: 500,
-                transitionInerpolator: new LinearInterpolator(),
-              });
-            } else {
-              const ptA = selectedCoord;
-              const ptB = selectedCompareCoord;
-              const maxDistance = !mapDemographics ? 25 : 15;
-              const ptCompareDistance =
-                distance(point(ptA), point(ptB)) < maxDistance
-                  ? distance(point(ptA), point(ptB))
-                  : maxDistance;
-
-              const remapZoom = !mapDemographics
-                ? mapRange(
-                    ptCompareDistance,
-                    0.3,
-                    maxDistance,
-                    ZOOM_MAX,
-                    ZOOM_MIN
-                  )
-                : mapDemographics &&
-                  mapRange(
-                    ptCompareDistance,
-                    0.3,
-                    maxDistance,
-                    ZOOM_MAX,
-                    ZOOM_MIN
-                  ) -
-                    0.5 >
-                    ZOOM_MIN
-                ? mapRange(
-                    ptCompareDistance,
-                    0.3,
-                    maxDistance,
-                    ZOOM_MAX,
-                    ZOOM_MIN
-                  ) - 0.5
-                : ZOOM_MIN;
-              setViewState({
-                longitude: (ptA[0] + ptB[0]) / 2,
-                latitude: (ptA[1] + ptB[1]) / 2,
-                zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
-                transitionDuration: 500,
-                transitionInerpolator: new LinearInterpolator(),
-              });
-            }
-          } else {
-            if (searchSource === 'click') {
-              setSelectedCoord([]);
-              setCommunitySearch(null);
-              setUserPoints([[], userPoints[1]]);
-              setViewState(RESET_VIEW);
-            }
-          }
-        } else {
-          setErrorCode(0);
-          setBadSearch([1, badSearch[1]]);
-        }
-      } else {
+      if (selectedCoord.length !== 2) {
+        console.debug("No coordinates, reset the view")
         setUserPoints([[], []]);
         setViewState(RESET_VIEW);
+        return;
       }
+
+      const newCommunitySearch = getCommunitySearch(searchEngine, boundary)[0];
+
+      if (!newCommunitySearch.length) {
+        // Bad search, no results found
+        console.debug('A');
+        setErrorCode(0);
+        setBadSearch([1, badSearch[1]]);
+        return;
+      }
+
+      if (
+        searchSource !== 'search' &&
+        (searchSource !== 'click' || newCommunitySearch[0] === communitySearch)
+      ) {
+        if (searchSource === 'click') {
+          // User clicked on an already selected community, resets the community
+          // search and view state
+          console.debug('User clicked on already selected primary community');
+          setSelectedCoord([]);
+          setCommunitySearch(null);
+          setUserPoints([[], userPoints[1]]);
+          setViewState(RESET_VIEW);
+          setTooltipCompData1(null)
+        }
+        return;
+      }
+
+      console.debug('User clicked on map to get the primary community');
+      // User clicked on the map for the community search
+      setCommunitySearch(newCommunitySearch[0]);
+      setBadSearch([0, badSearch[1]]);
+      setUserPoints([searchEngine, userPoints[1]]);
+      
+
+      if (!compareSearch) {
+        setViewState({
+          longitude: selectedCoord[0],
+          latitude: selectedCoord[1],
+          zoom: ZOOM_MAX - 0.5,
+          transitionDuration: 500,
+          transitionInerpolator: new LinearInterpolator(),
+        });
+
+        return;
+      }
+      const ptA = selectedCoord;
+      const ptB = selectedCompareCoord;
+      const maxDistance = !mapDemographics ? 25 : 15;
+      const ptCompareDistance =
+        distance(point(ptA), point(ptB)) < maxDistance
+          ? distance(point(ptA), point(ptB))
+          : maxDistance;
+
+      const remapZoom = !mapDemographics
+        ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
+        : mapDemographics &&
+          mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN) -
+            0.5 >
+            ZOOM_MIN
+        ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN) -
+          0.5
+        : ZOOM_MIN;
+      setViewState({
+        longitude: (ptA[0] + ptB[0]) / 2,
+        latitude: (ptA[1] + ptB[1]) / 2,
+        zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
+        transitionDuration: 500,
+        transitionInerpolator: new LinearInterpolator(),
+      });
     }
 
+    // SELECT COMPARISON COMMUNITY
     if (searchEngineType === 1 && selectedChapter === 3) {
-      if (selectedCompareCoord.length === 2) {
-        const newCompareSearch = getCommunitySearch(searchEngine, boundary)[0];
-        if (
-          newCompareSearch.length > 0 &&
-          newCompareSearch[0] !== communitySearch &&
-          ((searchSource === 'click' &&
-            newCompareSearch[0] !== compareSearch) ||
-            searchSource === 'search') &&
-          selectedCoord.length === 2
-        ) {
-          setCompareSearch(newCompareSearch[0]);
-          setBadSearch([badSearch[0], 0]);
-          const ptA = selectedCoord;
-          const ptB = selectedCompareCoord;
-          const maxDistance = !mapDemographics ? 25 : 15;
-          const ptCompareDistance =
-            distance(point(ptA), point(ptB)) < maxDistance
-              ? distance(point(ptA), point(ptB))
-              : maxDistance;
-
-          const remapZoom = !mapDemographics
-            ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
-            : mapDemographics &&
-              mapRange(
-                ptCompareDistance,
-                0.3,
-                maxDistance,
-                ZOOM_MAX,
-                ZOOM_MIN
-              ) -
-                0.5 >
-                ZOOM_MIN
-            ? mapRange(
-                ptCompareDistance,
-                0.3,
-                maxDistance,
-                ZOOM_MAX,
-                ZOOM_MIN
-              ) - 0.5
-            : ZOOM_MIN;
-
-          setUserPoints([userPoints[0], searchEngine]);
-
-          setViewState({
-            longitude: (ptA[0] + ptB[0]) / 2,
-            latitude: (ptA[1] + ptB[1]) / 2,
-            zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
-            transitionDuration: 500,
-            transitionInerpolator: new LinearInterpolator(),
-          });
-        } else if (
-          newCompareSearch.length > 0 &&
-          newCompareSearch[0] === compareSearch &&
-          searchEngine.length === 2 &&
-          searchSource === 'click'
-        ) {
-          setSelectedCompareCoord([]);
-          setCompareSearch(null);
-          setUserPoints([userPoints[0], []]);
-          setViewState({
-            longitude: selectedCoord[0],
-            latitude: selectedCoord[1],
-            zoom: ZOOM_MAX - 0.5,
-            transitionDuration: 500,
-            transitionInerpolator: new LinearInterpolator(),
-          });
-        } else if (
-          newCompareSearch.length > 0 &&
-          newCompareSearch[0] === communitySearch &&
-          searchEngine.length === 2
-        ) {
-          if (searchSource === 'search') {
-            setErrorCode(1);
-            setBadSearch([badSearch[0], 1]);
-          }
-          if (searchSource === 'click') {
-            if (!compareSearch) {
-              setSelectedCoord([]);
-              setCommunitySearch(null);
-              setUserPoints([[], []]);
-              setViewState(RESET_VIEW);
-            } else {
-              setCommunitySearch(compareSearch);
-              setCompareSearch(null);
-              setSelectedCoord(userPoints[1]);
-              setUserPoints([userPoints[1], []]);
-              setViewState({
-                longitude: userPoints[1][0],
-                latitude: userPoints[1][1],
-                zoom: ZOOM_MAX - 0.5,
-                transitionDuration: 500,
-                transitionInerpolator: new LinearInterpolator(),
-              });
-              setSelectedCompareCoord([]);
-            }
-          }
-        } else {
-          if (searchEngineType == 1) {
-            setErrorCode(0);
-            setBadSearch([badSearch[0], 1]);
-          }
-        }
+      if (selectedCompareCoord.length !== 2) {
+        return;
       }
+
+      const newCompareSearch = getCommunitySearch(searchEngine, boundary)[0];
+      if (
+        newCompareSearch.length > 0 &&
+        newCompareSearch[0] !== communitySearch &&
+        ((searchSource === 'click' && newCompareSearch[0] !== compareSearch) ||
+          searchSource === 'search') &&
+        selectedCoord.length === 2
+      ) {
+        // User clicked on the map to get the comparison community
+        console.debug('User clicked on map to get comparison community');
+        setCompareSearch(newCompareSearch[0]);
+        setBadSearch([badSearch[0], 0]);
+        const ptA = selectedCoord;
+        const ptB = selectedCompareCoord;
+        const maxDistance = !mapDemographics ? 25 : 15;
+        const ptCompareDistance =
+          distance(point(ptA), point(ptB)) < maxDistance
+            ? distance(point(ptA), point(ptB))
+            : maxDistance;
+
+        const remapZoom = !mapDemographics
+          ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
+          : mapDemographics &&
+            mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN) -
+              0.5 >
+              ZOOM_MIN
+          ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN) -
+            0.5
+          : ZOOM_MIN;
+
+        setUserPoints([userPoints[0], searchEngine]);
+
+        setViewState({
+          longitude: (ptA[0] + ptB[0]) / 2,
+          latitude: (ptA[1] + ptB[1]) / 2,
+          zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
+          transitionDuration: 500,
+          transitionInerpolator: new LinearInterpolator(),
+        });
+        return;
+      }
+
+      if (
+        newCompareSearch.length > 0 &&
+        newCompareSearch[0] === compareSearch &&
+        searchEngine.length === 2 &&
+        searchSource === 'click'
+      ) {
+        // Clicked to get comparison community
+        console.debug('User clicked on map to unselect comparison community');
+        setSelectedCompareCoord([]);
+        setCompareSearch(null);
+        setUserPoints([userPoints[0], []]);
+        setViewState({
+          longitude: selectedCoord[0],
+          latitude: selectedCoord[1],
+          zoom: ZOOM_MAX - 0.5,
+          transitionDuration: 500,
+          transitionInerpolator: new LinearInterpolator(),
+        });
+        return;
+      }
+
+      if (
+        newCompareSearch.length > 0 &&
+        newCompareSearch[0] === communitySearch &&
+        searchEngine.length === 2
+      ) {
+        if (searchSource === 'search') {
+          console.log('L');
+          setErrorCode(1);
+          setBadSearch([badSearch[0], 1]);
+          return;
+        }
+
+        if (!compareSearch) {
+          // User selected the primary community as the comparison community;
+          // reset search data
+          console.debug('User selected the primary community as the comparison community');
+          setSelectedCoord([]);
+          setCommunitySearch(null);
+          setUserPoints([[], []]);
+          setViewState(RESET_VIEW);
+          return;
+        }
+
+        // Update the search data
+        // User unselected primary community, make the comparison one the primary one
+        console.debug('User unselected primary community, make the comparison one the primary one');
+        setCommunitySearch(compareSearch);
+        setCompareSearch(null);
+        setSelectedCoord(userPoints[1]);
+        setUserPoints([userPoints[1], []]);
+        setViewState({
+          longitude: userPoints[1][0],
+          latitude: userPoints[1][1],
+          zoom: ZOOM_MAX - 0.5,
+          transitionDuration: 500,
+          transitionInerpolator: new LinearInterpolator(),
+        });
+        setSelectedCompareCoord([]);
+        return;
+      }
+
+      // No above conditions matched, bad search
+      console.debug('User searched for comparison community but failed');
+      setErrorCode(0);
+      setBadSearch([badSearch[0], 1]);
     }
   }
 
