@@ -31,7 +31,7 @@ import _RANKINGS from '../data/rankings.json';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { project } from 'deck.gl';
 import MapTooltip, { TOOLTIP_STYLE } from './MapTooltip';
-import { getTransportationModes, mapRange } from '../utils/functions';
+import { debounce, getTransportationModes, mapRange } from '../utils/functions';
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -268,14 +268,18 @@ export default function DeckMap({
   const updateTooltipPositions = () => {
     // Update tooltip 1
     if (tooltipCompData1?.tooltipProperties) {
-      const projection = mapRef.current?.getMap()?.project(tooltipCompData1.coords)
-      setTooltipCompData1({...tooltipCompData1, pos: projection})
+      let projection = mapRef.current?.getMap()?.project(tooltipCompData1.coords)
+      if (projection !== tooltipCompData1.pos) {
+        setTooltipCompData1({...tooltipCompData1, pos: projection})
+      }
     }
 
     // Update tooltip 2
     if (tooltipCompData2?.tooltipProperties) {
-      const projection = mapRef.current?.getMap()?.project(tooltipCompData2.coords)
-      setTooltipCompData2({...tooltipCompData2, pos: projection})
+      let projection = mapRef.current?.getMap()?.project(tooltipCompData2.coords)
+      if (projection !== tooltipCompData2.pos) {
+        setTooltipCompData2({...tooltipCompData2, pos: projection})
+      }  
     }
   }
 
@@ -442,7 +446,7 @@ export default function DeckMap({
   const onViewStateChange = useCallback(
     ({ viewState }) => {
       // console.log('viewstate', viewState, 'newViewState', newViewState);
-
+      debounce(updateTooltipPositions, 50)()
       // if (!mapDemographics) {
       //   setViewState(() => ({
       //     primary: viewState,
@@ -1370,6 +1374,7 @@ export default function DeckMap({
             zIndex: '1',
             left: tooltipCompData1.pos.x,
             top: tooltipCompData1.pos.y,
+            transition: 'all 100ms ease-in-out'
           }}
         >
           <div style={TOOLTIP_STYLE}>
@@ -1403,6 +1408,7 @@ export default function DeckMap({
             zIndex: '1',
             left: tooltipCompData2.pos.x,
             top: tooltipCompData2.pos.y,
+            transition: 'all 100ms ease-in-out'
           }}
         >
           <div style={TOOLTIP_STYLE}>
@@ -1436,7 +1442,6 @@ export default function DeckMap({
         style={{ backgroundColor: 'black' }}
         initialViewState={viewState}
         onViewStateChange={onViewStateChange}
-        onInteractionStateChange={updateTooltipPositions}
         views={
           showMap || (!showMap && !selectedSpecificIssue)
             ? mapDemographics
