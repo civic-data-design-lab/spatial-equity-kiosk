@@ -6,9 +6,9 @@
 
 
 :root {
-    --health: #F93080;
-    --environment: #54278F;
-    --infrastructure: #146FD1;
+    --health: #E8327F;
+    --environment: #F5C801;
+    --infrastructure: #025FBE;
 }
 
 
@@ -201,15 +201,15 @@ a:active {
 
 
 .Health {
-    color: #F93080;
+    color: #E8327F;
 }
 
 .Environment {
-    color: #54278F;
+    color: #F5C801;
 }
 
 .Mobility {
-    color: #146FD1;
+    color: #025FBE;
 }
 
 
@@ -325,15 +325,15 @@ a:active {
 }
 
 .dropdown-bar-Health {
-    border: 2px solid #F93080;
+    border: 2px solid #E8327F;
 }
 
 .dropdown-bar-Environment {
-    border: 2px solid #54278F;
+    border: 2px solid #F5C801;
 }
 
 .dropdown-bar-Mobility {
-    border: 2px solid #146FD1;
+    border: 2px solid #025FBE;
     ;
 }
 
