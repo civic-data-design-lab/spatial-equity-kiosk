@@ -2106,7 +2106,7 @@ input:checked+.slider:before {
 
 .smaller-text {
     font-size: 0.75rem;
-    font-weight: 300;
+    font-weight: 500;
 }
 
 .no-text {
