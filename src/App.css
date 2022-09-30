@@ -6,9 +6,9 @@
 
 
 :root {
-    --health: #E8327F;
-    --environment: #F5C801;
-    --infrastructure: #025FBE;
+    --health: #e85be8;
+    --environment: #e9ba50;
+    --infrastructure: #5080ea;
 }
 
 
@@ -201,15 +201,15 @@ a:active {
 
 
 .Health {
-    color: #E8327F;
+    color: #e85be8;
 }
 
 .Environment {
-    color: #F5C801;
+    color: #e9ba50;
 }
 
 .Mobility {
-    color: #025FBE;
+    color: #5080ea;
 }
 
 
@@ -325,15 +325,15 @@ a:active {
 }
 
 .dropdown-bar-Health {
-    border: 2px solid #E8327F;
+    border: 2px solid #e85be8;
 }
 
 .dropdown-bar-Environment {
-    border: 2px solid #F5C801;
+    border: 2px solid #e9ba50;
 }
 
 .dropdown-bar-Mobility {
-    border: 2px solid #025FBE;
+    border: 2px solid #5080ea;
     ;
 }
 
@@ -568,7 +568,7 @@ a:active {
     padding: 0.25rem;
     align-items: center;
     height: 100%;
-    border: 1.5px solid white;
+    border: 2px solid white;
     transition: background-color 0.5s, color 0.5s;
 }
 
@@ -631,8 +631,8 @@ a:active {
 .issues-tile-text-container {
     display: flex;
     flex-direction: column;
-    row-gap: 1.5rem;
-    padding-right: 1.5rem;
+    row-gap: 1rem;
+    padding-right: 0rem;
 
 }
 
@@ -884,7 +884,7 @@ a:active {
 .tooltip-grid {
     display: grid;
     grid-template-columns: auto 1fr 4fr;
-    grid-gap: 1px;
+    grid-gap: 2px;
     justify-items: left;
 }
 
@@ -925,7 +925,7 @@ a:active {
 .map-zoom-buttons-container {
     position: absolute;
     display: grid;
-    height: 4em - 2px;
+    height: 4em;
     width: 2em;
     grid-template-rows: auto auto;
     bottom: 0;
@@ -1206,7 +1206,7 @@ a:active {
 }
 
 .info-tooltip {
-    border: 1px solid black;
+    border: 2px solid black;
     background-color: white;
     color: black;
     padding: 0.25rem 0.5rem;
@@ -2154,7 +2154,7 @@ input:checked+.slider:before {
     justify-content: center;
     height: 6vh;
     background-color: white;
-    top: 47vh;
+    top: 45.1vh;
     left: 0vw;
     transition: 0.5s ease-in-out;
     /* border-top-right-radius: 10%; */
@@ -2171,12 +2171,13 @@ input:checked+.slider:before {
 
 .collapse-map-tooltip {
     position: absolute;
-    left: 6vh;
+    left: 4vh;
     font-size: 0.75rem;
+    font-weight:500;
     background-color: white;
-    border: 1px solid black;
+    border: 2px solid black;
     color: black;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.5rem;
     display: flex;
     flex-direction: row;
     /* border-radius: 8px; */
@@ -2314,7 +2315,7 @@ input:checked+.slider:before {
 .issue-tile-image {
     object-fit: cover;
     width: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     cursor: pointer;
 }
 
