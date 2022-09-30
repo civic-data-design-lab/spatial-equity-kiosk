@@ -177,6 +177,11 @@ small {
     color: gray;
 }
 
+/* List */
+ol, ul {
+    padding-left: 1rem !important;
+}
+
 
 /* Links */
 a:link {
@@ -625,7 +630,7 @@ a:active {
 }
 
 .issues-tile-body>* {
-    padding: 0 1rem;
+    padding: 0 1.5rem;
 }
 
 .issues-tile-text-container {
@@ -674,6 +679,7 @@ a:active {
 .issues-chapters {
     flex-grow: 1;
     padding: 1em;
+    padding-left: 1.5rem;
     word-wrap: normal;
     transition: background-color 0.5s, color 0.5s, flex 1s, border-bottom-color 0.5s;
     background-color: white;
@@ -746,7 +752,7 @@ a:active {
     font-size: 1rem;
     opacity: 1;
     margin: 0rem !important;
-    padding: 1rem 1rem !important;
+    padding: 1.5rem 1.5rem !important;
     pointer-events: all;
     overflow: auto;
 }
@@ -1502,6 +1508,7 @@ a:active {
     max-height: 100vh;
     font-size: 1.25rem;
     opacity: 1;
+    padding: 0.5rem;
 }
 
 .no-height {
@@ -1923,11 +1930,13 @@ input:checked+.slider:before {
 .link-underline>span:hover {
     content: "";
     cursor: pointer;
+    font-weight: 500 !important;
 }
 
 .link-underline>span:hover::before {
     content: "→";
     cursor: pointer;
+    font-weight: 500 !important;
 }
 
 .citywide-issue-dropdown {
