@@ -388,7 +388,7 @@ const IssueHistogram = ({
       .attr('y2', height - margin.bottom)
       .attr('x2', xscale(avgIndex + 1))
       .style('stroke', 'black')
-      .style('stroke-width', 1)
+      .style('stroke-width', 2)
       .attr('index', avgIndex);
 
     // draw selected Lines
@@ -660,62 +660,211 @@ const IssueHistogram = ({
 
     // avoid overlapping between selected text and avg text
 
-    // case1,2: about selectedTex
-    svg.select('#selectedTextUp').attr('text-anchor', 'end');
-    svg.select('#selectedTextDown').attr('text-anchor', 'end');
+    if (!compareSearch) {
+      // case1,2: about selectedText
+      svg.select('#selectedTextUp').attr('text-anchor', 'end');
+      svg.select('#selectedTextDown').attr('text-anchor', 'end');
 
-    // case1: selected on the right, avg left
-    let textPadding = 2;
-    let selectedTextWidth = svg
-      .select('#selectedTextDown')
-      .node()
-      .getBoundingClientRect().width;
-    let interval =
-      Number(svg.select('#selectedLine').attr('x1')) -
-      Number(svg.select('#avgLine').attr('x1'));
+      // case1: selected on the right, avg left
+      let textPadding = 2;
+      let selectedTextWidth = svg
+        .select('#selectedTextDown')
+        .node()
+        .getBoundingClientRect().width;
+      let interval =
+        Number(svg.select('#selectedLine').attr('x1')) -
+        Number(svg.select('#avgLine').attr('x1'));
 
-    if (interval > 0 && interval - selectedTextWidth < textPadding) {
-      svg.select('#selectedTextUp').attr('text-anchor', 'start');
-      svg.select('#selectedTextDown').attr('text-anchor', 'start');
-    }
+      if (interval > 0 && interval - selectedTextWidth < textPadding) {
+        svg.select('#selectedTextUp').attr('text-anchor', 'start');
+        svg.select('#selectedTextDown').attr('text-anchor', 'start');
+      }
 
-    // case2: selected on the left-end with the min text
-    let selectedValueWidth = svg
-      .select('#selectedTextUp')
-      .node()
-      .getBoundingClientRect().width;
-    let minValueWidth = svg
-      .select('#minTextUp')
-      .node()
-      .getBoundingClientRect().width;
-    interval =
-      Number(svg.select('#selectedLine').attr('x1')) -
-      Number(svg.select('#minLine').attr('x1'));
+      // case2: selected on the left-end with the min text
+      let selectedValueWidth = svg
+        .select('#selectedTextUp')
+        .node()
+        .getBoundingClientRect().width;
+      let minValueWidth = svg
+        .select('#minTextUp')
+        .node()
+        .getBoundingClientRect().width;
+      interval =
+        Number(svg.select('#selectedLine').attr('x1')) -
+        Number(svg.select('#minLine').attr('x1'));
 
-    if (
-      interval > 0 &&
-      interval - (selectedValueWidth + minValueWidth * 0.5) < textPadding
-    ) {
-      svg.select('#selectedTextUp').attr('text-anchor', 'start');
-      svg.select('#selectedTextDown').attr('text-anchor', 'start');
-    }
+      if (
+        interval > 0 &&
+        interval - (selectedValueWidth + minValueWidth * 0.5) < textPadding
+      ) {
+        svg.select('#selectedTextUp').attr('text-anchor', 'start');
+        svg.select('#selectedTextDown').attr('text-anchor', 'start');
+      }
 
-    // case3: selected on the left, avg right
-    let avgTextWidth = svg
-      .select('#avgTextDown')
-      .node()
-      .getBoundingClientRect().width;
-    interval =
-      Number(svg.select('#avgLine').attr('x1')) -
-      Number(svg.select('#selectedLine').attr('x1'));
-    if (svg.select('#selectedTextUp').attr('text-anchor') == 'start')
-      avgTextWidth += selectedValueWidth;
-    if (interval > 0 && interval - avgTextWidth < textPadding) {
-      svg.select('#avgTextUp').attr('text-anchor', 'start');
-      svg.select('#avgTextDown').attr('text-anchor', 'start');
-    } else {
-      svg.select('#avgTextUp').attr('text-anchor', 'end');
-      svg.select('#avgTextDown').attr('text-anchor', 'end');
+      // case3: selected on the left, avg right
+      let avgTextWidth = svg
+        .select('#avgTextDown')
+        .node()
+        .getBoundingClientRect().width;
+      interval =
+        Number(svg.select('#avgLine').attr('x1')) -
+        Number(svg.select('#selectedLine').attr('x1'));
+      if (svg.select('#selectedTextUp').attr('text-anchor') == 'start')
+        avgTextWidth += selectedValueWidth;
+      if (interval > 0 && interval - avgTextWidth < textPadding) {
+        svg.select('#avgTextUp').attr('text-anchor', 'start');
+        svg.select('#avgTextDown').attr('text-anchor', 'start');
+      } else {
+        svg.select('#avgTextUp').attr('text-anchor', 'end');
+        svg.select('#avgTextDown').attr('text-anchor', 'end');
+      }
+    } else if (compareSearch && svg.select('#compareLine')) {
+      // reset
+      svg.select('#selectedTextUp').attr('text-anchor', 'end');
+      svg.select('#selectedTextDown').attr('text-anchor', 'end');
+      svg.select('#compareTextUp').attr('text-anchor', 'end');
+      svg.select('#compareTextDown').attr('text-anchor', 'end');
+      svg.select('#avgTextUp').attr('visibility', 'visible');
+      svg.select('#avgTextDown').attr('visibility', 'visible');
+
+      // Define left line and right line
+      let leftLine;
+      let rightLine;
+
+      if (
+        Number(svg.select('#selectedLine').attr('x1')) <
+        Number(svg.select('#compareLine').attr('x1'))
+      ) {
+        leftLine = 'selected';
+        rightLine = 'compare';
+      } else {
+        leftLine = 'compare';
+        rightLine = 'selected';
+      }
+
+      // case1: left line on the left-end with the min text
+      let textPadding = 2;
+      let selectedTextWidth = svg
+        .select(`#${leftLine}TextDown`)
+        .node()
+        .getBoundingClientRect().width;
+      let minValueWidth = svg
+        .select('#minTextUp')
+        .node()
+        .getBoundingClientRect().width;
+      let interval =
+        Number(svg.select('#selectedLine').attr('x1')) -
+        Number(svg.select('#minLine').attr('x1'));
+
+      if (
+        interval > 0 &&
+        interval - (selectedTextWidth + minValueWidth * 0.5) < textPadding
+      ) {
+        svg.select(`#${leftLine}TextUp`).attr('text-anchor', 'start');
+        svg.select(`#${leftLine}TextDown`).attr('text-anchor', 'start');
+      }
+
+      // case2: right line on the left-end with the min text
+      selectedTextWidth = svg
+        .select(`#${rightLine}TextDown`)
+        .node()
+        .getBoundingClientRect().width;
+      minValueWidth = svg
+        .select('#minTextUp')
+        .node()
+        .getBoundingClientRect().width;
+      interval =
+        Number(svg.select('#selectedLine').attr('x1')) -
+        Number(svg.select('#minLine').attr('x1'));
+
+      if (
+        interval > 0 &&
+        interval - (selectedTextWidth + minValueWidth * 0.5) < textPadding
+      ) {
+        svg.select(`#${rightLine}TextUp`).attr('text-anchor', 'start');
+        svg.select(`#${rightLine}TextDown`).attr('text-anchor', 'start');
+      }
+
+      // case3: leftLine on the right, avg left
+      selectedTextWidth = svg
+        .select(`#${leftLine}TextDown`)
+        .node()
+        .getBoundingClientRect().width;
+      interval =
+        Number(svg.select(`#${leftLine}Line`).attr('x1')) -
+        Number(svg.select('#avgLine').attr('x1'));
+
+      if (interval > 0 && interval - selectedTextWidth < textPadding) {
+        svg.select(`#${leftLine}TextUp`).attr('text-anchor', 'start');
+        svg.select(`#${leftLine}TextDown`).attr('text-anchor', 'start');
+      }
+
+      // case4: rightLine on the right, avg left
+      selectedTextWidth = svg
+        .select(`#${rightLine}TextDown`)
+        .node()
+        .getBoundingClientRect().width;
+      interval =
+        Number(svg.select(`#${rightLine}Line`).attr('x1')) -
+        Number(svg.select('#avgLine').attr('x1'));
+
+      if (interval > 0 && interval - selectedTextWidth < textPadding) {
+        svg.select(`#${rightLine}TextUp`).attr('text-anchor', 'start');
+        svg.select(`#${rightLine}TextDown`).attr('text-anchor', 'start');
+      }
+
+      // case5: right line overlapped with left line
+      if (svg.select(`#${rightLine}TextUp`).attr('text-anchor') == 'end') {
+        let rightTextWidth = svg
+          .select(`#${rightLine}TextDown`)
+          .node()
+          .getBoundingClientRect().width;
+        let leftTextWidth = svg
+          .select(`#${leftLine}TextDown`)
+          .node()
+          .getBoundingClientRect().width;
+        interval =
+          Number(svg.select(`#${rightLine}Line`).attr('x1')) -
+          Number(svg.select(`#${leftLine}Line`).attr('x1'));
+        if (svg.select(`#${leftLine}TextUp`).attr('text-anchor') == 'start')
+          interval -= leftTextWidth;
+        if (interval > 0 && interval - rightTextWidth < textPadding) {
+          svg.select(`#${rightLine}TextUp`).attr('text-anchor', 'start');
+          svg.select(`#${rightLine}TextDown`).attr('text-anchor', 'start');
+        }
+      }
+
+      // case6: Hide avg line
+      if (
+        Number(svg.select(`#${leftLine}Line`).attr('x1')) <
+          Number(svg.select('#avgLine').attr('x1')) &&
+        Number(svg.select('#avgLine').attr('x1')) <
+          Number(svg.select(`#${rightLine}Line`).attr('x1'))
+      ) {
+        let rightTextWidth = svg
+          .select(`#${rightLine}TextDown`)
+          .node()
+          .getBoundingClientRect().width;
+        let leftTextWidth = svg
+          .select(`#${leftLine}TextDown`)
+          .node()
+          .getBoundingClientRect().width;
+        let avgTextWidth = svg
+          .select('#avgTextDown')
+          .node()
+          .getBoundingClientRect().width;
+        let interval =
+          Number(svg.select(`#${rightLine}Line`).attr('x1')) -
+          Number(svg.select(`#${leftLine}Line`).attr('x1'));
+        if (svg.select(`#${leftLine}TextUp`).attr('text-anchor') == 'start')
+          interval -= leftTextWidth;
+        if (svg.select(`#${rightLine}TextUp`).attr('text-anchor') == 'end')
+          interval -= rightTextWidth;
+        if (interval > 0 && interval - avgTextWidth < textPadding) {
+          svg.select('#avgTextUp').attr('visibility', 'hidden');
+          svg.select('#avgTextDown').attr('visibility', 'hidden');
+        }
+      }
     }
   }, [
     colorRamps,
