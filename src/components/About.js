@@ -147,7 +147,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   <a
                     style={{ textDecorationLine: "underline" }}
                     href={
-                      "https://www.google.com/url?q=https://www.transalt.org/committees&sa=D&source=docs&ust=1662266468853716&usg=AOvVaw2kd6M879VV3M8JNi-ZiMZ9"
+                      "https://www.transalt.org/committees"
                     }
                     target={"_blank"}
                   >
