@@ -157,7 +157,8 @@ export default function IssuesTileView({
                       } position-absolute info-tooltip smaller-text`}
                     >
                       <p className={'m-0'}>
-                        {`Source: ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}`}
+                        {`Source: ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}. ${issues.specific_issues_data[selectedSpecificIssue].year}.
+                        `}
                       </p>
                     </div>
                   </div>
