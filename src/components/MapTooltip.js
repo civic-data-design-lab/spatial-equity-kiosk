@@ -3,6 +3,7 @@ import {
   getBoroughName,
   getTooltipBounds,
   getTransportationModes,
+  getNumber,
 } from '../utils/functions';
 
 export const TOOLTIP_STYLE = {
@@ -92,11 +93,7 @@ const MapTooltip = ({
 
     //value for specific metric and boundary
     const value = accessor[infoTransfer.selectedMetric]
-      ? accessor[infoTransfer.selectedMetric] >= 10
-        ? accessor[infoTransfer.selectedMetric].toFixed(0)
-        : accessor[infoTransfer.selectedMetric] >= 1
-        ? accessor[infoTransfer.selectedMetric].toFixed(1)
-        : accessor[infoTransfer.selectedMetric].toFixed(2)
+      ? getNumber(accessor[infoTransfer.selectedMetric])
       : '';
 
     //get boundary ranking
@@ -203,11 +200,7 @@ const MapTooltip = ({
 
     //value for specific metric and boundary
     const value = accessor[infoTransfer.selectedMetric]
-      ? accessor[infoTransfer.selectedMetric] >= 10
-        ? accessor[infoTransfer.selectedMetric].toFixed(0)
-        : accessor[infoTransfer.selectedMetric] >= 1
-        ? accessor[infoTransfer.selectedMetric].toFixed(1)
-        : accessor[infoTransfer.selectedMetric].toFixed(2)
+      ? getNumber(accessor[infoTransfer.selectedMetric])
       : '';
 
     const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
@@ -260,7 +253,7 @@ const MapTooltip = ({
     if (demographic !== '1' && demographic !== '5') {
       return (
         <div className="map-tooltip-info">
-          {obj.properties[selectedDemographic].toFixed(0)}% of {midSentence}{' '}
+          {getNumber(obj.properties[selectedDemographic])}% of {midSentence}{' '}
           {sentenceEnd[Number(demographic)]}.
         </div>
       );
@@ -271,8 +264,8 @@ const MapTooltip = ({
       return (
         <div className="map-tooltip-info">
           {toggleTransit || toggleBike || toggleWalk
-            ? `${obj.properties[selectedDemographic].toFixed(
-                0
+            ? `${getNumber(
+                obj.properties[selectedDemographic]
               )}% of ${midSentence} ${transportationModes}.`
             : `Check off one of the transportation options above the demographics legend to see how people are getting around.`}
         </div>

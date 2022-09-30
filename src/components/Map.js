@@ -225,26 +225,6 @@ export default function DeckMap({
       : communities[communitySearch]
     : null;
 
-  // get average for tooltip
-  // useEffect(() => {
-  //   if (infoTransfer.selectedMetric) {
-  //     let rawIssueData = _RANKINGS[boundary][infoTransfer.selectedMetric];
-  //     let valueArray = [];
-
-  //     for (let [index, value] of Object.entries(rawIssueData)) {
-  //       valueArray.push(Number(Number(value.data).toFixed(3)));
-  //     }
-
-  //     // get the corresponding index of average value
-  //     let sum = valueArray.reduce((a, b) => a + b, 0);
-  //     setMetricAverage(
-  //       Number(sum / valueArray.length) >= 10
-  //         ? Number((sum / valueArray.length).toFixed(1))
-  //         : Number((sum / valueArray.length).toFixed(3))
-  //     );
-  //   }
-  // }, [issues, selectedSpecificIssue, boundary]);
-
   useEffect(() => {
     // Remove comparison tooltips if the user deselects comparisons from the
     // search bar

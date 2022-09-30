@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
 import rankings from '../data/rankings.json';
+import { getNumber } from '../utils/functions';
 
 const RankingTable = ({
   issues,
@@ -68,13 +69,7 @@ const RankingTable = ({
                       >
                         {entry.community}
                       </td>
-                      <td>
-                        {Number(entry.data) > 10
-                          ? Number(entry.data).toFixed(0)
-                          : Number(entry.data) > 1
-                          ? Number(entry.data).toFixed(1)
-                          : Number(entry.data)}
-                      </td>
+                      <td>{getNumber(Number(entry.data))}</td>
                     </tr>
                   );
                 })
@@ -108,11 +103,7 @@ const RankingTable = ({
                         {entry.community}
                       </td>
                       <td>
-                        {Number(entry.data) > 10
-                          ? Number(entry.data).toFixed(0)
-                          : Number(entry.data) > 1
-                          ? Number(entry.data).toFixed(1)
-                          : Number(entry.data)}
+                        {getNumber(Number(entry.data))}
                         {issues.specific_issues_data[selectedSpecificIssue]
                           .json_id === 'F28_Trf_De'
                           ? ' milion'
@@ -152,11 +143,7 @@ ${
                         {entry.community}
                       </td>
                       <td>
-                        {Number(entry.data) > 10
-                          ? Number(entry.data).toFixed(0)
-                          : Number(entry.data) > 1
-                          ? Number(entry.data).toFixed(1)
-                          : Number(entry.data)}
+                        {getNumber(Number(entry.data))}
                         {issues.specific_issues_data[selectedSpecificIssue]
                           .json_id === 'F28_Trf_De'
                           ? ' milion'
@@ -198,11 +185,7 @@ ${
                         {entry.community}
                       </td>
                       <td>
-                        {Number(entry.data) > 10
-                          ? Number(entry.data).toFixed(0)
-                          : Number(entry.data) > 1
-                          ? Number(entry.data).toFixed(1)
-                          : Number(entry.data)}
+                        {getNumber(Number(entry.data))}
                         {issues.specific_issues_data[selectedSpecificIssue]
                           .json_id === 'F28_Trf_De'
                           ? ' milion'

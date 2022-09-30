@@ -1,3 +1,5 @@
+import { min } from 'd3-array';
+
 /**
  * TODO:
  *
@@ -56,7 +58,7 @@ export function getBoroughName(boroughId) {
 
 /**
  * Returns a title string of the tooltip's bounds given the boundary type.
- * 
+ *
  * @param {string} boundary
  * @returns {string}
  */
@@ -65,8 +67,7 @@ export function getTooltipBounds(boundary) {
     return 'Community Board';
   }
   return 'City Council District';
-};
-
+}
 
 export function debounce(fn, ms) {
   let timer;
@@ -77,4 +78,40 @@ export function debounce(fn, ms) {
       fn.apply(this, args);
     }, ms);
   };
+}
+
+/**
+ * Returns a title string of the tooltip's bounds given the boundary type.
+ *
+ * @param {number} value
+ * @returns {number}
+ */
+
+export function getNumber(value) {
+  if (typeof value === 'number') {
+    const num = Number(value);
+    const string = value.toString();
+
+    return num == 0
+      ? num
+      : num > 10 || (string[string.length - 1] == 0 && string[0] != 0)
+      ? Number(num.toFixed(0))
+      : num > 1
+      ? Number(num.toFixed(1))
+      : num > 0.1
+      ? Number(num.toFixed(2))
+      : Number(num);
+  }
+  if (typeof value === 'object') {
+    const minVal = min(value);
+    const stringMinVal = minVal.toString();
+    return minVal > 10 ||
+      (stringMinVal[stringMinVal.length - 1] == 0 && stringMinVal[0] != 0)
+      ? value.map((d) => d.toFixed(0))
+      : min(value) >= 1
+      ? value.map((d) => d.toFixed(1))
+      : min(value) >= 0.1
+      ? value.map((d) => d.toFixed(2))
+      : value;
+  }
 }

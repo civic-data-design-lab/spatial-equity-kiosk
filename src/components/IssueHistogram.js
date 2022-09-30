@@ -8,17 +8,9 @@ import _COUNCILS from '../texts/councildistricts.json';
 
 import { useResizeObserver } from '../utils/useResizeObserver';
 import { getIssueType } from '../utils/getIssueType';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faMinus,
-  faPlus,
-  faCaretDown,
-  faCaretUp,
-} from '@fortawesome/free-solid-svg-icons';
-import Table from 'react-bootstrap/Table';
-import rankings from '../data/rankings.json';
+
 import RankingTable from './RankingTable';
-import { select } from 'd3';
+import { getNumber } from '../utils/functions';
 
 const communities = _COMMUNITIES;
 const councils = _COUNCILS;
@@ -60,10 +52,7 @@ const getDataToVis = (rawIssueData) => {
 
   // get the corresponding index of average value
   let sum = valueArray.reduce((a, b) => a + b, 0);
-  let avg =
-    Number(sum / valueArray.length) >= 10
-      ? Number((sum / valueArray.length).toFixed(1))
-      : Number((sum / valueArray.length).toFixed(3));
+  let avg = Number(sum / valueArray.length);
   let avgIndex;
 
   for (let i = 0; i < valueArray.length - 1; i++) {
@@ -170,14 +159,7 @@ const IssueHistogram = ({
       const rank = sentenceStructure.selectedObject.rank;
       let value = Number(sentenceStructure.selectedObject.data);
 
-      value =
-        value == 0
-          ? 0
-          : value > 10
-          ? value.toFixed(0)
-          : value > 1
-          ? value.toFixed(1)
-          : value.toFixed(2);
+      value = getNumber(value);
       const joiningWord =
         issues.specific_issues_data[selectedSpecificIssue].json_id ==
         'F27_BusSpe'
@@ -538,7 +520,7 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
-      .text(`${data[0].toFixed(1)}${metricSymbol}`)
+      .text(`${getNumber(data[0])}${metricSymbol}`)
       // .attr('visibility', showMinText ? 'visible' : 'hidden');
       .attr('visibility', 'hidden');
 
@@ -558,7 +540,7 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
-      .text(`${data[data.length - 1].toFixed(1)}${metricSymbol}`)
+      .text(`${getNumber(data[data.length - 1])}${metricSymbol}`)
       // .attr('visibility', showMaxText ? 'visible' : 'hidden');
       .attr('visibility', 'hidden');
 
@@ -575,17 +557,9 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
-        `${
-          Number(data[Math.round(svg.select('#avgLine').attr('index'))]) > 10
-            ? Number(
-                data[Math.round(svg.select('#avgLine').attr('index'))]
-              ).toFixed(0)
-            : Number(data[Math.round(svg.select('#avgLine').attr('index'))]) > 1
-            ? Number(
-                data[Math.round(svg.select('#avgLine').attr('index'))]
-              ).toFixed(1)
-            : Number(data[Math.round(svg.select('#avgLine').attr('index'))])
-        }${metricSymbol}`
+        `${getNumber(
+          data[Math.round(svg.select('#avgLine').attr('index'))]
+        )}${metricSymbol}`
       );
 
     // let showSelectedText = !(
@@ -604,17 +578,9 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
-        `${
-          data[Math.round(svg.select('#selectedLine').attr('index'))] > 10
-            ? data[
-                Math.round(svg.select('#selectedLine').attr('index'))
-              ].toFixed(0)
-            : data[Math.round(svg.select('#selectedLine').attr('index'))] > 1
-            ? data[
-                Math.round(svg.select('#selectedLine').attr('index'))
-              ].toFixed(1)
-            : data[Math.round(svg.select('#selectedLine').attr('index'))]
-        }${metricSymbol}`
+        `${getNumber(
+          data[Math.round(svg.select('#selectedLine').attr('index'))]
+        )}${metricSymbol}`
       );
     //   .text(
     //     `${
@@ -637,17 +603,9 @@ const IssueHistogram = ({
         //   .attr('text-anchor', !ascending ? 'start ' : 'end')
         .attr('text-anchor', 'end')
         .text(
-          `${
-            data[Math.round(svg.select('#compareLine').attr('index'))] > 10
-              ? data[
-                  Math.round(svg.select('#compareLine').attr('index'))
-                ].toFixed(0)
-              : data[Math.round(svg.select('#compareLine').attr('index'))] > 1
-              ? data[
-                  Math.round(svg.select('#compareLine').attr('index'))
-                ].toFixed(1)
-              : data[Math.round(svg.select('#compareLine').attr('index'))]
-          }${metricSymbol}`
+          `${getNumber(
+            data[Math.round(svg.select('#compareLine').attr('index'))]
+          )}${metricSymbol}`
         );
       //   .text(
       //     `${

@@ -11,6 +11,8 @@ import RankingTable from './RankingTable';
 import _COUNCILDISTRICTS from '../data/council_districts.json';
 import _COMMUNITYBOARDS from '../data/community_boards.json';
 
+import { getNumber } from '../utils/functions';
+
 const getRgb = (color) => {
   let [r, g, b] = Array.from(color);
   return {
@@ -485,15 +487,7 @@ const Histogram = ({
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
-      .text(
-        `${
-          avg >= 10
-            ? avg.toFixed(0)
-            : avg >= 1
-            ? avg.toFixed(1)
-            : avg.toFixed(2)
-        }${metricSymbol} ${getIssueStatement()}`
-      );
+      .text(`${getNumber(avg)}${metricSymbol} ${getIssueStatement()}`);
 
     // Adjust text position
     svg
@@ -559,13 +553,10 @@ const Histogram = ({
           .attr('y', ycood + 15)
           .attr('lookupID', lookupArray[rectID])
           .text(
-            `${
-              data[rectID] >= 10
-                ? data[rectID].toFixed(0)
-                : data[rectID] >= 1
-                ? data[rectID].toFixed(1)
-                : data[rectID].toFixed(2)
-            }${metricSymbol} ${getIssueStatement(data[rectID], avg)}`
+            `${getNumber(data[rectID])}${metricSymbol} ${getIssueStatement(
+              data[rectID],
+              avg
+            )}`
           );
       })
       .on('click', (event, d) => {
@@ -643,9 +634,10 @@ const Histogram = ({
       .attr('fill', '#000000')
       .text(
         (d, i) =>
-          `${
-            data[i] >= 10 ? data[i].toFixed(0) : data[i]
-          }${metricSymbol} ${getIssueStatement(data[i], avg)}`
+          `${getNumber(data[i])}${metricSymbol} ${getIssueStatement(
+            data[i],
+            avg
+          )}`
       );
 
     svg.selectAll('.pinnedTextDown').data(data).exit().remove();

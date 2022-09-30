@@ -178,7 +178,8 @@ small {
 }
 
 /* List */
-ol, ul {
+ol,
+ul {
     padding-left: 1rem !important;
 }
 
@@ -2191,7 +2192,7 @@ input:checked+.slider:before {
     position: absolute;
     left: 4vh;
     font-size: 0.75rem;
-    font-weight:500;
+    font-weight: 500;
     background-color: white;
     border: 2px solid black;
     color: black;
