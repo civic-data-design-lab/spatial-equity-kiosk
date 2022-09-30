@@ -351,7 +351,7 @@ function Nav({
       </div>
 
       <div
-        className={`nav-chapters d-flex flex-column justify-content-between no-bottom-border
+        className={`nav-chapters d-flex flex-column justify-content-between 
              ${
                !selectedChapter
                  ? 'flex-grow-0 '

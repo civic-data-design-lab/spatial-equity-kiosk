@@ -86,7 +86,7 @@ export default function IssueProfile({
         <div className={'issues-tile-text-container'}>
           <div className={'issues-tile-solutions issues-tile-text'}>
             <h5 className={'d-inline-block bold py-3'}>Solutions</h5>
-            <div className="small-font">
+            <div className="">
               {getHyperlinkText(
                 issues.specific_issues_data[selectedSpecificIssue]
                   .specific_issue_solutions.base_text
