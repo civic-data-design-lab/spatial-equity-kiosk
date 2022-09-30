@@ -70,9 +70,7 @@ const MapTooltip = ({
     const boundaryName = getBoundaryName();
     const tooltipBounds = getTooltipBounds(boundary);
 
-    const accessor = tooltipProperties
-      ? tooltipProperties
-      : pickingInfoObject;
+    const accessor = tooltipProperties ? tooltipProperties : pickingInfoObject;
     if (!accessor) {
       console.error('Could not get data accessor for tooltip');
       return;
@@ -169,49 +167,173 @@ const MapTooltip = ({
   };
 
   const getDemographicTooltip = () => {
-    if (selectedDemographic === null) {
-      return <></>;
-    }
+    const obj = pickingInfoObject;
+    const accessor = obj.properties ? obj.properties : obj;
+
+    // boundary name grammatically correct
+    const boroughData =
+      boundary == 'community'
+        ? {
+            tooltipBounds: 'Community Board',
+            boundaryName: obj.properties.CDTA2020,
+            boroughID: obj.properties.CDTA2020.slice(0, 2),
+            boundaryNumber: Number(obj.properties.CDTA2020.slice(2)),
+          }
+        : {
+            tooltipBounds: 'City Council District',
+            boundaryName: obj.properties.CounDist,
+            boroughID: '',
+            boundaryNumber: obj.properties.CDTA2020,
+          };
+
+    const boroughName =
+      boroughData.boroughID == 'MN'
+        ? `Manhattan Community Board`
+        : boroughData.boroughID == 'BX'
+        ? `Bronx Community Board`
+        : boroughData.boroughID == 'BK'
+        ? `Brooklyn Community Board`
+        : boroughData.boroughID == 'QN'
+        ? `Queens Community Board`
+        : boroughData.boroughID == 'SI'
+        ? `Staten Island Community Board`
+        : 'City Council District';
+
+    const locationSentence = `${boroughName} ${boroughData.boundaryNumber} `;
+
+    //value for specific metric and boundary
+    const value = accessor[infoTransfer.selectedMetric]
+      ? accessor[infoTransfer.selectedMetric] >= 10
+        ? accessor[infoTransfer.selectedMetric].toFixed(0)
+        : accessor[infoTransfer.selectedMetric] >= 1
+        ? accessor[infoTransfer.selectedMetric].toFixed(1)
+        : accessor[infoTransfer.selectedMetric].toFixed(2)
+      : '';
+
+    const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
+      ? true
+      : false;
 
     const transportationModes = getTransportationModes(
       transportationModesArray
     );
-    return (
-      <div className="map-tooltip-info">
-        {demographic !== '5'
-          ? `${demoLookup[demographic].name}—`
-          : toggleTransit || toggleBike || toggleWalk
-          ? `Citywide Commuters Who ${transportationModes}—`
-          : `Check off one of the transportation options above the demographics legend to see how people are getting around.`}{' '}
-        {demographic !== '1' ? (
-          demographic !== '5' ? (
-            `${tooltipProperties[selectedDemographic].toFixed(0)}%`
-          ) : toggleTransit || toggleBike || toggleWalk ? (
-            `${selectedDemoArray[pickingInfoIndex].toFixed(0)}%`
-          ) : (
-            ''
-          )
-        ) : (
+    //get boundary ranking
+    const ranking = metricCheck
+      ? _RANKINGS[boundary][infoTransfer.selectedMetric].find(
+          (t) => t.community_ID == boroughData.boundaryName
+        ).rank
+      : '';
+
+    //get total number of boundaries
+    const maxRanking = metricCheck
+      ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
+      : '';
+
+    //get term to describe bad condition
+    const hiLowWord = issues.specific_issues_data[selectedSpecificIssue]
+      .good_or_bad
+      ? issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[0]
+      : issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1];
+
+    // join sentence with either "at" or "with"
+    const joiningWord =
+      issues.specific_issues_data[selectedSpecificIssue].json_id == 'F27_BusSpe'
+        ? 'at'
+        : 'with';
+
+    const householdsOrCommuters = ['1', '4', '5'].includes(demographic)
+      ? 'commuters'
+      : 'households';
+
+    const midSentence = `${householdsOrCommuters} in ${locationSentence}`;
+
+    let sentenceEnd = [
+      '',
+      'Race & Ethnicity',
+      'live below the poverty line',
+      'do not own a car',
+      'drive alone to work',
+      '',
+    ];
+
+    // return if not (bike walk or transit) or (race and ethnicity)
+    if (demographic !== '1' && demographic !== '5') {
+      return (
+        <div className="map-tooltip-info">
+          {obj.properties[selectedDemographic].toFixed(0)}% of {midSentence}{' '}
+          {sentenceEnd[Number(demographic)]}.
+        </div>
+      );
+    }
+
+    // return if (bike walk or transit)
+    if (demographic == '5') {
+      return (
+        <div className="map-tooltip-info">
+          {toggleTransit || toggleBike || toggleWalk
+            ? `${obj.properties[selectedDemographic].toFixed(
+                0
+              )}% of ${midSentence} ${transportationModes}.`
+            : `Check off one of the transportation options above the demographics legend to see how people are getting around.`}
+        </div>
+      );
+    }
+
+    // return if (race and ethnicity)
+    if (demographic == '1') {
+      return (
+        <div className="map-tooltip-info">
+          ${locationSentence} is—
           <div className="tooltip-grid">
-            <div style={{ color: ethnicityColors.Latino.htmlFormat }}>■</div>
-            <div>{Math.round(tooltipProperties.P_Hispanic * 100)}%</div>
+            <div
+              style="color:${
+          ethnicityColors.Latino.htmlFormat
+        }"
+            >
+              ■
+            </div>
+            <div>${Math.round(obj.properties.P_Hispanic * 100)}%</div>
             <div>Latino</div>
-            <div style={{ color: ethnicityColors.White.htmlFormat }}>■</div>
-            <div>{Math.round(tooltipProperties.P_White * 100)}%</div>
+            <div
+              style="color:${
+            ethnicityColors.White.htmlFormat
+          }"
+            >
+              ■
+            </div>
+            <div>${Math.round(obj.properties.P_White * 100)}%</div>
             <div>White</div>
-            <div style={{ color: ethnicityColors.Black.htmlFormat }}>■</div>
-            <div>{Math.round(tooltipProperties.P_Black * 100)}%</div>
+            <div
+              style="color:${
+            ethnicityColors.Black.htmlFormat
+          }"
+            >
+              ■
+            </div>
+            <div>${Math.round(obj.properties.P_Black * 100)}%</div>
             <div>Black</div>
-            <div style={{ color: ethnicityColors.Asian.htmlFormat }}>■</div>
-            <div>{Math.round(tooltipProperties.P_Asian * 100)}%</div>
+            <div
+              style="color:${
+            ethnicityColors.Asian.htmlFormat
+          }"
+            >
+              ■
+            </div>
+            <div>${Math.round(obj.properties.P_Asian * 100)}%</div>
             <div>Asian</div>
-            <div style={{ color: ethnicityColors.Other.htmlFormat }}>■</div>
-            <div>{Math.round(tooltipProperties.P_Other * 100)}%</div>
+            <div
+              style="color:${
+            ethnicityColors.Other.htmlFormat
+          }"
+            >
+              ■
+            </div>
+            <div>${Math.round(obj.properties.P_Other * 100)}%</div>
             <div>Other</div>
           </div>
-        )}
-      </div>
-    );
+        </div>
+      );
+    }
   };
 
   const getTooltipJSX = () => {

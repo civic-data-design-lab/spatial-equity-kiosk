@@ -1713,6 +1713,7 @@ input:checked+.slider:before {
     left: calc(25vw);
     position: absolute;
     background-color: white;
+    width: 50%;
 }
 
 .scroll-content {
