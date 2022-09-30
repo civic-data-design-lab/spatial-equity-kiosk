@@ -512,13 +512,13 @@ export default function Legend({
             if (!toggleWalk && !toggleTransit && !toggleBike) {
               gridColorRamps = [
                 `rgb(${demoLookup.colorRamp[2].join(',')})`,
-                `rgb(${demoLookup.colorRamp[4].join(',')})`,
+                `rgb(${demoLookup.colorRamp[0].join(',')})`,
               ];
             } else {
               gridColorRamps = [];
               if (toggleWalk)
                 gridColorRamps.push(
-                  `rgb(${demoLookup.colorRamp[1].join(',')})`
+                  `rgb(${demoLookup.colorRamp[3].join(',')})`
                 );
               if (toggleTransit)
                 gridColorRamps.push(
@@ -526,9 +526,9 @@ export default function Legend({
                 );
               if (toggleBike)
                 gridColorRamps.push(
-                  `rgb(${demoLookup.colorRamp[3].join(',')})`
+                  `rgb(${demoLookup.colorRamp[1].join(',')})`
                 );
-              gridColorRamps.push(`rgb(${demoLookup.colorRamp[4].join(',')})`);
+              gridColorRamps.push(`rgb(${demoLookup.colorRamp[0].join(',')})`);
             }
           } else {
             gridColorRamps = [
@@ -536,7 +536,8 @@ export default function Legend({
               // `rgb(${demoLookup.colorRamp[1].join(",")})`,
               `rgb(${demoLookup.colorRamp[2].join(',')})`,
               // `rgb(${demoLookup.colorRamp[3].join(",")})`,
-              `rgb(${demoLookup.colorRamp[4].join(',')})`,
+              // `rgb(${demoLookup.colorRamp[4].join(',')})`,
+              `rgb(${demoLookup.colorRamp[0].join(",")})`
             ];
           }
 
