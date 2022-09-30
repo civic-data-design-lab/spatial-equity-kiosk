@@ -123,7 +123,7 @@ export default function IssuesTileView({
           <div className={'issues-tile-body h-100'}>
             <div className={'issue-tile-viz'}>
               <div>
-                <h5 className={'d-inline-block bold py-3'}>
+                <h5 className={'d-inline-block bold pt-3'}>
                   {getIssueName()}{' '}
                   <div
                     onMouseEnter={() => {

@@ -182,6 +182,11 @@ ol, ul {
     padding-left: 1rem !important;
 }
 
+/* table */
+td {
+    padding: 0.25rem 0.5rem !important;
+}
+
 
 /* Links */
 a:link {
@@ -674,6 +679,9 @@ a:active {
     overflow: auto;
 }
 
+.py-3 {
+    padding-bottom: 0 !important;
+}
 
 /* Issues Column */
 .issues-chapters {
