@@ -155,7 +155,7 @@ const IssueHistogram = ({
               boundaryGrammatical: `City Council ${communitySearchName}`,
             }
           : {
-              bounds: 'Community Boards',
+              bounds: 'community boards',
               selectedObject: _RANKINGS.community[subject].find(
                 (f) => f.community_ID == communitySearch
               ),

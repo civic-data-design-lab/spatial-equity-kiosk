@@ -18,11 +18,11 @@
     "lookup": "",
     "metric_units": "Percent",
     "colorRamp": [
-      [248, 198, 220],
-      [244, 151, 192],
-      [237, 109, 159],
-      [230, 87, 149],
-      [233, 50, 128]
+      [2, 95, 190],
+      [255, 97, 5],
+      [8, 133, 105],
+      [214, 61, 43],
+      [111, 65, 160]
     ],
     "source": "U.S. Census Bureau, American Community Survey, 2016 - 2020",
     "link": "https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page"
@@ -32,11 +32,11 @@
     "lookup": "F12_PvtyPc",
     "metric_units": "Percent",
     "colorRamp": [
-      [187, 241, 209],
-      [129, 228, 170],
-      [97, 210, 143],
-      [59, 172, 105],
-      [23, 159, 78]
+      [250, 233, 217],
+      [247, 172, 117],
+      [255, 97, 5],
+      [172, 75, 3],
+      [89, 44, 2]
     ],
     "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
     "link": "https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page"
@@ -46,11 +46,11 @@
     "lookup": "F7_CarFree",
     "metric_units": "Percent",
     "colorRamp": [
-      [240, 249, 232],
-      [186, 228, 188],
-      [123, 204, 196],
-      [67, 162, 202],
-      [8, 104, 172]
+      [215, 232, 230],
+      [115, 180, 169],
+      [8, 133, 105],
+      [5, 90, 76],
+      [3, 47, 42]
     ],
     "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
     "link": ""
@@ -60,11 +60,11 @@
     "lookup": "F9_DrvAlon",
     "metric_units": "Percent",
     "colorRamp": [
-      [246, 239, 247],
-      [189, 201, 225],
-      [103, 169, 207],
-      [28, 144, 153],
-      [1, 108, 89]
+      [245, 227, 222],
+      [226, 151, 137],
+      [214, 61, 43],
+      [145, 48, 29],
+      [75, 28, 15]
     ],
     "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
     "link": ""
@@ -74,53 +74,11 @@
     "lookup": "F10_TrsBkW",
     "metric_units": "Percent",
     "colorRamp": [
-      [254, 235, 226],
-      [251, 180, 185],
-      [247, 104, 161],
-      [197, 27, 138],
-      [122, 1, 119]
-    ],
-    "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
-    "link": ""
-  },
-  "6": {
-    "name": "Bike to Work",
-    "lookup": "F6_bike",
-    "metric_units": "Percent",
-    "colorRamp": [
-      [255, 255, 204],
-      [161, 218, 180],
-      [65, 182, 196],
-      [44, 127, 184],
-      [37, 52, 148]
-    ],
-    "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
-    "link": ""
-  },
-  "7": {
-    "name": "Public Transit to Work",
-    "lookup": "F8_PubTran",
-    "metric_units": "Percent",
-    "colorRamp": [
-      [254, 240, 217],
-      [253, 204, 138],
-      [252, 141, 89],
-      [227, 74, 51],
-      [179, 0, 0]
-    ],
-    "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
-    "link": ""
-  },
-  "8": {
-    "name": "Walk",
-    "lookup": "F11_Walk",
-    "metric_units": "Percent",
-    "colorRamp": [
-      [254, 237, 222],
-      [253, 190, 133],
-      [253, 141, 60],
-      [230, 85, 13],
-      [166, 54, 3]
+      [232, 225, 237],
+      [174, 147, 196],
+      [111, 65, 160],
+      [79, 44, 108],
+      [43, 23, 56]
     ],
     "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
     "link": ""

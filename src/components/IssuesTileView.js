@@ -6,6 +6,7 @@ import Histogram from './Histogram';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import Typewriter from 'typewriter-effect';
 
 export default function IssuesTileView({
   selectedSpecificIssue,
@@ -67,6 +68,23 @@ export default function IssuesTileView({
 
   return (
     <>
+      {!selectedSpecificIssue && (
+        <div className={'typewriter-container p-5'} style={{ color: 'black' }}>
+          <div>Click Health</div>
+          <Typewriter
+            options={{
+              strings: [
+                'to see how people are living',
+                'to find nature in New York City',
+                'to see how people are getting around',
+              ],
+              autoStart: true,
+              loop: true,
+              pauseFor: 2000,
+            }}
+          />
+        </div>
+      )}
       {selectedSpecificIssue && (
         <div className={'col-12 h-100 issues-tile-container p-0'}>
           <div className={'issues-tile-header floating-share'}>

@@ -12,7 +12,7 @@
         "htmlFormat": "rgb(80, 128, 234)"
     },
     "Indigenous": {
-        "deckFormat": [128, 63, 138],
+        "deckFormat": [128, 63, 138, 255],
         "htmlFormat": "rgb(128, 63, 138)"
     },
     "Asian": {
@@ -20,7 +20,7 @@
         "htmlFormat": "rgb(252, 75, 56)"
     },
     "Other": {
-        "deckFormat": [128, 63, 138],
+        "deckFormat": [128, 63, 138, 255],
         "htmlFormat": "rgb(128, 63, 138)"
     } 
 }

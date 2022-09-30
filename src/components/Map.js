@@ -9,6 +9,7 @@ import { FillStyleExtension } from '@deck.gl/extensions';
 import { max, min } from 'd3-array';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import * as ReactDOMServer from 'react-dom/server';
 
 // geospatial dependencies
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
@@ -29,6 +30,8 @@ import _RANKINGS from '../data/rankings.json';
 // mapbox style
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { project } from 'deck.gl';
+import MapTooltip, { TOOLTIP_STYLE } from './MapTooltip';
+import { debounce, getTransportationModes, mapRange } from '../utils/functions';
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -44,10 +47,6 @@ const buttomZoomStep = 0.5;
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
-
-function map_range(value, low1, high1, low2, high2) {
-  return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
-}
 
 const RESET_VIEW = {
   longitude: -74,
@@ -199,23 +198,26 @@ export default function DeckMap({
   collapseMap,
 }) {
   // map hooks
+
+  /**
+   * @typedef TooltipCompData
+   *
+   * @property {pickingInfo} - The entire picking information object from
+   *    Deck.gl.
+   * @property {object} tooltipProperties - Tooltip properties from the Deck.gl
+   *    picking information, mainly for convenience.
+   * @property {number[]} coords - Lng/Lat coordinates of the tooltip
+   * @property {object} pos - The projection onto screen-space, an object with
+   *    `x` and `y` properties representing the number of pixels from the left
+   *    and top, respectively.
+   */
+  const [tooltipCompData1, setTooltipCompData1] = useState(null);
+  const [tooltipCompData2, setTooltipCompData2] = useState(null);
+
   const [underperformers, setUnderperformers] = useState(null);
   // const [metricAverage, setMetricAverage] = useState(null);
 
   const [transportationModesArray, setTransportationModesArray] = useState([]);
-
-  const getTransportationModes = () => {
-    if (transportationModesArray.length > 2) {
-      const last = transportationModesArray[2];
-      return `${[...transportationModesArray.slice(0, 2)].join(
-        ', '
-      )}, or ${last}`;
-    } else if (transportationModesArray.length > 0) {
-      return `${transportationModesArray.join(' or ') || ''}`;
-    } else {
-      return '...';
-    }
-  };
 
   const selectedCommunity = communitySearch
     ? boundary == 'council'
@@ -244,6 +246,18 @@ export default function DeckMap({
   // }, [issues, selectedSpecificIssue, boundary]);
 
   useEffect(() => {
+    // Remove comparison tooltips if the user deselects comparisons from the
+    // search bar
+    if (communitySearch === null) {
+      setTooltipCompData1(null);
+    }
+
+    if (compareSearch === null) {
+      setTooltipCompData2(null);
+    }
+  }, [compareSearch, communitySearch]);
+
+  useEffect(() => {
     const modes = [];
     if (toggleWalk) {
       modes.push('Walk');
@@ -262,6 +276,28 @@ export default function DeckMap({
   const mapRef = useRef(null);
   const dataScale = useRef('q'); //set to "equal" for equal binning, "q" for quantile binning
   // const [searchPoint, setSearchPoint] = useState([[], []]);
+
+  const updateTooltipPositions = () => {
+    // Update tooltip 1
+    if (tooltipCompData1?.coords) {
+      let projection = mapRef.current
+        ?.getMap()
+        ?.project(tooltipCompData1.coords);
+      if (projection !== tooltipCompData1.pos) {
+        setTooltipCompData1({ ...tooltipCompData1, pos: projection });
+      }
+    }
+
+    // Update tooltip 2
+    if (tooltipCompData2?.coords) {
+      let projection = mapRef.current
+        ?.getMap()
+        ?.project(tooltipCompData2.coords);
+      if (projection !== tooltipCompData2.pos) {
+        setTooltipCompData2({ ...tooltipCompData2, pos: projection });
+      }
+    }
+  };
 
   // 01.4 Color Scale function
 
@@ -425,7 +461,7 @@ export default function DeckMap({
   const onViewStateChange = useCallback(
     ({ viewState }) => {
       // console.log('viewstate', viewState, 'newViewState', newViewState);
-
+      debounce(updateTooltipPositions, 50)();
       // if (!mapDemographics) {
       //   setViewState(() => ({
       //     primary: viewState,
@@ -465,6 +501,7 @@ export default function DeckMap({
 
   const zoomIn = useCallback(
     ({}) => {
+      updateTooltipPositions();
       if (!viewState.zoom) {
         if (!mapDemographics) {
           setViewState(() => ({
@@ -498,6 +535,7 @@ export default function DeckMap({
 
   const zoomOut = useCallback(
     ({}) => {
+      updateTooltipPositions();
       if (!viewState.zoom) {
         if (!mapDemographics) {
           setViewState(() => ({
@@ -531,247 +569,41 @@ export default function DeckMap({
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
 
   // 05 TOOLTIP ----------------------------------------------------------------------------------------------
+  const getDeckGlTooltip = (info) => {
+    // update auto highlight
+    sethighlightFeature(info.index);
 
-  const getTooltipHeader = (props) => {
-    return `
-    ${props.tooltipBounds} <strong>${props.boundaryName}</strong>`;
-  };
+    const tooltipElement = (
+      <MapTooltip
+        infoTransfer={infoTransfer}
+        boundary={boundary}
+        selectedChapter={selectedChapter}
+        selectedCoord={selectedCoord}
+        issues={issues}
+        selectedDemographic={selectedDemographic}
+        toggleTransit={toggleTransit}
+        toggleBike={toggleBike}
+        toggleWalk={toggleWalk}
+        demographic={demographic}
+        selectedSpecificIssue={selectedSpecificIssue}
+        demoLookup={demoLookup}
+        transportationModesArray={transportationModesArray}
+        selectedDemoArray={selectedDemoArray}
+        ethnicityColors={ethnicityColors}
+        pickingInfoObject={info.object}
+        pickingInfoIndex={info.index}
+        tooltipProperties={info.object?.properties}
+      />
+    );
 
-  const getRankingTooltip = (props, obj) => {
-    const accessor = obj.properties ? obj.properties : obj;
+    const tooltipHtml = ReactDOMServer.renderToStaticMarkup(tooltipElement);
 
-    // boundary name grammatically correct
-    const boroughData =
-      boundary == 'community'
-        ? {
-            boroughID: props.boundaryName.slice(0, 2),
-            boundaryNumber: Number(props.boundaryName.slice(2)),
-          }
-        : {
-            boroughID: '',
-            boundaryNumber: props.boundaryName,
-          };
-
-    const boroughName =
-      boroughData.boroughID == 'MN'
-        ? 'Manhattan'
-        : boroughData.boroughID == 'BX'
-        ? 'Bronx'
-        : boroughData.boroughID == 'BK'
-        ? 'Brooklyn'
-        : boroughData.boroughID == 'QN'
-        ? 'Queens'
-        : boroughData.boroughID == 'SI'
-        ? 'Staten Island'
-        : '';
-
-    //value for specific metric and boundary
-    const value = accessor[infoTransfer.selectedMetric]
-      ? accessor[infoTransfer.selectedMetric] >= 10
-        ? accessor[infoTransfer.selectedMetric].toFixed(0)
-        : accessor[infoTransfer.selectedMetric] >= 1
-        ? accessor[infoTransfer.selectedMetric].toFixed(1)
-        : accessor[infoTransfer.selectedMetric].toFixed(2)
-      : '';
-
-    const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
-      ? true
-      : false;
-    //get boundary ranking
-    const ranking = metricCheck
-      ? _RANKINGS[boundary][infoTransfer.selectedMetric].find(
-          (t) => t.community_ID == props.boundaryName
-        ).rank
-      : '';
-
-    const suffix = {
-      0: 'th',
-      1: 'st',
-      2: 'nd',
-      3: 'rd',
-      4: 'th',
-      5: 'th',
-      6: 'th',
-      7: 'th',
-      8: 'th',
-      9: 'th',
-    };
-
-    //get total number of boundaries
-    const maxRanking = metricCheck
-      ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
-      : '';
-
-    //get term to describe bad condition
-    const hiLowWord = issues.specific_issues_data[selectedSpecificIssue]
-      .good_or_bad
-      ? issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[0]
-      : issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1];
-
-    // join sentence with either "at" or "with"
-    const joiningWord =
-      issues.specific_issues_data[selectedSpecificIssue].json_id == 'F27_BusSpe'
-        ? 'at'
-        : 'with';
-
-    // get unit of particular metric
-    let sentenceEnd =
-      issues.specific_issues_data[selectedSpecificIssue].json_id == 'F14_TmpDev'
-        ? [
-            value > 0 ? 'above' : value == 0 ? '' : 'below',
-            issues.specific_issues_data[selectedSpecificIssue]
-              .specific_issue_append,
-          ]
-            .join(' ')
-            .toLowerCase()
-        : issues.specific_issues_data[selectedSpecificIssue]
-            .specific_issue_append;
-
-    return metricCheck
-      ? `${boroughName} ${props.tooltipBounds} ${
-          boroughData.boundaryNumber
-        } Ranks <strong>${ranking}${
-          suffix[ranking % 10]
-        } out of ${maxRanking}</strong> ${
-          boundary === 'council' ? 'City Council districts' : 'Community Boards'
-        } for ${hiLowWord} ${
-          typeof selectedSpecificIssue == 'number'
-            ? issues.specific_issues_data[selectedSpecificIssue]
-                .specific_issue_name
-            : ''
-        } ${joiningWord} 
-        ${value}${
-          issues.specific_issues_data[selectedSpecificIssue]
-            .issue_units_symbol != ''
-            ? issues.specific_issues_data[selectedSpecificIssue]
-                .issue_units_symbol
-            : ''
-        } ${sentenceEnd}`
-      : '';
-  };
-
-  const getDemographicTooltip = (info, transportationModes) => {
-    const obj = info.object;
-    return `
-    
-    <div class=map-tooltip-info>
-    ${
-      selectedDemographic != null
-        ? demographic !== '5'
-          ? `${demoLookup[demographic].name}—`
-          : toggleTransit || toggleBike || toggleWalk
-          ? `Citywide Commuters Who ${transportationModes}—`
-          : `Check off one of the transportation options above the demographics legend to see how people are getting around.`
-        : ''
-    } ${
-      selectedDemographic != null
-        ? demographic !== '1'
-          ? demographic !== '5'
-            ? `${obj.properties[selectedDemographic].toFixed(0)}%`
-            : toggleTransit || toggleBike || toggleWalk
-            ? `${selectedDemoArray[info.index].toFixed(0)}%`
-            : ''
-          : `\
-                  <div class=tooltip-grid>
-                    <div style="color:${
-                      ethnicityColors.Latino.htmlFormat
-                    }">■</div>
-                    <div>${Math.round(obj.properties.P_Hispanic * 100)}%</div>
-                    <div>Latino</div>
-                    <div style="color:${
-                      ethnicityColors.White.htmlFormat
-                    }">■</div>
-                    <div>${Math.round(obj.properties.P_White * 100)}%</div>
-                    <div>White</div>
-                    <div style="color:${
-                      ethnicityColors.Black.htmlFormat
-                    }">■</div>
-                    <div>${Math.round(obj.properties.P_Black * 100)}%</div>
-                    <div>Black</div>
-                    <div style="color:${
-                      ethnicityColors.Asian.htmlFormat
-                    }">■</div>
-                    <div>${Math.round(obj.properties.P_Asian * 100)}%</div>
-                    <div>Asian</div>
-                    <div style="color:${
-                      ethnicityColors.Other.htmlFormat
-                    }">■</div>
-                    <div>${Math.round(obj.properties.P_Other * 100)}%</div>
-                    <div>Other</div>
-            </div>`
-        : ''
-    }</div>
-                `;
-  };
-
-  const getTooltip = (info) => {
-    if (
-      info.object &&
-      ((boundary == 'community' && info.object.properties.Data_YN == 'Y') ||
-        boundary == 'council')
-    ) {
-      const obj = info.object;
-
-      const props =
-        boundary == 'community'
-          ? {
-              tooltipBounds: 'Community Board',
-              boundaryName: obj.properties.CDTA2020,
-            }
-          : {
-              tooltipBounds: 'City Council District',
-              boundaryName: obj.properties.CounDist,
-            };
-
-      // update auto highlight
-      sethighlightFeature(info.index);
-
-      const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
-        ? true
-        : false;
-
-      let transportationModes = getTransportationModes();
-
-      if (boundary == 'council' || boundary == 'community') {
-        // return the tooltip for the selected boundary with selected metric and selected demographic
-
-        return (
-          obj && {
-            className: 'map-tooltip',
-            style: {
-              border: '1px solid black',
-              background: 'white',
-              color: 'black',
-              padding: '0px',
-              maxWidth: '250px',
-            },
-            html: `\
-          <!-- select metric -->
-          
-          <div class=map-tooltip-header>${getTooltipHeader(
-            props
-          )}</strong></div>
-          ${
-            selectedChapter == 3 && selectedCoord.length == 2 && metricCheck
-              ? `<div>
-            <div class=map-tooltip-info>${`${getRankingTooltip(
-              props,
-              obj
-            )}.`}</div>
-          </div>`
-              : ''
-          }
-          <!-- select demographic -->
-          ${
-            selectedChapter == 3 &&
-            selectedCoord.length == 2 &&
-            selectedDemographic != null
-              ? `${getDemographicTooltip(info, transportationModes)}`
-              : ''
-          }`,
-          }
-        );
-      }
+    if (tooltipHtml) {
+      return {
+        className: 'map-tooltip',
+        style: TOOLTIP_STYLE,
+        html: tooltipHtml,
+      };
     }
   };
 
@@ -798,7 +630,11 @@ export default function DeckMap({
             : null;
 
         searchItemFound.push(lookup);
-        searchItemData.push(element.properties);
+        searchItemData.push({
+          index: index,
+          object: element,
+          properties: element.properties,
+        });
       }
     }
     return [searchItemFound, searchItemData];
@@ -811,196 +647,240 @@ export default function DeckMap({
 
   function updateSearchEngine(searchEngine, searchEngineType) {
     //check if search engine is valid coordinates
+
+    // PRIMARY COMMUNITY SEARCH
     if (searchEngineType === 0 && selectedChapter === 3) {
-      if (selectedCoord.length === 2) {
-        const newCommunitySearch = getCommunitySearch(
-          searchEngine,
-          boundary
-        )[0];
-
-        if (newCommunitySearch.length > 0) {
-          if (
-            (searchSource === 'click' &&
-              newCommunitySearch[0] !== communitySearch) ||
-            searchSource === 'search'
-          ) {
-            setCommunitySearch(newCommunitySearch[0]);
-            setBadSearch([0, badSearch[1]]);
-            setUserPoints([searchEngine, userPoints[1]]);
-
-            if (!compareSearch) {
-              setViewState({
-                longitude: selectedCoord[0],
-                latitude: selectedCoord[1],
-                zoom: ZOOM_MAX - 0.5,
-                transitionDuration: 500,
-                transitionInerpolator: new LinearInterpolator(),
-              });
-            } else {
-              const ptA = selectedCoord;
-              const ptB = selectedCompareCoord;
-              const maxDistance = !mapDemographics ? 25 : 15;
-              const ptCompareDistance =
-                distance(point(ptA), point(ptB)) < maxDistance
-                  ? distance(point(ptA), point(ptB))
-                  : maxDistance;
-
-              const remapZoom = !mapDemographics
-                ? map_range(
-                    ptCompareDistance,
-                    0.3,
-                    maxDistance,
-                    ZOOM_MAX,
-                    ZOOM_MIN
-                  )
-                : mapDemographics &&
-                  map_range(
-                    ptCompareDistance,
-                    0.3,
-                    maxDistance,
-                    ZOOM_MAX,
-                    ZOOM_MIN
-                  ) -
-                    0.5 >
-                    ZOOM_MIN
-                ? map_range(
-                    ptCompareDistance,
-                    0.3,
-                    maxDistance,
-                    ZOOM_MAX,
-                    ZOOM_MIN
-                  ) - 0.5
-                : ZOOM_MIN;
-              setViewState({
-                longitude: (ptA[0] + ptB[0]) / 2,
-                latitude: (ptA[1] + ptB[1]) / 2,
-                zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
-                transitionDuration: 500,
-                transitionInerpolator: new LinearInterpolator(),
-              });
-            }
-          } else {
-            if (searchSource === 'click') {
-              setSelectedCoord([]);
-              setCommunitySearch(null);
-              setUserPoints([[], userPoints[1]]);
-              setViewState(RESET_VIEW);
-            }
-          }
-        } else {
-          setErrorCode(0);
-          setBadSearch([1, badSearch[1]]);
-        }
-      } else {
+      if (selectedCoord.length !== 2) {
+        console.debug('No coordinates, reset the view');
         setUserPoints([[], []]);
         setViewState(RESET_VIEW);
+        setTooltipCompData1(null);
+        return;
       }
+
+      const communitySearchResult = getCommunitySearch(searchEngine, boundary);
+      const newCommunitySearch = communitySearchResult[0];
+
+      if (!newCommunitySearch.length) {
+        // Bad search, no results found
+        console.debug('A');
+        setErrorCode(0);
+        setBadSearch([1, badSearch[1]]);
+        return;
+      }
+
+      if (
+        searchSource !== 'search' &&
+        (searchSource !== 'click' || newCommunitySearch[0] === communitySearch)
+      ) {
+        if (searchSource === 'click') {
+          // User clicked on an already selected community, resets the community
+          // search and view state
+          console.debug('User clicked on already selected primary community');
+          setSelectedCoord([]);
+          setCommunitySearch(null);
+          setUserPoints([[], userPoints[1]]);
+          setViewState(RESET_VIEW);
+          setTooltipCompData1(null);
+        }
+        return;
+      }
+
+      console.debug('User clicked on map to get the primary community');
+
+      // User clicked on the map for the community search
+      setCommunitySearch(newCommunitySearch[0]);
+      setBadSearch([0, badSearch[1]]);
+      setUserPoints([searchEngine, userPoints[1]]);
+
+      // Get the data of the selected community from the community search
+      const pickingInfo = communitySearchResult[1][0];
+      const coords = pickingInfo.properties && [
+        pickingInfo.properties.X_Cent,
+        pickingInfo.properties.Y_Cent,
+      ];
+      // Set the tooltip data of the primary community
+      setTooltipCompData1({
+        ...pickingInfo,
+        coords: coords,
+      });
+
+      if (!compareSearch) {
+        setViewState({
+          longitude: selectedCoord[0],
+          latitude: selectedCoord[1],
+          zoom: ZOOM_MAX - 0.5,
+          transitionDuration: 500,
+          transitionInerpolator: new LinearInterpolator(),
+        });
+
+        return;
+      }
+      const ptA = selectedCoord;
+      const ptB = selectedCompareCoord;
+      const maxDistance = !mapDemographics ? 25 : 15;
+      const ptCompareDistance =
+        distance(point(ptA), point(ptB)) < maxDistance
+          ? distance(point(ptA), point(ptB))
+          : maxDistance;
+
+      const remapZoom = !mapDemographics
+        ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
+        : mapDemographics &&
+          mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN) -
+            0.5 >
+            ZOOM_MIN
+        ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN) -
+          0.5
+        : ZOOM_MIN;
+      setViewState({
+        longitude: (ptA[0] + ptB[0]) / 2,
+        latitude: (ptA[1] + ptB[1]) / 2,
+        zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
+        transitionDuration: 500,
+        transitionInerpolator: new LinearInterpolator(),
+      });
     }
 
+    // SELECT COMPARISON COMMUNITY
     if (searchEngineType === 1 && selectedChapter === 3) {
-      if (selectedCompareCoord.length === 2) {
-        const newCompareSearch = getCommunitySearch(searchEngine, boundary)[0];
-        if (
-          newCompareSearch.length > 0 &&
-          newCompareSearch[0] !== communitySearch &&
-          ((searchSource === 'click' &&
-            newCompareSearch[0] !== compareSearch) ||
-            searchSource === 'search') &&
-          selectedCoord.length === 2
-        ) {
-          setCompareSearch(newCompareSearch[0]);
-          setBadSearch([badSearch[0], 0]);
-          const ptA = selectedCoord;
-          const ptB = selectedCompareCoord;
-          const maxDistance = !mapDemographics ? 25 : 15;
-          const ptCompareDistance =
-            distance(point(ptA), point(ptB)) < maxDistance
-              ? distance(point(ptA), point(ptB))
-              : maxDistance;
-
-          const remapZoom = !mapDemographics
-            ? map_range(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
-            : mapDemographics &&
-              map_range(
-                ptCompareDistance,
-                0.3,
-                maxDistance,
-                ZOOM_MAX,
-                ZOOM_MIN
-              ) -
-                0.5 >
-                ZOOM_MIN
-            ? map_range(
-                ptCompareDistance,
-                0.3,
-                maxDistance,
-                ZOOM_MAX,
-                ZOOM_MIN
-              ) - 0.5
-            : ZOOM_MIN;
-
-          setUserPoints([userPoints[0], searchEngine]);
-
-          setViewState({
-            longitude: (ptA[0] + ptB[0]) / 2,
-            latitude: (ptA[1] + ptB[1]) / 2,
-            zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
-            transitionDuration: 500,
-            transitionInerpolator: new LinearInterpolator(),
-          });
-        } else if (
-          newCompareSearch.length > 0 &&
-          newCompareSearch[0] === compareSearch &&
-          searchEngine.length === 2 &&
-          searchSource === 'click'
-        ) {
-          setSelectedCompareCoord([]);
-          setCompareSearch(null);
-          setUserPoints([userPoints[0], []]);
-          setViewState({
-            longitude: selectedCoord[0],
-            latitude: selectedCoord[1],
-            zoom: ZOOM_MAX - 0.5,
-            transitionDuration: 500,
-            transitionInerpolator: new LinearInterpolator(),
-          });
-        } else if (
-          newCompareSearch.length > 0 &&
-          newCompareSearch[0] === communitySearch &&
-          searchEngine.length === 2
-        ) {
-          if (searchSource === 'search') {
-            setErrorCode(1);
-            setBadSearch([badSearch[0], 1]);
-          }
-          if (searchSource === 'click') {
-            if (!compareSearch) {
-              setSelectedCoord([]);
-              setCommunitySearch(null);
-              setUserPoints([[], []]);
-              setViewState(RESET_VIEW);
-            } else {
-              setCommunitySearch(compareSearch);
-              setCompareSearch(null);
-              setSelectedCoord(userPoints[1]);
-              setUserPoints([userPoints[1], []]);
-              setViewState({
-                longitude: userPoints[1][0],
-                latitude: userPoints[1][1],
-                zoom: ZOOM_MAX - 0.5,
-                transitionDuration: 500,
-                transitionInerpolator: new LinearInterpolator(),
-              });
-              setSelectedCompareCoord([]);
-            }
-          }
-        } else {
-          if (searchEngineType == 1) {
-            setErrorCode(0);
-            setBadSearch([badSearch[0], 1]);
-          }
-        }
+      if (selectedCompareCoord.length !== 2) {
+        setTooltipCompData2(null);
+        return;
       }
+
+      const communitySearchResult = getCommunitySearch(searchEngine, boundary);
+      const newCompareSearch = communitySearchResult[0];
+
+      if (
+        newCompareSearch.length > 0 &&
+        newCompareSearch[0] !== communitySearch &&
+        ((searchSource === 'click' && newCompareSearch[0] !== compareSearch) ||
+          searchSource === 'search') &&
+        selectedCoord.length === 2
+      ) {
+        // User clicked on the map to get the comparison community
+        console.debug('User clicked on map to get comparison community');
+        setCompareSearch(newCompareSearch[0]);
+        setBadSearch([badSearch[0], 0]);
+        const ptA = selectedCoord;
+        const ptB = selectedCompareCoord;
+        const maxDistance = !mapDemographics ? 25 : 15;
+        const ptCompareDistance =
+          distance(point(ptA), point(ptB)) < maxDistance
+            ? distance(point(ptA), point(ptB))
+            : maxDistance;
+
+        const remapZoom = !mapDemographics
+          ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
+          : mapDemographics &&
+            mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN) -
+              0.5 >
+              ZOOM_MIN
+          ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN) -
+            0.5
+          : ZOOM_MIN;
+
+        setUserPoints([userPoints[0], searchEngine]);
+
+        // Get the data of the selected community from the community search
+        const pickingInfo = communitySearchResult[1][0];
+        const coords = pickingInfo.properties && [
+          pickingInfo.properties.X_Cent,
+          pickingInfo.properties.Y_Cent,
+        ];
+        // Set the tooltip data of the comparison community
+        setTooltipCompData2({
+          ...pickingInfo,
+          coords: coords,
+        });
+
+        setViewState({
+          longitude: (ptA[0] + ptB[0]) / 2,
+          latitude: (ptA[1] + ptB[1]) / 2,
+          zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
+          transitionDuration: 500,
+          transitionInerpolator: new LinearInterpolator(),
+        });
+        return;
+      }
+
+      if (
+        newCompareSearch.length > 0 &&
+        newCompareSearch[0] === compareSearch &&
+        searchEngine.length === 2 &&
+        searchSource === 'click'
+      ) {
+        // Clicked to get comparison community
+        console.debug('User clicked on map to unselect comparison community');
+        setSelectedCompareCoord([]);
+        setCompareSearch(null);
+        setUserPoints([userPoints[0], []]);
+        setViewState({
+          longitude: selectedCoord[0],
+          latitude: selectedCoord[1],
+          zoom: ZOOM_MAX - 0.5,
+          transitionDuration: 500,
+          transitionInerpolator: new LinearInterpolator(),
+        });
+        setTooltipCompData2(null);
+        return;
+      }
+
+      if (
+        newCompareSearch.length > 0 &&
+        newCompareSearch[0] === communitySearch &&
+        searchEngine.length === 2
+      ) {
+        if (searchSource === 'search') {
+          console.debug('L');
+          setErrorCode(1);
+          setBadSearch([badSearch[0], 1]);
+          return;
+        }
+
+        if (!compareSearch) {
+          // User selected the primary community as the comparison community;
+          // reset search data
+          console.debug(
+            'User selected the primary community as the comparison community'
+          );
+          setSelectedCoord([]);
+          setCommunitySearch(null);
+          setUserPoints([[], []]);
+          setViewState(RESET_VIEW);
+          setTooltipCompData1(null);
+          setTooltipCompData2(null);
+          return;
+        }
+
+        // Update the search data
+        // User unselected primary community, make the comparison one the primary one
+        console.debug(
+          'User unselected primary community, make the comparison one the primary one'
+        );
+        setCommunitySearch(compareSearch);
+        setCompareSearch(null);
+        setSelectedCoord(userPoints[1]);
+        setUserPoints([userPoints[1], []]);
+        setViewState({
+          longitude: userPoints[1][0],
+          latitude: userPoints[1][1],
+          zoom: ZOOM_MAX - 0.5,
+          transitionDuration: 500,
+          transitionInerpolator: new LinearInterpolator(),
+        });
+        setSelectedCompareCoord([]);
+        // Swap tooltip data
+        setTooltipCompData1(tooltipCompData2);
+        setTooltipCompData2(null);
+        return;
+      }
+
+      // No above conditions matched, bad search
+      console.debug('User searched for comparison community but failed');
+      setErrorCode(0);
+      setBadSearch([badSearch[0], 1]);
     }
   }
 
@@ -1529,6 +1409,76 @@ export default function DeckMap({
           <FontAwesomeIcon onClick={zoomOut} icon={faMinus} />
         </div>
       )}
+      {/* Only show static tooltips if two boundaries are being compared. */}
+      {tooltipCompData1?.pos && tooltipCompData2?.pos && (
+        <>
+          <div
+            style={{
+              position: 'absolute',
+              zIndex: '1',
+              left: tooltipCompData1.pos.x,
+              top: tooltipCompData1.pos.y,
+              transition: 'all 100ms ease-in-out',
+            }}
+          >
+            <div style={TOOLTIP_STYLE}>
+              <MapTooltip
+                infoTransfer={infoTransfer}
+                boundary={boundary}
+                selectedChapter={selectedChapter}
+                selectedCoord={selectedCoord}
+                issues={issues}
+                selectedDemographic={selectedDemographic}
+                toggleTransit={toggleTransit}
+                toggleBike={toggleBike}
+                toggleWalk={toggleWalk}
+                demographic={demographic}
+                selectedSpecificIssue={selectedSpecificIssue}
+                demoLookup={demoLookup}
+                transportationModesArray={transportationModesArray}
+                selectedDemoArray={selectedDemoArray}
+                ethnicityColors={ethnicityColors}
+                tooltipProperties={tooltipCompData1?.properties}
+                pickingInfoObject={tooltipCompData1?.object}
+                pickingInfoIndex={tooltipCompData1?.index}
+              />
+            </div>
+          </div>
+          {/* Second tooltip */}
+          <div
+            style={{
+              position: 'absolute',
+              zIndex: '1',
+              left: tooltipCompData2.pos.x,
+              top: tooltipCompData2.pos.y,
+              transition: 'all 100ms ease-in-out',
+            }}
+          >
+            <div style={TOOLTIP_STYLE}>
+              <MapTooltip
+                infoTransfer={infoTransfer}
+                boundary={boundary}
+                selectedChapter={selectedChapter}
+                selectedCoord={selectedCoord}
+                issues={issues}
+                selectedDemographic={selectedDemographic}
+                toggleTransit={toggleTransit}
+                toggleBike={toggleBike}
+                toggleWalk={toggleWalk}
+                demographic={demographic}
+                selectedSpecificIssue={selectedSpecificIssue}
+                demoLookup={demoLookup}
+                transportationModesArray={transportationModesArray}
+                selectedDemoArray={selectedDemoArray}
+                ethnicityColors={ethnicityColors}
+                tooltipProperties={tooltipCompData2?.properties}
+                pickingInfoObject={tooltipCompData2?.object}
+                pickingInfoIndex={tooltipCompData2?.index}
+              />
+            </div>
+          </div>
+        </>
+      )}
       <DeckGL
         // viewState={viewState}
         style={{ backgroundColor: 'black' }}
@@ -1543,7 +1493,7 @@ export default function DeckMap({
         }
         layers={[metricLayers, demoLayers, annoLayers]}
         getCursor={() => 'crosshair'}
-        getTooltip={getTooltip}
+        getTooltip={getDeckGlTooltip}
         layerFilter={layerFilter}
         ref={deckRef}
         // eventRecognizerOptions={
@@ -1625,7 +1575,9 @@ export default function DeckMap({
               <div key={'map-header-right'} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
                   {demoLookup[demographic].lookup == 'F10_TrsBkW'
-                    ? `Commuters Who ${getTransportationModes()}`
+                    ? `Commuters Who ${getTransportationModes(
+                        transportationModesArray
+                      )}`
                     : demoLookup[demographic].name}
                 </div>
               </div>

@@ -208,37 +208,39 @@ export default function CommunityNav({
         <div className={'community-nav-text'}>
           {communitySearch && (
             <>
-              <p className={'m-0 community-description'}>
-                <span>
-                  {(communities[communitySearch] &&
-                    communities[communitySearch].name) ||
-                    (councils[communitySearch] &&
-                      councils[communitySearch].text)}
-
-                  <a
-                    className={'underline'}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                    href={`mailto:${
+              {boundary == 'council' && (
+                <p className={'m-0 community-description'}>
+                  <span>
+                    {(communities[communitySearch] &&
+                      communities[communitySearch].name) ||
                       (councils[communitySearch] &&
-                        councils[communitySearch].councilmember_email) ||
-                      null
-                    }`}
-                  >
-                    {(councils[communitySearch] &&
-                      councils[communitySearch].councilmember_name) ||
-                      null}
-                  </a>
-                </span>
-                {councils[communitySearch] && '.'}{' '}
-                {(communities[communitySearch] &&
-                  communities[communitySearch].description) ||
-                  (councils[communitySearch] &&
-                    councils[communitySearch].description)}
-              </p>
+                        councils[communitySearch].text)}
 
-              <p className={'m-0 small-font'}>
+                    <a
+                      className={'underline'}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      href={`mailto:${
+                        (councils[communitySearch] &&
+                          councils[communitySearch].councilmember_email) ||
+                        null
+                      }`}
+                    >
+                      {(councils[communitySearch] &&
+                        councils[communitySearch].councilmember_name) ||
+                        null}
+                    </a>
+                  </span>
+                  {councils[communitySearch] && '.'}{' '}
+                  {(communities[communitySearch] &&
+                    communities[communitySearch].description) ||
+                    (councils[communitySearch] &&
+                      councils[communitySearch].description)}
+                </p>
+              )}
+
+              <p className={'m-0 small-font pt-3'}>
                 {(communities[communitySearch] &&
                   communities[communitySearch].neighborhoods) ||
                   (councils[communitySearch] &&

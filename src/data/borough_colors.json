@@ -1,22 +1,22 @@
 {
     "Bronx": {
-        "deckFormat": [244, 133, 0, 255],
-        "htmlFormat": "rgb(244, 133, 0)"
+        "deckFormat": [2, 95, 190, 255],
+        "htmlFormat": "rgb(2, 95, 190)"
     },
     "Brooklyn": {
-        "deckFormat": [29, 168, 39, 255],
-        "htmlFormat": "rgb(29, 168, 39)"
+        "deckFormat": [245, 200, 1, 255],
+        "htmlFormat": "rgb(245, 200, 1)"
     },
     "Queens": {
-        "deckFormat": [80, 128, 234, 255],
-        "htmlFormat": "rgb(80, 128, 234)"
+        "deckFormat": [8, 133, 105, 255],
+        "htmlFormat": "rgb(8, 133, 105)"
     },
     "Manhattan": {
-        "deckFormat": [128, 63, 138],
-        "htmlFormat": "rgb(128, 63, 138)"
+        "deckFormat": [214, 61, 43],
+        "htmlFormat": "rgb(214, 61, 43)"
     },
     "Staten": {
-        "deckFormat": [252, 75, 56, 255],
-        "htmlFormat": "rgb(252, 75, 56)"
+        "deckFormat": [111, 65, 160, 255],
+        "htmlFormat": "rgb(111, 65, 160)"
     }
 }

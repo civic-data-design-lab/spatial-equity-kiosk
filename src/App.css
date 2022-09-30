@@ -6,9 +6,9 @@
 
 
 :root {
-    --health: #F93080;
-    --environment: #54278F;
-    --infrastructure: #146FD1;
+    --health: #E8327F;
+    --environment: #F5C801;
+    --infrastructure: #025FBE;
 }
 
 
@@ -201,15 +201,15 @@ a:active {
 
 
 .Health {
-    color: #F93080;
+    color: #E8327F;
 }
 
 .Environment {
-    color: #54278F;
+    color: #F5C801;
 }
 
 .Mobility {
-    color: #146FD1;
+    color: #025FBE;
 }
 
 
@@ -279,7 +279,7 @@ a:active {
 }
 
 .collapse-text {
-    font-size: 1.1em;
+    font-size: 1.25em;
     margin: 0;
 }
 
@@ -325,15 +325,15 @@ a:active {
 }
 
 .dropdown-bar-Health {
-    border: 2px solid #F93080;
+    border: 2px solid #E8327F;
 }
 
 .dropdown-bar-Environment {
-    border: 2px solid #54278F;
+    border: 2px solid #F5C801;
 }
 
 .dropdown-bar-Mobility {
-    border: 2px solid #146FD1;
+    border: 2px solid #025FBE;
     ;
 }
 
@@ -342,8 +342,8 @@ a:active {
     width: 100%;
     height: fit-content;
     overflow-y: auto;
-    border: 1px solid black;
-    border-right: 1px solid black;
+    border: 2px solid black;
+    border-right: 2px solid black;
     border-top: none;
     background-color: white;
     z-index: 3;
@@ -361,7 +361,7 @@ a:active {
 
 .dropdown-item {
     background-color: white !important;
-    border: 1px solid black !important;
+    /* border: 2px solid black !important; */
     border-right: none;
     border-top: none;
     border-bottom: none !important;
@@ -426,7 +426,7 @@ a:active {
 }
 
 .community-description {
-    padding: 1rem 0;
+    padding: 1rem 0 0rem;
     color: white;
 }
 
@@ -731,7 +731,7 @@ a:active {
     height: fit-content;
     max-height: 100vh;
     opacity: 1;
-    font-size: 0.8rem;
+    font-size: 1rem;
     transition: font-size 0.3s, opacity 0.8s 0.3s, max-height 1s ease-out;
 }
 
@@ -925,7 +925,7 @@ a:active {
 .map-zoom-buttons-container {
     position: absolute;
     display: grid;
-    height: 4em;
+    height: 4em - 2px;
     width: 2em;
     grid-template-rows: auto auto;
     bottom: 0;
@@ -938,9 +938,9 @@ a:active {
 
 .map-zoom-buttons-container>* {
     font-size: 1.33rem;
-    padding: 0.25rem;
+    padding: 0.3rem;
     color: black;
-    border: 1px solid black;
+    border: 2px solid black;
     background-color: white;
     transition: 0.25s ease-in-out;
 
@@ -960,7 +960,7 @@ a:active {
     display: grid;
     grid-template-columns: 1fr 1fr;
     cursor: pointer;
-    border: 1px solid black;
+    border: 2px solid black;
     overflow: hidden;
 
 }
@@ -1075,8 +1075,8 @@ a:active {
     z-index: 3;
 
     background-color: white;
-    border: 1px solid black;
-    padding: 0 1rem;
+    border: 2px solid black;
+    padding: 0 .5rem;
     transition: 0.5s ease-in-out;
 }
 
@@ -1236,13 +1236,14 @@ a:active {
 }
 
 .legend-scale {
-    border: 1px solid black;
+    /* border: 2px solid black; */
     height: 3vh;
     width: 100%;
 }
 
 .small-font {
     font-size: 0.8em;
+    font-weight: 500;
 }
 
 .readable-font {
@@ -1673,13 +1674,13 @@ input:checked+.slider:before {
 .big-button-active {
     color: white;
     background-color: black;
-    border: 1.5px solid white;
+    border: 2px solid white;
 }
 
 .big-button-inactive {
     color: black;
     background-color: white;
-    border: 1.5px solid black;
+    border: 2px solid black;
 }
 
 
@@ -1712,6 +1713,7 @@ input:checked+.slider:before {
     left: calc(25vw);
     position: absolute;
     background-color: white;
+    width: 50%;
 }
 
 .scroll-content {
@@ -2106,7 +2108,7 @@ input:checked+.slider:before {
 
 .smaller-text {
     font-size: 0.75rem;
-    font-weight: 300;
+    font-weight: 500;
 }
 
 .no-text {
@@ -2152,7 +2154,7 @@ input:checked+.slider:before {
     justify-content: center;
     height: 6vh;
     background-color: white;
-    top: 41vh;
+    top: 47vh;
     left: 0vw;
     transition: 0.5s ease-in-out;
     /* border-top-right-radius: 10%; */

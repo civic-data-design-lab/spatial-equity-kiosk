@@ -20,7 +20,6 @@ const RankingTable = ({
   defaultOpen = false,
   citywideTab = false,
 }) => {
-
   const [expand, setExpand] = useState(defaultOpen);
   return (
     <div
@@ -28,14 +27,17 @@ const RankingTable = ({
       className={'small-font'}
     >
       <Table bordered>
-        <thead style={citywideTab ? {position: "sticky", top: "-1px"} : {}}>
+        <thead style={citywideTab ? { position: 'sticky', top: '-1px' } : {}}>
           <tr>
             <th>Rank</th>
             <th>
               {boundary == 'council' ? 'City Council' : 'Community Board'}
             </th>
             <th>
-              {issues.specific_issues_data[selectedSpecificIssue].specific_issue_units}
+              {
+                issues.specific_issues_data[selectedSpecificIssue]
+                  .specific_issue_units
+              }
             </th>
           </tr>
         </thead>
@@ -111,6 +113,10 @@ const RankingTable = ({
                           : Number(entry.data) > 1
                           ? Number(entry.data).toFixed(1)
                           : Number(entry.data)}
+                        {issues.specific_issues_data[selectedSpecificIssue]
+                          .json_id === 'F28_Trf_De'
+                          ? ' milion'
+                          : ''}
                       </td>
                     </tr>
                   );
@@ -151,6 +157,10 @@ ${
                           : Number(entry.data) > 1
                           ? Number(entry.data).toFixed(1)
                           : Number(entry.data)}
+                        {issues.specific_issues_data[selectedSpecificIssue]
+                          .json_id === 'F28_Trf_De'
+                          ? ' milion'
+                          : ''}
                       </td>
                     </tr>
                   );
@@ -193,6 +203,10 @@ ${
                           : Number(entry.data) > 1
                           ? Number(entry.data).toFixed(1)
                           : Number(entry.data)}
+                        {issues.specific_issues_data[selectedSpecificIssue]
+                          .json_id === 'F28_Trf_De'
+                          ? ' milion'
+                          : ''}
                       </td>
                     </tr>
                   );

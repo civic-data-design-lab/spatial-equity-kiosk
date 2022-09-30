@@ -547,7 +547,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                             }
                           </a>
                         </td>
-                        <td>Year</td>
+                        <td>{issues.specific_issues_data[id].year}</td>
                       </tr>
                     );
                   })}
