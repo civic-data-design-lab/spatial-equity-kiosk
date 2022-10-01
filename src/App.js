@@ -491,6 +491,7 @@ function App() {
     });
 
     if ('undefined' !== typeof window.history.pushState) {
+      console.log("replacing window history")
       window.history.replaceState(null, '', path);
     } else {
       window.location.assign(path);
@@ -656,7 +657,7 @@ function App() {
                       collapseMap)
                       ? '75vw'
                       : '50vw',
-                  transition: 'width 0.5s',
+                  transition: 'width 0.5s 0.6s',
                 }}
                 id={mapDemographics ? 'left-map' : 'left-map-alone'}
               >

@@ -651,7 +651,7 @@ export default function DeckMap({
     // PRIMARY COMMUNITY SEARCH
     if (searchEngineType === 0 && selectedChapter === 3) {
       if (selectedCoord.length !== 2) {
-        console.debug('No coordinates, reset the view');
+        //console.debug('No coordinates, reset the view');
         setUserPoints([[], []]);
         setViewState(RESET_VIEW);
         setTooltipCompData1(null);
@@ -663,7 +663,7 @@ export default function DeckMap({
 
       if (!newCommunitySearch.length) {
         // Bad search, no results found
-        console.debug('A');
+        //console.debug('A');
         setErrorCode(0);
         setBadSearch([1, badSearch[1]]);
         return;
@@ -676,7 +676,7 @@ export default function DeckMap({
         if (searchSource === 'click') {
           // User clicked on an already selected community, resets the community
           // search and view state
-          console.debug('User clicked on already selected primary community');
+          //console.debug('User clicked on already selected primary community');
           setSelectedCoord([]);
           setCommunitySearch(null);
           setUserPoints([[], userPoints[1]]);
@@ -760,7 +760,7 @@ export default function DeckMap({
         selectedCoord.length === 2
       ) {
         // User clicked on the map to get the comparison community
-        console.debug('User clicked on map to get comparison community');
+        //console.debug('User clicked on map to get comparison community');
         setCompareSearch(newCompareSearch[0]);
         setBadSearch([badSearch[0], 0]);
         const ptA = selectedCoord;
@@ -812,7 +812,7 @@ export default function DeckMap({
         searchSource === 'click'
       ) {
         // Clicked to get comparison community
-        console.debug('User clicked on map to unselect comparison community');
+        //console.debug('User clicked on map to unselect comparison community');
         setSelectedCompareCoord([]);
         setCompareSearch(null);
         setUserPoints([userPoints[0], []]);
@@ -833,7 +833,7 @@ export default function DeckMap({
         searchEngine.length === 2
       ) {
         if (searchSource === 'search') {
-          console.debug('L');
+          //console.debug('L');
           setErrorCode(1);
           setBadSearch([badSearch[0], 1]);
           return;
@@ -842,9 +842,9 @@ export default function DeckMap({
         if (!compareSearch) {
           // User selected the primary community as the comparison community;
           // reset search data
-          console.debug(
-            'User selected the primary community as the comparison community'
-          );
+          //console.debug(
+          //  'User selected the primary community as the comparison community'
+          //);
           setSelectedCoord([]);
           setCommunitySearch(null);
           setUserPoints([[], []]);
@@ -856,9 +856,9 @@ export default function DeckMap({
 
         // Update the search data
         // User unselected primary community, make the comparison one the primary one
-        console.debug(
-          'User unselected primary community, make the comparison one the primary one'
-        );
+        //console.debug(
+        //  'User unselected primary community, make the comparison one the primary one'
+        //);
         setCommunitySearch(compareSearch);
         setCompareSearch(null);
         setSelectedCoord(userPoints[1]);
@@ -878,7 +878,7 @@ export default function DeckMap({
       }
 
       // No above conditions matched, bad search
-      console.debug('User searched for comparison community but failed');
+      //console.debug('User searched for comparison community but failed');
       setErrorCode(0);
       setBadSearch([badSearch[0], 1]);
     }
