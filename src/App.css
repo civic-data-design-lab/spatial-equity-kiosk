@@ -487,6 +487,8 @@ a:active {
     /* Firefox */
     z-index: 2;
     padding: 0;
+    width: 100% !important;
+    padding: 0 !important;
 }
 
 .shorter {

@@ -174,8 +174,6 @@ export default function DeckMap({
   setzoomToggle,
   handleLegend,
   sethandleLegend,
-  highlightFeature,
-  sethighlightFeature,
   toggleTransit,
   toggleBike,
   toggleWalk,
@@ -218,6 +216,10 @@ export default function DeckMap({
   // const [metricAverage, setMetricAverage] = useState(null);
 
   const [transportationModesArray, setTransportationModesArray] = useState([]);
+
+  const [highlightFeature, sethighlightFeature] = useState(null)
+
+
 
   const selectedCommunity = communitySearch
     ? boundary == 'council'
