@@ -133,7 +133,7 @@
 
 .community-dropdown::-webkit-scrollbar-track {
     background-color: white;
-    border: 1px solid black;
+    border: 2px solid black;
     border-top: none;
     border-bottom: none;
     border-right: 1px solid white;
@@ -175,6 +175,17 @@ small {
 
 .white-link:hover {
     color: gray;
+}
+
+/* List */
+ol,
+ul {
+    padding-left: 1rem !important;
+}
+
+/* table */
+td {
+    padding: 0.25rem 0.5rem !important;
 }
 
 
@@ -234,8 +245,8 @@ a:active {
     background-color: black;
     color: white;
     flex-grow: 2 !important;
-    padding: 1.5em 1.5em !important;
-    border-bottom-color: white;
+    padding: 1em 1.5em !important;
+    /* border-bottom-color: white; */
     overflow: auto;
 }
 
@@ -449,12 +460,12 @@ a:active {
     height: 100%;
     border-radius: 0;
     outline: none;
-    font-style: italic;
-    font-weight: bold;
-    font-size: 11px;
+    /* font-style: italic; */
+    font-weight: 500;
+    font-size: 0.8rem;
     background-color: black;
     color: white;
-    border: 1px solid white;
+    border: 1.5px solid white;
     padding: 8px;
 }
 
@@ -625,7 +636,7 @@ a:active {
 }
 
 .issues-tile-body>* {
-    padding: 0 1rem;
+    padding: 0 1.5rem;
 }
 
 .issues-tile-text-container {
@@ -669,11 +680,15 @@ a:active {
     overflow: auto;
 }
 
+.py-3 {
+    padding-bottom: 0 !important;
+}
 
 /* Issues Column */
 .issues-chapters {
     flex-grow: 1;
     padding: 1em;
+    padding-left: 1.5rem;
     word-wrap: normal;
     transition: background-color 0.5s, color 0.5s, flex 1s, border-bottom-color 0.5s;
     background-color: white;
@@ -682,7 +697,7 @@ a:active {
     flex-direction: column;
     justify-content: space-between;
     border-bottom: 2px solid black;
-    border-left: 1px solid white;
+    /* border-left: 1px solid white; */
     cursor: pointer;
 }
 
@@ -690,7 +705,7 @@ a:active {
 .issues-chapters-active {
     background-color: black;
     color: white;
-    border-bottom: 2px solid white;
+    /* border-bottom: 2px solid white; */
 }
 
 .accordion-body {
@@ -746,7 +761,7 @@ a:active {
     font-size: 1rem;
     opacity: 1;
     margin: 0rem !important;
-    padding: 1rem 1rem !important;
+    padding: 1.5rem 1.5rem !important;
     pointer-events: all;
     overflow: auto;
 }
@@ -856,6 +871,7 @@ a:active {
 
 
 #deckgl-wrapper {
+    border-block: 1px solid black;
     /*    background-color: black;
     border-block: 2px solid black;
     left: 50% !important;
@@ -1493,14 +1509,15 @@ a:active {
 
 }
 
-.bottom-highlight:hover {
+/* .bottom-highlight:hover {
     border-bottom-color: white !important;
-}
+} */
 
 .some-height {
     max-height: 100vh;
     font-size: 1.25rem;
     opacity: 1;
+    padding: 0.5rem;
 }
 
 .no-height {
@@ -1922,11 +1939,13 @@ input:checked+.slider:before {
 .link-underline>span:hover {
     content: "";
     cursor: pointer;
+    font-weight: 500 !important;
 }
 
 .link-underline>span:hover::before {
     content: "→";
     cursor: pointer;
+    font-weight: 500 !important;
 }
 
 .citywide-issue-dropdown {
@@ -2173,7 +2192,7 @@ input:checked+.slider:before {
     position: absolute;
     left: 4vh;
     font-size: 0.75rem;
-    font-weight:500;
+    font-weight: 500;
     background-color: white;
     border: 2px solid black;
     color: black;

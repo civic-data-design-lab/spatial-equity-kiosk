@@ -123,7 +123,7 @@ export default function IssuesTileView({
           <div className={'issues-tile-body h-100'}>
             <div className={'issue-tile-viz'}>
               <div>
-                <h5 className={'d-inline-block bold py-3'}>
+                <h5 className={'d-inline-block bold pt-3'}>
                   {getIssueName()}{' '}
                   <div
                     onMouseEnter={() => {
@@ -157,7 +157,8 @@ export default function IssuesTileView({
                       } position-absolute info-tooltip smaller-text`}
                     >
                       <p className={'m-0'}>
-                        {`Source: ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}`}
+                        {`Source: ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}. ${issues.specific_issues_data[selectedSpecificIssue].year}.
+                        `}
                       </p>
                     </div>
                   </div>

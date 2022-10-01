@@ -18,11 +18,11 @@
     "lookup": "",
     "metric_units": "Percent",
     "colorRamp": [
-      [2, 95, 190],
-      [255, 97, 5],
-      [8, 133, 105],
-      [214, 61, 43],
-      [111, 65, 160]
+      [244, 133, 0],
+      [31, 167, 39],
+      [80, 128, 234],
+      [252, 75, 56],
+      [252, 75, 56]
     ],
     "source": "U.S. Census Bureau, American Community Survey, 2016 - 2020",
     "link": "https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page"
@@ -32,11 +32,11 @@
     "lookup": "F12_PvtyPc",
     "metric_units": "Percent",
     "colorRamp": [
-      [250, 233, 217],
-      [247, 172, 117],
-      [255, 97, 5],
-      [172, 75, 3],
-      [89, 44, 2]
+      [253, 231, 204],
+      [248, 182, 102],
+      [244, 133, 0],
+      [171, 93, 0],
+      [90, 53, 0]
     ],
     "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
     "link": "https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page"
@@ -46,11 +46,11 @@
     "lookup": "F7_CarFree",
     "metric_units": "Percent",
     "colorRamp": [
-      [215, 232, 230],
-      [115, 180, 169],
-      [8, 133, 105],
-      [5, 90, 76],
-      [3, 47, 42]
+      [210, 237, 212],
+      [121, 202, 125],
+      [31, 167, 39],
+      [22, 117, 27],
+      [12, 67, 16]
     ],
     "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
     "link": ""
@@ -60,11 +60,11 @@
     "lookup": "F9_DrvAlon",
     "metric_units": "Percent",
     "colorRamp": [
-      [245, 227, 222],
-      [226, 151, 137],
-      [214, 61, 43],
-      [145, 48, 29],
-      [75, 28, 15]
+      [254, 219, 215],
+      [253, 147, 136],
+      [252, 75, 56],
+      [176, 53, 39],
+      [101, 30, 22]
     ],
     "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
     "link": ""
@@ -74,11 +74,11 @@
     "lookup": "F10_TrsBkW",
     "metric_units": "Percent",
     "colorRamp": [
-      [232, 225, 237],
-      [174, 147, 196],
-      [111, 65, 160],
-      [79, 44, 108],
-      [43, 23, 56]
+      [230, 217, 231],
+      [179, 140, 184],
+      [129, 64, 137],
+      [90, 45, 96],
+      [52, 26, 55]
     ],
     "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
     "link": ""

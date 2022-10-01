@@ -147,7 +147,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   <a
                     style={{ textDecorationLine: "underline" }}
                     href={
-                      "https://www.google.com/url?q=https://www.transalt.org/committees&sa=D&source=docs&ust=1662266468853716&usg=AOvVaw2kd6M879VV3M8JNi-ZiMZ9"
+                      "https://www.transalt.org/committees"
                     }
                     target={"_blank"}
                   >
@@ -382,7 +382,10 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                 of any citywide or community data on this site.
                 <span>
                   {" "}
-                  <a style={{ textDecorationLine: "underline" }}>
+                  <a style={{ textDecorationLine: "underline" }}
+                    href={"mailto:philip.miatkowski@transalt.org"}
+                    target={"_blank"}
+                  >
                     Contact Transportation Alternatives’ director of research
                   </a>
                 </span>
@@ -392,9 +395,16 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               <p>
                 City Council members or community board members can request
                 assistance in correcting spatial inequities in their community.
+
+
+
+
                 <span>
                   {" "}
-                  <a style={{ textDecorationLine: "underline" }}>
+                  <a style={{ textDecorationLine: "underline" }}
+                    href={"mailto:elizabeth.adams@transalt.org"}
+                    target={"_blank"}
+                  >
                     Contact Transportation Alternatives’ director of organizing
                   </a>
                 </span>
@@ -408,7 +418,10 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                 or town,
                 <span>
                   {" "}
-                  <a style={{ textDecorationLine: "underline" }}>
+                  <a style={{ textDecorationLine: "underline" }}
+                    href={"mailto:info@transalt.org"}
+                    target={"_blank"}
+                  >
                     contact Transportation Alternatives
                   </a>
                 </span>

@@ -110,10 +110,17 @@ export default function IssuesCard({
               } position-absolute info-tooltip smaller-text end-0`}
             >
               <p className={'m-0'}>
+                
                 {
                   issues.specific_issues_data[specificIssue]
                     .specific_issue_source
                 }
+                {'. '}
+                {
+                  issues.specific_issues_data[specificIssue]
+                    .year
+                }
+                {'.'}
               </p>
             </div>
           </div>

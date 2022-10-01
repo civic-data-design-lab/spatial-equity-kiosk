@@ -99,7 +99,6 @@ export default function CommunitySearchBar({
     let firstItem = true;
     let resItems = [];
     for (const v of response.data.features) {
-      // console.log(v.center[0].toFixed(3) + " " + v.center[1].toFixed(3), v.place_name);
       if (firstItem) {
         setFirstMatchedRes([v.center[0].toFixed(3), v.center[1].toFixed(3)]);
         firstItem = false;

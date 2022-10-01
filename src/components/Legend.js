@@ -1,5 +1,4 @@
 import React from 'react';
-import { min } from 'd3-array';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import GridGraph from './GridGraph';
@@ -12,6 +11,8 @@ import _COMMUNITIES from '../texts/communities.json';
 import _COUNCILS from '../texts/councildistricts.json';
 import _COUNCIL_DISTRICTS from '../data/council_districts.json';
 import _COMMUNITY_BOARDS from '../data/community_boards.json';
+
+import { getNumber } from '../utils/functions';
 
 export default function Legend({
   issues,
@@ -202,11 +203,7 @@ export default function Legend({
 
         let cleanNumbers = isNaN(legendBins[1][0])
           ? ''
-          : min(legendBins[1]) >= 10
-          ? legendBins[1].map((d) => d.toFixed(0))
-          : min(legendBins[1]) >= 1
-          ? legendBins[1].map((d) => d.toFixed(1))
-          : legendBins[1].map((d) => d.toFixed(2));
+          : getNumber(legendBins[1]);
 
         if (!selectedSpecificIssue) {
           return <div className={'placeholder-legend'}></div>;
@@ -328,7 +325,6 @@ export default function Legend({
                         ? 'mb-1 small-font'
                         : 'mb-3 small-font'
                     }
-                    style={{ display: 'inline-block' }}
                   >
                     {100 - percList[percList.length - 1]}% of
                     {demoLookup.name ===
@@ -407,36 +403,16 @@ export default function Legend({
 
                   <div className={'small-font'}>0%</div>
                   <div className={'small-font'}>
-                    {demoLegendBins[0] > 10
-                      ? demoLegendBins[0].toFixed(0)
-                      : demoLegendBins[0] > 1
-                      ? demoLegendBins[0].toFixed(1)
-                      : demoLegendBins[0].toFixed(2)}
-                    %
+                    {getNumber(demoLegendBins[0])}%
                   </div>
                   <div className={'small-font'}>
-                    {demoLegendBins[1] > 10
-                      ? demoLegendBins[1].toFixed(0)
-                      : demoLegendBins[1] > 1
-                      ? demoLegendBins[1].toFixed(1)
-                      : demoLegendBins[1].toFixed(2)}
-                    %
+                    {getNumber(demoLegendBins[1])}%
                   </div>
                   <div className={'small-font'}>
-                    {demoLegendBins[2] > 10
-                      ? demoLegendBins[2].toFixed(0)
-                      : demoLegendBins[2] > 1
-                      ? demoLegendBins[2].toFixed(1)
-                      : demoLegendBins[2].toFixed(2)}
-                    %
+                    {getNumber(demoLegendBins[2])}%
                   </div>
                   <div className={'small-font'}>
-                    {demoLegendBins[3] > 10
-                      ? demoLegendBins[3].toFixed(0)
-                      : demoLegendBins[3] > 1
-                      ? demoLegendBins[3].toFixed(1)
-                      : demoLegendBins[3].toFixed(2)}
-                    % +
+                    {getNumber(demoLegendBins[3])}% +
                   </div>
                 </div>
               </div>
@@ -512,13 +488,13 @@ export default function Legend({
             if (!toggleWalk && !toggleTransit && !toggleBike) {
               gridColorRamps = [
                 `rgb(${demoLookup.colorRamp[2].join(',')})`,
-                `rgb(${demoLookup.colorRamp[4].join(',')})`,
+                `rgb(${demoLookup.colorRamp[0].join(',')})`,
               ];
             } else {
               gridColorRamps = [];
               if (toggleWalk)
                 gridColorRamps.push(
-                  `rgb(${demoLookup.colorRamp[1].join(',')})`
+                  `rgb(${demoLookup.colorRamp[3].join(',')})`
                 );
               if (toggleTransit)
                 gridColorRamps.push(
@@ -526,9 +502,9 @@ export default function Legend({
                 );
               if (toggleBike)
                 gridColorRamps.push(
-                  `rgb(${demoLookup.colorRamp[3].join(',')})`
+                  `rgb(${demoLookup.colorRamp[1].join(',')})`
                 );
-              gridColorRamps.push(`rgb(${demoLookup.colorRamp[4].join(',')})`);
+              gridColorRamps.push(`rgb(${demoLookup.colorRamp[0].join(',')})`);
             }
           } else {
             gridColorRamps = [
@@ -536,7 +512,8 @@ export default function Legend({
               // `rgb(${demoLookup.colorRamp[1].join(",")})`,
               `rgb(${demoLookup.colorRamp[2].join(',')})`,
               // `rgb(${demoLookup.colorRamp[3].join(",")})`,
-              `rgb(${demoLookup.colorRamp[4].join(',')})`,
+              // `rgb(${demoLookup.colorRamp[4].join(',')})`,
+              `rgb(${demoLookup.colorRamp[0].join(',')})`,
             ];
           }
 
@@ -560,7 +537,6 @@ export default function Legend({
                       ? 'mb-1 small-font'
                       : 'mb-3 small-font'
                   }
-                  style={{ display: 'inline-block' }}
                 >
                   {100 - percList[percList.length - 1]}% of
                   {demoLookup.name ===

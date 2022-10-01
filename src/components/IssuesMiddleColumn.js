@@ -253,7 +253,7 @@ export default function IssuesMiddleColumn({
             getRankingNarrative(health_issues)} */}
 
           {(!showMap || !showDemographics) && (
-            <div className={'m-0 small-font'}>
+            <div className={''}>
               {!selectedSpecificIssue ? (
                 <p>{issue_categories.descriptions[selectedIssue]}</p>
               ) : (
@@ -358,7 +358,7 @@ export default function IssuesMiddleColumn({
             getRankingNarrative(environment_issues)} */}
 
           {(!showMap || !showDemographics) && (
-            <div className={'m-0 small-font'}>
+            <div className={''}>
               {!selectedSpecificIssue ? (
                 <p>{issue_categories.descriptions[selectedIssue]}</p>
               ) : (
@@ -460,7 +460,7 @@ export default function IssuesMiddleColumn({
             getRankingNarrative(infrastructure_issues)} */}
 
           {(!showMap || !showDemographics) && (
-            <div className={'m-0 small-font'}>
+            <div className={''}>
               {!selectedSpecificIssue ? (
                 <p>{issue_categories.descriptions[selectedIssue]}</p>
               ) : (
@@ -517,7 +517,7 @@ export default function IssuesMiddleColumn({
                   showDemographics ? 'bottom-border issues-chapters-active' : ''
                 } ${
           selectedIssue === 3 ? 'top-border' : ''
-        } issues-chapters no-bottom-border`}
+        } issues-chapters`}
         onClick={() => {
           if (selectedIssue) setShowDemographics(!showDemographics);
           if (showDemographics) {

@@ -93,6 +93,7 @@ export default function CommunityRightColumn({
                     showToggle={showToggle}
                     showMap={showMap}
                     setShowMap={setShowMap}
+                    boundary={boundary}
                   />
                 )}
               </div>
@@ -140,6 +141,7 @@ export default function CommunityRightColumn({
                     showToggle={showToggle}
                     showMap={showMap}
                     setShowMap={setShowMap}
+                    boundary={boundary}
                   />
                 )}
               </div>
