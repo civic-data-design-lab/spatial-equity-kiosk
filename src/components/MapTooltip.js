@@ -150,7 +150,7 @@ const MapTooltip = ({
           {suffix[ranking % 10]} out of {maxRanking}
         </strong>{' '}
         {boundary === 'council' ? 'City Council districts' : 'community boards'}{' '}
-        for {hiLowWord}{' '}
+        for{' '}
         {typeof selectedSpecificIssue === 'number'
           ? selectedIssue.specific_issue_name
           : ''}{' '}
@@ -348,17 +348,11 @@ const MapTooltip = ({
     return (
       <>
         <div className="map-tooltip-header">{getTooltipHeader()}</div>
-        {selectedChapter === 3 &&
-        selectedCoord.length === 2 &&
-        getMetricCheck() ? (
+        {getMetricCheck() ? (
           <div className="map-tooltip-info">{getRankingTooltip()}.</div>
         ) : null}
 
-        {selectedChapter === 3 &&
-        selectedCoord.length === 2 &&
-        selectedDemographic != null
-          ? getDemographicTooltip()
-          : null}
+        {selectedDemographic != null ? getDemographicTooltip() : null}
       </>
     );
   };
