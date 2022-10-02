@@ -1099,6 +1099,7 @@ a:active {
 
     background-color: white;
     border: 2px solid black;
+    color: black;
     padding: 0 .5rem;
     transition: 0.5s ease-in-out;
 }

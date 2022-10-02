@@ -99,7 +99,7 @@ export default function MobileCommunityProfile({
             <p className={"mb-0 small-font"}>
                 {texts.map((texts) => {
                     return (
-                        <span className={texts.bolded ? 'bold' : ''}>
+                        <span key={texts.text} className={texts.bolded ? 'bold' : ''}>
               {texts.text}
                             {texts.hyperlink && (
                                 <span
@@ -339,7 +339,6 @@ export default function MobileCommunityProfile({
                            style={{textDecorationLine: boundary === "council" ? "underline" : ""}}
                         >Council <br/> District</p>
                     </div>
-                    <ShareButton isMobile={true}/>
 
                 </div>
 
@@ -385,7 +384,7 @@ export default function MobileCommunityProfile({
                         <p className={"mb-0"}>{issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_name || null}</p>
                         <p className={'m-0 smaller-text'}>
                             ({issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_units || null})</p>
-                        <ShareButton/>
+                        <ShareButton isMobile={true}/>
                         <FontAwesomeIcon icon={faXmark}
                                          onClick={() => {
                                              setSelectedSpecificIssue(null)
