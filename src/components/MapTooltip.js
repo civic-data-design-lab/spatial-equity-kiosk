@@ -134,12 +134,12 @@ const MapTooltip = ({
     if (selectedIssue.json_id === 'F14_TmpDev') {
       sentenceEnd = [
         value > 0 ? 'above' : value === 0 ? '' : 'below',
-        selectedIssue.specific_issue_append,
+        selectedIssue.tooltip_fragment,
       ]
         .join(' ')
         .toLowerCase();
     } else {
-      sentenceEnd = selectedIssue.specific_issue_append;
+      sentenceEnd = selectedIssue.tooltip_fragment;
     }
 
     return (
@@ -157,7 +157,8 @@ const MapTooltip = ({
         {joiningWord} {value}
         {selectedIssue.issue_units_symbol !== ''
           ? selectedIssue.issue_units_symbol
-          : ''}{' '}
+          : ''}
+        {selectedIssue.tooltip_fragment == '' ? '' : ' '}
         {sentenceEnd}
       </>
     );

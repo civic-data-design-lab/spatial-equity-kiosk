@@ -34,12 +34,7 @@ const RankingTable = ({
             <th>
               {boundary == 'council' ? 'City Council' : 'Community Board'}
             </th>
-            <th>
-              {
-                issues.specific_issues_data[selectedSpecificIssue]
-                  .specific_issue_units
-              }
-            </th>
+            <th>{issues.specific_issues_data[selectedSpecificIssue].units}</th>
           </tr>
         </thead>
         <tbody>

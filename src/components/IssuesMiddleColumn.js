@@ -129,65 +129,6 @@ export default function IssuesMiddleColumn({
     return issues.specific_issues_data[id_];
   });
 
-  const getRankingNarrative = (items) => {
-    const possible_keys = items.map((item) => {
-      return item.specific_issue_ID;
-    });
-
-    const last_item = selectedSpecificIssue
-      ? boundary == 'council'
-        ? _RANKINGS.council[
-            issues.specific_issues_data[selectedSpecificIssue].json_id
-          ].length
-        : _RANKINGS.community[
-            issues.specific_issues_data[selectedSpecificIssue].json_id
-          ].length
-      : null;
-
-    const boundaryPhrase = selectedSpecificIssue
-      ? boundary == 'council'
-        ? _RANKINGS.council[
-            issues.specific_issues_data[selectedSpecificIssue].json_id
-          ].find((f) => f.rank == last_item)
-        : _RANKINGS.community[
-            issues.specific_issues_data[selectedSpecificIssue].json_id
-          ].find((f) => f.rank == last_item)
-      : '';
-
-    const councilDistrictBorough =
-      boundary == 'council'
-        ? _COUNCILDISTRICTS[boundaryPhrase.community_ID].borough == 'Bronx'
-          ? 'the Bronx'
-          : _COUNCILDISTRICTS[boundaryPhrase.community_ID].borough
-        : '';
-
-    const goodOrBad = selectedSpecificIssue
-      ? Number(!issues.specific_issues_data[selectedSpecificIssue].good_or_bad)
-      : '';
-
-    if (possible_keys.includes(selectedSpecificIssue)) {
-      return (
-        <p className={'mb-0 small-font'}>
-          {boundary === 'council'
-            ? `City Council ${boundaryPhrase.community} in ${councilDistrictBorough} ranks `
-            : `Community Board ${boundaryPhrase.community} ranks `}
-          {`last out of ${boundary == 'council' ? '51' : '59'} `}
-          {`districts citywide for the `}
-          <strong>
-            {
-              issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[
-                goodOrBad
-              ]
-            }
-            {` ${issues.specific_issues_data[
-              selectedSpecificIssue
-            ].specific_issue_units_sentence.toLowerCase()}.`}
-          </strong>
-        </p>
-      );
-    }
-  };
-
   useEffect(() => {
     if (!selectedIssue) {
       setShowDemographics(false);
@@ -247,10 +188,6 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
             showDemographics={showDemographics}
           />
-
-          {/* {selectedSpecificIssue &&
-            (!showDemographics || !showMap) &&
-            getRankingNarrative(health_issues)} */}
 
           {(!showMap || !showDemographics) && (
             <div className={''}>
@@ -353,10 +290,6 @@ export default function IssuesMiddleColumn({
             showDemographics={showDemographics}
           />
 
-          {/* {selectedSpecificIssue &&
-            (!showDemographics || !showMap) &&
-            getRankingNarrative(environment_issues)} */}
-
           {(!showMap || !showDemographics) && (
             <div className={''}>
               {!selectedSpecificIssue ? (
@@ -455,10 +388,6 @@ export default function IssuesMiddleColumn({
             showDemographics={showDemographics}
           />
 
-          {/* {selectedSpecificIssue &&
-            (!showDemographics || !showMap) &&
-            getRankingNarrative(infrastructure_issues)} */}
-
           {(!showMap || !showDemographics) && (
             <div className={''}>
               {!selectedSpecificIssue ? (
@@ -515,9 +444,7 @@ export default function IssuesMiddleColumn({
                 ${selectedIssue ? 'some-height' : 'no-height'}
                 ${
                   showDemographics ? 'bottom-border issues-chapters-active' : ''
-                } ${
-          selectedIssue === 3 ? 'top-border' : ''
-        } issues-chapters`}
+                } ${selectedIssue === 3 ? 'top-border' : ''} issues-chapters`}
         onClick={() => {
           if (selectedIssue) setShowDemographics(!showDemographics);
           if (showDemographics) {

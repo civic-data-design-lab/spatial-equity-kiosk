@@ -173,12 +173,8 @@ export default function Legend({
     boundary === 'council' ? 'Council districts' : 'Community Boards';
 
   const getImpactStatement = () => {
-    const connotation = issues.specific_issues_data[selectedSpecificIssue]
-      .good_or_bad
-      ? issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[0]
-      : issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1];
     return issues.specific_issues_data[selectedSpecificIssue]
-      ? `${connotation} ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_units_sentence}`
+      ? `${issues.specific_issues_data[selectedSpecificIssue].issue_highlight}`
       : '';
   };
 
@@ -213,10 +209,7 @@ export default function Legend({
               <>
                 <div>
                   <p className={'small-font mb-1'}>
-                    {
-                      issues.specific_issues_data[selectedSpecificIssue]
-                        .specific_issue_units
-                    }
+                    {issues.specific_issues_data[selectedSpecificIssue].units}
                   </p>
                   <div className={'placeholder-legend'}>
                     <div

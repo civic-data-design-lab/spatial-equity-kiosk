@@ -120,14 +120,13 @@ const Histogram = ({
   const getIssueStatement = (value, average) => {
     if (selectedSpecificIssue) {
       let words =
-        issues.specific_issues_data[selectedSpecificIssue]
-          .issue_units_shorthand != ''
+        issues.specific_issues_data[selectedSpecificIssue].units_shorthand != ''
           ? issues.specific_issues_data[
               selectedSpecificIssue
-            ].issue_units_shorthand.split(' ')
+            ].units_shorthand.split(' ')
           : issues.specific_issues_data[
               selectedSpecificIssue
-            ].specific_issue_units_sentence.split(' ');
+            ].histogram_item.split(' ');
 
       const ignoreCapitalization = ['the', 'of', 'an', 'a', 'by'];
 
@@ -169,7 +168,22 @@ const Histogram = ({
     return null;
   };
 
-  // console.log(issues.specific_issues_data[selectedSpecificIssue].specific_issue_units)
+  const getBoundingStatement = (minMax) => {
+    const bounds =
+      issues.specific_issues_data[selectedSpecificIssue].histogram_bounds;
+
+    const lookup = Number(
+      issues.specific_issues_data[selectedSpecificIssue].good_or_bad
+    );
+
+    if (minMax == 'max') {
+      return `${bounds[Number(!lookup)]}`;
+    } else {
+      return `${bounds[lookup]}`;
+    }
+  };
+
+  // console.log(issues.specific_issues_data[selectedSpecificIssue].units)
 
   // svg attr
   const textWidth = 50;
@@ -393,8 +407,8 @@ const Histogram = ({
       .attr('fill', '#000000')
       .text(
         !ascending
-          ? `${hiStatement} ${getIssueStatement()}`
-          : `${lowStatement} ${getIssueStatement()}`
+          ? `${getBoundingStatement('max')}`
+          : `${getBoundingStatement('min')}`
       );
 
     svg
@@ -406,8 +420,8 @@ const Histogram = ({
       .attr('fill', '#000000')
       .text(
         ascending
-          ? `${hiStatement} ${getIssueStatement()}`
-          : `${lowStatement} ${getIssueStatement()}`
+          ? `${getBoundingStatement('max')}`
+          : `${getBoundingStatement('min')}`
       );
 
     // draw reset button

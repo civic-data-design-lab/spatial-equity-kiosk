@@ -101,14 +101,27 @@ const IssueHistogram = ({
   const getIssueStatement = () => {
     if (selectedSpecificIssue) {
       return `${
-        issues.specific_issues_data[selectedSpecificIssue].issue_units_shorthand
-          ? issues.specific_issues_data[selectedSpecificIssue]
-              .issue_units_shorthand
-          : issues.specific_issues_data[selectedSpecificIssue]
-              .specific_issue_units
+        issues.specific_issues_data[selectedSpecificIssue].units_shorthand
+          ? issues.specific_issues_data[selectedSpecificIssue].units_shorthand
+          : issues.specific_issues_data[selectedSpecificIssue].units
       }`;
     }
     return null;
+  };
+
+  const getBoundingStatement = (minMax) => {
+    const bounds =
+      issues.specific_issues_data[selectedSpecificIssue].histogram_bounds;
+
+    const lookup = Number(
+      issues.specific_issues_data[selectedSpecificIssue].good_or_bad
+    );
+
+    if (minMax == 'max') {
+      return `${bounds[Number(!lookup)]}`;
+    } else {
+      return `${bounds[lookup]}`;
+    }
   };
 
   const getRankingNarrative = (obj, average) => {
@@ -171,11 +184,11 @@ const IssueHistogram = ({
         'F14_TmpDev'
           ? [
               value > average ? 'above' : value == average ? '' : 'below',
-              obj.specific_issue_append,
+              obj.tooltip_fragment,
             ]
               .join(' ')
               .toLowerCase()
-          : obj.specific_issue_append;
+          : obj.tooltip_fragment;
 
       return (
         <p>
@@ -445,10 +458,10 @@ const IssueHistogram = ({
       //   .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
       .text(
         !ascending
-          ? `${hiStatement} ${getIssueStatement()}`
-          : `${lowStatement} ${getIssueStatement()}`
+          ? `${getBoundingStatement('max')}`
+          : `${getBoundingStatement('min')}`
       );
-    //   .text(!ascending ? `${hiStatement} ` : `${lowStatement} `);
+    //   .text(!ascending ? ${hiStatement} ` : `${lowStatement} `);
 
     svg
       .select('#maxTextDown')
@@ -464,8 +477,8 @@ const IssueHistogram = ({
       //   .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
       .text(
         ascending
-          ? `${hiStatement} ${getIssueStatement()}`
-          : `${lowStatement} ${getIssueStatement()}`
+          ? `${getBoundingStatement('max')}`
+          : `${getBoundingStatement('min')}`
       );
     //   .text(ascending ? `${hiStatement} ` : `${lowStatement} `);
 

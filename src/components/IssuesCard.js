@@ -59,7 +59,7 @@ export default function IssuesCard({
           <p className={'m-0'}>{getIssueName()}</p>
 
           <p className={'m-0 smaller-text'} style={{ paddingRight: '0.5rem' }}>
-            {issues.specific_issues_data[specificIssue].specific_issue_units}
+            {issues.specific_issues_data[specificIssue].units}
           </p>
         </div>
         <div className={'issues-card-button-container col-gap'}>
@@ -110,16 +110,12 @@ export default function IssuesCard({
               } position-absolute info-tooltip smaller-text end-0`}
             >
               <p className={'m-0'}>
-                
                 {
                   issues.specific_issues_data[specificIssue]
                     .specific_issue_source
                 }
                 {'. '}
-                {
-                  issues.specific_issues_data[specificIssue]
-                    .year
-                }
+                {issues.specific_issues_data[specificIssue].year}
                 {'.'}
               </p>
             </div>
