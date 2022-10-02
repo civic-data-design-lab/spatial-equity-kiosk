@@ -100,7 +100,12 @@ const MapTooltip = ({
     const ranking = metricCheck.find(
       // Allow string 'x' equal number x
       (t) => t.community_ID == boundaryName
-    ).rank;
+    )?.rank;
+
+    if (!ranking) {
+      console.error('Could not find a ranking with this boundary');
+      return;
+    }
 
     const suffix = {
       0: 'th',
@@ -200,40 +205,40 @@ const MapTooltip = ({
     const locationSentence = `${boroughName} ${boroughData.boundaryNumber} `;
 
     //value for specific metric and boundary
-    const value = accessor[infoTransfer.selectedMetric]
-      ? getNumber(accessor[infoTransfer.selectedMetric])
-      : '';
+    // const value = accessor[infoTransfer.selectedMetric]
+    //   ? getNumber(accessor[infoTransfer.selectedMetric])
+    //   : '';
 
-    const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
-      ? true
-      : false;
+    // const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
+    //   ? true
+    //   : false;
 
     const transportationModes = getTransportationModes(
       transportationModesArray
     );
-    //get boundary ranking
-    const ranking = metricCheck
-      ? _RANKINGS[boundary][infoTransfer.selectedMetric].find(
-          (t) => t.community_ID == boroughData.boundaryName
-        ).rank
-      : '';
+    // //get boundary ranking
+    // const ranking = metricCheck
+    //   ? _RANKINGS[boundary][infoTransfer.selectedMetric].find(
+    //       (t) => t.community_ID == boroughData.boundaryName
+    //     ).rank
+    //   : '';
 
-    //get total number of boundaries
-    const maxRanking = metricCheck
-      ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
-      : '';
+    // //get total number of boundaries
+    // const maxRanking = metricCheck
+    //   ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
+    //   : '';
 
-    //get term to describe bad condition
-    const hiLowWord = issues.specific_issues_data[selectedSpecificIssue]
-      .good_or_bad
-      ? issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[0]
-      : issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1];
+    // //get term to describe bad condition
+    // const hiLowWord = issues.specific_issues_data[selectedSpecificIssue]
+    //   .good_or_bad
+    //   ? issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[0]
+    //   : issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1];
 
-    // join sentence with either "at" or "with"
-    const joiningWord =
-      issues.specific_issues_data[selectedSpecificIssue].json_id == 'F27_BusSpe'
-        ? 'at'
-        : 'with';
+    // // join sentence with either "at" or "with"
+    // const joiningWord =
+    //   issues.specific_issues_data[selectedSpecificIssue].json_id == 'F27_BusSpe'
+    //     ? 'at'
+    //     : 'with';
 
     const householdsOrCommuters = ['1', '4', '5'].includes(demographic)
       ? 'commuters'
