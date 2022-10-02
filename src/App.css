@@ -888,6 +888,7 @@ a:active {
 }
 
 .map-tooltip-header {
+    padding: 7px;
     background-color: black;
     color: white;
 }
@@ -907,6 +908,7 @@ a:active {
 }
 
 .map-tooltip-info {
+    padding: 5px;
     font-size: 0.75em;
 }
 

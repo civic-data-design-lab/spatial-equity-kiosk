@@ -276,52 +276,22 @@ const MapTooltip = ({
     if (demographic == '1') {
       return (
         <div className="map-tooltip-info">
-          ${locationSentence} is—
+          {locationSentence} is—
           <div className="tooltip-grid">
-            <div
-              style="color:${
-          ethnicityColors.Latino.htmlFormat
-        }"
-            >
-              ■
-            </div>
-            <div>${Math.round(obj.properties.P_Hispanic * 100)}%</div>
+            <div style={{ color: ethnicityColors.Latino.htmlFormat }}>■</div>
+            <div>{Math.round(obj.properties.P_Hispanic * 100)}%</div>
             <div>Latino</div>
-            <div
-              style="color:${
-            ethnicityColors.White.htmlFormat
-          }"
-            >
-              ■
-            </div>
-            <div>${Math.round(obj.properties.P_White * 100)}%</div>
+            <div style={{ color: ethnicityColors.White.htmlFormat }}>■</div>
+            <div>{Math.round(obj.properties.P_White * 100)}%</div>
             <div>White</div>
-            <div
-              style="color:${
-            ethnicityColors.Black.htmlFormat
-          }"
-            >
-              ■
-            </div>
-            <div>${Math.round(obj.properties.P_Black * 100)}%</div>
+            <div style={{ color: ethnicityColors.Black.htmlFormat }}>■</div>
+            <div>{Math.round(obj.properties.P_Black * 100)}%</div>
             <div>Black</div>
-            <div
-              style="color:${
-            ethnicityColors.Asian.htmlFormat
-          }"
-            >
-              ■
-            </div>
-            <div>${Math.round(obj.properties.P_Asian * 100)}%</div>
+            <div style={{ color: ethnicityColors.Asian.htmlFormat }}>■</div>
+            <div>{Math.round(obj.properties.P_Asian * 100)}%</div>
             <div>Asian</div>
-            <div
-              style="color:${
-            ethnicityColors.Other.htmlFormat
-          }"
-            >
-              ■
-            </div>
-            <div>${Math.round(obj.properties.P_Other * 100)}%</div>
+            <div style={{ color: ethnicityColors.Other.htmlFormat }}>■</div>
+            <div>{Math.round(obj.properties.P_Other * 100)}%</div>
             <div>Other</div>
           </div>
         </div>
