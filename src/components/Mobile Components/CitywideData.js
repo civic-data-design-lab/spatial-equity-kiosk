@@ -581,7 +581,7 @@ export default function CitywideData({
                                 <p className={"mb-0"}>
                                     Description
                                 </p>
-                                <p className="mb-0">{getHyperlinkText(issues.specific_issues_data[selectedSpecificIssue].specific_issue_description)}</p>
+                                {getHyperlinkText(issues.specific_issues_data[selectedSpecificIssue].specific_issue_description)}
                             </div>
 
                             <div
