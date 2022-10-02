@@ -1,35 +1,33 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faInstagram,
   faLinkedinIn,
   faSquareFacebook,
   faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
-import { default as _SHARE } from "../img/share.svg";
+} from '@fortawesome/free-brands-svg-icons';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { default as _SHARE } from '../img/share.svg';
 
 const SHARE_HASHTAGS = [];
-const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
-const FACEBOOK_SHARE_URL = "https://www.facebook.com/sharer/sharer.php";
-const LINKEDIN_SHARE_URL = "https://linkedin.com/sharing/share-offsite";
+const TWEET_INTENT_URL = 'https://twitter.com/intent/tweet';
+const FACEBOOK_SHARE_URL = 'https://www.facebook.com/sharer/sharer.php';
+const LINKEDIN_SHARE_URL = 'https://linkedin.com/sharing/share-offsite';
 
-export default function ShareButton({}) {
+export default function ShareButton({ isMobile }) {
   const [clicked, setClicked] = useState(false);
   const [shareText, setShareText] = useState(
-`Not all neighborhoods are created equal.
+    `Not all neighborhoods are created equal.
 
 Public health, mobility, and the environment are affected by policies about the use of public space. Check out where your community ranks with #SpatialEquityNYC — a new tool from @transalt and @MIT. `
-);
-  const [shareUrl, setShareUrl] = useState("https://nyc25x25.org/");
+  );
+  const [shareUrl, setShareUrl] = useState('https://nyc25x25.org/');
 
   const copyURL = () => {
     navigator.clipboard.writeText(window.location.href);
   };
 
   const pickColor = (e) => {
-    const color = "rgb(127, 255, 0)";
+    const color = 'rgb(127, 255, 0)';
     e.target.style.color = color;
   };
 
@@ -37,7 +35,7 @@ Public health, mobility, and the environment are affected by policies about the 
     <>
       <div
         // className={"share"}
-        className={"newShare noselect"}
+        className={'newShare noselect'}
         onMouseEnter={() => {
           setClicked(true);
         }}
@@ -49,7 +47,7 @@ Public health, mobility, and the environment are affected by policies about the 
         // }}
       >
         {clicked && (
-          <div className={"share-icons"}>
+          <div className={'share-icons'}>
             <a
               target="_blank"
               rel="noreferrer"
@@ -67,7 +65,7 @@ Public health, mobility, and the environment are affected by policies about the 
               rel="noreferrer"
               href={`${TWEET_INTENT_URL}?text=${encodeURIComponent(
                 shareText
-              )}&url=${shareUrl}&hashtags=${SHARE_HASHTAGS.join(",")}`}
+              )}&url=${shareUrl}&hashtags=${SHARE_HASHTAGS.join(',')}`}
             >
               <FontAwesomeIcon
                 icon={faTwitter}
@@ -98,8 +96,12 @@ Public health, mobility, and the environment are affected by policies about the 
             />
           </div>
         )}
-        {!clicked && <small className={"m-0"}><strong>Share</strong></small>}
-        <div className={"share-icon"}>
+        {!clicked && (
+          <small className={'m-0'}>
+            <strong>Share</strong>
+          </small>
+        )}
+        <div className={'share-icon'}>
           <img src={_SHARE} />
         </div>
       </div>
