@@ -109,7 +109,7 @@ export default function IssuesTileView({
 
   return (
     <>
-      {!selectedSpecificIssue && (
+      {!selectedSpecificIssue && !showMap && (
         <div>
           <div className={'pb-3'}>{getBackgroundImage()}</div>
 
