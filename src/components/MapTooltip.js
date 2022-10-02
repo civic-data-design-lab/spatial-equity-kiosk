@@ -4,6 +4,7 @@ import {
   getTooltipBounds,
   getTransportationModes,
   getNumber,
+  ordinalSuffixOf,
 } from '../utils/functions';
 
 export const TOOLTIP_STYLE = {
@@ -107,19 +108,6 @@ const MapTooltip = ({
       return;
     }
 
-    const suffix = {
-      0: 'th',
-      1: 'st',
-      2: 'nd',
-      3: 'rd',
-      4: 'th',
-      5: 'th',
-      6: 'th',
-      7: 'th',
-      8: 'th',
-      9: 'th',
-    };
-
     //get total number of boundaries
     const maxRanking = metricCheck.length;
 
@@ -151,8 +139,7 @@ const MapTooltip = ({
       <>
         {boroughName} {tooltipBounds} {boroughData.boundaryNumber} Ranks{' '}
         <strong>
-          {ranking}
-          {suffix[ranking % 10]} out of {maxRanking}
+          {ordinalSuffixOf(ranking)} out of {maxRanking}
         </strong>{' '}
         {boundary === 'council' ? 'City Council districts' : 'community boards'}{' '}
         for{' '}
@@ -186,7 +173,7 @@ const MapTooltip = ({
             tooltipBounds: 'City Council District',
             boundaryName: obj.properties.CounDist,
             boroughID: '',
-            boundaryNumber: obj.properties.CDTA2020,
+            boundaryNumber: obj.properties.CounDist,
           };
 
     const boroughName =
@@ -272,7 +259,7 @@ const MapTooltip = ({
           {toggleTransit || toggleBike || toggleWalk
             ? `${getNumber(
                 obj.properties[selectedDemographic]
-              )}% of ${midSentence} ${transportationModes}.`
+              )}% of ${midSentence} ${transportationModes.toLowerCase()}.`
             : `Check off one of the transportation options above the demographics legend to see how people are getting around.`}
         </div>
       );

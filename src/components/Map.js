@@ -522,6 +522,10 @@ export default function DeckMap({
       zoom: max([ZOOM_MIN, viewStateLocal.zoom - BUTTON_ZOOM_STEP]),
     });
   };
+
+  const selectImportant = ({}) => {
+    console.log('yahoo');
+  };
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
 
   // 05 TOOLTIP ----------------------------------------------------------------------------------------------
@@ -1357,6 +1361,12 @@ export default function DeckMap({
   // console.log(map ? map : "no map");
   return (
     <div>
+      <div className="map-notable-indicators">
+        <div onClick={selectImportant}>Notable Indicators</div>
+        <div onClick={selectImportant}>woohoo</div>
+        <div onClick={selectImportant}>woohoo2</div>
+        <div onClick={selectImportant}>woohoo3</div>
+      </div>
       {showMap && (
         <div className="map-zoom-buttons-container">
           <FontAwesomeIcon onClick={zoomIn} icon={faPlus} />

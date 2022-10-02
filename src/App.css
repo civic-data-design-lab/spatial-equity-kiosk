@@ -994,8 +994,43 @@ a:active {
     background-color: white;
 }
 
+.map-notable-indicators {
+    display: grid;
+    position: absolute;
+    z-index: 3;
+    bottom: 1rem;
+    left: 1rem;
+    font-weight: 500;
+}
 
+.map-notable-indicators>* {
+    border: 1px solid black;
+    background: white;
+    padding: 0.25rem;
+    transition: color 0.5s, background-color 0.5s;
+    content: ""
+}
 
+.map-notable-indicators>*:first-child {
+    background: black;
+    color: white;
+    cursor: default;
+}
+
+.map-notable-indicators>*:hover:not(:first-child) {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+
+}
+
+.map-notable-indicators>*:not(:first-child)::after {
+    content: "+";
+    font-weight: 800;
+    text-align: right;
+    float: right;
+    cursor: pointer;
+}
 
 /* Histogram */
 .cancelButtonText {
@@ -1749,6 +1784,7 @@ input:checked+.slider:before {
 
 .scroll-content {
     padding: 0 2rem 1.25rem 1.25rem;
+    padding-bottom: max(1.25rem, 7.25rem);
     width: calc(75% - 5rem);
     scroll-snap-align: start;
 }

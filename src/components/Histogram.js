@@ -914,7 +914,7 @@ const Histogram = ({
 
     // when avgline is close to mouseline or is overlapped with another pinned line, hide the avgline
     let hideAvgLine = false;
-    if (Math.abs(avgIndex - lookupArray.indexOf(currentHoveredCommunityID)) < 1)
+    if (Math.abs(avgIndex - lookupArray.indexOf(currentHoveredCommunityID)) < 3)
       hideAvgLine = true;
     if (boundary == 'council' && councilPinned.includes(lookupArray[avgRectID]))
       hideAvgLine = true;

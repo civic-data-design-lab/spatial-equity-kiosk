@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import Table from "react-bootstrap/Table";
-import { Scrollama, Step } from "react-scrollama";
-import _CDDL from "../img/cddl_logo.svg";
-import _LCAU from "../img/Logo_LCAU logo .svg";
-import _MIT from "../img/MIT-logo-black54x28.svg";
+import React, { useState, useEffect } from 'react';
+import Table from 'react-bootstrap/Table';
+import { Scrollama, Step } from 'react-scrollama';
+import _CDDL from '../img/cddl_logo.svg';
+import _LCAU from '../img/Logo_LCAU logo .svg';
+import _MIT from '../img/MIT-logo-black54x28.svg';
 
 const subheadings = [
-  "Contact Your City Council Member",
-  "Spread the Word",
-  "Get Involved",
-  "What is Spatial Equity?",
-  "Solutions",
-  "About NYC 25x25",
-  "Contact Us",
-  "About the Site",
-  "About the Data",
+  'Contact Your City Council Member',
+  'Spread the Word',
+  'Get Involved',
+  'What is Spatial Equity?',
+  'Solutions',
+  'About NYC 25x25',
+  'Contact Us',
+  'About the Site',
+  'About the Data',
 ];
 
 export default function About({ issues, selectedAbout, setSelectedChapter }) {
@@ -24,10 +24,10 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
   };
 
   const toTop = () => {
-    let div = document.getElementById("about-container");
+    let div = document.getElementById('about-container');
     div.scrollBy({
       top: -div.scrollHeight,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
 
@@ -36,42 +36,41 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
     setSelectedChapter(2);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (selectedAbout) {
       let content = document.getElementById(`content-${selectedAbout}`);
       let topPos = content.offsetTop;
 
-/*
+      /*
       document.getElementById('about-container').scrollTop = topPos;
 */
       document.getElementById('about-container').scroll({
         top: topPos,
         left: 0,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
 
-      console.log("selectedAbout ", selectedAbout)
+      console.log('selectedAbout ', selectedAbout);
     }
-  }, [selectedAbout])
-
+  }, [selectedAbout]);
 
   // TODO: reformat about page
 
   return (
     // TODO: new about page
-    <div id={"about-container"}>
+    <div id={'about-container'}>
       <Scrollama offset={0.5} onStepEnter={onStepEnter}>
         <Step data={1} key={1}>
           <div
-            className={"scroll-body"}
+            className={'scroll-body'}
             style={{
               opacity: currentStepIndex === 1 ? 1 : 0.2,
             }}
           >
-            <div className={"scroll-title"} id={"content-1"}>
-              <h4 className={"mb-0 bold"}></h4>
+            <div className={'scroll-title'} id={'content-1'}>
+              <h4 className={'mb-0 bold'}></h4>
             </div>
-            <div className={"scroll-content"}>
+            <div className={'scroll-content'}>
               <p>
                 Are you a New Yorker ready to challenge spatial inequities in
                 your community? Take action now by sending a message to your
@@ -79,8 +78,8 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                 address the inequitable use of public space in your neighborhood
                 and citywide.
                 <span>
-                  {" "}
-                  <a style={{ textDecorationLine: "underline" }}>
+                  {' '}
+                  <a style={{ textDecorationLine: 'underline' }}>
                     Click here to send a message to your elected leader
                   </a>
                   .
@@ -92,30 +91,30 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
 
         <Step data={2} key={2}>
           <div
-            className={"scroll-body"}
+            className={'scroll-body'}
             style={{
               opacity: currentStepIndex === 2 ? 1 : 0.2,
             }}
           >
-            <div className={"scroll-title"} id={"content-2"}>
-              <h4 className={"mb-0 bold"}></h4>
+            <div className={'scroll-title'} id={'content-2'}>
+              <h4 className={'mb-0 bold'}></h4>
             </div>
-            <div className={"scroll-content"}>
+            <div className={'scroll-content'}>
               <p>
                 Does your City Council member or community board member know
                 about the spatial inequities in your community? Spread the word
                 by sharing the community profile for your City Council or
                 community board district with local officials. Simply
                 <span>
-                  {" "}
+                  {' '}
                   <a
-                    style={{ textDecorationLine: "underline" }}
+                    style={{ textDecorationLine: 'underline' }}
                     onClick={() => {
                       setSelectedChapter(3);
                     }}
                   >
                     navigate to your City Council or community board profile.
-                  </a>{" "}
+                  </a>{' '}
                 </span>
                 You can share this page via email or by tagging them on social
                 media. Be sure to note the issues where your community needs the
@@ -127,15 +126,15 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
 
         <Step data={3} key={3}>
           <div
-            className={"scroll-body"}
+            className={'scroll-body'}
             style={{
               opacity: currentStepIndex === 3 ? 1 : 0.2,
             }}
           >
-            <div className={"scroll-title"} id={"content-3"}>
-              <h4 className={"mb-0 bold"}></h4>
+            <div className={'scroll-title'} id={'content-3'}>
+              <h4 className={'mb-0 bold'}></h4>
             </div>
-            <div className={"scroll-content"}>
+            <div className={'scroll-content'}>
               <p>
                 Achieving spatial equity is a local battle that starts with
                 reshaping streets in your own neighborhood. Transportation
@@ -143,24 +142,22 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                 to activists in all five boroughs working to transform local
                 streets.
                 <span>
-                  {" "}
+                  {' '}
                   <a
-                    style={{ textDecorationLine: "underline" }}
-                    href={
-                      "https://www.transalt.org/committees"
-                    }
-                    target={"_blank"}
+                    style={{ textDecorationLine: 'underline' }}
+                    href={'https://www.transalt.org/committees'}
+                    target={'_blank'}
                   >
                     Join an activist committee where you live
                   </a>
-                </span>{" "}
+                </span>{' '}
                 or
                 <span>
-                  {" "}
+                  {' '}
                   <a
-                    style={{ textDecorationLine: "underline" }}
-                    href={"https://www.transalt.org/membership"}
-                    target={"_blank"}
+                    style={{ textDecorationLine: 'underline' }}
+                    href={'https://www.transalt.org/membership'}
+                    target={'_blank'}
                   >
                     become a TA member
                   </a>
@@ -173,15 +170,15 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
 
         <Step data={4} key={4}>
           <div
-            className={"scroll-body"}
+            className={'scroll-body'}
             style={{
               opacity: currentStepIndex === 4 ? 1 : 0.2,
             }}
           >
-            <div className={"scroll-title"} id={"content-4"}>
-              <h4 className={"mb-0 bold"}></h4>
+            <div className={'scroll-title'} id={'content-4'}>
+              <h4 className={'mb-0 bold'}></h4>
             </div>
-            <div className={"scroll-content"}>
+            <div className={'scroll-content'}>
               <p>
                 Spatial equity is a way to understand how public space is
                 distributed and restricted, used and made unusable, and the
@@ -225,16 +222,16 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
 
         <Step data={5} id={5}>
           <div
-            className={"scroll-body"}
+            className={'scroll-body'}
             style={{
               opacity: currentStepIndex === 5 ? 1 : 0.2,
             }}
           >
-            <div className={"spacer"} />
-            <div className={"scroll-title"} id={"content-5"}>
-              <h4 className={"mb-0 bold"}></h4>
+            <div className={'spacer'} />
+            <div className={'scroll-title'} id={'content-5'}>
+              <h4 className={'mb-0 bold'}></h4>
             </div>
-            <div className={"scroll-content"}>
+            <div className={'scroll-content'}>
               <p>
                 The goal of Spatial Equity NYC is to empower New Yorkers with
                 data about local disparities in public health, environmental
@@ -243,14 +240,14 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                 these inequities that can be implemented quickly on a local
                 level.
                 <span>
-                  {" "}
+                  {' '}
                   <a
-                    style={{ textDecorationLine: "underline" }}
+                    style={{ textDecorationLine: 'underline' }}
                     onClick={() => {
                       localSolutions();
                     }}
                   >
-                    {" "}
+                    {' '}
                     You can see how neighborhoods differ citywide and explore
                     local solutions here.
                   </a>
@@ -263,16 +260,16 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                 alone solve these systemic issues. However, small-scale, spatial
                 solutions can chip away at the harm caused by systemic racist
                 and classist policies and make immediate and meaningful
-                improvements to the lives of New Yorkers.{" "}
+                improvements to the lives of New Yorkers.{' '}
               </p>
               <p>
                 Are you a New Yorker concerned about spatial inequity in your
                 neighborhood?
                 <span>
-                  {" "}
+                  {' '}
                   <a
-                    style={{ textDecorationLine: "underline" }}
-                    href={"#content-1"}
+                    style={{ textDecorationLine: 'underline' }}
+                    href={'#content-1'}
                   >
                     Take action here
                   </a>
@@ -285,28 +282,28 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
 
         <Step data={6} id={6}>
           <div
-            className={"scroll-body"}
+            className={'scroll-body'}
             style={{
               opacity: currentStepIndex === 6 ? 1 : 0.2,
             }}
           >
-            <div className={"spacer"} />
-            <div className={"scroll-title"} id={"content-6"}>
-              <h4 className={"mb-0 bold"}></h4>
+            <div className={'spacer'} />
+            <div className={'scroll-title'} id={'content-6'}>
+              <h4 className={'mb-0 bold'}></h4>
             </div>
-            <div className={"scroll-content"}>
+            <div className={'scroll-content'}>
               <p>
                 In early 2021, Transportation Alternatives launched
                 <span>
-                  {" "}
+                  {' '}
                   <a
-                    style={{ textDecorationLine: "underline" }}
-                    href={"https://nyc25x25.org/25x25report.html"}
-                    target={"_blank"}
+                    style={{ textDecorationLine: 'underline' }}
+                    href={'https://nyc25x25.org/25x25report.html'}
+                    target={'_blank'}
                   >
                     NYC 25x25: A Challenge to New York City’s Next Leaders to
                     Give Streets Back to People.
-                  </a>{" "}
+                  </a>{' '}
                 </span>
                 The report and accompanying campaign proposed a radical
                 reimagining of how public space is allocated and used in New
@@ -324,12 +321,12 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               </p>
 
               <p>
-                Spatial Equity NYC is a continuation of this work. The{" "}
+                Spatial Equity NYC is a continuation of this work. The{' '}
                 <span>
-                  {" "}
+                  {' '}
                   <a
-                    style={{ textDecorationLine: "underline" }}
-                    href={"#content-9"}
+                    style={{ textDecorationLine: 'underline' }}
+                    href={'#content-9'}
                   >
                     data analysis on this site
                   </a>
@@ -347,13 +344,13 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               <p>
                 If you are an elected official or represent a community
                 organization in New York City, you can join the NYC 25x25
-                Coalition{" "}
+                Coalition{' '}
                 <span>
-                  {" "}
+                  {' '}
                   <a
-                    style={{ textDecorationLine: "underline" }}
-                    href={"https://nyc25x25.org/coalition.html"}
-                    target={"_blank"}
+                    style={{ textDecorationLine: 'underline' }}
+                    href={'https://nyc25x25.org/coalition.html'}
+                    target={'_blank'}
                   >
                     here
                   </a>
@@ -366,61 +363,60 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
 
         <Step data={7} id={7}>
           <div
-            className={"scroll-body"}
+            className={'scroll-body'}
             style={{
               opacity: currentStepIndex === 7 ? 1 : 0.2,
             }}
           >
-            <div className={"spacer"} />
-            <div className={"scroll-title"} id={"content-7"}>
-              <h4 className={"mb-0 bold"}></h4>
+            <div className={'spacer'} />
+            <div className={'scroll-title'} id={'content-7'}>
+              <h4 className={'mb-0 bold'}></h4>
             </div>
-            <div className={"scroll-content"}>
-              <h6 className={"bold"}> Request Additional Analysis </h6>
+            <div className={'scroll-content'}>
+              <h6 className={'bold'}> Request Additional Analysis </h6>
               <p>
                 Local stakeholders can request additional and detailed analyses
                 of any citywide or community data on this site.
                 <span>
-                  {" "}
-                  <a style={{ textDecorationLine: "underline" }}
-                    href={"mailto:philip.miatkowski@transalt.org"}
-                    target={"_blank"}
+                  {' '}
+                  <a
+                    style={{ textDecorationLine: 'underline' }}
+                    href={'mailto:philip.miatkowski@transalt.org'}
+                    target={'_blank'}
                   >
                     Contact Transportation Alternatives’ director of research
                   </a>
                 </span>
                 .
               </p>
-              <h6 className={"bold mt-4"}> Get Help Making Change </h6>
+              <h6 className={'bold mt-4'}> Get Help Making Change </h6>
               <p>
                 City Council members or community board members can request
                 assistance in correcting spatial inequities in their community.
-
-
-
-
                 <span>
-                  {" "}
-                  <a style={{ textDecorationLine: "underline" }}
-                    href={"mailto:elizabeth.adams@transalt.org"}
-                    target={"_blank"}
+                  {' '}
+                  <a
+                    style={{ textDecorationLine: 'underline' }}
+                    href={'mailto:elizabeth.adams@transalt.org'}
+                    target={'_blank'}
                   >
                     Contact Transportation Alternatives’ director of organizing
                   </a>
                 </span>
                 .
               </p>
-              <h6 className={"bold mt-4"}> All Other Inquiries </h6>
+              <h6 className={'bold mt-4'}> All Other Inquiries </h6>
               <p>
                 To learn more about how to get involved with Transportation
                 Alternatives, how to advocate for spatial equity in your
                 community, or how to replicate Spatial Equity NYC in your city
                 or town,
                 <span>
-                  {" "}
-                  <a style={{ textDecorationLine: "underline" }}
-                    href={"mailto:info@transalt.org"}
-                    target={"_blank"}
+                  {' '}
+                  <a
+                    style={{ textDecorationLine: 'underline' }}
+                    href={'mailto:info@transalt.org'}
+                    target={'_blank'}
                   >
                     contact Transportation Alternatives
                   </a>
@@ -432,17 +428,17 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
         </Step>
         <Step id={8} data={8}>
           <div
-            className={"scroll-body"}
+            className={'scroll-body'}
             style={{
               opacity: currentStepIndex === 8 ? 1 : 0.2,
             }}
           >
-            <div className={"spacer"} />
-            <div className={"scroll-title"} id={"content-8"}>
-              <h4 className={"mb-0 bold"}></h4>
+            <div className={'spacer'} />
+            <div className={'scroll-title'} id={'content-8'}>
+              <h4 className={'mb-0 bold'}></h4>
             </div>
-            <div className={"scroll-content"}>
-              <h6 className={"bold"}>About Transportation Alternatives</h6>
+            <div className={'scroll-content'}>
+              <h6 className={'bold'}>About Transportation Alternatives</h6>
               <p>
                 Transportation Alternatives (TA) is a New York City-based
                 501(c)3 advocacy organization whose mission is to reclaim New
@@ -450,7 +446,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                 walking, biking, and public transit for all New Yorkers.
               </p>
               <p>
-                {" "}
+                {' '}
                 For nearly 50 years, TA has led the movement for safe, equitable
                 streets in New York City. TA believes that our streets belong to
                 the people of New York City and works with New Yorkers in every
@@ -461,7 +457,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                 transform our city’s streets for the better.
               </p>
 
-              <h6 className={"bold mt-4"}>
+              <h6 className={'bold mt-4'}>
                 About MIT Norman B. Leventhal Center for Advanced Urbanism
               </h6>
               <p>
@@ -485,7 +481,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                 excellence in urbanism.
               </p>
 
-              <h6 className={"bold mt-4"}>About Civic Data Design Lab</h6>
+              <h6 className={'bold mt-4'}>About Civic Data Design Lab</h6>
               <p>
                 The MIT Civic Data Design Lab works with data to understand it
                 for public good. We seek to develop alternative practices which
@@ -499,7 +495,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                 those results, through design, to new audiences.
               </p>
 
-              <h6 className={"bold mt-4"}>About Buck Design</h6>
+              <h6 className={'bold mt-4'}>About Buck Design</h6>
               <p>[Buck to write]</p>
             </div>
           </div>
@@ -507,17 +503,17 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
 
         <Step data={9} id={9}>
           <div
-            className={"scroll-body"}
+            className={'scroll-body'}
             style={{
               opacity: currentStepIndex === 9 ? 1 : 0.2,
             }}
           >
-            <div className={"spacer"} />
-            <div className={"scroll-title"} id={"content-9"}>
-              <h4 className={"mb-0 bold"}></h4>
+            <div className={'spacer'} />
+            <div className={'scroll-title'} id={'content-9'}>
+              <h4 className={'mb-0 bold'}></h4>
             </div>
-            <div className={"scroll-content"}>
-              <h6 className={"bold"}> Methodology and Data Sources </h6>
+            <div className={'scroll-content'}>
+              <h6 className={'bold'}> Methodology and Data Sources </h6>
               <p>
                 Methodology consectetur adipiscing elit, sed do eiusmod tempor
                 incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -551,7 +547,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                         </td>
                         <td>
                           <a
-                            target={"_blank"}
+                            target={'_blank'}
                             href={issues.specific_issues_data[id].link}
                           >
                             {
@@ -569,120 +565,119 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
 
               <div
                 className={
-                  "w-100 d-flex flex-row align-items-center big-col-gap justify-content-center pt-3 mb-3"
+                  'w-100 d-flex flex-row align-items-center big-col-gap justify-content-center pt-3 mb-3'
                 }
-              >
-              </div>
+              ></div>
             </div>
           </div>
         </Step>
       </Scrollama>
 
-      <div className={"scroll-title scroll-title-content"}>
-        <h4 className={"bold"}>
+      <div className={'scroll-title scroll-title-content'}>
+        <h4 className={'bold'}>
           {currentStepIndex < 4
             ? `Take Action — ${subheadings[currentStepIndex - 1]}`
             : `Learn More — ${subheadings[currentStepIndex - 1]}`}
         </h4>
       </div>
 
-      <div className={"scroll-menu"}>
+      <div className={'scroll-menu'}>
         <a
-          className={"about-link"}
-          href={"#content-1"}
+          className={'about-link'}
+          href={'#content-1'}
           style={{
             opacity: currentStepIndex === 1 ? 1 : 0.2,
           }}
         >
-          <h6 className={"bold menu-item"} id={"menu-1"}>
+          <h6 className={'bold menu-item'} id={'menu-1'}>
             {subheadings[0]}
           </h6>
         </a>
         <a
-          className={"about-link"}
-          href={"#content-2"}
+          className={'about-link'}
+          href={'#content-2'}
           style={{
             opacity: currentStepIndex === 2 ? 1 : 0.2,
           }}
         >
-          <h6 className={"bold menu-item"} id={"menu-2"}>
+          <h6 className={'bold menu-item'} id={'menu-2'}>
             {subheadings[1]}
           </h6>
         </a>
         <a
-          className={"about-link"}
-          href={"#content-3"}
+          className={'about-link'}
+          href={'#content-3'}
           style={{
             opacity: currentStepIndex === 3 ? 1 : 0.2,
           }}
         >
-          <h6 className={"bold menu-item"} id={"menu-3"}>
+          <h6 className={'bold menu-item'} id={'menu-3'}>
             {subheadings[2]}
           </h6>
         </a>
         <a
-          className={"about-link"}
-          href={"#content-4"}
+          className={'about-link'}
+          href={'#content-4'}
           style={{
             opacity: currentStepIndex === 4 ? 1 : 0.2,
           }}
         >
-          <h6 className={"bold menu-item"} id={"menu-4"}>
+          <h6 className={'bold menu-item'} id={'menu-4'}>
             {subheadings[3]}
           </h6>
         </a>
         <a
-          className={"about-link"}
-          href={"#content-5"}
+          className={'about-link'}
+          href={'#content-5'}
           style={{
             opacity: currentStepIndex === 5 ? 1 : 0.2,
           }}
         >
-          <h6 className={"bold menu-item"} id={"menu-5"}>
+          <h6 className={'bold menu-item'} id={'menu-5'}>
             {subheadings[4]}
           </h6>
         </a>
         <a
-          className={"about-link"}
-          href={"#content-6"}
+          className={'about-link'}
+          href={'#content-6'}
           style={{
             opacity: currentStepIndex === 6 ? 1 : 0.2,
           }}
         >
-          <h6 className={"bold menu-item"} id={"menu-6"}>
+          <h6 className={'bold menu-item'} id={'menu-6'}>
             {subheadings[5]}
           </h6>
         </a>
         <a
-          className={"about-link"}
-          href={"#content-7"}
+          className={'about-link'}
+          href={'#content-7'}
           style={{
             opacity: currentStepIndex === 7 ? 1 : 0.2,
           }}
         >
-          <h6 className={"bold menu-item"} id={"menu-7"}>
+          <h6 className={'bold menu-item'} id={'menu-7'}>
             {subheadings[6]}
           </h6>
         </a>
         <a
-          className={"about-link"}
-          href={"#content-8"}
+          className={'about-link'}
+          href={'#content-8'}
           style={{
             opacity: currentStepIndex === 8 ? 1 : 0.2,
           }}
         >
-          <h6 className={"bold menu-item"} id={"menu-8"}>
+          <h6 className={'bold menu-item'} id={'menu-8'}>
             {subheadings[7]}
           </h6>
         </a>
         <a
-          className={"about-link"}
-          href={"#content-9"}
+          className={'about-link'}
+          href={'#content-9'}
           style={{
             opacity: currentStepIndex === 9 ? 1 : 0.2,
           }}
         >
-          <h6 className={"bold menu-item"} id={"menu-9"}>
+          <h6 className={'bold menu-item'} id={'menu-9'}>
             {subheadings[8]}
           </h6>
         </a>

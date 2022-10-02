@@ -93,8 +93,7 @@ export default function IssuesTileView({
     const sentence = [
       bounds,
       'Ranked by',
-      issues.specific_issues_data[selectedSpecificIssue]
-        .specific_issue_title_sentence,
+      issues.specific_issues_data[selectedSpecificIssue].specific_issue_title,
     ].join(' ');
 
     return sentence || null;

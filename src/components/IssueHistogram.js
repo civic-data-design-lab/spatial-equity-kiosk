@@ -10,7 +10,7 @@ import { useResizeObserver } from '../utils/useResizeObserver';
 import { getIssueType } from '../utils/getIssueType';
 
 import RankingTable from './RankingTable';
-import { getNumber } from '../utils/functions';
+import { getNumber, ordinalSuffixOf } from '../utils/functions';
 
 const communities = _COMMUNITIES;
 const councils = _COUNCILS;
@@ -126,19 +126,6 @@ const IssueHistogram = ({
 
   const getRankingNarrative = (obj, average) => {
     if (selectedCommunity) {
-      const suffix = {
-        0: 'th',
-        1: 'st',
-        2: 'nd',
-        3: 'rd',
-        4: 'th',
-        5: 'th',
-        6: 'th',
-        7: 'th',
-        8: 'th',
-        9: 'th',
-      };
-
       // const communityData = boundary == 'council' ? selectedCommunity
 
       const subject = obj.json_id;
@@ -193,7 +180,7 @@ const IssueHistogram = ({
       return (
         <p>
           {`${sentenceStructure.boundaryGrammatical} ranks `}
-          <strong>{`${rank}${suffix[rank % 10]} out of ${lastItem}`}</strong>
+          <strong>{`${ordinalSuffixOf(rank)} out of ${lastItem}`}</strong>
           {` ${
             sentenceStructure.bounds
           } for ${problemTerm} ${fullIssueName.toLowerCase()} ${joiningWord} ${value}${
