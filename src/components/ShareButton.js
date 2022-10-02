@@ -32,83 +32,81 @@ Public health, mobility, and the environment are affected by policies about the 
   };
 
   return (
-    <>
-      <div
-        // className={"share"}
-        className={'share-button-container noselect'}
-        onMouseEnter={() => {
-          setClicked(true);
-        }}
-        onMouseLeave={() => {
-          setClicked(false);
-        }}
-        // onClick={(e) => {
-        //   e.preventDefault();
-        // }}
-      >
-        {clicked && (
-          <div className={'share-icons'}>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={`${FACEBOOK_SHARE_URL}?u=${shareUrl}`}
-            >
-              <FontAwesomeIcon
-                icon={faSquareFacebook}
-                onClick={(e) => {
-                  pickColor(e);
-                }}
-              />
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={`${TWEET_INTENT_URL}?text=${encodeURIComponent(
-                shareText
-              )}&url=${shareUrl}&hashtags=${SHARE_HASHTAGS.join(',')}`}
-            >
-              <FontAwesomeIcon
-                icon={faTwitter}
-                onClick={(e) => {
-                  pickColor(e);
-                }}
-              />
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={`${LINKEDIN_SHARE_URL}?url=${shareUrl}`}
-            >
-              <FontAwesomeIcon
-                icon={faLinkedinIn}
-                onClick={(e) => {
-                  pickColor(e);
-                }}
-              />
-            </a>
-            <a>
-              <FontAwesomeIcon
-                icon={faCopy}
-                onClick={(e) => {
-                  e.preventDefault();
-                  copyURL();
-                  pickColor(e);
-                }}
-              />
-            </a>
-          </div>
+    <div
+      // className={"share"}
+      className={'share-button-container noselect'}
+      onMouseEnter={() => {
+        setClicked(true);
+      }}
+      onMouseLeave={() => {
+        setClicked(false);
+      }}
+      // onClick={(e) => {
+      //   e.preventDefault();
+      // }}
+    >
+      {clicked && (
+        <div className={'share-icons'}>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`${FACEBOOK_SHARE_URL}?u=${shareUrl}`}
+          >
+            <FontAwesomeIcon
+              icon={faSquareFacebook}
+              onClick={(e) => {
+                pickColor(e);
+              }}
+            />
+          </a>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`${TWEET_INTENT_URL}?text=${encodeURIComponent(
+              shareText
+            )}&url=${shareUrl}&hashtags=${SHARE_HASHTAGS.join(',')}`}
+          >
+            <FontAwesomeIcon
+              icon={faTwitter}
+              onClick={(e) => {
+                pickColor(e);
+              }}
+            />
+          </a>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`${LINKEDIN_SHARE_URL}?url=${shareUrl}`}
+          >
+            <FontAwesomeIcon
+              icon={faLinkedinIn}
+              onClick={(e) => {
+                pickColor(e);
+              }}
+            />
+          </a>
+          <a>
+            <FontAwesomeIcon
+              icon={faCopy}
+              onClick={(e) => {
+                e.preventDefault();
+                copyURL();
+                pickColor(e);
+              }}
+            />
+          </a>
+        </div>
+      )}
+      <div className="share-icon-container">
+        {((!isMobile && !clicked) || (isMobile && clicked)) && (
+          <small className={'m-0'}>
+            <strong>Share</strong>
+          </small>
         )}
-        <div className="share-icon-container">
-          {((!isMobile && !clicked) || (isMobile && clicked)) && (
-            <small className={'m-0'}>
-              <strong>Share</strong>
-            </small>
-          )}
-          <div className={'share-icon'}>
-            <img src={_SHARE} />
-          </div>
+        <div className={'share-icon'}>
+          <img src={_SHARE} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
