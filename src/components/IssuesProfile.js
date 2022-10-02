@@ -76,7 +76,17 @@ export default function IssueProfile({
     return issues.specific_issues_data[
       selectedSpecificIssue
     ].specific_issue_solutions.solutions_list.map((solution) => {
-      return <li style={{ padding: '0.5rem', paddingRight: '0rem', paddingBottom: '0rem' }}>{getHyperlinkText(solution)}</li>;
+      return (
+        <li
+          style={{
+            padding: '0.5rem',
+            paddingRight: '0rem',
+            paddingBottom: '0rem',
+          }}
+        >
+          {getHyperlinkText(solution)}
+        </li>
+      );
     });
   };
 

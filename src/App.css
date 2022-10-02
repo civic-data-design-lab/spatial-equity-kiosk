@@ -1454,6 +1454,10 @@ a:active {
     color: white;
 }
 
+.typewriter-container>* {
+    filter: drop-shadow(0 0 0.33rem rgba(0, 0, 0, 0.2));
+}
+
 .mobile-community-search-screen .typewriter-container {
     color: black;
 }

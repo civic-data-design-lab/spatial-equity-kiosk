@@ -7,6 +7,21 @@ import Histogram from './Histogram';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import Typewriter from 'typewriter-effect';
+import { useEffect } from 'react';
+
+const backgroundImages = [
+  'access-square.jpg',
+  'bikepath-square.jpg',
+  'city-square.jpg',
+  'crosswalk-square.jpg',
+  'traffic-square.jpg',
+];
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+}
 
 export default function IssuesTileView({
   selectedSpecificIssue,
@@ -44,6 +59,32 @@ export default function IssuesTileView({
 }) {
   const [expand, setExpand] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
+
+  useEffect(() => {
+    let index = getRandomInt(0, backgroundImages.length);
+    let counter = 0;
+    while (index === imageIndex && counter <= 5) {
+      counter++;
+      index = getRandomInt(0, backgroundImages.length);
+      console.log(counter);
+    }
+    setImageIndex(index);
+  }, [selectedChapter, selectedIssue]);
+
+  const getBackgroundImage = () => {
+    const randomImage = backgroundImages[imageIndex];
+
+    return (
+      <div>
+        <img
+          className={`issue-tile-image`}
+          src={`/stills/${randomImage}`}
+          alt={''}
+        />
+      </div>
+    );
+  };
 
   const getIssueName = () => {
     const bounds =
@@ -69,20 +110,31 @@ export default function IssuesTileView({
   return (
     <>
       {!selectedSpecificIssue && (
-        <div className={'typewriter-container p-5'} style={{ color: 'black' }}>
-          <div>Click Health</div>
-          <Typewriter
-            options={{
-              strings: [
-                'to see how people are living',
-                'to find nature in New York City',
-                'to see how people are getting around',
-              ],
-              autoStart: true,
-              loop: true,
-              pauseFor: 2000,
+        <div>
+          <div className={'pb-3'}>{getBackgroundImage()}</div>
+
+          <div
+            className={'typewriter-container p-5'}
+            style={{
+              position: 'absolute',
+              zIndex: '100',
+              top: '0',
             }}
-          />
+          >
+            <div>Try choosing...</div>
+            <Typewriter
+              options={{
+                strings: [
+                  'health to learn about asthma, pollution, and traffic violence',
+                  'environment to learn about heat, flooding, and trees',
+                  'mobility to learn about traffic, infrastructure, and transportation',
+                ],
+                autoStart: true,
+                loop: true,
+                pauseFor: 2000,
+              }}
+            />
+          </div>
         </div>
       )}
       {selectedSpecificIssue && (
