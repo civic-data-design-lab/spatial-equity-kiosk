@@ -234,9 +234,9 @@ export default function DeckMap({
    * make sure the map is loaded properly from a link.
    */
   useEffect(() => {
-    setViewStateLocal(viewState)
-  }, [viewState])
-  
+    // Update the zoom bounds just in case
+    setViewStateLocal({ ...viewState, minZoom: ZOOM_MIN, maxZoom: ZOOM_MAX });
+  }, [viewState]);
 
   useEffect(() => {
     // Remove comparison tooltips if the user deselects comparisons from the
@@ -485,13 +485,13 @@ export default function DeckMap({
     // 04.2 ramp in/out based on zoom level
 
     // 04.3 toggle based on zoom level
-    // if (viewState.zoom > 12.25) {
-    //   setzoomToggle(0);
-    //   sethandleLegend(0);
-    // } else {
-    //   setzoomToggle(1);
-    //   sethandleLegend(1);
-    // }
+    if (viewState.zoom > 12.25) {
+      setzoomToggle(0);
+      sethandleLegend(0);
+    } else {
+      setzoomToggle(1);
+      sethandleLegend(1);
+    }
     debounce(updateTooltipPositions, 50)();
   };
 
