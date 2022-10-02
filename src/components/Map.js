@@ -1368,9 +1368,10 @@ export default function DeckMap({
         <div
           style={{
             position: 'absolute',
-            zIndex: '1',
+            zIndex: '2',
             left: tooltipCompData1.pos.x,
             top: tooltipCompData1.pos.y,
+            boxShadow: '0 3px 5px rgba(0, 0, 0, 0.4)',
             transition: 'all 100ms ease-in-out',
           }}
         >
@@ -1403,11 +1404,14 @@ export default function DeckMap({
         <div
           style={{
             position: 'absolute',
-            zIndex: '1',
+            zIndex: tooltipCompData2.zIndex || '1',
             left: tooltipCompData2.pos.x,
             top: tooltipCompData2.pos.y,
             transition: 'all 100ms ease-in-out',
+            boxShadow: '0 3px 5px rgba(0, 0, 0, 0.4)',
           }}
+          onMouseOver={() => setTooltipCompData2((data) => ({...data, zIndex: '2'}))}
+          onMouseOut={() => setTooltipCompData2((data) => ({...data, zIndex: '1'}))}
         >
           <div style={TOOLTIP_STYLE}>
             <MapTooltip
