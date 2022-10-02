@@ -1006,9 +1006,8 @@ a:active {
 .map-notable-indicators>* {
     border: 1px solid black;
     background: white;
-    padding: 0.25rem;
+    padding: 0.25rem 0.5rem;
     transition: color 0.5s, background-color 0.5s;
-    content: ""
 }
 
 .map-notable-indicators>*:first-child {
@@ -1025,7 +1024,6 @@ a:active {
 }
 
 .map-notable-indicators>*:not(:first-child)::after {
-    content: "+";
     font-weight: 800;
     text-align: right;
     float: right;
