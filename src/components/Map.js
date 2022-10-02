@@ -217,9 +217,7 @@ export default function DeckMap({
 
   const [transportationModesArray, setTransportationModesArray] = useState([]);
 
-  const [highlightFeature, sethighlightFeature] = useState(null)
-
-
+  const [highlightFeature, sethighlightFeature] = useState(null);
 
   const selectedCommunity = communitySearch
     ? boundary == 'council'
@@ -1391,75 +1389,75 @@ export default function DeckMap({
           <FontAwesomeIcon onClick={zoomOut} icon={faMinus} />
         </div>
       )}
-      {/* Only show static tooltips if two boundaries are being compared. */}
-      {tooltipCompData1?.pos && tooltipCompData2?.pos && (
-        <>
-          <div
-            style={{
-              position: 'absolute',
-              zIndex: '1',
-              left: tooltipCompData1.pos.x,
-              top: tooltipCompData1.pos.y,
-              transition: 'all 100ms ease-in-out',
-            }}
-          >
-            <div style={TOOLTIP_STYLE}>
-              <MapTooltip
-                infoTransfer={infoTransfer}
-                boundary={boundary}
-                selectedChapter={selectedChapter}
-                selectedCoord={selectedCoord}
-                issues={issues}
-                selectedDemographic={selectedDemographic}
-                toggleTransit={toggleTransit}
-                toggleBike={toggleBike}
-                toggleWalk={toggleWalk}
-                demographic={demographic}
-                selectedSpecificIssue={selectedSpecificIssue}
-                demoLookup={demoLookup}
-                transportationModesArray={transportationModesArray}
-                selectedDemoArray={selectedDemoArray}
-                ethnicityColors={ethnicityColors}
-                tooltipProperties={tooltipCompData1?.properties}
-                pickingInfoObject={tooltipCompData1?.object}
-                pickingInfoIndex={tooltipCompData1?.index}
-              />
-            </div>
+      {/* Static tooltip 1 */}
+      {tooltipCompData1?.pos && (
+        <div
+          style={{
+            position: 'absolute',
+            zIndex: '1',
+            left: tooltipCompData1.pos.x,
+            top: tooltipCompData1.pos.y,
+            transition: 'all 100ms ease-in-out',
+          }}
+        >
+          <div style={TOOLTIP_STYLE}>
+            <MapTooltip
+              infoTransfer={infoTransfer}
+              boundary={boundary}
+              selectedChapter={selectedChapter}
+              selectedCoord={selectedCoord}
+              issues={issues}
+              selectedDemographic={selectedDemographic}
+              toggleTransit={toggleTransit}
+              toggleBike={toggleBike}
+              toggleWalk={toggleWalk}
+              demographic={demographic}
+              selectedSpecificIssue={selectedSpecificIssue}
+              demoLookup={demoLookup}
+              transportationModesArray={transportationModesArray}
+              selectedDemoArray={selectedDemoArray}
+              ethnicityColors={ethnicityColors}
+              tooltipProperties={tooltipCompData1?.properties}
+              pickingInfoObject={tooltipCompData1?.object}
+              pickingInfoIndex={tooltipCompData1?.index}
+            />
           </div>
-          {/* Second tooltip */}
-          <div
-            style={{
-              position: 'absolute',
-              zIndex: '1',
-              left: tooltipCompData2.pos.x,
-              top: tooltipCompData2.pos.y,
-              transition: 'all 100ms ease-in-out',
-            }}
-          >
-            <div style={TOOLTIP_STYLE}>
-              <MapTooltip
-                infoTransfer={infoTransfer}
-                boundary={boundary}
-                selectedChapter={selectedChapter}
-                selectedCoord={selectedCoord}
-                issues={issues}
-                selectedDemographic={selectedDemographic}
-                toggleTransit={toggleTransit}
-                toggleBike={toggleBike}
-                toggleWalk={toggleWalk}
-                demographic={demographic}
-                selectedSpecificIssue={selectedSpecificIssue}
-                demoLookup={demoLookup}
-                transportationModesArray={transportationModesArray}
-                selectedDemoArray={selectedDemoArray}
-                ethnicityColors={ethnicityColors}
-                tooltipProperties={tooltipCompData2?.properties}
-                pickingInfoObject={tooltipCompData2?.object}
-                pickingInfoIndex={tooltipCompData2?.index}
-              />
-            </div>
+        </div>
+      )}
+      {/* Static tooltip 2 */}
+      {tooltipCompData2?.pos && (
+        <div
+          style={{
+            position: 'absolute',
+            zIndex: '1',
+            left: tooltipCompData2.pos.x,
+            top: tooltipCompData2.pos.y,
+            transition: 'all 100ms ease-in-out',
+          }}
+        >
+          <div style={TOOLTIP_STYLE}>
+            <MapTooltip
+              infoTransfer={infoTransfer}
+              boundary={boundary}
+              selectedChapter={selectedChapter}
+              selectedCoord={selectedCoord}
+              issues={issues}
+              selectedDemographic={selectedDemographic}
+              toggleTransit={toggleTransit}
+              toggleBike={toggleBike}
+              toggleWalk={toggleWalk}
+              demographic={demographic}
+              selectedSpecificIssue={selectedSpecificIssue}
+              demoLookup={demoLookup}
+              transportationModesArray={transportationModesArray}
+              selectedDemoArray={selectedDemoArray}
+              ethnicityColors={ethnicityColors}
+              tooltipProperties={tooltipCompData2?.properties}
+              pickingInfoObject={tooltipCompData2?.object}
+              pickingInfoIndex={tooltipCompData2?.index}
+            />
           </div>
-        </>
+        </div>
       )}
       <DeckGL
         // viewState={viewState}
