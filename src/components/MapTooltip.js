@@ -113,10 +113,15 @@ const MapTooltip = ({
 
     const selectedIssue = issues.specific_issues_data[selectedSpecificIssue];
 
+    if (!selectedIssue) {
+      console.log("User unselected the issue.")
+      return;
+    }
+
     //get term to describe bad condition
-    const hiLowWord = selectedIssue.good_or_bad
-      ? selectedIssue.issue_hi_low[0]
-      : selectedIssue.issue_hi_low[1];
+    // const hiLowWord = selectedIssue.good_or_bad
+    //   ? selectedIssue.issue_hi_low[0]
+    //   : selectedIssue.issue_hi_low[1];
 
     // join sentence with either "at" or "with"
     const joiningWord = selectedIssue.json_id === 'F27_BusSpe' ? 'at' : 'with';
