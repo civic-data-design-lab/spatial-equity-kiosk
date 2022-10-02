@@ -43,17 +43,20 @@ const BIN_SIZE = 5; // number of bins in the color ramp
 // Map Viewport settings
 const ZOOM_MIN = 9.5;
 const ZOOM_MAX = 13;
-const buttomZoomStep = 0.5;
+const BUTTON_ZOOM_STEP = 0.5;
 
 const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
 
-const RESET_VIEW = {
+// Default view state (reset view)
+const DEFAULT_VIEW_STATE = {
   longitude: -74,
   latitude: 40.7131,
   zoom: 9.5,
   transitionDuration: 500,
   transitionInerpolator: new LinearInterpolator(),
+  minZoom: ZOOM_MIN,
+  maxZoom: ZOOM_MAX,
 };
 
 const MAP_BACKGROUND_STYLE = {
@@ -211,6 +214,7 @@ export default function DeckMap({
    */
   const [tooltipCompData1, setTooltipCompData1] = useState(null);
   const [tooltipCompData2, setTooltipCompData2] = useState(null);
+  const [viewStateLocal, setViewStateLocal] = useState(DEFAULT_VIEW_STATE);
 
   const [underperformers, setUnderperformers] = useState(null);
   // const [metricAverage, setMetricAverage] = useState(null);
@@ -224,6 +228,15 @@ export default function DeckMap({
       ? councils[communitySearch]
       : communities[communitySearch]
     : null;
+
+  /**
+   * If global view state changes, change the local view state. This is done to
+   * make sure the map is loaded properly from a link.
+   */
+  useEffect(() => {
+    setViewStateLocal(viewState)
+  }, [viewState])
+  
 
   useEffect(() => {
     // Remove comparison tooltips if the user deselects comparisons from the
@@ -257,12 +270,16 @@ export default function DeckMap({
   const dataScale = useRef('q'); //set to "equal" for equal binning, "q" for quantile binning
   // const [searchPoint, setSearchPoint] = useState([[], []]);
 
+  const getStaticTooltipPos = (coords) => {
+    const projection = mapRef.current?.getMap()?.project(coords);
+    return projection;
+  };
+
   const updateTooltipPositions = () => {
     // Update tooltip 1
+    // console.log('Updated tooltip pos');
     if (tooltipCompData1?.coords) {
-      let projection = mapRef.current
-        ?.getMap()
-        ?.project(tooltipCompData1.coords);
+      const projection = getStaticTooltipPos(tooltipCompData1.coords);
       if (projection !== tooltipCompData1.pos) {
         setTooltipCompData1({ ...tooltipCompData1, pos: projection });
       }
@@ -270,9 +287,7 @@ export default function DeckMap({
 
     // Update tooltip 2
     if (tooltipCompData2?.coords) {
-      let projection = mapRef.current
-        ?.getMap()
-        ?.project(tooltipCompData2.coords);
+      const projection = getStaticTooltipPos(tooltipCompData2.coords);
       if (projection !== tooltipCompData2.pos) {
         setTooltipCompData2({ ...tooltipCompData2, pos: projection });
       }
@@ -438,114 +453,65 @@ export default function DeckMap({
   // 03 DEMOGRAPHICS END ----------------------------------------------------------------------------------------------
 
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
-  const onViewStateChange = useCallback(
-    ({ viewState }) => {
-      // console.log('viewstate', viewState, 'newViewState', newViewState);
-      debounce(updateTooltipPositions, 50)();
-      // if (!mapDemographics) {
-      //   setViewState(() => ({
-      //     primary: viewState,
-      //     splitLeft: viewState,
-      //     splitRight: viewState,
-      //   }));
-      // }
-      // 04.1 set constraints on view state
+  const onViewStateChange = ({ viewState }) => {
+    // console.log('viewstate', viewState, 'newViewState', newViewState);
+    // console.log('Updating');
 
-      viewState.longitude = Math.min(
-        LONGITUDE_RANGE[1],
-        Math.max(LONGITUDE_RANGE[0], viewState.longitude)
-      );
-      viewState.latitude = Math.min(
-        LATITUDE_RANGE[1],
-        Math.max(LATITUDE_RANGE[0], viewState.latitude)
-      );
+    // if (!mapDemographics) {
+    //   setViewStateLocal(() => ({
+    //     primary: viewState,
+    //     splitLeft: viewState,
+    //     splitRight: viewState,
+    //   }));
+    // }
+    // 04.1 set constraints on view state
 
-      // max zoom
-      viewState.zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, viewState.zoom));
+    const newViewStateProps = {};
 
-      viewState.width = '100%';
+    newViewStateProps.longitude = Math.min(
+      LONGITUDE_RANGE[1],
+      Math.max(LONGITUDE_RANGE[0], viewState.longitude)
+    );
 
-      // 04.2 ramp in/out based on zoom level
+    newViewStateProps.latitude = Math.min(
+      LATITUDE_RANGE[1],
+      Math.max(LATITUDE_RANGE[0], viewState.latitude)
+    );
 
-      // 04.3 toggle based on zoom level
-      if (viewState.zoom > 12.25) {
-        setzoomToggle(0);
-        sethandleLegend(0);
-      } else {
-        setzoomToggle(1);
-        sethandleLegend(1);
-      }
-    },
-    [viewState]
-  );
+    newViewStateProps.width = '100%';
 
-  const zoomIn = useCallback(
-    ({}) => {
-      updateTooltipPositions();
-      if (!viewState.zoom) {
-        if (!mapDemographics) {
-          setViewState(() => ({
-            primary: {
-              ...viewState.primary,
-              zoom: viewState.primary.zoom + buttomZoomStep,
-              transitionDuration: 250,
-              transitionInerpolator: new LinearInterpolator(),
-            },
-          }));
-        } else {
-          setViewState(() => ({
-            splitLeft: {
-              ...viewState.splitLeft,
-              zoom: viewState.splitLeft.zoom + buttomZoomStep,
-              transitionDuration: 250,
-              transitionInerpolator: new LinearInterpolator(),
-            },
-            splitRight: {
-              ...viewState.splitRight,
-              zoom: viewState.splitRight.zoom + buttomZoomStep,
-              transitionDuration: 250,
-              transitionInerpolator: new LinearInterpolator(),
-            },
-          }));
-        }
-      }
-    },
-    [viewState]
-  );
+    setViewStateLocal({ ...viewState, ...newViewStateProps });
 
-  const zoomOut = useCallback(
-    ({}) => {
-      updateTooltipPositions();
-      if (!viewState.zoom) {
-        if (!mapDemographics) {
-          setViewState(() => ({
-            primary: {
-              ...viewState.primary,
-              zoom: viewState.primary.zoom - buttomZoomStep,
-              transitionDuration: 250,
-              transitionInerpolator: new LinearInterpolator(),
-            },
-          }));
-        } else {
-          setViewState(() => ({
-            splitLeft: {
-              ...viewState.splitLeft,
-              zoom: viewState.splitLeft.zoom - buttomZoomStep,
-              transitionDuration: 250,
-              transitionInerpolator: new LinearInterpolator(),
-            },
-            splitRight: {
-              ...viewState.splitRight,
-              zoom: viewState.splitRight.zoom - buttomZoomStep,
-              transitionDuration: 250,
-              transitionInerpolator: new LinearInterpolator(),
-            },
-          }));
-        }
-      }
-    },
-    [viewState]
-  );
+    // 04.2 ramp in/out based on zoom level
+
+    // 04.3 toggle based on zoom level
+    // if (viewState.zoom > 12.25) {
+    //   setzoomToggle(0);
+    //   sethandleLegend(0);
+    // } else {
+    //   setzoomToggle(1);
+    //   sethandleLegend(1);
+    // }
+    debounce(updateTooltipPositions, 50)();
+  };
+
+  const zoomIn = ({}) => {
+    updateTooltipPositions();
+
+    setViewStateLocal({
+      ...viewStateLocal,
+      zoom: min([ZOOM_MAX, viewStateLocal.zoom + BUTTON_ZOOM_STEP]),
+    });
+  };
+
+  const zoomOut = ({}) => {
+    updateTooltipPositions();
+
+    setViewStateLocal({
+      ...viewStateLocal,
+      zoom: max([ZOOM_MIN, viewStateLocal.zoom - BUTTON_ZOOM_STEP]),
+    });
+  };
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
 
   // 05 TOOLTIP ----------------------------------------------------------------------------------------------
@@ -633,7 +599,7 @@ export default function DeckMap({
       if (selectedCoord.length !== 2) {
         //console.debug('No coordinates, reset the view');
         setUserPoints([[], []]);
-        setViewState(RESET_VIEW);
+        setViewStateLocal(DEFAULT_VIEW_STATE);
         setTooltipCompData1(null);
         return;
       }
@@ -660,7 +626,7 @@ export default function DeckMap({
           setSelectedCoord([]);
           setCommunitySearch(null);
           setUserPoints([[], userPoints[1]]);
-          setViewState(RESET_VIEW);
+          setViewStateLocal(DEFAULT_VIEW_STATE);
           setTooltipCompData1(null);
         }
         return;
@@ -686,12 +652,11 @@ export default function DeckMap({
       });
 
       if (!compareSearch) {
-        setViewState({
+        setViewStateLocal({
+          ...viewStateLocal,
           longitude: selectedCoord[0],
           latitude: selectedCoord[1],
           zoom: ZOOM_MAX - 0.5,
-          transitionDuration: 500,
-          transitionInerpolator: new LinearInterpolator(),
         });
 
         return;
@@ -713,12 +678,11 @@ export default function DeckMap({
         ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN) -
           0.5
         : ZOOM_MIN;
-      setViewState({
+      setViewStateLocal({
+        ...viewStateLocal,
         longitude: (ptA[0] + ptB[0]) / 2,
         latitude: (ptA[1] + ptB[1]) / 2,
         zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
-        transitionDuration: 500,
-        transitionInerpolator: new LinearInterpolator(),
       });
     }
 
@@ -775,12 +739,11 @@ export default function DeckMap({
           coords: coords,
         });
 
-        setViewState({
+        setViewStateLocal({
+          ...viewStateLocal,
           longitude: (ptA[0] + ptB[0]) / 2,
           latitude: (ptA[1] + ptB[1]) / 2,
           zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
-          transitionDuration: 500,
-          transitionInerpolator: new LinearInterpolator(),
         });
         return;
       }
@@ -796,12 +759,11 @@ export default function DeckMap({
         setSelectedCompareCoord([]);
         setCompareSearch(null);
         setUserPoints([userPoints[0], []]);
-        setViewState({
+        setViewStateLocal({
+          ...viewStateLocal,
           longitude: selectedCoord[0],
           latitude: selectedCoord[1],
           zoom: ZOOM_MAX - 0.5,
-          transitionDuration: 500,
-          transitionInerpolator: new LinearInterpolator(),
         });
         setTooltipCompData2(null);
         return;
@@ -828,7 +790,7 @@ export default function DeckMap({
           setSelectedCoord([]);
           setCommunitySearch(null);
           setUserPoints([[], []]);
-          setViewState(RESET_VIEW);
+          setViewStateLocal(DEFAULT_VIEW_STATE);
           setTooltipCompData1(null);
           setTooltipCompData2(null);
           return;
@@ -843,12 +805,11 @@ export default function DeckMap({
         setCompareSearch(null);
         setSelectedCoord(userPoints[1]);
         setUserPoints([userPoints[1], []]);
-        setViewState({
+        setViewStateLocal({
+          ...viewStateLocal,
           longitude: userPoints[1][0],
           latitude: userPoints[1][1],
           zoom: ZOOM_MAX - 0.5,
-          transitionDuration: 500,
-          transitionInerpolator: new LinearInterpolator(),
         });
         setSelectedCompareCoord([]);
         // Swap tooltip data
@@ -1380,6 +1341,16 @@ export default function DeckMap({
     }
   });
 
+  const getCurrentMapViews = () => {
+    if (!showMap && (showMap || selectedSpecificIssue)) {
+      return null;
+    }
+    if (mapDemographics) {
+      return [SPLIT_VIEW_LEFT, SPLIT_VIEW_RIGHT];
+    }
+    return [MAIN_VIEW];
+  };
+
   // console.log(map ? map : "no map");
   return (
     <div>
@@ -1390,7 +1361,7 @@ export default function DeckMap({
         </div>
       )}
       {/* Static tooltip 1 */}
-      {tooltipCompData1?.pos && (
+      {false && tooltipCompData1?.pos && (
         <div
           style={{
             position: 'absolute',
@@ -1425,7 +1396,7 @@ export default function DeckMap({
         </div>
       )}
       {/* Static tooltip 2 */}
-      {tooltipCompData2?.pos && (
+      {false && tooltipCompData2?.pos && (
         <div
           style={{
             position: 'absolute',
@@ -1460,17 +1431,11 @@ export default function DeckMap({
         </div>
       )}
       <DeckGL
-        // viewState={viewState}
         style={{ backgroundColor: 'black' }}
-        initialViewState={viewState}
+        viewState={viewStateLocal}
         onViewStateChange={onViewStateChange}
-        views={
-          showMap || (!showMap && !selectedSpecificIssue)
-            ? mapDemographics
-              ? [SPLIT_VIEW_LEFT, SPLIT_VIEW_RIGHT]
-              : [MAIN_VIEW]
-            : null
-        }
+        views={getCurrentMapViews()}
+        controller={true}
         layers={[metricLayers, demoLayers, annoLayers]}
         getCursor={() => 'crosshair'}
         getTooltip={getDeckGlTooltip}
