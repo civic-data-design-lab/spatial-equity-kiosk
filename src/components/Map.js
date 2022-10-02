@@ -223,6 +223,15 @@ export default function DeckMap({
 
   const [highlightFeature, sethighlightFeature] = useState(null);
 
+  const deckRef = useRef(null);
+  const mapRef = useRef(null);
+  const dataScale = useRef('q'); //set to "equal" for equal binning, "q" for quantile binning
+  // const [searchPoint, setSearchPoint] = useState([[], []]);
+
+  useEffect(() => {
+    debounce(updateTooltipPositions, 750)();
+  }, [deckRef.current?.deck.width, collapseMap, viewStateLocal]);
+
   const selectedCommunity = communitySearch
     ? boundary == 'council'
       ? councils[communitySearch]
@@ -265,19 +274,20 @@ export default function DeckMap({
     setTransportationModesArray(modes);
   }, [toggleTransit, toggleBike, toggleWalk]);
 
-  const deckRef = useRef(null);
-  const mapRef = useRef(null);
-  const dataScale = useRef('q'); //set to "equal" for equal binning, "q" for quantile binning
-  // const [searchPoint, setSearchPoint] = useState([[], []]);
-
   const getStaticTooltipPos = (coords) => {
     const projection = mapRef.current?.getMap()?.project(coords);
+    if (!projection) {
+      return;
+    }
+    // Add an offset of 25 pixels from the left and top
+    projection.x += 25;
+    projection.y += 25;
     return projection;
   };
 
   const updateTooltipPositions = () => {
     // Update tooltip 1
-    // console.log('Updated tooltip pos');
+    // console.log('Updating tooltip pos', tooltipCompData1?.coords);
     if (tooltipCompData1?.coords) {
       const projection = getStaticTooltipPos(tooltipCompData1.coords);
       if (projection !== tooltipCompData1.pos) {
@@ -455,7 +465,7 @@ export default function DeckMap({
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
   const onViewStateChange = ({ viewState }) => {
     // console.log('viewstate', viewState, 'newViewState', newViewState);
-    // console.log('Updating');
+    // console.debug('Updating view state');
 
     // if (!mapDemographics) {
     //   setViewStateLocal(() => ({
@@ -641,14 +651,11 @@ export default function DeckMap({
 
       // Get the data of the selected community from the community search
       const pickingInfo = communitySearchResult[1][0];
-      const coords = pickingInfo.properties && [
-        pickingInfo.properties.X_Cent,
-        pickingInfo.properties.Y_Cent,
-      ];
       // Set the tooltip data of the primary community
       setTooltipCompData1({
         ...pickingInfo,
-        coords: coords,
+        coords: searchEngine, // Search engine gives the position of the dots
+        pos: getStaticTooltipPos(searchEngine),
       });
 
       if (!compareSearch) {
@@ -729,14 +736,10 @@ export default function DeckMap({
 
         // Get the data of the selected community from the community search
         const pickingInfo = communitySearchResult[1][0];
-        const coords = pickingInfo.properties && [
-          pickingInfo.properties.X_Cent,
-          pickingInfo.properties.Y_Cent,
-        ];
         // Set the tooltip data of the comparison community
         setTooltipCompData2({
           ...pickingInfo,
-          coords: coords,
+          coords: searchEngine,
         });
 
         setViewStateLocal({
@@ -1361,7 +1364,7 @@ export default function DeckMap({
         </div>
       )}
       {/* Static tooltip 1 */}
-      {false && tooltipCompData1?.pos && (
+      {tooltipCompData1?.pos && (
         <div
           style={{
             position: 'absolute',
@@ -1396,7 +1399,7 @@ export default function DeckMap({
         </div>
       )}
       {/* Static tooltip 2 */}
-      {false && tooltipCompData2?.pos && (
+      {tooltipCompData2?.pos && (
         <div
           style={{
             position: 'absolute',
