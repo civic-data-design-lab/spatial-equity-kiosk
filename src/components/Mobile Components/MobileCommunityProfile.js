@@ -339,7 +339,7 @@ export default function MobileCommunityProfile({
                            style={{textDecorationLine: boundary === "council" ? "underline" : ""}}
                         >Council <br/> District</p>
                     </div>
-                    <ShareButton/>
+                    <ShareButton isMobile={true}/>
 
                 </div>
 

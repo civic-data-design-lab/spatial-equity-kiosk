@@ -35,7 +35,7 @@ Public health, mobility, and the environment are affected by policies about the 
     <>
       <div
         // className={"share"}
-        className={'newShare noselect'}
+        className={'share-button-container noselect'}
         onMouseEnter={() => {
           setClicked(true);
         }}
@@ -86,23 +86,27 @@ Public health, mobility, and the environment are affected by policies about the 
                 }}
               />
             </a>
-            <FontAwesomeIcon
-              icon={faCopy}
-              onClick={(e) => {
-                e.preventDefault();
-                copyURL();
-                pickColor(e);
-              }}
-            />
+            <a>
+              <FontAwesomeIcon
+                icon={faCopy}
+                onClick={(e) => {
+                  e.preventDefault();
+                  copyURL();
+                  pickColor(e);
+                }}
+              />
+            </a>
           </div>
         )}
-        {!clicked && (
-          <small className={'m-0'}>
-            <strong>Share</strong>
-          </small>
-        )}
-        <div className={'share-icon'}>
-          <img src={_SHARE} />
+        <div className="share-icon-container">
+          {((!isMobile && !clicked) || (isMobile && clicked)) && (
+            <small className={'m-0'}>
+              <strong>Share</strong>
+            </small>
+          )}
+          <div className={'share-icon'}>
+            <img src={_SHARE} />
+          </div>
         </div>
       </div>
     </>
