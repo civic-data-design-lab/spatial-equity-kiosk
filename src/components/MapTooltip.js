@@ -11,7 +11,7 @@ export const TOOLTIP_STYLE = {
   background: 'white',
   color: 'black',
   padding: '0px',
-  maxWidth: '250px',
+  width: '250px',
 };
 
 const MapTooltip = ({
