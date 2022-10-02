@@ -20,7 +20,7 @@ export default function ShareButton({ isMobile }) {
 
 Public health, mobility, and the environment are affected by policies about the use of public space. Check out where your community ranks with #SpatialEquityNYC — a new tool from @transalt and @MIT. `
   );
-  const [shareUrl, setShareUrl] = useState('https://nyc25x25.org/');
+  const [shareUrl, setShareUrl] = useState('http://www.spatialequity.nyc/');
 
   const copyURL = () => {
     navigator.clipboard.writeText(window.location.href);
