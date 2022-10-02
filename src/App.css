@@ -994,13 +994,20 @@ a:active {
     background-color: white;
 }
 
-.map-notable-indicators {
+.map-notable-container {
     display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 0.5rem;
     position: absolute;
     z-index: 3;
     bottom: 1rem;
     left: 1rem;
-    font-weight: 500;
+
+
+}
+
+.map-notable-indicators {
+    display: grid;
 }
 
 .map-notable-indicators>* {
@@ -1029,6 +1036,8 @@ a:active {
     float: right;
     cursor: pointer;
 }
+
+
 
 /* Histogram */
 .cancelButtonText {

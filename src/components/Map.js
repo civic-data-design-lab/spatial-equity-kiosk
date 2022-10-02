@@ -33,6 +33,8 @@ import { project } from 'deck.gl';
 import MapTooltip, { TOOLTIP_STYLE } from './MapTooltip';
 import { debounce, getTransportationModes, mapRange } from '../utils/functions';
 
+import MapNotableIndicators from './MapNotableIndicators';
+
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 const MAP_STYLE = 'mapbox://styles/mitcivicdata/cl6fa3jro002d14qxp2nu9wng'; //toner
@@ -154,6 +156,7 @@ export default function DeckMap({
   issues,
   selectedIssue,
   selectedSpecificIssue,
+  setSelectedSpecificIssue,
   boundary,
   showDemographics,
   mapDemographics,
@@ -215,12 +218,8 @@ export default function DeckMap({
   const [tooltipCompData1, setTooltipCompData1] = useState(null);
   const [tooltipCompData2, setTooltipCompData2] = useState(null);
   const [viewStateLocal, setViewStateLocal] = useState(DEFAULT_VIEW_STATE);
-
   const [underperformers, setUnderperformers] = useState(null);
-  // const [metricAverage, setMetricAverage] = useState(null);
-
   const [transportationModesArray, setTransportationModesArray] = useState([]);
-
   const [highlightFeature, sethighlightFeature] = useState(null);
 
   const deckRef = useRef(null);
@@ -236,6 +235,12 @@ export default function DeckMap({
     ? boundary == 'council'
       ? councils[communitySearch]
       : communities[communitySearch]
+    : null;
+
+  const selectedCompareCommunity = compareSearch
+    ? boundary == 'council'
+      ? councils[compareSearch]
+      : communities[compareSearch]
     : null;
 
   /**
@@ -521,10 +526,6 @@ export default function DeckMap({
       ...viewStateLocal,
       zoom: max([ZOOM_MIN, viewStateLocal.zoom - BUTTON_ZOOM_STEP]),
     });
-  };
-
-  const selectImportant = ({}) => {
-    console.log('yahoo');
   };
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
 
@@ -1361,11 +1362,31 @@ export default function DeckMap({
   // console.log(map ? map : "no map");
   return (
     <div>
-      <div className="map-notable-indicators">
-        <div onClick={selectImportant}>Notable Indicators</div>
-        <div onClick={selectImportant}>woohoo</div>
-        <div onClick={selectImportant}>woohoo2</div>
-        <div onClick={selectImportant}>woohoo3</div>
+      <div className="map-notable-container">
+        {selectedCommunity && (
+          <MapNotableIndicators
+            selectedCommunity={selectedCommunity}
+            communitySearch={communitySearch}
+            councils={councils}
+            communities={communities}
+            setSelectedSpecificIssue={setSelectedSpecificIssue}
+            issues={issues}
+            boundary={boundary}
+            selectedSpecificIssue={selectedSpecificIssue}
+          />
+        )}
+        {compareSearch && addCompare && (
+          <MapNotableIndicators
+            selectedCommunity={selectedCompareCommunity}
+            communitySearch={compareSearch}
+            councils={councils}
+            communities={communities}
+            setSelectedSpecificIssue={setSelectedSpecificIssue}
+            issues={issues}
+            boundary={boundary}
+            selectedSpecificIssue={selectedSpecificIssue}
+          />
+        )}
       </div>
       {showMap && (
         <div className="map-zoom-buttons-container">
@@ -1420,8 +1441,12 @@ export default function DeckMap({
             transition: 'all 100ms ease-in-out',
             boxShadow: '0 3px 5px rgba(0, 0, 0, 0.4)',
           }}
-          onMouseOver={() => setTooltipCompData2((data) => ({...data, zIndex: '2'}))}
-          onMouseOut={() => setTooltipCompData2((data) => ({...data, zIndex: '1'}))}
+          onMouseOver={() =>
+            setTooltipCompData2((data) => ({ ...data, zIndex: '2' }))
+          }
+          onMouseOut={() =>
+            setTooltipCompData2((data) => ({ ...data, zIndex: '1' }))
+          }
         >
           <div style={TOOLTIP_STYLE}>
             <MapTooltip
