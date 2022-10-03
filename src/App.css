@@ -1422,7 +1422,7 @@ a:active {
     height: 10px !important;
     width: 10px !important;
     opacity: 1 !important;
-    border: 1px solid black !important;
+    border: 1.5px solid black !important;
     transition-timing-function: ease-in;
 
 }
