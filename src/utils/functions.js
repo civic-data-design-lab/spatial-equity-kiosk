@@ -93,18 +93,18 @@ export function getNumber(value) {
     const string = value.toString();
     // console.log(num);
 
-    return num == 0
-      ? num
-      : num > 10 || (string[string.length - 1] == 0 && string[0] != 0)
+    return Math.abs(num) == 0
+      ? Math.abs(num)
+      : Math.abs(num) > 10 || (string[string.length - 1] == 0 && string[0] != 0)
       ? Number(num.toFixed(0))
-      : num > 1
+      : Math.abs(num) > 1
       ? Number(num.toFixed(1))
-      : num > 0.1
+      : Math.abs(num) > 0.1
       ? Number(num.toFixed(2))
-      : Number(num);
+      : Number(num).toFixed(3);
   }
   if (typeof value === 'object') {
-    const minVal = min(value);
+    const minVal = Math.abs(min(value));
     const stringMinVal = minVal.toString();
     return minVal > 10 ||
       (stringMinVal[stringMinVal.length - 1] == 0 && stringMinVal[0] != 0)
@@ -113,7 +113,7 @@ export function getNumber(value) {
       ? value.map((d) => d.toFixed(1))
       : min(value) >= 0.1
       ? value.map((d) => d.toFixed(2))
-      : value;
+      : value.map((d) => d.toFixed(3));
   }
 }
 

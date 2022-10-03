@@ -157,10 +157,9 @@ const Histogram = ({
         issues.specific_issues_data[selectedSpecificIssue].json_id ==
         'F14_TmpDev'
       ) {
-        sentence = [
-          value > average ? 'Above' : value == average ? '' : 'Below',
-          sentence,
-        ].join(' ');
+        sentence = `${
+          value > average ? 'Above' : value == average ? '' : 'Below'
+        } ${sentence}`;
       }
 
       return sentence || null;

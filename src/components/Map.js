@@ -647,11 +647,12 @@ export default function DeckMap({
           // User clicked on an already selected community, resets the community
           // search and view state
           //console.debug('User clicked on already selected primary community');
-          setSelectedCoord([]);
-          setCommunitySearch(null);
-          setUserPoints([[], userPoints[1]]);
-          setViewStateLocal(DEFAULT_VIEW_STATE);
-          setTooltipCompData1(null);
+          // setSelectedCoord([]);
+          // setCommunitySearch(null);
+          // setUserPoints([[], userPoints[1]]);
+          // setViewStateLocal(DEFAULT_VIEW_STATE);
+          // setTooltipCompData1(null);
+          return;
         }
         return;
       }
@@ -812,12 +813,12 @@ export default function DeckMap({
           //console.debug(
           //  'User selected the primary community as the comparison community'
           //);
-          setSelectedCoord([]);
-          setCommunitySearch(null);
-          setUserPoints([[], []]);
-          setViewStateLocal(DEFAULT_VIEW_STATE);
-          setTooltipCompData1(null);
-          setTooltipCompData2(null);
+          // setSelectedCoord([]);
+          // setCommunitySearch(null);
+          // setUserPoints([[], []]);
+          // setViewStateLocal(DEFAULT_VIEW_STATE);
+          // setTooltipCompData1(null);
+          // setTooltipCompData2(null);
           return;
         }
 
@@ -1418,6 +1419,7 @@ export default function DeckMap({
       {tooltipCompData1?.pos && (
         <div
           style={{
+            pointerEvents: 'none',
             position: 'absolute',
             zIndex: '2',
             left: tooltipCompData1.pos.x,
