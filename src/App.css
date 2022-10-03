@@ -886,7 +886,6 @@ a:active {
 
 .map-tooltip>* {
     padding: 5px 10px 5px 10px;
-    border: 1px solid black;
 
 }
 
@@ -1009,8 +1008,6 @@ a:active {
     left: 1rem;
     border: 2px solid black;
     width: auto;
-
-
 }
 
 .map-notable-indicators {
