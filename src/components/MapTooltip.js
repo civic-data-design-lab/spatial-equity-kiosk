@@ -8,7 +8,7 @@ import {
 } from '../utils/functions';
 
 export const TOOLTIP_STYLE = {
-  border: '1px solid black',
+  border: '2px solid black',
   background: 'white',
   color: 'black',
   padding: '0px',
