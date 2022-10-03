@@ -51,7 +51,7 @@ const LONGITUDE_RANGE = [-74.25, -73.7];
 const LATITUDE_RANGE = [40.5, 40.9];
 
 // Default view state (reset view)
-const DEFAULT_VIEW_STATE = {
+export const DEFAULT_VIEW_STATE = {
   longitude: -74,
   latitude: 40.7131,
   zoom: 9.5,
@@ -521,6 +521,8 @@ export default function DeckMap({
     setViewStateLocal({
       ...viewStateLocal,
       zoom: min([ZOOM_MAX, viewStateLocal.zoom + BUTTON_ZOOM_STEP]),
+      transitionDuration: 500,
+      transitionInerpolator: new LinearInterpolator(),
     });
   };
 
@@ -530,6 +532,8 @@ export default function DeckMap({
     setViewStateLocal({
       ...viewStateLocal,
       zoom: max([ZOOM_MIN, viewStateLocal.zoom - BUTTON_ZOOM_STEP]),
+      transitionDuration: 500,
+      transitionInerpolator: new LinearInterpolator(),
     });
   };
   // 04 VIEWSTATE CONTROL END ----------------------------------------------------------------------------------------------
@@ -674,6 +678,8 @@ export default function DeckMap({
           longitude: selectedCoord[0],
           latitude: selectedCoord[1],
           zoom: ZOOM_MAX - 0.5,
+          transitionDuration: 500,
+          transitionInerpolator: new LinearInterpolator(),
         });
 
         return;
@@ -700,6 +706,8 @@ export default function DeckMap({
         longitude: (ptA[0] + ptB[0]) / 2,
         latitude: (ptA[1] + ptB[1]) / 2,
         zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
+        transitionDuration: 500,
+        transitionInerpolator: new LinearInterpolator(),
       });
     }
 
@@ -757,6 +765,8 @@ export default function DeckMap({
           longitude: (ptA[0] + ptB[0]) / 2,
           latitude: (ptA[1] + ptB[1]) / 2,
           zoom: !mapDemographics ? remapZoom : remapZoom - 0.5,
+          transitionDuration: 500,
+          transitionInerpolator: new LinearInterpolator(),
         });
         return;
       }
@@ -777,6 +787,8 @@ export default function DeckMap({
           longitude: selectedCoord[0],
           latitude: selectedCoord[1],
           zoom: ZOOM_MAX - 0.5,
+          transitionDuration: 500,
+          transitionInerpolator: new LinearInterpolator(),
         });
         setTooltipCompData2(null);
         return;

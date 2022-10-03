@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container';
 
 import Nav from './components/Nav';
 import Content from './components/Content';
-import Map from './components/Map';
+import Map, { DEFAULT_VIEW_STATE } from './components/Map';
 /*import BaseMap from "./components/BaseMap";*/
 import MobileNav from './components/Mobile Components/MobileNav';
 import CitywideData from './components/Mobile Components/CitywideData';
@@ -99,11 +99,7 @@ function App() {
 
   // map starting position and view state constraints
 
-  const [viewState, setViewState] = useState({
-    longitude: -74,
-    latitude: 40.7131,
-    zoom: 9.5,
-  });
+  const [viewState, setViewState] = useState(DEFAULT_VIEW_STATE);
 
   const [mapSelection, setMapSelection] = useState([], []);
   const [zoomToggle, setzoomToggle] = useState(0);
@@ -112,11 +108,7 @@ function App() {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     let createCoords = [[], []];
-    let createViewState = {
-      latitude: 40.7131,
-      longitude: -74,
-      zoom: 9.5,
-    };
+    let createViewState = { ...DEFAULT_VIEW_STATE };
     for (let pair of queryParams.entries()) {
       switch (pair[0]) {
         case 'swM':
