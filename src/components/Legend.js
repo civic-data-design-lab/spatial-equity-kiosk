@@ -457,11 +457,11 @@ export default function Legend({
                       fontFamily: 'Arial',
                     }}
                   />
-                  <div className={'small-font'}>29% Latino</div>
-                  <div className={'small-font'}>33% White</div>
-                  <div className={'small-font'}>23% Black</div>
-                  <div className={'small-font'}>13% Asian</div>
-                  <div className={'small-font'}>3% Other</div>
+                  <div className={'small-font'}>28% Latino</div>
+                  <div className={'small-font'}>31% White</div>
+                  <div className={'small-font'}>20% Black</div>
+                  <div className={'small-font'}>16% Asian</div>
+                  <div className={'small-font'}>5% Other</div>
                 </div>
               </div>
             </div>

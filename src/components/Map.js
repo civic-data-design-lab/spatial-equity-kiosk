@@ -152,6 +152,12 @@ const SPLIT_VIEW_RIGHT = new MapView({
   clear: true,
 });
 
+const defaultColors = [
+  [134, 84, 134, 255], // health
+  [131, 114, 77, 255], // environment
+  [70, 87, 125, 255], // mobility
+];
+
 export default function DeckMap({
   issues,
   selectedIssue,
@@ -202,7 +208,6 @@ export default function DeckMap({
   collapseMap,
 }) {
   // map hooks
-
   /**
    * @typedef TooltipCompData
    *
@@ -1275,7 +1280,9 @@ export default function DeckMap({
         ) {
           return selectedSpecificIssue
             ? [255, 255, 255, 255]
-            : [127, 255, 0, 255];
+            : selectedIssue
+            ? defaultColors[selectedIssue - 1]
+            : [255, 0, 0, 255];
         }
         return [0, 0, 0, 0];
       },
@@ -1286,6 +1293,7 @@ export default function DeckMap({
           addCompare,
           communitySearch,
           compareSearch,
+          selectedIssue,
         ],
       },
     }),

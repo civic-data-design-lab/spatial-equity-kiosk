@@ -91,6 +91,7 @@ export function getNumber(value) {
   if (typeof value === 'number') {
     const num = Number(value);
     const string = value.toString();
+    // console.log(num);
 
     return num == 0
       ? num

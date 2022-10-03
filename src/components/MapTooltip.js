@@ -93,9 +93,10 @@ const MapTooltip = ({
     const boroughName = getBoroughName(boroughData.boroughID);
 
     //value for specific metric and boundary
-    const value = accessor[infoTransfer.selectedMetric]
-      ? getNumber(accessor[infoTransfer.selectedMetric])
-      : '';
+    const value =
+      typeof accessor[infoTransfer.selectedMetric] == 'number'
+        ? getNumber(accessor[infoTransfer.selectedMetric])
+        : '';
 
     //get boundary ranking
     const ranking = metricCheck.find(
@@ -104,7 +105,7 @@ const MapTooltip = ({
     )?.rank;
 
     if (!ranking) {
-      console.error('Could not find a ranking with this boundary');
+      console.log('Could not find a ranking with this boundary');
       return;
     }
 
@@ -114,7 +115,7 @@ const MapTooltip = ({
     const selectedIssue = issues.specific_issues_data[selectedSpecificIssue];
 
     if (!selectedIssue) {
-      console.log("User unselected the issue.")
+      console.log('User unselected the issue.');
       return;
     }
 

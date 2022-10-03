@@ -73,7 +73,7 @@ export default function IssuesCard({
               }}
             >
               <p className={'m-0 d-inline-block smaller-text'}>
-                {toggleDisplayMode ? `Show Chart` : `Show Rankings`}
+                {toggleDisplayMode ? `Show Histogram` : `Show List`}
               </p>
               <label className="m-0 switch">
                 <input

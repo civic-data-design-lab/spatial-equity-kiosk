@@ -214,11 +214,7 @@ export default function CommunitySearchBar({
           type={'search'}
           id={forSearch ? 'community-search' : 'compare-search'}
           className={`community-search w-100`}
-          placeholder={
-            forSearch
-              ? 'Search for a District, Neighborhood, or Address'
-              : 'Compare Communities'
-          }
+          placeholder={'Search for a District, Neighborhood, or Address'}
           style={{
             borderColor:
               (badSearch[0] && primarySearch) ||

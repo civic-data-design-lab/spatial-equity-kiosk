@@ -1084,7 +1084,7 @@ const Histogram = ({
             </label>
 
             <p className={'small-font d-inline-block big-button border-0'}>
-              {toggleDisplayMode ? `Show Chart` : `Show Rankings`}
+              {toggleDisplayMode ? `Show Histogram` : `Show List`}
             </p>
           </div>
 
