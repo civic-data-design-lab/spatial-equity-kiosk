@@ -273,7 +273,7 @@ const Histogram = ({
         'style',
         'font-family:Inter; text-shadow:rgb(255 255 255) -1px -1px 0px, rgb(255 255 255) -1px 1px 0px, rgb(255 255 255) 1px -1px 0px, rgb(255 255 255) 1px 1px 0px'
       )
-      .attr('font-size', '14')
+      .attr('font-size', '12')
       .attr('fill', '#000000')
       .text('');
 
@@ -285,7 +285,7 @@ const Histogram = ({
         'style',
         'font-family:Inter; text-shadow:rgb(255 255 255) -1px -1px 0px, rgb(255 255 255) -1px 1px 0px, rgb(255 255 255) 1px -1px 0px, rgb(255 255 255) 1px 1px 0px'
       )
-      .attr('font-size', '14')
+      .attr('font-size', '12')
       .attr('fill', '#000000')
       .text('');
   }, [
@@ -402,7 +402,7 @@ const Histogram = ({
       .attr('x', width - margin.right - textWidth)
       .attr('y', yscale(0.5) - 5)
       .attr('style', 'font-family:Inter')
-      .attr('font-size', '14')
+      .attr('font-size', '12')
       .attr('fill', '#000000')
       .text(
         !ascending
@@ -415,7 +415,7 @@ const Histogram = ({
       .attr('x', width - margin.right - textWidth)
       .attr('y', yscale(data.length + 0.5) + 15)
       .attr('style', 'font-family:Inter')
-      .attr('font-size', '14')
+      .attr('font-size', '12')
       .attr('fill', '#000000')
       .text(
         ascending
@@ -431,7 +431,7 @@ const Histogram = ({
       .attr('style', 'font-family:Inter')
       .attr('visibility', 'hidden')
       // .style('font-weight', 'bold')
-      .attr('font-size', '14')
+      .attr('font-size', '12')
       .on('click', (event, d) => {
         if (boundary == 'council') {
           setCouncilPinned([]);
@@ -489,7 +489,7 @@ const Histogram = ({
       .attr('x', width - margin.right - textWidth)
       .attr('y', yscale(avgIndex + 1) - 5)
       .attr('style', 'font-family:Inter')
-      .attr('font-size', '14')
+      .attr('font-size', '12')
       .attr('fill', '#000000')
       .text('Citywide Average');
 
@@ -498,7 +498,7 @@ const Histogram = ({
       .attr('x', width - margin.right - textWidth)
       .attr('y', yscale(avgIndex + 1) + 15)
       .attr('style', 'font-family:Inter')
-      .attr('font-size', '14')
+      .attr('font-size', '12')
       .attr('fill', '#000000')
       .text(`${getNumber(avg)}${metricSymbol} ${getIssueStatement()}`);
 
@@ -621,7 +621,7 @@ const Histogram = ({
       .attr('visibility', 'hidden')
       .attr('lookupID', (d, i) => lookupArray[i])
       .attr('style', 'font-family:Inter')
-      .attr('font-size', '14')
+      .attr('font-size', '12')
       .attr('fill', '#000000')
       .text(
         (d, i) => `${boundary == 'council' ? 'Council' : ''} ${nameArray[i]}`
@@ -643,7 +643,7 @@ const Histogram = ({
       .attr('visibility', 'hidden')
       .attr('lookupID', (d, i) => lookupArray[i])
       .attr('style', 'font-family:Inter')
-      .attr('font-size', '14')
+      .attr('font-size', '12')
       .attr('fill', '#000000')
       .text(
         (d, i) =>
