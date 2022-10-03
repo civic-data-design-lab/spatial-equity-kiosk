@@ -49,8 +49,8 @@ export default function IssuesMiddleColumn({
   showMap,
   binList,
   info,
-  adultAsthma,
-  setAdultAsthma,
+  setSelectedChapter,
+  setShowMap,
 }) {
   const getHyperlinkText = (texts) => {
     return (
@@ -212,6 +212,7 @@ export default function IssuesMiddleColumn({
           {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
           {showMap && (
             <Legend
+              setShowMap={setShowMap}
               mapDemographics={mapDemographics}
               demoColorRamp={demoColorRamp}
               demoLegendBins={demoLegendBins}
@@ -232,9 +233,8 @@ export default function IssuesMiddleColumn({
               binList={binList}
               info={info}
               selectedChapter={selectedChapter}
-              adultAsthma={adultAsthma}
-              setAdultAsthma={setAdultAsthma}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
+              setSelectedChapter={setSelectedChapter}
             />
           )}
         </div>
@@ -313,6 +313,7 @@ export default function IssuesMiddleColumn({
           {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
           {showMap && (
             <Legend
+              setShowMap={setShowMap}
               mapDemographics={mapDemographics}
               demoColorRamp={demoColorRamp}
               demoLegendBins={demoLegendBins}
@@ -333,9 +334,8 @@ export default function IssuesMiddleColumn({
               binList={binList}
               info={info}
               selectedChapter={selectedChapter}
-              adultAsthma={adultAsthma}
-              setAdultAsthma={setAdultAsthma}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
+              setSelectedChapter={setSelectedChapter}
             />
           )}
         </div>
@@ -411,6 +411,7 @@ export default function IssuesMiddleColumn({
           {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
           {showMap && (
             <Legend
+              setShowMap={setShowMap}
               mapDemographics={mapDemographics}
               demoColorRamp={demoColorRamp}
               demoLegendBins={demoLegendBins}
@@ -431,9 +432,8 @@ export default function IssuesMiddleColumn({
               binList={binList}
               info={info}
               selectedChapter={selectedChapter}
-              adultAsthma={adultAsthma}
-              setAdultAsthma={setAdultAsthma}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
+              setSelectedChapter={setSelectedChapter}
             />
           )}
         </div>
@@ -495,7 +495,7 @@ export default function IssuesMiddleColumn({
             setToggleBike={setToggleBike}
             toggleWalk={toggleWalk}
             setToggleWalk={setToggleWalk}
-            colorRamps={colorRamps} // legendBins={legendBins}
+            colorRamps={colorRamps}
             demoColorRamp={demoColorRamp}
             demoLegendBins={demoLegendBins}
             setDemoColorRamp={setDemoColorRamp}

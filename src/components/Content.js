@@ -67,8 +67,6 @@ export default function Content({
   setCouncilPinned,
   setCollapseMap,
   collapseMap,
-  adultAsthma,
-  setAdultAsthma,
   userPoints,
   setUserPoints,
   selectedCoord,
@@ -154,10 +152,10 @@ export default function Content({
             info={info}
             setCollapseMap={setCollapseMap}
             collapseMap={collapseMap}
-            adultAsthma={adultAsthma}
-            setAdultAsthma={setAdultAsthma}
             userPoints={userPoints}
             setUserPoints={setUserPoints}
+            setSelectedChapter={setSelectedChapter}
+            setShowMap={setShowMap}
           />
         )}
 
