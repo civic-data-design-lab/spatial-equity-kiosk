@@ -285,7 +285,7 @@ export default function CommunityNav({
         )}
 
         {(badSearch[0] == 1 || badSearch[1] == 1) && (
-          <div className={'small-font'}>
+          <div className={'m-0 small-font'}>
             {errorCode == 1
               ? `${
                   communitySearch
@@ -352,9 +352,9 @@ export default function CommunityNav({
             }}
           >
             {!addCompare ? (
-              <p className={'m-0'}>Compare Communities</p>
+              <p className={'m-0 small-font'}>Compare Communities</p>
             ) : (
-              <p className={'m-0'}>Remove Community</p>
+              <p className={'m-0 small-font'}>Remove Community</p>
             )}
             {!addCompare ? (
               <FontAwesomeIcon icon={faPlus} width={32} />

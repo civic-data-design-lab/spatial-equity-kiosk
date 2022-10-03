@@ -439,6 +439,7 @@ const IssueHistogram = ({
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
+      .attr('font-weight', '500')
       .attr('fill', '#000000')
       //  .attr('text-anchor', 'end')
       .attr('text-anchor', 'start')
@@ -456,7 +457,7 @@ const IssueHistogram = ({
       //   .attr('y', height - margin.bottom + 5)
       // .attr('y', svg.select('#maxLine').attr('y1') - 5)
       .attr('y', height - margin.bottom + 15)
-      .attr('class', 'smaller-text')
+      .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
@@ -474,7 +475,7 @@ const IssueHistogram = ({
       .attr('x', svg.select('#avgLine').attr('x1'))
       // .attr('y', height - margin.bottom + 15)
       .attr('y', svg.select('#avgLine').attr('y1') - 12)
-      .attr('class', 'smaller-text')
+      .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
@@ -486,7 +487,7 @@ const IssueHistogram = ({
       .attr('x', svg.select('#selectedLine').attr('x1'))
       // .attr('y', height - margin.bottom + 15)
       .attr('y', svg.select('#selectedLine').attr('y1') - 12)
-      .attr('class', 'smaller-text')
+      .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
@@ -499,7 +500,7 @@ const IssueHistogram = ({
         .attr('x', svg.select('#compareLine').attr('x1'))
         // .attr('y', height - margin.bottom + 15)
         .attr('y', svg.select('#compareLine').attr('y1') - 12)
-        .attr('class', 'smaller-text')
+        .attr('class', 'small-font')
         .attr('style', 'font-family:Inter')
         .attr('font-size', '14')
         .attr('fill', '#000000')
@@ -514,7 +515,7 @@ const IssueHistogram = ({
       .attr('x', xscale(0.5))
       //   .attr('y', svg.select('#minLine').attr('y1') - 5)
       .attr('y', height - margin.bottom + 12)
-      .attr('class', 'smaller-text')
+      .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
@@ -534,7 +535,7 @@ const IssueHistogram = ({
       .attr('x', xscale(data.length + 0.5))
       //   .attr('y', svg.select('#maxLine').attr('y1') - 5)
       .attr('y', height - margin.bottom + 12)
-      .attr('class', 'smaller-text')
+      .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
@@ -550,7 +551,7 @@ const IssueHistogram = ({
       // .attr('y', svg.select('#avgLine').attr('y1') - 5)
       // .attr('y', height - margin.bottom + 12)
       .attr('y', svg.select('#selectedLine').attr('y1'))
-      .attr('class', 'smaller-text')
+      .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
@@ -571,7 +572,7 @@ const IssueHistogram = ({
       .attr('x', svg.select('#selectedLine').attr('x1'))
       .attr('y', svg.select('#selectedLine').attr('y1'))
       // .attr('y', height - margin.bottom + 12)
-      .attr('class', 'smaller-text')
+      .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
@@ -596,7 +597,7 @@ const IssueHistogram = ({
         .attr('x', svg.select('#compareLine').attr('x1'))
         .attr('y', svg.select('#compareLine').attr('y1'))
         // .attr('y', height - margin.bottom + 12)
-        .attr('class', 'smaller-text')
+        .attr('class', 'small-font')
         .attr('style', 'font-family:Inter')
         .attr('font-size', '14')
         .attr('fill', '#000000')
@@ -839,7 +840,7 @@ const IssueHistogram = ({
     <div>
       <div
         style={{ display: toggleDisplayMode ? 'none' : '' }}
-        className={'m-0 smaller-text'}
+        className={'m-0 small-font'}
       >
         {getRankingNarrative(issues.specific_issues_data[specificIssue], avg)}{' '}
       </div>

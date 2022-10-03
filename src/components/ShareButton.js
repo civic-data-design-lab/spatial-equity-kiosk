@@ -98,7 +98,7 @@ Public health, mobility, and the environment are affected by local policies abou
       )}
       <div className="share-icon-container">
         {((!isMobile && !clicked) || (isMobile && clicked)) && (
-          <small className={'m-0'}>
+          <small className={'small-font'}>
             <strong>Share</strong>
           </small>
         )}

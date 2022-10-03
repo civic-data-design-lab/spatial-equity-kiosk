@@ -28,11 +28,11 @@ export default function MapToggle({
             bottom: '3rem',
             fontSize: '0.75rem',
             backgroundColor: 'white',
-            border: '1px solid black',
+            border: '2px solid black',
             color: 'black',
-            padding: '0.5rem 1rem',
+            padding: '0.25em 0.5em',
             width: 'fit-content',
-            right: '0.5rem',
+            right: '0rem',
             pointerEvents: 'none',
           }}
         >
@@ -42,7 +42,7 @@ export default function MapToggle({
       <div className={`${showToggle ? '' : 'd-none'} map-toggle-container`}>
         <div
           className={`${!showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}
-          style={!showMap ? { borderRight: '1px solid black' } : {}}
+          style={!showMap ? { borderRight: '2px solid black' } : {}}
           onClick={() => {
             setShowMap(false);
           }}
@@ -63,7 +63,7 @@ export default function MapToggle({
         </div>
         <div
           className={`${showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}
-          style={showMap ? { borderLeft: '1px solid black' } : {}}
+          style={showMap ? { borderLeft: '2px solid black' } : {}}
           onClick={() => {
             setShowMap(true);
           }}

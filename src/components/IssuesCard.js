@@ -55,7 +55,7 @@ export default function IssuesCard({
             : { position: 'relative' }
         }
       >
-        <div className={'issues-card-title-container col-gap'}>
+        <div className={'issues-card-title-container small-col-gap'}>
           <p className={'m-0'}>{getIssueName()}</p>
 
           <p className={'m-0 smaller-text'} style={{ paddingRight: '0.5rem' }}>
