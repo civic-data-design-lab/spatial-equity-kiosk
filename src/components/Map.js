@@ -65,9 +65,9 @@ const MAP_BACKGROUND_STYLE = {
   position: 'absolute',
   width: '100%',
   height: '100%',
-  border: '1px solid black',
-  borderRight: '2px solid black',
-  // borderLeft: 'none',
+  border: '0px solid black',
+  borderRight: '1px solid black',
+  borderLeft: 'none',
 };
 
 const SPLIT_SCREEN_POSITIONING = {
@@ -80,16 +80,16 @@ const SPLIT_SCREEN_POSITIONING = {
 };
 
 const SPLIT_SCREEN_HEADER = {
-  padding: '0rem 0.75rem',
+  padding: '0.25em 0.5em',
   gridRowStart: '2',
   verticalAlign: 'middle',
   textAlign: 'center',
   fontFamily: 'Inter',
   color: 'white',
-  fontWeight: '500',
+  fontWeight: '700',
   backgroundColor: 'black',
-  border: '1px solid white',
-  fontSize: '0.85rem',
+  border: '1.5px solid white',
+  fontSize: '0.8rem',
   // borderRadius: "50px",
 };
 
