@@ -44,7 +44,7 @@ export default function Demographics({
   const demographics = {
     1: 'Race & Ethnicity',
     2: 'Poverty Level',
-    3: 'No Car Ownership',
+    3: 'Vehicle Ownership',
     4: 'Drive Alone to Work',
     5: 'Walk, Bike, or Ride Transit',
   };

@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import GridGraph from './GridGraph';
+import SourceInfo from './SourceInfo';
 
 import _CHAPTER_COLORS from '../data/chapter_colors.json';
 import _ETHNICITY_COLORS from '../data/ethnicity_colors.json';
@@ -16,21 +17,14 @@ import { getNumber } from '../utils/functions';
 
 export default function Legend({
   issues,
-  demographic,
   selectedSpecificIssue,
-  //legendBins,
   colorRamps,
   toggleUnderperformers,
   setToggleUnderperformers,
   boundary,
   dataScale,
-  setdataScale,
   forDemographic = false,
-  handleLegend,
-  selectedIssue,
-  zoomToggle,
   demoLookup,
-  demoColorRamp,
   demoLegendBins,
   mapDemographics,
   showMap,
@@ -42,9 +36,8 @@ export default function Legend({
   toggleWalk,
   toggleTransit,
   toggleBike,
-  adultAsthma,
-  setAdultAsthma,
-  setSelectedSpecificIssue,
+  setSelectedChapter = null,
+  setShowMap = null,
 }) {
   const communities = _COMMUNITIES;
   const councils = _COUNCILS;
@@ -209,7 +202,13 @@ export default function Legend({
               <>
                 <div>
                   <p className={'small-font mb-1'}>
-                    {issues.specific_issues_data[selectedSpecificIssue].units}
+                    {issues.specific_issues_data[selectedSpecificIssue].units}{' '}
+                    <SourceInfo
+                      issues={issues}
+                      selectedSpecificIssue={selectedSpecificIssue}
+                      setSelectedChapter={setSelectedChapter}
+                      setShowMap={setShowMap}
+                    />
                   </p>
                   <div className={'placeholder-legend'}>
                     <div
@@ -258,7 +257,7 @@ export default function Legend({
                       }}
                     />
                     <div className={'small-font'}>
-                      {legendBins[0] < 0 ? legendBins[0] : 0}
+                      {legendBins[0] < 0 ? getNumber(legendBins[0]) : 0}
                       {symbol}
                     </div>
                     <div className={'small-font'}>

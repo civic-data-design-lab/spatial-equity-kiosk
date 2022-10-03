@@ -3,9 +3,8 @@ import MapToggle from './MapToggle';
 import ShareButton from './ShareButton';
 import IssueProfile from './IssuesProfile';
 import Histogram from './Histogram';
+import SourceInfo from './SourceInfo';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import Typewriter from 'typewriter-effect';
 import { useEffect } from 'react';
 
@@ -58,7 +57,6 @@ export default function IssuesTileView({
   setSearchSource,
 }) {
   const [expand, setExpand] = useState(false);
-  const [showInfo, setShowInfo] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
 
   useEffect(() => {
@@ -124,9 +122,9 @@ export default function IssuesTileView({
             <Typewriter
               options={{
                 strings: [
-                  'health to learn about asthma, pollution, and traffic violence',
-                  'environment to learn about heat, flooding, and trees',
-                  'mobility to learn about traffic, infrastructure, and transportation',
+                  'Health to learn about asthma, pollution, and traffic violence',
+                  'Environment to learn about heat, flooding, and trees',
+                  'Mobility to learn about traffic, infrastructure, and transportation',
                 ],
                 autoStart: true,
                 loop: true,
@@ -176,45 +174,12 @@ export default function IssuesTileView({
               <div>
                 <h5 className={'d-inline-block bold pt-3'}>
                   {getIssueName()}{' '}
-                  <div
-                    onMouseEnter={() => {
-                      setShowInfo(true);
-                    }}
-                    onMouseLeave={() => {
-                      setShowInfo(false);
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      // setSelectedAbout(9);
-                      setSelectedChapter(4);
-                    }}
-                    className={'d-inline-block'}
-                  >
-                    <FontAwesomeIcon
-                      style={
-                        showInfo
-                          ? {
-                              fontSize: '1rem',
-                              cursor: 'pointer',
-                              transform: 'scale(1.1)',
-                            }
-                          : { fontSize: '1rem', cursor: 'pointer' }
-                      }
-                      icon={faCircleInfo}
-                    />
-                    <div
-                      className={`${
-                        showInfo ? '' : 'd-none'
-                      } position-absolute info-tooltip smaller-text`}
-                    >
-                      <p className={'m-0'}>
-                        {`Source: ${issues.specific_issues_data[selectedSpecificIssue].specific_issue_source}. ${issues.specific_issues_data[selectedSpecificIssue].year}.
-                        `}
-                      </p>
-                    </div>
-                  </div>
                 </h5>
-
+                <SourceInfo
+                  issues={issues}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  setSelectedChapter={setSelectedChapter}
+                />
                 <div className={'m-0 small-font'}>
                   {`${issues.specific_issues_data[selectedSpecificIssue].units} `}
                 </div>

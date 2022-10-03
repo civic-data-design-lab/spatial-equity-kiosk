@@ -99,9 +99,7 @@ export function getNumber(value) {
       ? Number(num.toFixed(0))
       : Math.abs(num) > 1
       ? Number(num.toFixed(1))
-      : Math.abs(num) > 0.1
-      ? Number(num.toFixed(2))
-      : Number(num).toFixed(3);
+      : Number(num.toFixed(2));
   }
   if (typeof value === 'object') {
     const minVal = Math.abs(min(value));
@@ -111,9 +109,7 @@ export function getNumber(value) {
       ? value.map((d) => d.toFixed(0))
       : min(value) >= 1
       ? value.map((d) => d.toFixed(1))
-      : min(value) >= 0.1
-      ? value.map((d) => d.toFixed(2))
-      : value.map((d) => d.toFixed(3));
+      : value.map((d) => d.toFixed(2));
   }
 }
 
