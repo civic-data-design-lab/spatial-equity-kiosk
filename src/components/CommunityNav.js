@@ -365,7 +365,7 @@ export default function CommunityNav({
         )}
 
         <div>
-          <p className={'m-0 community-description'}>
+          {/* <p className={'m-0 community-description'}>
             <span>
               {(communities[compareSearch] &&
                 communities[compareSearch].name) ||
@@ -390,9 +390,9 @@ export default function CommunityNav({
             {(communities[compareSearch] &&
               communities[compareSearch].description) ||
               (councils[compareSearch] && councils[compareSearch].description)}
-          </p>
+          </p> */}
 
-          <p className={'m-0 small-font'}>
+          <p className={'m-0 small-font pt-3'}>
             {(communities[compareSearch] &&
               communities[compareSearch].neighborhoods) ||
               (councils[compareSearch] &&

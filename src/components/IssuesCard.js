@@ -62,7 +62,7 @@ export default function IssuesCard({
             {issues.specific_issues_data[specificIssue].units}
           </p>
         </div>
-        <div className={'issues-card-button-container col-gap'}>
+        <div className={'issues-card-button-container small-col-gap'}>
           {target && (
             <div
               className={`${

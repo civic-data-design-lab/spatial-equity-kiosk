@@ -1424,6 +1424,7 @@ export default function DeckMap({
             top: tooltipCompData1.pos.y,
             boxShadow: '0 3px 5px rgba(0, 0, 0, 0.4)',
             transition: 'all 100ms ease-in-out',
+            border: "2px solid black",
           }}
         >
           <div style={TOOLTIP_STYLE}>
