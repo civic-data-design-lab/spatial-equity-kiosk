@@ -16,9 +16,8 @@ const LINKEDIN_SHARE_URL = 'https://linkedin.com/sharing/share-offsite';
 export default function ShareButton({ isMobile }) {
   const [clicked, setClicked] = useState(false);
   const [shareText, setShareText] = useState(
-    `Not all neighborhoods are created equal.
-
-Public health, mobility, and the environment are affected by policies about the use of public space. Check out where your community ranks with #SpatialEquityNYC — a new tool from @transalt and @MIT. `
+    `Not all streets are created equal.
+Public health, mobility, and the environment are affected by local policies about the use of public space. Check out where your community ranks with #SpatialEquityNYC — a new tool from @transalt and @MITLCAU. `
   );
   const [shareUrl, setShareUrl] = useState('http://www.spatialequity.nyc/');
 
