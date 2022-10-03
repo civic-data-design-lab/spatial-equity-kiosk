@@ -24,6 +24,7 @@ export default function IssueProfile({
           {ids.map((id, index) => {
             return (
               <img
+                key={index}
                 className={`issue-tile-image ${index > 0 ? 'mt-2' : ''}`}
                 src={`/${id}`}
                 alt={''}
@@ -38,9 +39,9 @@ export default function IssueProfile({
   const getHyperlinkText = (texts) => {
     return (
       <p>
-        {texts.map((texts) => {
+        {texts.map((texts, index) => {
           return (
-            <span className={texts.bolded ? 'bold' : ''}>
+            <span key={index} className={texts.bolded ? 'bold' : ''}>
               {texts.text}
               {texts.hyperlink && (
                 <span
@@ -75,9 +76,10 @@ export default function IssueProfile({
   const getListSolution = () => {
     return issues.specific_issues_data[
       selectedSpecificIssue
-    ].specific_issue_solutions.solutions_list.map((solution) => {
+    ].specific_issue_solutions.solutions_list.map((solution, index) => {
       return (
         <li
+          key={index}
           style={{
             padding: '0.5rem',
             paddingRight: '0rem',

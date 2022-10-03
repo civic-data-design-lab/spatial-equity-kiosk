@@ -42,6 +42,7 @@ export default function MapNotableIndicators({
       </div>
       {notableIndicators.map((indicatorIndex, index) => (
         <div
+          key={index}
           style={
             selectedSpecificIssue == indicatorIndex
               ? { backgroundColor: 'black', color: 'white' }
