@@ -92,8 +92,6 @@ function App() {
   const [collapseMap, setCollapseMap] = useState(false);
   const [collapseMapToggle, setCollapseMapToggle] = useState(false);
 
-  const [adultAsthma, setAdultAsthma] = useState(true);
-
   // console.log(badSearch);
   // map hooks
 
@@ -630,8 +628,6 @@ function App() {
             setCouncilPinned={setCouncilPinned}
             setCollapseMap={setCollapseMap}
             collapseMap={collapseMap}
-            adultAsthma={adultAsthma}
-            setAdultAsthma={setAdultAsthma}
             userPoints={userPoints}
             setUserPoints={setUserPoints}
             selectedCoord={selectedCoord}
