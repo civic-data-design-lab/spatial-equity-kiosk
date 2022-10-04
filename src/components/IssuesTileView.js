@@ -76,7 +76,7 @@ export default function IssuesTileView({
     return (
       <div>
         <img
-          className={`issue-tile-image`}
+          className={`backsplash-image`}
           src={`/stills/${randomImage}`}
           alt={''}
         />
