@@ -894,10 +894,11 @@ a:active {
 
 .map-tooltip {
     width: auto;
+    border: 2px solid black;
 }
 
 .map-tooltip>* {
-    border: 1px solid black;
+    /* border: 2px solid black; */
 }
 
 .map-tooltip>*:not(:first-child) {
