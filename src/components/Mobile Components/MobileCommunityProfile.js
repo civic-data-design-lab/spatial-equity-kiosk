@@ -455,7 +455,7 @@ export default function MobileCommunityProfile({
                 null}
               )
             </p>
-            <ShareButton isMobile={true} />
+            <ShareButton isMobile={true} invert={true}/>
             <FontAwesomeIcon
               icon={faXmark}
               onClick={() => {

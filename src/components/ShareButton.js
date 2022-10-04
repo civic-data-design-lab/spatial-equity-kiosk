@@ -13,7 +13,7 @@ const TWEET_INTENT_URL = 'https://twitter.com/intent/tweet';
 const FACEBOOK_SHARE_URL = 'https://www.facebook.com/sharer/sharer.php';
 const LINKEDIN_SHARE_URL = 'https://linkedin.com/sharing/share-offsite';
 
-export default function ShareButton({ isMobile }) {
+export default function ShareButton({ isMobile, invert }) {
   const [clicked, setClicked] = useState(false);
   const [shareText, setShareText] = useState(
     `Not all streets are created equal.
@@ -40,6 +40,7 @@ Public health, mobility, and the environment are affected by local policies abou
       onMouseLeave={() => {
         setClicked(false);
       }}
+      style={invert && { backgroundColor: 'black' }}
       // onClick={(e) => {
       //   e.preventDefault();
       // }}
@@ -98,12 +99,12 @@ Public health, mobility, and the environment are affected by local policies abou
       )}
       <div className="share-icon-container">
         {((!isMobile && !clicked) || (isMobile && clicked)) && (
-          <small className={'small-font'}>
+          <small className={'small-font'} style={invert && { color: 'white' }}>
             <strong>Share</strong>
           </small>
         )}
         <div className={'share-icon'}>
-          <img src={_SHARE} />
+          <img style={invert && { filter: 'invert(1)' }} src={_SHARE} />
         </div>
       </div>
     </div>
