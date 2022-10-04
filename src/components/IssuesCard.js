@@ -8,6 +8,7 @@ import {
 import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import IssueHistogram from './IssueHistogram';
+import SourceInfo from './SourceInfo';
 
 export default function IssuesCard({
   issues,

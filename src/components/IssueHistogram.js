@@ -840,7 +840,7 @@ const IssueHistogram = ({
     <div>
       <div
         style={{ display: toggleDisplayMode ? 'none' : '' }}
-        className={'m-0 small-font'}
+        className={'m-0 small-font px-4 py-3'}
       >
         {getRankingNarrative(issues.specific_issues_data[specificIssue], avg)}{' '}
       </div>
