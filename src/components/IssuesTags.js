@@ -87,7 +87,7 @@ export default function IssuesTags({
                     moreIssues && !moreIssues.includes(id)
                       ? 'inactive-tag'
                       : 'active-tag'
-                  } issues-tag col-gap`}
+                  } issues-tag small-col-gap`}
                   onClick={() => {
                     if (moreIssues && !moreIssues.includes(id)) {
                       let newMoreIssues = moreIssues;
@@ -104,7 +104,7 @@ export default function IssuesTags({
                     }
                   }}
                 >
-                  <p className={'m-0'}>
+                  <p className={'m-0 small-font'}>
                     {id !== 6 && id !== 5
                       ? issues.specific_issues_data[id].specific_issue_name
                       : issues.specific_issues_data[id].specific_issue_ID === 6
