@@ -4,3 +4,10 @@ Niko
 zoom out further when the community profiles tab is open so you can see both communities
 check how the citywide stats are being calculated
 language updates
+
+
+bad community boards:
+'BK56', 'BX27', 'SI95', 'BX28', 'BK55', 'BX26', 'MN64', 'QN81', 'QN82', 'QN83', 'QN84', 'QN80'
+
+
+BK56, BX27, SI95, BX28, BK55, BX26, MN64, QN81, QN82, QN83, QN84, QN80

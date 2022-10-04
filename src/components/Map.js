@@ -158,6 +158,12 @@ const defaultColors = [
   [95, 128, 236, 255], // mobility
 ];
 
+const font = new FontFace(
+  'Inter',
+  // 'url(./fonts/Inter-VariableFont_slnt,wght.ttf)'
+  'url(./fonts/GemunuLibre-VariableFont_wght.ttf)'
+);
+
 export default function DeckMap({
   issues,
   selectedIssue,
@@ -219,6 +225,7 @@ export default function DeckMap({
    * @property {object} pos - The projection onto screen-space, an object with
    *    `x` and `y` properties representing the number of pixels from the left
    *    and top, respectively.
+   *
    */
   const [tooltipCompData1, setTooltipCompData1] = useState(null);
   const [tooltipCompData2, setTooltipCompData2] = useState(null);
@@ -247,6 +254,23 @@ export default function DeckMap({
       ? councils[compareSearch]
       : communities[compareSearch]
     : null;
+
+  // temp
+
+  const areas = infoTransfer.selectedBoundary.features;
+
+  let bad = [];
+
+  areas.forEach((element) => {
+    if (element.properties.Data_YN == 'N') {
+      console.log('badd!!');
+      bad.push(element.properties.CDTA2020);
+    }
+  });
+
+  console.log(bad);
+
+  // temp end
 
   /**
    * If global view state changes, change the local view state. This is done to
@@ -1321,6 +1345,7 @@ export default function DeckMap({
     new TextLayer({
       id: 'neighborhood-names',
       data: _NEIGHBORHOOD_NAMES.features,
+      fontFamily: 'Inter',
       characterSet: 'auto',
       sizeUnits: 'meters',
       fontFamily: 'Roboto',
@@ -1387,7 +1412,6 @@ export default function DeckMap({
     return [MAIN_VIEW];
   };
 
-  // console.log(map ? map : "no map");
   return (
     <div>
       <div className="map-notable-container">
@@ -1425,12 +1449,11 @@ export default function DeckMap({
       {/* Static tooltip 1 */}
       {tooltipCompData1?.pos && (
         <div
-          className="map-tooltip map-pinned"
+          className="map-tooltip map-pinned noselect"
           style={{
             zIndex: '2',
             left: tooltipCompData1.pos.x,
             top: tooltipCompData1.pos.y,
-            transition: 'all 100ms ease-in-out',
           }}
         >
           <MapTooltip
@@ -1458,7 +1481,7 @@ export default function DeckMap({
       {/* Static tooltip 2 */}
       {tooltipCompData2?.pos && (
         <div
-          className="map-tooltip map-pinned"
+          className="map-tooltip map-pinned noselect"
           style={{
             zIndex: tooltipCompData2.zIndex || '1',
             left: tooltipCompData2.pos.x,
