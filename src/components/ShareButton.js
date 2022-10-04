@@ -40,6 +40,8 @@ Public health, mobility, and the environment are affected by local policies abou
       onMouseLeave={() => {
         setClicked(false);
       }}
+      // Allow click to activate, deactivate share dropdown on mobile
+      onClick={() => isMobile && setClicked(!clicked)}
       style={invert && { backgroundColor: 'black' }}
       // onClick={(e) => {
       //   e.preventDefault();
