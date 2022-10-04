@@ -153,9 +153,9 @@ const SPLIT_VIEW_RIGHT = new MapView({
 });
 
 const defaultColors = [
-  [134, 84, 134, 255], // health
-  [131, 114, 77, 255], // environment
-  [70, 87, 125, 255], // mobility
+  [220, 92, 233, 255], // health
+  [236, 76, 51, 255], // environment
+  [95, 128, 236, 255], // mobility
 ];
 
 export default function DeckMap({
@@ -505,10 +505,12 @@ export default function DeckMap({
     // 04.2 ramp in/out based on zoom level
 
     // 04.3 toggle based on zoom level
-    if (viewState.zoom > 12.25) {
+    if (viewState.zoom > 12.25 && zoomToggle) {
+      console.log('switch in');
       setzoomToggle(0);
       sethandleLegend(0);
-    } else {
+    } else if (viewState.zoom < 12.25 && !zoomToggle) {
+      console.log('switch out');
       setzoomToggle(1);
       sethandleLegend(1);
     }
