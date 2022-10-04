@@ -130,7 +130,6 @@ const IssueHistogram = ({
 
       const subject = obj.json_id;
       const fullIssueName = obj.specific_issue_name;
-      const problemTerm = obj.issue_hi_low[Number(!obj.good_or_bad)];
 
       const lastItem = boundary == 'council' ? '51' : '59';
 
@@ -183,7 +182,7 @@ const IssueHistogram = ({
           <strong>{`${ordinalSuffixOf(rank)} out of ${lastItem}`}</strong>
           {` ${
             sentenceStructure.bounds
-          } for ${problemTerm} ${fullIssueName.toLowerCase()} ${joiningWord} ${value}${
+          } for ${fullIssueName.toLowerCase()} ${joiningWord} ${value}${
             obj.issue_units_symbol
           }${sentenceEnd != '' ? ` ${sentenceEnd}` : ''}.`}
         </p>

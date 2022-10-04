@@ -883,10 +883,24 @@ a:active {
     height: 100% !important;*/
 }
 
+.map-pinned {
+    position: absolute;
+    transition: 0.5s ease-in-out;
+    cursor: crosshair;
+    transition: 'all 100ms ease-in-out';
+}
+
+.map-tooltip {
+    width: auto;
+}
 
 .map-tooltip>* {
+    border: 1px solid black;
     padding: 5px 10px 5px 10px;
+}
 
+.map-tooltip>*:not(:first-child) {
+    width: 250px;
 }
 
 .map-tooltip-header {
@@ -896,13 +910,6 @@ a:active {
     font-size: 0.8rem;
 }
 
-.map-tooltip-subinfo {
-    padding: 0 inherit 0 inherit;
-    font-size: 0.65em;
-    color: grey;
-    text-decoration: none !important;
-
-}
 
 .tooltip-grid {
     display: grid;
@@ -914,6 +921,7 @@ a:active {
 .map-tooltip-info {
     padding: 0.25rem 0.5rem !important;
     font-size: 0.75em;
+    background: white;
 }
 
 .map-tooltip-info:last-child {
@@ -999,23 +1007,22 @@ a:active {
 }
 
 .map-notable-container {
-    /* display: grid; */
-    /* grid-template-columns: auto auto; */
-    /* grid-gap: 1rem; */
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 1rem;
     position: absolute;
     z-index: 3;
     bottom: 1rem;
     left: 1rem;
-    border: 2px solid black;
     width: auto;
 }
 
+
 .map-notable-indicators {
-    display: grid;
+    /* border: 2px solid black; */
 }
 
 .map-notable-indicators>* {
-    border-top: 2px solid black;
     background: white;
     padding: 0.25em 0.5em;
     transition: color 0.5s, background-color 0.5s;
@@ -1026,6 +1033,12 @@ a:active {
     background: black;
     color: white;
     cursor: default;
+
+}
+
+.map-notable-indicators>*:not(:first-child) {
+    border: 2px solid black;
+    border-top: 0px;
 }
 
 .map-notable-indicators>*:hover:not(:first-child) {
@@ -1034,14 +1047,6 @@ a:active {
     cursor: pointer;
 
 }
-
-.map-notable-indicators>*:not(:first-child)::after {
-    font-weight: 800;
-    text-align: right;
-    float: right;
-    cursor: pointer;
-}
-
 
 
 /* Histogram */

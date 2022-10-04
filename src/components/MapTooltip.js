@@ -7,14 +7,6 @@ import {
   ordinalSuffixOf,
 } from '../utils/functions';
 
-export const TOOLTIP_STYLE = {
-  border: '2px solid black',
-  background: 'white',
-  color: 'black',
-  padding: '0px',
-  width: '250px',
-};
-
 const MapTooltip = ({
   // v Passed from App.js v
   boundary,
