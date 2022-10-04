@@ -175,13 +175,13 @@ export default function IssuesTileView({
                 <h5 className={'d-inline-block bold pt-3'}>
                   {getIssueName()}{' '}
                 </h5>
-                <SourceInfo
-                  issues={issues}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  setSelectedChapter={setSelectedChapter}
-                />
-                <div className={'m-0 small-font'}>
+                <div className={'m-0 small-font d-inline-block'}>
                   {`${issues.specific_issues_data[selectedSpecificIssue].units} `}
+                  <SourceInfo
+                    issues={issues}
+                    selectedSpecificIssue={selectedSpecificIssue}
+                    setSelectedChapter={setSelectedChapter}
+                  />
                 </div>
               </div>
               <div style={{ flex: 1 }} className={'histogram-responsive-box'}>
