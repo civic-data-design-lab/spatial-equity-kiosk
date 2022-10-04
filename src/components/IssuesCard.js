@@ -88,39 +88,11 @@ export default function IssuesCard({
               </label>
             </div>
           )}
-          <div
-            onMouseEnter={() => {
-              setShowInfo(true);
-            }}
-            onMouseLeave={() => {
-              setShowInfo(false);
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              setSelectedChapter(4);
-              setSelectedAbout(9);
-            }}
-          >
-            <FontAwesomeIcon
-              style={{ cursor: 'pointer' }}
-              icon={faCircleInfo}
-            />
-            <div
-              className={`${
-                showInfo ? '' : 'd-none'
-              } position-absolute info-tooltip smaller-text end-0`}
-            >
-              <p className={'m-0'}>
-                {
-                  issues.specific_issues_data[specificIssue]
-                    .specific_issue_source
-                }
-                {'. '}
-                {issues.specific_issues_data[specificIssue].year}
-                {'.'}
-              </p>
-            </div>
-          </div>
+          <SourceInfo
+            issues={issues}
+            selectedSpecificIssue={selectedSpecificIssue}
+            setSelectedChapter={setSelectedChapter}
+          />
           {forMoreIssues && (
             <FontAwesomeIcon
               style={{ cursor: 'pointer' }}

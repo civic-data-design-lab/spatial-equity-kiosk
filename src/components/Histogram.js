@@ -386,7 +386,7 @@ const Histogram = ({
       .attr('x2', width - margin.right)
       .attr('y2', yscale(0.5))
       .style('stroke', 'black')
-      .style('stroke-width', 2);
+      .style('stroke-width', 1);
 
     svg
       .select('#maxLine')
@@ -395,7 +395,7 @@ const Histogram = ({
       .attr('x2', width - margin.right)
       .attr('y2', yscale(data.length + 0.5))
       .style('stroke', 'black')
-      .style('stroke-width', 2);
+      .style('stroke-width', 1);
 
     svg
       .select('#minText')
@@ -482,7 +482,8 @@ const Histogram = ({
       .attr('x2', width - margin.right)
       .attr('y2', yscale(avgIndex + 1))
       .style('stroke', 'black')
-      .style('stroke-width', 2);
+      .style('stroke-dasharray', '3, 3')
+      .style('stroke-width', 1);
 
     svg
       .select('#avgTextUp')
@@ -491,7 +492,7 @@ const Histogram = ({
       .attr('style', 'font-family:Inter')
       .attr('font-size', '12')
       .attr('fill', '#000000')
-      .text('Citywide Average');
+      .text('Citywide Median');
 
     svg
       .select('#avgTextDown')
@@ -551,7 +552,7 @@ const Histogram = ({
           .attr('x2', width - margin.right)
           .attr('lookupID', lookupArray[rectID])
           .style('stroke', 'black')
-          .style('stroke-width', 2);
+          .style('stroke-width', 1);
 
         svg
           .select('#mouseTextUp')
@@ -603,7 +604,7 @@ const Histogram = ({
       .attr('visibility', 'hidden')
       .attr('lookupID', (d, i) => lookupArray[i])
       .style('stroke', 'black')
-      .style('stroke-width', 2);
+      .style('stroke-width', 1);
 
     svg.selectAll('.pinnedLine').data(data).exit().remove();
 

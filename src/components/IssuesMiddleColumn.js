@@ -178,7 +178,7 @@ export default function IssuesMiddleColumn({
           selectedIssue === 1 ? 'expand-issue' : ''
         } accordion-body`}
       >
-        <div className={'h-100 position-relative d-flex flex-column row-gap'}>
+        <div className={'position-relative d-flex flex-column row-gap'}>
           <IssuesDropDown
             items={health_issues}
             currentValue={selectedSpecificIssue}
@@ -279,7 +279,7 @@ export default function IssuesMiddleColumn({
           selectedIssue === 2 ? 'expand-issue' : ''
         } accordion-body`}
       >
-        <div className={'h-100 position-relative d-flex flex-column row-gap'}>
+        <div className={'position-relative d-flex flex-column row-gap'}>
           <IssuesDropDown
             items={environment_issues}
             currentValue={selectedSpecificIssue}
@@ -377,7 +377,7 @@ export default function IssuesMiddleColumn({
           selectedIssue === 3 ? 'expand-issue' : ''
         } accordion-body`}
       >
-        <div className={'h-100 position-relative d-flex flex-column row-gap'}>
+        <div className={'position-relative d-flex flex-column row-gap'}>
           <IssuesDropDown
             items={infrastructure_issues}
             currentValue={selectedSpecificIssue}

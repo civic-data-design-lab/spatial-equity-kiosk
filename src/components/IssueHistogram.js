@@ -369,7 +369,8 @@ const IssueHistogram = ({
       .attr('y2', height - margin.bottom)
       .attr('x2', xscale(avgIndex + 1))
       .style('stroke', 'black')
-      .style('stroke-width', 2)
+      .style('stroke-dasharray', '3, 3')
+      .style('stroke-width', 1)
       .attr('index', avgIndex);
 
     // draw selected Lines
@@ -479,7 +480,8 @@ const IssueHistogram = ({
       .attr('font-size', '14')
       .attr('fill', '#000000')
       .attr('text-anchor', 'end')
-      .text('Citywide Average');
+      .attr('visibility', 'hidden')
+      .text('Citywide Median');
 
     svg
       .select('#selectedTextDown')
@@ -682,8 +684,8 @@ const IssueHistogram = ({
       svg.select('#selectedTextDown').attr('text-anchor', 'end');
       svg.select('#compareTextUp').attr('text-anchor', 'end');
       svg.select('#compareTextDown').attr('text-anchor', 'end');
-      svg.select('#avgTextUp').attr('visibility', 'visible');
-      svg.select('#avgTextDown').attr('visibility', 'visible');
+      svg.select('#avgTextUp').attr('visibility', 'hidden');
+      // svg.select('#avgTextDown').attr('visibility', 'visible');
 
       // Define left line and right line
       let leftLine;
