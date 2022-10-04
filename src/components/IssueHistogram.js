@@ -481,7 +481,7 @@ const IssueHistogram = ({
       .attr('fill', '#000000')
       .attr('text-anchor', 'end')
       .attr('visibility', 'hidden')
-      .text('Citywide Median');
+      .text('Citywide Average');
 
     svg
       .select('#selectedTextDown')

@@ -492,7 +492,7 @@ const Histogram = ({
       .attr('style', 'font-family:Inter')
       .attr('font-size', '12')
       .attr('fill', '#000000')
-      .text('Citywide Median');
+      .text('Citywide Average');
 
     svg
       .select('#avgTextDown')
