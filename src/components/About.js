@@ -499,7 +499,14 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               </p>
 
               <h6 className={'bold mt-4'}>About Buck Design</h6>
-              <p>[Buck to write]</p>
+              <p>
+                <a href={'https://buck.co/'} target={'_blank'}>BUCK</a>
+                is a talent-driven, global, creative company with offices in New York, Los Angeles, Sydney and Amsterdam.
+                
+                Founded in 2004, BUCK has built a reputation for outstanding craftsmanship and innovation through collaboration with a wide range of clients across the cultural and technology spheres, including Apple, Instagram, IBM, Nike, Airbnb, Paypal, and Pepsi.
+                
+                Recognized as an industry leader, BUCK’s trophy case includes an Emmy, multiple gold Cannes Lions, Clios, pencils, cubes, and over 150 other awards from the most prestigious competitions in the world.
+              </p>
             </div>
           </div>
         </Step>
