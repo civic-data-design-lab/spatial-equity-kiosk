@@ -60,11 +60,11 @@
     "lookup": "F9_DrvAlon",
     "metric_units": "Percent",
     "colorRamp": [
-      [254, 219, 215],
-      [253, 147, 136],
-      [252, 75, 56],
-      [176, 53, 39],
-      [101, 30, 22]
+    [251, 241, 220],
+    [242, 214, 150],
+    [233, 186, 80],
+    [165, 130, 56],
+    [93, 74, 32]
     ],
     "source": "U.S. Census Bureau, American Community Survey, Table S0801, 2016 - 2020",
     "link": ""

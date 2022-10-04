@@ -7,7 +7,7 @@
 
 :root {
     --health: #e85be8;
-    --environment: #e9ba50;
+    --environment: #fc4b38;
     --infrastructure: #5080ea;
 }
 
@@ -218,7 +218,7 @@ a:active {
 }
 
 .Environment {
-    color: #e9ba50;
+    color: #fc4b38;
 }
 
 .Mobility {
@@ -342,7 +342,7 @@ a:active {
 }
 
 .dropdown-bar-Environment {
-    border: 2px solid #e9ba50;
+    border: 2px solid #fc4b38;
 }
 
 .dropdown-bar-Mobility {
