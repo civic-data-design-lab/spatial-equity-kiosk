@@ -231,6 +231,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             <div className={'scroll-title'} id={'content-5'}>
               <h4 className={'mb-0 bold'}></h4>
             </div>
+
+           
+
             <div className={'scroll-content'}>
               <p>
                 The goal of Spatial Equity NYC is to empower New Yorkers with
@@ -589,9 +592,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 1 ? 1 : 0.2,
           }}
         >
-          <h6 className={'bold menu-item'} id={'menu-1'}>
+          <h5 className={'bold menu-item'} id={'menu-1'}>
             {subheadings[0]}
-          </h6>
+          </h5>
         </a>
         <a
           className={'about-link'}
@@ -600,9 +603,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 2 ? 1 : 0.2,
           }}
         >
-          <h6 className={'bold menu-item'} id={'menu-2'}>
+          <h5 className={'bold menu-item'} id={'menu-2'}>
             {subheadings[1]}
-          </h6>
+          </h5>
         </a>
         <a
           className={'about-link'}
@@ -611,9 +614,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 3 ? 1 : 0.2,
           }}
         >
-          <h6 className={'bold menu-item'} id={'menu-3'}>
+          <h5 className={'bold menu-item'} id={'menu-3'}>
             {subheadings[2]}
-          </h6>
+          </h5>
         </a>
         <a
           className={'about-link'}
@@ -622,9 +625,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 4 ? 1 : 0.2,
           }}
         >
-          <h6 className={'bold menu-item'} id={'menu-4'}>
+          <h5 className={'bold menu-item'} id={'menu-4'}>
             {subheadings[3]}
-          </h6>
+          </h5>
         </a>
         <a
           className={'about-link'}
@@ -633,9 +636,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 5 ? 1 : 0.2,
           }}
         >
-          <h6 className={'bold menu-item'} id={'menu-5'}>
+          <h5 className={'bold menu-item'} id={'menu-5'}>
             {subheadings[4]}
-          </h6>
+          </h5>
         </a>
         <a
           className={'about-link'}
@@ -644,9 +647,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 6 ? 1 : 0.2,
           }}
         >
-          <h6 className={'bold menu-item'} id={'menu-6'}>
+          <h5 className={'bold menu-item'} id={'menu-6'}>
             {subheadings[5]}
-          </h6>
+          </h5>
         </a>
         <a
           className={'about-link'}
@@ -655,9 +658,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 7 ? 1 : 0.2,
           }}
         >
-          <h6 className={'bold menu-item'} id={'menu-7'}>
+          <h5 className={'bold menu-item'} id={'menu-7'}>
             {subheadings[6]}
-          </h6>
+          </h5>
         </a>
         <a
           className={'about-link'}
@@ -666,9 +669,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 8 ? 1 : 0.2,
           }}
         >
-          <h6 className={'bold menu-item'} id={'menu-8'}>
+          <h5 className={'bold menu-item'} id={'menu-8'}>
             {subheadings[7]}
-          </h6>
+          </h5>
         </a>
         <a
           className={'about-link'}
@@ -677,9 +680,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 9 ? 1 : 0.2,
           }}
         >
-          <h6 className={'bold menu-item'} id={'menu-9'}>
+          <h5 className={'bold menu-item'} id={'menu-9'}>
             {subheadings[8]}
-          </h6>
+          </h5>
         </a>
       </div>
     </div>

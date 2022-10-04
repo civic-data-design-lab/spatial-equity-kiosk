@@ -640,14 +640,14 @@ a:active {
 }
 
 .issues-tile-body>* {
-    padding: 0 1.5rem;
+    /* padding: 0 1.5rem; */
 }
 
 .issues-tile-text-container {
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
-    padding: 1.5em
+    padding: 1.5em 1.5em 0em 1.5em;
 
 }
 
@@ -682,7 +682,7 @@ a:active {
     flex-direction: column;
     justify-content: space-between;
     overflow: auto;
-    padding: 1.5em;
+    padding: 1.5em 1.5em 0em 1.5em;
 }
 
 .py-3 {
@@ -1283,6 +1283,15 @@ a:active {
 
 
 /* Misc */
+
+.fade-out {
+    /* height: 20vh; */
+    /* width: calc(75% - 5rem); */
+    /* background-color: red; */
+    /* background-image: linear-gradient(180deg, red, transparent); */
+}
+
+
 .more-issues-container {
     display: flex;
     flex-direction: column;
@@ -1793,21 +1802,22 @@ input:checked+.slider:before {
 }
 
 .scroll-title {
-    width: calc(80% - 4.5rem);
+    width: calc(75% - 5rem);
     padding: 2.5rem 2.5rem 0;
-    height: 4.5rem;
+    height: 6.5em;
+    background-image: linear-gradient(180deg, white 80%, transparent);
 }
 
 .scroll-title-content {
     top: 2px;
     left: calc(25vw);
     position: absolute;
-    background-color: white;
+    /* background-color: white; */
     width: 50%;
 }
 
 .scroll-content {
-    padding: 0 2rem 1.25rem 1.25rem;
+    padding: 1.25em 3em 1.25em 1.25em;
     padding-bottom: max(1.25rem, 7.25rem);
     width: calc(75% - 5rem);
     scroll-snap-align: start;
@@ -1820,7 +1830,6 @@ input:checked+.slider:before {
 .about-link:hover {
     color: black !important;
 }
-
 
 .menu-item {
     cursor: pointer;
@@ -1839,7 +1848,6 @@ input:checked+.slider:before {
     justify-content: space-between;
     color: black;
 }
-
 
 .video-container {
     position: relative;
