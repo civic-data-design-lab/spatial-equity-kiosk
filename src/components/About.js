@@ -13,7 +13,7 @@ const subheadings = [
   'Solutions',
   'About NYC 25x25',
   'Contact Us',
-  'About the Site',
+  'Credits',
   'About the Data',
 ];
 
