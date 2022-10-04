@@ -58,9 +58,14 @@ const getDataToVis = (rawIssueData, selectedSpecificIssue, issues) => {
     lookupArray.push(value.community_ID);
   }
 
+  const isTemperature =
+    issues.specific_issues_data[selectedSpecificIssue].json_id == 'F14_TmpDev'
+      ? true
+      : false;
+
   // get the corresponding index of average value
   let sum = valueArray.reduce((a, b) => a + b, 0);
-  let avg = Number(sum / valueArray.length);
+  let avg = isTemperature ? 0 : Number(sum / valueArray.length);
   let avgIndex;
   let avgRectID;
 
@@ -90,6 +95,7 @@ const getDataToVis = (rawIssueData, selectedSpecificIssue, issues) => {
     avgRectID,
     ascending,
     lookupArray,
+    isTemperature,
   ];
 };
 
@@ -209,8 +215,17 @@ const Histogram = ({
     _RANKINGS[boundary][
       issues.specific_issues_data[selectedSpecificIssue]?.json_id
     ];
-  let [data, nameArray, avg, avgIndex, avgRectID, ascending, lookupArray] =
-    getDataToVis(rawIssueData, selectedSpecificIssue, issues);
+  let [
+    data,
+    nameArray,
+    avg,
+    avgIndex,
+    avgRectID,
+    ascending,
+    lookupArray,
+    isTemperature,
+  ] = getDataToVis(rawIssueData, selectedSpecificIssue, issues);
+
   let colorArray = [];
 
   for (let i = 0; i < data.length; i++) {
@@ -501,7 +516,11 @@ const Histogram = ({
       .attr('style', 'font-family:Inter')
       .attr('font-size', '12')
       .attr('fill', '#000000')
-      .text(`${getNumber(avg)}${metricSymbol} ${getIssueStatement()}`);
+      .text(
+        `${
+          isTemperature ? '98.6' : getNumber(avg)
+        }${metricSymbol} ${getIssueStatement()}`
+      );
 
     // Adjust text position
     svg
