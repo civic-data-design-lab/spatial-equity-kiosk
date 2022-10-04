@@ -1,13 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import _CHAPTER_COLORS from '../data/chapter_colors.json';
 import _BOROUGH_COLORS from '../data/borough_colors.json';
 import _RANKINGS from '../data/rankings.json';
-import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
 import rankings from '../data/rankings.json';
 import { getNumber } from '../utils/functions';
+
+import _COUNCILDISTRICTS from '../data/council_districts.json';
+import _COMMUNITYBOARDS from '../data/community_boards.json';
 
 const RankingTable = ({
   issues,
@@ -22,6 +24,75 @@ const RankingTable = ({
   citywideTab = false,
 }) => {
   const [expand, setExpand] = useState(defaultOpen);
+
+  // const getReportingAreas = (entry, index) => {
+  //   const communityArray = entry.community.split(' ');
+  //   let communityID = communityArray[communityArray.length - 1];
+
+  //   communityID =
+  //     communityID.length === 1
+  //       ? (communityID = '0' + communityID)
+  //       : communityID;
+
+  //   const boroughID =
+  //     communityArray[0] == 'Manhattan'
+  //       ? 'MN'
+  //       : communityArray[0] == 'Bronx'
+  //       ? 'BX'
+  //       : communityArray[0] == 'Brooklyn'
+  //       ? 'BK'
+  //       : communityArray[0] == 'Queens'
+  //       ? 'QN'
+  //       : 'SI';
+
+  //   const boundaryInfo =
+  //     boundary == 'council'
+  //       ? {
+  //           lookup: 'CounDist',
+  //           community: communityArray,
+  //           data: _COUNCILDISTRICTS.features,
+  //         }
+  //       : {
+  //           lookup: 'CDTA2020',
+  //           community: [boroughID, communityID].join(''),
+  //           data: _COMMUNITYBOARDS.features,
+  //         };
+
+  //   const locatedCommunity = boundaryInfo.data.find(
+  //     (x) => x.properties[boundaryInfo.lookup] == boundaryInfo.community
+  //   );
+
+  //   console.log(communityArray, boundaryInfo.community, locatedCommunity);
+  //   // console.log(
+  //   //   issues.specific_issues_data[selectedSpecificIssue]?.json_id
+  //   // );
+
+  //   return (
+  //     <tr
+  //       key={index}
+  //       className={`issues-profile-table-row
+  //     ${
+  //       entry.community_ID === communitySearch ||
+  //       entry.community_ID === compareSearch
+  //         ? 'active-scheme'
+  //         : ''
+  //     }`}
+  //     >
+  //       <td>{entry.rank}</td>
+  //       <td
+  //         onClick={() => {
+  //           setCommunitySearch(entry.community_ID);
+  //           setSelectedChapter(3);
+  //         }}
+  //         className={'issues-profile-community-jump'}
+  //       >
+  //         {entry.community}
+  //       </td>
+  //       <td>{getNumber(Number(entry.data))}</td>
+  //     </tr>
+  //   );
+  // };
+
   return (
     <div
       style={{ display: !toggleDisplayMode ? 'none' : '' }}
@@ -43,16 +114,19 @@ const RankingTable = ({
                 issues.specific_issues_data[selectedSpecificIssue]?.json_id
               ]
                 .map((entry, index) => {
+                  {
+                    /* getReportingAreas(entry, index); */
+                  }
                   return (
                     <tr
                       key={index}
                       className={`issues-profile-table-row 
-                    ${
-                      entry.community_ID === communitySearch ||
-                      entry.community_ID === compareSearch
-                        ? 'active-scheme'
-                        : ''
-                    }`}
+      ${
+        entry.community_ID === communitySearch ||
+        entry.community_ID === compareSearch
+          ? 'active-scheme'
+          : ''
+      }`}
                     >
                       <td>{entry.rank}</td>
                       <td

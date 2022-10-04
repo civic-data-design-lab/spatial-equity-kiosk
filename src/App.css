@@ -2,6 +2,7 @@
 @font-face {
     font-family: 'Inter';
     src: url(./fonts/Inter-VariableFont_slnt,wght.ttf);
+    /* src: url(./fonts/GemunuLibre-VariableFont_wght.ttf); */
 }
 
 
@@ -141,7 +142,7 @@
 
 /* Document */
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif !important;
     overflow: hidden;
     height: 100vh;
     width: 100vw;
@@ -647,8 +648,7 @@ a:active {
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
-    padding: 1.5em 1.5em 0em 1.5em;
-
+    padding: 1.5em
 }
 
 .issues-tile-ranking {
@@ -889,16 +889,16 @@ a:active {
     position: absolute;
     transition: 0.5s ease-in-out;
     cursor: crosshair;
-    transition: 'all 100ms ease-in-out';
+    transition: all 100ms ease-in-out;
+    /* transition: 'all 100ms ease-in-out'; */
 }
 
 .map-tooltip {
     width: auto;
-    border: 2px solid black;
 }
 
 .map-tooltip>* {
-    /* border: 2px solid black; */
+    border: 2px solid black;
 }
 
 .map-tooltip>*:not(:first-child) {
