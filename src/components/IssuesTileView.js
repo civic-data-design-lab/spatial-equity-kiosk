@@ -172,7 +172,7 @@ export default function IssuesTileView({
           <div className={'issues-tile-body h-100'}>
             <div className={'issue-tile-viz position-relative'}>
               <div>
-                <h5 className={'d-inline-block bold pt-3'}>
+                <h5 className={'d-inline-block bold'}>
                   {getIssueName()}{' '}
                 </h5>
                 <div className={'m-0 small-font d-inline-block'}>

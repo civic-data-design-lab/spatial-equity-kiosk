@@ -40,7 +40,7 @@ export default function IssuesCard({
 
   return (
     <div
-      className={'issues-card-container pb-3'}
+      className={'issues-card-container'}
       onClick={() => {
         if (selectedSpecificIssue === specificIssue) {
         } else {

@@ -737,7 +737,7 @@ const Histogram = ({
       .attr('visibility', 'hidden')
       .style('font-weight', 'bold')
       .attr('fill', '#000000')
-      .attr('font-size', '20')
+      .attr('font-size', '16')
       .text('✕')
       .attr('lookupID', (d, i) => lookupArray[i]);
 

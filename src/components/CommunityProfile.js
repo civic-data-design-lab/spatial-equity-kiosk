@@ -69,10 +69,10 @@ export default function CommunityProfile({
           <div>
             {
               <h5
-                className={'bold py-3'}
-                style={{
-                  padding: '0.75em 0',
-                }}
+                className={'bold'}
+                // style={{
+                //   padding: '0.75em 0',
+                // }}
               >
                 Notable Indicators—{' '}
                 {communitySearch
@@ -93,7 +93,7 @@ export default function CommunityProfile({
                   : ''}
               </h5>
             }
-            <p className={'mt-3'}>
+            <p className={''}>
               {communitySearch
                 ? ` Below are the three worst spatial equity indicators in this 
                 ${boundary === 'council' ? 'district' : 'community board'}.`
@@ -177,12 +177,12 @@ export default function CommunityProfile({
             </div>
           </div>
 
-          <div className={'pt-3'}>
+          <div className={''}>
             <h5
-              className={'bold'}
-              style={{
-                padding: '0.75em 0',
-              }}
+              className={'bold mt-3'}
+              // style={{
+              //   padding: '0.75em 0',
+              // }}
             >
               More Indicators
             </h5>
