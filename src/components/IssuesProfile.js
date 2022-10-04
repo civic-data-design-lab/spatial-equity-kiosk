@@ -103,7 +103,8 @@ export default function IssueProfile({
                 issues.specific_issues_data[selectedSpecificIssue]
                   .specific_issue_solutions.base_text
               )}
-              <div className={'pb-3'}>{getImages()}</div>
+              <div className={''}>{getImages()}</div>
+              <div className={'smaller-font'}>Image: National Association of City Transportation Officials</div>
 
               <ol>{getListSolution()}</ol>
             </div>
