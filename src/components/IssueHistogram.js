@@ -465,7 +465,7 @@ const IssueHistogram = ({
       .attr('text-anchor', 'start')
       //   .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
       .text(
-        !ascending
+        rawIssueGoodBad
           ? `${getBoundingStatement('max')}`
           : `${getBoundingStatement('min')}`
       );
@@ -484,7 +484,7 @@ const IssueHistogram = ({
       .attr('text-anchor', 'end')
       //   .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
       .text(
-        ascending
+        !rawIssueGoodBad
           ? `${getBoundingStatement('max')}`
           : `${getBoundingStatement('min')}`
       );
