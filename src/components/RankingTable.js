@@ -41,14 +41,12 @@ const RankingTable = ({
           </tr>
         </thead>
         <tbody>
+          {/* 01 - JUST FIRST 5 ITEMS */}
           {issues.specific_issues_data[selectedSpecificIssue].good_or_bad === 0
             ? rankings[boundary][
                 issues.specific_issues_data[selectedSpecificIssue]?.json_id
               ]
                 .map((entry, index) => {
-                  {
-                    /* getReportingAreas(entry, index); */
-                  }
                   return (
                     <tr
                       key={index}
@@ -74,7 +72,6 @@ const RankingTable = ({
                     </tr>
                   );
                 })
-                .reverse()
                 .slice(0, 5)
             : rankings[boundary][
                 issues.specific_issues_data[selectedSpecificIssue]?.json_id
@@ -115,6 +112,7 @@ const RankingTable = ({
                 })
                 .slice(0, 5)}
 
+          {/* 02 - FULL MENU ITEMS */}
           {expand &&
           issues.specific_issues_data[selectedSpecificIssue].good_or_bad === 0
             ? rankings[boundary][
@@ -153,7 +151,6 @@ ${
                     </tr>
                   );
                 })
-                .reverse()
                 .slice(5)
             : expand &&
               issues.specific_issues_data[selectedSpecificIssue].good_or_bad ===
