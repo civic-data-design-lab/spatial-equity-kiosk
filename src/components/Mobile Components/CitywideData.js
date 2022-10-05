@@ -298,8 +298,7 @@ export default function CitywideData({
 
             <div className={"mobile-issues-profile-container"}
                  style={{
-                     transition: "height 0.5s",
-                     height: selectedSpecificIssue ? "calc(100vh - 4.025rem - 0.3vw)" : "0vh"
+                    height: selectedSpecificIssue ? "calc(100vh - 4.025rem - 0.3vw)" : "0vh"
                  }}
             >
                 <div className={"mobile-citywide-nav"}>
@@ -331,7 +330,8 @@ export default function CitywideData({
                         {showMap ? <img src={_GLOBE_WHITE}/> : <img src={_GLOBE_BLACK}/>}
                     </div>
                 </div>
-                <div className={"position-absolute"}>
+                {/* Nav dropdown content (increase z-index for visibility) */}
+                <div className={"position-absolute"} style={{zIndex: 50}}>
                     <div className={`mobile-citywide-nav-dropdown-item
                         ${showDropDown ? "mobile-citywide-nav-dropdown-item-grow" : "mobile-citywide-nav-dropdown-item-shrink"}  
                         ${showSubDropDown === 1 ? "active-scheme" : "inactive-scheme"}
@@ -473,9 +473,11 @@ export default function CitywideData({
                 </div>
 
                 <div
-
+                    className="citywide-non-map-content"
                     style={{
-                        zIndex: showMap ? "0" : "1",
+                        // Hide the citywide non-map content if showing map
+                        opacity: showMap ? 0 : 1,
+                        pointerEvents: showMap ? "none": "auto",
                         height: (!showMap && !showDemographics) || (showMap && !showLegend) ? "calc(100vh - 19vh - (4.025rem + .3vw))" : "calc(100vh - 52vh - (4.025rem + .3vw))",
                         transition: "height 0.5s",
                         padding: "1rem", overflow: "auto",

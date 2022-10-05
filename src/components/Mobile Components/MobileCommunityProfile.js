@@ -393,14 +393,14 @@ export default function MobileCommunityProfile({
           </div>
         </div>
 
-        <div
-          style={{
-            position: 'relative',
-            zIndex: 1,
-            height: 'calc(100vh - 4.025rem - .3vw - 5vh - 7vh)',
-          }}
-        >
-          {!showMap && (
+        {!showMap && (
+          <div
+            style={{
+              position: 'relative',
+              zIndex: 1,
+              height: 'calc(100vh - 4.025rem - .3vw - 5vh - 7vh)',
+            }}
+          >
             <CommunityProfile
               issues={issues}
               selectedSpecificIssue={selectedSpecificIssue}
@@ -417,8 +417,8 @@ export default function MobileCommunityProfile({
               setSelectedChapter={setSelectedChapter}
               setSelectedAbout={setSelectedAbout}
             />
-          )}
-        </div>
+          </div>
+        )}
 
         <div
           className={'selected-issue-card'}
@@ -455,7 +455,7 @@ export default function MobileCommunityProfile({
                 null}
               )
             </p>
-            <ShareButton isMobile={true} invert={true}/>
+            <ShareButton isMobile={true} invert={true} />
             <FontAwesomeIcon
               icon={faXmark}
               onClick={() => {

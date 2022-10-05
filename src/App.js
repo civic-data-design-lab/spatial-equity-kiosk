@@ -970,8 +970,8 @@ function App() {
           ) : null}
 
           <div
-            className={'position-absolute'}
-            style={{ height: '100%', width: '100%', top: 0, zIndex: 0 }}
+            className={'mobile-map'}
+            style={{ position: 'absolute', height: '100%', width: '100%', top: 0, zIndex: 1 }}
           >
             <Map
               issues={issues}

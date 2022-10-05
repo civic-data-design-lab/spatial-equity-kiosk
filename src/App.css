@@ -1890,7 +1890,7 @@ input:checked+.slider:before {
 }
 
 .mobile-nav-header {
-    z-index: 1;
+    z-index: 2;
     padding: 1rem;
     border: 1px solid black;
     display: flex;
@@ -1906,9 +1906,11 @@ input:checked+.slider:before {
 
 .mobile-citywide,
 .mobile-community {
+    position: absolute;
+    z-index: 2;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - (4.025rem + .3vw));
+    /* height: calc(100vh - (4.025rem + .3vw)); */
 }
 
 .mobile-nav-chapter {
@@ -2047,6 +2049,14 @@ input:checked+.slider:before {
 
 .mobile-issues-profile-container {
     border: 1px solid black;
+    position: absolute;
+    pointer-events: none;
+    transition: height 0.5s;
+}
+
+/* Restore pointer events for all sub-elements */
+.mobile-issues-profile-container > * {
+    pointer-events: auto;
 }
 
 .mobile-citywide-nav {
