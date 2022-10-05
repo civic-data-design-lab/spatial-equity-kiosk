@@ -16,12 +16,14 @@ const RankingTable = ({
   boundary,
   selectedSpecificIssue,
   setCommunitySearch,
+  setCompareSearch,
   setSelectedChapter,
   communitySearch,
   compareSearch,
   toggleDisplayMode,
   defaultOpen = false,
   citywideTab = false,
+  addCompare = false,
 }) => {
   const [expand, setExpand] = useState(defaultOpen);
 
@@ -61,7 +63,11 @@ const RankingTable = ({
                       <td>{entry.rank}</td>
                       <td
                         onClick={() => {
-                          setCommunitySearch(entry.community_ID);
+                          if (!addCompare) {
+                            setCommunitySearch(entry.community_ID);
+                          } else {
+                            setCompareSearch(entry.community_ID);
+                          }
                           setSelectedChapter(3);
                         }}
                         className={'issues-profile-community-jump'}
@@ -93,7 +99,11 @@ const RankingTable = ({
                       <td>{entry.rank}</td>
                       <td
                         onClick={() => {
-                          setCommunitySearch(entry.community_ID);
+                          if (!addCompare) {
+                            setCommunitySearch(entry.community_ID);
+                          } else {
+                            setCompareSearch(entry.community_ID);
+                          }
                           setSelectedChapter(3);
                         }}
                         className={'issues-profile-community-jump'}
@@ -134,7 +144,11 @@ ${
                       <td>{entry.rank}</td>
                       <td
                         onClick={() => {
-                          setCommunitySearch(entry.community_ID);
+                          if (!addCompare) {
+                            setCommunitySearch(entry.community_ID);
+                          } else {
+                            setCompareSearch(entry.community_ID);
+                          }
                           setSelectedChapter(3);
                         }}
                         className={'issues-profile-community-jump'}

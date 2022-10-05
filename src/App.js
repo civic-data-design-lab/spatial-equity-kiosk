@@ -633,6 +633,7 @@ function App() {
             selectedCoord={selectedCoord}
             setSelectedCoord={setSelectedCoord}
             setSearchSource={setSearchSource}
+            addCompare={addCompare}
           />
 
           <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>
@@ -971,7 +972,13 @@ function App() {
 
           <div
             className={'mobile-map'}
-            style={{ position: 'absolute', height: '100%', width: '100%', top: 0, zIndex: 1 }}
+            style={{
+              position: 'absolute',
+              height: '100%',
+              width: '100%',
+              top: 0,
+              zIndex: 1,
+            }}
           >
             <Map
               issues={issues}

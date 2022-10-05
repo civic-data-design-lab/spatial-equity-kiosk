@@ -18,9 +18,11 @@ export default function CommunityProfile({
   setSelectedChapter,
   setSelectedAbout,
   setCommunitySearch,
+  addCompare,
+  setCompareSearch,
 }) {
   useEffect(() => {
-    if (moreIssues && communitySearch  && !compareSearch) {
+    if (moreIssues && communitySearch && !compareSearch) {
       let leastPerfIssues =
         councils[communitySearch]?.least_performing_issues ||
         communities[communitySearch]?.least_performing_issues;
@@ -114,6 +116,8 @@ export default function CommunityProfile({
                         }
                       >
                         <IssuesCard
+                          setCompareSearch={setCompareSearch}
+                          addCompare={addCompare}
                           target={
                             selectedSpecificIssue &&
                             selectedSpecificIssue !== issue
@@ -151,6 +155,8 @@ export default function CommunityProfile({
                           }
                         >
                           <IssuesCard
+                            setCompareSearch={setCompareSearch}
+                            addCompare={addCompare}
                             target={
                               selectedSpecificIssue &&
                               selectedSpecificIssue !== issue
@@ -187,6 +193,8 @@ export default function CommunityProfile({
               More Indicators
             </h5>
             <IssuesTags
+              setCompareSearch={setCompareSearch}
+              addCompare={addCompare}
               issues={issues}
               leastPerforming={
                 (communities[communitySearch] &&
@@ -208,6 +216,7 @@ export default function CommunityProfile({
               selectedCommunity={selectedCommunity}
               setSelectedChapter={setSelectedChapter}
               setSelectedAbout={setSelectedAbout}
+              setCommunitySearch={setCommunitySearch}
             />
           </div>
         </>
@@ -233,6 +242,8 @@ export default function CommunityProfile({
             </p>
 
             <IssuesTags
+              setCompareSearch={setCompareSearch}
+              addCompare={addCompare}
               issues={issues}
               leastPerforming={
                 (communities[communitySearch] &&
@@ -254,6 +265,7 @@ export default function CommunityProfile({
               selectedCommunity={selectedCommunity}
               setSelectedChapter={setSelectedChapter}
               setSelectedAbout={setSelectedAbout}
+              setCommunitySearch={setCommunitySearch}
             />
           </div>
         </>
@@ -263,6 +275,8 @@ export default function CommunityProfile({
         <div className="modal-background">
           <div className={'modal-card'}>
             <IssuesCard
+              setCompareSearch={setCompareSearch}
+              addCompare={addCompare}
               target={true}
               setCommunitySearch={setCommunitySearch}
               setSelectedChapter={setSelectedChapter}

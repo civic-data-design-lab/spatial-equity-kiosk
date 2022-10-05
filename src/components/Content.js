@@ -72,6 +72,7 @@ export default function Content({
   selectedCoord,
   setSelectedCoord,
   setSearchSource,
+  addCompare,
 }) {
   return (
     <div className={`d-flex flex-row col-9`}>
@@ -177,6 +178,8 @@ export default function Content({
             setSelectedChapter={setSelectedChapter}
             setSelectedAbout={setSelectedAbout}
             setCommunitySearch={setCommunitySearch}
+            addCompare={addCompare}
+            setCompareSearch={setCompareSearch}
           />
         )}
       </div>

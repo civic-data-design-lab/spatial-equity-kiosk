@@ -18,6 +18,9 @@ export default function IssuesTags({
   selectedCommunity,
   setSelectedChapter,
   setSelectedAbout,
+  setCommunitySearch,
+  addCompare,
+  setCompareSearch,
 }) {
   // TODO: all tags when communitySearch && compareSearch
 
@@ -62,6 +65,9 @@ export default function IssuesTags({
                   setSelectedAbout={setSelectedAbout}
                   compareSearch={compareSearch}
                   communitySearch={communitySearch}
+                  setCommunitySearch={setCommunitySearch}
+                  addCompare={addCompare}
+                  setCompareSearch={setCompareSearch}
                 />
               </div>
             );

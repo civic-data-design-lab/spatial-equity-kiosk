@@ -36,7 +36,7 @@ const colorInterpolate = (colorA, colorB, intval) => {
   return [colorVal('r'), colorVal('g'), colorVal('b')];
 };
 
-const getDataToVis = (rawIssueData) => {
+const getDataToVis = (rawIssueData, rawIssueGoodBad) => {
   let valueArray = [];
   let nameArray = [];
   let ascending;
@@ -71,6 +71,10 @@ const getDataToVis = (rawIssueData) => {
     }
   }
 
+  if (rawIssueGoodBad == 0) {
+    valueArray.reverse();
+  }
+
   return [valueArray, nameArray, avg, avgIndex, ascending, lookupArray];
 };
 
@@ -86,6 +90,8 @@ const IssueHistogram = ({
   compareSearch = null,
   toggleDisplayMode,
   specificIssue,
+  setCompareSearch,
+  addCompare,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
@@ -205,8 +211,12 @@ const IssueHistogram = ({
     _RANKINGS[boundary][
       issues.specific_issues_data[selectedSpecificIssue].json_id
     ];
-  let [data, nameArray, avg, avgIndex, ascending, lookupArray] =
-    getDataToVis(rawIssueData);
+  let rawIssueGoodBad =
+    issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
+  let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(
+    rawIssueData,
+    rawIssueGoodBad
+  );
 
   let selectedIndex = communitySearch
     ? lookupArray.indexOf(communitySearch)
@@ -304,15 +314,25 @@ const IssueHistogram = ({
           : margin.bottom + yscale(d)
       )
       .attr('fill', (d, i) =>
-        d3.rgb(
-          ...colorInterpolate(
-            colorRamps[0],
-            colorRamps[colorRamps.length - 1],
-            !ascending
-              ? 1 - i / (rawIssueData.length - 1)
-              : i / (rawIssueData.length - 1)
-          )
-        )
+        rawIssueGoodBad
+          ? d3.rgb(
+              ...colorInterpolate(
+                colorRamps[0],
+                colorRamps[colorRamps.length - 1],
+                !ascending
+                  ? 1 - i / (rawIssueData.length - 1)
+                  : i / (rawIssueData.length - 1)
+              )
+            )
+          : d3.rgb(
+              ...colorInterpolate(
+                colorRamps[colorRamps.length - 1],
+                colorRamps[0],
+                !ascending
+                  ? 1 - i / (rawIssueData.length - 1)
+                  : i / (rawIssueData.length - 1)
+              )
+            )
       )
       .attr('value', (d) => d);
 
@@ -480,7 +500,7 @@ const IssueHistogram = ({
       .attr('font-size', '14')
       .attr('fill', '#000000')
       .attr('text-anchor', 'end')
-      .attr('visibility', 'hidden')
+      // .attr('visibility', 'hidden')
       .text('Citywide Average');
 
     svg
@@ -685,7 +705,7 @@ const IssueHistogram = ({
       svg.select('#compareTextUp').attr('text-anchor', 'end');
       svg.select('#compareTextDown').attr('text-anchor', 'end');
       svg.select('#avgTextUp').attr('visibility', 'hidden');
-      // svg.select('#avgTextDown').attr('visibility', 'visible');
+      svg.select('#avgTextDown').attr('visibility', 'hidden');
 
       // Define left line and right line
       let leftLine;
@@ -890,6 +910,8 @@ const IssueHistogram = ({
           communitySearch={communitySearch}
           compareSearch={compareSearch}
           toggleDisplayMode={toggleDisplayMode}
+          setCompareSearch={setCompareSearch}
+          addCompare={addCompare}
         />
       </div>
     </div>

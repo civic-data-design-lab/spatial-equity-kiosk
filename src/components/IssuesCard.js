@@ -28,6 +28,8 @@ export default function IssuesCard({
   communitySearch,
   compareSearch,
   target = false,
+  addCompare,
+  setCompareSearch,
 }) {
   const [showInfo, setShowInfo] = useState(false);
   const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
@@ -128,6 +130,8 @@ export default function IssuesCard({
           compareSearch={compareSearch}
           toggleDisplayMode={toggleDisplayMode}
           specificIssue={specificIssue}
+          addCompare={addCompare}
+          setCompareSearch={setCompareSearch}
         />
       </div>
     </div>

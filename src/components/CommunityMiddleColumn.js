@@ -19,6 +19,8 @@ export default function CommunityMiddleColumn({
   setSelectedAbout,
   selectedCommunity,
   setCommunitySearch,
+  addCompare,
+  setCompareSearch,
 }) {
   return (
     <>
@@ -40,6 +42,8 @@ export default function CommunityMiddleColumn({
           setSelectedAbout={setSelectedAbout}
           selectedCommunity={communitySearch}
           setCommunitySearch={setCommunitySearch}
+          addCompare={addCompare}
+          setCompareSearch={setCompareSearch}
         />
       )}
     </>
