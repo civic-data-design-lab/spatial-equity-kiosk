@@ -21,6 +21,8 @@ Public health, mobility, and the environment are affected by local policies abou
   );
   const [shareUrl, setShareUrl] = useState('http://www.spatialequity.nyc/');
 
+  const [linkCopied, setLinkCopied] = useState(false);
+
   const copyURL = () => {
     navigator.clipboard.writeText(window.location.href);
   };
@@ -39,6 +41,7 @@ Public health, mobility, and the environment are affected by local policies abou
       }}
       onMouseLeave={() => {
         setClicked(false);
+        setLinkCopied(false);
       }}
       // Allow click to activate, deactivate share dropdown on mobile
       onClick={() => isMobile && setClicked(!clicked)}
@@ -94,9 +97,15 @@ Public health, mobility, and the environment are affected by local policies abou
                 e.preventDefault();
                 copyURL();
                 pickColor(e);
+                setLinkCopied(true);
               }}
             />
           </a>
+          {linkCopied && (
+            <div className={'position-absolute map-toggle-url-copy'} style={{}}>
+              Link copied!
+            </div>
+          )}
         </div>
       )}
       <div className="share-icon-container">

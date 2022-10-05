@@ -895,15 +895,24 @@ a:active {
 
 .map-tooltip {
     width: auto;
+    background-color: white !important;
 }
 
-.map-tooltip>* {
+.map-tooltip>*:not(:last-child) {
     border: 2px solid black;
+    border-bottom: none;
 }
+
+.map-tooltip>*:last-child {
+    border: 2px solid black;
+    border-top: none;
+}
+
 
 .map-tooltip>*:not(:first-child) {
     width: 250px;
 }
+
 
 .map-tooltip-header {
     padding: 0.25rem 0.5rem;
@@ -1006,6 +1015,17 @@ a:active {
     align-items: center;
     transition: color 0.5s, background-color 0.5s;
     background-color: white;
+}
+
+.map-toggle-url-copy {
+    bottom: 3rem;
+    font-size: 0.75rem;
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    padding: 0.25em 0.5em;
+    width: fit-content;
+    pointer-events: none;
 }
 
 .map-notable-container {
@@ -2055,7 +2075,7 @@ input:checked+.slider:before {
 }
 
 /* Restore pointer events for all sub-elements */
-.mobile-issues-profile-container > * {
+.mobile-issues-profile-container>* {
     pointer-events: auto;
 }
 

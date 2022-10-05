@@ -23,18 +23,8 @@ export default function MapToggle({
     <div>
       {hover && (
         <div
-          className={'position-absolute'}
-          style={{
-            bottom: '3rem',
-            fontSize: '0.75rem',
-            backgroundColor: 'white',
-            border: '2px solid black',
-            color: 'black',
-            padding: '0.25em 0.5em',
-            width: 'fit-content',
-            right: '0rem',
-            pointerEvents: 'none',
-          }}
+          className={'position-absolute map-toggle-url-copy'}
+          style={{ right: '0rem' }}
         >
           {hover}
         </div>
@@ -70,9 +60,7 @@ export default function MapToggle({
           onMouseEnter={() => {
             setHover(
               `Map ${
-                boundary === 'council'
-                  ? 'council districts'
-                  : 'community boards'
+                boundary == 'council' ? 'council districts' : 'community boards'
               }`
             );
           }}
