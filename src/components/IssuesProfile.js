@@ -78,16 +78,9 @@ export default function IssueProfile({
       selectedSpecificIssue
     ].specific_issue_solutions.solutions_list.map((solution, index) => {
       return (
-        <li
-          key={index}
-          style={{
-            padding: '0.5rem',
-            paddingRight: '0rem',
-            paddingBottom: '0rem',
-          }}
-        >
+        <p key={index} style={{ paddingTop: '1rem' }}>
           {getHyperlinkText(solution)}
-        </li>
+        </p>
       );
     });
   };
@@ -104,9 +97,11 @@ export default function IssueProfile({
                   .specific_issue_solutions.base_text
               )}
               <div className={''}>{getImages()}</div>
-              <div className={'smaller-font'}>Image: National Association of City Transportation Officials</div>
+              <div className={'smaller-font'}>
+                Image: National Association of City Transportation Officials
+              </div>
 
-              <ol>{getListSolution()}</ol>
+              <div>{getListSolution()}</div>
             </div>
           </div>
         </div>

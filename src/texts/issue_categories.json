@@ -1,14 +1,13 @@
 {
-    "labels": {
-        "1": "Health",
-        "2": "Environment",
-        "3": "Mobility"
-    },
+  "labels": {
+    "1": "Health",
+    "2": "Environment",
+    "3": "Mobility"
+  },
 
-    "descriptions": {
-        "1": "Policies about the use of public space in New York City affect the physical and mental health of New Yorkers. Health indicators of spatial equity include air pollution, asthma, noise pollution, traffic injuries, and traffic fatalities.",
-        "2": "Policies about the use of public space in New York City affect the resilience and sustainability of the physical environment. Environmental indicators of spatial equity include heat, parkland, permeable surfaces, and trees.",
-        "3": "Policies about the use of public space in New York City affect mobility and access to the built environment. Mobility indicators of spatial equity include bike parking, bus lanes and busways, bus speeds, protected bike lanes, seating, and traffic density."
-    }
-
+  "descriptions": {
+    "1": "Policies about the use of public space in New York City affect the physical and mental health of New Yorkers. Select a health indicator to see data on air pollution, asthma, noise pollution, traffic injuries, and traffic fatalities.",
+    "2": "Policies about the use of public space in New York City affect the resilience and sustainability of the physical environment. Select an environmental indicator to see data on heat, parkland, permeable surfaces, and trees.",
+    "3": "Policies about the use of public space in New York City affect mobility and access to the built environment. Select a mobility indicator to see data on bike parking, bus lanes and busways, bus speeds, protected bike lanes, seating, and traffic volumes."
+  }
 }
