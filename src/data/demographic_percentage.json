@@ -1,15 +1,15 @@
 {
   "Race & Ethnicity": {
-    "percList": [29, 33, 23, 13, 3],
+    "percList": [28, 31, 20, 16, 5],
     "textList": ["Latino", "White", "Black", "Asian", "Other"]
   },
   "Households Living Below the Poverty Line": {
-    "percList": [11, 89],
+    "percList": [14, 86],
     "lookup": "F12_PvtyPc",
     "textList": ["Households Living Below the Poverty Line", "Others"]
   },
   "Households Without a Car": {
-    "percList": [47, 53],
+    "percList": [54, 46],
     "lookup": "F7_CarFree",
     "textList": ["Households Without a Car", "Others"]
   },
@@ -22,8 +22,8 @@
     "lookup": "F10_TrsBkW",
     "percList": [57, 43],
     "textList": ["Commuters Who Bike, Walk, or Ride Transit", "Others"],
-    "F6_bike": 1,
-    "F8_PubTran": 47,
+    "F6_bike": 2,
+    "F8_PubTran": 37,
     "F11_Walk": 9
   }
 }

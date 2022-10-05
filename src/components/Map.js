@@ -255,23 +255,6 @@ export default function DeckMap({
       : communities[compareSearch]
     : null;
 
-  // temp
-
-  const areas = infoTransfer.selectedBoundary.features;
-
-  let bad = [];
-
-  areas.forEach((element) => {
-    if (element.properties.Data_YN == 'N') {
-      console.log('badd!!');
-      bad.push(element.properties.CDTA2020);
-    }
-  });
-
-  console.log(bad);
-
-  // temp end
-
   /**
    * If global view state changes, change the local view state. This is done to
    * make sure the map is loaded properly from a link.
