@@ -30,59 +30,60 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
   dataJson[16] = {
     specific_issue_name: 'Race & Ethnicity',
     specific_issue_ID: 16,
-    link: 'href url here',
-    specific_issue_source: 'name of source here',
-    year: 'year',
+    link: 'https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page.page',
+    specific_issue_source: 'US Census American Comm Survey',
+    year: '2016-2020',
   };
   dataJson[17] = {
     specific_issue_name: 'Poverty Level',
     specific_issue_ID: 17,
     link: 'href url here',
-    specific_issue_source: 'name of source here',
-    year: 'year',
+    specific_issue_source: "US Census American Comm Survey, Mayor's Office for Economic Opportunity",
+    year: '2018',
   };
   dataJson[18] = {
     specific_issue_name: 'Vehicle Ownership',
     specific_issue_ID: 18,
-    link: 'href url here',
-    specific_issue_source: 'name of source here',
-    year: 'year',
+    link: 'https://censusreporter.org/data/table/?table=B08201&geo_ids=16000US3651000,140|16000US3651000&primary_geo_id=16000US3651000',
+    specific_issue_source: 'US Census American Comm Survey',
+    year: ' 2016-2020',
   };
   dataJson[19] = {
     specific_issue_name: 'Drive Alone to Work',
     specific_issue_ID: 19,
-    link: 'href url here',
-    specific_issue_source: 'name of source here',
-    year: 'year',
+    link: 'https://data.census.gov/cedsci/table?q=b08301&g=0100000US&tid=ACSDT5Y2020.B08301',
+    specific_issue_source: 'US Census American Comm Survey',
+    year: '2016-2020',
   };
   dataJson[20] = {
     specific_issue_name: 'Walk, Bike, or Ride Transit',
     specific_issue_ID: 20,
-    link: 'href url here',
-    specific_issue_source: 'name of source here',
-    year: 'year',
+    link: 'https://data.census.gov/cedsci/table?q=b08301&g=0100000US&tid=ACSDT5Y2020.B08301',
+    specific_issue_source: 'US Census American Comm Survey',
+    year: '2016-2020',
   };
   dataJson[21] = {
     specific_issue_name: 'City Council Districts',
     specific_issue_ID: 21,
-    link: 'href url here',
-    specific_issue_source: 'name of source here',
-    year: 'year',
+    link: 'https://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page',
+    specific_issue_source: 'NYC Department of City Planning (DCP)',
+    year: '2022',
   };
   dataJson[22] = {
-    specific_issue_name: 'Community District Tabluation Areas',
+    specific_issue_name: 'Community Districts',
     specific_issue_ID: 22,
-    link: 'href url here',
-    specific_issue_source: 'name of source here',
-    year: 'year',
+    link: 'https://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page',
+    specific_issue_source: 'NYC Department of City Planning (DCP)',
+    year: '2022',
   };
   dataJson[23] = {
     specific_issue_name: 'Neighborhood Tabulation Areas',
     specific_issue_ID: 23,
-    link: 'href url here',
-    specific_issue_source: 'name of source here',
-    year: 'year',
+    link: 'https://www1.nyc.gov/site/planning/data-maps/open-data/census-download-metadata.page',
+    specific_issue_source: 'NYC Department of City Planning (DCP)',
+    year: '2020',
   };
+
 
   const dataLayers = Object.keys(dataJson);
 
