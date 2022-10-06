@@ -37,7 +37,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
   dataJson[17] = {
     specific_issue_name: 'Poverty Level',
     specific_issue_ID: 17,
-    link: 'href url here',
+    link: 'https://data.cityofnewyork.us/City-Government/NYCgov-Poverty-Measure-Data-2018-/cts7-vksw/data',
     specific_issue_source: "US Census American Comm Survey, Mayor's Office for Economic Opportunity",
     year: '2018',
   };
