@@ -172,15 +172,14 @@ export default function IssuesTileView({
           <div className={'issues-tile-body h-100'}>
             <div className={'issue-tile-viz position-relative'}>
               <div>
-                <h5 className={'d-inline-block bold'}>
-                  {getIssueName()}{' '}
-                </h5>
+                <h5 className={'d-inline-block bold'}>{getIssueName()} </h5>
                 <div className={'m-0 small-font d-inline-block'}>
                   {`${issues.specific_issues_data[selectedSpecificIssue].units} `}
                   <SourceInfo
                     issues={issues}
                     selectedSpecificIssue={selectedSpecificIssue}
                     setSelectedChapter={setSelectedChapter}
+                    verticalHistogram={true}
                   />
                 </div>
               </div>

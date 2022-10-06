@@ -10,6 +10,7 @@ export default function MapTooltip({
   verticalHistogram = false,
 }) {
   const [showInfo, setShowInfo] = useState(false);
+  const [coords, setCoords] = useState(null);
   return (
     <div
       onMouseEnter={() => {
