@@ -28,13 +28,12 @@ Public health, mobility, and the environment are affected by local policies abou
   };
 
   const pickColor = (e) => {
-    const color = 'rgb(127, 255, 0)';
+    const color = 'rgb(255, 0, 0)';
     e.target.style.color = color;
   };
 
   return (
     <div
-      // className={"share"}
       className={'share-button-container noselect'}
       onMouseEnter={() => {
         setClicked(true);
@@ -102,21 +101,14 @@ Public health, mobility, and the environment are affected by local policies abou
             />
           </a>
           {linkCopied && (
-            <div className={'position-absolute map-toggle-url-copy'} style={{}}>
+            <div className={'position-absolute url-copied'} style={{}}>
               Link copied!
             </div>
           )}
         </div>
       )}
-      <div className="share-icon-container">
-        {((!isMobile && !clicked) || (isMobile && clicked)) && (
-          <small className={'small-font'} style={invert && { color: 'white' }}>
-            <strong>Share</strong>
-          </small>
-        )}
-        <div className={'share-icon'}>
-          <img style={invert && { filter: 'invert(1)' }} src={_SHARE} />
-        </div>
+      <div className="share-icon-container share-icons">
+        {((!isMobile && !clicked) || (isMobile && clicked)) && <a>+Share</a>}
       </div>
     </div>
   );

@@ -66,38 +66,24 @@ export default function CommunityRightColumn({
       {!selectedSpecificIssue && (
         <div className={'d-flex flex-row h-100 col-gap standard-padding'}>
           <div className={'issues-tile-header floating-share'}>
-            <div className={'toggle-share-container'}>
-              <div id={'share-container'}>
-                <ShareButton
-                  showMap={showMap}
-                  communitySearch={communitySearch}
-                  compareSearch={compareSearch}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  issues={issues}
-                  setShowMap={setShowMap}
-                  showToggle={showToggle}
-                  selectedIssue={selectedIssue}
-                  selectedChapter={selectedChapter}
-                  boundary={boundary}
-                  demographic={demographic}
-                  showDemographics={showDemographics}
-                  moreIssues={moreIssues}
-                  setMoreIssues={setMoreIssues}
-                  moreIssuesLength={moreIssuesLength}
-                  setMoreIssuesLength={setMoreIssuesLength}
-                />
-              </div>
-              <div id={'toggle-container'}>
-                {communitySearch && (
-                  <MapToggle
-                    showToggle={showToggle}
-                    showMap={showMap}
-                    setShowMap={setShowMap}
-                    boundary={boundary}
-                  />
-                )}
-              </div>
-            </div>
+            <ShareButton
+              showMap={showMap}
+              communitySearch={communitySearch}
+              compareSearch={compareSearch}
+              selectedSpecificIssue={selectedSpecificIssue}
+              issues={issues}
+              setShowMap={setShowMap}
+              showToggle={showToggle}
+              selectedIssue={selectedIssue}
+              selectedChapter={selectedChapter}
+              boundary={boundary}
+              demographic={demographic}
+              showDemographics={showDemographics}
+              moreIssues={moreIssues}
+              setMoreIssues={setMoreIssues}
+              moreIssuesLength={moreIssuesLength}
+              setMoreIssuesLength={setMoreIssuesLength}
+            />
           </div>
           <div className={'d-flex flex-row col-gap prompt'}>
             <FontAwesomeIcon icon={faArrowLeft} className={'fa-lg'} />
@@ -114,38 +100,24 @@ export default function CommunityRightColumn({
           id={'issue-container'}
         >
           <div className={'issues-tile-header floating-share'}>
-            <div className={'toggle-share-container'}>
-              <div id={'share-container'}>
-                <ShareButton
-                  showMap={showMap}
-                  communitySearch={communitySearch}
-                  compareSearch={compareSearch}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  issues={issues}
-                  setShowMap={setShowMap}
-                  showToggle={showToggle}
-                  selectedIssue={selectedIssue}
-                  selectedChapter={selectedChapter}
-                  boundary={boundary}
-                  demographic={demographic}
-                  showDemographics={showDemographics}
-                  moreIssues={moreIssues}
-                  setMoreIssues={setMoreIssues}
-                  moreIssuesLength={moreIssuesLength}
-                  setMoreIssuesLength={setMoreIssuesLength}
-                />
-              </div>
-              <div id={'toggle-container'}>
-                {communitySearch && (
-                  <MapToggle
-                    showToggle={showToggle}
-                    showMap={showMap}
-                    setShowMap={setShowMap}
-                    boundary={boundary}
-                  />
-                )}
-              </div>
-            </div>
+            <ShareButton
+              showMap={showMap}
+              communitySearch={communitySearch}
+              compareSearch={compareSearch}
+              selectedSpecificIssue={selectedSpecificIssue}
+              issues={issues}
+              setShowMap={setShowMap}
+              showToggle={showToggle}
+              selectedIssue={selectedIssue}
+              selectedChapter={selectedChapter}
+              boundary={boundary}
+              demographic={demographic}
+              showDemographics={showDemographics}
+              moreIssues={moreIssues}
+              setMoreIssues={setMoreIssues}
+              moreIssuesLength={moreIssuesLength}
+              setMoreIssuesLength={setMoreIssuesLength}
+            />
           </div>
           {communitySearch && (
             <div className={'issue-writeup'}>
