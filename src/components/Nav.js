@@ -58,7 +58,7 @@ function Nav({
   const viewStateCache = useRef(null);
 
   return (
-    <div className={'col-3 h-100 d-flex flex-column'}>
+    <div className={'col-3 h-100 d-flex flex-column'} style={{ zIndex: 3 }}>
       <div
         className={`nav-chapters d-flex flex-column justify-content-between top-border
              ${
