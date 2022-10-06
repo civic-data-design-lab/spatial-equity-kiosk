@@ -44,7 +44,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
   dataJson[18] = {
     specific_issue_name: 'Vehicle Ownership',
     specific_issue_ID: 18,
-    link: 'https://censusreporter.org/data/table/?table=B08201&geo_ids=16000US3651000,140|16000US3651000&primary_geo_id=16000US3651000',
+    link: 'https://data.census.gov/cedsci/table?q=B08201&g=0100000US_1600000US3651000&tid=ACSDT5Y2020.B08201',
     specific_issue_source: 'US Census American Comm Survey',
     year: ' 2016-2020',
   };
