@@ -1956,7 +1956,7 @@ input:checked+.slider:before {
     transition: flex-grow 0.5s, padding 0.5s 0.5s, background-color 0.5s, color 0.5s, height 0.6s;
     min-height: 0;
     background-color: white;
-    z-index: 1;
+    z-index: 3;
 }
 
 .mobile-citywide-content {
