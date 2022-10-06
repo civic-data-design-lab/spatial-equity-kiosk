@@ -23,6 +23,69 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
     setCurrentStepIndex(data);
   };
 
+  // console.log(dataLayers, issues.all_issues_id);
+
+  const dataJson = issues.specific_issues_data;
+
+  dataJson[16] = {
+    specific_issue_name: 'Race & Ethnicity',
+    specific_issue_ID: 16,
+    link: 'href url here',
+    specific_issue_source: 'name of source here',
+    year: 'year',
+  };
+  dataJson[17] = {
+    specific_issue_name: 'Poverty Level',
+    specific_issue_ID: 17,
+    link: 'href url here',
+    specific_issue_source: 'name of source here',
+    year: 'year',
+  };
+  dataJson[18] = {
+    specific_issue_name: 'Vehicle Ownership',
+    specific_issue_ID: 18,
+    link: 'href url here',
+    specific_issue_source: 'name of source here',
+    year: 'year',
+  };
+  dataJson[19] = {
+    specific_issue_name: 'Drive Alone to Work',
+    specific_issue_ID: 19,
+    link: 'href url here',
+    specific_issue_source: 'name of source here',
+    year: 'year',
+  };
+  dataJson[20] = {
+    specific_issue_name: 'Walk, Bike, or Ride Transit',
+    specific_issue_ID: 20,
+    link: 'href url here',
+    specific_issue_source: 'name of source here',
+    year: 'year',
+  };
+  dataJson[21] = {
+    specific_issue_name: 'City Council Districts',
+    specific_issue_ID: 21,
+    link: 'href url here',
+    specific_issue_source: 'name of source here',
+    year: 'year',
+  };
+  dataJson[22] = {
+    specific_issue_name: 'Community District Tabluation Areas',
+    specific_issue_ID: 22,
+    link: 'href url here',
+    specific_issue_source: 'name of source here',
+    year: 'year',
+  };
+  dataJson[23] = {
+    specific_issue_name: 'Neighborhood Tabulation Areas',
+    specific_issue_ID: 23,
+    link: 'href url here',
+    specific_issue_source: 'name of source here',
+    year: 'year',
+  };
+
+  const dataLayers = Object.keys(dataJson);
+
   const toTop = () => {
     let div = document.getElementById('about-container');
     div.scrollBy({
@@ -231,8 +294,6 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             <div className={'scroll-title'} id={'content-5'}>
               <h4 className={'mb-0 bold'}></h4>
             </div>
-
-           
 
             <div className={'scroll-content'}>
               <p>
@@ -500,12 +561,19 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
 
               <h6 className={'bold mt-4'}>About Buck Design</h6>
               <p>
-                <a href={'https://buck.co/'} target={'_blank'}>BUCK</a> 
-                &nbsp;is a talent-driven, global, creative company with offices in New York, Los Angeles, Sydney and Amsterdam.
-                
-                Founded in 2004, BUCK has built a reputation for outstanding craftsmanship and innovation through collaboration with a wide range of clients across the cultural and technology spheres, including Apple, Instagram, IBM, Nike, Airbnb, Paypal, and Pepsi.
-                
-                Recognized as an industry leader, BUCK’s trophy case includes an Emmy, multiple gold Cannes Lions, Clios, pencils, cubes, and over 150 other awards from the most prestigious competitions in the world.
+                <a href={'https://buck.co/'} target={'_blank'}>
+                  BUCK
+                </a>
+                &nbsp;is a talent-driven, global, creative company with offices
+                in New York, Los Angeles, Sydney and Amsterdam. Founded in 2004,
+                BUCK has built a reputation for outstanding craftsmanship and
+                innovation through collaboration with a wide range of clients
+                across the cultural and technology spheres, including Apple,
+                Instagram, IBM, Nike, Airbnb, Paypal, and Pepsi. Recognized as
+                an industry leader, BUCK’s trophy case includes an Emmy,
+                multiple gold Cannes Lions, Clios, pencils, cubes, and over 150
+                other awards from the most prestigious competitions in the
+                world.
               </p>
             </div>
           </div>
@@ -546,27 +614,27 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {issues.all_issues_id.map((id, index) => {
+                  {dataLayers.map((id, index) => {
                     return (
-                      <tr key={index}>
+                      <tr key={index} className="about-table-row">
                         <td>
-                          {issues.specific_issues_data[id].specific_issue_ID}
+                          {issues.specific_issues_data[id]?.specific_issue_ID}
                         </td>
                         <td>
-                          {issues.specific_issues_data[id].specific_issue_name}
+                          {issues.specific_issues_data[id]?.specific_issue_name}
                         </td>
                         <td>
                           <a
                             target={'_blank'}
-                            href={issues.specific_issues_data[id].link}
+                            href={issues.specific_issues_data[id]?.link}
                           >
                             {
                               issues.specific_issues_data[id]
-                                .specific_issue_source
+                                ?.specific_issue_source
                             }
                           </a>
                         </td>
-                        <td>{issues.specific_issues_data[id].year}</td>
+                        <td>{issues.specific_issues_data[id]?.year}</td>
                       </tr>
                     );
                   })}

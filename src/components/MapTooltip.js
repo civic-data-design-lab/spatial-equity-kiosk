@@ -149,7 +149,13 @@ const MapTooltip = ({
           ? selectedIssue.issue_units_symbol
           : ''}
         {selectedIssue.tooltip_fragment == '' ? '' : ' '}
-        {sentenceEnd}
+        {sentenceEnd}.
+        {selectedIssue.methodology_warning != '' && (
+          <div className="text-secondary fst-italic fw-light">
+            {`* `}
+            {selectedIssue.methodology_warning}.
+          </div>
+        )}
       </>
     );
   };
@@ -310,7 +316,7 @@ const MapTooltip = ({
       <>
         <div className="map-tooltip-header">{getTooltipHeader()}</div>
         {getMetricCheck() ? (
-          <div className="map-tooltip-info">{getRankingTooltip()}.</div>
+          <div className="map-tooltip-info">{getRankingTooltip()}</div>
         ) : null}
 
         {selectedDemographic != null ? getDemographicTooltip() : null}

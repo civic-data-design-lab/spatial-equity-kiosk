@@ -1806,9 +1806,10 @@ input:checked+.slider:before {
 #about-container {
     padding: 1.25rem;
     height: 100%;
-    overflow: scroll;
+    overflow-Y: scroll;
+    overflow-X: hidden;
     scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
+    /* scroll-snap-type: y mandatory; */
     scroll-padding: 5rem;
 }
 
@@ -1838,7 +1839,7 @@ input:checked+.slider:before {
 
 .scroll-content {
     padding: 1.25em 3em 1.25em 1.25em;
-    padding-bottom: max(1.25rem, 7.25rem);
+    /* padding-bottom: max(1.25rem, 7.25rem); */
     width: calc(75% - 5rem);
     scroll-snap-align: start;
 }
@@ -2292,6 +2293,24 @@ input:checked+.slider:before {
 .issues-profile-table-row:hover {
     background-color: black;
     color: white;
+}
+
+.about-table-row {
+    transition: all 0.5s;
+}
+
+.about-table-row:hover {
+    background-color: black;
+    color: white;
+}
+
+.about-table-row a {
+    text-decoration: none;
+}
+
+.about-table-row a:hover {
+    color: white !important;
+    text-decoration: underline;
 }
 
 .collapse-map-button {

@@ -73,6 +73,7 @@ const getDataToVis = (rawIssueData, rawIssueGoodBad) => {
 
   if (rawIssueGoodBad == 0) {
     valueArray.reverse();
+    avgIndex = valueArray.length - avgIndex;
   }
 
   return [valueArray, nameArray, avg, avgIndex, ascending, lookupArray];
@@ -218,11 +219,23 @@ const IssueHistogram = ({
     rawIssueGoodBad
   );
 
+  console.log(lookupArray);
+
+  // let selectedIndex = communitySearch
+  //   ? lookupArray.indexOf(communitySearch)
+  //   : 0;
+
   let selectedIndex = communitySearch
-    ? lookupArray.indexOf(communitySearch)
+    ? rawIssueGoodBad
+      ? lookupArray.indexOf(communitySearch)
+      : lookupArray.length - lookupArray.indexOf(communitySearch) - 1
     : 0;
 
-  let compareIndex = compareSearch ? lookupArray.indexOf(compareSearch) : 0;
+  let compareIndex = compareSearch
+    ? rawIssueGoodBad
+      ? lookupArray.indexOf(compareSearch)
+      : lookupArray.length - lookupArray.indexOf(compareSearch) - 1
+    : 0;
 
   let metricSymbol =
     issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !== ''
