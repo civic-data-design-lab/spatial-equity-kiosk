@@ -35,9 +35,9 @@
       "issue_units_symbol": "%",
       "methodology_warning": "",
       "related": [10, 12, 15],
-      "specific_issue_source": "New York State Statewide Planning and Research Cooperative System (SPARCS) Deidentified Hospital Discharge Data",
+      "specific_issue_source": "New York City Community Health Survey (CHS)",
       "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/Subtopic.aspx?theme_code=2,3&subtopic_id=11",
-      "year": "2017",
+      "year": "2020",
       "image_ids": ["F18_AsthmR_1.jpg"],
       "specific_issue_description": [
         {
@@ -500,9 +500,9 @@
       "issue_units_symbol": "%",
       "methodology_warning": "Within walking distance is defined as 1/4-mile to the entrance of a small park, or a 1/2-mile to the entrance of a large park",
       "related": [10, 1, 2],
-      "specific_issue_source": "NYC Department of Parks and Recreation (DPR), NYC Department of City Planning (DCP), National Park Service (NPS), New York State Office of Parks, Recreation, and Historic Preservation (OPRHP)",
-      "link": "http://www.ny4p.org/data-and-research/research-library/open-space-profiles",
-      "year": "2021",
+      "specific_issue_source": "New York City Department of Health and Mental Hygiene NYC Tracking Program: Environment and Health Data Portal. [Active Design - Walking Distance to a Park]",
+      "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/PublicTracking.aspx",
+      "year": "2017",
       "image_ids": ["F26_ParkAc_1.jpg"],
       "specific_issue_description": [
         {
@@ -607,7 +607,7 @@
       "methodology_warning": "",
       "related": [1, 12, 2],
       "specific_issue_source": "U.S. Geological Survey",
-      "link": "https://council.nyc.gov/data/securing-our-future/",
+      "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/VisualizationData.aspx?id=2141,719b87,107,Summarize",
       "year": "2018",
       "image_ids": ["F14_TmpDev_1.jpg"],
       "specific_issue_description": [
