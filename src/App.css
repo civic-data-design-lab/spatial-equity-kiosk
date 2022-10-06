@@ -1556,6 +1556,19 @@ a:active {
     filter: drop-shadow(0 0 0.33rem rgba(0, 0, 0, 0.2));
 }
 
+.mobile-what-is {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    height: 100%;
+}
+
+.mobile-what-is-description {
+    background-color: white;
+    padding: 2rem 2rem 5rem 2rem;
+}
+
 .mobile-community-search-screen .typewriter-container {
     color: black;
 }

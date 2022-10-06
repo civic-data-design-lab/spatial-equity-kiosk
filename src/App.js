@@ -27,6 +27,7 @@ import _NEIGHBORHOODS from './data/neighborhoods.json';
 
 import Protect from './utils/react-app-protect';
 import MobileCommunityProfile from './components/Mobile Components/MobileCommunityProfile';
+import MobileWhatIsSE from './components/Mobile Components/MobileWhatIsSE';
 
 let siteProtection =
   process.env.REACT_APP_SITE_PROTECTION == 'false'
@@ -821,6 +822,8 @@ function App() {
 
           {!selectedChapter ? (
             <div></div>
+          ) : selectedChapter === 1 ? (
+            <MobileWhatIsSE />
           ) : selectedChapter === 2 ? (
             <CitywideData
               selectedIssue={selectedIssue}
