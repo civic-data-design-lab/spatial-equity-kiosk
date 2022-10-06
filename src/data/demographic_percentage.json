@@ -9,7 +9,7 @@
     "textList": ["Households Living Below the Poverty Line", "Others"]
   },
   "Households Without a Car": {
-    "percList": [54, 46],
+    "percList": [55, 45],
     "lookup": "F7_CarFree",
     "textList": ["Households Without a Car", "Others"]
   },
