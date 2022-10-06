@@ -814,6 +814,7 @@ function App() {
             }}
           >
             <MobileNav
+              setShowMenu={setShowMenu}
               showMenu={showMenu}
               setSelectedChapter={setSelectedChapter}
               selectedChapter={selectedChapter}
