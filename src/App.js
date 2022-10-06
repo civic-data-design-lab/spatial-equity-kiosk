@@ -525,12 +525,9 @@ function App() {
   // console.log('siteProtection', siteProtection)
   // console.log('sha512', sha512)
 
-  const { width, height } = useWindowSize();
-
   return (
     <Protect isEnabled={siteProtection} sha512={sha512}>
-      {/* Assuming standard minimum desktop screen size */}
-      {width >= 576 && height >= 768 ? (
+      {useWindowSize().width >= 576 ? (
         <Container fluid className={'h-100 p-0 m-0 d-flex flex-row'}>
           <Nav
             setShowMap={setShowMap}
