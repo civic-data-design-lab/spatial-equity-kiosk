@@ -318,7 +318,7 @@ export default function Legend({
                         : 'mb-3 small-font'
                     }
                   >
-                    {100 - percList[percList.length - 1]}% of
+                    {100 - getNumber(percList[percList.length - 1])}% of
                     {demoLookup.name ===
                       'Households Living Below the Poverty Line' ||
                     demoLookup.name === 'Households Without a Car'
@@ -530,7 +530,7 @@ export default function Legend({
                       : 'mb-3 small-font'
                   }
                 >
-                  {100 - percList[percList.length - 1]}% of
+                  {100 - getNumber(percList[percList.length - 1])}% of
                   {demoLookup.name ===
                     'Households Living Below the Poverty Line' ||
                   demoLookup.name === 'Households Without a Car'
