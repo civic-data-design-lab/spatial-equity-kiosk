@@ -394,301 +394,306 @@ export default function MobileCommunityProfile({
         </div>
 
         {!showMap && (
-          <div
-            style={{
-              position: 'relative',
-              zIndex: 1,
-              height: 'calc(100vh - 4.025rem - .3vw - 5vh - 7vh)',
-            }}
-          >
-            <CommunityProfile
-              issues={issues}
-              selectedSpecificIssue={selectedSpecificIssue}
-              communities={communities}
-              communitySearch={communitySearch}
-              setSelectedSpecificIssue={setSelectedSpecificIssue}
-              compareSearch={compareSearch}
-              moreIssues={moreIssues}
-              setMoreIssues={setMoreIssues}
-              moreIssuesLength={moreIssuesLength}
-              setMoreIssuesLength={setMoreIssuesLength}
-              boundary={boundary}
-              councils={councils}
-              setSelectedChapter={setSelectedChapter}
-              setSelectedAbout={setSelectedAbout}
-            />
-          </div>
-        )}
-
-        <div
-          className={'selected-issue-card'}
-          style={{
-            transition: 'height 0.5s, top 0.5s',
-            height: 'calc(100vh - 5vh - 4.025rem - .3vw)',
-            backgroundColor: 'white',
-            position: 'absolute',
-            zIndex: 2,
-            width: '100vw',
-            top: `${
-              !selectedSpecificIssue ? '100vh' : 'calc(4.025rem + .3vw + 5vh'
-            }`,
-          }}
-        >
-          <div
-            className={
-              'selected-issue-card-header d-flex flex-row align-items-center justify-content-between'
-            }
-            style={{
-              height: '5vh',
-              backgroundColor: 'black',
-              color: 'white',
-              padding: '1rem',
-            }}
-          >
-            <p className={'mb-0'}>
-              {issues.specific_issues_data[selectedSpecificIssue]
-                ?.specific_issue_name || null}
-            </p>
-            <p className={'m-0 smaller-text'}>
-              (
-              {issues.specific_issues_data[selectedSpecificIssue]?.units ||
-                null}
-              )
-            </p>
-            <ShareButton isMobile={true} invert={true} />
-            <FontAwesomeIcon
-              icon={faXmark}
-              onClick={() => {
-                setSelectedSpecificIssue(null);
+          <>
+            <div
+              style={{
+                position: 'relative',
+                zIndex: 1,
+                height: 'calc(100vh - 4.025rem - .3vw - 5vh - 7vh)',
               }}
-            />
-          </div>
-
-          <div
-            className={'selected-issue-card-body'}
-            style={{
-              height: `${
-                (!showMap && showDemographics) || (showMap && showLegend)
-                  ? 'calc(50vh - 4.025rem - 0.3vw)'
-                  : 'calc(83vh - 4.025rem - 0.3vw)'
-              }`,
-              backgroundColor: 'white',
-              color: 'black',
-              padding: '1rem',
-              overflow: 'auto',
-              transition: 'height 0.5s',
-            }}
-          >
-            <div>
-              {
-                issues.specific_issues_data[selectedSpecificIssue]
-                  ?.specific_issue_ranking_narrative
-              }
-            </div>
-            {selectedSpecificIssue && (
-              <>
-                <div
-                  style={{ flex: 1, height: '70vh' }}
-                  className={'histogram-responsive-box'}
-                >
-                  <Histogram
-                    colorRampsyType={colorRamps}
-                    issues={issues}
-                    boundary={boundary}
-                    selectedSpecificIssue={selectedSpecificIssue}
-                    communityPinned={communityPinned}
-                    setCommunityPinned={setCommunityPinned}
-                    councilPinned={councilPinned}
-                    setCouncilPinned={setCouncilPinned}
-                    setCommunitySearch={setCommunitySearch}
-                    setSelectedChapter={setSelectedChapter}
-                  />
-                </div>
-                <IssueProfile
-                  issues={issues}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  boundary={boundary}
-                  setSelectedSpecificIssue={setSelectedSpecificIssue}
-                  setCommunitySearch={setCommunitySearch}
-                  setSelectedChapter={setSelectedChapter}
-                  councils={councils}
-                  communities={communities}
-                />
-              </>
-            )}
-          </div>
-
-          <div
-            className={`mobile-demographics-toggle ${
-              (!showMap && showDemographics) || (showMap && showLegend)
-                ? 'active-scheme'
-                : 'inactive-scheme'
-            }`}
-            onClick={() => {
-              if (!showMap) {
-                setShowDemographics(!showDemographics);
-              } else {
-                setShowDemographics(true);
-                setShowLegend(!showLegend);
-              }
-            }}
-          >
-            <div>
-              {!showMap && showDemographics
-                ? 'Show U.S. Census Data'
-                : !showMap && !showDemographics
-                ? 'Show U.S. Census Data'
-                : showMap && showLegend
-                ? 'Hide Legend'
-                : 'Show Legend'}
-            </div>
-
-            <FontAwesomeIcon
-              icon={
-                (!showMap && showDemographics) || (showMap && showLegend)
-                  ? faMinus
-                  : faPlus
-              }
-            />
-          </div>
-          <div
-            className={'mobile-demographics-container'}
-            style={{
-              height:
-                (!showMap && showDemographics) || (showMap && showLegend)
-                  ? 'calc(100vh - 19vh  - 48vh)'
-                  : '0',
-            }}
-          >
-            {selectedSpecificIssue && !showMap && (
-              <Demographics
-                currentValue={demographic}
-                setValue={setDemographic}
+            >
+              <CommunityProfile
+                issues={issues}
                 selectedSpecificIssue={selectedSpecificIssue}
-                setShowDemographics={setShowDemographics}
-                showDemographics={showDemographics}
-                communitySearch={communitySearch}
-                compareSearch={compareSearch}
-                mapDemographics={mapDemographics}
-                setMapDemographics={setMapDemographics}
-                boundary={boundary}
                 communities={communities}
+                communitySearch={communitySearch}
+                setSelectedSpecificIssue={setSelectedSpecificIssue}
+                compareSearch={compareSearch}
+                moreIssues={moreIssues}
+                setMoreIssues={setMoreIssues}
+                moreIssuesLength={moreIssuesLength}
+                setMoreIssuesLength={setMoreIssuesLength}
+                boundary={boundary}
                 councils={councils}
-                selectedChapter={selectedChapter}
-                toggleTransit={toggleTransit}
-                setToggleTransit={setToggleTransit}
-                toggleBike={toggleBike}
-                setToggleBike={setToggleBike}
-                toggleWalk={toggleWalk}
-                setToggleWalk={setToggleWalk}
-                colorRamps={colorRamps} // legendBins={legendBins}
-                demoColorRamp={demoColorRamp}
-                demoLegendBins={demoLegendBins}
-                setDemoColorRamp={setDemoColorRamp}
-                setDemoLegendBins={setDemoLegendBins}
-                demoLookup={demoLookup[demographic]}
-                showMap={showMap}
-                info={info}
+                setSelectedChapter={setSelectedChapter}
+                setSelectedAbout={setSelectedAbout}
               />
-            )}
+            </div>
+            <div
+              className={'selected-issue-card'}
+              style={{
+                transition: 'height 0.5s, top 0.5s',
+                height: 'calc(100vh - 5vh - 4.025rem - .3vw)',
+                backgroundColor: 'white',
+                position: 'absolute',
+                zIndex: 2,
+                width: '100vw',
+                top: `${
+                  !selectedSpecificIssue
+                    ? '100vh'
+                    : 'calc(4.025rem + .3vw + 5vh'
+                }`,
+              }}
+            >
+              <div
+                className={
+                  'selected-issue-card-header d-flex flex-row align-items-center justify-content-between'
+                }
+                style={{
+                  height: '5vh',
+                  backgroundColor: 'black',
+                  color: 'white',
+                  padding: '1rem',
+                }}
+              >
+                <p className={'mb-0'}>
+                  {issues.specific_issues_data[selectedSpecificIssue]
+                    ?.specific_issue_name || null}
+                </p>
+                <p className={'m-0 smaller-text'}>
+                  (
+                  {issues.specific_issues_data[selectedSpecificIssue]?.units ||
+                    null}
+                  )
+                </p>
+                <ShareButton isMobile={true} invert={true} />
+                <FontAwesomeIcon
+                  icon={faXmark}
+                  onClick={() => {
+                    setSelectedSpecificIssue(null);
+                  }}
+                />
+              </div>
+              <div
+                className={'selected-issue-card-body'}
+                style={{
+                  height: `${
+                    (!showMap && showDemographics) || (showMap && showLegend)
+                      ? 'calc(50vh - 4.025rem - 0.3vw)'
+                      : 'calc(83vh - 4.025rem - 0.3vw)'
+                  }`,
+                  backgroundColor: 'white',
+                  color: 'black',
+                  padding: '1rem',
+                  overflow: 'auto',
+                  transition: 'height 0.5s',
+                }}
+              >
+                <div>
+                  {
+                    issues.specific_issues_data[selectedSpecificIssue]
+                      ?.specific_issue_ranking_narrative
+                  }
+                </div>
+                {selectedSpecificIssue && (
+                  <>
+                    <div
+                      style={{ flex: 1, height: '70vh' }}
+                      className={'histogram-responsive-box'}
+                    >
+                      <Histogram
+                        colorRampsyType={colorRamps}
+                        issues={issues}
+                        boundary={boundary}
+                        selectedSpecificIssue={selectedSpecificIssue}
+                        communityPinned={communityPinned}
+                        setCommunityPinned={setCommunityPinned}
+                        councilPinned={councilPinned}
+                        setCouncilPinned={setCouncilPinned}
+                        setCommunitySearch={setCommunitySearch}
+                        setSelectedChapter={setSelectedChapter}
+                      />
+                    </div>
+                    <IssueProfile
+                      issues={issues}
+                      selectedSpecificIssue={selectedSpecificIssue}
+                      boundary={boundary}
+                      setSelectedSpecificIssue={setSelectedSpecificIssue}
+                      setCommunitySearch={setCommunitySearch}
+                      setSelectedChapter={setSelectedChapter}
+                      councils={councils}
+                      communities={communities}
+                    />
+                  </>
+                )}
+              </div>
 
-            {selectedSpecificIssue && showMap && (
-              <Carousel>
-                <div
-                  className={'d-flex flex-column justify-content-between'}
-                  style={{ height: 'calc(100vh - 19vh  - 48vh - 5rem)' }}
-                >
-                  <p className={'mb-0'}>Description</p>
-                  <p className="mb-0">
-                    {getHyperlinkText(
-                      issues.specific_issues_data[selectedSpecificIssue]
-                        .specific_issue_description
-                    )}
-                  </p>
+              <div
+                className={`mobile-demographics-toggle ${
+                  (!showMap && showDemographics) || (showMap && showLegend)
+                    ? 'active-scheme'
+                    : 'inactive-scheme'
+                }`}
+                onClick={() => {
+                  if (!showMap) {
+                    setShowDemographics(!showDemographics);
+                  } else {
+                    setShowDemographics(true);
+                    setShowLegend(!showLegend);
+                  }
+                }}
+              >
+                <div>
+                  {!showMap && showDemographics
+                    ? 'Show U.S. Census Data'
+                    : !showMap && !showDemographics
+                    ? 'Show U.S. Census Data'
+                    : showMap && showLegend
+                    ? 'Hide Legend'
+                    : 'Show Legend'}
                 </div>
 
-                <div
-                  className={'d-flex flex-column justify-content-between'}
-                  style={{ height: 'calc(100vh - 19vh  - 48vh - 5rem)' }}
-                >
-                  <p className={'mb-0'}>Data Legend</p>
-
-                  <Legend
+                <FontAwesomeIcon
+                  icon={
+                    (!showMap && showDemographics) || (showMap && showLegend)
+                      ? faMinus
+                      : faPlus
+                  }
+                />
+              </div>
+              <div
+                className={'mobile-demographics-container'}
+                style={{
+                  height:
+                    (!showMap && showDemographics) || (showMap && showLegend)
+                      ? 'calc(100vh - 19vh  - 48vh)'
+                      : '0',
+                }}
+              >
+                {selectedSpecificIssue && !showMap && (
+                  <Demographics
+                    currentValue={demographic}
+                    setValue={setDemographic}
+                    selectedSpecificIssue={selectedSpecificIssue}
+                    setShowDemographics={setShowDemographics}
+                    showDemographics={showDemographics}
+                    communitySearch={communitySearch}
+                    compareSearch={compareSearch}
                     mapDemographics={mapDemographics}
+                    setMapDemographics={setMapDemographics}
+                    boundary={boundary}
+                    communities={communities}
+                    councils={councils}
+                    selectedChapter={selectedChapter}
+                    toggleTransit={toggleTransit}
+                    setToggleTransit={setToggleTransit}
+                    toggleBike={toggleBike}
+                    setToggleBike={setToggleBike}
+                    toggleWalk={toggleWalk}
+                    setToggleWalk={setToggleWalk}
+                    colorRamps={colorRamps} // legendBins={legendBins}
                     demoColorRamp={demoColorRamp}
                     demoLegendBins={demoLegendBins}
+                    setDemoColorRamp={setDemoColorRamp}
+                    setDemoLegendBins={setDemoLegendBins}
                     demoLookup={demoLookup[demographic]}
-                    demographic={demographic}
-                    dataScale={dataScale}
-                    setdataScale={setdataScale}
-                    issues={issues}
-                    selectedSpecificIssue={selectedSpecificIssue}
-                    colorRamps={colorRamps}
-                    toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
-                    setToggleUnderperformers={setToggleUnderperformers}
-                    boundary={boundary}
-                    handleLegend={handleLegend}
-                    selectedIssue={selectedSpecificIssue}
-                    zoomToggle={zoomToggle}
                     showMap={showMap}
-                    binList={binList}
                     info={info}
-                    selectedChapter={selectedChapter}
                   />
-                </div>
+                )}
 
-                <div
-                  className={'d-flex flex-column justify-content-between'}
-                  style={{
-                    transition: 'height 0.5s',
-                    height: `${
-                      showMap && showLegend
-                        ? 'calc(100vh - 19vh  - 48vh - 5rem)'
-                        : '0'
-                    }`,
-                  }}
-                >
-                  <p className={'mb-0'}>Demographics</p>
+                {selectedSpecificIssue && showMap && (
+                  <Carousel>
+                    <div
+                      className={'d-flex flex-column justify-content-between'}
+                      style={{ height: 'calc(100vh - 19vh  - 48vh - 5rem)' }}
+                    >
+                      <p className={'mb-0'}>Description</p>
+                      <p className="mb-0">
+                        {getHyperlinkText(
+                          issues.specific_issues_data[selectedSpecificIssue]
+                            .specific_issue_description
+                        )}
+                      </p>
+                    </div>
 
-                  <div
-                    style={{ position: 'relative', zIndex: 1, height: '100%' }}
-                  >
-                    <Demographics
-                      currentValue={demographic}
-                      setValue={setDemographic}
-                      selectedSpecificIssue={selectedSpecificIssue}
-                      setShowDemographics={setShowDemographics}
-                      showDemographics={showDemographics}
-                      communitySearch={communitySearch}
-                      compareSearch={compareSearch}
-                      mapDemographics={mapDemographics}
-                      setMapDemographics={setMapDemographics}
-                      boundary={boundary}
-                      communities={communities}
-                      councils={councils}
-                      selectedChapter={selectedChapter}
-                      toggleTransit={toggleTransit}
-                      setToggleTransit={setToggleTransit}
-                      toggleBike={toggleBike}
-                      setToggleBike={setToggleBike}
-                      toggleWalk={toggleWalk}
-                      setToggleWalk={setToggleWalk}
-                      colorRamps={colorRamps} // legendBins={legendBins}
-                      demoColorRamp={demoColorRamp}
-                      demoLegendBins={demoLegendBins}
-                      setDemoColorRamp={setDemoColorRamp}
-                      setDemoLegendBins={setDemoLegendBins}
-                      demoLookup={demoLookup[demographic]}
-                      showMap={showMap}
-                      info={info}
-                    />
-                  </div>
-                </div>
-              </Carousel>
-            )}
-          </div>
-        </div>
+                    <div
+                      className={'d-flex flex-column justify-content-between'}
+                      style={{ height: 'calc(100vh - 19vh  - 48vh - 5rem)' }}
+                    >
+                      <p className={'mb-0'}>Data Legend</p>
 
+                      <Legend
+                        mapDemographics={mapDemographics}
+                        demoColorRamp={demoColorRamp}
+                        demoLegendBins={demoLegendBins}
+                        demoLookup={demoLookup[demographic]}
+                        demographic={demographic}
+                        dataScale={dataScale}
+                        setdataScale={setdataScale}
+                        issues={issues}
+                        selectedSpecificIssue={selectedSpecificIssue}
+                        colorRamps={colorRamps}
+                        toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
+                        setToggleUnderperformers={setToggleUnderperformers}
+                        boundary={boundary}
+                        handleLegend={handleLegend}
+                        selectedIssue={selectedSpecificIssue}
+                        zoomToggle={zoomToggle}
+                        showMap={showMap}
+                        binList={binList}
+                        info={info}
+                        selectedChapter={selectedChapter}
+                      />
+                    </div>
+
+                    <div
+                      className={'d-flex flex-column justify-content-between'}
+                      style={{
+                        transition: 'height 0.5s',
+                        height: `${
+                          showMap && showLegend
+                            ? 'calc(100vh - 19vh  - 48vh - 5rem)'
+                            : '0'
+                        }`,
+                      }}
+                    >
+                      <p className={'mb-0'}>Demographics</p>
+
+                      <div
+                        style={{
+                          position: 'relative',
+                          zIndex: 1,
+                          height: '100%',
+                        }}
+                      >
+                        <Demographics
+                          currentValue={demographic}
+                          setValue={setDemographic}
+                          selectedSpecificIssue={selectedSpecificIssue}
+                          setShowDemographics={setShowDemographics}
+                          showDemographics={showDemographics}
+                          communitySearch={communitySearch}
+                          compareSearch={compareSearch}
+                          mapDemographics={mapDemographics}
+                          setMapDemographics={setMapDemographics}
+                          boundary={boundary}
+                          communities={communities}
+                          councils={councils}
+                          selectedChapter={selectedChapter}
+                          toggleTransit={toggleTransit}
+                          setToggleTransit={setToggleTransit}
+                          toggleBike={toggleBike}
+                          setToggleBike={setToggleBike}
+                          toggleWalk={toggleWalk}
+                          setToggleWalk={setToggleWalk}
+                          colorRamps={colorRamps} // legendBins={legendBins}
+                          demoColorRamp={demoColorRamp}
+                          demoLegendBins={demoLegendBins}
+                          setDemoColorRamp={setDemoColorRamp}
+                          setDemoLegendBins={setDemoLegendBins}
+                          demoLookup={demoLookup[demographic]}
+                          showMap={showMap}
+                          info={info}
+                        />
+                      </div>
+                    </div>
+                  </Carousel>
+                )}
+              </div>
+            </div>
+          </>
+        )}
         {/*<div className={"typewriter-container"}
                      onClick={()=>{
 
