@@ -428,11 +428,7 @@ export default function MobileCommunityProfile({
                 position: 'absolute',
                 zIndex: 2,
                 width: '100vw',
-                top: `${
-                  !selectedSpecificIssue
-                    ? '100vh'
-                    : 'calc(4.025rem + .3vw + 5vh'
-                }`,
+                top: `${!selectedSpecificIssue ? '100vh' : 'calc(.3vw + 5vh)'}`,
               }}
             >
               <div
@@ -443,14 +439,14 @@ export default function MobileCommunityProfile({
                   height: '5vh',
                   backgroundColor: 'black',
                   color: 'white',
-                  padding: '1rem',
+                  padding: '0.5rem',
                 }}
               >
-                <p className={'mb-0'}>
+                <p className={'mb-0 smaller-text'}>
                   {issues.specific_issues_data[selectedSpecificIssue]
                     ?.specific_issue_name || null}
                 </p>
-                <p className={'m-0 smaller-text'}>
+                <p className={'m-0'} style={{ fontSize: '0.6rem' }}>
                   (
                   {issues.specific_issues_data[selectedSpecificIssue]?.units ||
                     null}
