@@ -20,10 +20,10 @@
   },
   "Commuters Who Bike, Walk, or Ride Transit": {
     "lookup": "F10_TrsBkW",
-    "percList": [47, 53],
+    "percList": [64, 36],
     "textList": ["Commuters Who Bike, Walk, or Ride Transit", "Others"],
-    "F6_bike": 2,
-    "F8_PubTran": 37,
-    "F11_Walk": 9
+    "F6_bike": 1.3,
+    "F8_PubTran": 53,
+    "F11_Walk": 10
   }
 }
