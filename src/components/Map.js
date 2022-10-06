@@ -227,12 +227,15 @@ export default function DeckMap({
    *    and top, respectively.
    *
    */
+
   const [tooltipCompData1, setTooltipCompData1] = useState(null);
   const [tooltipCompData2, setTooltipCompData2] = useState(null);
   const [viewStateLocal, setViewStateLocal] = useState(DEFAULT_VIEW_STATE);
   const [underperformers, setUnderperformers] = useState(null);
   const [transportationModesArray, setTransportationModesArray] = useState([]);
   const [highlightFeature, sethighlightFeature] = useState(null);
+
+  // console.log(tooltipCompData1, tooltipCompData2);
 
   const deckRef = useRef(null);
   const mapRef = useRef(null);
@@ -296,9 +299,9 @@ export default function DeckMap({
     if (!projection) {
       return;
     }
-    // Add an offset of 25 pixels from the left and top
-    projection.x += 25;
-    projection.y += 25;
+    // Add an offset of 15 pixels from the left and top
+    projection.x += viewStateLocal.zoom;
+    projection.y += viewStateLocal.zoom;
     return projection;
   };
 
@@ -513,11 +516,11 @@ export default function DeckMap({
 
     // 04.3 toggle based on zoom level
     if (viewState.zoom > 12.25 && zoomToggle) {
-      console.log('switch in');
+      // console.log('switch in');
       setzoomToggle(0);
       sethandleLegend(0);
     } else if (viewState.zoom < 12.25 && !zoomToggle) {
-      console.log('switch out');
+      // console.log('switch out');
       setzoomToggle(1);
       sethandleLegend(1);
     }
@@ -652,20 +655,21 @@ export default function DeckMap({
         setBadSearch([1, badSearch[1]]);
         return;
       }
+      const pickingInfo = communitySearchResult[1][0];
 
       if (
         searchSource !== 'search' &&
         (searchSource !== 'click' || newCommunitySearch[0] === communitySearch)
       ) {
+        // Get the data of the selected community from the community search
         if (searchSource === 'click') {
-          // User clicked on an already selected community, resets the community
-          // search and view state
-          //console.debug('User clicked on already selected primary community');
-          // setSelectedCoord([]);
-          // setCommunitySearch(null);
-          // setUserPoints([[], userPoints[1]]);
-          // setViewStateLocal(DEFAULT_VIEW_STATE);
-          // setTooltipCompData1(null);
+          // user has clicked on already selected community
+          setTooltipCompData1({
+            ...pickingInfo,
+            coords: searchEngine, // Search engine gives the position of the dots
+            pos: getStaticTooltipPos(searchEngine),
+          });
+          setUserPoints([searchEngine, userPoints[1]]);
           return;
         }
         return;
@@ -678,8 +682,6 @@ export default function DeckMap({
       setBadSearch([0, badSearch[1]]);
       setUserPoints([searchEngine, userPoints[1]]);
 
-      // Get the data of the selected community from the community search
-      const pickingInfo = communitySearchResult[1][0];
       // Set the tooltip data of the primary community
       setTooltipCompData1({
         ...pickingInfo,
@@ -792,6 +794,7 @@ export default function DeckMap({
         searchEngine.length === 2 &&
         searchSource === 'click'
       ) {
+        console.log('issueHere');
         // Clicked to get comparison community
         //console.debug('User clicked on map to unselect comparison community');
         setSelectedCompareCoord([]);
@@ -822,17 +825,15 @@ export default function DeckMap({
         }
 
         if (!compareSearch) {
-          // User selected the primary community as the comparison community;
-          // reset search data
-          //console.debug(
-          //  'User selected the primary community as the comparison community'
-          //);
-          // setSelectedCoord([]);
-          // setCommunitySearch(null);
-          // setUserPoints([[], []]);
-          // setViewStateLocal(DEFAULT_VIEW_STATE);
-          // setTooltipCompData1(null);
-          // setTooltipCompData2(null);
+          const pickingInfo = communitySearchResult[1][0];
+
+          setTooltipCompData1({
+            ...pickingInfo,
+            coords: searchEngine, // Search engine gives the position of the dots
+            pos: getStaticTooltipPos(searchEngine),
+          });
+          setUserPoints([searchEngine, userPoints[1]]);
+
           return;
         }
 
@@ -1350,7 +1351,6 @@ export default function DeckMap({
       filled: true,
       radiusScale: 4,
       radiusMinPixels: 8,
-      // radiusMaxPixels: 125,
       lineWidthMinPixels: 1,
       getPosition: (d) => d,
       getRadius: 30,
@@ -1358,10 +1358,6 @@ export default function DeckMap({
       getLineColor: [255, 255, 255, 255],
     }),
   ];
-
-  //   console.log(project(userPoints[0]));
-  //   console.log(userPoints);
-  //   console.log(infoTransfer.selectedBoundary.features[0].properties.X_Cent);
 
   const layerFilter = useCallback(({ layer, viewport }) => {
     if (!showMap && selectedSpecificIssue) return false;
@@ -1458,6 +1454,8 @@ export default function DeckMap({
             tooltipProperties={tooltipCompData1?.properties}
             pickingInfoObject={tooltipCompData1?.object}
             pickingInfoIndex={tooltipCompData1?.index}
+            exit={true}
+            toggleTooltip={setTooltipCompData1}
           />
         </div>
       )}
@@ -1496,6 +1494,8 @@ export default function DeckMap({
             tooltipProperties={tooltipCompData2?.properties}
             pickingInfoObject={tooltipCompData2?.object}
             pickingInfoIndex={tooltipCompData2?.index}
+            exit={true}
+            toggleTooltip={setTooltipCompData2}
           />
         </div>
       )}

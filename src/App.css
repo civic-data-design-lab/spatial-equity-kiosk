@@ -1159,6 +1159,16 @@ a:active {
 
 }
 
+.close-icon {
+    cursor: 'pointer';
+    font-size: 1rem;
+}
+
+.close-icon:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
 .toggle-share-container {
     display: flex;
     flex-direction: row;

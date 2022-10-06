@@ -7,6 +7,9 @@ import {
   ordinalSuffixOf,
 } from '../utils/functions';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+
 const MapTooltip = ({
   // v Passed from App.js v
   boundary,
@@ -29,7 +32,13 @@ const MapTooltip = ({
   pickingInfoIndex,
   pickingInfoObject,
   tooltipProperties,
+  exit = false,
+  toggleTooltip,
 }) => {
+  const closePopup = () => {
+    toggleTooltip(null);
+  };
+
   const getMetricCheck = () => {
     return _RANKINGS[boundary][infoTransfer.selectedMetric];
   };
@@ -45,6 +54,17 @@ const MapTooltip = ({
     return (
       <>
         {getTooltipBounds(boundary)} <strong>{getBoundaryName()}</strong>
+        {exit && (
+          <FontAwesomeIcon
+            icon={faXmark}
+            className={'close-icon'}
+            style={{
+              display: 'inline-block',
+              float: 'right',
+            }}
+            onClick={closePopup}
+          />
+        )}
       </>
     );
   };
@@ -195,41 +215,9 @@ const MapTooltip = ({
 
     const locationSentence = `${boroughName} ${boroughData.boundaryNumber} `;
 
-    //value for specific metric and boundary
-    // const value = accessor[infoTransfer.selectedMetric]
-    //   ? getNumber(accessor[infoTransfer.selectedMetric])
-    //   : '';
-
-    // const metricCheck = _RANKINGS[boundary][infoTransfer.selectedMetric]
-    //   ? true
-    //   : false;
-
     const transportationModes = getTransportationModes(
       transportationModesArray
     );
-    // //get boundary ranking
-    // const ranking = metricCheck
-    //   ? _RANKINGS[boundary][infoTransfer.selectedMetric].find(
-    //       (t) => t.community_ID == boroughData.boundaryName
-    //     ).rank
-    //   : '';
-
-    // //get total number of boundaries
-    // const maxRanking = metricCheck
-    //   ? _RANKINGS[boundary][infoTransfer.selectedMetric].length
-    //   : '';
-
-    // //get term to describe bad condition
-    // const hiLowWord = issues.specific_issues_data[selectedSpecificIssue]
-    //   .good_or_bad
-    //   ? issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[0]
-    //   : issues.specific_issues_data[selectedSpecificIssue].issue_hi_low[1];
-
-    // // join sentence with either "at" or "with"
-    // const joiningWord =
-    //   issues.specific_issues_data[selectedSpecificIssue].json_id == 'F27_BusSpe'
-    //     ? 'at'
-    //     : 'with';
 
     const householdsOrCommuters = ['1', '4', '5'].includes(demographic)
       ? 'commuters'

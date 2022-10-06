@@ -219,8 +219,6 @@ const IssueHistogram = ({
     rawIssueGoodBad
   );
 
-  console.log(lookupArray);
-
   // let selectedIndex = communitySearch
   //   ? lookupArray.indexOf(communitySearch)
   //   : 0;
