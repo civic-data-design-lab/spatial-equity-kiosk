@@ -28,6 +28,7 @@ import _NEIGHBORHOODS from './data/neighborhoods.json';
 import Protect from './utils/react-app-protect';
 import MobileCommunityProfile from './components/Mobile Components/MobileCommunityProfile';
 import MobileWhatIsSE from './components/Mobile Components/MobileWhatIsSE';
+import About from './components/About';
 
 let siteProtection =
     process.env.REACT_APP_SITE_PROTECTION == 'false'
@@ -1125,7 +1126,17 @@ function App() {
                             dataScale={dataScale}
                             setdataScale={setdataScale}
                         />
-                    ) : null}
+                    ) : selectedChapter === 4 ? (
+                      <div style={{ position: 'absolute', height: '100vh', zIndex: 2, backgroundColor: 'white', overflowY: 'scroll' }}>
+                        <About
+                          issues={issues}
+                          selectedAbout={selectedAbout}
+                          setSelectedChapter={setSelectedChapter}
+                        ></About>
+                      </div>
+                    ) : 
+                      null
+                    }
 
                     <div
                         className={'mobile-map'}

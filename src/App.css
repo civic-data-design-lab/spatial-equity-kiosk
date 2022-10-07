@@ -1172,10 +1172,9 @@ a:active {
 } */
 
 
-/* .share-icon {
-    height: 2.75rem;
-    width: 2.75rem;
-} */
+.share-icon {
+    width: 2rem;
+}
 
 .share-icon-container {
     display: flex;
@@ -2189,6 +2188,7 @@ input:checked+.slider:before {
 
 .mobile-citywide-nav {
     height: 5vh;
+    width: 100vw;
     display: flex;
     flex-direction: row;
     z-index: 1;
@@ -2240,6 +2240,8 @@ input:checked+.slider:before {
 }
 
 .mobile-citywide-nav-text {
+    width: 100%;
+    text-overflow: ellipsis;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -2349,6 +2351,59 @@ input:checked+.slider:before {
 
     .community-dropdown {
         z-index: 50;
+    }
+    #about-container {
+        width: 100vw;
+        font-size: small;
+        padding: 1.25rem 0rem 1.25rem 0.5rem;
+        display: flex;
+        height: max-content;
+        margin-bottom: 100px;
+        flex-direction: column;
+    }
+
+    .scroll-menu {
+        position: fixed;
+        padding: 0.5rem ;
+        width: 50px;
+        z-index: 3;
+        top: 5rem;
+        right: 0;
+        max-height: 100vh;
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+
+    .scroll-menu a {
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+    }
+
+    .scroll-menu h5 {
+        font-size: 0px;
+        width: 15px;
+        height: 15px;
+        border: 2px solid gray;
+        border-radius: 100%;
+    }
+
+
+    .scroll-title {
+        position: fixed;
+        left: 0;
+        top: calc(4.025rem + 0.3vw);
+        width: 85vw;
+        padding: 1rem;
+    }
+
+    .scroll-body {
+        width: 85vw;
+    }
+
+    .scroll-content {
+        width: 100%;
     }
 
 
