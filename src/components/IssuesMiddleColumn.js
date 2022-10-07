@@ -161,9 +161,50 @@ export default function IssuesMiddleColumn({
       style={{ height: '100vh' }}
     >
       <div
+        className={`${'issues-chapters-active'} collapse-issue issues-chapters top-border transition-height`}
+        style={{
+          height: communitySearch ? 'auto' : '0',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          className="position-relative d-grid "
+          style={{
+            gridTemplateColumns: '1fr auto',
+            gridGap: '0.33rem',
+            alignItems: 'center',
+          }}
+        >
+          <h5 className="mb-0">
+            {communitySearch
+              ? boundary == 'council'
+                ? councils[communitySearch]
+                  ? `City Council ${councils[communitySearch].name}`
+                  : ''
+                : communities[communitySearch]
+                ? `${communities[communitySearch].name
+                    .split(' ')
+                    .slice(0, -1)
+                    .join(' ')} Community Board ${communities[
+                    communitySearch
+                  ].name
+                    .split(' ')
+                    .slice(-1)}`
+                : ''
+              : ''}
+          </h5>
+          <MapToggle
+            showToggle={true}
+            showMap={showMap}
+            setShowMap={setShowMap}
+            boundary={boundary}
+          />
+        </div>
+      </div>
+      <div
         className={`${selectedIssue === 1 ? 'issues-chapters-active' : ''} ${
           selectedIssue || showDemographics ? 'collapse-issue' : ''
-        } issues-chapters top-border`}
+        } issues-chapters ${!communitySearch ? 'top-border' : ''}`}
         onClick={() => {
           return selectedIssue !== 1 ? handleIssueTransition(1) : null;
         }}
@@ -185,7 +226,7 @@ export default function IssuesMiddleColumn({
             Health
           </h5>
           <MapToggle
-            showToggle={selectedIssue === 1 ? true : false}
+            showToggle={selectedIssue === 1 && !communitySearch ? true : false}
             showMap={showMap}
             setShowMap={setShowMap}
             boundary={boundary}
@@ -217,9 +258,8 @@ export default function IssuesMiddleColumn({
             issue_categories={issue_categories}
             showDemographics={showDemographics}
           />
-
           {(!showMap || !showDemographics) && (
-            <div className={''}>
+            <div>
               {!selectedSpecificIssue ? (
                 <p>{issue_categories.descriptions[selectedIssue]}</p>
               ) : (
@@ -300,7 +340,7 @@ export default function IssuesMiddleColumn({
             Environment
           </h5>
           <MapToggle
-            showToggle={selectedIssue === 2 ? true : false}
+            showToggle={selectedIssue === 2 && !communitySearch ? true : false}
             showMap={showMap}
             setShowMap={setShowMap}
             boundary={boundary}
@@ -414,7 +454,7 @@ export default function IssuesMiddleColumn({
             Mobility
           </h5>
           <MapToggle
-            showToggle={selectedIssue === 3 ? true : false}
+            showToggle={selectedIssue === 3 && !communitySearch ? true : false}
             showMap={showMap}
             setShowMap={setShowMap}
             boundary={boundary}

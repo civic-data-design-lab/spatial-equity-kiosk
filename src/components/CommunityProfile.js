@@ -69,32 +69,8 @@ export default function CommunityProfile({
       {!compareSearch ? (
         <>
           <div>
-            {
-              <h5
-                className={'bold'}
-                // style={{
-                //   padding: '0.75em 0',
-                // }}
-              >
-                Notable Indicators—{' '}
-                {communitySearch
-                  ? boundary == 'council'
-                    ? councils[communitySearch]
-                      ? `City Council ${councils[communitySearch].name}`
-                      : ''
-                    : communities[communitySearch]
-                    ? `${communities[communitySearch].name
-                        .split(' ')
-                        .slice(0, -1)
-                        .join(' ')} Community Board ${communities[
-                        communitySearch
-                      ].name
-                        .split(' ')
-                        .slice(-1)}`
-                    : ''
-                  : ''}
-              </h5>
-            }
+            <h5>Notable Indicators—</h5>
+
             <p className={''}>
               {communitySearch
                 ? ` Below are the three worst spatial equity indicators in this 

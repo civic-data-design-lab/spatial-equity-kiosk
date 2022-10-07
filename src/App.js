@@ -1127,7 +1127,7 @@ function App() {
                             setdataScale={setdataScale}
                         />
                     ) : selectedChapter === 4 ? (
-                      <div style={{ position: 'absolute', height: '100vh', zIndex: 2, backgroundColor: 'white', overflowY: 'scroll' }}>
+                      <div style={{ position: 'absolute', height: '100vh', zIndex: 2, backgroundColor: 'white', overflowY: 'scroll', top: 'calc(4.025rem + 0.3vw)'}}>
                         <About
                           issues={issues}
                           selectedAbout={selectedAbout}

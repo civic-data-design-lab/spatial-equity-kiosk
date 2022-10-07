@@ -399,7 +399,8 @@ export default function MobileCommunityProfile({
                             style={{
                                 width:"100%",
                                 position: "absolute",
-                                flexGrow: 1
+                                flexGrow: 1,
+                                zIndex: 3
                             }}
                         >
                             <div style={{

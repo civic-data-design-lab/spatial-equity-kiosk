@@ -95,16 +95,11 @@ export default function Content({
             : !communitySearch && !compareSearch
             ? 'collapsed-middle-column'
             : !showMap
-            ? 'col-6'
+            ? 'col-4'
             : collapseMap
             ? 'collapsed-middle-column'
             : 'col-4 no-top-border'
         }`}
-        style={
-          !showMap && selectedChapter == 3 && selectedSpecificIssue
-            ? { borderRight: 'none' }
-            : {}
-        }
       >
         {(selectedChapter === 2 ||
           (selectedChapter === 3 &&
@@ -180,6 +175,8 @@ export default function Content({
             setCommunitySearch={setCommunitySearch}
             addCompare={addCompare}
             setCompareSearch={setCompareSearch}
+            showMap={showMap}
+            setShowMap={setShowMap}
           />
         )}
       </div>
