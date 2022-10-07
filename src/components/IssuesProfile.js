@@ -90,7 +90,7 @@ export default function IssueProfile({
       {!showMap && (
         <div className={'issues-tile-text-container'}>
           <div className={'issues-tile-solutions issues-tile-text'}>
-            <h5 className={'d-inline-block bold'}>Solutions</h5>
+            <h5 className={'d-inline-block'}>Solutions</h5>
             <div className="">
               {getHyperlinkText(
                 issues.specific_issues_data[selectedSpecificIssue]
