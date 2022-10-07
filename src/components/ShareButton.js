@@ -109,7 +109,7 @@ Public health, mobility, and the environment are affected by local policies abou
       )}
       {isMobile ? (
         <div className="share-icon-container">
-          {((!isMobile && !clicked) || (isMobile && clicked)) && (
+          {clicked && (
             <small
               className={'small-font'}
               style={invert && { color: 'white' }}

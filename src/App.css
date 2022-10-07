@@ -1172,10 +1172,9 @@ a:active {
 } */
 
 
-/* .share-icon {
-    height: 2.75rem;
-    width: 2.75rem;
-} */
+.share-icon {
+    width: 2rem;
+}
 
 .share-icon-container {
     display: flex;
