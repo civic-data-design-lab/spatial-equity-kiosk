@@ -794,7 +794,6 @@ export default function DeckMap({
         searchEngine.length === 2 &&
         searchSource === 'click'
       ) {
-        console.log('issueHere');
         // Clicked to get comparison community
         //console.debug('User clicked on map to unselect comparison community');
         setSelectedCompareCoord([]);
@@ -950,8 +949,6 @@ export default function DeckMap({
           return COLOR_SCALE(f.properties[infoTransfer.selectedMetric]);
         }
       },
-      pointType: 'text',
-      getText: 'test',
       getTextSize: 320,
       opacity: CHOROPLETH_OPACITY,
       visible: zoomToggle,
@@ -1364,6 +1361,7 @@ export default function DeckMap({
 
     const metricList = [];
     const annoList = [];
+    const demoList = [];
 
     for (let i = 0; i < metricLayers.length; i++) {
       metricList.push(metricLayers[i].id);
@@ -1371,21 +1369,54 @@ export default function DeckMap({
     for (let i = 0; i < annoLayers.length; i++) {
       annoList.push(annoLayers[i].id);
     }
-
-    if (annoList.includes(layer.id)) {
-      return true;
-    } else if (metricList.includes(layer.id) && viewport.id !== 'splitRight') {
-      return true;
-    } else if (!metricList.includes(layer.id) && viewport.id == 'splitRight') {
-      return viewport.id === 'splitRight';
+    for (let i = 0; i < demoLayers.length; i++) {
+      demoList.push(demoLayers[i].id);
     }
+
+    // case 1: single view
+    if (
+      annoList.includes(layer.id) ||
+      (metricList.includes(layer.id) &&
+        !mapDemographics &&
+        selectedSpecificIssue) ||
+      (demoList.includes(layer.id) && mapDemographics && !selectedSpecificIssue)
+    ) {
+      return true;
+      // case 2: split screen left
+    } else if (metricList.includes(layer.id) && selectedSpecificIssue) {
+      return viewport.id == 'splitLeft';
+      // case 2: split screen right
+    } else if (demoList.includes(layer.id) && mapDemographics) {
+      return viewport.id == 'splitRight';
+    }
+
+    // case 2: split screen
+
+    // else if (metricList.includes(layer.id) && viewport.id !== 'splitRight') {
+    //   return true;
+    // }
+    // else if (
+    //   demoList.includes(layer.id) &&
+    //   mapDemographics &&
+    //   !selectedSpecificIssue &&
+    //   viewport.id !== 'splitRight'
+    // ) {
+    //   return true;
+    // } else if (
+    //   demoList.includes(layer.id) &&
+    //   mapDemographics &&
+    //   selectedSpecificIssue &&
+    //   viewport.id == 'splitRight'
+    // ) {
+    //   return true;
+    // }
   });
 
   const getCurrentMapViews = () => {
     if (!showMap && (showMap || selectedSpecificIssue)) {
       return null;
     }
-    if (mapDemographics) {
+    if (mapDemographics && selectedSpecificIssue) {
       return [SPLIT_VIEW_LEFT, SPLIT_VIEW_RIGHT];
     }
     return [MAIN_VIEW];
@@ -1510,13 +1541,8 @@ export default function DeckMap({
         getTooltip={getDeckGlTooltip}
         layerFilter={layerFilter}
         ref={deckRef}
-        // eventRecognizerOptions={
-        //   isMobile ? { pan: { threshold: 10 }, tap: { threshold: 5 } } : {}
-        // }
-        // style={{ mixBlendMode: "multiply" }}
-        // _pickable={isMobile ? false : true}
       >
-        {!mapDemographics && (
+        {(!mapDemographics || (mapDemographics && !selectedSpecificIssue)) && (
           <MapView id="primary">
             <Map
               key={'map-key'}
@@ -1528,13 +1554,18 @@ export default function DeckMap({
               attributionControl={false}
               logoPosition="top-right"
             />
-            {collapseMap && selectedSpecificIssue && (
+            {collapseMap && (selectedSpecificIssue || mapDemographics) && (
               <div key={'map-header'} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
-                  {
-                    issues.specific_issues_data[selectedSpecificIssue]
-                      .specific_issue_name
-                  }{' '}
+                  {issues.specific_issues_data[selectedSpecificIssue]
+                    ?.specific_issue_name ||
+                    `${
+                      demoLookup[demographic].lookup == 'F10_TrsBkW'
+                        ? `Commuters Who ${getTransportationModes(
+                            transportationModesArray
+                          )}`
+                        : demoLookup[demographic].name
+                    }`}{' '}
                   by{' '}
                   {boundary == 'community'
                     ? 'Community Board'
@@ -1545,7 +1576,7 @@ export default function DeckMap({
           </MapView>
         )}
 
-        {mapDemographics && (
+        {mapDemographics && selectedSpecificIssue && (
           <MapView id="splitLeft">
             <Map
               key={'map-key-left'}
@@ -1573,7 +1604,7 @@ export default function DeckMap({
             )}
           </MapView>
         )}
-        {mapDemographics && (
+        {mapDemographics && selectedSpecificIssue && (
           <MapView id="splitRight">
             <Map
               key={'map-key-right'}

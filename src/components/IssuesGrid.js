@@ -6,12 +6,11 @@ export default function IssuesDropDown({
   currentValue = null,
   items,
   setValue = null,
-  setShowDemographics,
   issues,
   issue_categories,
   showDemographics,
 }) {
-  const [showDropdownItems, setShowDropdownItems] = useState(false);
+  const [showDropdownItems, setShowDropdownItems] = useState(true);
   const [toggleText, setToggleText] = useState(
     'Select an indicator to explore'
   );
@@ -34,57 +33,43 @@ export default function IssuesDropDown({
 
   return (
     <>
-      <div className={'dropdown-container'}>
+      <div>
         <div
-          className={`${
-            included && currentValue
-              ? `dropdown-bar-${
-                  issue_categories.labels[
-                    issues.specific_issues_data[currentValue].issue_type_ID
-                  ]
-                }`
-              : 'dropdown-bar-black'
-          } dropdown-bar d-flex flex-row justify-content-between align-items-center mb-0`}
-          onMouseDown={() => {
-            setShowDropdownItems(!showDropdownItems);
+          className={`d-flex flex-wrap`}
+          style={{
+            textAlign: 'center',
+            gap: '1rem',
+            boxSizing: 'border-box',
+            alignItems: 'center',
           }}
-        >
-          <p className={'mb-0 small-font'}>{toggleText}</p>
-
-          {!showDropdownItems && <FontAwesomeIcon icon={faCaretDown} />}
-          {showDropdownItems && <FontAwesomeIcon icon={faCaretUp} />}
-        </div>
-
-        <div
-          className={`${showDropdownItems ? 'd-block' : 'd-none'} ${
-            showDemographics ? 'short-dropdown' : 'long-dropdown'
-          }
-          dropdown-body position-absolute`}
         >
           {items.map((item, index) => {
             return (
               <div
                 key={index}
-                className={`dropdown-item 
-                ${
+                className={`p-2 grid-item ${
                   currentValue === item.specific_issue_ID
-                    ? 'dropdown-item-active'
+                    ? 'grid-item-active'
                     : ''
                 }`}
+                style={{
+                  border: '2px solid black',
+                  flexGrow: '1',
+                  minHeight: '60px',
+                  justifyContent: 'space-between',
+                }}
                 onMouseDown={() => {
                   setShowDropdownItems(false);
                   setToggleText(item.specific_issue_name);
                   if (currentValue === item.specific_issue_ID) {
                     setValue(false);
                     setToggleText('Select an indicator to explore');
-                    // setShowDemographics(false)
                   } else {
                     setValue(item.specific_issue_ID);
-                    // setShowDemographics(true)
                   }
                 }}
               >
-                <p className={'small-font mb-0 ellipses'}>
+                <p className={'small-font-vh mb-0'}>
                   {item.specific_issue_name}
                 </p>
               </div>

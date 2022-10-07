@@ -7,10 +7,10 @@ function getNumber(value) {
     return Math.abs(num) == 0
       ? Math.abs(num)
       : Math.abs(num) > 10 || (string[string.length - 1] == 0 && string[0] != 0)
-      ? Number(num.toFixed(0))
-      : Math.abs(num) > 1
       ? Number(num.toFixed(1))
-      : Number(num.toFixed(2));
+      : Math.abs(num) > 1
+      ? Number(num.toFixed(2))
+      : Number(num.toFixed(3));
   }
 }
 
