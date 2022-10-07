@@ -368,7 +368,7 @@ export default function MobileCommunityProfile({
                         style={{backgroundColor:"white", position:"relative", minWidth: "0"}}
                         onClick={() => {
                             setShowDropDown(!showDropDown)
-                            setCommunitySearch(null)}}
+                            }}
                     >
                         <div className={'mobile-citywide-nav-text'}
                         >
