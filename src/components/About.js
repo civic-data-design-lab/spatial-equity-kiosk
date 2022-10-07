@@ -31,35 +31,35 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
     specific_issue_name: 'Race & Ethnicity',
     specific_issue_ID: 16,
     link: 'https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page.page',
-    specific_issue_source: 'US Census American Comm Survey',
+    specific_issue_source: 'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
     year: '2016-2020',
   };
   dataJson[17] = {
     specific_issue_name: 'Poverty Level',
     specific_issue_ID: 17,
-    link: 'https://data.cityofnewyork.us/City-Government/NYCgov-Poverty-Measure-Data-2018-/cts7-vksw/data',
-    specific_issue_source: "US Census American Comm Survey, Mayor's Office for Economic Opportunity",
-    year: '2018',
+    link: 'https://data.census.gov/cedsci/table?q=s1701&tid=ACSST5Y2020.S1701',
+    specific_issue_source: "U.S. Census Bureau, 2015-2019 American Community Survey 5-Year Estimates",
+    year: '2015-2019',
   };
   dataJson[18] = {
     specific_issue_name: 'Vehicle Ownership',
     specific_issue_ID: 18,
     link: 'https://data.census.gov/cedsci/table?q=B08201&g=0100000US_1600000US3651000&tid=ACSDT5Y2020.B08201',
-    specific_issue_source: 'US Census American Comm Survey',
+    specific_issue_source: 'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
     year: ' 2016-2020',
   };
   dataJson[19] = {
     specific_issue_name: 'Drive Alone to Work',
     specific_issue_ID: 19,
     link: 'https://data.census.gov/cedsci/table?q=b08301&g=0100000US&tid=ACSDT5Y2020.B08301',
-    specific_issue_source: 'US Census American Comm Survey',
+    specific_issue_source: 'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
     year: '2016-2020',
   };
   dataJson[20] = {
     specific_issue_name: 'Walk, Bike, or Ride Transit',
     specific_issue_ID: 20,
     link: 'https://data.census.gov/cedsci/table?q=b08301&g=0100000US&tid=ACSDT5Y2020.B08301',
-    specific_issue_source: 'US Census American Comm Survey',
+    specific_issue_source: 'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
     year: '2016-2020',
   };
   dataJson[21] = {
