@@ -561,9 +561,10 @@ a:active {
     transition: width 0.5s 0.6s, opacity 0.6s 0.6s;
     background-color: white;
     z-index: 3;
-    border: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
     /* border: none; */
-    border-left: none;
+    /* border-left: none; */
     opacity: 1;
 }
 
@@ -1655,7 +1656,7 @@ a:active {
 
 .mobile-community-search-screen .search-item {
     width: 100%;
-    border:none;
+    border: none;
     border-bottom: solid 1px black;
 }
 

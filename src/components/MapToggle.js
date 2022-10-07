@@ -23,13 +23,25 @@ export default function MapToggle({
     <div
       className="d-grid slide"
       style={{
-        width: 'auto',
+        width: '6rem',
         overflow: 'hidden',
         gridTemplateColumns: 'auto auto',
         alignItems: 'center',
       }}
     >
-      {hover && <div className={'d-inline-block toggle-tooltip'}>{hover}</div>}
+      {hover && (
+        <div
+          className={'d-inline-block toggle-tooltip'}
+          style={{
+            position: 'absolute',
+            right: '6.5rem',
+            backgroundColor: 'black',
+            padding: '0.5rem',
+          }}
+        >
+          {hover}
+        </div>
+      )}
       <div className={`${showToggle ? '' : 'd-none'} map-toggle-container`}>
         <div
           className={`${!showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}
