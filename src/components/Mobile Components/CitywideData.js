@@ -478,7 +478,7 @@ export default function CitywideData({
           </div>
         </div>
         {/* Nav dropdown content (increase z-index for visibility) */}
-        <div className={'position-absolute'} style={{ zIndex: 50 }}>
+        <div className={'position-absolute'} style={{ zIndex: selectedSpecificIssue ? 50 : "" }}>
           <div
             className={`mobile-citywide-nav-dropdown-item
                         ${
@@ -530,7 +530,15 @@ export default function CitywideData({
                   }
                 }}
               >
-                <div>{issues.specific_issues_data[id].specific_issue_name}</div>
+                <div>
+                    <p className={"mb-0"}
+                       style={{
+                                       fontSize: showDropDown && showSubDropDown === 1 ? "0.8em" : "0",
+                                       opacity: showDropDown && showSubDropDown === 1 ? "1" : "0",
+                                       transition: "font-size 0.2s, opacity 0.3s"
+                                   }}
+                    >{issues.specific_issues_data[id].specific_issue_name}</p>
+                </div>
               </div>
             );
           })}
@@ -586,7 +594,15 @@ export default function CitywideData({
                   }
                 }}
               >
-                <div>{issues.specific_issues_data[id].specific_issue_name}</div>
+                <div>
+                    <p className={"mb-0"}
+                       style={{
+                                       fontSize: showDropDown && showSubDropDown === 2 ? "0.8em" : "0",
+                                       opacity: showDropDown && showSubDropDown === 2 ? "1" : "0",
+                                       transition: "font-size 0.2s, opacity 0.3s"
+                                   }}
+                    >{issues.specific_issues_data[id].specific_issue_name}</p>
+                </div>
               </div>
             );
           })}
@@ -642,7 +658,15 @@ export default function CitywideData({
                   }
                 }}
               >
-                <div>{issues.specific_issues_data[id].specific_issue_name}</div>
+                <div>
+                    <p className={"mb-0"}
+                       style={{
+                                       fontSize: showDropDown && showSubDropDown === 3 ? "0.8em" : "0",
+                                       opacity: showDropDown && showSubDropDown === 3 ? "1" : "0",
+                                       transition: "font-size 0.s, opacity 0.3s"
+                                   }}
+                    >{issues.specific_issues_data[id].specific_issue_name}</p>
+                </div>
               </div>
             );
           })}
