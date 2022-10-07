@@ -191,7 +191,10 @@ export default function IssuesMiddleColumn({
             boundary={boundary}
           />
         </div>
-        <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
+        <p
+          className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}
+          style={{ padding: !selectedIssue ? '1rem' : '0rem' }}
+        >
           Policies about the use of public space in New York City affect the
           physical and mental health of New Yorkers. Health indicators of
           spatial equity include air pollution, asthma, noise pollution, traffic
@@ -304,7 +307,10 @@ export default function IssuesMiddleColumn({
           />
         </div>
 
-        <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
+        <p
+          className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}
+          style={{ padding: !selectedIssue ? '1rem' : '0rem' }}
+        >
           Policies about the use of public space in New York City affect the
           resilience and sustainability of the physical environment.
           Environmental indicators of spatial equity include heat, parkland,
@@ -405,7 +411,7 @@ export default function IssuesMiddleColumn({
               return selectedIssue == 3 ? handleIssueTransition(3) : null;
             }}
           >
-            Environment
+            Mobility
           </h5>
           <MapToggle
             showToggle={selectedIssue === 3 ? true : false}
@@ -414,7 +420,10 @@ export default function IssuesMiddleColumn({
             boundary={boundary}
           />
         </div>
-        <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
+        <p
+          className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}
+          style={{ padding: !selectedIssue ? '1rem' : '0rem' }}
+        >
           Policies about the use of public space in New York City affect
           mobility and access to the built environment. Mobility indicators of
           spatial equity include bike parking, bus lanes and busways, bus
@@ -490,7 +499,7 @@ export default function IssuesMiddleColumn({
 
       <div
         className={`collapse-issue transition-height
-                ${selectedIssue ? 'some-height' : 'no-height'}
+                ${selectedIssue ? '' : 'no-height'}
                 ${
                   showDemographics ? 'bottom-border issues-chapters-active' : ''
                 } ${selectedIssue === 3 ? 'top-border' : ''} issues-chapters`}
@@ -504,18 +513,18 @@ export default function IssuesMiddleColumn({
       >
         <div
           className={`d-flex flex-row justify-content-between align-items-center
-                transition-height ${selectedIssue ? 'some-height' : 'no-height'}
+                transition-height ${selectedIssue ? '' : 'no-height'}
                 `}
         >
-          <h5 className={`${showDemographics ? 'mb-0' : 'mb-0'}`}>
+          <h5 className="mb-0">
             {showDemographics
               ? 'Hide U.S. Census Data'
               : 'Show U.S. Census Data'}
           </h5>
           {showDemographics ? (
-            <FontAwesomeIcon icon={faMinus} />
+            <FontAwesomeIcon icon={faMinus} style={{ marginRight: '1.5rem' }} />
           ) : (
-            <FontAwesomeIcon icon={faPlus} />
+            <FontAwesomeIcon icon={faPlus} style={{ marginRight: '1.5rem' }} />
           )}
         </div>
       </div>
