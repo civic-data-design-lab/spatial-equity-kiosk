@@ -7,6 +7,7 @@ import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import categories from '../texts/issue_categories.json';
+import MapToggle from './MapToggle';
 
 export default function IssuesMiddleColumn({
   issues,
@@ -109,6 +110,16 @@ export default function IssuesMiddleColumn({
     );
   };
 
+  const handleIssueTransition = (issue) => {
+    setSelectedSpecificIssue(null);
+    if (selectedIssue !== issue) {
+      setSelectedIssue(issue);
+      setColorRamps(issue == 1 ? 'health' : issue == 2 ? 'env' : 'infra');
+    } else {
+      setSelectedIssue(null);
+      setShowDemographics(null);
+    }
+  };
   // console.log("demoLegend in issuesmiddle ", demoLegendBins)
 
   const health_issues = issues.issues_data['health'].specific_issues_ID.map(
@@ -154,17 +165,32 @@ export default function IssuesMiddleColumn({
           selectedIssue || showDemographics ? 'collapse-issue' : ''
         } issues-chapters top-border`}
         onClick={() => {
-          setSelectedSpecificIssue(null);
-          if (selectedIssue !== 1) {
-            setSelectedIssue(1);
-            setColorRamps('health');
-          } else {
-            setSelectedIssue(null);
-            setShowDemographics(null);
-          }
+          return selectedIssue !== 1 ? handleIssueTransition(1) : null;
         }}
       >
-        <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Health</h5>
+        <div
+          className="position-relative d-grid "
+          style={{
+            gridTemplateColumns: '1fr auto',
+            gridGap: '0.33rem',
+            alignItems: 'center',
+          }}
+        >
+          <h5
+            className={`${selectedIssue ? 'mb-0' : ''} `}
+            onClick={() => {
+              return selectedIssue == 1 ? handleIssueTransition(1) : null;
+            }}
+          >
+            Health
+          </h5>
+          <MapToggle
+            showToggle={selectedIssue === 1 ? true : false}
+            showMap={showMap}
+            setShowMap={setShowMap}
+            boundary={boundary}
+          />
+        </div>
         <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
           Policies about the use of public space in New York City affect the
           physical and mental health of New Yorkers. Health indicators of
@@ -251,22 +277,33 @@ export default function IssuesMiddleColumn({
           selectedIssue || showDemographics ? 'collapse-issue' : ''
         } issues-chapters`}
         onClick={() => {
-          //setShowDemographics(false)
-          setSelectedSpecificIssue(null);
-          //setCommunitySearch(null)
-          //setCompareSearch(null)
-          if (selectedIssue !== 2) {
-            setSelectedIssue(2);
-            setColorRamps('env');
-          } else {
-            setSelectedIssue(null);
-            setShowDemographics(null);
-          }
+          return selectedIssue !== 2 ? handleIssueTransition(2) : null;
         }}
       >
-        <h5 className={`${selectedIssue ? 'mb-0 pe-none' : ''}`}>
-          Environment
-        </h5>
+        <div
+          className="position-relative d-grid"
+          style={{
+            gridTemplateColumns: '1fr auto',
+            gridGap: '0.33rem',
+            alignItems: 'center',
+          }}
+        >
+          <h5
+            className={`${selectedIssue ? 'mb-0' : ''} `}
+            onClick={() => {
+              return selectedIssue == 2 ? handleIssueTransition(2) : null;
+            }}
+          >
+            Environment
+          </h5>
+          <MapToggle
+            showToggle={selectedIssue === 2 ? true : false}
+            showMap={showMap}
+            setShowMap={setShowMap}
+            boundary={boundary}
+          />
+        </div>
+
         <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
           Policies about the use of public space in New York City affect the
           resilience and sustainability of the physical environment.
@@ -351,20 +388,32 @@ export default function IssuesMiddleColumn({
           selectedIssue || showDemographics ? 'collapse-issue' : ''
         } issues-chapters`}
         onClick={() => {
-          setSelectedSpecificIssue(null);
-          //setShowDemographics(false)
-          //setCommunitySearch(null)
-          //setCompareSearch(null)
-          if (selectedIssue !== 3) {
-            setSelectedIssue(3);
-            setColorRamps('infra');
-          } else {
-            setSelectedIssue(null);
-            setShowDemographics(null);
-          }
+          return selectedIssue !== 3 ? handleIssueTransition(3) : null;
         }}
       >
-        <h5 className={`${selectedIssue ? 'mb-0' : ''}`}>Mobility</h5>
+        <div
+          className="position-relative d-grid"
+          style={{
+            gridTemplateColumns: '1fr auto',
+            gridGap: '0.33rem',
+            alignItems: 'center',
+          }}
+        >
+          <h5
+            className={`${selectedIssue ? 'mb-0' : ''} `}
+            onClick={() => {
+              return selectedIssue == 3 ? handleIssueTransition(3) : null;
+            }}
+          >
+            Environment
+          </h5>
+          <MapToggle
+            showToggle={selectedIssue === 3 ? true : false}
+            showMap={showMap}
+            setShowMap={setShowMap}
+            boundary={boundary}
+          />
+        </div>
         <p className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}>
           Policies about the use of public space in New York City affect
           mobility and access to the built environment. Mobility indicators of

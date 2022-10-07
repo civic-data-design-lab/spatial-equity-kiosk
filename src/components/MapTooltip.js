@@ -61,6 +61,8 @@ const MapTooltip = ({
             style={{
               display: 'inline-block',
               float: 'right',
+              padding: '0 0rem 0 1rem',
+              fontSize: '1.5rem',
             }}
             onClick={closePopup}
           />

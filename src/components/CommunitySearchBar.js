@@ -219,7 +219,7 @@ export default function CommunitySearchBar({
             borderColor:
               (badSearch[0] && primarySearch) ||
               (badSearch[1] && !primarySearch)
-                ? 'rgb(255,0,0)'
+                ? 'yellow'
                 : '',
           }}
           onClick={(e) => {

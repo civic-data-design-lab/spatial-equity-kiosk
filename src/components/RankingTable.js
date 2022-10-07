@@ -33,7 +33,7 @@ const RankingTable = ({
       className={'small-font'}
     >
       <Table bordered>
-        <thead style={citywideTab ? { position: 'sticky', top: '-1px' } : {}}>
+        <thead style={citywideTab ? { position: 'sticky' } : {}}>
           <tr>
             <th>Rank</th>
             <th>

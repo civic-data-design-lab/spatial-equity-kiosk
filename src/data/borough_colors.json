@@ -1,7 +1,7 @@
 {
     "Bronx": {
-        "deckFormat": [244, 133, 0, 255],
-        "htmlFormat": "rgb(244, 133, 0)"
+        "deckFormat": [233, 186, 80, 255],
+        "htmlFormat": "rgb(233, 186, 80)"
     },
     "Brooklyn": {
         "deckFormat": [31, 167, 39, 255],

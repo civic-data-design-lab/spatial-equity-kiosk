@@ -137,36 +137,24 @@ export default function IssuesTileView({
       {selectedSpecificIssue && (
         <div className={'col-12 h-100 issues-tile-container p-0'}>
           <div className={'issues-tile-header floating-share'}>
-            <div className={'toggle-share-container'}>
-              <div id={'share-container'}>
-                <ShareButton
-                  showMap={showMap}
-                  communitySearch={communitySearch}
-                  compareSearch={compareSearch}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  issues={issues}
-                  setShowMap={setShowMap}
-                  showToggle={showToggle}
-                  selectedIssue={selectedIssue}
-                  selectedChapter={selectedChapter}
-                  boundary={boundary}
-                  demographic={demographic}
-                  showDemographics={showDemographics}
-                  moreIssues={moreIssues}
-                  setMoreIssues={setMoreIssues}
-                  moreIssuesLength={moreIssuesLength}
-                  setMoreIssuesLength={setMoreIssuesLength}
-                />
-              </div>
-              <div id={'toggle-container'}>
-                <MapToggle
-                  showToggle={showToggle}
-                  showMap={showMap}
-                  setShowMap={setShowMap}
-                  boundary={boundary}
-                />
-              </div>
-            </div>
+            <ShareButton
+              showMap={showMap}
+              communitySearch={communitySearch}
+              compareSearch={compareSearch}
+              selectedSpecificIssue={selectedSpecificIssue}
+              issues={issues}
+              setShowMap={setShowMap}
+              showToggle={showToggle}
+              selectedIssue={selectedIssue}
+              selectedChapter={selectedChapter}
+              boundary={boundary}
+              demographic={demographic}
+              showDemographics={showDemographics}
+              moreIssues={moreIssues}
+              setMoreIssues={setMoreIssues}
+              moreIssuesLength={moreIssuesLength}
+              setMoreIssuesLength={setMoreIssuesLength}
+            />
           </div>
 
           <div className={'issues-tile-body h-100'}>
@@ -241,35 +229,24 @@ export default function IssuesTileView({
       {!selectedSpecificIssue && (
         <div className={'col-12 h-100 issues-tile-container'}>
           <div className={'issues-tile-header floating-share'}>
-            <div className={'toggle-share-container'}>
-              <div id={'share-container'}>
-                <ShareButton
-                  showMap={showMap}
-                  communitySearch={communitySearch}
-                  compareSearch={compareSearch}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  issues={issues}
-                  setShowMap={setShowMap}
-                  showToggle={showToggle}
-                  selectedIssue={selectedIssue}
-                  selectedChapter={selectedChapter}
-                  boundary={boundary}
-                  demographic={demographic}
-                  showDemographics={showDemographics}
-                  moreIssues={moreIssues}
-                  setMoreIssues={setMoreIssues}
-                  moreIssuesLength={moreIssuesLength}
-                  setMoreIssuesLength={setMoreIssuesLength}
-                />
-              </div>
-              <div id={'toggle-container'}>
-                <MapToggle
-                  showToggle={showToggle}
-                  showMap={showMap}
-                  setShowMap={setShowMap}
-                />
-              </div>
-            </div>
+            <ShareButton
+              showMap={showMap}
+              communitySearch={communitySearch}
+              compareSearch={compareSearch}
+              selectedSpecificIssue={selectedSpecificIssue}
+              issues={issues}
+              setShowMap={setShowMap}
+              showToggle={showToggle}
+              selectedIssue={selectedIssue}
+              selectedChapter={selectedChapter}
+              boundary={boundary}
+              demographic={demographic}
+              showDemographics={showDemographics}
+              moreIssues={moreIssues}
+              setMoreIssues={setMoreIssues}
+              moreIssuesLength={moreIssuesLength}
+              setMoreIssuesLength={setMoreIssuesLength}
+            />
           </div>
         </div>
       )}

@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 export default function MapToggle({
-  showToggle,
+  showToggle = false,
   showMap,
   setShowMap,
   boundary,
@@ -20,15 +20,16 @@ export default function MapToggle({
   const [hover, setHover] = useState(null);
 
   return (
-    <div>
-      {hover && (
-        <div
-          className={'position-absolute map-toggle-url-copy'}
-          style={{ right: '0rem' }}
-        >
-          {hover}
-        </div>
-      )}
+    <div
+      className="d-grid slide"
+      style={{
+        width: 'auto',
+        overflow: 'hidden',
+        gridTemplateColumns: 'auto auto',
+        alignItems: 'center',
+      }}
+    >
+      {hover && <div className={'d-inline-block toggle-tooltip'}>{hover}</div>}
       <div className={`${showToggle ? '' : 'd-none'} map-toggle-container`}>
         <div
           className={`${!showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}

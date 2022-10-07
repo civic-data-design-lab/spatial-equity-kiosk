@@ -1420,7 +1420,7 @@ export default function DeckMap({
         )}
       </div>
       {showMap && (
-        <div className="map-zoom-buttons-container">
+        <div className="floating-share map-zoom-buttons-container">
           <FontAwesomeIcon onClick={zoomIn} icon={faPlus} />
           <FontAwesomeIcon onClick={zoomOut} icon={faMinus} />
         </div>
