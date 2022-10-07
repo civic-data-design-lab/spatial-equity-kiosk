@@ -2104,14 +2104,13 @@ input:checked+.slider:before {
 
 .mobile-demographics-container {
     flex-grow: 2;
-    padding: 1rem;
     overflow: auto;
     max-height: 40vh;
     min-height: 0;
     background-color: white;
     z-index: 1;
     position: relative;
-    transition: height 0.5s;
+    transition: height 0.5s, padding 0.5s;
 }
 
 .citywide-nav {
@@ -2199,7 +2198,6 @@ input:checked+.slider:before {
 
 .mobile-citywide-nav-dropdown {
     height: 5vh;
-    width: calc(100vw - 10vh);
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     padding: 0.25rem 1rem;
@@ -2212,13 +2210,14 @@ input:checked+.slider:before {
 }
 
 .mobile-citywide-nav-dropdown-item {
-    width: calc(100vw - 10vh - 1px);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     z-index: 2;
     position: relative;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .mobile-citywide-nav-dropdown-item-grow {
@@ -2270,12 +2269,12 @@ input:checked+.slider:before {
     align-items: center;
     position: relative;
     z-index: 2;
-    background-color: white;
 }
 
 
 
 @media screen and (max-width: 576px) {
+
 
     ::-webkit-scrollbar {
         /* width: 9px; */
@@ -2348,8 +2347,18 @@ input:checked+.slider:before {
     transition-timing-function: ease-in;
 }
 
+    .community-dropdown {
+        z-index: 50;
+    }
+
 
 /* MOBILE END */
+}
+
+.community-legend {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 

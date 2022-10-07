@@ -34,6 +34,8 @@ export default function CommunitySearchBar({
   setCommunitySearch,
   setUserPoints,
   userPoints,
+    setResize=null,
+    setResizeIssues=null
 }) {
   const [value, setValue] = useState('');
   const [focus, setFocus] = useState(false);
@@ -200,7 +202,7 @@ export default function CommunitySearchBar({
   };
 
   return (
-    <>
+    <div>
       <div
         className={
           'd-flex flex-row align-items-center mt-3 position-relative community-search-container'
@@ -224,6 +226,9 @@ export default function CommunitySearchBar({
           }}
           onClick={(e) => {
             e.stopPropagation();
+            console.log("HERRE")
+            setResize(true);
+            setResizeIssues(false)
             callBack(null);
             if (forSearch) {
               setUserPoints([[], userPoints[1]]);
@@ -296,6 +301,6 @@ export default function CommunitySearchBar({
           </ul>
         </div>
       )}
-    </>
+    </div>
   );
 }
