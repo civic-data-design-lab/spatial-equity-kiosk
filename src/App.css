@@ -2061,6 +2061,7 @@ input:checked+.slider:before {
     z-index: 2;
     display: flex;
     flex-direction: column;
+    width: 100vw;
     /* height: calc(100vh - (4.025rem + .3vw)); */
 }
 
@@ -2212,12 +2213,13 @@ input:checked+.slider:before {
 
 .mobile-citywide-nav {
     height: 5vh;
-    width: 100vw;
+    width: calc(100vw - 2px);
     display: flex;
     flex-direction: row;
     z-index: 1;
     position: relative;
     background-color: white;
+
 }
 
 .mobile-citywide-nav-dropdown {
