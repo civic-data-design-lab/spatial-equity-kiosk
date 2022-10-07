@@ -1632,12 +1632,33 @@ a:active {
 .mobile-community-search-screen .community-dropdown {
     width: calc(100vw - 2rem - 2px);
     border: 1px solid black;
+    border-top: none;
 }
 
 .mobile-community-search-screen .community-search-container {
     border: 1px solid black;
     margin-top: 0 !important;
     height: 5vh;
+    border-bottom: 2px solid black;
+}
+
+.borderRight .community-search-container {
+    border-right: 1px solid black;
+}
+
+.noRightBorder .community-search-container {
+    border-right: none;
+}
+
+.mobile-community-search-screen .search-item {
+    width: 100%;
+    border:none;
+    border-bottom: solid 1px black;
+}
+
+.mobile-community-search-screen .community-search {
+    border-top: none;
+    height: calc(5vh - 1px);
 }
 
 .mobile-community-search-screen .community-profile-container {
@@ -2207,6 +2228,13 @@ input:checked+.slider:before {
     align-items: center;
     column-gap: 3vw;
     z-index: 1;
+}
+
+.mobile-community-search-screen .mobile-citywide-nav-dropdown {
+    border: none;
+    border-right: 1px solid black;
+    height: calc(5vh - 1px);
+    /*border-left: 1px solid black;*/
 }
 
 .mobile-citywide-nav-dropdown-item {

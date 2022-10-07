@@ -302,12 +302,14 @@ export default function MobileCommunityProfile({
                         }}
                     >
                         <div
+                            className={resize?"rightBorder":"noRightBorder"}
                             style={{
                                 position: "relative",
                                 width: !resize && !resizeIssues ? "calc((100vw - 10vh) / 2)" :
                                     resize && !resizeIssues ? "calc((100vw - 10vh) * 0.75)" :
                                         "calc((100vw - 10vh) * 0.25)",
-                                transition:"width 0.5s"
+                                transition:"width 0.5s",
+                                height: "100%",
                             }} onClick={(e)=>{
                             setShowDropDown(false)
                             setShowSubDropDown(false)}
@@ -354,6 +356,7 @@ export default function MobileCommunityProfile({
                                 position:"relative",
                                 flexGrow: 1,
                                 transition:"width 0.5s",
+                                borderBottom:"1px solid black",
                                 width: !resize && !resizeIssues ? "calc((100vw - 10vh) / 2)" :
                                     resizeIssues && !resize ? "calc((100vw - 10vh) * 0.75)" :
                                        "calc((100vw - 10vh) * 0.25)"
@@ -365,7 +368,10 @@ export default function MobileCommunityProfile({
                         >
                             <div
                         className={'mobile-citywide-nav-dropdown'}
-                        style={{backgroundColor:"white", position:"relative", minWidth: "0"}}
+                        style={{backgroundColor:"white",
+                            position:"relative", minWidth: "0",
+                            borderLeft:resizeIssues?"1px solid black":"none"
+                            }}
                         onClick={() => {
                             setShowDropDown(!showDropDown)
                             }}
@@ -391,9 +397,10 @@ export default function MobileCommunityProfile({
                                 backgroundColor: "white",
                                 width: "100%",
                                 height: "100%",
-                                border: "1px solid black",
+                                borderLeft: "1px solid black",
+                                borderTop: "1px solid black",
                                 zIndex: selectedSpecificIssue ? 50 : "",
-                                position:"relative"
+                                position:"relative",
                             }}>
                                 <div
                                     className={`mobile-citywide-nav-dropdown-item
