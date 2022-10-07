@@ -15,6 +15,7 @@ import IssueProfile from '../IssuesProfile';
 import Demographics from '../Demographics';
 import Carousel from '../Carousel';
 import Legend from '../Legend';
+import BoundaryToggle from "../BoundaryToggle";
 
 
 export default function MobileCommunityProfile({
@@ -93,8 +94,14 @@ export default function MobileCommunityProfile({
     const [showDropDown, setShowDropDown] = useState(false);
     const [showSubDropDown, setShowSubDropDown] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
-    const [resize, setResize] = useState(false);
+    const [resize, setResize] = useState(true);
     const [resizeIssues, setResizeIssues] = useState(false);
+
+    useEffect(()=>{
+        if (!communitySearch) {
+            setResize(true)
+        }
+    }, [communitySearch])
 
 
     const getHyperlinkText = (texts) => {
@@ -273,13 +280,13 @@ export default function MobileCommunityProfile({
             <div
                 className={'mobile-community-search-screen'}
                 style={{
-                    //padding: !communitySearch ? '1rem' : '0',
-                    //height: communitySearch ? '0' : 'calc(100vh - 4.025rem - .3vw)',
-                    padding: 0,
-                    height: 0,
+                    padding: !communitySearch ? '1rem' : '0',
+                    height: communitySearch ? '0' : 'calc(100vh - 4.025rem - .3vw)',
+                   //padding: 0,
+                    //height: 0,
                 }}
             >
-                {/*{!communitySearch && (
+                {!communitySearch && (
           <BoundaryToggle
             boundary={boundary}
             setBoundary={setBoundary}
@@ -290,22 +297,24 @@ export default function MobileCommunityProfile({
             badSearch={badSearch}
             setBadSearch={setBadSearch}
           />
-        )}*/}
+        )}
 
                 <div className={'d-flex flex-row'}>
                     <div
                         style={{
                             position: "relative",
-                            width: 'calc(100vw - 10vh)',
+                            width: !communitySearch && !showMap ? 'calc(100vw - 2rem - 2px)' : 'calc(100vw - 10vh)',
                             display: "flex",
                             flexDirection: "row"
+
+
                         }}
                     >
                         <div
                             className={resize?"rightBorder":"noRightBorder"}
                             style={{
                                 position: "relative",
-                                width: !resize && !resizeIssues ? "calc((100vw - 10vh) / 2)" :
+                                width: !communitySearch ? "100%" :
                                     resize && !resizeIssues ? "calc((100vw - 10vh) * 0.75)" :
                                         "calc((100vw - 10vh) * 0.25)",
                                 transition:"width 0.5s",
@@ -351,7 +360,7 @@ export default function MobileCommunityProfile({
                             </CommunitySearchBar>
                         </div>
 
-                        <div style={
+                        {communitySearch && <div style={
                             {backgroundColor:"white",
                                 position:"relative",
                                 flexGrow: 1,
@@ -595,11 +604,11 @@ export default function MobileCommunityProfile({
                                 })}
                             </div>
                         </div>
-                        </div>
+                        </div>}
                     </div>
 
-                    {/*{communitySearch && (
-            <>*/}
+                    {communitySearch && (
+            <>
                     <div
                         onClick={() => {
                             setShowMap(false);
@@ -628,8 +637,8 @@ export default function MobileCommunityProfile({
                             <img src={_GLOBE_BLACK}/>
                         )}
                     </div>
-                    {/*    </>
-          )}*/}
+                        </>
+          )}
                 </div>
 
                 <div className={'mobile-boundary-nav'}
@@ -672,7 +681,7 @@ export default function MobileCommunityProfile({
                     </div>
                 </div>
 
-                {!showMap && (
+                {!showMap && communitySearch && (
                     <>
                         <div
                             style={{

@@ -499,7 +499,7 @@ function App() {
             setShowToggle(true);
         }
 
-        if (selectedChapter === 3 && !communitySearch) {
+        if (selectedChapter === 3 && !communitySearch && window.innerWidth>576) {
             setShowMap(true);
         }
     });
