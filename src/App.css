@@ -2190,6 +2190,7 @@ input:checked+.slider:before {
 
 .mobile-citywide-nav {
     height: 5vh;
+    width: 100vw;
     display: flex;
     flex-direction: row;
     z-index: 1;
@@ -2241,6 +2242,8 @@ input:checked+.slider:before {
 }
 
 .mobile-citywide-nav-text {
+    width: 100%;
+    text-overflow: ellipsis;
     display: flex;
     flex-direction: row;
     align-items: center;
