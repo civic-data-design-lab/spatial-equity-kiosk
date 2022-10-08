@@ -5,17 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function IssueProfile({
   issues,
   selectedSpecificIssue,
-  rankingProse = false,
-  boundary,
-  setSelectedSpecificIssue,
-  setCommunitySearch,
-  setSelectedChapter,
   showMap,
-  communitySearch,
-  compareSearch,
 }) {
-  const [expand, setExpand] = useState(false);
-
   const getImages = () => {
     const ids = issues.specific_issues_data[selectedSpecificIssue].image_ids;
     if (ids) {
@@ -90,7 +81,6 @@ export default function IssueProfile({
       {!showMap && (
         <div className={'issues-tile-text-container'}>
           <div className={'issues-tile-solutions issues-tile-text'}>
-            <h5 className={'d-inline-block'}>Solutions</h5>
             <div className="">
               {getHyperlinkText(
                 issues.specific_issues_data[selectedSpecificIssue]

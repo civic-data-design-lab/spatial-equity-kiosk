@@ -5,6 +5,7 @@ import {
   faMinus,
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
+import ShareButton from './ShareButton';
 
 import CommunitySearchBar from './CommunitySearchBar';
 import Typewriter from 'typewriter-effect';
@@ -401,91 +402,9 @@ export default function CommunityNav({
           </p>
         </div>
       </div>
-
-      {/* {compareSearch && communitySearch && (
-          <div
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            <Slider>
-              <div>
-                <p className={"m-0 community-description"}>
-                  <span>
-                    {(communities[communitySearch] &&
-                      communities[communitySearch].name) ||
-                      (councils[communitySearch] &&
-                        councils[communitySearch].text)}
-
-                    <a
-                      className={"underline"}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                      href={`mailto:${
-                        (councils[communitySearch] &&
-                          councils[communitySearch].councilmember_email) ||
-                        null
-                      }`}
-                    >
-                      {(councils[communitySearch] &&
-                        councils[communitySearch].councilmember_name) ||
-                        null}
-                    </a>
-                  </span>{" "}
-                  {(communities[communitySearch] &&
-                    communities[communitySearch].description) ||
-                    (councils[communitySearch] &&
-                      councils[communitySearch].description)}
-                </p>
-
-                <p className={"m-0 small-font"}>
-                  {(communities[communitySearch] &&
-                    communities[communitySearch].neighborhoods) ||
-                    (councils[communitySearch] &&
-                      councils[communitySearch].neighborhoods)}
-                </p>
-              </div>
-
-              <div>
-                <p className={"m-0 community-description"}>
-                  <span>
-                    {(communities[compareSearch] &&
-                      communities[compareSearch].name) ||
-                      (councils[compareSearch] && councils[compareSearch].text)}
-
-                    <a
-                      className={"underline"}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                      href={`mailto:${
-                        (councils[compareSearch] &&
-                          councils[compareSearch].councilmember_email) ||
-                        null
-                      }`}
-                    >
-                      {(councils[compareSearch] &&
-                        councils[compareSearch].councilmember_name) ||
-                        null}
-                    </a>
-                  </span>{" "}
-                  {(communities[compareSearch] &&
-                    communities[compareSearch].description) ||
-                    (councils[compareSearch] &&
-                      councils[compareSearch].description)}
-                </p>
-
-                <p className={"m-0 small-font"}>
-                  {(communities[compareSearch] &&
-                    communities[compareSearch].neighborhoods) ||
-                    (councils[compareSearch] &&
-                      councils[compareSearch].neighborhoods)}
-                </p>
-              </div>
-            </Slider>
-          </div>
-        )}*/}
+      <div className={'issues-tile-header floating-share'}>
+        <ShareButton />
+      </div>
     </div>
   );
 }

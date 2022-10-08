@@ -2,9 +2,6 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import IssueProfile from './IssuesProfile';
-import ShareButton from './ShareButton';
-import MapToggle from './MapToggle';
-import Typewriter from 'typewriter-effect';
 import { useEffect } from 'react';
 
 export default function CommunityRightColumn({
@@ -42,49 +39,29 @@ export default function CommunityRightColumn({
 
   return (
     <>
-      {/* {!communitySearch && <div className={"d-flex flex-row align-items-center h-100 p-5 col-gap w-100"}>
-
-                    <FontAwesomeIcon icon={faArrowLeft} className={"fa-lg"}/>
-                <h2 className={"m-0"}>Try searching for</h2>
-
-                <div className={"typewriter-container"}>
-                    <Typewriter
-                    options={{
-                        strings: (boundary === "community" ? ['your address', 'Hamilton Heights', '111 John Street',
-                            "Bronx 9", 'Bedford Stuyvesant', '350 5th Avenue'] : ["your address", "Washington Heights", "350 5th Avenue", "District 5", "111 John Street",
-                            "Bensonhurst"]),
-                        autoStart: true,
-                        loop: true,
-                        pauseFor: 2000,
-                    }}
-                />
-                </div>
-
-
-            </div>} */}
+      <div className={'d-flex flex-column position-relative'}>
+        <div
+          className={`${'issues-chapters-active'} collapse-issue issues-chapters top-border transition-height`}
+          style={{
+            height: communitySearch ? 'auto' : '0',
+          }}
+        >
+          <div
+            className="position-relative d-grid "
+            style={{
+              gridTemplateColumns: '1fr auto',
+              gridGap: '0.33rem',
+              alignItems: 'center',
+              borderLeft: '1px solid white',
+            }}
+          >
+            <h5 className="mb-0">Solutions</h5>
+          </div>
+        </div>
+      </div>
 
       {!selectedSpecificIssue && (
         <div className={'d-flex flex-row h-100 col-gap standard-padding'}>
-          <div className={'issues-tile-header floating-share'}>
-            <ShareButton
-              showMap={showMap}
-              communitySearch={communitySearch}
-              compareSearch={compareSearch}
-              selectedSpecificIssue={selectedSpecificIssue}
-              issues={issues}
-              setShowMap={setShowMap}
-              showToggle={showToggle}
-              selectedIssue={selectedIssue}
-              selectedChapter={selectedChapter}
-              boundary={boundary}
-              demographic={demographic}
-              showDemographics={showDemographics}
-              moreIssues={moreIssues}
-              setMoreIssues={setMoreIssues}
-              moreIssuesLength={moreIssuesLength}
-              setMoreIssuesLength={setMoreIssuesLength}
-            />
-          </div>
           <div className={'d-flex flex-row col-gap prompt'}>
             <FontAwesomeIcon icon={faArrowLeft} className={'fa-lg'} />
             <h5 className={'m-0'}>
@@ -99,26 +76,6 @@ export default function CommunityRightColumn({
           className={'issue-container d-flex flex-column'}
           id={'issue-container'}
         >
-          <div className={'issues-tile-header floating-share'}>
-            <ShareButton
-              showMap={showMap}
-              communitySearch={communitySearch}
-              compareSearch={compareSearch}
-              selectedSpecificIssue={selectedSpecificIssue}
-              issues={issues}
-              setShowMap={setShowMap}
-              showToggle={showToggle}
-              selectedIssue={selectedIssue}
-              selectedChapter={selectedChapter}
-              boundary={boundary}
-              demographic={demographic}
-              showDemographics={showDemographics}
-              moreIssues={moreIssues}
-              setMoreIssues={setMoreIssues}
-              moreIssuesLength={moreIssuesLength}
-              setMoreIssuesLength={setMoreIssuesLength}
-            />
-          </div>
           {communitySearch && (
             <div className={'issue-writeup'}>
               <IssueProfile

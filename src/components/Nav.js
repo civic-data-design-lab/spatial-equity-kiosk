@@ -12,6 +12,7 @@ import _LCAU from '../img/Logo_LCAU logo_white.svg';
 import _MIT from '../img/MIT-logo-white.svg';
 import _TA from '../img/ta_logo_BW_icon.svg';
 import { useRef } from 'react';
+import ShareButton from './ShareButton';
 
 function Nav({
   selectedChapter,
@@ -148,6 +149,7 @@ function Nav({
               to learn how decisions about the use of public space lead to
               unequal outcomes and what you can do about it.{' '}
             </h5>
+            <ShareButton />
           </div>
         </div>
       </div>
