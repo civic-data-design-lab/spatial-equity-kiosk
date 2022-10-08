@@ -4,7 +4,7 @@
     "textList": ["Latino", "White", "Black", "Asian", "Other"]
   },
   "Households Living Below the Poverty Line": {
-    "percList": [14, 86],
+    "percList": [15, 85],
     "lookup": "F12_PvtyPc",
     "textList": ["Households Living Below the Poverty Line", "Others"]
   },
