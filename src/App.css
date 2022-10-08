@@ -722,7 +722,7 @@ a:active {
     padding: 1.5rem;
 }
 
-.issue-tile-viz .issues-chapters-active {
+/* .issue-tile-viz .issues-chapters-active {
     background-color: white;
     color: black;
     border: 1px solid black;
@@ -733,7 +733,7 @@ a:active {
     background-color: black;
     color: white;
     border: 1px solid black;
-}
+} */
 
 
 .py-3 {
