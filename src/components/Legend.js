@@ -41,8 +41,6 @@ export default function Legend({
 }) {
   const communities = _COMMUNITIES;
   const councils = _COUNCILS;
-  const communitiesData = _COMMUNITY_BOARDS;
-  const councilsData = _COUNCIL_DISTRICTS;
   const neighborhoodJsonLookup =
     (councils[neighborhoodID] && councils[neighborhoodID].json_lookup) ||
     (
@@ -67,6 +65,7 @@ export default function Legend({
     demoLookup && _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
   let percList =
     demoLookup && _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].percList;
+
   if (demoLookup && neighborhoodData) {
     textList = _DEMOGRAPHIC_PERCENTAGED[demoLookup.name].textList;
     if (selectedChapter == 3) {
@@ -180,8 +179,43 @@ export default function Legend({
   // button statement
   const buttonStatement2 = dataScale ? `Equal Bins` : 'Equal Counts';
 
+  const getDemoStatement = (value) => {
+    return (
+      <>
+        <div
+          className={
+            demoLookup.lookup == 'F10_TrsBkW'
+              ? 'mb-1 small-font'
+              : 'mb-3 small-font'
+          }
+        >
+          {getNumber(100 - percList[percList.length - 1])}% of
+          {demoLookup.name === 'Households Living Below the Poverty Line' ||
+          demoLookup.name === 'Households Without a Car'
+            ? ' households '
+            : ' commuters '}
+          {selectedChapter == 3 ? 'in' : ''} {neighborhoodName}{' '}
+          {demoLookup.name === 'Households Living Below the Poverty Line'
+            ? 'live below the poverty line'
+            : demoLookup.name === 'Households Without a Car'
+            ? 'do not own a car'
+            : demoLookup.name === 'Citywide Commuters Who Drive Alone to Work'
+            ? 'drive alone to work'
+            : ''}
+          {demoLookup.name === 'Commuters Who Bike, Walk, or Ride Transit'
+            ? ''
+            : '.'}
+        </div>
+        {demoLookup.name === 'Commuters Who Bike, Walk, or Ride Transit' && (
+          <div>{transitToggles}.</div>
+        )}
+      </>
+    );
+  };
+
   const getLegend = () => {
     switch (forDemographic) {
+      // metric legend
       case false:
         const legendBins = [info.uniqueValueArray[0], info.binList];
 
@@ -305,167 +339,169 @@ export default function Legend({
             </>
           );
         }
+      // demographic legend
       case true:
-        if (demoLookup.name !== 'Race & Ethnicity' && mapDemographics) {
-          return (
-            <div className={'d-flex flex-column row-gap'} style={{ flex: 1 }}>
-              <div>
-                {
-                  <div
-                    className={
-                      demoLookup.lookup == 'F10_TrsBkW'
-                        ? 'mb-1 small-font'
-                        : 'mb-3 small-font'
-                    }
-                  >
-                    {100 - getNumber(percList[percList.length - 1])}% of
-                    {demoLookup.name ===
-                      'Households Living Below the Poverty Line' ||
-                    demoLookup.name === 'Households Without a Car'
-                      ? ' households '
-                      : ' commuters '}
-                    {selectedChapter == 3 ? 'in' : ''} {neighborhoodName}{' '}
-                    {demoLookup.name ===
-                    'Households Living Below the Poverty Line'
-                      ? 'live below the poverty line'
-                      : demoLookup.name === 'Households Without a Car'
-                      ? 'do not own a car'
-                      : demoLookup.name ===
-                        'Citywide Commuters Who Drive Alone to Work'
-                      ? 'drive alone to work'
-                      : ` `}
-                    {transitToggles}.
-                  </div>
-                }
-                {/* {demoLookup.name !== "Population Using Alternative Transportation" && <p className={"mb-3 small-font"}>
+        /* three cases for demographic legend:
+         ** 1. Demographic is displayed on the map
+         **   1.1 Demographics are displayed on map, but not the race and ethnicity breakdown
+         **   1.2 Race and ethnicity breakdown is displayed for race and ethnicity
+         ** 2. if the demographics are not displayed on the map
+         */
+        if (mapDemographics) {
+          // 1.1 Demographics are displayed on map, but not the race and ethnicity breakdown
+          if (demoLookup.name !== 'Race & Ethnicity') {
+            return (
+              <div className={'d-flex flex-column row-gap'} style={{ flex: 1 }}>
+                <div>
+                  {getDemoStatement(1)}
+
+                  {/* {demoLookup.name !== "Population Using Alternative Transportation" && <p className={"mb-3 small-font"}>
                                     {demoLookup.metric_units}{" "}
                                 </p>}*/}
-                {demoLookup.lookup !== 'F10_TrsBkW' ? (
-                  <p className={'mb-1 small-font'}>{demoLookup.name}</p>
-                ) : (
-                  <div className={'d-flex col-gap'}></div>
-                )}
+                  {demoLookup.lookup !== 'F10_TrsBkW' ? (
+                    <p className={'mb-1 small-font'}>{demoLookup.name}</p>
+                  ) : (
+                    <div className={'d-flex col-gap'}></div>
+                  )}
 
-                <div className={'placeholder-legend'}>
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `rgb(${demoLookup.colorRamp[0].join(
-                        ','
-                      )})`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `rgb(${demoLookup.colorRamp[1].join(
-                        ','
-                      )})`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `rgb(${demoLookup.colorRamp[2].join(
-                        ','
-                      )})`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `rgb(${demoLookup.colorRamp[3].join(
-                        ','
-                      )})`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `rgb(${demoLookup.colorRamp[4].join(
-                        ','
-                      )})`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
+                  <div className={'placeholder-legend'}>
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `rgb(${demoLookup.colorRamp[0].join(
+                          ','
+                        )})`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `rgb(${demoLookup.colorRamp[1].join(
+                          ','
+                        )})`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `rgb(${demoLookup.colorRamp[2].join(
+                          ','
+                        )})`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `rgb(${demoLookup.colorRamp[3].join(
+                          ','
+                        )})`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `rgb(${demoLookup.colorRamp[4].join(
+                          ','
+                        )})`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
 
-                  <div className={'small-font'}>0%</div>
-                  <div className={'small-font'}>
-                    {getNumber(demoLegendBins[0])}%
-                  </div>
-                  <div className={'small-font'}>
-                    {getNumber(demoLegendBins[1])}%
-                  </div>
-                  <div className={'small-font'}>
-                    {getNumber(demoLegendBins[2])}%
-                  </div>
-                  <div className={'small-font'}>
-                    {getNumber(demoLegendBins[3])}% +
+                    <div className={'small-font'}>0%</div>
+                    <div className={'small-font'}>
+                      {getNumber(demoLegendBins[0])}%
+                    </div>
+                    <div className={'small-font'}>
+                      {getNumber(demoLegendBins[1])}%
+                    </div>
+                    <div className={'small-font'}>
+                      {getNumber(demoLegendBins[2])}%
+                    </div>
+                    <div className={'small-font'}>
+                      {getNumber(demoLegendBins[3])}% +
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        } else if (mapDemographics) {
-          return (
-            <div className={'d-flex flex-column row-gap'} style={{ flex: 1 }}>
-              <div>
-                <p className={'mb-3 small-font'}>
-                  {selectedChapter == 3 ? '' : 'Citywide'} {demoLookup.name} in{' '}
-                  {neighborhoodName}
-                </p>
-                <div
-                  className={'placeholder-legend placeholder-legend-ethnicity'}
-                >
+            );
+          }
+          // 1.2 Race and ethnicity breakdown is displayed for race and ethnicity (it has a different display mode due to the multiple categories)
+          else {
+            return (
+              <div className={'d-flex flex-column row-gap'} style={{ flex: 1 }}>
+                <div>
+                  <p className={'mb-3 small-font'}>
+                    {selectedChapter == 3 ? '' : 'Citywide'} {demoLookup.name}
+                    {selectedChapter == 3 ? ' in ' : ''}
+                    {selectedChapter == 3 ? neighborhoodName : ''}.
+                  </p>
                   <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `${_ETHNICITY_COLORS.Latino.htmlFormat}`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `${_ETHNICITY_COLORS.White.htmlFormat}`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `${_ETHNICITY_COLORS.Black.htmlFormat}`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `${_ETHNICITY_COLORS.Asian.htmlFormat}`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
-                  <div
-                    className={'legend-scale'}
-                    style={{
-                      backgroundColor: `${_ETHNICITY_COLORS.Other.htmlFormat}`,
-                      fontFamily: 'Arial',
-                    }}
-                  />
-                  <div className={'small-font'}>28% Latino</div>
-                  <div className={'small-font'}>31% White</div>
-                  <div className={'small-font'}>20% Black</div>
-                  <div className={'small-font'}>16% Asian</div>
-                  <div className={'small-font'}>5% Other</div>
+                    className={
+                      'placeholder-legend placeholder-legend-ethnicity'
+                    }
+                  >
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `${_ETHNICITY_COLORS.Latino.htmlFormat}`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `${_ETHNICITY_COLORS.White.htmlFormat}`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `${_ETHNICITY_COLORS.Black.htmlFormat}`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `${_ETHNICITY_COLORS.Asian.htmlFormat}`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
+                    <div
+                      className={'legend-scale'}
+                      style={{
+                        backgroundColor: `${_ETHNICITY_COLORS.Other.htmlFormat}`,
+                        fontFamily: 'Arial',
+                      }}
+                    />
+                    <div className={'small-font'}>
+                      {percList[0]}% {textList[0]}
+                    </div>
+                    <div className={'small-font'}>
+                      {percList[1]}% {textList[1]}
+                    </div>
+                    <div className={'small-font'}>
+                      {percList[2]}% {textList[2]}
+                    </div>
+                    <div className={'small-font'}>
+                      {percList[3]}% {textList[3]}
+                    </div>
+                    <div className={'small-font'}>
+                      {percList[4]}% {textList[4]}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        } else {
+            );
+          }
+        }
+        // 3. if the demographics are not displayed on the map
+        else {
           let gridColorRamps;
 
           if (demoLookup.name == 'Race & Ethnicity') {
@@ -508,7 +544,6 @@ export default function Legend({
               `rgb(${demoLookup.colorRamp[0].join(',')})`,
             ];
           }
-
           return (
             <div style={{ flex: 1 }}>
               {demoLookup.name == 'Race & Ethnicity' ? (
@@ -523,40 +558,8 @@ export default function Legend({
                   {neighborhoodName}.
                 </p>
               ) : (
-                <div
-                  className={
-                    demoLookup.lookup == 'F10_TrsBkW'
-                      ? 'mb-1 small-font'
-                      : 'mb-3 small-font'
-                  }
-                >
-                  {100 - getNumber(percList[percList.length - 1])}% of
-                  {demoLookup.name ===
-                    'Households Living Below the Poverty Line' ||
-                  demoLookup.name === 'Households Without a Car'
-                    ? ' households '
-                    : ' commuters '}
-                  {selectedChapter == 3 ? 'in' : ''} {neighborhoodName}{' '}
-                  {demoLookup.name ===
-                  'Households Living Below the Poverty Line'
-                    ? 'live below the poverty line'
-                    : demoLookup.name === 'Households Without a Car'
-                    ? 'do not own a car'
-                    : demoLookup.name ===
-                      'Citywide Commuters Who Drive Alone to Work'
-                    ? 'drive alone to work'
-                    : ` `}
-                  {transitToggles}.
-                </div>
+                getDemoStatement(2)
               )}
-
-              {/* {demoLookup.lookup !== 'F10_TrsBkW' ? (
-                ''
-              ) : (
-                <div className={'d-flex col-gap'}>
-                  <p className={'mb-1 small-font'}>Citywide Commuters Who</p>
-                </div>
-              )} */}
 
               <div
                 className={'placeholder-legend placeholder-legend-ethnicity'}

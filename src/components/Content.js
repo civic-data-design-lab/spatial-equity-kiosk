@@ -95,7 +95,7 @@ export default function Content({
             : !communitySearch && !compareSearch
             ? 'collapsed-middle-column'
             : !showMap
-            ? 'col-4'
+            ? 'col-6'
             : collapseMap
             ? 'collapsed-middle-column'
             : 'col-4 no-top-border'

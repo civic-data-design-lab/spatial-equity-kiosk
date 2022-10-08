@@ -1798,8 +1798,6 @@ input:checked+.slider:before {
 }
 
 .transit-toggle {
-    /* display: inline-flex; */
-    /* flex-direction: row; */
     justify-content: start;
     display: inline-grid;
     grid-template-columns: auto auto auto;
@@ -1808,8 +1806,11 @@ input:checked+.slider:before {
 }
 
 .transit-toggle * {
-    padding: 0 0 0 0.2rem !important;
     margin: 0 !important;
+}
+
+.transit-toggle *:not(:first-child) {
+    padding: 0 0 0 0.5rem;
 
 }
 
