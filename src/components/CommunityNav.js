@@ -402,9 +402,6 @@ export default function CommunityNav({
           </p>
         </div>
       </div>
-      <div className={'issues-tile-header floating-share'}>
-        <ShareButton />
-      </div>
     </div>
   );
 }

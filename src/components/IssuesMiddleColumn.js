@@ -170,7 +170,7 @@ export default function IssuesMiddleColumn({
             alignItems: 'center',
           }}
         >
-          <h5 className="mb-0">
+          <h6 className="mb-0">
             {compareSearch ? 'Compare ' : ''}
             {communitySearch
               ? boundary == 'council'
@@ -200,7 +200,7 @@ export default function IssuesMiddleColumn({
                 ? `${communities[compareSearch].name}`
                 : ''
               : ''}
-          </h5>
+          </h6>
           <MapToggle
             showToggle={true}
             showMap={showMap}
@@ -228,14 +228,14 @@ export default function IssuesMiddleColumn({
             alignItems: 'center',
           }}
         >
-          <h5
+          <h6
             className={`${selectedIssue ? 'mb-0' : ''} `}
             onClick={() => {
               return selectedIssue == 1 ? handleIssueTransition(1) : null;
             }}
           >
             Health
-          </h5>
+          </h6>
           <MapToggle
             showToggle={selectedIssue === 1 && !communitySearch ? true : false}
             showMap={showMap}
@@ -355,14 +355,14 @@ export default function IssuesMiddleColumn({
             alignItems: 'center',
           }}
         >
-          <h5
+          <h6
             className={`${selectedIssue ? 'mb-0' : ''} `}
             onClick={() => {
               return selectedIssue == 2 ? handleIssueTransition(2) : null;
             }}
           >
             Environment
-          </h5>
+          </h6>
           <MapToggle
             showToggle={selectedIssue === 2 && !communitySearch ? true : false}
             showMap={showMap}
@@ -482,14 +482,14 @@ export default function IssuesMiddleColumn({
             alignItems: 'center',
           }}
         >
-          <h5
+          <h6
             className={`${selectedIssue ? 'mb-0' : ''} `}
             onClick={() => {
               return selectedIssue == 3 ? handleIssueTransition(3) : null;
             }}
           >
             Mobility
-          </h5>
+          </h6>
           <MapToggle
             showToggle={selectedIssue === 3 && !communitySearch ? true : false}
             showMap={showMap}
@@ -606,11 +606,11 @@ export default function IssuesMiddleColumn({
                 transition-height ${selectedIssue ? '' : 'no-height'}
                 `}
         >
-          <h5 className="mb-0">
+          <h6 className="mb-0">
             {showDemographics
               ? 'Hide U.S. Census Data'
               : 'Show U.S. Census Data'}
-          </h5>
+          </h6>
           {showDemographics ? (
             <FontAwesomeIcon icon={faMinus} style={{ marginRight: '1.5rem' }} />
           ) : (

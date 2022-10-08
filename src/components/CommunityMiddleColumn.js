@@ -46,7 +46,7 @@ export default function CommunityMiddleColumn({
                   alignItems: 'center',
                 }}
               >
-                <h5 className="mb-0">
+                <h6 className="mb-0">
                   {compareSearch ? 'Compare ' : ''}
                   {communitySearch
                     ? boundary == 'council'
@@ -76,7 +76,7 @@ export default function CommunityMiddleColumn({
                       ? `${communities[compareSearch].name}`
                       : ''
                     : ''}
-                </h5>
+                </h6>
                 <MapToggle
                   showToggle={true}
                   showMap={showMap}

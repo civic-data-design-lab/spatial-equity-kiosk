@@ -5,13 +5,18 @@ import { default as _TILE_WHITE } from '../img/tile_white.svg';
 import { default as _TILE_BLACK } from '../img/tile_black.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartSimple, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChartSimple,
+  faList,
+  faDatabase,
+} from '@fortawesome/free-solid-svg-icons';
 
-export default function MapToggle({
-  showToggle = false,
-  showMap,
+export default function HistogramToggle({
+  showMap = true,
   setShowMap,
   boundary,
+  toggleDisplayMode,
+  setToggleDisplayMode,
 }) {
   const [hover, setHover] = useState(null);
 
@@ -41,12 +46,14 @@ export default function MapToggle({
           {hover}
         </div>
       )}
-      <div className={`${showToggle ? '' : 'd-none'} map-toggle-container`}>
+      <div className={`map-toggle-container`}>
         <div
           className={`${!showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}
           style={!showMap ? { borderRight: '2px solid black' } : {}}
           onClick={() => {
-            setShowMap(false);
+            // setShowMap(false);
+            setToggleDisplayMode(false);
+            // switch to histogram here
           }}
           onMouseEnter={() => {
             setHover(
@@ -64,10 +71,12 @@ export default function MapToggle({
           <FontAwesomeIcon icon={faChartSimple} />
         </div>
         <div
-          className={`${showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}
-          style={showMap ? { borderLeft: '2px solid black' } : {}}
+          className={`active-tag map-toggle`}
+          style={{ border: '2px solid black' }}
           onClick={() => {
-            setShowMap(true);
+            setToggleDisplayMode(true);
+            // setShowMap(true);
+            // switch to ranking view here
           }}
           onMouseEnter={() => {
             setHover(
@@ -80,7 +89,7 @@ export default function MapToggle({
             setHover(null);
           }}
         >
-          <FontAwesomeIcon icon={faGlobe} />
+          <FontAwesomeIcon icon={faList} />
         </div>
       </div>
     </div>

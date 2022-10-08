@@ -6,10 +6,18 @@ import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS_TEXTS from '../texts/councildistricts.json';
 import { useResizeObserver } from '../utils/useResizeObserver';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faMinus,
+  faPlus,
+  faXmark,
+  faCaretDown,
+  faCaretUp,
+} from '@fortawesome/free-solid-svg-icons';
 import RankingTable from './RankingTable';
 import _COUNCILDISTRICTS from '../data/council_districts.json';
 import _COMMUNITYBOARDS from '../data/community_boards.json';
+import SourceInfo from './SourceInfo';
+import HistogramToggle from './HistogramToggle';
 
 import { getNumber } from '../utils/functions';
 
@@ -123,6 +131,9 @@ const Histogram = ({
   // let useBoroughColor = false;
   // console.log("colorRampsyType ", colorRampsyType)
 
+  const [isHovering, setIsHovering] = useState(false);
+  const [citywideExpand, setCitywideExpand] = useState(true);
+
   const getIssueStatement = (value, average) => {
     if (selectedSpecificIssue) {
       let words =
@@ -204,10 +215,10 @@ const Histogram = ({
   const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
   const margin = {
-    top: 20,
-    left: 2,
-    bottom: 40,
-    right: 50,
+    top: 13,
+    left: 0,
+    bottom: 30,
+    right: 15,
   };
 
   let colorRamps = _CHAPTER_COLORS[colorRampsyType];
@@ -312,14 +323,14 @@ const Histogram = ({
   ]);
 
   useEffect(() => {
-    const height = containerHeight ? containerHeight : 0;
+    const height = containerHeight ? containerHeight - 10 : 0;
     const width = containerWidth ? containerWidth : 500;
 
     // histogram bars attr
     let barPadding = 0;
     let barHeight = (height - margin.top - margin.bottom) / data.length;
     let minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
-    let longestBarPadding = 100;
+    let longestBarPadding = 0;
 
     let [hiStatement, lowStatement] =
       issues.specific_issues_data[selectedSpecificIssue].issue_hi_low;
@@ -439,37 +450,36 @@ const Histogram = ({
       );
 
     // draw reset button
-    svg
-      .select('#resetButton')
-      .attr('x', margin.left)
-      .attr('y', yscale(data.length + 0.5) + 15)
-      .attr('style', 'font-family:Inter')
-      .attr('visibility', 'hidden')
-      // .style('font-weight', 'bold')
-      .attr('font-size', '12')
-      .on('click', (event, d) => {
-        if (boundary == 'council') {
-          setCouncilPinned([]);
-        } else {
-          setCommunityPinned([]);
-        }
-      });
+    // svg
+    //   .select('#resetButton')
+    //   .attr('x', margin.left)
+    //   .attr('y', yscale(data.length + 0.5) + 15)
+    //   .attr('style', 'font-family:Inter')
+    //   .attr('visibility', 'hidden')
+    //   // .style('font-weight', 'bold')
+    //   .attr('font-size', '12')
+    //   .on('click', (event, d) => {
+    //     if (boundary == 'council') {
+    //       setCouncilPinned([]);
+    //     } else {
+    //       setCommunityPinned([]);
+    //     }
+    //   });
 
-    svg
-      .select('#resetBg')
-      .attr('x', margin.left)
-      .attr('y', yscale(data.length + 0.5) + 1)
-      .attr('visibility', 'hidden')
-      .attr(
-        'width',
-        svg.select('#resetButton').node().getBoundingClientRect().width + 5
-      )
-      .attr(
-        'height',
-        svg.select('#resetButton').node().getBoundingClientRect().height
-      )
-      //   .attr('fill', '#000000');
-      .attr('fill', '#FFFFFF');
+    // svg
+    //   .select('#resetBg')
+    //   .attr('x', margin.left)
+    //   .attr('y', yscale(data.length + 0.5) + 1)
+    //   .attr('visibility', 'hidden')
+    //   .attr(
+    //     'width',
+    //     svg.select('#resetButton').node().getBoundingClientRect().width + 5
+    //   )
+    //   .attr(
+    //     'height',
+    //     svg.select('#resetButton').node().getBoundingClientRect().height
+    //   )
+    //   .attr('fill', '#FFFFFF');
 
     // Adjust text position
     svg
@@ -751,7 +761,7 @@ const Histogram = ({
       .merge(svg.selectAll('.cancelButtonText').data(data))
       .attr('y', (d, i) => yscale(i + 1) + 5)
       //   .attr('x', margin.left - 5)
-      .attr('x', width - 25)
+      .attr('x', width)
       .attr('text-anchor', 'end')
       .attr('visibility', 'hidden')
       .style('font-weight', 'bold')
@@ -817,8 +827,8 @@ const Histogram = ({
 
     // move the interaction layer to front
     svg.select('#histBg').raise();
-    svg.select('#resetBg').raise();
-    svg.select('#resetButton').raise();
+    // svg.select('#resetBg').raise();
+    // svg.select('#resetButton').raise();
     svg.selectAll('.pinnedTextUp').raise();
     svg.selectAll('.pinnedLine').lower();
     svg.select('#mouseLine').lower();
@@ -917,19 +927,19 @@ const Histogram = ({
         }
       });
     }
-    for (let element of ['#resetButton', '#resetBg']) {
-      svg.selectAll(element).each(function (d, i) {
-        if (boundary == 'council') {
-          if (councilPinned.length > 0)
-            d3.select(this).attr('visibility', 'visible');
-          else d3.select(this).attr('visibility', 'hidden');
-        } else {
-          if (communityPinned.length > 0)
-            d3.select(this).attr('visibility', 'visible');
-          else d3.select(this).attr('visibility', 'hidden');
-        }
-      });
-    }
+    // for (let element of ['#resetButton', '#resetBg']) {
+    //   svg.selectAll(element).each(function (d, i) {
+    //     if (boundary == 'council') {
+    //       if (councilPinned.length > 0)
+    //         d3.select(this).attr('visibility', 'visible');
+    //       else d3.select(this).attr('visibility', 'hidden');
+    //     } else {
+    //       if (communityPinned.length > 0)
+    //         d3.select(this).attr('visibility', 'visible');
+    //       else d3.select(this).attr('visibility', 'hidden');
+    //     }
+    //   });
+    // }
 
     // when avgline is close to mouseline or is overlapped with another pinned line, hide the avgline
     let hideAvgLine = false;
@@ -1065,91 +1075,105 @@ const Histogram = ({
   ]);
 
   return (
-    <div
-      className={'d-flex histogram-responsive-box'}
-      style={{
-        width: '100%',
-        flexGrow: '1',
-      }}
-    >
+    <>
+      {!toggleDisplayMode && (
+        <div
+          className={'m-0 small-font d-inline-block'}
+          style={{ padding: '1rem 1.5rem 0 1.5rem' }}
+        >
+          {issues.specific_issues_data[selectedSpecificIssue].units}{' '}
+          <SourceInfo
+            issues={issues}
+            selectedSpecificIssue={selectedSpecificIssue}
+            setSelectedChapter={setSelectedChapter}
+            verticalHistogram={true}
+          />
+        </div>
+      )}
       <div
-        className={'d-flex flex-row position-relative'}
+        className={'d-flex histogram-responsive-box'}
         style={{
-          //   height: '25px',
           width: '100%',
-          top: '10px',
-          alignItems: 'center',
-          flexWrap: 'wrap',
+          flexGrow: '1',
+          padding: toggleDisplayMode ? '0' : '0 1.5rem 0 1.5rem',
         }}
       >
         <div
+          className={'d-flex flex-row position-relative'}
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'auto auto',
-            alignContent: 'start',
             width: '100%',
+            top: '10px',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
+        ></div>
+
+        <div
+          ref={containerRef}
+          style={
+            !toggleDisplayMode
+              ? {
+                  width: '100%',
+                  flexGrow: 1,
+                }
+              : { width: '100%', flexGrow: 1, padding: '0' }
+          }
+          className={'position-relative'}
         >
-          <div className={`d-flex switch-container flex-row `}>
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={toggleDisplayMode}
-                onChange={(e) => {
-                  setToggleDisplayMode(!toggleDisplayMode);
-                }}
-              />
-              <span className="slider round"></span>
-            </label>
+          <svg display={toggleDisplayMode ? 'none' : ''} ref={ref}>
+            {/* Main Chart */}
+            <g />
 
-            <p className={'small-font d-inline-block big-button border-0'}>
-              {toggleDisplayMode ? `Show Histogram` : `Show List`}
-            </p>
-          </div>
+            {/* Avg Line */}
+            <line id="avgLine" />
+            <text id="avgTextUp" />
+            <text id="avgTextDown" />
 
-          {!toggleDisplayMode && (
-            <div>
-              <div
-                className={`big-button ${
-                  useBoroughColor ? 'big-button-active' : 'big-button-inactive'
-                } small-font`}
-                style={{
-                  display: 'inline-block',
-                  justifyContent: '',
-                  width: 'auto',
-                }}
-                onClick={() => {
-                  setUseBoroughColor(!useBoroughColor);
-                }}
-              >
-                {useBoroughColor ? `Hide Borough ` : `Show Borough `}
-                {useBoroughColor ? (
-                  <FontAwesomeIcon
-                    className={'mb-0 small-font'}
-                    icon={faMinus}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    className={'mb-0 small-font'}
-                    icon={faPlus}
-                  />
-                )}
-              </div>
-            </div>
-          )}
+            {/* Interactive Line */}
+            <line id="mouseLine" />
+            <text id="mouseTextUp" />
+            <text id="mouseTextDown" />
+            <rect id="histBg" />
+
+            {/* Min/Max Line */}
+            <line id="maxLine" />
+            <line id="minLine" />
+            <text id="maxText" />
+            <text id="minText" />
+
+            {/* Reset Button */}
+            {/* <text id="resetButton">Clear All</text> */}
+            {/* <rect id="resetBg" /> */}
+          </svg>
+
+          <RankingTable
+            issues={issues}
+            boundary={boundary}
+            selectedSpecificIssue={selectedSpecificIssue}
+            setCommunitySearch={setCommunitySearch}
+            setSelectedChapter={setSelectedChapter}
+            communitySearch={communitySearch}
+            compareSearch={compareSearch}
+            toggleDisplayMode={toggleDisplayMode}
+            defaultOpen={citywideExpand}
+            citywideTab={true}
+          />
         </div>
+      </div>
 
+      <div>
         {!toggleDisplayMode ? (
           <div
             className={`${
               useBoroughColor ? '' : 'invisible'
-            } d-flex flex-row osition-relativ`}
+            } d-flex flex-row position-relative mb-2`}
             style={{
               justifyContent: 'start',
               flexGrow: '1',
               marginLeft: '3px',
-              marginEight: '30px',
+              marginRight: '30px',
               flexWrap: 'wrap',
+              padding: '0 1.5rem 0 1.5rem',
             }}
           >
             <div className={'d-flex flex-row'}>
@@ -1247,58 +1271,102 @@ const Histogram = ({
       </div>
 
       <div
-        ref={containerRef}
-        style={
-          !toggleDisplayMode
-            ? {
-                width: '100%',
-                flexGrow: 1,
-                padding: '0.5rem 0 0 0',
-              }
-            : { width: '100%', flexGrow: 1, padding: '1rem 0' }
-        }
-        className={'position-relative'}
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr auto',
+          gap: '0.5rem',
+          alignContent: 'start',
+          padding: '0.5rem 1.5rem 0.5rem 1.5rem',
+          border: '2px solid black',
+          borderLeft: 'none',
+          borderRight: 'none',
+        }}
       >
-        <svg display={toggleDisplayMode ? 'none' : ''} ref={ref}>
-          {/* Main Chart */}
-          <g />
+        <div className={`d-flex switch-container flex-row `}>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={toggleDisplayMode}
+              onChange={(e) => {
+                setToggleDisplayMode(!toggleDisplayMode);
+              }}
+            />
+            <span className="slider round"></span>
+          </label>
 
-          {/* Avg Line */}
-          <line id="avgLine" />
-          <text id="avgTextUp" />
-          <text id="avgTextDown" />
+          <p className={'small-font d-inline-block big-button m-0'}>
+            {toggleDisplayMode ? `Show Histogram` : `Show List`}
+          </p>
+        </div>
 
-          {/* Interactive Line */}
-          <line id="mouseLine" />
-          <text id="mouseTextUp" />
-          <text id="mouseTextDown" />
-          <rect id="histBg" />
-
-          {/* Min/Max Line */}
-          <line id="maxLine" />
-          <line id="minLine" />
-          <text id="maxText" />
-          <text id="minText" />
-
-          {/* Reset Button */}
-          <text id="resetButton">Clear All</text>
-          <rect id="resetBg" />
-        </svg>
-
-        <RankingTable
-          issues={issues}
+        {/* <HistogramToggle
           boundary={boundary}
-          selectedSpecificIssue={selectedSpecificIssue}
-          setCommunitySearch={setCommunitySearch}
-          setSelectedChapter={setSelectedChapter}
-          communitySearch={communitySearch}
-          compareSearch={compareSearch}
           toggleDisplayMode={toggleDisplayMode}
-          defaultOpen={true}
-          citywideTab={true}
-        />
+          setToggleDisplayMode={setToggleDisplayMode}
+        /> */}
+
+        {!toggleDisplayMode && (
+          <div>
+            <div
+              className={`big-button ${
+                useBoroughColor ? 'big-button-active' : 'big-button-inactive'
+              } small-font`}
+              style={{
+                display: 'inline-block',
+                justifyContent: '',
+                width: 'auto',
+              }}
+              onClick={() => {
+                setUseBoroughColor(!useBoroughColor);
+              }}
+            >
+              {useBoroughColor ? `Hide Borough ` : `Show Borough `}
+              {useBoroughColor ? (
+                <FontAwesomeIcon icon={faMinus} />
+              ) : (
+                <FontAwesomeIcon icon={faPlus} />
+              )}
+            </div>
+          </div>
+        )}
+
+        <div>
+          <div
+            className={`big-button ${
+              isHovering ? 'big-button-active' : 'big-button-inactive'
+            } small-font`}
+            style={{
+              justifyContent: '',
+              width: 'auto',
+              visibility:
+                (!toggleDisplayMode &&
+                  boundary == 'council' &&
+                  councilPinned.length > 0) ||
+                (!toggleDisplayMode &&
+                  boundary == 'community' &&
+                  communityPinned.length > 0)
+                  ? ''
+                  : 'hidden',
+            }}
+            onMouseOver={() => {
+              setIsHovering(true);
+            }}
+            onMouseLeave={() => {
+              setIsHovering(false);
+            }}
+            onClick={() => {
+              if (boundary == 'council') {
+                setCouncilPinned([]);
+              } else {
+                setCommunityPinned([]);
+              }
+            }}
+          >
+            Clear All <FontAwesomeIcon icon={faXmark} />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

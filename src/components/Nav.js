@@ -60,6 +60,7 @@ function Nav({
 
   return (
     <div className={'col-3 h-100 d-flex flex-column'} style={{ zIndex: 3 }}>
+      {/* SPATIAL EQUITY NYC CHAPTER NAV */}
       <div
         className={`nav-chapters d-flex flex-column justify-content-between top-border
              ${
@@ -99,12 +100,12 @@ function Nav({
                 : ''
             }`}
           >
-            <h5 className="collapse-text">What is</h5>
+            <h6 className="collapse-text">What is</h6>
           </div>
 
           <p
             className={`${
-              selectedChapter && selectedChapter !== 1 ? 'h5 m-0' : 'h1'
+              selectedChapter && selectedChapter !== 1 ? 'h6 m-0' : 'h1'
             } transition-font`}
           >
             Spatial Equity NYC
@@ -117,7 +118,7 @@ function Nav({
           } nav-chapters-content `}
         >
           <div className={selectedChapter !== 1 ? 'no-pointer' : ''}>
-            <h5>
+            <h6>
               Spatial Equity NYC documents inequities in the ways that public
               space — including streets, sidewalks, and greenspaces — is
               designed, distributed, and accessed.
@@ -148,12 +149,13 @@ function Nav({
               </span>
               to learn how decisions about the use of public space lead to
               unequal outcomes and what you can do about it.{' '}
-            </h5>
-            <ShareButton />
+            </h6>
           </div>
+          {selectedChapter === 1 && <ShareButton />}
         </div>
       </div>
 
+      {/* CITYWIDE CHAPTER NAV */}
       <div
         className={`nav-chapters d-flex flex-column
              ${
@@ -193,10 +195,6 @@ function Nav({
           setBadSearch([0, 0]);
           setCommunitySearch(null);
           setCompareSearch(null);
-
-          /*if (selectedSpecificIssue) {
-                                  setSelectedIssue(issues.specific_issues_data[selectedSpecificIssue].issue_type_ID)
-                              }*/
         }}
       >
         <div>
@@ -207,12 +205,12 @@ function Nav({
                 : ''
             }`}
           >
-            <h5 className={'collapse-text'}>Explore Spatial Equity by</h5>
+            <h6 className={'collapse-text'}>Explore Spatial Equity by</h6>
           </div>
 
           <p
             className={`${
-              selectedChapter && selectedChapter !== 2 ? 'h5 m-0' : 'h1'
+              selectedChapter && selectedChapter !== 2 ? 'h6 m-0' : 'h1'
             } transition-font`}
           >
             Citywide Data
@@ -238,9 +236,11 @@ function Nav({
               setBadSearch={setBadSearch}
             />
           </div>
+          {selectedChapter == 2 && <ShareButton />}
         </div>
       </div>
 
+      {/* COMMUNITY PROFILES CHAPTER NAV */}
       <div
         className={`nav-chapters d-flex flex-column
              ${
@@ -294,12 +294,12 @@ function Nav({
                 : ''
             }`}
           >
-            <h5 className={'collapse-text'}>Explore Spatial Equity by</h5>
+            <h6 className={'collapse-text'}>Explore Spatial Equity by</h6>
           </div>
 
           <p
             className={`${
-              selectedChapter && selectedChapter !== 3 ? 'h5 m-0' : 'h1'
+              selectedChapter && selectedChapter !== 3 ? 'h6 m-0' : 'h1'
             } transition-font`}
           >
             {`Community ${
@@ -349,9 +349,11 @@ function Nav({
             userPoints={userPoints}
             selectedChapter={selectedChapter}
           />
+          {selectedChapter == 3 && <ShareButton />}
         </div>
       </div>
 
+      {/* TAKE ACTION CHAPTER NAV */}
       <div
         className={`nav-chapters d-flex flex-column justify-content-between 
              ${
@@ -388,11 +390,11 @@ function Nav({
       >
         <div>
           <div className={`nav-title ${selectedChapter !== 4 ? '' : ''}`}>
-            <h5 className={'mb-0'}>
+            <h6 className={'mb-0'}>
               {selectedChapter !== 4
                 ? 'Learn More & Take Action'
                 : 'Learn More &'}
-            </h5>
+            </h6>
           </div>
 
           <p
@@ -409,6 +411,7 @@ function Nav({
             selectedChapter === 4 ? 'nav-chapters-content-expanded' : ''
           } nav-chapters-content d-flex flex-column justify-content-end`}
         >
+          {selectedChapter == 4 && <ShareButton />}
           <div className={'no-pointer'}>
             <div
               className={`${

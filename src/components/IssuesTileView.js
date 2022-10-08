@@ -4,6 +4,7 @@ import ShareButton from './ShareButton';
 import IssueProfile from './IssuesProfile';
 import Histogram from './Histogram';
 import SourceInfo from './SourceInfo';
+import RightColumnHeaders from './RightColumnHeaders';
 
 import Typewriter from 'typewriter-effect';
 import { useEffect } from 'react';
@@ -136,41 +137,20 @@ export default function IssuesTileView({
       )}
       {selectedSpecificIssue && (
         <div className={'col-12 h-100 issues-tile-container p-0'}>
-          <div className={'issues-tile-header floating-share'}>
-            <ShareButton
-              showMap={showMap}
-              communitySearch={communitySearch}
-              compareSearch={compareSearch}
-              selectedSpecificIssue={selectedSpecificIssue}
-              issues={issues}
-              setShowMap={setShowMap}
-              showToggle={showToggle}
-              selectedIssue={selectedIssue}
-              selectedChapter={selectedChapter}
-              boundary={boundary}
-              demographic={demographic}
-              showDemographics={showDemographics}
-              moreIssues={moreIssues}
-              setMoreIssues={setMoreIssues}
-              moreIssuesLength={moreIssuesLength}
-              setMoreIssuesLength={setMoreIssuesLength}
-            />
-          </div>
-
           <div className={'issues-tile-body h-100'}>
-            <div className={'issue-tile-viz position-relative'}>
-              <div>
-                <h5 className={'d-inline-block bold'}>{getIssueName()} </h5>
-                <div className={'m-0 small-font d-inline-block'}>
-                  {`${issues.specific_issues_data[selectedSpecificIssue].units} `}
-                  <SourceInfo
-                    issues={issues}
-                    selectedSpecificIssue={selectedSpecificIssue}
-                    setSelectedChapter={setSelectedChapter}
-                    verticalHistogram={true}
-                  />
-                </div>
-              </div>
+            <div
+              className={'issue-tile-viz position-relative'}
+              style={{ outline: '1px solid black' }}
+            >
+              <RightColumnHeaders
+                type={'histogram'}
+                boundary={boundary}
+                issues={issues}
+                selectedSpecificIssue={selectedSpecificIssue}
+                setSelectedChapter={setSelectedChapter}
+                setSelectedSpecificIssue={setSelectedSpecificIssue}
+                setMoreIssues={setMoreIssues}
+              />
               <div style={{ flex: 1 }} className={'histogram-responsive-box'}>
                 {!collapseMap && (
                   <Histogram
@@ -194,59 +174,30 @@ export default function IssuesTileView({
                   />
                 )}
               </div>
-              {/* <p className={'m-0 small-font'}>
-                Source:{' '}
-                {
-                  issues.specific_issues_data[selectedSpecificIssue]
-                    .specific_issue_source
-                }
-              </p> */}
             </div>
 
             <div
-              className={'col-6 w-50 overflow-auto'}
-              //style={{ paddingRight: '2.5em' }}
+              className={'col-6 w-50'}
+              style={{ outline: '1px solid black' }}
             >
               {!collapseMap && (
-                <IssueProfile
-                  issues={issues}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  boundary={boundary}
-                  setSelectedSpecificIssue={setSelectedSpecificIssue}
-                  setCommunitySearch={setCommunitySearch}
-                  setSelectedChapter={setSelectedChapter}
-                  councils={councils}
-                  communities={communities}
-                  communitySearch={communitySearch}
-                  compareSearch={compareSearch}
-                />
+                <>
+                  <RightColumnHeaders />
+                  <IssueProfile
+                    issues={issues}
+                    selectedSpecificIssue={selectedSpecificIssue}
+                    boundary={boundary}
+                    setSelectedSpecificIssue={setSelectedSpecificIssue}
+                    setCommunitySearch={setCommunitySearch}
+                    setSelectedChapter={setSelectedChapter}
+                    councils={councils}
+                    communities={communities}
+                    communitySearch={communitySearch}
+                    compareSearch={compareSearch}
+                  />
+                </>
               )}
             </div>
-          </div>
-        </div>
-      )}
-
-      {!selectedSpecificIssue && (
-        <div className={'col-12 h-100 issues-tile-container'}>
-          <div className={'issues-tile-header floating-share'}>
-            <ShareButton
-              showMap={showMap}
-              communitySearch={communitySearch}
-              compareSearch={compareSearch}
-              selectedSpecificIssue={selectedSpecificIssue}
-              issues={issues}
-              setShowMap={setShowMap}
-              showToggle={showToggle}
-              selectedIssue={selectedIssue}
-              selectedChapter={selectedChapter}
-              boundary={boundary}
-              demographic={demographic}
-              showDemographics={showDemographics}
-              moreIssues={moreIssues}
-              setMoreIssues={setMoreIssues}
-              moreIssuesLength={moreIssuesLength}
-              setMoreIssuesLength={setMoreIssuesLength}
-            />
           </div>
         </div>
       )}

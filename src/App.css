@@ -17,6 +17,14 @@
     color: white
 }
 
+/* site border */
+/* #border {
+    position: fixed;
+    width: calc(100vw - 1px);
+    height: calc(100vh - 1px);
+    border: 2px solid black;
+    z-index: 99;
+} */
 
 /* Utility */
 .standard-padding {
@@ -661,6 +669,7 @@ a:active {
     overflow: hidden;
     height: calc(100vh - 4em);
     padding-bottom: 0;
+    border-left: none;
 }
 
 .issues-tile-body>* {
@@ -672,6 +681,8 @@ a:active {
     flex-direction: column;
     row-gap: 1rem;
     padding: 1.5em 1.5em 2.5em 1.5em;
+    height: 100%;
+    overflow: auto !important;
 }
 
 .issues-tile-ranking {
@@ -705,8 +716,25 @@ a:active {
     flex-direction: column;
     justify-content: space-between;
     overflow: auto;
-    padding: 1.5em 1.5em 0em 1.5em;
 }
+
+.issue-tile-viz>*:not(:first-child):not(.histogram-responsive-box) {
+    padding: 1.5rem;
+}
+
+.issue-tile-viz .issues-chapters-active {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    transition: 0.5s ease-in-out
+}
+
+.issue-tile-viz:hover .issues-chapters-active {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+}
+
 
 .py-3 {
     padding-bottom: 0 !important;
@@ -860,7 +888,7 @@ a:active {
 
 /* Right Column */
 #right-column {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     border-left: none;
 }
 
@@ -1575,8 +1603,7 @@ a:active {
 }
 
 .table {
-    border: 2px solid black !important;
-    border-bottom: 1px solid black !important;
+    /* border: 2px solid black !important; */
     border-spacing: 0 !important;
     margin-bottom: 0 !important;
 }
@@ -1584,12 +1611,6 @@ a:active {
 .table>thead {
     background-color: black;
     color: white;
-}
-
-.table>thead {
-    background-color: black;
-    color: white;
-    border: 1px solid white;
 }
 
 .form-check-input:checked {
@@ -1737,10 +1758,10 @@ a:active {
 
 .switch-container {
     /*position: absolute;*/
-    top: 1.5rem;
-    right: 1.5rem;
-    z-index: 2;
-    column-gap: 5px;
+    /* top: 1.5rem; */
+    /* right: 1.5rem; */
+    /* z-index: 2; */
+    /* column-gap: 5px; */
 }
 
 
@@ -1750,7 +1771,6 @@ a:active {
     min-width: 40px;
     height: 24px;
     position: relative;
-
 }
 
 /* Hide default HTML checkbox */
@@ -2614,8 +2634,16 @@ input:checked+.slider:before {
     display: flex;
     flex-direction: column;
     justify-content: start;
+    overflow: auto;
 }
 
+.histogram-responsive-box>* {
+    cursor: pointer
+}
+
+.histogram-responsive-box * {
+    /* border: none !important; */
+}
 
 /*ANIMATED HAMBURGER MENU*/
 .toggle-menu {

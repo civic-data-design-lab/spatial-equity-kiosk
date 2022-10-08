@@ -32,8 +32,8 @@ const RankingTable = ({
       style={{ display: !toggleDisplayMode ? 'none' : '' }}
       className={'small-font'}
     >
-      <Table bordered>
-        <thead style={citywideTab ? { position: 'sticky' } : {}}>
+      <Table bordered style={{ border: '2px solid red !important' }}>
+        <thead>
           <tr>
             <th>Rank</th>
             <th>
@@ -210,28 +210,32 @@ ${
             : null}
         </tbody>
       </Table>
-      <div
-        className={'d-flex flex-row justify-content-center ranking-button'}
-        style={
-          expand
-            ? {
-                borderTop: '1px solid black',
-                background: 'white',
-                position: 'sticky',
-                bottom: '0em',
-              }
-            : { borderTop: '1px solid black' }
-        }
-        onClick={() => {
-          setExpand(!expand);
-        }}
-      >
-        {expand ? (
-          <FontAwesomeIcon icon={faCaretUp} />
-        ) : (
-          <FontAwesomeIcon icon={faCaretDown} />
-        )}
-      </div>
+
+      {!citywideTab && (
+        <div
+          className={'d-flex flex-row justify-content-center ranking-button'}
+          style={
+            expand
+              ? {
+                  borderTop: '1px solid black',
+                  background: 'white',
+                  position: 'sticky',
+                  bottom: '0em',
+                  outline: '2px solid white',
+                }
+              : { borderTop: '1px solid black' }
+          }
+          onClick={() => {
+            setExpand(!expand);
+          }}
+        >
+          {expand ? (
+            <FontAwesomeIcon icon={faCaretUp} />
+          ) : (
+            <FontAwesomeIcon icon={faCaretDown} />
+          )}
+        </div>
+      )}
     </div>
   );
 };

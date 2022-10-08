@@ -69,7 +69,7 @@ export default function CommunityProfile({
       {!compareSearch ? (
         <>
           <div>
-            <h5>Notable Indicators—</h5>
+            <h6>Notable Indicators—</h6>
 
             <p className={''}>
               {communitySearch
@@ -160,14 +160,14 @@ export default function CommunityProfile({
           </div>
 
           <div className={''}>
-            <h5
+            <h6
               className={'bold mt-3'}
               // style={{
               //   padding: '0.75em 0',
               // }}
             >
               More Indicators
-            </h5>
+            </h6>
             <IssuesTags
               setCompareSearch={setCompareSearch}
               addCompare={addCompare}
@@ -200,7 +200,7 @@ export default function CommunityProfile({
         <>
           <div className={'standard-padding'}>
             {
-              <h5 className={'mb-3'}>
+              <h6 className={'mb-3'}>
                 Compare Indicators in{' '}
                 {(communities[communitySearch] &&
                   communities[communitySearch].name) ||
@@ -210,7 +210,7 @@ export default function CommunityProfile({
                 {(communities[compareSearch] &&
                   communities[compareSearch].name) ||
                   (councils[compareSearch] && councils[compareSearch].name)}
-              </h5>
+              </h6>
             }
             <p className={'mt-3'}>
               Choose one or more indicators to compare spatial equity in these{' '}

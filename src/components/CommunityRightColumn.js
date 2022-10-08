@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import IssueProfile from './IssuesProfile';
+import RightColumnHeaders from './RightColumnHeaders';
 import { useEffect } from 'react';
 
 export default function CommunityRightColumn({
@@ -39,34 +40,14 @@ export default function CommunityRightColumn({
 
   return (
     <>
-      <div className={'d-flex flex-column position-relative'}>
-        <div
-          className={`${'issues-chapters-active'} collapse-issue issues-chapters top-border transition-height`}
-          style={{
-            height: communitySearch ? 'auto' : '0',
-          }}
-        >
-          <div
-            className="position-relative d-grid "
-            style={{
-              gridTemplateColumns: '1fr auto',
-              gridGap: '0.33rem',
-              alignItems: 'center',
-              borderLeft: '1px solid white',
-            }}
-          >
-            <h5 className="mb-0">Solutions</h5>
-          </div>
-        </div>
-      </div>
-
+      <RightColumnHeaders type="solutions" />
       {!selectedSpecificIssue && (
         <div className={'d-flex flex-row h-100 col-gap standard-padding'}>
           <div className={'d-flex flex-row col-gap prompt'}>
             <FontAwesomeIcon icon={faArrowLeft} className={'fa-lg'} />
-            <h5 className={'m-0'}>
+            <h6 className={'m-0'}>
               Click on a card to learn more about the issue
-            </h5>
+            </h6>
           </div>
         </div>
       )}

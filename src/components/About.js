@@ -31,35 +31,40 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
     specific_issue_name: 'Race & Ethnicity',
     specific_issue_ID: 16,
     link: 'https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page.page',
-    specific_issue_source: 'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
+    specific_issue_source:
+      'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
     year: '2016-2020',
   };
   dataJson[17] = {
     specific_issue_name: 'Poverty Level',
     specific_issue_ID: 17,
     link: 'https://data.census.gov/cedsci/table?q=s1701&tid=ACSST5Y2020.S1701',
-    specific_issue_source: "U.S. Census Bureau, 2015-2019 American Community Survey 5-Year Estimates",
+    specific_issue_source:
+      'U.S. Census Bureau, 2015-2019 American Community Survey 5-Year Estimates',
     year: '2015-2019',
   };
   dataJson[18] = {
     specific_issue_name: 'Vehicle Ownership',
     specific_issue_ID: 18,
     link: 'https://data.census.gov/cedsci/table?q=B08201&g=0100000US_1600000US3651000&tid=ACSDT5Y2020.B08201',
-    specific_issue_source: 'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
+    specific_issue_source:
+      'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
     year: ' 2016-2020',
   };
   dataJson[19] = {
     specific_issue_name: 'Drive Alone to Work',
     specific_issue_ID: 19,
     link: 'https://data.census.gov/cedsci/table?q=b08301&g=0100000US&tid=ACSDT5Y2020.B08301',
-    specific_issue_source: 'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
+    specific_issue_source:
+      'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
     year: '2016-2020',
   };
   dataJson[20] = {
     specific_issue_name: 'Walk, Bike, or Ride Transit',
     specific_issue_ID: 20,
     link: 'https://data.census.gov/cedsci/table?q=b08301&g=0100000US&tid=ACSDT5Y2020.B08301',
-    specific_issue_source: 'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
+    specific_issue_source:
+      'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
     year: '2016-2020',
   };
   dataJson[21] = {
@@ -83,7 +88,6 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
     specific_issue_source: 'NYC Department of City Planning (DCP)',
     year: '2020',
   };
-
 
   const dataLayers = Object.keys(dataJson);
 
@@ -668,9 +672,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 1 ? 1 : 0.2,
           }}
         >
-          <h5 className={'bold menu-item'} id={'menu-1'}>
+          <h6 className={'bold menu-item'} id={'menu-1'}>
             {subheadings[0]}
-          </h5>
+          </h6>
         </a>
         <a
           className={'about-link'}
@@ -679,9 +683,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 2 ? 1 : 0.2,
           }}
         >
-          <h5 className={'bold menu-item'} id={'menu-2'}>
+          <h6 className={'bold menu-item'} id={'menu-2'}>
             {subheadings[1]}
-          </h5>
+          </h6>
         </a>
         <a
           className={'about-link'}
@@ -690,9 +694,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 3 ? 1 : 0.2,
           }}
         >
-          <h5 className={'bold menu-item'} id={'menu-3'}>
+          <h6 className={'bold menu-item'} id={'menu-3'}>
             {subheadings[2]}
-          </h5>
+          </h6>
         </a>
         <a
           className={'about-link'}
@@ -701,9 +705,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 4 ? 1 : 0.2,
           }}
         >
-          <h5 className={'bold menu-item'} id={'menu-4'}>
+          <h6 className={'bold menu-item'} id={'menu-4'}>
             {subheadings[3]}
-          </h5>
+          </h6>
         </a>
         <a
           className={'about-link'}
@@ -712,9 +716,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 5 ? 1 : 0.2,
           }}
         >
-          <h5 className={'bold menu-item'} id={'menu-5'}>
+          <h6 className={'bold menu-item'} id={'menu-5'}>
             {subheadings[4]}
-          </h5>
+          </h6>
         </a>
         <a
           className={'about-link'}
@@ -723,9 +727,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 6 ? 1 : 0.2,
           }}
         >
-          <h5 className={'bold menu-item'} id={'menu-6'}>
+          <h6 className={'bold menu-item'} id={'menu-6'}>
             {subheadings[5]}
-          </h5>
+          </h6>
         </a>
         <a
           className={'about-link'}
@@ -734,9 +738,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 7 ? 1 : 0.2,
           }}
         >
-          <h5 className={'bold menu-item'} id={'menu-7'}>
+          <h6 className={'bold menu-item'} id={'menu-7'}>
             {subheadings[6]}
-          </h5>
+          </h6>
         </a>
         <a
           className={'about-link'}
@@ -745,9 +749,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 8 ? 1 : 0.2,
           }}
         >
-          <h5 className={'bold menu-item'} id={'menu-8'}>
+          <h6 className={'bold menu-item'} id={'menu-8'}>
             {subheadings[7]}
-          </h5>
+          </h6>
         </a>
         <a
           className={'about-link'}
@@ -756,9 +760,9 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             opacity: currentStepIndex === 9 ? 1 : 0.2,
           }}
         >
-          <h5 className={'bold menu-item'} id={'menu-9'}>
+          <h6 className={'bold menu-item'} id={'menu-9'}>
             {subheadings[8]}
-          </h5>
+          </h6>
         </a>
       </div>
     </div>

@@ -33,99 +33,103 @@ Public health, mobility, and the environment are affected by local policies abou
   };
 
   return (
-    <div
-      className={'share-button-container noselect'}
-      onMouseEnter={() => {
-        setClicked(true);
-      }}
-      onMouseLeave={() => {
-        setClicked(false);
-        setLinkCopied(false);
-      }}
-      // Allow click to activate, deactivate share dropdown on mobile
-      onClick={() => isMobile && setClicked(!clicked)}
-      style={invert && { backgroundColor: 'black' }}
-      // onClick={(e) => {
-      //   e.preventDefault();
-      // }}
-    >
-      {clicked && (
-        <div className={'share-icons'}>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={`${FACEBOOK_SHARE_URL}?u=${shareUrl}`}
-          >
-            <FontAwesomeIcon
-              icon={faSquareFacebook}
-              onClick={(e) => {
-                pickColor(e);
-              }}
-            />
-          </a>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={`${TWEET_INTENT_URL}?text=${encodeURIComponent(
-              shareText
-            )}&url=${shareUrl}&hashtags=${SHARE_HASHTAGS.join(',')}`}
-          >
-            <FontAwesomeIcon
-              icon={faTwitter}
-              onClick={(e) => {
-                pickColor(e);
-              }}
-            />
-          </a>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={`${LINKEDIN_SHARE_URL}?url=${shareUrl}`}
-          >
-            <FontAwesomeIcon
-              icon={faLinkedinIn}
-              onClick={(e) => {
-                pickColor(e);
-              }}
-            />
-          </a>
-          <a>
-            <FontAwesomeIcon
-              icon={faCopy}
-              onClick={(e) => {
-                e.preventDefault();
-                copyURL();
-                pickColor(e);
-                setLinkCopied(true);
-              }}
-            />
-          </a>
-          {linkCopied && (
-            <div className={'position-absolute url-copied'} style={{}}>
-              Link copied!
-            </div>
-          )}
-        </div>
-      )}
-      {isMobile ? (
-        <div className="share-icon-container">
-          {clicked && (
-            <small
-              className={'small-font'}
-              style={invert && { color: 'white' }}
+    <div className={'issues-tile-header floating-share'}>
+      <div
+        className={'share-button-container noselect'}
+        onMouseEnter={() => {
+          setClicked(true);
+        }}
+        onMouseLeave={() => {
+          setClicked(false);
+          setLinkCopied(false);
+        }}
+        // Allow click to activate, deactivate share dropdown on mobile
+        onClick={() => isMobile && setClicked(!clicked)}
+        style={invert && { backgroundColor: 'black' }}
+        // onClick={(e) => {
+        //   e.preventDefault();
+        // }}
+      >
+        {clicked && (
+          <div className={'share-icons'}>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`${FACEBOOK_SHARE_URL}?u=${shareUrl}`}
             >
-              <strong>Share</strong>
-            </small>
-          )}
-          <div className={'share-icon'}>
-            <img style={invert && { filter: 'invert(1)' }} src={_SHARE} />
+              <FontAwesomeIcon
+                icon={faSquareFacebook}
+                onClick={(e) => {
+                  pickColor(e);
+                }}
+              />
+            </a>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`${TWEET_INTENT_URL}?text=${encodeURIComponent(
+                shareText
+              )}&url=${shareUrl}&hashtags=${SHARE_HASHTAGS.join(',')}`}
+            >
+              <FontAwesomeIcon
+                icon={faTwitter}
+                onClick={(e) => {
+                  pickColor(e);
+                }}
+              />
+            </a>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`${LINKEDIN_SHARE_URL}?url=${shareUrl}`}
+            >
+              <FontAwesomeIcon
+                icon={faLinkedinIn}
+                onClick={(e) => {
+                  pickColor(e);
+                }}
+              />
+            </a>
+            <a>
+              <FontAwesomeIcon
+                icon={faCopy}
+                onClick={(e) => {
+                  e.preventDefault();
+                  copyURL();
+                  pickColor(e);
+                  setLinkCopied(true);
+                }}
+              />
+            </a>
+            {linkCopied && (
+              <div className={'position-absolute url-copied'} style={{}}>
+                Link copied!
+              </div>
+            )}
           </div>
-        </div>
-      ) : (
-        <div className="share-icon-container share-icons">
-          {((!isMobile && !clicked) || (isMobile && clicked)) && <a>+Share</a>}
-        </div>
-      )}
+        )}
+        {isMobile ? (
+          <div className="share-icon-container">
+            {clicked && (
+              <small
+                className={'small-font'}
+                style={invert && { color: 'white' }}
+              >
+                <strong>Share</strong>
+              </small>
+            )}
+            <div className={'share-icon'}>
+              <img style={invert && { filter: 'invert(1)' }} src={_SHARE} />
+            </div>
+          </div>
+        ) : (
+          <div className="share-icon-container share-icons float-right">
+            {((!isMobile && !clicked) || (isMobile && clicked)) && (
+              <a>+Share</a>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
