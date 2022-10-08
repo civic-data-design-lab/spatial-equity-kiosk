@@ -365,11 +365,12 @@ export default function CommunityNav({
         )}
 
         <div>
-          <p className={'m-0 community-description'}>
+          <p
+            className={'m-0 community-description'}
+            style={{ padding: boundary == 'council' ? '' : '0' }}
+          >
             <span>
-              {(communities[compareSearch] &&
-                communities[compareSearch].name) ||
-                (councils[compareSearch] && councils[compareSearch].text)}
+              {councils[compareSearch] && councils[compareSearch].text}
 
               <a
                 className={'underline'}

@@ -160,7 +160,6 @@ export default function IssuesMiddleColumn({
         style={{
           height: communitySearch ? 'auto' : '0',
           display: communitySearch ? '' : 'none',
-          overflow: 'hidden',
         }}
       >
         <div
@@ -172,20 +171,33 @@ export default function IssuesMiddleColumn({
           }}
         >
           <h5 className="mb-0">
+            {compareSearch ? 'Compare ' : ''}
             {communitySearch
               ? boundary == 'council'
                 ? councils[communitySearch]
                   ? `City Council ${councils[communitySearch].name}`
                   : ''
                 : communities[communitySearch]
-                ? `${communities[communitySearch].name
-                    .split(' ')
-                    .slice(0, -1)
-                    .join(' ')} Community Board ${communities[
-                    communitySearch
-                  ].name
-                    .split(' ')
-                    .slice(-1)}`
+                ? !compareSearch
+                  ? `${communities[communitySearch].name
+                      .split(' ')
+                      .slice(0, -1)
+                      .join(' ')} Community Board ${communities[
+                      communitySearch
+                    ].name
+                      .split(' ')
+                      .slice(-1)}`
+                  : `${communities[communitySearch].name}`
+                : ''
+              : ''}
+            {compareSearch ? ' & ' : ''}
+            {compareSearch
+              ? boundary == 'council'
+                ? councils[compareSearch]
+                  ? `${councils[compareSearch].name}`
+                  : ''
+                : communities[compareSearch]
+                ? `${communities[compareSearch].name}`
                 : ''
               : ''}
           </h5>
@@ -320,6 +332,7 @@ export default function IssuesMiddleColumn({
         </div>
       </div>
 
+      {/* ENVIRO BAR COLLAPSED */}
       <div
         className={`${
           selectedIssue === 2
@@ -365,6 +378,7 @@ export default function IssuesMiddleColumn({
           {issue_categories.descriptions[selectedIssue]}
         </p>
       </div>
+      {/* ENVIRO BAR EXPANDED */}
       <div
         className={`${
           selectedIssue === 2 ? 'expand-issue' : ''
@@ -445,6 +459,7 @@ export default function IssuesMiddleColumn({
           )}
         </div>
       </div>
+      {/* MOBILITY BAR COLLAPSED */}
       <div
         className={`${
           selectedIssue === 3
@@ -489,6 +504,7 @@ export default function IssuesMiddleColumn({
           {issue_categories.descriptions[selectedIssue]}
         </p>
       </div>
+      {/* MOBILITY BAR EXPANDED */}
       <div
         className={`${
           selectedIssue === 3 ? 'expand-issue' : ''
@@ -570,6 +586,7 @@ export default function IssuesMiddleColumn({
         </div>
       </div>
 
+      {/* DEMOGRAPHICS TAB COLLAPSED */}
       <div
         className={`collapse-issue transition-height
                 ${selectedIssue ? '' : 'no-height'}
@@ -602,6 +619,7 @@ export default function IssuesMiddleColumn({
         </div>
       </div>
 
+      {/* DEMOGRAPHICS TAB EXPANDED */}
       <div
         className={`${showDemographics ? 'expand-issue' : ''} accordion-body`}
       >
