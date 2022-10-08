@@ -36,7 +36,6 @@ export default function CommunityMiddleColumn({
               className={`${'issues-chapters-active'} collapse-issue issues-chapters top-border transition-height`}
               style={{
                 height: communitySearch ? 'auto' : '0',
-                overflow: 'hidden',
               }}
             >
               <div
@@ -48,20 +47,33 @@ export default function CommunityMiddleColumn({
                 }}
               >
                 <h5 className="mb-0">
+                  {compareSearch ? 'Compare ' : ''}
                   {communitySearch
                     ? boundary == 'council'
                       ? councils[communitySearch]
                         ? `City Council ${councils[communitySearch].name}`
                         : ''
                       : communities[communitySearch]
-                      ? `${communities[communitySearch].name
-                          .split(' ')
-                          .slice(0, -1)
-                          .join(' ')} Community Board ${communities[
-                          communitySearch
-                        ].name
-                          .split(' ')
-                          .slice(-1)}`
+                      ? !compareSearch
+                        ? `${communities[communitySearch].name
+                            .split(' ')
+                            .slice(0, -1)
+                            .join(' ')} Community Board ${communities[
+                            communitySearch
+                          ].name
+                            .split(' ')
+                            .slice(-1)}`
+                        : `${communities[communitySearch].name}`
+                      : ''
+                    : ''}
+                  {compareSearch ? ' & ' : ''}
+                  {compareSearch
+                    ? boundary == 'council'
+                      ? councils[compareSearch]
+                        ? `${councils[compareSearch].name}`
+                        : ''
+                      : communities[compareSearch]
+                      ? `${communities[compareSearch].name}`
                       : ''
                     : ''}
                 </h5>

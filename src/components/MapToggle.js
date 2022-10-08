@@ -34,9 +34,12 @@ export default function MapToggle({
           className={'d-inline-block toggle-tooltip'}
           style={{
             position: 'absolute',
-            right: '6.5rem',
+            top: '4rem',
+            right: '0.5rem',
+            // right: '6.5rem',
             backgroundColor: 'black',
             padding: '0.5rem',
+            zIndex: '3',
           }}
         >
           {hover}

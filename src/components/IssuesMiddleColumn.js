@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import IssuesDropDown from './IssuesDropDown';
+import IssuesGrid from './IssuesGrid';
 import Demographics from './Demographics';
 import Legend from './Legend';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +9,8 @@ import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import categories from '../texts/issue_categories.json';
 import MapToggle from './MapToggle';
+
+import _ISSUE_CATEGORIES from '../texts/issue_categories.json';
 
 export default function IssuesMiddleColumn({
   issues,
@@ -143,28 +146,20 @@ export default function IssuesMiddleColumn({
   useEffect(() => {
     if (!selectedIssue) {
       setShowDemographics(false);
-      //setDemographic(null)
     }
   });
-
-  /*    useEffect(() => {
-                console.log("in use effect")
-                if (!selectedSpecificIssue) {
-                    setShowDemographics(false)
-                    console.log(showDemographics)
-                }
-            }, [selectedSpecificIssue])*/
 
   return (
     <div
       className={'d-flex flex-column position-relative'}
       style={{ height: '100vh' }}
     >
+      {/* SELECTED NEIGHBORHOOD BAR */}
       <div
         className={`${'issues-chapters-active'} collapse-issue issues-chapters top-border transition-height`}
         style={{
           height: communitySearch ? 'auto' : '0',
-          overflow: 'hidden',
+          display: communitySearch ? '' : 'none',
         }}
       >
         <div
@@ -176,20 +171,33 @@ export default function IssuesMiddleColumn({
           }}
         >
           <h5 className="mb-0">
+            {compareSearch ? 'Compare ' : ''}
             {communitySearch
               ? boundary == 'council'
                 ? councils[communitySearch]
                   ? `City Council ${councils[communitySearch].name}`
                   : ''
                 : communities[communitySearch]
-                ? `${communities[communitySearch].name
-                    .split(' ')
-                    .slice(0, -1)
-                    .join(' ')} Community Board ${communities[
-                    communitySearch
-                  ].name
-                    .split(' ')
-                    .slice(-1)}`
+                ? !compareSearch
+                  ? `${communities[communitySearch].name
+                      .split(' ')
+                      .slice(0, -1)
+                      .join(' ')} Community Board ${communities[
+                      communitySearch
+                    ].name
+                      .split(' ')
+                      .slice(-1)}`
+                  : `${communities[communitySearch].name}`
+                : ''
+              : ''}
+            {compareSearch ? ' & ' : ''}
+            {compareSearch
+              ? boundary == 'council'
+                ? councils[compareSearch]
+                  ? `${councils[compareSearch].name}`
+                  : ''
+                : communities[compareSearch]
+                ? `${communities[compareSearch].name}`
                 : ''
               : ''}
           </h5>
@@ -201,6 +209,9 @@ export default function IssuesMiddleColumn({
           />
         </div>
       </div>
+      {/* ADD COMPARE COMMUNITY BAR - COPY FROM ABOVE */}
+
+      {/* HEALTH BAR COLLAPSED */}
       <div
         className={`${selectedIssue === 1 ? 'issues-chapters-active' : ''} ${
           selectedIssue || showDemographics ? 'collapse-issue' : ''
@@ -233,35 +244,47 @@ export default function IssuesMiddleColumn({
           />
         </div>
         <p
-          className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}
+          className={` ${selectedIssue ? 'invis' : 'vis'} mb-0 small-font-vh`}
           style={{ padding: !selectedIssue ? '1rem' : '0rem' }}
         >
-          Policies about the use of public space in New York City affect the
-          physical and mental health of New Yorkers. Health indicators of
-          spatial equity include air pollution, asthma, noise pollution, traffic
-          injuries, and traffic fatalities.
+          {issue_categories.descriptions[selectedIssue]}
         </p>
       </div>
 
+      {/* HEALTH BAR EXPANDED */}
       <div
         className={`${
           selectedIssue === 1 ? 'expand-issue' : ''
         } accordion-body`}
       >
         <div className={'position-relative d-flex flex-column row-gap'}>
-          <IssuesDropDown
-            items={health_issues}
-            currentValue={selectedSpecificIssue}
-            setValue={setSelectedSpecificIssue}
-            setShowDemographics={setShowDemographics}
-            issues={issues}
-            issue_categories={issue_categories}
-            showDemographics={showDemographics}
-          />
+          {!selectedSpecificIssue && (
+            <IssuesGrid
+              items={health_issues}
+              currentValue={selectedSpecificIssue}
+              setValue={setSelectedSpecificIssue}
+              issues={issues}
+              issue_categories={issue_categories}
+              showDemographics={showDemographics}
+            />
+          )}
+          {selectedSpecificIssue && (
+            <IssuesDropDown
+              items={health_issues}
+              currentValue={selectedSpecificIssue}
+              setValue={setSelectedSpecificIssue}
+              setShowDemographics={setShowDemographics}
+              issues={issues}
+              issue_categories={issue_categories}
+              showDemographics={showDemographics}
+            />
+          )}
           {(!showMap || !showDemographics) && (
             <div>
               {!selectedSpecificIssue ? (
-                <p>{issue_categories.descriptions[selectedIssue]}</p>
+                <p className="small-font-vh">
+                  {issue_categories.descriptions[selectedIssue]}
+                </p>
               ) : (
                 <div>
                   <div>
@@ -309,6 +332,7 @@ export default function IssuesMiddleColumn({
         </div>
       </div>
 
+      {/* ENVIRO BAR COLLAPSED */}
       <div
         className={`${
           selectedIssue === 2
@@ -348,35 +372,47 @@ export default function IssuesMiddleColumn({
         </div>
 
         <p
-          className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}
+          className={`${selectedIssue ? 'invis' : 'vis'} mb-0 small-font-vh`}
           style={{ padding: !selectedIssue ? '1rem' : '0rem' }}
         >
-          Policies about the use of public space in New York City affect the
-          resilience and sustainability of the physical environment.
-          Environmental indicators of spatial equity include heat, parkland,
-          permeable surfaces, and trees.
+          {issue_categories.descriptions[selectedIssue]}
         </p>
       </div>
+      {/* ENVIRO BAR EXPANDED */}
       <div
         className={`${
           selectedIssue === 2 ? 'expand-issue' : ''
         } accordion-body`}
       >
         <div className={'position-relative d-flex flex-column row-gap'}>
-          <IssuesDropDown
-            items={environment_issues}
-            currentValue={selectedSpecificIssue}
-            setValue={setSelectedSpecificIssue}
-            setShowDemographics={setShowDemographics}
-            issues={issues}
-            issue_categories={issue_categories}
-            showDemographics={showDemographics}
-          />
+          {!selectedSpecificIssue && (
+            <IssuesGrid
+              items={environment_issues}
+              currentValue={selectedSpecificIssue}
+              setValue={setSelectedSpecificIssue}
+              issues={issues}
+              issue_categories={issue_categories}
+              showDemographics={showDemographics}
+            />
+          )}
+          {selectedSpecificIssue && (
+            <IssuesDropDown
+              items={environment_issues}
+              currentValue={selectedSpecificIssue}
+              setValue={setSelectedSpecificIssue}
+              setShowDemographics={setShowDemographics}
+              issues={issues}
+              issue_categories={issue_categories}
+              showDemographics={showDemographics}
+            />
+          )}
 
           {(!showMap || !showDemographics) && (
             <div className={''}>
               {!selectedSpecificIssue ? (
-                <p>{issue_categories.descriptions[selectedIssue]}</p>
+                <p className="small-font-vh">
+                  {issue_categories.descriptions[selectedIssue]}
+                </p>
               ) : (
                 <div>
                   <div>
@@ -423,6 +459,7 @@ export default function IssuesMiddleColumn({
           )}
         </div>
       </div>
+      {/* MOBILITY BAR COLLAPSED */}
       <div
         className={`${
           selectedIssue === 3
@@ -461,35 +498,47 @@ export default function IssuesMiddleColumn({
           />
         </div>
         <p
-          className={`${selectedIssue ? 'invis' : 'vis'} mb-0`}
+          className={`${selectedIssue ? 'invis' : 'vis'} mb-0 small-font-vh `}
           style={{ padding: !selectedIssue ? '1rem' : '0rem' }}
         >
-          Policies about the use of public space in New York City affect
-          mobility and access to the built environment. Mobility indicators of
-          spatial equity include bike parking, bus lanes and busways, bus
-          speeds, protected bike lanes, seating, and traffic density.
+          {issue_categories.descriptions[selectedIssue]}
         </p>
       </div>
+      {/* MOBILITY BAR EXPANDED */}
       <div
         className={`${
           selectedIssue === 3 ? 'expand-issue' : ''
         } accordion-body`}
       >
         <div className={'position-relative d-flex flex-column row-gap'}>
-          <IssuesDropDown
-            items={infrastructure_issues}
-            currentValue={selectedSpecificIssue}
-            setValue={setSelectedSpecificIssue}
-            setShowDemographics={setShowDemographics}
-            issues={issues}
-            issue_categories={issue_categories}
-            showDemographics={showDemographics}
-          />
+          {!selectedSpecificIssue && (
+            <IssuesGrid
+              items={infrastructure_issues}
+              currentValue={selectedSpecificIssue}
+              setValue={setSelectedSpecificIssue}
+              issues={issues}
+              issue_categories={issue_categories}
+              showDemographics={showDemographics}
+            />
+          )}
+          {selectedSpecificIssue && (
+            <IssuesDropDown
+              items={infrastructure_issues}
+              currentValue={selectedSpecificIssue}
+              setValue={setSelectedSpecificIssue}
+              setShowDemographics={setShowDemographics}
+              issues={issues}
+              issue_categories={issue_categories}
+              showDemographics={showDemographics}
+            />
+          )}
 
           {(!showMap || !showDemographics) && (
             <div className={''}>
               {!selectedSpecificIssue ? (
-                <p>{issue_categories.descriptions[selectedIssue]}</p>
+                <p className="small-font-vh">
+                  {issue_categories.descriptions[selectedIssue]}
+                </p>
               ) : (
                 <div>
                   <div>
@@ -537,6 +586,7 @@ export default function IssuesMiddleColumn({
         </div>
       </div>
 
+      {/* DEMOGRAPHICS TAB COLLAPSED */}
       <div
         className={`collapse-issue transition-height
                 ${selectedIssue ? '' : 'no-height'}
@@ -569,6 +619,7 @@ export default function IssuesMiddleColumn({
         </div>
       </div>
 
+      {/* DEMOGRAPHICS TAB EXPANDED */}
       <div
         className={`${showDemographics ? 'expand-issue' : ''} accordion-body`}
       >

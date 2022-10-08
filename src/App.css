@@ -397,17 +397,17 @@ a:active {
 
 }
 
-
-
-
 .break-text {
     word-wrap: break-word !important;
 }
 
 .dropdown-item:hover,
-.dropdown-item-active {
+.dropdown-item-active,
+.grid-item:hover,
+.grid-item-active {
     background-color: black !important;
     color: white !important;
+    cursor: pointer;
 }
 
 
@@ -1411,6 +1411,11 @@ a:active {
 
 .small-font {
     font-size: 0.8em;
+    font-weight: 500;
+}
+
+.small-font-vh {
+    font-size: 1.5vh;
     font-weight: 500;
 }
 
