@@ -247,11 +247,6 @@ const MapTooltip = ({
     }
 
     // return if (bike walk or transit)
-    console.log(
-      obj.properties,
-      selectedDemographic,
-      obj.properties[selectedDemographic]
-    );
     if (demographic == '5') {
       const value = [
         toggleTransit ? obj.properties[['F8_PubTran']] : 0,

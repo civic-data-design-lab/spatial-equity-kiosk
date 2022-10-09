@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import IssueProfile from './IssuesProfile';
-import RightColumnHeaders from './RightColumnHeaders';
+import RightColumnHeader from './RightColumnHeader';
 import { useEffect } from 'react';
 
 export default function CommunityRightColumn({
@@ -40,7 +40,7 @@ export default function CommunityRightColumn({
 
   return (
     <>
-      <RightColumnHeaders type="solutions" />
+      <RightColumnHeader type="solutions" />
       {!selectedSpecificIssue && (
         <div className={'d-flex flex-row h-100 col-gap standard-padding'}>
           <div className={'d-flex flex-row col-gap prompt'}>

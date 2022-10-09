@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import HistogramToggle from './HistogramToggle';
 
-export default function RightColumnHeaders({
+export default function RightColumnHeader({
   boundary,
   type = 'solutions',
   issues = null,

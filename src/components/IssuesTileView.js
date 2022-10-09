@@ -4,7 +4,7 @@ import ShareButton from './ShareButton';
 import IssueProfile from './IssuesProfile';
 import Histogram from './Histogram';
 import SourceInfo from './SourceInfo';
-import RightColumnHeaders from './RightColumnHeaders';
+import RightColumnHeader from './RightColumnHeader';
 import RightColumnFooter from './RightColumnFooter';
 
 import Typewriter from 'typewriter-effect';
@@ -146,7 +146,7 @@ export default function IssuesTileView({
               className={'issue-tile-viz position-relative'}
               style={{ outline: '1px solid black' }}
             >
-              <RightColumnHeaders
+              <RightColumnHeader
                 type={'histogram header'}
                 boundary={boundary}
                 issues={issues}
@@ -210,7 +210,7 @@ export default function IssuesTileView({
             >
               {!collapseMap && (
                 <>
-                  <RightColumnHeaders />
+                  <RightColumnHeader />
                   <IssueProfile
                     issues={issues}
                     selectedSpecificIssue={selectedSpecificIssue}

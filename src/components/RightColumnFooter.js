@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HistogramToggle from './HistogramToggle';
 import { faMinus, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 
-export default function RightColumnHeaders({
+export default function RightColumnFooter({
   boundary,
   useBoroughColor,
   setUseBoroughColor,

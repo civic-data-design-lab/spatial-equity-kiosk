@@ -149,6 +149,8 @@ export default function IssuesMiddleColumn({
     }
   });
 
+  console.log(environment_issues);
+
   return (
     <div
       className={'d-flex flex-column position-relative'}
@@ -652,6 +654,8 @@ export default function IssuesMiddleColumn({
             demoLookup={demoLookup}
             showMap={showMap}
             info={info}
+            issues={issues}
+            issue_categories={issue_categories}
           />
         </div>
       </div>
