@@ -123,7 +123,7 @@ export default function Demographics({
         <IssuesGrid
           type={'demographics'}
           items={Object.values(demographics)}
-          currentValue={selectedSpecificIssue}
+          currentValue={currentValue}
           setValue={setValue}
           issues={issues}
           issue_categories={issue_categories}

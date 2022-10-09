@@ -96,7 +96,7 @@ export default function IssuesGrid({
                   onMouseDown={() => {
                     setShowDropdownItems(false);
                     setDemoToggleText(item);
-                    setValue(index + 1);
+                    setValue(String(index + 1));
                   }}
                 >
                   <p className={'small-font-vh mb-0'}>{item}</p>
