@@ -5,6 +5,7 @@ import IssueProfile from './IssuesProfile';
 import Histogram from './Histogram';
 import SourceInfo from './SourceInfo';
 import RightColumnHeaders from './RightColumnHeaders';
+import RightColumnFooter from './RightColumnFooter';
 
 import Typewriter from 'typewriter-effect';
 import { useEffect } from 'react';
@@ -59,6 +60,9 @@ export default function IssuesTileView({
 }) {
   const [expand, setExpand] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
+  const [useBoroughColor, setUseBoroughColor] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
 
   useEffect(() => {
     let index = getRandomInt(0, backgroundImages.length);
@@ -143,7 +147,7 @@ export default function IssuesTileView({
               style={{ outline: '1px solid black' }}
             >
               <RightColumnHeaders
-                type={'histogram'}
+                type={'histogram header'}
                 boundary={boundary}
                 issues={issues}
                 selectedSpecificIssue={selectedSpecificIssue}
@@ -171,9 +175,33 @@ export default function IssuesTileView({
                     selectedCoord={selectedCoord}
                     setSelectedCoord={setSelectedCoord}
                     setSearchSource={setSearchSource}
+                    useBoroughColor={useBoroughColor}
+                    setUseBoroughColor={setUseBoroughColor}
+                    isHovering={isHovering}
+                    setIsHovering={setIsHovering}
+                    toggleDisplayMode={toggleDisplayMode}
+                    setToggleDisplayMode={setToggleDisplayMode}
                   />
                 )}
               </div>
+              <RightColumnFooter
+                boundary={boundary}
+                issues={issues}
+                selectedSpecificIssue={selectedSpecificIssue}
+                setSelectedChapter={setSelectedChapter}
+                setSelectedSpecificIssue={setSelectedSpecificIssue}
+                setMoreIssues={setMoreIssues}
+                useBoroughColor={useBoroughColor}
+                setUseBoroughColor={setUseBoroughColor}
+                isHovering={isHovering}
+                setIsHovering={setIsHovering}
+                councilPinned={councilPinned}
+                setCouncilPinned={setCouncilPinned}
+                communityPinned={communityPinned}
+                setCommunityPinned={setCommunityPinned}
+                toggleDisplayMode={toggleDisplayMode}
+                setToggleDisplayMode={setToggleDisplayMode}
+              />
             </div>
 
             <div

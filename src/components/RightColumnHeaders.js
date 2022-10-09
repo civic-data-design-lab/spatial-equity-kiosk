@@ -59,7 +59,7 @@ export default function RightColumnHeaders({
         </div>
       </div>
     );
-  } else if (type === 'histogram') {
+  } else if (type === 'histogram header') {
     return (
       <div className={'d-flex flex-column position-relative'}>
         <div

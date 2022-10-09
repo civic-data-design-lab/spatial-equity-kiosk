@@ -125,13 +125,16 @@ const Histogram = ({
   selectedCoord,
   setSelectedCoord,
   setSearchSource,
+  useBoroughColor,
+  setUseBoroughColor,
+  isHovering,
+  setIsHovering,
+  toggleDisplayMode,
+  setToggleDisplayMode,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
-  // let useBoroughColor = false;
-  // console.log("colorRampsyType ", colorRampsyType)
 
-  const [isHovering, setIsHovering] = useState(false);
   const [citywideExpand, setCitywideExpand] = useState(true);
 
   const getIssueStatement = (value, average) => {
@@ -208,9 +211,6 @@ const Histogram = ({
   // const [councilPinned, setCouncilPinned] = useState([])
   const [currentHoveredCommunityID, setCurrentHoveredCommunityID] =
     useState('');
-  const [useBoroughColor, setUseBoroughColor] = useState(false);
-
-  const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
 
   const [containerWidth, containerHeight] = useResizeObserver(containerRef);
 
@@ -1270,7 +1270,7 @@ const Histogram = ({
         )}
       </div>
 
-      <div
+      {/* <div
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr auto',
@@ -1299,12 +1299,6 @@ const Histogram = ({
           </p>
         </div>
 
-        {/* <HistogramToggle
-          boundary={boundary}
-          toggleDisplayMode={toggleDisplayMode}
-          setToggleDisplayMode={setToggleDisplayMode}
-        /> */}
-
         {!toggleDisplayMode && (
           <div>
             <div
@@ -1315,6 +1309,7 @@ const Histogram = ({
                 display: 'inline-block',
                 justifyContent: '',
                 width: 'auto',
+                whiteSpace: 'nowrap',
               }}
               onClick={() => {
                 setUseBoroughColor(!useBoroughColor);
@@ -1365,7 +1360,7 @@ const Histogram = ({
             Clear All <FontAwesomeIcon icon={faXmark} />
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

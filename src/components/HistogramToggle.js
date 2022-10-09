@@ -9,11 +9,10 @@ import {
   faChartSimple,
   faList,
   faDatabase,
+  faMap,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default function HistogramToggle({
-  showMap = true,
-  setShowMap,
   boundary,
   toggleDisplayMode,
   setToggleDisplayMode,
@@ -21,21 +20,13 @@ export default function HistogramToggle({
   const [hover, setHover] = useState(null);
 
   return (
-    <div
-      className="d-grid slide"
-      style={{
-        width: '6rem',
-        overflow: 'hidden',
-        gridTemplateColumns: 'auto auto',
-        alignItems: 'center',
-      }}
-    >
+    <>
       {hover && (
         <div
           className={'d-inline-block toggle-tooltip'}
           style={{
             position: 'absolute',
-            top: '4rem',
+            bottom: '4rem',
             right: '0.5rem',
             // right: '6.5rem',
             backgroundColor: 'black',
@@ -48,21 +39,14 @@ export default function HistogramToggle({
       )}
       <div className={`map-toggle-container`}>
         <div
-          className={`${!showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}
-          style={!showMap ? { borderRight: '2px solid black' } : {}}
+          className={`${
+            !toggleDisplayMode ? 'active-tag' : 'inactive-tag'
+          } map-toggle`}
           onClick={() => {
-            // setShowMap(false);
             setToggleDisplayMode(false);
-            // switch to histogram here
           }}
           onMouseEnter={() => {
-            setHover(
-              `Rank ${
-                boundary === 'council'
-                  ? 'council districts'
-                  : 'community boards'
-              }`
-            );
+            setHover(`Show Histogram`);
           }}
           onMouseLeave={() => {
             setHover(null);
@@ -71,19 +55,14 @@ export default function HistogramToggle({
           <FontAwesomeIcon icon={faChartSimple} />
         </div>
         <div
-          className={`active-tag map-toggle`}
-          style={{ border: '2px solid black' }}
+          className={`${
+            toggleDisplayMode ? 'active-tag' : 'inactive-tag'
+          } map-toggle`}
           onClick={() => {
             setToggleDisplayMode(true);
-            // setShowMap(true);
-            // switch to ranking view here
           }}
           onMouseEnter={() => {
-            setHover(
-              `Map ${
-                boundary == 'council' ? 'council districts' : 'community boards'
-              }`
-            );
+            setHover(`Show List`);
           }}
           onMouseLeave={() => {
             setHover(null);
@@ -92,6 +71,6 @@ export default function HistogramToggle({
           <FontAwesomeIcon icon={faList} />
         </div>
       </div>
-    </div>
+    </>
   );
 }
