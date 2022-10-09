@@ -1611,6 +1611,11 @@ a:active {
 .table>thead {
     background-color: black;
     color: white;
+    border-color: black;
+}
+
+.table>tbody {
+    border: 1px solid black;
 }
 
 .form-check-input:checked {
@@ -1849,7 +1854,11 @@ input:checked+.slider:before {
 
 .transit-toggle *:not(:first-child) {
     padding: 0 0 0 0.5rem;
+}
 
+.transit-toggle form div {
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 #assistive-touch-div {

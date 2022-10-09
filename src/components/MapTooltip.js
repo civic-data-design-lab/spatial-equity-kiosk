@@ -247,14 +247,24 @@ const MapTooltip = ({
     }
 
     // return if (bike walk or transit)
+    console.log(
+      obj.properties,
+      selectedDemographic,
+      obj.properties[selectedDemographic]
+    );
     if (demographic == '5') {
+      const value = [
+        toggleTransit ? obj.properties[['F8_PubTran']] : 0,
+        toggleBike ? obj.properties[['F6_bike']] : 0,
+        toggleWalk ? obj.properties[['F11_Walk']] : 0,
+      ].reduce((a, b) => a + b, 0);
       return (
         <div className="map-tooltip-info">
           {toggleTransit || toggleBike || toggleWalk
             ? `${getNumber(
-                obj.properties[selectedDemographic]
+                value
               )}% of ${midSentence} ${transportationModes.toLowerCase()}.`
-            : `Check off one of the transportation options above the demographics legend to see how people are getting around.`}
+            : `Check off one of the transportation options to see how people are getting around.`}
         </div>
       );
     }

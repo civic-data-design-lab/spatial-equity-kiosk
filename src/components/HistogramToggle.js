@@ -5,15 +5,9 @@ import { default as _TILE_WHITE } from '../img/tile_white.svg';
 import { default as _TILE_BLACK } from '../img/tile_black.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChartSimple,
-  faList,
-  faDatabase,
-  faMap,
-} from '@fortawesome/free-solid-svg-icons';
+import { faChartSimple, faList } from '@fortawesome/free-solid-svg-icons';
 
 export default function HistogramToggle({
-  boundary,
   toggleDisplayMode,
   setToggleDisplayMode,
 }) {
