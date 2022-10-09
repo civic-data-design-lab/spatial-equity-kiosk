@@ -719,7 +719,7 @@ a:active {
 }
 
 .issue-tile-viz>*:not(:first-child):not(.histogram-responsive-box) {
-    padding: 1.5rem;
+    /* padding: 1.5rem; */
 }
 
 /* .issue-tile-viz .issues-chapters-active {
