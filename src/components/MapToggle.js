@@ -5,7 +5,7 @@ import { default as _TILE_WHITE } from '../img/tile_white.svg';
 import { default as _TILE_BLACK } from '../img/tile_black.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartSimple, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faDatabase, faMap } from '@fortawesome/free-solid-svg-icons';
 
 export default function MapToggle({
   showToggle = false,
@@ -16,15 +16,7 @@ export default function MapToggle({
   const [hover, setHover] = useState(null);
 
   return (
-    <div
-      className="d-grid slide"
-      style={{
-        width: '6rem',
-        overflow: 'hidden',
-        gridTemplateColumns: 'auto auto',
-        alignItems: 'center',
-      }}
-    >
+    <>
       {hover && (
         <div
           className={'d-inline-block toggle-tooltip'}
@@ -32,7 +24,6 @@ export default function MapToggle({
             position: 'absolute',
             top: '4rem',
             right: '0.5rem',
-            // right: '6.5rem',
             backgroundColor: 'black',
             padding: '0.5rem',
             zIndex: '3',
@@ -44,7 +35,6 @@ export default function MapToggle({
       <div className={`${showToggle ? '' : 'd-none'} map-toggle-container`}>
         <div
           className={`${!showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}
-          style={!showMap ? { borderRight: '2px solid black' } : {}}
           onClick={() => {
             setShowMap(false);
           }}
@@ -61,11 +51,10 @@ export default function MapToggle({
             setHover(null);
           }}
         >
-          <FontAwesomeIcon icon={faChartSimple} />
+          <FontAwesomeIcon icon={faDatabase} />
         </div>
         <div
           className={`${showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}
-          style={showMap ? { borderLeft: '2px solid black' } : {}}
           onClick={() => {
             setShowMap(true);
           }}
@@ -80,9 +69,9 @@ export default function MapToggle({
             setHover(null);
           }}
         >
-          <FontAwesomeIcon icon={faGlobe} />
+          <FontAwesomeIcon icon={faMap} />
         </div>
       </div>
-    </div>
+    </>
   );
 }

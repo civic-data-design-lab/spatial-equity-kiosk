@@ -2,15 +2,17 @@ function getNumber(value) {
   if (typeof value === 'number') {
     const num = Number(value);
     const string = value.toString();
-    // console.log(num);
+    const wholeNumber = String(num.toFixed(2).split('.'))[1];
 
     return Math.abs(num) == 0
       ? Math.abs(num)
-      : Math.abs(num) > 10 || (string[string.length - 1] == 0 && string[0] != 0)
+      : wholeNumber == '00'
+      ? Number(num.toFixed(0))
+      : Math.abs(num) > 10
       ? Number(num.toFixed(1))
       : Math.abs(num) > 1
       ? Number(num.toFixed(2))
-      : Number(num.toFixed(3));
+      : Number(num.toFixed(2));
   }
 }
 

@@ -1070,9 +1070,9 @@ a:active {
     display: grid;
     grid-template-columns: 1fr 1fr;
     cursor: pointer;
-    border: 2px solid black;
     overflow: hidden;
-
+    gap: 2px;
+    border: 2px solid black;
 }
 
 .map-toggle {
@@ -1753,6 +1753,11 @@ a:active {
 
 .transition-height {
     transition: max-height 0.5s, font-size 0.5s, opacity 0.5s;
+}
+
+.chart-footer:hover {
+    text-decoration: underline;
+
 }
 
 
