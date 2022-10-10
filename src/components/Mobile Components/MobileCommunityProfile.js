@@ -790,7 +790,7 @@ export default function MobileCommunityProfile({
                 {selectedSpecificIssue && (
                   <>
                     <div
-                      style={{ flex: 1, height: '70vh' }}
+                      style={{ flex: 1, height: '80vh' }}
                       className={'histogram-responsive-box'}
                     >
                       <Histogram

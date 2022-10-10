@@ -44,16 +44,16 @@ Public health, mobility, and the environment are affected by local policies abou
       <div
         className={'share-button-container noselect'}
         onMouseEnter={() => {
-          setClicked(true);
+          if (!isMobile) setClicked(true);
           setShareExpanded(true);
         }}
         onMouseLeave={() => {
-          setClicked(false);
+          if (!isMobile) setClicked(false);
           setLinkCopied(false);
           setShareExpanded(false);
         }}
         // Allow click to activate, deactivate share dropdown on mobile
-        onClick={() => isMobile && setClicked(!clicked)}
+        // onClick={() => isMobile && setClicked(!clicked)}
         style={invert && { backgroundColor: 'black' }}
       >
         {clicked && (
