@@ -1667,7 +1667,6 @@ a:active {
 }
 
 .mobile-community-search-screen .community-search {
-    background-color: white;
     color: black;
 }
 
@@ -2361,6 +2360,16 @@ input:checked+.slider:before {
 
 
 @media screen and (max-width: 576px) {
+
+    .typewriter-container > * {
+        /* padding: 1rem 0; */
+        line-height:4rem
+    }
+    .typewriter-container > * > *:not(:last-child) {
+        color: white;
+        background-color: black;
+        padding: 0.5rem;
+    }
 
 
     ::-webkit-scrollbar {

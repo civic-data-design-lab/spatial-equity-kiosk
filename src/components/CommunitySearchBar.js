@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faMinus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRight,
+  faMinus,
+  faSleigh,
+} from '@fortawesome/free-solid-svg-icons';
 
 import axios from 'axios';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
@@ -11,6 +15,7 @@ const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 const NYC_BBOX = '-74.25,40.5,-73.7,40.9';
 
 export default function CommunitySearchBar({
+  isMobile = false,
   toggleValue,
   callBack,
   communitySearch,
@@ -34,8 +39,8 @@ export default function CommunitySearchBar({
   setCommunitySearch,
   setUserPoints,
   userPoints,
-    setResize=null,
-    setResizeIssues=null
+  setResize = null,
+  setResizeIssues = null,
 }) {
   const [value, setValue] = useState('');
   const [focus, setFocus] = useState(false);
@@ -215,7 +220,7 @@ export default function CommunitySearchBar({
         <input
           type={'search'}
           id={forSearch ? 'community-search' : 'compare-search'}
-          className={`community-search w-100`}
+          className={`community-search w-100 ${isMobile ? `border-0` : ''}`}
           placeholder={'Search for a District, Neighborhood, or Address'}
           style={{
             borderColor:
@@ -226,9 +231,9 @@ export default function CommunitySearchBar({
           }}
           onClick={(e) => {
             e.stopPropagation();
-            console.log("HERRE")
+            console.log('HERRE');
             setResize(true);
-            setResizeIssues(false)
+            setResizeIssues(false);
             callBack(null);
             if (forSearch) {
               setUserPoints([[], userPoints[1]]);

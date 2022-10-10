@@ -314,6 +314,7 @@ export default function MobileCommunityProfile({
               }}
             >
               <CommunitySearchBar
+                isMobile={true}
                 setResize={setResize}
                 setResizeIssues={setResizeIssues}
                 selectedCompareCoord={selectedCompareCoord}
@@ -652,7 +653,14 @@ export default function MobileCommunityProfile({
           <div
             className={'d-flex flex-column align-items-start w-100 mt-3 mb-3'}
           >
-            <p className={'m-0'} style={{ fontSize: '1.75rem' }}>
+            <p
+              className={'m-0 p-2 lh-sm'}
+              style={{
+                fontSize: '1.75rem',
+                color: 'white',
+                backgroundColor: 'black',
+              }}
+            >
               Try searching for
             </p>
 
