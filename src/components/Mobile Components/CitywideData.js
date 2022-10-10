@@ -552,8 +552,12 @@ export default function CitywideData({
                   if (selectedSpecificIssue !== id) {
                     setSelectedSpecificIssue(id);
                     setSelectedIssue(1);
+                    setShowDropDown(false);
+                    setShowSubDropDown(false);
                   } else {
                     setSelectedSpecificIssue(null);
+                    setShowDropDown(false);
+                    setShowSubDropDown(false);
                   }
                 }}
               >
@@ -623,8 +627,12 @@ export default function CitywideData({
                   if (selectedSpecificIssue !== id) {
                     setSelectedSpecificIssue(id);
                     setSelectedIssue(2);
+                    setShowDropDown(false);
+                    setShowSubDropDown(false);
                   } else {
                     setSelectedSpecificIssue(null);
+                    setShowDropDown(false);
+                    setShowSubDropDown(false);
                   }
                 }}
               >
@@ -694,8 +702,12 @@ export default function CitywideData({
                   if (selectedSpecificIssue !== id) {
                     setSelectedSpecificIssue(id);
                     setSelectedIssue(3);
+                    setShowDropDown(false);
+                    setShowSubDropDown(false);
                   } else {
                     setSelectedSpecificIssue(null);
+                    setShowDropDown(false);
+                    setShowSubDropDown(false);
                   }
                 }}
               >

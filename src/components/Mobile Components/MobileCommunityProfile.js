@@ -23,6 +23,7 @@ import Demographics from '../Demographics';
 import Carousel from '../Carousel';
 import Legend from '../Legend';
 import BoundaryToggle from '../BoundaryToggle';
+import Typewriter from 'typewriter-effect';
 
 export default function MobileCommunityProfile({
   selectedChapter,
@@ -284,31 +285,13 @@ export default function MobileCommunityProfile({
         style={{
           padding: !communitySearch ? '1rem' : '0',
           height: communitySearch ? '0' : 'calc(100vh - 4.025rem - .3vw)',
-          //padding: 0,
-          //height: 0,
         }}
       >
-        {!communitySearch && (
-          <BoundaryToggle
-            boundary={boundary}
-            setBoundary={setBoundary}
-            setCompareSearch={setCompareSearch}
-            setCommunitySearch={setCommunitySearch}
-            setSelectedCoord={setSelectedCoord}
-            setselectedCompareCoord={setselectedCompareCoord}
-            badSearch={badSearch}
-            setBadSearch={setBadSearch}
-          />
-        )}
-
-        <div className={'d-flex flex-row'}>
+        <div className={'d-flex flex-row '}>
           <div
             style={{
+              width: '100%',
               position: 'relative',
-              width:
-                !communitySearch && !showMap
-                  ? 'calc(100vw - 2rem - 2px)'
-                  : 'calc(100vw - 10vh)',
               display: 'flex',
               flexDirection: 'row',
             }}
@@ -664,40 +647,44 @@ export default function MobileCommunityProfile({
               </div>
             )}
           </div>
-
-          {communitySearch && (
-            <>
-              <div
-                onClick={() => {
-                  setShowMap(false);
-                }}
-                className={`mobile-map-toggle ${
-                  showMap ? 'inactive-scheme' : 'active-scheme'
-                }`}
-              >
-                {showMap ? (
-                  <img src={_TILE_BLACK} />
-                ) : (
-                  <img src={_TILE_WHITE} />
-                )}
-              </div>
-              <div
-                onClick={() => {
-                  setShowMap(true);
-                }}
-                className={`mobile-map-toggle ${
-                  !showMap ? 'inactive-scheme' : 'active-scheme'
-                }`}
-              >
-                {showMap ? (
-                  <img src={_GLOBE_WHITE} />
-                ) : (
-                  <img src={_GLOBE_BLACK} />
-                )}
-              </div>
-            </>
-          )}
         </div>
+        {!communitySearch && (
+          <div
+            className={'d-flex flex-column align-items-start w-100 mt-3 mb-3'}
+          >
+            <p className={'m-0'} style={{ fontSize: '1.75rem' }}>
+              Try searching for
+            </p>
+
+            <div className={'typewriter-container'}>
+              <Typewriter
+                options={{
+                  strings:
+                    boundary === 'community'
+                      ? [
+                          'your address',
+                          'Hamilton Heights',
+                          '111 John Street',
+                          'Bronx 9',
+                          'Bedford Stuyvesant',
+                          '350 5th Avenue',
+                        ]
+                      : [
+                          'your address',
+                          'Washington Heights',
+                          '350 5th Avenue',
+                          'District 5',
+                          '111 John Street',
+                          'Bensonhurst',
+                        ],
+                  autoStart: true,
+                  loop: true,
+                  pauseFor: 2000,
+                }}
+              />
+            </div>
+          </div>
+        )}
 
         {!showMap && communitySearch && (
           <>

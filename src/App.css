@@ -1704,7 +1704,6 @@ a:active {
 }
 
 .mobile-community-search-screen .community-search {
-    border-top: none;
     height: calc(5vh - 1px);
 }
 
@@ -2758,6 +2757,10 @@ input:checked+.slider:before {
     transition: padding 0.2s 0.1s, font-size 0.2s 0.1s;
 }
 
+.mobile-map{
+    overflow:hidden;
+}
+
 .mobile-map-toggle {
     height: 100%;
     width: 5vh;
@@ -2767,8 +2770,6 @@ input:checked+.slider:before {
 }
 
 .mobile-community-search-screen {
-    background-color: white;
-    z-index: 1;
     transition: height 0.5s, padding 0.4s;
 }
 
