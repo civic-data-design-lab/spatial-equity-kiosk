@@ -77,15 +77,8 @@ export default function Content({
   return (
     <div className={`d-flex flex-row col-9`}>
       <div
-        /*className={`middle-column h-100 ${selectedChapter === 2 ||
-                        (selectedChapter === 3 && communitySearch && showMap)
-                        ? "col-4 no-top-border"
-                        : selectedChapter === 3 && communitySearch && !showMap
-                            ? "col-6"
-                            : "collapsed-middle-column"
-                    }`}*/
 
-        className={`middle-column h-100 ${
+        className={`${!showMap ? `d-flex flex-column` : ''} middle-column h-100 ${
           selectedChapter === 1 || selectedChapter === 4 || !selectedChapter
             ? 'collapsed-middle-column'
             : selectedChapter === 2
@@ -182,7 +175,7 @@ export default function Content({
       </div>
 
       <div
-        className={`h-100 flex-grow-1 ${
+        className={`d-flex flex-column h-100 flex-grow-1 ${
           !selectedChapter || selectedChapter === 1 ? 'no-left-border' : ''
         } ${
           selectedChapter === 3 && communitySearch && !selectedSpecificIssue

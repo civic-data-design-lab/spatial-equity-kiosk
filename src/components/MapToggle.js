@@ -5,7 +5,7 @@ import { default as _TILE_WHITE } from '../img/tile_white.svg';
 import { default as _TILE_BLACK } from '../img/tile_black.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDatabase, faMap } from '@fortawesome/free-solid-svg-icons';
+import { faDatabase, faGlobe } from '@fortawesome/free-solid-svg-icons';
 
 export default function MapToggle({
   showToggle = false,
@@ -69,7 +69,7 @@ export default function MapToggle({
             setHover(null);
           }}
         >
-          <FontAwesomeIcon icon={faMap} />
+          <FontAwesomeIcon icon={faGlobe} />
         </div>
       </div>
     </>

@@ -205,7 +205,7 @@ export default function IssuesTileView({
             </div>
 
             <div
-              className={'col-6 w-50'}
+              className={'d-flex flex-column col-6 w-50'}
               style={{ outline: '1px solid black' }}
             >
               {!collapseMap && (
