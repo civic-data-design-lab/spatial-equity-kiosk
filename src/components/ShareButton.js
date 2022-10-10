@@ -13,8 +13,12 @@ const TWEET_INTENT_URL = 'https://twitter.com/intent/tweet';
 const FACEBOOK_SHARE_URL = 'https://www.facebook.com/sharer/sharer.php';
 const LINKEDIN_SHARE_URL = 'https://linkedin.com/sharing/share-offsite';
 
-export default function ShareButton({ isMobile, invert }) {
-  const [clicked, setClicked] = useState(false);
+export default function ShareButton({
+  isMobile,
+  invert,
+  setShareExpanded = null,
+}) {
+  const [clicked, setClicked] = useState(isMobile ? true : false);
   const [shareText, setShareText] = useState(
     `Not all streets are created equal.
 Public health, mobility, and the environment are affected by local policies about the use of public space. Check out where your community ranks with #SpatialEquityNYC — a new tool from @transalt and @MITLCAU. `
@@ -33,25 +37,28 @@ Public health, mobility, and the environment are affected by local policies abou
   };
 
   return (
-    <div className={'issues-tile-header floating-share'}>
+    <div
+      className={'issues-tile-header floating-share'}
+      style={{ justifyContent: isMobile ? 'flex-start' : '' }}
+    >
       <div
         className={'share-button-container noselect'}
         onMouseEnter={() => {
           setClicked(true);
+          setShareExpanded(true);
         }}
         onMouseLeave={() => {
           setClicked(false);
           setLinkCopied(false);
+          setShareExpanded(false);
         }}
         // Allow click to activate, deactivate share dropdown on mobile
         onClick={() => isMobile && setClicked(!clicked)}
         style={invert && { backgroundColor: 'black' }}
-        // onClick={(e) => {
-        //   e.preventDefault();
-        // }}
       >
         {clicked && (
           <div className={'share-icons'}>
+            {isMobile && <a>+Share</a>}
             <a
               target="_blank"
               rel="noreferrer"
@@ -108,21 +115,8 @@ Public health, mobility, and the environment are affected by local policies abou
             )}
           </div>
         )}
-        {isMobile ? (
-          <div className="share-icon-container">
-            {clicked && (
-              <small
-                className={'small-font'}
-                style={invert && { color: 'white' }}
-              >
-                <strong>Share</strong>
-              </small>
-            )}
-            <div className={'share-icon'}>
-              <img style={invert && { filter: 'invert(1)' }} src={_SHARE} />
-            </div>
-          </div>
-        ) : (
+
+        {!isMobile && (
           <div className="share-icon-container share-icons float-right">
             {((!isMobile && !clicked) || (isMobile && clicked)) && (
               <a>+Share</a>

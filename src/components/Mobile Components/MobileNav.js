@@ -1,22 +1,47 @@
 import ISSUES_CATEGORIES from '../../texts/issue_categories.json';
+import BoundaryToggle from '../BoundaryToggle';
+import ShareButton from '../ShareButton';
 
 export default function MobileNav({
   setShowMenu,
   showMenu,
   selectedChapter,
   setSelectedChapter,
+
+  boundary,
+  setBoundary,
+  setCompareSearch,
+  setCommunitySearch,
+  setSelectedCoord,
+  setselectedCompareCoord,
+  badSearch,
+  setBadSearch,
 }) {
   return (
-    <>
+    <div style={{ backgroundColor: 'white' }}>
       <div
         className={`mobile-nav`}
         style={{ height: showMenu ? 'calc(100vh - (4.025rem + .3vw))' : '0' }}
       >
+        {showMenu && (
+          <BoundaryToggle
+            isMobile={true}
+            boundary={boundary}
+            setBoundary={setBoundary}
+            setCompareSearch={setCompareSearch}
+            setCommunitySearch={setCommunitySearch}
+            setSelectedCoord={setSelectedCoord}
+            setselectedCompareCoord={setselectedCompareCoord}
+            badSearch={badSearch}
+            setBadSearch={setBadSearch}
+          />
+        )}
+
         <div
           className={`mobile-nav-chapter
             ${
               showMenu
-                ? 'grow big-padding regular-border'
+                ? 'grow big-padding regular-border border-0'
                 : 'shrink no-padding border-none'
             }
             ${selectedChapter === 1 ? 'active-scheme' : 'inactive-scheme'}
@@ -153,9 +178,21 @@ export default function MobileNav({
             Take Action{' '}
           </p>
         </div>
+
+        {showMenu && (
+          <div
+            className={`mobile-nav-chapter
+            ${
+              showMenu
+                ? 'big-padding regular-border'
+                : 'shrink no-padding border-none'
+            }
+            active-scheme`}
+          >
+            <ShareButton isMobile={true} />
+          </div>
+        )}
       </div>
-    </>
-
-
+    </div>
   );
 }

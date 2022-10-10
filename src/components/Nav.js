@@ -11,7 +11,7 @@ import _CDDL from '../img/cddl_logo_white.svg';
 import _LCAU from '../img/Logo_LCAU logo_white.svg';
 import _MIT from '../img/MIT-logo-white.svg';
 import _TA from '../img/ta_logo_BW_icon.svg';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import ShareButton from './ShareButton';
 
 function Nav({
@@ -57,12 +57,13 @@ function Nav({
   const selectedCoordsCache = useRef(null);
   const selectedCommunitiesCache = useRef(null);
   const viewStateCache = useRef(null);
+  const [shareExpanded, setShareExpanded] = useState(null);
 
   return (
     <div className={'col-3 h-100 d-flex flex-column'} style={{ zIndex: 3 }}>
       {/* SPATIAL EQUITY NYC CHAPTER NAV */}
       <div
-        className={`nav-chapters d-flex flex-column justify-content-between top-border
+        className={`position-relative nav-chapters d-flex flex-column justify-content-between top-border
              ${
                !selectedChapter
                  ? ''
@@ -72,23 +73,28 @@ function Nav({
              }
              ${selectedChapter === 2 ? 'bottom-highlight' : ''}`}
         onClick={() => {
-          //setSelectedIssue(null)
-          //setSelectedSpecificIssue(null)
-          setMoreIssuesLength(0);
-          setMoreIssues([]);
-          setMapDemographics(false);
-          if (selectedChapter === 3) {
-            selectedCoordsCache.current = userPoints;
-            selectedCommunitiesCache.current = [communitySearch, compareSearch];
-            viewStateCache.current = viewState;
-          }
-          if (selectedChapter !== 1) {
-            setSelectedChapter(1);
-            setShowMap(false);
-            setCollapseMap(false);
-          } else {
-            setSelectedChapter(null);
-            setShowMap(false);
+          if (!shareExpanded) {
+            //setSelectedIssue(null)
+            //setSelectedSpecificIssue(null)
+            setMoreIssuesLength(0);
+            setMoreIssues([]);
+            setMapDemographics(false);
+            if (selectedChapter === 3) {
+              selectedCoordsCache.current = userPoints;
+              selectedCommunitiesCache.current = [
+                communitySearch,
+                compareSearch,
+              ];
+              viewStateCache.current = viewState;
+            }
+            if (selectedChapter !== 1) {
+              setSelectedChapter(1);
+              setShowMap(false);
+              setCollapseMap(false);
+            } else {
+              setSelectedChapter(null);
+              setShowMap(false);
+            }
           }
         }}
       >
@@ -151,13 +157,15 @@ function Nav({
               unequal outcomes and what you can do about it.{' '}
             </h6>
           </div>
-          {selectedChapter === 1 && <ShareButton />}
+          {selectedChapter === 1 && (
+            <ShareButton setShareExpanded={setShareExpanded} />
+          )}
         </div>
       </div>
 
       {/* CITYWIDE CHAPTER NAV */}
       <div
-        className={`nav-chapters d-flex flex-column
+        className={`position-relative nav-chapters d-flex flex-column
              ${
                !selectedChapter
                  ? ''
@@ -167,34 +175,39 @@ function Nav({
              }
              ${selectedChapter === 3 ? 'bottom-highlight' : ''}`}
         onClick={() => {
-          setMapDemographics(false);
-          setMoreIssuesLength(0);
-          setMoreIssues([]);
-          if (selectedChapter === 3) {
-            selectedCoordsCache.current = userPoints;
-            selectedCommunitiesCache.current = [communitySearch, compareSearch];
-            viewStateCache.current = viewState;
-          }
-          setCommunitySearch(null);
-          setCompareSearch(null);
-          setShowMap(false);
-          if (selectedChapter !== 2) {
-            setSelectedChapter(2);
+          if (!shareExpanded) {
+            setMapDemographics(false);
+            setMoreIssuesLength(0);
+            setMoreIssues([]);
+            if (selectedChapter === 3) {
+              selectedCoordsCache.current = userPoints;
+              selectedCommunitiesCache.current = [
+                communitySearch,
+                compareSearch,
+              ];
+              viewStateCache.current = viewState;
+            }
+            setCommunitySearch(null);
+            setCompareSearch(null);
+            setShowMap(false);
+            if (selectedChapter !== 2) {
+              setSelectedChapter(2);
+              setCollapseMap(false);
+              //setSearchSource(null);
+              setUserPoints([], []);
+              setBadSearch([0, 0]);
+              if (selectedChapterCache.current)
+                setSelectedSpecificIssue(selectedChapterCache.current);
+            } else {
+              setSelectedChapter(null);
+            }
             setCollapseMap(false);
-            //setSearchSource(null);
+            setSearchSource(null);
             setUserPoints([], []);
             setBadSearch([0, 0]);
-            if (selectedChapterCache.current)
-              setSelectedSpecificIssue(selectedChapterCache.current);
-          } else {
-            setSelectedChapter(null);
+            setCommunitySearch(null);
+            setCompareSearch(null);
           }
-          setCollapseMap(false);
-          setSearchSource(null);
-          setUserPoints([], []);
-          setBadSearch([0, 0]);
-          setCommunitySearch(null);
-          setCompareSearch(null);
         }}
       >
         <div>
@@ -236,13 +249,15 @@ function Nav({
               setBadSearch={setBadSearch}
             />
           </div>
-          {selectedChapter == 2 && <ShareButton />}
+          {selectedChapter == 2 && (
+            <ShareButton setShareExpanded={setShareExpanded} />
+          )}
         </div>
       </div>
 
       {/* COMMUNITY PROFILES CHAPTER NAV */}
       <div
-        className={`nav-chapters d-flex flex-column
+        className={`position-relative nav-chapters d-flex flex-column
              ${
                !selectedChapter
                  ? ''
@@ -252,38 +267,43 @@ function Nav({
              }
              ${selectedChapter === 4 ? 'bottom-highlight' : ''}`}
         onClick={() => {
-          setMapDemographics(false);
-          /*setCommunitySearch(null);
+          if (!shareExpanded) {
+            setMapDemographics(false);
+            /*setCommunitySearch(null);
                     setCompareSearch(null);*/
-          if (selectedChapter !== 3) {
-            setSelectedChapter(3);
-            setCollapseMap(false);
-            //setSearchSource(null);
-            setUserPoints([], []);
-            setBadSearch([0, 0]);
+            if (selectedChapter !== 3) {
+              setSelectedChapter(3);
+              setCollapseMap(false);
+              //setSearchSource(null);
+              setUserPoints([], []);
+              setBadSearch([0, 0]);
 
-            selectedChapterCache.current = selectedSpecificIssue;
-            //setSelectedSpecificIssue(null);
-            if (selectedCoordsCache?.current)
-              setUserPoints(selectedCoordsCache.current);
-            if (selectedCommunitiesCache?.current[0])
-              setCommunitySearch(selectedCommunitiesCache?.current[0]);
-            if (selectedCommunitiesCache?.current[1])
-              setCompareSearch(selectedCommunitiesCache?.current[1]);
-            if (viewStateCache?.current) setViewState(viewStateCache.current);
-          } else {
-            setSelectedChapter(null);
-            selectedCoordsCache.current = userPoints;
-            selectedCommunitiesCache.current = [communitySearch, compareSearch];
-            viewStateCache.current = viewState;
+              selectedChapterCache.current = selectedSpecificIssue;
+              //setSelectedSpecificIssue(null);
+              if (selectedCoordsCache?.current)
+                setUserPoints(selectedCoordsCache.current);
+              if (selectedCommunitiesCache?.current[0])
+                setCommunitySearch(selectedCommunitiesCache?.current[0]);
+              if (selectedCommunitiesCache?.current[1])
+                setCompareSearch(selectedCommunitiesCache?.current[1]);
+              if (viewStateCache?.current) setViewState(viewStateCache.current);
+            } else {
+              setSelectedChapter(null);
+              selectedCoordsCache.current = userPoints;
+              selectedCommunitiesCache.current = [
+                communitySearch,
+                compareSearch,
+              ];
+              viewStateCache.current = viewState;
+            }
+            setCollapseMap(false);
+            setSearchSource(null);
+            setUserPoints([], []);
+            setCommunitySearch(null);
+            setCompareSearch(null);
+            setBadSearch([0, 0]);
+            setAddCompare(false);
           }
-          setCollapseMap(false);
-          setSearchSource(null);
-          setUserPoints([], []);
-          setCommunitySearch(null);
-          setCompareSearch(null);
-          setBadSearch([0, 0]);
-          setAddCompare(false);
         }}
       >
         <div>
@@ -349,13 +369,15 @@ function Nav({
             userPoints={userPoints}
             selectedChapter={selectedChapter}
           />
-          {selectedChapter == 3 && <ShareButton />}
+          {selectedChapter == 3 && (
+            <ShareButton setShareExpanded={setShareExpanded} />
+          )}
         </div>
       </div>
 
       {/* TAKE ACTION CHAPTER NAV */}
       <div
-        className={`nav-chapters d-flex flex-column justify-content-between 
+        className={`position-relative nav-chapters d-flex flex-column justify-content-between 
              ${
                !selectedChapter
                  ? 'flex-grow-0 '
@@ -364,27 +386,32 @@ function Nav({
                  : 'collapsed-nav'
              }`}
         onClick={() => {
-          //setSelectedIssue(null)
-          //setSelectedSpecificIssue(null)
-          setMapDemographics(false);
-          setMoreIssuesLength(0);
-          setMoreIssues([]);
-          setShowMap(false);
-          if (selectedChapter === 3) {
-            selectedCoordsCache.current = userPoints;
-            selectedCommunitiesCache.current = [communitySearch, compareSearch];
-            viewStateCache.current = viewState;
-          }
-          if (selectedChapter !== 4) {
-            setSelectedChapter(4);
-            setCollapseMap(false);
-            //setSearchSource(null);
-            setUserPoints([], []);
-            setCommunitySearch(null);
-            setCompareSearch(null);
-            setBadSearch([0, 0]);
-          } else {
-            setSelectedChapter(null);
+          if (!shareExpanded) {
+            //setSelectedIssue(null)
+            //setSelectedSpecificIssue(null)
+            setMapDemographics(false);
+            setMoreIssuesLength(0);
+            setMoreIssues([]);
+            setShowMap(false);
+            if (selectedChapter === 3) {
+              selectedCoordsCache.current = userPoints;
+              selectedCommunitiesCache.current = [
+                communitySearch,
+                compareSearch,
+              ];
+              viewStateCache.current = viewState;
+            }
+            if (selectedChapter !== 4) {
+              setSelectedChapter(4);
+              setCollapseMap(false);
+              //setSearchSource(null);
+              setUserPoints([], []);
+              setCommunitySearch(null);
+              setCompareSearch(null);
+              setBadSearch([0, 0]);
+            } else {
+              setSelectedChapter(null);
+            }
           }
         }}
       >
@@ -411,7 +438,9 @@ function Nav({
             selectedChapter === 4 ? 'nav-chapters-content-expanded' : ''
           } nav-chapters-content d-flex flex-column justify-content-end`}
         >
-          {selectedChapter == 4 && <ShareButton />}
+          {selectedChapter == 4 && (
+            <ShareButton setShareExpanded={setShareExpanded} />
+          )}
           <div className={'no-pointer'}>
             <div
               className={`${

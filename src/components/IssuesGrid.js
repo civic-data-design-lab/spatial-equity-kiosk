@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 
 export default function IssuesGrid({
+  isMobile = false,
   type = 'metric',
   currentValue = null,
   items,
@@ -33,7 +34,6 @@ export default function IssuesGrid({
     }
   });
 
-  // console.log(items);
   return (
     <>
       <div>
@@ -59,7 +59,7 @@ export default function IssuesGrid({
                   style={{
                     border: '2px solid black',
                     flexGrow: '1',
-                    minHeight: '60px',
+                    minHeight: isMobile ? '120px' : '60px',
                     justifyContent: 'space-between',
                   }}
                   onMouseDown={() => {

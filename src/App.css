@@ -1088,10 +1088,9 @@ a:active {
 .url-copied {
     bottom: 3rem;
     font-size: 0.75rem;
-    background-color: white;
     border: 2px solid black;
-    color: black;
-    padding: 0.25em;
+    color: white;
+    padding: 0.5em;
     width: fit-content;
     pointer-events: none;
     right: 0;
@@ -1228,7 +1227,7 @@ a:active {
 }
 
 .share-icon-container a {
-    color: white !important;
+    /* color: white !important; */
 }
 
 .share-icons {
@@ -2378,12 +2377,12 @@ input:checked+.slider:before {
         width: calc(100% - 2rem - 2px);
     }
 
-    .map-toggle-container {
+    /* .map-toggle-container {
         width: 100%;
         height: 100%;
         margin-left: 0;
 
-    }
+    } */
 
     /*.container {
         display: flex;
@@ -2404,15 +2403,15 @@ input:checked+.slider:before {
     }
 
     .share-icons {
-        position: absolute;
+        /* position: absolute; */
         top: 100%;
         width: 100%;
-        outline: 2px solid black;
-        flex-direction: column;
+        /* outline: 2px solid black; */
+        /* flex-direction: column; */
         align-items: center;
-        gap: 0.75rem;
-        background-color: white;
-        padding: 10px 3px;
+        gap: 1.5rem;
+        /* background-color: white; */
+        padding: 0.1rem;
     }
 
     .share-icons a svg {

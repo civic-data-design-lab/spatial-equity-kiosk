@@ -1,4 +1,5 @@
 export default function BoundaryToggle({
+  isMobile = false,
   setBoundary,
   boundary,
   setCompareSearch,
@@ -9,20 +10,23 @@ export default function BoundaryToggle({
   setselectedCompareCoord,
 }) {
   return (
-    <div className={`w-100 boundary-toggle`} style={{ cursor: "pointer" }}>
+    <div
+      className={`${isMobile ? `m-0` : ''} w-100 boundary-toggle`}
+      style={{ cursor: 'pointer' }}
+    >
       <div
         className={`boundary-toggle-item ${
-          boundary === "council"
-            ? "boundary-toggle-item-active"
-            : "boundary-toggle-item-inactive"
-        } no-right-border small-font`}
+          boundary === 'council'
+            ? 'boundary-toggle-item-active'
+            : 'boundary-toggle-item-inactive'
+        } no-right-border small-font ${isMobile ? `border-0` : ''}`}
         onClick={(e) => {
           e.stopPropagation();
-          if (boundary !== "council") {
+          if (boundary !== 'council') {
             //setCommunitySearch(null)
             //setCompareSearch(null)
           }
-          setBoundary("council");
+          setBoundary('council');
           if (badSearch[0] || badSearch[1]) {
             setBadSearch([0, 0]);
             if (badSearch[0]) {
@@ -41,17 +45,17 @@ export default function BoundaryToggle({
 
       <div
         className={`boundary-toggle-item ${
-          boundary === "community"
-            ? "boundary-toggle-item-active"
-            : "boundary-toggle-item-inactive"
-        } no-left-border small-font`}
+          boundary === 'community'
+            ? 'boundary-toggle-item-active'
+            : 'boundary-toggle-item-inactive'
+        } no-left-border small-font ${isMobile ? `border-0` : ''}`}
         onClick={(e) => {
           e.stopPropagation();
-          if (boundary !== "community") {
+          if (boundary !== 'community') {
             //setCommunitySearch(null)
             //setCompareSearch(null)
           }
-          setBoundary("community");
+          setBoundary('community');
           if (badSearch[0] || badSearch[1]) {
             setBadSearch([0, 0]);
             if (badSearch[0]) {

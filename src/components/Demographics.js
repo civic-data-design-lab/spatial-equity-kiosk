@@ -115,8 +115,6 @@ export default function Demographics({
     }
   };
 
-  console.log(currentValue);
-
   return (
     <>
       {!currentValue && (

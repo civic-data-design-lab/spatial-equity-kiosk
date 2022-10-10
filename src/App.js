@@ -29,6 +29,7 @@ import Protect from './utils/react-app-protect';
 import MobileCommunityProfile from './components/Mobile Components/MobileCommunityProfile';
 import MobileWhatIsSE from './components/Mobile Components/MobileWhatIsSE';
 import About from './components/About';
+import MapToggle from './components/MapToggle';
 
 let siteProtection =
   process.env.REACT_APP_SITE_PROTECTION == 'false'
@@ -799,6 +800,15 @@ function App() {
                       : 'Take Action'}
                   </h4>
                 </div>
+                {[2, 3].includes(selectedChapter) && (
+                  <MapToggle
+                    showToggle={true}
+                    showMap={showMap}
+                    setShowMap={setShowMap}
+                    boundary={boundary}
+                  />
+                )}
+
                 <div
                   className={`${
                     showMenu ? 'toggle-menu-active' : ''
@@ -826,6 +836,14 @@ function App() {
               showMenu={showMenu}
               setSelectedChapter={setSelectedChapter}
               selectedChapter={selectedChapter}
+              boundary={boundary}
+              setBoundary={setBoundary}
+              setCompareSearch={setCompareSearch}
+              setCommunitySearch={setCommunitySearch}
+              setSelectedCoord={setSelectedCoord}
+              setselectedCompareCoord={setselectedCompareCoord}
+              badSearch={badSearch}
+              setBadSearch={setBadSearch}
             />
           </div>
 
