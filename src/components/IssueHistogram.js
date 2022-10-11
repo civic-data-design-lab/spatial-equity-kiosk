@@ -237,7 +237,7 @@ const IssueHistogram = ({
 
   let metricSymbol =
     issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !== ''
-      ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
+      ? `${issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol} ${issues.specific_issues_data[selectedSpecificIssue].units_shorthand}`
       : '';
 
   //   console.log('------');
@@ -463,7 +463,7 @@ const IssueHistogram = ({
 
     svg
       .select('#minTextDown')
-      .attr('x', xscale(0.5) - 5)
+      .attr('x', xscale(0.5))
       //   .attr('y', height - margin.bottom + 5)
       // .attr('y', svg.select('#maxLine').attr('y1') - 5)
       .attr('y', height - margin.bottom + 15)
@@ -484,7 +484,7 @@ const IssueHistogram = ({
 
     svg
       .select('#maxTextDown')
-      .attr('x', xscale(data.length + 0.5) + 5)
+      .attr('x', xscale(data.length + 0.5))
       //   .attr('y', height - margin.bottom + 5)
       // .attr('y', svg.select('#maxLine').attr('y1') - 5)
       .attr('y', height - margin.bottom + 15)
@@ -505,7 +505,7 @@ const IssueHistogram = ({
       .select('#avgTextDown')
       .attr('x', svg.select('#avgLine').attr('x1'))
       // .attr('y', height - margin.bottom + 15)
-      .attr('y', svg.select('#avgLine').attr('y1') - 12)
+      .attr('y', svg.select('#avgLine').attr('y1') - 14)
       .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -518,7 +518,7 @@ const IssueHistogram = ({
       .select('#selectedTextDown')
       .attr('x', svg.select('#selectedLine').attr('x1'))
       // .attr('y', height - margin.bottom + 15)
-      .attr('y', svg.select('#selectedLine').attr('y1') - 12)
+      .attr('y', svg.select('#selectedLine').attr('y1') - 14)
       .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
@@ -531,7 +531,7 @@ const IssueHistogram = ({
         .select('#compareTextDown')
         .attr('x', svg.select('#compareLine').attr('x1'))
         // .attr('y', height - margin.bottom + 15)
-        .attr('y', svg.select('#compareLine').attr('y1') - 12)
+        .attr('y', svg.select('#compareLine').attr('y1') - 14)
         .attr('class', 'small-font')
         .attr('style', 'font-family:Inter')
         .attr('font-size', '14')
