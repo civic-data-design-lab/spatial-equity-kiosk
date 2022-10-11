@@ -297,8 +297,10 @@ export default function CitywideData({
 
   return (
     <div className={'mobile-citywide'}>
-      <div
-        className={`mobile-citywide-chapter
+      {selectedSpecificIssue && (
+        <>
+          <div
+            className={`mobile-citywide-chapter
             ${
               !selectedSpecificIssue
                 ? 'big-padding regular-border'
@@ -306,160 +308,154 @@ export default function CitywideData({
             }
             row-gap
             `}
-        style={{
-          height:
-            selectedIssue && selectedIssue !== 1 && !selectedSpecificIssue
-              ? 'calc(1.375rem + 1.5vw + 3rem)'
-              : selectedSpecificIssue
-              ? '0vh'
-              : !selectedIssue
-              ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
-              : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
-        }}
-        onClick={() => {
-          if (selectedIssue !== 1) {
-            setSelectedIssue(1);
-          } else {
-            setSelectedIssue(null);
-          }
-        }}
-      >
-        <div
-          className={`d-flex flex-row align-items-center justify-content-between`}
-        >
-          <p
-            className={`mb-0 ${
-              !selectedSpecificIssue ? 'big-text' : 'no-text'
-            } mobile-transition-font`}
+            style={{
+              height:
+                selectedIssue && selectedIssue !== 1 && !selectedSpecificIssue
+                  ? 'calc(1.375rem + 1.5vw + 3rem)'
+                  : selectedSpecificIssue
+                  ? '0vh'
+                  : !selectedIssue
+                  ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
+                  : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
+            }}
+            onClick={() => {
+              if (selectedIssue !== 1) {
+                setSelectedIssue(1);
+              } else {
+                setSelectedIssue(null);
+              }
+            }}
           >
-            Health
-          </p>
-        </div>
-        <p
-          className={`mb-0 mobile-transition-font
+            <div
+              className={`d-flex flex-row align-items-center justify-content-between`}
+            >
+              <p
+                className={`mb-0 ${
+                  !selectedSpecificIssue ? 'big-text' : 'no-text'
+                } mobile-transition-font`}
+              >
+                Health
+              </p>
+            </div>
+            <p
+              className={`mb-0 mobile-transition-font
                 ${
                   (selectedIssue === 1 || !selectedIssue) &&
                   !selectedSpecificIssue
                     ? 'small-text'
                     : 'no-text'
                 }`}
-        >
-          {issue_categories.descriptions['1']}
-        </p>
+            >
+              {issue_categories.descriptions['1']}
+            </p>
 
-        {getSelectionIssues('health', 1, health_issues)}
-      </div>
+            {getSelectionIssues('health', 1, health_issues)}
+          </div>
 
-      <div
-        className={`mobile-citywide-chapter
+          <div
+            className={`mobile-citywide-chapter
             ${
               !selectedSpecificIssue
                 ? 'big-padding regular-border'
                 : 'border-none'
             }
                        row-gap`}
-        style={{
-          height:
-            selectedIssue && selectedIssue !== 2 && !selectedSpecificIssue
-              ? 'calc(1.375rem + 1.5vw + 3rem)'
-              : selectedSpecificIssue
-              ? '0vh'
-              : !selectedIssue
-              ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
-              : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
-        }}
-        onClick={() => {
-          if (selectedIssue !== 2) {
-            setSelectedIssue(2);
-          } else {
-            setSelectedIssue(null);
-          }
-        }}
-      >
-        <div
-          className={`d-flex flex-row align-items-center justify-content-between`}
-        >
-          <p
-            className={`mb-0 ${
-              !selectedSpecificIssue ? 'big-text' : 'no-text'
-            } mobile-transition-font`}
+            style={{
+              height:
+                selectedIssue && selectedIssue !== 2 && !selectedSpecificIssue
+                  ? 'calc(1.375rem + 1.5vw + 3rem)'
+                  : selectedSpecificIssue
+                  ? '0vh'
+                  : !selectedIssue
+                  ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
+                  : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
+            }}
+            onClick={() => {
+              if (selectedIssue !== 2) {
+                setSelectedIssue(2);
+              } else {
+                setSelectedIssue(null);
+              }
+            }}
           >
-            Environment
-          </p>
-        </div>
-        <p
-          className={`mb-0 mobile-transition-font
+            <div
+              className={`d-flex flex-row align-items-center justify-content-between`}
+            >
+              <p
+                className={`mb-0 ${
+                  !selectedSpecificIssue ? 'big-text' : 'no-text'
+                } mobile-transition-font`}
+              >
+                Environment
+              </p>
+            </div>
+            <p
+              className={`mb-0 mobile-transition-font
                 ${
                   (selectedIssue === 2 || !selectedIssue) &&
                   !selectedSpecificIssue
                     ? 'small-text'
                     : 'no-text'
                 }`}
-        >
-          {issue_categories.descriptions['2']}
-        </p>
-        {getSelectionIssues('environment', 2, environment_issues)}
-      </div>
+            >
+              {issue_categories.descriptions['2']}
+            </p>
+            {getSelectionIssues('environment', 2, environment_issues)}
+          </div>
 
-      <div
-        className={`mobile-citywide-chapter
+          <div
+            className={`mobile-citywide-chapter
             ${
               !selectedSpecificIssue
                 ? 'big-padding regular-border'
                 : 'border-none'
             }
              row-gap`}
-        style={{
-          height:
-            selectedIssue && selectedIssue !== 3 && !selectedSpecificIssue
-              ? 'calc(1.375rem + 1.5vw + 3rem)'
-              : selectedSpecificIssue
-              ? '0vh'
-              : !selectedIssue
-              ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
-              : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
-        }}
-        onClick={() => {
-          if (selectedIssue !== 3) {
-            setSelectedIssue(3);
-          } else {
-            setSelectedIssue(null);
-          }
-        }}
-      >
-        <div
-          className={`d-flex flex-row align-items-center justify-content-between`}
-        >
-          <p
-            className={`mb-0 ${
-              !selectedSpecificIssue ? 'big-text' : 'no-text'
-            } mobile-transition-font`}
+            style={{
+              height:
+                selectedIssue && selectedIssue !== 3 && !selectedSpecificIssue
+                  ? 'calc(1.375rem + 1.5vw + 3rem)'
+                  : selectedSpecificIssue
+                  ? '0vh'
+                  : !selectedIssue
+                  ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
+                  : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
+            }}
+            onClick={() => {
+              if (selectedIssue !== 3) {
+                setSelectedIssue(3);
+              } else {
+                setSelectedIssue(null);
+              }
+            }}
           >
-            Infrastructure
-          </p>
-        </div>
-        <p
-          className={`mb-0 mobile-transition-font
+            <div
+              className={`d-flex flex-row align-items-center justify-content-between`}
+            >
+              <p
+                className={`mb-0 ${
+                  !selectedSpecificIssue ? 'big-text' : 'no-text'
+                } mobile-transition-font`}
+              >
+                Infrastructure
+              </p>
+            </div>
+            <p
+              className={`mb-0 mobile-transition-font
                 ${
                   (selectedIssue === 3 || !selectedIssue) &&
                   !selectedSpecificIssue
                     ? 'small-text'
                     : 'no-text'
                 }`}
-        >
-          {issue_categories.descriptions['3']}
-        </p>
-        {getSelectionIssues('infrastructure', 3, infrastructure_issues)}
-      </div>
-
-      <div
-        className={'mobile-issues-profile-container'}
-        // style={{
-        //   height: selectedSpecificIssue
-        //     ? 'calc(100vh - 4.025rem - 0.3vw)'
-        //     : '0vh',
-        // }}
-      >
+            >
+              {issue_categories.descriptions['3']}
+            </p>
+            {getSelectionIssues('infrastructure', 3, infrastructure_issues)}
+          </div>
+        </>
+      )}
+      <div className={'mobile-issues-profile-container'}>
         <div className={'mobile-citywide-nav'}>
           <div
             className={'mobile-citywide-nav-dropdown w-100'}
@@ -789,7 +785,8 @@ export default function CitywideData({
             padding: '1rem',
             overflow: 'auto',
             position: 'relative',
-            backgroundColor: 'white',
+            height: '100%',
+            // backgroundColor: 'white',
           }}
         >
           {selectedSpecificIssue && (
@@ -808,7 +805,7 @@ export default function CitywideData({
                 </div>
               )}
               <div
-                style={{ flex: 1, height: '70vh' }}
+                style={{ flex: 1, height: '85vh' }}
                 className={'histogram-responsive-box'}
               >
                 <Histogram

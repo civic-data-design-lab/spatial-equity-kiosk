@@ -770,10 +770,11 @@ function App() {
           </div>
         </Container>
       ) : (
-        <Container className={'p-0 vh-100'}>
+        <Container className={'p-0 vh-100 d-flex flex-column overflow-hidden'}>
           <div
             className={`position-relative d-flex flex-column`}
-            style={{ zIndex: '10', pointerEvents: showMenu ? 'auto' : 'none' }}
+            // style={{ zIndex: '10', pointerEvents: showMenu ? 'auto' : 'none' }}
+            style={{ zIndex: '10' }}
           >
             {selectedChapter && (
               <>

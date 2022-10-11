@@ -2117,12 +2117,12 @@ input:checked+.slider:before {
 
 .mobile-citywide,
 .mobile-community {
-    position: absolute;
-    z-index: 2;
     display: flex;
     flex-direction: column;
     width: 100vw;
-    /* height: calc(100vh - (4.025rem + .3vw)); */
+    height: 100%;
+    /* border: 2px solid blue; */
+    overflow: hidden;
 }
 
 
@@ -2175,7 +2175,7 @@ input:checked+.slider:before {
 
 
 .mobile-demographics-toggle {
-    border-top: 1px solid black;
+    border-top: 2px solid black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -2262,11 +2262,12 @@ input:checked+.slider:before {
 
 .mobile-issues-profile-container {
     border: 1px solid black;
-    position: absolute;
     pointer-events: none;
     transition: height 0.5s;
     width: 100vw;
-    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    height: 100%;
 }
 
 /* Restore pointer events for all sub-elements */
@@ -2287,8 +2288,7 @@ input:checked+.slider:before {
 
 .mobile-citywide-nav-dropdown {
     height: 5vh;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid black;
     padding: 0.25rem 1rem;
     display: flex;
     flex-direction: row;
@@ -2386,8 +2386,8 @@ input:checked+.slider:before {
 
 
     ::-webkit-scrollbar {
-        /* width: 9px; */
-        display: none;
+        width: 9px;
+        /* display: none; */
     }
 
     .small-text {
@@ -2445,6 +2445,8 @@ input:checked+.slider:before {
         flex-direction: column;
         row-gap: 1rem;
         padding: 1.5em 0;
+        /* border: 3px solid green; */
+        height: auto;
     }
 
     .carousel-indicators [data-bs-target] {
