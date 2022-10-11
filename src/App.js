@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useLocation } from 'react-router-dom';
@@ -94,6 +94,12 @@ function App() {
   const [councilPinned, setCouncilPinned] = useState([]);
   const [collapseMap, setCollapseMap] = useState(false);
   const [collapseMapToggle, setCollapseMapToggle] = useState(false);
+
+  // mobile hooks
+  const [showDropDown, setShowDropDown] = useState(false);
+  const [showSubDropDown, setShowSubDropDown] = useState(false);
+  const [showLegend, setShowLegend] = useState(false);
+  const isTouchinMapgMobile = useRef(false);
 
   // console.log(badSearch);
   // map hooks
@@ -1088,8 +1094,6 @@ function App() {
               setCoordinateLookup={setCoordinateLookup}
               dataScale={dataScale}
               setdataScale={setdataScale}
-              /* highlightFeature={highlightFeature}
-                                           sethighlightFeature={sethighlightFeature}*/
               selectedCoord={selectedCoord}
               selectedCompareCoord={selectedCompareCoord}
               setSelectedCoord={setSelectedCoord}
@@ -1104,6 +1108,13 @@ function App() {
               info={info}
               setToggleUnderperformers={setToggleUnderperformers}
               binList={info.binList}
+              showDropDown={showDropDown}
+              setShowDropDown={setShowDropDown}
+              showSubDropDown={showSubDropDown}
+              setShowSubDropDown={setShowSubDropDown}
+              showLegend={showLegend}
+              setShowLegend={setShowLegend}
+              isTouchinMapgMobile={isTouchinMapgMobile}
             />
           ) : selectedChapter === 3 ? (
             <MobileCommunityProfile
@@ -1258,6 +1269,15 @@ function App() {
               colorRamp={colorRamps}
               collapseMap={collapseMap}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
+              // mobile only
+              showDropDown={showDropDown}
+              setShowDropDown={setShowDropDown}
+              showSubDropDown={showSubDropDown}
+              setShowSubDropDown={setShowSubDropDown}
+              isMobile={true}
+              showLegend={showLegend}
+              setShowLegend={setShowLegend}
+              isTouchinMapgMobile={isTouchinMapgMobile}
             />
           </div>
         </Container>

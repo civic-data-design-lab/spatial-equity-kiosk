@@ -1043,9 +1043,9 @@ a:active {
     font-size: 1.33rem;
     padding: 0.3rem;
     color: black;
-    border: 2px solid black;
     background-color: white;
     transition: 0.25s ease-in-out;
+    outline: 1px solid black;
 
 }
 
@@ -2260,7 +2260,6 @@ input:checked+.slider:before {
 
 
 .mobile-issues-profile-container {
-    border: 1px solid black;
     pointer-events: none;
     transition: height 0.5s;
     width: 100vw;
@@ -2793,7 +2792,8 @@ input:checked+.slider:before {
 }
 
 .map-zoom-toggle {
-    top: 0rem;
+    top: 10rem;
+    bottom: auto
 }
 
 .mobile-community-search-screen {

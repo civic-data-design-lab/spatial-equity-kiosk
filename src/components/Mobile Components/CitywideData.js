@@ -20,6 +20,7 @@ import categories from '../../texts/issue_categories.json';
 import Legend from '../Legend';
 import Histogram from '../Histogram';
 import IssuesGrid from '../IssuesGrid';
+import { autoType } from 'd3';
 
 export default function CitywideData({
   selectedIssue,
@@ -93,13 +94,14 @@ export default function CitywideData({
   info,
   setToggleUnderperformers,
   binList,
+  showDropDown,
+  setShowDropDown,
+  showSubDropDown,
+  setShowSubDropDown,
+  showLegend,
+  setShowLegend,
+  isTouchinMapgMobile,
 }) {
-  console.log(showDemographics);
-
-  const [showDropDown, setShowDropDown] = useState(false);
-  const [showSubDropDown, setShowSubDropDown] = useState(false);
-  const [showLegend, setShowLegend] = useState(false);
-
   const health_issues = issues.issues_data['health'].specific_issues_ID.map(
     (id_) => {
       return issues.specific_issues_data[id_];
@@ -298,9 +300,10 @@ export default function CitywideData({
 
   return (
     <div className={'mobile-citywide'}>
-      <div className="h-100 d-flex flex-column">
-        <div
-          className={`mobile-citywide-chapter
+      {!showMap && !selectedSpecificIssue && (
+        <div className="h-100 d-flex flex-column">
+          <div
+            className={`mobile-citywide-chapter
             ${
               !selectedSpecificIssue
                 ? 'big-padding regular-border'
@@ -308,172 +311,181 @@ export default function CitywideData({
             }
             row-gap
             `}
-          style={{
-            height:
-              selectedIssue && selectedIssue !== 1 && !selectedSpecificIssue
-                ? 'calc(1.375rem + 1.5vw + 3rem)'
-                : selectedSpecificIssue
-                ? '0vh'
-                : !selectedIssue
-                ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
-                : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
-          }}
-          onClick={() => {
-            if (selectedIssue !== 1) {
-              setSelectedIssue(1);
-            } else {
-              setSelectedIssue(null);
-            }
-          }}
-        >
-          <div
-            className={`d-flex flex-row align-items-center justify-content-between`}
+            style={{
+              height:
+                selectedIssue && selectedIssue !== 1 && !selectedSpecificIssue
+                  ? 'calc(1.375rem + 1.5vw + 3rem)'
+                  : selectedSpecificIssue
+                  ? '0vh'
+                  : !selectedIssue
+                  ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
+                  : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
+            }}
+            onClick={() => {
+              if (selectedIssue !== 1) {
+                setSelectedIssue(1);
+              } else {
+                setSelectedIssue(null);
+              }
+            }}
           >
-            <p
-              className={`mb-0 ${
-                !selectedSpecificIssue ? 'big-text' : 'no-text'
-              } mobile-transition-font`}
+            <div
+              className={`d-flex flex-row align-items-center justify-content-between`}
             >
-              Health
-            </p>
-          </div>
-          <p
-            className={`mb-0 mobile-transition-font
+              <p
+                className={`mb-0 ${
+                  !selectedSpecificIssue ? 'big-text' : 'no-text'
+                } mobile-transition-font`}
+              >
+                Health
+              </p>
+            </div>
+            <p
+              className={`mb-0 mobile-transition-font
                 ${
                   (selectedIssue === 1 || !selectedIssue) &&
                   !selectedSpecificIssue
                     ? 'small-text'
                     : 'no-text'
                 }`}
-          >
-            {issue_categories.descriptions['1']}
-          </p>
+            >
+              {issue_categories.descriptions['1']}
+            </p>
 
-          {getSelectionIssues('health', 1, health_issues)}
-        </div>
+            {getSelectionIssues('health', 1, health_issues)}
+          </div>
 
-        <div
-          className={`mobile-citywide-chapter
+          <div
+            className={`mobile-citywide-chapter
             ${
               !selectedSpecificIssue
                 ? 'big-padding regular-border'
                 : 'border-none'
             }
                        row-gap`}
-          style={{
-            height:
-              selectedIssue && selectedIssue !== 2 && !selectedSpecificIssue
-                ? 'calc(1.375rem + 1.5vw + 3rem)'
-                : selectedSpecificIssue
-                ? '0vh'
-                : !selectedIssue
-                ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
-                : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
-          }}
-          onClick={() => {
-            if (selectedIssue !== 2) {
-              setSelectedIssue(2);
-            } else {
-              setSelectedIssue(null);
-            }
-          }}
-        >
-          <div
-            className={`d-flex flex-row align-items-center justify-content-between`}
+            style={{
+              height:
+                selectedIssue && selectedIssue !== 2 && !selectedSpecificIssue
+                  ? 'calc(1.375rem + 1.5vw + 3rem)'
+                  : selectedSpecificIssue
+                  ? '0vh'
+                  : !selectedIssue
+                  ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
+                  : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
+            }}
+            onClick={() => {
+              if (selectedIssue !== 2) {
+                setSelectedIssue(2);
+              } else {
+                setSelectedIssue(null);
+              }
+            }}
           >
-            <p
-              className={`mb-0 ${
-                !selectedSpecificIssue ? 'big-text' : 'no-text'
-              } mobile-transition-font`}
+            <div
+              className={`d-flex flex-row align-items-center justify-content-between`}
             >
-              Environment
-            </p>
-          </div>
-          <p
-            className={`mb-0 mobile-transition-font
+              <p
+                className={`mb-0 ${
+                  !selectedSpecificIssue ? 'big-text' : 'no-text'
+                } mobile-transition-font`}
+              >
+                Environment
+              </p>
+            </div>
+            <p
+              className={`mb-0 mobile-transition-font
                 ${
                   (selectedIssue === 2 || !selectedIssue) &&
                   !selectedSpecificIssue
                     ? 'small-text'
                     : 'no-text'
                 }`}
-          >
-            {issue_categories.descriptions['2']}
-          </p>
-          {getSelectionIssues('environment', 2, environment_issues)}
-        </div>
+            >
+              {issue_categories.descriptions['2']}
+            </p>
+            {getSelectionIssues('environment', 2, environment_issues)}
+          </div>
 
-        <div
-          className={`mobile-citywide-chapter
+          <div
+            className={`mobile-citywide-chapter
             ${
               !selectedSpecificIssue
                 ? 'big-padding regular-border'
                 : 'border-none'
             }
              row-gap`}
-          style={{
-            height:
-              selectedIssue && selectedIssue !== 3 && !selectedSpecificIssue
-                ? 'calc(1.375rem + 1.5vw + 3rem)'
-                : selectedSpecificIssue
-                ? '0vh'
-                : !selectedIssue
-                ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
-                : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
-          }}
-          onClick={() => {
-            if (selectedIssue !== 3) {
-              setSelectedIssue(3);
-            } else {
-              setSelectedIssue(null);
-            }
-          }}
-        >
-          <div
-            className={`d-flex flex-row align-items-center justify-content-between`}
+            style={{
+              height:
+                selectedIssue && selectedIssue !== 3 && !selectedSpecificIssue
+                  ? 'calc(1.375rem + 1.5vw + 3rem)'
+                  : selectedSpecificIssue
+                  ? '0vh'
+                  : !selectedIssue
+                  ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
+                  : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
+            }}
+            onClick={() => {
+              if (selectedIssue !== 3) {
+                setSelectedIssue(3);
+              } else {
+                setSelectedIssue(null);
+              }
+            }}
           >
-            <p
-              className={`mb-0 ${
-                !selectedSpecificIssue ? 'big-text' : 'no-text'
-              } mobile-transition-font`}
+            <div
+              className={`d-flex flex-row align-items-center justify-content-between`}
             >
-              Infrastructure
-            </p>
-          </div>
-          <p
-            className={`mb-0 mobile-transition-font
+              <p
+                className={`mb-0 ${
+                  !selectedSpecificIssue ? 'big-text' : 'no-text'
+                } mobile-transition-font`}
+              >
+                Infrastructure
+              </p>
+            </div>
+            <p
+              className={`mb-0 mobile-transition-font
                 ${
                   (selectedIssue === 3 || !selectedIssue) &&
                   !selectedSpecificIssue
                     ? 'small-text'
                     : 'no-text'
                 }`}
-          >
-            {issue_categories.descriptions['3']}
-          </p>
-          {getSelectionIssues('infrastructure', 3, infrastructure_issues)}
+            >
+              {issue_categories.descriptions['3']}
+            </p>
+            {getSelectionIssues('infrastructure', 3, infrastructure_issues)}
+          </div>
         </div>
-      </div>
+      )}
 
-      {selectedSpecificIssue && (
-        <div className={'mobile-issues-profile-container'}>
+      {(showMap || selectedSpecificIssue) && (
+        <div
+          className={'mobile-issues-profile-container'}
+          style={{ zIndex: '1' }}
+        >
           <div className="position-relative">
             <div className={'mobile-citywide-nav'}>
               <div
                 className={'mobile-citywide-nav-dropdown w-100'}
                 onClick={() => setShowDropDown(!showDropDown)}
               >
-                <div className={'mobile-citywide-nav-text'}>
-                  <div>
-                    {selectedChapter && issue_categories.labels[selectedIssue]}
+                {selectedSpecificIssue ? (
+                  <div className={'mobile-citywide-nav-text'}>
+                    <div>
+                      {selectedChapter &&
+                        issue_categories.labels[selectedIssue]}
+                    </div>
+                    <FontAwesomeIcon icon={faChevronRight} />
+                    <div className={'ellipses'}>
+                      {selectedSpecificIssue &&
+                        issues.specific_issues_data[selectedSpecificIssue]
+                          .specific_issue_name}
+                    </div>
                   </div>
-                  <FontAwesomeIcon icon={faChevronRight} />
-                  <div className={'ellipses'}>
-                    {selectedSpecificIssue &&
-                      issues.specific_issues_data[selectedSpecificIssue]
-                        .specific_issue_name}
-                  </div>
-                </div>
+                ) : (
+                  <div className={'mobile-citywide-nav-text'}>Select</div>
+                )}
                 <FontAwesomeIcon
                   icon={showDropDown ? faCaretUp : faCaretDown}
                 />
@@ -799,6 +811,7 @@ export default function CitywideData({
               } else {
                 setShowDemographics(true);
                 setShowLegend(!showLegend);
+                isTouchinMapgMobile.current = false;
               }
             }}
           >
@@ -856,79 +869,20 @@ export default function CitywideData({
           <div
             className={'mobile-demographics-container'}
             style={{
-              padding:
-                (!showMap && showDemographics) || (showMap && showLegend)
-                  ? '1rem'
-                  : '0',
-              height:
-                (!showMap && showDemographics) || (showMap && showLegend)
-                  ? 'calc(100vh - 19vh  - 48vh)'
-                  : '0',
+              transition: '0.5s',
+              overflow: 'hidden',
+              maxHeight: showLegend || mapDemographics ? '100vh' : '0',
             }}
           >
-            {selectedSpecificIssue && !showMap && (
-              <Demographics
-                currentValue={demographic}
-                setValue={setDemographic}
-                selectedSpecificIssue={selectedSpecificIssue}
-                setShowDemographics={setShowDemographics}
-                showDemographics={showDemographics}
-                communitySearch={communitySearch}
-                compareSearch={compareSearch}
-                mapDemographics={mapDemographics}
-                setMapDemographics={setMapDemographics}
-                boundary={boundary}
-                communities={communities}
-                councils={councils}
-                selectedChapter={selectedChapter}
-                toggleTransit={toggleTransit}
-                setToggleTransit={setToggleTransit}
-                toggleBike={toggleBike}
-                setToggleBike={setToggleBike}
-                toggleWalk={toggleWalk}
-                setToggleWalk={setToggleWalk}
-                colorRamps={colorRamps} // legendBins={legendBins}
-                demoColorRamp={demoColorRamp}
-                demoLegendBins={demoLegendBins}
-                setDemoColorRamp={setDemoColorRamp}
-                setDemoLegendBins={setDemoLegendBins}
-                demoLookup={demoLookup[demographic]}
-                showMap={showMap}
-                info={info}
-              />
-            )}
-
-            {/* {selectedSpecificIssue && showMap && (
-              <Carousel> */}
-            {/* <div
-              className={'d-flex flex-column justify-content-between'}
-              style={{ height: 'calc(100vh - 19vh  - 48vh - 5rem)' }}
-            >
-              {getHyperlinkText(
-                issues.specific_issues_data[selectedSpecificIssue]
-                  .specific_issue_description
-              )}
-            </div> */}
-            {/* 
-            <div
-              className={'d-flex flex-column justify-content-between'}
-              style={{ height: 'calc(100vh - 19vh  - 48vh - 5rem)' }}
-            >
- 
-            </div> */}
-
             <div
               className={'d-flex flex-column justify-content-between'}
               style={{
-                transition: 'height 0.5s',
-                height: `${
-                  showMap && showLegend
-                    ? 'calc(100vh - 19vh  - 48vh - 5rem)'
-                    : '0'
-                }`,
+                padding: '1rem',
               }}
             >
-              <p className={'small-font mb-1'}>Compare Demographics</p>
+              {(showLegend || !mapDemographics) && (
+                <p className={'small-font mb-1'}>Compare Demographics</p>
+              )}
 
               <div style={{ position: 'relative', zIndex: 1, height: '100%' }}>
                 <Demographics
@@ -951,7 +905,7 @@ export default function CitywideData({
                   setToggleBike={setToggleBike}
                   toggleWalk={toggleWalk}
                   setToggleWalk={setToggleWalk}
-                  colorRamps={colorRamps} // legendBins={legendBins}
+                  colorRamps={colorRamps}
                   demoColorRamp={demoColorRamp}
                   demoLegendBins={demoLegendBins}
                   setDemoColorRamp={setDemoColorRamp}
@@ -959,11 +913,12 @@ export default function CitywideData({
                   demoLookup={demoLookup[demographic]}
                   showMap={showMap}
                   info={info}
+                  // mobile only
+                  isMobile={true}
+                  showLegend={showLegend}
                 />
               </div>
             </div>
-            {/* </Carousel>
-            )} */}
           </div>
         </div>
       )}

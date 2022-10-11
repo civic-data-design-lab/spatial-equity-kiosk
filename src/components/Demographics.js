@@ -43,6 +43,10 @@ export default function Demographics({
   info,
   issues,
   issue_categories,
+
+  // mobile only
+  isMobile,
+  showLegend = false,
 }) {
   const demographics = {
     1: 'Race & Ethnicity',
@@ -135,50 +139,52 @@ export default function Demographics({
             showDemographics ? 'expand-demographic' : 'collapse-demographic'
           }`}
         >
-          <div className={'dropdown-container'}>
-            <div
-              className={
-                'dropdown-bar dropdown-bar-black d-flex flex-row justify-content-between align-items-center'
-              }
-              onMouseDown={() => {
-                setShowDropdownItems(!showDropdownItems);
-              }}
-            >
-              <p className={'mb-0 small-font'}>{demoToggleText}</p>
+          {(!isMobile || (isMobile && showLegend)) && (
+            <div className={'dropdown-container'}>
+              <div
+                className={
+                  'dropdown-bar dropdown-bar-black d-flex flex-row justify-content-between align-items-center'
+                }
+                onMouseDown={() => {
+                  setShowDropdownItems(!showDropdownItems);
+                }}
+              >
+                <p className={'mb-0 small-font'}>{demoToggleText}</p>
 
-              {!showDropdownItems && <FontAwesomeIcon icon={faCaretDown} />}
-              {showDropdownItems && <FontAwesomeIcon icon={faCaretUp} />}
-            </div>
+                {!showDropdownItems && <FontAwesomeIcon icon={faCaretDown} />}
+                {showDropdownItems && <FontAwesomeIcon icon={faCaretUp} />}
+              </div>
 
-            <div
-              className={`${
-                showDropdownItems ? 'd-block' : 'd-none'
-              } dropdown-body position-absolute`}
-            >
-              {Object.keys(demographics).map((key, index) => {
-                return (
-                  <div
-                    key={index}
-                    className={`dropdown-item ${
-                      currentValue === key ? 'dropdown-item-active' : ''
-                    }`}
-                    onMouseDown={() => {
-                      setShowDropdownItems(false);
-                      setDemoToggleText(demographics[key]);
-                      if (currentValue !== key) {
-                        setValue(key);
-                      } else {
-                        setValue(null);
-                        setDemoToggleText('Select an indicator to explore');
-                      }
-                    }}
-                  >
-                    <p className={'small-font m-0'}>{demographics[key]}</p>
-                  </div>
-                );
-              })}
+              <div
+                className={`${
+                  showDropdownItems ? 'd-block' : 'd-none'
+                } dropdown-body position-absolute`}
+              >
+                {Object.keys(demographics).map((key, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className={`dropdown-item ${
+                        currentValue === key ? 'dropdown-item-active' : ''
+                      }`}
+                      onMouseDown={() => {
+                        setShowDropdownItems(false);
+                        setDemoToggleText(demographics[key]);
+                        if (currentValue !== key) {
+                          setValue(key);
+                        } else {
+                          setValue(null);
+                          setDemoToggleText('Select an indicator to explore');
+                        }
+                      }}
+                    >
+                      <p className={'small-font m-0'}>{demographics[key]}</p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
 
           {currentValue && selectedChapter === 2 && (
             <>
@@ -201,9 +207,12 @@ export default function Demographics({
                 toggleWalk={toggleWalk}
                 toggleTransit={toggleTransit}
                 toggleBike={toggleBike}
+                // mobile only
+                isMobile={isMobile}
+                showLegend={showLegend}
               />
 
-              {showMap && (
+              {showMap && (!isMobile || (isMobile && showLegend)) && (
                 <div
                   className={`big-button ${
                     mapDemographics
