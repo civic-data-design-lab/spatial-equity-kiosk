@@ -23,8 +23,8 @@ export default function RightColumnFooter({
         <div
           className="position-relative d-grid "
           style={{
-            gridTemplateColumns: '1fr 1fr auto',
-            gridGap: '0.33rem',
+            gridTemplateColumns: '1fr auto auto',
+            gridGap: '0.5rem',
             alignItems: 'center',
           }}
         >
@@ -42,6 +42,7 @@ export default function RightColumnFooter({
           <h6
             className="mb-0 chart-footer"
             style={{
+              padding: '0 1.5rem',
               visibility:
                 (!toggleDisplayMode &&
                   boundary == 'council' &&

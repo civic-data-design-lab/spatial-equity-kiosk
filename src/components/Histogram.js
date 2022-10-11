@@ -166,7 +166,7 @@ const Histogram = ({
 
       // special case where just the symbol is sufficient
       if (
-        ['F16_TreCan', 'F27_BusSpe'].includes(
+        ['F27_BusSpe'].includes(
           issues.specific_issues_data[selectedSpecificIssue].json_id
         )
       ) {
