@@ -16,6 +16,7 @@ import _COMMUNITY_BOARDS from '../data/community_boards.json';
 import { getNumber } from '../utils/functions';
 
 export default function Legend({
+  isMobile = false,
   issues,
   selectedSpecificIssue,
   colorRamps,
@@ -234,7 +235,7 @@ export default function Legend({
           return (
             <>
               <>
-                <div>
+                <div className="w-100">
                   <p className={'small-font mb-1'}>
                     {issues.specific_issues_data[selectedSpecificIssue].units}{' '}
                     <SourceInfo
@@ -314,7 +315,7 @@ export default function Legend({
                 </div>
               </>
 
-              {showMap && (
+              {showMap && !isMobile && (
                 <div
                   className={`big-button small-font ${
                     toggleUnderperformers

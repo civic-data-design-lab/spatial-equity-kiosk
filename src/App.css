@@ -2135,11 +2135,10 @@ input:checked+.slider:before {
 .mobile-citywide-chapter {
     display: flex;
     flex-direction: column;
+    flex-grow: 2;
     cursor: pointer;
     transition: flex-grow 0.5s, padding 0.5s 0.5s, background-color 0.5s, color 0.5s, height 0.6s;
-    min-height: 0;
     background-color: white;
-    z-index: 3;
 }
 
 .mobile-citywide-content {
@@ -2182,7 +2181,7 @@ input:checked+.slider:before {
     align-items: center;
     transition: background-color 0.5s, color 0.5s;
     padding: 0.25rem 1rem;
-    height: 7vh;
+    /* height: 7vh; */
     z-index: 1;
     position: relative;
 }
@@ -2277,10 +2276,8 @@ input:checked+.slider:before {
 
 .mobile-citywide-nav {
     height: 5vh;
-    width: calc(100vw - 2px);
     display: flex;
     flex-direction: row;
-    z-index: 1;
     position: relative;
     background-color: white;
 
@@ -2296,6 +2293,7 @@ input:checked+.slider:before {
     align-items: center;
     column-gap: 3vw;
     z-index: 1;
+    background-color: white;
 }
 
 .mobile-community-search-screen .mobile-citywide-nav-dropdown {
@@ -2330,7 +2328,7 @@ input:checked+.slider:before {
     height: 0;
     border-right: none;
     border-bottom: none;
-    padding: 0;
+    padding: 0rem 1rem;
     opacity: 0;
     transition: height 0.5s, padding 0.4s, opacity 0.5ms 0.3s;
 }
@@ -2386,8 +2384,8 @@ input:checked+.slider:before {
 
 
     ::-webkit-scrollbar {
-        width: 9px;
-        /* display: none; */
+        /* width: 8px; */
+        display: none;
     }
 
     .small-text {
@@ -2784,7 +2782,6 @@ input:checked+.slider:before {
 .mobile-map {
     overflow: hidden;
     position: fixed;
-    z-index: -2;
 }
 
 .mobile-map-toggle {
@@ -2793,6 +2790,10 @@ input:checked+.slider:before {
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     transition: background-color 0.5s;
+}
+
+.map-zoom-toggle {
+    top: 0rem;
 }
 
 .mobile-community-search-screen {

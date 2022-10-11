@@ -94,6 +94,8 @@ export default function CitywideData({
   setToggleUnderperformers,
   binList,
 }) {
+  console.log(showDemographics);
+
   const [showDropDown, setShowDropDown] = useState(false);
   const [showSubDropDown, setShowSubDropDown] = useState(false);
   const [showLegend, setShowLegend] = useState(false);
@@ -175,7 +177,6 @@ export default function CitywideData({
   };
 
   const getSelectionIssues = (category, cat_id, issueType) => {
-    console.log(category, cat_id, selectedIssue);
     if (selectedIssue === cat_id) {
       if (!selectedSpecificIssue) {
         return (
@@ -297,10 +298,9 @@ export default function CitywideData({
 
   return (
     <div className={'mobile-citywide'}>
-      {selectedSpecificIssue && (
-        <>
-          <div
-            className={`mobile-citywide-chapter
+      <div className="h-100 d-flex flex-column">
+        <div
+          className={`mobile-citywide-chapter
             ${
               !selectedSpecificIssue
                 ? 'big-padding regular-border'
@@ -308,200 +308,183 @@ export default function CitywideData({
             }
             row-gap
             `}
-            style={{
-              height:
-                selectedIssue && selectedIssue !== 1 && !selectedSpecificIssue
-                  ? 'calc(1.375rem + 1.5vw + 3rem)'
-                  : selectedSpecificIssue
-                  ? '0vh'
-                  : !selectedIssue
-                  ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
-                  : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
-            }}
-            onClick={() => {
-              if (selectedIssue !== 1) {
-                setSelectedIssue(1);
-              } else {
-                setSelectedIssue(null);
-              }
-            }}
+          style={{
+            height:
+              selectedIssue && selectedIssue !== 1 && !selectedSpecificIssue
+                ? 'calc(1.375rem + 1.5vw + 3rem)'
+                : selectedSpecificIssue
+                ? '0vh'
+                : !selectedIssue
+                ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
+                : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
+          }}
+          onClick={() => {
+            if (selectedIssue !== 1) {
+              setSelectedIssue(1);
+            } else {
+              setSelectedIssue(null);
+            }
+          }}
+        >
+          <div
+            className={`d-flex flex-row align-items-center justify-content-between`}
           >
-            <div
-              className={`d-flex flex-row align-items-center justify-content-between`}
-            >
-              <p
-                className={`mb-0 ${
-                  !selectedSpecificIssue ? 'big-text' : 'no-text'
-                } mobile-transition-font`}
-              >
-                Health
-              </p>
-            </div>
             <p
-              className={`mb-0 mobile-transition-font
+              className={`mb-0 ${
+                !selectedSpecificIssue ? 'big-text' : 'no-text'
+              } mobile-transition-font`}
+            >
+              Health
+            </p>
+          </div>
+          <p
+            className={`mb-0 mobile-transition-font
                 ${
                   (selectedIssue === 1 || !selectedIssue) &&
                   !selectedSpecificIssue
                     ? 'small-text'
                     : 'no-text'
                 }`}
-            >
-              {issue_categories.descriptions['1']}
-            </p>
+          >
+            {issue_categories.descriptions['1']}
+          </p>
 
-            {getSelectionIssues('health', 1, health_issues)}
-          </div>
+          {getSelectionIssues('health', 1, health_issues)}
+        </div>
 
-          <div
-            className={`mobile-citywide-chapter
+        <div
+          className={`mobile-citywide-chapter
             ${
               !selectedSpecificIssue
                 ? 'big-padding regular-border'
                 : 'border-none'
             }
                        row-gap`}
-            style={{
-              height:
-                selectedIssue && selectedIssue !== 2 && !selectedSpecificIssue
-                  ? 'calc(1.375rem + 1.5vw + 3rem)'
-                  : selectedSpecificIssue
-                  ? '0vh'
-                  : !selectedIssue
-                  ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
-                  : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
-            }}
-            onClick={() => {
-              if (selectedIssue !== 2) {
-                setSelectedIssue(2);
-              } else {
-                setSelectedIssue(null);
-              }
-            }}
+          style={{
+            height:
+              selectedIssue && selectedIssue !== 2 && !selectedSpecificIssue
+                ? 'calc(1.375rem + 1.5vw + 3rem)'
+                : selectedSpecificIssue
+                ? '0vh'
+                : !selectedIssue
+                ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
+                : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
+          }}
+          onClick={() => {
+            if (selectedIssue !== 2) {
+              setSelectedIssue(2);
+            } else {
+              setSelectedIssue(null);
+            }
+          }}
+        >
+          <div
+            className={`d-flex flex-row align-items-center justify-content-between`}
           >
-            <div
-              className={`d-flex flex-row align-items-center justify-content-between`}
-            >
-              <p
-                className={`mb-0 ${
-                  !selectedSpecificIssue ? 'big-text' : 'no-text'
-                } mobile-transition-font`}
-              >
-                Environment
-              </p>
-            </div>
             <p
-              className={`mb-0 mobile-transition-font
+              className={`mb-0 ${
+                !selectedSpecificIssue ? 'big-text' : 'no-text'
+              } mobile-transition-font`}
+            >
+              Environment
+            </p>
+          </div>
+          <p
+            className={`mb-0 mobile-transition-font
                 ${
                   (selectedIssue === 2 || !selectedIssue) &&
                   !selectedSpecificIssue
                     ? 'small-text'
                     : 'no-text'
                 }`}
-            >
-              {issue_categories.descriptions['2']}
-            </p>
-            {getSelectionIssues('environment', 2, environment_issues)}
-          </div>
+          >
+            {issue_categories.descriptions['2']}
+          </p>
+          {getSelectionIssues('environment', 2, environment_issues)}
+        </div>
 
-          <div
-            className={`mobile-citywide-chapter
+        <div
+          className={`mobile-citywide-chapter
             ${
               !selectedSpecificIssue
                 ? 'big-padding regular-border'
                 : 'border-none'
             }
              row-gap`}
-            style={{
-              height:
-                selectedIssue && selectedIssue !== 3 && !selectedSpecificIssue
-                  ? 'calc(1.375rem + 1.5vw + 3rem)'
-                  : selectedSpecificIssue
-                  ? '0vh'
-                  : !selectedIssue
-                  ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
-                  : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
-            }}
-            onClick={() => {
-              if (selectedIssue !== 3) {
-                setSelectedIssue(3);
-              } else {
-                setSelectedIssue(null);
-              }
-            }}
+          style={{
+            height:
+              selectedIssue && selectedIssue !== 3 && !selectedSpecificIssue
+                ? 'calc(1.375rem + 1.5vw + 3rem)'
+                : selectedSpecificIssue
+                ? '0vh'
+                : !selectedIssue
+                ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
+                : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
+          }}
+          onClick={() => {
+            if (selectedIssue !== 3) {
+              setSelectedIssue(3);
+            } else {
+              setSelectedIssue(null);
+            }
+          }}
+        >
+          <div
+            className={`d-flex flex-row align-items-center justify-content-between`}
           >
-            <div
-              className={`d-flex flex-row align-items-center justify-content-between`}
-            >
-              <p
-                className={`mb-0 ${
-                  !selectedSpecificIssue ? 'big-text' : 'no-text'
-                } mobile-transition-font`}
-              >
-                Infrastructure
-              </p>
-            </div>
             <p
-              className={`mb-0 mobile-transition-font
+              className={`mb-0 ${
+                !selectedSpecificIssue ? 'big-text' : 'no-text'
+              } mobile-transition-font`}
+            >
+              Infrastructure
+            </p>
+          </div>
+          <p
+            className={`mb-0 mobile-transition-font
                 ${
                   (selectedIssue === 3 || !selectedIssue) &&
                   !selectedSpecificIssue
                     ? 'small-text'
                     : 'no-text'
                 }`}
-            >
-              {issue_categories.descriptions['3']}
-            </p>
-            {getSelectionIssues('infrastructure', 3, infrastructure_issues)}
-          </div>
-        </>
-      )}
-      <div className={'mobile-issues-profile-container'}>
-        <div className={'mobile-citywide-nav'}>
-          <div
-            className={'mobile-citywide-nav-dropdown w-100'}
-            onClick={() => setShowDropDown(!showDropDown)}
           >
-            <div className={'mobile-citywide-nav-text'}>
-              <div>
-                {selectedChapter && issue_categories.labels[selectedIssue]}
-              </div>
-              <FontAwesomeIcon icon={faChevronRight} />
-              <div className={'ellipses'}>
-                {selectedSpecificIssue &&
-                  issues.specific_issues_data[selectedSpecificIssue]
-                    .specific_issue_name}
+            {issue_categories.descriptions['3']}
+          </p>
+          {getSelectionIssues('infrastructure', 3, infrastructure_issues)}
+        </div>
+      </div>
+
+      {selectedSpecificIssue && (
+        <div className={'mobile-issues-profile-container'}>
+          <div className="position-relative">
+            <div className={'mobile-citywide-nav'}>
+              <div
+                className={'mobile-citywide-nav-dropdown w-100'}
+                onClick={() => setShowDropDown(!showDropDown)}
+              >
+                <div className={'mobile-citywide-nav-text'}>
+                  <div>
+                    {selectedChapter && issue_categories.labels[selectedIssue]}
+                  </div>
+                  <FontAwesomeIcon icon={faChevronRight} />
+                  <div className={'ellipses'}>
+                    {selectedSpecificIssue &&
+                      issues.specific_issues_data[selectedSpecificIssue]
+                        .specific_issue_name}
+                  </div>
+                </div>
+                <FontAwesomeIcon
+                  icon={showDropDown ? faCaretUp : faCaretDown}
+                />
               </div>
             </div>
-            <FontAwesomeIcon icon={showDropDown ? faCaretUp : faCaretDown} />
-          </div>
-          {/* <div
-            onClick={() => {
-              setShowMap(false);
-            }}
-            className={`mobile-map-toggle ${
-              showMap ? 'inactive-scheme' : 'active-scheme'
-            }`}
-          >
-            {showMap ? <img src={_TILE_BLACK} /> : <img src={_TILE_WHITE} />}
-          </div>
-          <div
-            onClick={() => {
-              setShowMap(true);
-            }}
-            className={`mobile-map-toggle ${
-              !showMap ? 'inactive-scheme' : 'active-scheme'
-            }`}
-          >
-            {showMap ? <img src={_GLOBE_WHITE} /> : <img src={_GLOBE_BLACK} />}
-          </div> */}
-        </div>
-        {/* Nav dropdown content (increase z-index for visibility) */}
-        <div
-          className={'position-absolute'}
-          style={{ zIndex: selectedSpecificIssue ? 50 : '' }}
-        >
-          <div
-            className={`mobile-citywide-nav-dropdown-item
+            <div
+              className={'position-absolute'}
+              // style={{ zIndex: '3', height: showDropDown ? '100vh' : '0vh' }}
+            >
+              <div
+                className={`mobile-citywide-nav-dropdown-item
                         ${
                           showDropDown
                             ? 'mobile-citywide-nav-dropdown-item-grow'
@@ -513,25 +496,25 @@ export default function CitywideData({
                             : 'inactive-scheme'
                         }
                         `}
-            style={{ width: '100vw' }}
-            onClick={() => {
-              if (showSubDropDown !== 1) {
-                setShowSubDropDown(1);
-              } else {
-                setShowSubDropDown(null);
-              }
-            }}
-          >
-            <div>Health</div>
-            <FontAwesomeIcon
-              icon={showSubDropDown === 1 ? faCaretUp : faCaretDown}
-            />
-          </div>
+                style={{ width: '100vw' }}
+                onClick={() => {
+                  if (showSubDropDown !== 1) {
+                    setShowSubDropDown(1);
+                  } else {
+                    setShowSubDropDown(null);
+                  }
+                }}
+              >
+                <div>Health</div>
+                <FontAwesomeIcon
+                  icon={showSubDropDown === 1 ? faCaretUp : faCaretDown}
+                />
+              </div>
 
-          {issues.issues_data.health.specific_issues_ID.map((id) => {
-            return (
-              <div
-                className={`mobile-citywide-nav-dropdown-item
+              {issues.issues_data.health.specific_issues_ID.map((id) => {
+                return (
+                  <div
+                    className={`mobile-citywide-nav-dropdown-item
                         ${
                           showDropDown && showSubDropDown === 1
                             ? 'mobile-citywide-nav-dropdown-item-grow'
@@ -543,40 +526,42 @@ export default function CitywideData({
                             : 'inactive-scheme'
                         }
                         `}
-                style={{ width: '100vw' }}
-                onClick={() => {
-                  if (selectedSpecificIssue !== id) {
-                    setSelectedSpecificIssue(id);
-                    setSelectedIssue(1);
-                    setShowDropDown(false);
-                    setShowSubDropDown(false);
-                  } else {
-                    setSelectedSpecificIssue(null);
-                    setShowDropDown(false);
-                    setShowSubDropDown(false);
-                  }
-                }}
-              >
-                <div>
-                  <p
-                    className={'mb-0'}
-                    style={{
-                      fontSize:
-                        showDropDown && showSubDropDown === 1 ? '0.8em' : '0',
-                      opacity:
-                        showDropDown && showSubDropDown === 1 ? '1' : '0',
-                      transition: 'font-size 0.2s, opacity 0.3s',
+                    style={{ width: '100vw' }}
+                    onClick={() => {
+                      if (selectedSpecificIssue !== id) {
+                        setSelectedSpecificIssue(id);
+                        setSelectedIssue(1);
+                        setShowDropDown(false);
+                        setShowSubDropDown(false);
+                      } else {
+                        setSelectedSpecificIssue(null);
+                        setShowDropDown(false);
+                        setShowSubDropDown(false);
+                      }
                     }}
                   >
-                    {issues.specific_issues_data[id].specific_issue_name}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+                    <div>
+                      <p
+                        className={'mb-0'}
+                        style={{
+                          fontSize:
+                            showDropDown && showSubDropDown === 1
+                              ? '0.8em'
+                              : '0',
+                          opacity:
+                            showDropDown && showSubDropDown === 1 ? '1' : '0',
+                          transition: 'font-size 0.2s, opacity 0.3s',
+                        }}
+                      >
+                        {issues.specific_issues_data[id].specific_issue_name}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
 
-          <div
-            className={`mobile-citywide-nav-dropdown-item
+              <div
+                className={`mobile-citywide-nav-dropdown-item
                         ${
                           showDropDown
                             ? 'mobile-citywide-nav-dropdown-item-grow'
@@ -588,25 +573,25 @@ export default function CitywideData({
                             : 'inactive-scheme'
                         }
                         `}
-            style={{ width: '100vw' }}
-            onClick={() => {
-              if (showSubDropDown !== 2) {
-                setShowSubDropDown(2);
-              } else {
-                setShowSubDropDown(null);
-              }
-            }}
-          >
-            <div>Environment</div>
-            <FontAwesomeIcon
-              icon={showSubDropDown === 2 ? faCaretUp : faCaretDown}
-            />
-          </div>
+                style={{ width: '100vw' }}
+                onClick={() => {
+                  if (showSubDropDown !== 2) {
+                    setShowSubDropDown(2);
+                  } else {
+                    setShowSubDropDown(null);
+                  }
+                }}
+              >
+                <div>Environment</div>
+                <FontAwesomeIcon
+                  icon={showSubDropDown === 2 ? faCaretUp : faCaretDown}
+                />
+              </div>
 
-          {issues.issues_data.environment.specific_issues_ID.map((id) => {
-            return (
-              <div
-                className={`mobile-citywide-nav-dropdown-item
+              {issues.issues_data.environment.specific_issues_ID.map((id) => {
+                return (
+                  <div
+                    className={`mobile-citywide-nav-dropdown-item
                         ${
                           showDropDown && showSubDropDown === 2
                             ? 'mobile-citywide-nav-dropdown-item-grow'
@@ -618,40 +603,42 @@ export default function CitywideData({
                             : 'inactive-scheme'
                         }
                         `}
-                style={{ width: '100vw' }}
-                onClick={() => {
-                  if (selectedSpecificIssue !== id) {
-                    setSelectedSpecificIssue(id);
-                    setSelectedIssue(2);
-                    setShowDropDown(false);
-                    setShowSubDropDown(false);
-                  } else {
-                    setSelectedSpecificIssue(null);
-                    setShowDropDown(false);
-                    setShowSubDropDown(false);
-                  }
-                }}
-              >
-                <div>
-                  <p
-                    className={'mb-0'}
-                    style={{
-                      fontSize:
-                        showDropDown && showSubDropDown === 2 ? '0.8em' : '0',
-                      opacity:
-                        showDropDown && showSubDropDown === 2 ? '1' : '0',
-                      transition: 'font-size 0.2s, opacity 0.3s',
+                    style={{ width: '100vw' }}
+                    onClick={() => {
+                      if (selectedSpecificIssue !== id) {
+                        setSelectedSpecificIssue(id);
+                        setSelectedIssue(2);
+                        setShowDropDown(false);
+                        setShowSubDropDown(false);
+                      } else {
+                        setSelectedSpecificIssue(null);
+                        setShowDropDown(false);
+                        setShowSubDropDown(false);
+                      }
                     }}
                   >
-                    {issues.specific_issues_data[id].specific_issue_name}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+                    <div>
+                      <p
+                        className={'mb-0'}
+                        style={{
+                          fontSize:
+                            showDropDown && showSubDropDown === 2
+                              ? '0.8em'
+                              : '0',
+                          opacity:
+                            showDropDown && showSubDropDown === 2 ? '1' : '0',
+                          transition: 'font-size 0.2s, opacity 0.3s',
+                        }}
+                      >
+                        {issues.specific_issues_data[id].specific_issue_name}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
 
-          <div
-            className={`mobile-citywide-nav-dropdown-item 
+              <div
+                className={`mobile-citywide-nav-dropdown-item 
                         ${
                           showDropDown
                             ? 'mobile-citywide-nav-dropdown-item-grow'
@@ -663,25 +650,26 @@ export default function CitywideData({
                             : 'inactive-scheme'
                         }
                         `}
-            style={{ width: '100vw' }}
-            onClick={() => {
-              if (showSubDropDown !== 3) {
-                setShowSubDropDown(3);
-              } else {
-                setShowSubDropDown(null);
-              }
-            }}
-          >
-            <div>Infrastructure</div>
-            <FontAwesomeIcon
-              icon={showSubDropDown === 3 ? faCaretUp : faCaretDown}
-            />
-          </div>
+                style={{ width: '100vw' }}
+                onClick={() => {
+                  if (showSubDropDown !== 3) {
+                    setShowSubDropDown(3);
+                  } else {
+                    setShowSubDropDown(null);
+                  }
+                }}
+              >
+                <div>Infrastructure</div>
+                <FontAwesomeIcon
+                  icon={showSubDropDown === 3 ? faCaretUp : faCaretDown}
+                />
+              </div>
 
-          {issues.issues_data.infrastructure.specific_issues_ID.map((id) => {
-            return (
-              <div
-                className={`mobile-citywide-nav-dropdown-item
+              {issues.issues_data.infrastructure.specific_issues_ID.map(
+                (id) => {
+                  return (
+                    <div
+                      className={`mobile-citywide-nav-dropdown-item
                         ${
                           showDropDown && showSubDropDown === 3
                             ? 'mobile-citywide-nav-dropdown-item-grow'
@@ -693,320 +681,292 @@ export default function CitywideData({
                             : 'inactive-scheme'
                         }
                         `}
-                style={{ width: '100vw' }}
-                onClick={() => {
-                  if (selectedSpecificIssue !== id) {
-                    setSelectedSpecificIssue(id);
-                    setSelectedIssue(3);
-                    setShowDropDown(false);
-                    setShowSubDropDown(false);
-                  } else {
-                    setSelectedSpecificIssue(null);
-                    setShowDropDown(false);
-                    setShowSubDropDown(false);
-                  }
-                }}
-              >
-                <div>
-                  <p
-                    className={'mb-0'}
-                    style={{
-                      fontSize:
-                        showDropDown && showSubDropDown === 3 ? '0.8em' : '0',
-                      opacity:
-                        showDropDown && showSubDropDown === 3 ? '1' : '0',
-                      transition: 'font-size 0.s, opacity 0.3s',
-                    }}
-                  >
-                    {issues.specific_issues_data[id].specific_issue_name}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* put this in the nav menu */}
-        {/* <div
-          className={'mobile-boundary-nav'}
-          style={{ backgroundColor: !showMap ? 'white' : '' }}
-        >
-          <div
-            className={'d-flex flex-row col-gap align-items-center'}
-            style={{ backgroundColor: 'white', padding: 5 }}
-          >
-            <p
-              className={'small-font mb-0'}
-              style={{
-                textDecorationLine: boundary !== 'council' ? 'underline' : '',
-              }}
-            >
-              Community <br /> Board
-            </p>
-            <div
-              className={`d-flex switch-container flex-row justify-content-between`}
-            >
-              <label className="switch">
-                <input
-                  type="checkbox"
-                  checked={boundary === 'council'}
-                  onChange={(e) => {
-                    let b = e.target.checked ? 'council' : 'community';
-                    setBoundary(b);
-                  }}
-                />
-                <span className="slider round"></span>
-              </label>
-            </div>
-            <p
-              className={`small-font mb-0`}
-              style={{
-                textDecorationLine: boundary === 'council' ? 'underline' : '',
-              }}
-            >
-              Council <br /> District
-            </p>
-          </div>
-          <ShareButton isMobile={true} />
-        </div> */}
-        {/* put this in the nav menu */}
-
-        <div
-          className="citywide-non-map-content"
-          style={{
-            // Hide the citywide non-map content if showing map
-            opacity: showMap ? 0 : 1,
-            pointerEvents: showMap ? 'none' : 'auto',
-            // height:
-            //   (!showMap && !showDemographics) || (showMap && !showLegend)
-            //     ? 'calc(100vh - 19vh - (4.025rem + .3vw))'
-            //     : 'calc(100vh - 52vh - (4.025rem + .3vw))',
-            transition: 'height 0.5s',
-            padding: '1rem',
-            overflow: 'auto',
-            position: 'relative',
-            height: '100%',
-            // backgroundColor: 'white',
-          }}
-        >
-          {selectedSpecificIssue && (
-            <>
-              {(!showMap || !showDemographics) && (
-                <div>
-                  <div className={'pb-3'}>
-                    {getHyperlinkText(
-                      issues.specific_issues_data[selectedSpecificIssue]
-                        .specific_issue_description
-                    )}
-                  </div>
-                  <div className={'link-underline'}>
-                    <strong>Related:</strong> {getRelatedIssues()}
-                  </div>
-                </div>
+                      style={{ width: '100vw' }}
+                      onClick={() => {
+                        if (selectedSpecificIssue !== id) {
+                          setSelectedSpecificIssue(id);
+                          setSelectedIssue(3);
+                          setShowDropDown(false);
+                          setShowSubDropDown(false);
+                        } else {
+                          setSelectedSpecificIssue(null);
+                          setShowDropDown(false);
+                          setShowSubDropDown(false);
+                        }
+                      }}
+                    >
+                      <div>
+                        <p
+                          className={'mb-0'}
+                          style={{
+                            fontSize:
+                              showDropDown && showSubDropDown === 3
+                                ? '0.8em'
+                                : '0',
+                            opacity:
+                              showDropDown && showSubDropDown === 3 ? '1' : '0',
+                            transition: 'font-size 0.s, opacity 0.3s',
+                          }}
+                        >
+                          {issues.specific_issues_data[id].specific_issue_name}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                }
               )}
-              <div
-                style={{ flex: 1, height: '85vh' }}
-                className={'histogram-responsive-box'}
-              >
-                <Histogram
-                  colorRampsyType={colorRamps}
-                  issues={issues}
-                  boundary={boundary}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  communityPinned={communityPinned}
-                  setCommunityPinned={setCommunityPinned}
-                  councilPinned={councilPinned}
-                  setCouncilPinned={setCouncilPinned}
-                  setCommunitySearch={setCommunitySearch}
-                  setSelectedChapter={setSelectedChapter}
-                />
-              </div>
-              <IssueProfile
-                issues={issues}
-                selectedSpecificIssue={selectedSpecificIssue}
-                boundary={boundary}
-                setSelectedSpecificIssue={setSelectedSpecificIssue}
-                setCommunitySearch={setCommunitySearch}
-                setSelectedChapter={setSelectedChapter}
-                councils={councils}
-                communities={communities}
-              />
-            </>
-          )}
-        </div>
-
-        <div
-          className={`mobile-demographics-toggle ${
-            (!showMap && showDemographics) || (showMap && showLegend)
-              ? 'active-scheme'
-              : 'inactive-scheme'
-          }`}
-          onClick={() => {
-            if (!showMap) {
-              setShowDemographics(!showDemographics);
-            } else {
-              setShowDemographics(true);
-              setShowLegend(!showLegend);
-            }
-          }}
-        >
-          <div>
-            {!showMap && showDemographics
-              ? 'Hide U.S. Census Data'
-              : !showMap && !showDemographics
-              ? 'Show U.S. Census Data'
-              : showMap && showLegend
-              ? 'Hide Legend'
-              : 'Show Legend'}
+              {/* <div
+                className={' vh-100'}
+                style={{ zIndex: '25', backgroundColor: 'tomato' }}
+                onClick={() => {
+                  console.log('clicked');
+                  setShowDropDown(false);
+                  setShowSubDropDown(false);
+                }}
+              ></div> */}
+            </div>
           </div>
 
-          <FontAwesomeIcon
-            icon={
-              (!showMap && showDemographics) || (showMap && showLegend)
-                ? faMinus
-                : faPlus
-            }
-          />
-        </div>
-        <div
-          className={'mobile-demographics-container'}
-          style={{
-            padding:
-              (!showMap && showDemographics) || (showMap && showLegend)
-                ? '1rem'
-                : '0',
-            height:
-              (!showMap && showDemographics) || (showMap && showLegend)
-                ? 'calc(100vh - 19vh  - 48vh)'
-                : '0',
-          }}
-        >
-          {selectedSpecificIssue && !showMap && (
-            <Demographics
-              currentValue={demographic}
-              setValue={setDemographic}
-              selectedSpecificIssue={selectedSpecificIssue}
-              setShowDemographics={setShowDemographics}
-              showDemographics={showDemographics}
-              communitySearch={communitySearch}
-              compareSearch={compareSearch}
-              mapDemographics={mapDemographics}
-              setMapDemographics={setMapDemographics}
-              boundary={boundary}
-              communities={communities}
-              councils={councils}
-              selectedChapter={selectedChapter}
-              toggleTransit={toggleTransit}
-              setToggleTransit={setToggleTransit}
-              toggleBike={toggleBike}
-              setToggleBike={setToggleBike}
-              toggleWalk={toggleWalk}
-              setToggleWalk={setToggleWalk}
-              colorRamps={colorRamps} // legendBins={legendBins}
-              demoColorRamp={demoColorRamp}
-              demoLegendBins={demoLegendBins}
-              setDemoColorRamp={setDemoColorRamp}
-              setDemoLegendBins={setDemoLegendBins}
-              demoLookup={demoLookup[demographic]}
-              showMap={showMap}
-              info={info}
-            />
-          )}
-
-          {selectedSpecificIssue && showMap && (
-            <Carousel>
-              <div
-                className={'d-flex flex-column justify-content-between'}
-                style={{ height: 'calc(100vh - 19vh  - 48vh - 5rem)' }}
-              >
-                <p className={'mb-0'}>Description</p>
-                {getHyperlinkText(
-                  issues.specific_issues_data[selectedSpecificIssue]
-                    .specific_issue_description
+          <div
+            className="citywide-non-map-content"
+            style={{
+              // Hide the citywide non-map content if showing map
+              opacity: showMap ? 0 : 1,
+              pointerEvents: showMap ? 'none' : 'auto',
+              transition: 'height 0.5s',
+              padding: '1rem',
+              overflow: 'auto',
+              position: 'relative',
+              height: '100%',
+              backgroundColor: 'white',
+            }}
+            onTouchMove={() => {
+              if (showDropDown) setShowDropDown(false);
+              if (showSubDropDown) setShowSubDropDown(false);
+            }}
+          >
+            {selectedSpecificIssue && (
+              <>
+                {(!showMap || !showDemographics) && (
+                  <div>
+                    <div className={'pb-3'}>
+                      {getHyperlinkText(
+                        issues.specific_issues_data[selectedSpecificIssue]
+                          .specific_issue_description
+                      )}
+                    </div>
+                    <div className={'link-underline'}>
+                      <strong>Related:</strong> {getRelatedIssues()}
+                    </div>
+                  </div>
                 )}
-              </div>
-
-              <div
-                className={'d-flex flex-column justify-content-between'}
-                style={{ height: 'calc(100vh - 19vh  - 48vh - 5rem)' }}
-              >
-                <p className={'mb-0'}>Data Legend</p>
-
-                <Legend
-                  mapDemographics={mapDemographics}
-                  demoColorRamp={demoColorRamp}
-                  demoLegendBins={demoLegendBins}
-                  demoLookup={demoLookup[demographic]}
-                  demographic={demographic}
-                  dataScale={dataScale}
-                  setdataScale={setdataScale}
-                  issues={issues}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  colorRamps={colorRamps}
-                  toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
-                  setToggleUnderperformers={setToggleUnderperformers}
-                  boundary={boundary}
-                  handleLegend={handleLegend}
-                  selectedIssue={selectedSpecificIssue}
-                  zoomToggle={zoomToggle}
-                  showMap={showMap}
-                  binList={binList}
-                  info={info}
-                  selectedChapter={selectedChapter}
-                />
-              </div>
-
-              <div
-                className={'d-flex flex-column justify-content-between'}
-                style={{
-                  transition: 'height 0.5s',
-                  height: `${
-                    showMap && showLegend
-                      ? 'calc(100vh - 19vh  - 48vh - 5rem)'
-                      : '0'
-                  }`,
-                }}
-              >
-                <p className={'mb-0'}>Demographics</p>
-
                 <div
-                  style={{ position: 'relative', zIndex: 1, height: '100%' }}
+                  style={{ flex: 1, height: '85vh' }}
+                  className={'histogram-responsive-box'}
                 >
-                  <Demographics
-                    currentValue={demographic}
-                    setValue={setDemographic}
-                    selectedSpecificIssue={selectedSpecificIssue}
-                    setShowDemographics={setShowDemographics}
-                    showDemographics={showDemographics}
-                    communitySearch={communitySearch}
-                    compareSearch={compareSearch}
-                    mapDemographics={mapDemographics}
-                    setMapDemographics={setMapDemographics}
+                  <Histogram
+                    colorRampsyType={colorRamps}
+                    issues={issues}
                     boundary={boundary}
-                    communities={communities}
-                    councils={councils}
-                    selectedChapter={selectedChapter}
-                    toggleTransit={toggleTransit}
-                    setToggleTransit={setToggleTransit}
-                    toggleBike={toggleBike}
-                    setToggleBike={setToggleBike}
-                    toggleWalk={toggleWalk}
-                    setToggleWalk={setToggleWalk}
-                    colorRamps={colorRamps} // legendBins={legendBins}
-                    demoColorRamp={demoColorRamp}
-                    demoLegendBins={demoLegendBins}
-                    setDemoColorRamp={setDemoColorRamp}
-                    setDemoLegendBins={setDemoLegendBins}
-                    demoLookup={demoLookup[demographic]}
-                    showMap={showMap}
-                    info={info}
+                    selectedSpecificIssue={selectedSpecificIssue}
+                    communityPinned={communityPinned}
+                    setCommunityPinned={setCommunityPinned}
+                    councilPinned={councilPinned}
+                    setCouncilPinned={setCouncilPinned}
+                    setCommunitySearch={setCommunitySearch}
+                    setSelectedChapter={setSelectedChapter}
                   />
                 </div>
+                <IssueProfile
+                  issues={issues}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  boundary={boundary}
+                  setSelectedSpecificIssue={setSelectedSpecificIssue}
+                  setCommunitySearch={setCommunitySearch}
+                  setSelectedChapter={setSelectedChapter}
+                  councils={councils}
+                  communities={communities}
+                />
+              </>
+            )}
+          </div>
+
+          <div
+            className={`mobile-demographics-toggle inactive-scheme`}
+            onClick={() => {
+              if (!showMap) {
+                setShowDemographics(!showDemographics);
+              } else {
+                setShowDemographics(true);
+                setShowLegend(!showLegend);
+              }
+            }}
+          >
+            <div className="w-100 d-flex flex-column align-items-center">
+              <div
+                style={{
+                  transition: '0.5s ease-in-out',
+                  backgroundColor: 'black',
+                  width: '8%',
+                  height: '6px',
+                  borderRadius: '1rem',
+                  marginBottom: '0.5rem',
+                }}
+              ></div>
+              {/* {!showMap && showDemographics
+                ? 'Hide U.S. Census Data'
+                : !showMap && !showDemographics
+                ? 'Show U.S. Census Data'
+                : showMap && showLegend
+                ? 'Hide Legend'
+                : 'Show Legend'} */}
+
+              {/* <FontAwesomeIcon
+              icon={
+                (!showMap && showDemographics) || (showMap && showLegend)
+                  ? faMinus
+                  : faPlus
+              }
+            /> */}
+              <Legend
+                isMobile={true}
+                mapDemographics={mapDemographics}
+                demoColorRamp={demoColorRamp}
+                demoLegendBins={demoLegendBins}
+                demoLookup={demoLookup[demographic]}
+                demographic={demographic}
+                dataScale={dataScale}
+                setdataScale={setdataScale}
+                issues={issues}
+                selectedSpecificIssue={selectedSpecificIssue}
+                colorRamps={colorRamps}
+                toggleUnderperformers={toggleUnderperformers}
+                setToggleUnderperformers={setToggleUnderperformers}
+                boundary={boundary}
+                handleLegend={handleLegend}
+                selectedIssue={selectedSpecificIssue}
+                zoomToggle={zoomToggle}
+                showMap={showMap}
+                binList={binList}
+                info={info}
+                selectedChapter={selectedChapter}
+              />
+            </div>
+          </div>
+          <div
+            className={'mobile-demographics-container'}
+            style={{
+              padding:
+                (!showMap && showDemographics) || (showMap && showLegend)
+                  ? '1rem'
+                  : '0',
+              height:
+                (!showMap && showDemographics) || (showMap && showLegend)
+                  ? 'calc(100vh - 19vh  - 48vh)'
+                  : '0',
+            }}
+          >
+            {selectedSpecificIssue && !showMap && (
+              <Demographics
+                currentValue={demographic}
+                setValue={setDemographic}
+                selectedSpecificIssue={selectedSpecificIssue}
+                setShowDemographics={setShowDemographics}
+                showDemographics={showDemographics}
+                communitySearch={communitySearch}
+                compareSearch={compareSearch}
+                mapDemographics={mapDemographics}
+                setMapDemographics={setMapDemographics}
+                boundary={boundary}
+                communities={communities}
+                councils={councils}
+                selectedChapter={selectedChapter}
+                toggleTransit={toggleTransit}
+                setToggleTransit={setToggleTransit}
+                toggleBike={toggleBike}
+                setToggleBike={setToggleBike}
+                toggleWalk={toggleWalk}
+                setToggleWalk={setToggleWalk}
+                colorRamps={colorRamps} // legendBins={legendBins}
+                demoColorRamp={demoColorRamp}
+                demoLegendBins={demoLegendBins}
+                setDemoColorRamp={setDemoColorRamp}
+                setDemoLegendBins={setDemoLegendBins}
+                demoLookup={demoLookup[demographic]}
+                showMap={showMap}
+                info={info}
+              />
+            )}
+
+            {/* {selectedSpecificIssue && showMap && (
+              <Carousel> */}
+            {/* <div
+              className={'d-flex flex-column justify-content-between'}
+              style={{ height: 'calc(100vh - 19vh  - 48vh - 5rem)' }}
+            >
+              {getHyperlinkText(
+                issues.specific_issues_data[selectedSpecificIssue]
+                  .specific_issue_description
+              )}
+            </div> */}
+            {/* 
+            <div
+              className={'d-flex flex-column justify-content-between'}
+              style={{ height: 'calc(100vh - 19vh  - 48vh - 5rem)' }}
+            >
+ 
+            </div> */}
+
+            <div
+              className={'d-flex flex-column justify-content-between'}
+              style={{
+                transition: 'height 0.5s',
+                height: `${
+                  showMap && showLegend
+                    ? 'calc(100vh - 19vh  - 48vh - 5rem)'
+                    : '0'
+                }`,
+              }}
+            >
+              <p className={'small-font mb-1'}>Compare Demographics</p>
+
+              <div style={{ position: 'relative', zIndex: 1, height: '100%' }}>
+                <Demographics
+                  currentValue={demographic}
+                  setValue={setDemographic}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  setShowDemographics={setShowDemographics}
+                  showDemographics={showDemographics}
+                  communitySearch={communitySearch}
+                  compareSearch={compareSearch}
+                  mapDemographics={mapDemographics}
+                  setMapDemographics={setMapDemographics}
+                  boundary={boundary}
+                  communities={communities}
+                  councils={councils}
+                  selectedChapter={selectedChapter}
+                  toggleTransit={toggleTransit}
+                  setToggleTransit={setToggleTransit}
+                  toggleBike={toggleBike}
+                  setToggleBike={setToggleBike}
+                  toggleWalk={toggleWalk}
+                  setToggleWalk={setToggleWalk}
+                  colorRamps={colorRamps} // legendBins={legendBins}
+                  demoColorRamp={demoColorRamp}
+                  demoLegendBins={demoLegendBins}
+                  setDemoColorRamp={setDemoColorRamp}
+                  setDemoLegendBins={setDemoLegendBins}
+                  demoLookup={demoLookup[demographic]}
+                  showMap={showMap}
+                  info={info}
+                />
               </div>
-            </Carousel>
-          )}
+            </div>
+            {/* </Carousel>
+            )} */}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

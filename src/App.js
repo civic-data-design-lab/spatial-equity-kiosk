@@ -1195,14 +1195,14 @@ function App() {
             </div>
           ) : null}
 
-          {/* <div
+          <div
             className={'mobile-map'}
             style={{
               position: 'absolute',
               height: '100%',
               width: '100%',
               top: 0,
-              zIndex: 1,
+              zIndex: showMap ? '0' : '-1',
             }}
           >
             <Map
@@ -1259,7 +1259,7 @@ function App() {
               collapseMap={collapseMap}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
             />
-          </div> */}
+          </div>
         </Container>
       )}
     </Protect>
