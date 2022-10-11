@@ -135,10 +135,10 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               opacity: currentStepIndex === 1 ? 1 : 0.2,
             }}
           >
-            <div className={'scroll-title'} id={'content-1'}>
+            {/* <div className={'scroll-title'}>
               <h4 className={'mb-0 bold'}></h4>
-            </div>
-            <div className={'scroll-content'}>
+            </div> */}
+            <div className={'scroll-content'} id={'content-1'}>
               <p>
                 Are you a New Yorker ready to challenge spatial inequities in
                 your community? Take action now by sending a message to your
@@ -164,10 +164,10 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               opacity: currentStepIndex === 2 ? 1 : 0.2,
             }}
           >
-            <div className={'scroll-title'} id={'content-2'}>
+            {/* <div className={'scroll-title'}>
               <h4 className={'mb-0 bold'}></h4>
-            </div>
-            <div className={'scroll-content'}>
+            </div> */}
+            <div className={'scroll-content'} id={'content-2'}>
               <p>
                 Does your City Council member or community board member know
                 about the spatial inequities in your community? Spread the word
@@ -199,10 +199,10 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               opacity: currentStepIndex === 3 ? 1 : 0.2,
             }}
           >
-            <div className={'scroll-title'} id={'content-3'}>
+            {/* <div className={'scroll-title'}>
               <h4 className={'mb-0 bold'}></h4>
-            </div>
-            <div className={'scroll-content'}>
+            </div> */}
+            <div className={'scroll-content'} id={'content-3'}>
               <p>
                 Achieving spatial equity is a local battle that starts with
                 reshaping streets in your own neighborhood. Transportation
@@ -243,10 +243,10 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               opacity: currentStepIndex === 4 ? 1 : 0.2,
             }}
           >
-            <div className={'scroll-title'} id={'content-4'}>
+            {/* <div className={'scroll-title'}>
               <h4 className={'mb-0 bold'}></h4>
-            </div>
-            <div className={'scroll-content'}>
+            </div> */}
+            <div className={'scroll-content'} id={'content-4'}>
               <p>
                 Spatial equity is a way to understand how public space is
                 distributed and restricted, used and made unusable, and the
@@ -296,11 +296,11 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             }}
           >
             <div className={'spacer'} />
-            <div className={'scroll-title'} id={'content-5'}>
+            {/* <div className={'scroll-title'}>
               <h4 className={'mb-0 bold'}></h4>
-            </div>
+            </div> */}
 
-            <div className={'scroll-content'}>
+            <div className={'scroll-content'} id={'content-5'}>
               <p>
                 The goal of Spatial Equity NYC is to empower New Yorkers with
                 data about local disparities in public health, environmental
@@ -357,10 +357,10 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             }}
           >
             <div className={'spacer'} />
-            <div className={'scroll-title'} id={'content-6'}>
+            {/* <div className={'scroll-title'}>
               <h4 className={'mb-0 bold'}></h4>
-            </div>
-            <div className={'scroll-content'}>
+            </div> */}
+            <div className={'scroll-content'} id={'content-6'}>
               <p>
                 In early 2021, Transportation Alternatives launched
                 <span>
@@ -438,10 +438,10 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             }}
           >
             <div className={'spacer'} />
-            <div className={'scroll-title'} id={'content-7'}>
+            {/* <div className={'scroll-title'}>
               <h4 className={'mb-0 bold'}></h4>
-            </div>
-            <div className={'scroll-content'}>
+            </div> */}
+            <div className={'scroll-content'} id={'content-7'}>
               <h6 className={'bold'}> Request Additional Analysis </h6>
               <p>
                 Local stakeholders can request additional and detailed analyses
@@ -503,10 +503,10 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             }}
           >
             <div className={'spacer'} />
-            <div className={'scroll-title'} id={'content-8'}>
+            {/* <div className={'scroll-title'}>
               <h4 className={'mb-0 bold'}></h4>
-            </div>
-            <div className={'scroll-content'}>
+            </div> */}
+            <div className={'scroll-content'} id={'content-8'}>
               <h6 className={'bold'}>About Transportation Alternatives</h6>
               <p>
                 Transportation Alternatives (TA) is a New York City-based
@@ -592,10 +592,10 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
             }}
           >
             <div className={'spacer'} />
-            <div className={'scroll-title'} id={'content-9'}>
+            {/* <div className={'scroll-title'}>
               <h4 className={'mb-0 bold'}></h4>
-            </div>
-            <div className={'scroll-content'}>
+            </div> */}
+            <div className={'scroll-content'} id={'content-9'}>
               <h6 className={'bold'}> Methodology and Data Sources </h6>
               <p>
                 Methodology consectetur adipiscing elit, sed do eiusmod tempor
