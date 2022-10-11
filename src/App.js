@@ -771,66 +771,55 @@ function App() {
         </Container>
       ) : (
         <Container className={'p-0 vh-100'}>
-          {/* TODO: dynamically change header content based on selected chapter*/}
           <div
-            className={'mobile-nav-header'}
-            style={{
-              height: selectedChapter ? 'calc(4.025rem + .3vw)' : '0',
-              padding: selectedChapter ? '1rem' : '0',
-              border: selectedChapter ? '1px solid black' : 'none',
-            }}
+            className={`position-relative d-flex flex-column`}
+            style={{ zIndex: '10', pointerEvents: showMenu ? 'auto' : 'none' }}
           >
             {selectedChapter && (
               <>
-                <div>
-                  <p className={'m-0 small-font'}>
-                    {selectedChapter === 1
-                      ? 'What is'
-                      : selectedChapter < 4
-                      ? 'Explore Spatial Equity by'
-                      : 'Learn More'}
-                  </p>
-                  <h4 className={'m-0'}>
-                    {selectedChapter === 1
-                      ? 'Spatial Equity'
-                      : selectedChapter === 2
-                      ? 'Citywide Data'
-                      : selectedChapter === 3
-                      ? 'Community Profiles'
-                      : 'Take Action'}
-                  </h4>
-                </div>
-                {[2, 3].includes(selectedChapter) && (
-                  <MapToggle
-                    showToggle={true}
-                    showMap={showMap}
-                    setShowMap={setShowMap}
-                    boundary={boundary}
-                  />
-                )}
+                <div className={'mobile-nav-header'}>
+                  <div>
+                    <p className={'m-0 small-font'}>
+                      {selectedChapter === 1
+                        ? 'What is'
+                        : selectedChapter < 4
+                        ? 'Explore Spatial Equity by'
+                        : 'Learn More'}
+                    </p>
+                    <h4 className={'m-0'}>
+                      {selectedChapter === 1
+                        ? 'Spatial Equity'
+                        : selectedChapter === 2
+                        ? 'Citywide Data'
+                        : selectedChapter === 3
+                        ? 'Community Profiles'
+                        : 'Take Action'}
+                    </h4>
+                  </div>
+                  {[2, 3].includes(selectedChapter) && (
+                    <MapToggle
+                      showToggle={true}
+                      showMap={showMap}
+                      setShowMap={setShowMap}
+                      boundary={boundary}
+                    />
+                  )}
 
-                <div
-                  className={`${
-                    showMenu ? 'toggle-menu-active' : ''
-                  } toggle-menu`}
-                  onClick={() => setShowMenu(!showMenu)}
-                >
-                  <span
+                  <div
                     className={`${
-                      showMenu ? 'toggle-menu-span-active' : ''
-                    } toggle-menu-span`}
-                  ></span>
+                      showMenu ? 'toggle-menu-active' : ''
+                    } toggle-menu`}
+                    onClick={() => setShowMenu(!showMenu)}
+                  >
+                    <span
+                      className={`${
+                        showMenu ? 'toggle-menu-span-active' : ''
+                      } toggle-menu-span`}
+                    ></span>
+                  </div>
                 </div>
               </>
             )}
-          </div>
-
-          <div
-            className={'w-100 position-absolute'}
-            style={{
-              zIndex: 3,
-            }}
-          >
             <MobileNav
               setShowMenu={setShowMenu}
               showMenu={showMenu}
@@ -847,198 +836,199 @@ function App() {
             />
           </div>
 
-          <div
-            id={'mobile-landing'}
-            style={{
-              flexGrow: selectedChapter ? '0' : '2',
-              height: selectedChapter ? 0 : '100vh',
-            }}
-          >
+          {!selectedChapter && (
             <div
-              className={'mobile-landing-video'}
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedChapter(1);
+              id={'mobile-landing'}
+              style={{
+                flexGrow: selectedChapter ? '0' : '2',
+                height: selectedChapter ? 0 : '100vh',
               }}
             >
-              <div className={'mobile-landing-overlay'}>
-                <div className={'d-flex flex-column justify-content-between'}>
-                  <div className={'d-flex flex-row justify-content-center'}>
-                    <h6
+              <div
+                className={'mobile-landing-video'}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedChapter(1);
+                }}
+              >
+                <div className={'mobile-landing-overlay'}>
+                  <div className={'d-flex flex-column justify-content-between'}>
+                    <div className={'d-flex flex-row justify-content-center'}>
+                      <h6
+                        style={{
+                          fontSize: selectedChapter ? '0' : '1.25rem',
+                          opacity: selectedChapter ? '0' : '1',
+                          transition: 'font-size 0.5s, opacity 0.5s',
+                        }}
+                      >
+                        NYC SPATIAL EQUITY TOOL
+                      </h6>
+                    </div>
+                    <p
                       style={{
-                        fontSize: selectedChapter ? '0' : '1.25rem',
+                        fontSize: selectedChapter ? '0' : '0.8em',
                         opacity: selectedChapter ? '0' : '1',
                         transition: 'font-size 0.5s, opacity 0.5s',
                       }}
                     >
-                      NYC SPATIAL EQUITY TOOL
-                    </h6>
+                      Spatial Equity NYC documents inequities in the ways that
+                      public space — including streets, sidewalks, and
+                      greenspaces — is designed, distributed, and accessed.
+                      Browse citywide data or search community profiles to learn
+                      how decisions about the use of public space lead to
+                      unequal outcomes and what you can do about it.
+                    </p>
                   </div>
+                </div>
+                <iframe
+                  className={'mobile-video'}
+                  style={{ height: selectedChapter ? '0' : '60vh' }}
+                  src="https://www.youtube.com/embed/tSGOYpNTc8k"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+              <div
+                className={'mobile-landing-menu'}
+                style={{ height: selectedChapter ? '0' : '40vh' }}
+              >
+                <div
+                  className={'mobile-landing-menu-item'}
+                  style={{
+                    height: selectedChapter ? '0' : '10vh',
+                    padding: selectedChapter ? 0 : '0.5rem 1rem',
+                    borderBottom: selectedChapter ? 'none' : '1px solid black',
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedChapter(1);
+                  }}
+                >
                   <p
+                    className={'mb-0'}
                     style={{
                       fontSize: selectedChapter ? '0' : '0.8em',
                       opacity: selectedChapter ? '0' : '1',
                       transition: 'font-size 0.5s, opacity 0.5s',
                     }}
                   >
-                    Spatial Equity NYC documents inequities in the ways that
-                    public space — including streets, sidewalks, and greenspaces
-                    — is designed, distributed, and accessed. Browse citywide
-                    data or search community profiles to learn how decisions
-                    about the use of public space lead to unequal outcomes and
-                    what you can do about it.
+                    What is
                   </p>
+                  <h6
+                    className={'mb-0'}
+                    style={{
+                      fontSize: selectedChapter ? '0' : '1.25rem',
+                      opacity: selectedChapter ? '0' : '1',
+                      transition: 'font-size 0.5s, opacity 0.5s',
+                    }}
+                  >
+                    Spatial Equity
+                  </h6>
+                </div>
+                <div
+                  className={'mobile-landing-menu-item'}
+                  style={{
+                    height: selectedChapter ? '0' : '10vh',
+                    padding: selectedChapter ? 0 : '0.5rem 1rem',
+                    borderBottom: selectedChapter ? 0 : '1px solid black',
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedChapter(2);
+                  }}
+                >
+                  <p
+                    className={'mb-0'}
+                    style={{
+                      fontSize: selectedChapter ? '0' : '0.8em',
+                      opacity: selectedChapter ? '0' : '1',
+                      transition: 'font-size 0.5s, opacity 0.5s',
+                    }}
+                  >
+                    Explore Spatial Equity by
+                  </p>
+                  <h6
+                    className={'mb-0'}
+                    style={{
+                      fontSize: selectedChapter ? '0' : '1.25rem',
+                      opacity: selectedChapter ? '0' : '1',
+                      transition: 'font-size 0.5s, opacity 0.5s',
+                    }}
+                  >
+                    Citywide Data
+                  </h6>
+                </div>
+                <div
+                  className={'mobile-landing-menu-item'}
+                  style={{
+                    height: selectedChapter ? '0' : '10vh',
+                    padding: selectedChapter ? 0 : '0.5rem 1rem',
+                    borderBottom: selectedChapter ? 0 : '1px solid black',
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedChapter(3);
+                  }}
+                >
+                  <p
+                    className={'mb-0'}
+                    style={{
+                      fontSize: selectedChapter ? '0' : '0.8em',
+                      opacity: selectedChapter ? '0' : '1',
+                      transition: 'font-size 0.5s, opacity 0.5s',
+                    }}
+                  >
+                    Explore Spatial Equity by
+                  </p>
+                  <h6
+                    className={'mb-0'}
+                    style={{
+                      fontSize: selectedChapter ? '0' : '1.25rem',
+                      opacity: selectedChapter ? '0' : '1',
+                      transition: 'font-size 0.5s, opacity 0.5s',
+                    }}
+                  >
+                    Community Profiles
+                  </h6>
+                </div>
+                <div
+                  className={'mobile-landing-menu-item'}
+                  style={{
+                    height: selectedChapter ? '0' : '10vh',
+                    padding: selectedChapter ? 0 : '0.5rem 1rem',
+                    borderBottom: selectedChapter ? 0 : '1px solid black',
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedChapter(4);
+                  }}
+                >
+                  <p
+                    className={'mb-0'}
+                    style={{
+                      fontSize: selectedChapter ? '0' : '0.8em',
+                      opacity: selectedChapter ? '0' : '1',
+                      transition: 'font-size 0.5s, opacity 0.5s',
+                    }}
+                  >
+                    Learn More &
+                  </p>
+                  <h6
+                    className={'mb-0'}
+                    style={{
+                      fontSize: selectedChapter ? '0' : '1.25rem',
+                      opacity: selectedChapter ? '0' : '1',
+                      transition: 'font-size 0.5s, opacity 0.5s',
+                    }}
+                  >
+                    Take Action
+                  </h6>
                 </div>
               </div>
-              <iframe
-                className={'mobile-video'}
-                style={{ height: selectedChapter ? '0' : '60vh' }}
-                src="https://www.youtube.com/embed/tSGOYpNTc8k"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
             </div>
-            <div
-              className={'mobile-landing-menu'}
-              style={{ height: selectedChapter ? '0' : '40vh' }}
-            >
-              <div
-                className={'mobile-landing-menu-item'}
-                style={{
-                  height: selectedChapter ? '0' : '10vh',
-                  padding: selectedChapter ? 0 : '0.5rem 1rem',
-                  borderBottom: selectedChapter ? 'none' : '1px solid black',
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedChapter(1);
-                }}
-              >
-                <p
-                  className={'mb-0'}
-                  style={{
-                    fontSize: selectedChapter ? '0' : '0.8em',
-                    opacity: selectedChapter ? '0' : '1',
-                    transition: 'font-size 0.5s, opacity 0.5s',
-                  }}
-                >
-                  What is
-                </p>
-                <h6
-                  className={'mb-0'}
-                  style={{
-                    fontSize: selectedChapter ? '0' : '1.25rem',
-                    opacity: selectedChapter ? '0' : '1',
-                    transition: 'font-size 0.5s, opacity 0.5s',
-                  }}
-                >
-                  Spatial Equity
-                </h6>
-              </div>
-              <div
-                className={'mobile-landing-menu-item'}
-                style={{
-                  height: selectedChapter ? '0' : '10vh',
-                  padding: selectedChapter ? 0 : '0.5rem 1rem',
-                  borderBottom: selectedChapter ? 0 : '1px solid black',
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedChapter(2);
-                }}
-              >
-                <p
-                  className={'mb-0'}
-                  style={{
-                    fontSize: selectedChapter ? '0' : '0.8em',
-                    opacity: selectedChapter ? '0' : '1',
-                    transition: 'font-size 0.5s, opacity 0.5s',
-                  }}
-                >
-                  Explore Spatial Equity by
-                </p>
-                <h6
-                  className={'mb-0'}
-                  style={{
-                    fontSize: selectedChapter ? '0' : '1.25rem',
-                    opacity: selectedChapter ? '0' : '1',
-                    transition: 'font-size 0.5s, opacity 0.5s',
-                  }}
-                >
-                  Citywide Data
-                </h6>
-              </div>
-              <div
-                className={'mobile-landing-menu-item'}
-                style={{
-                  height: selectedChapter ? '0' : '10vh',
-                  padding: selectedChapter ? 0 : '0.5rem 1rem',
-                  borderBottom: selectedChapter ? 0 : '1px solid black',
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedChapter(3);
-                }}
-              >
-                <p
-                  className={'mb-0'}
-                  style={{
-                    fontSize: selectedChapter ? '0' : '0.8em',
-                    opacity: selectedChapter ? '0' : '1',
-                    transition: 'font-size 0.5s, opacity 0.5s',
-                  }}
-                >
-                  Explore Spatial Equity by
-                </p>
-                <h6
-                  className={'mb-0'}
-                  style={{
-                    fontSize: selectedChapter ? '0' : '1.25rem',
-                    opacity: selectedChapter ? '0' : '1',
-                    transition: 'font-size 0.5s, opacity 0.5s',
-                  }}
-                >
-                  Community Profiles
-                </h6>
-              </div>
-              <div
-                className={'mobile-landing-menu-item'}
-                style={{
-                  height: selectedChapter ? '0' : '10vh',
-                  padding: selectedChapter ? 0 : '0.5rem 1rem',
-                  borderBottom: selectedChapter ? 0 : '1px solid black',
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedChapter(4);
-                }}
-              >
-                <p
-                  className={'mb-0'}
-                  style={{
-                    fontSize: selectedChapter ? '0' : '0.8em',
-                    opacity: selectedChapter ? '0' : '1',
-                    transition: 'font-size 0.5s, opacity 0.5s',
-                  }}
-                >
-                  Learn More &
-                </p>
-                <h6
-                  className={'mb-0'}
-                  style={{
-                    fontSize: selectedChapter ? '0' : '1.25rem',
-                    opacity: selectedChapter ? '0' : '1',
-                    transition: 'font-size 0.5s, opacity 0.5s',
-                  }}
-                >
-                  Take Action
-                </h6>
-              </div>
-            </div>
-          </div>
-
+          )}
           {selectedChapter === 1 ? (
             <MobileWhatIsSE />
           ) : selectedChapter === 2 ? (
@@ -1191,12 +1181,9 @@ function App() {
           ) : selectedChapter === 4 ? (
             <div
               style={{
-                position: 'absolute',
                 height: '100vh',
-                zIndex: 2,
                 backgroundColor: 'white',
                 overflowY: 'scroll',
-                top: 'calc(4.025rem + 0.3vw)',
               }}
             >
               <About
@@ -1207,7 +1194,7 @@ function App() {
             </div>
           ) : null}
 
-          <div
+          {/* <div
             className={'mobile-map'}
             style={{
               position: 'absolute',
@@ -1271,7 +1258,7 @@ function App() {
               collapseMap={collapseMap}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
             />
-          </div>
+          </div> */}
         </Container>
       )}
     </Protect>

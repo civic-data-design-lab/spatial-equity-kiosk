@@ -104,6 +104,11 @@
     pointer-events: none;
 }
 
+.height-transition {
+    transition: height 1s;
+
+}
+
 .full-height {
     height: 100%;
     transition: height 1s;
@@ -2061,6 +2066,10 @@ input:checked+.slider:before {
     transition: height 0.5s, padding 0.5s, border 0.5s;
 }
 
+.mobile-nav-header>* {
+    padding: 0.5rem 1rem;
+}
+
 #mobile-landing {
     position: relative;
     background-color: white;
@@ -2118,6 +2127,7 @@ input:checked+.slider:before {
 
 
 .mobile-nav-chapter {
+    background-color: red;
     cursor: pointer;
     transition: flex-grow 0.5s, padding 0.25s 0.25s, background-color 0.5s, color 0.5s;
 }
@@ -2255,6 +2265,8 @@ input:checked+.slider:before {
     position: absolute;
     pointer-events: none;
     transition: height 0.5s;
+    width: 100vw;
+    overflow: hidden;
 }
 
 /* Restore pointer events for all sub-elements */
@@ -2361,11 +2373,12 @@ input:checked+.slider:before {
 
 @media screen and (max-width: 576px) {
 
-    .typewriter-container > * {
+    .typewriter-container>* {
         /* padding: 1rem 0; */
-        line-height:4rem
+        line-height: 4rem
     }
-    .typewriter-container > * > *:not(:last-child) {
+
+    .typewriter-container>*>*:not(:last-child) {
         color: white;
         background-color: black;
         padding: 0.5rem;
@@ -2766,8 +2779,10 @@ input:checked+.slider:before {
     transition: padding 0.2s 0.1s, font-size 0.2s 0.1s;
 }
 
-.mobile-map{
-    overflow:hidden;
+.mobile-map {
+    overflow: hidden;
+    position: fixed;
+    z-index: -2;
 }
 
 .mobile-map-toggle {

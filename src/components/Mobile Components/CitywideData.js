@@ -454,11 +454,11 @@ export default function CitywideData({
 
       <div
         className={'mobile-issues-profile-container'}
-        style={{
-          height: selectedSpecificIssue
-            ? 'calc(100vh - 4.025rem - 0.3vw)'
-            : '0vh',
-        }}
+        // style={{
+        //   height: selectedSpecificIssue
+        //     ? 'calc(100vh - 4.025rem - 0.3vw)'
+        //     : '0vh',
+        // }}
       >
         <div className={'mobile-citywide-nav'}>
           <div
@@ -781,10 +781,10 @@ export default function CitywideData({
             // Hide the citywide non-map content if showing map
             opacity: showMap ? 0 : 1,
             pointerEvents: showMap ? 'none' : 'auto',
-            height:
-              (!showMap && !showDemographics) || (showMap && !showLegend)
-                ? 'calc(100vh - 19vh - (4.025rem + .3vw))'
-                : 'calc(100vh - 52vh - (4.025rem + .3vw))',
+            // height:
+            //   (!showMap && !showDemographics) || (showMap && !showLegend)
+            //     ? 'calc(100vh - 19vh - (4.025rem + .3vw))'
+            //     : 'calc(100vh - 52vh - (4.025rem + .3vw))',
             transition: 'height 0.5s',
             padding: '1rem',
             overflow: 'auto',
