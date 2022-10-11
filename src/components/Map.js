@@ -1329,7 +1329,6 @@ export default function DeckMap({
       fontFamily: 'Inter',
       characterSet: 'auto',
       sizeUnits: 'meters',
-      fontFamily: 'Roboto',
       fontWeight: '1000',
       getColor: infoTransfer.selectedMetric
         ? [255, 255, 255, 255]
