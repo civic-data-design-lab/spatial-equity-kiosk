@@ -2167,9 +2167,9 @@
       "issue_units_symbol": "%",
       "methodology_warning": "The source data does not include large parks such as Central Park, Prospect Park, or Pelham Bay Park. Similarly, it does not include cemeteries",
       "related": [10, 1, 5],
-      "specific_issue_source": "The Built Environment & Health Project (BEH), Columbia University",
-      "link": "https://a816-dohbesp.nyc.gov/IndicatorPublic/VisualizationData.aspx?id=2157,719b87,104,Summarize",
-      "year": "2014",
+      "specific_issue_source": "Treglia, M.L., Acosta-Morel, M., Crabtree, D., Galbo, K., Lin-Moges, T., Van Slooten, A., Maxwell, E.N. 2021. The State of the Urban Forest in New York City - Supplemental Datasets. The Nature Conservancy. doi: 10.5281/zenodo.5210261 and Treglia, M.L., Acosta-Morel, M., Crabtree, D., Galbo, K., Lin-Moges, T., Van Slooten, A., Maxwell, E.N. 2021. The State of the Urban Forest in New York City. The Nature Conservancy. doi: 10.5281/zenodo.5532876",
+      "link": "https://doi.org/10.5281/zenodo.5210261",
+      "year": "2017",
       "image_ids": ["F16_TreCan_1.jpg"],
       "specific_issue_description": [
         {
