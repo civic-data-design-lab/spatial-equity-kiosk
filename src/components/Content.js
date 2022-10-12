@@ -78,7 +78,9 @@ export default function Content({
     <div className={`d-flex flex-row col-9`}>
       <div
 
-        className={`${!showMap ? `d-flex flex-column` : ''} middle-column h-100 ${
+        className={`${!showMap ? `d-flex flex-column` : ''} middle-column
+        middle-transition
+        h-100 ${
           selectedChapter === 1 || selectedChapter === 4 || !selectedChapter
             ? 'collapsed-middle-column'
             : selectedChapter === 2
