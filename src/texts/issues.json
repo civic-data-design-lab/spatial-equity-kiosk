@@ -483,8 +483,8 @@
     "4": {
       "specific_issue_ID": 4,
       "issue_type_ID": 2,
-      "specific_issue_name": "Park Acess",
-      "specific_issue_title": "Park Acess",
+      "specific_issue_name": "Park Access",
+      "specific_issue_title": "Park Access",
       "json_id": "F29_Dis2Pa",
       "good_or_bad": 0,
       "issue_hi_low": ["most", "least"],
