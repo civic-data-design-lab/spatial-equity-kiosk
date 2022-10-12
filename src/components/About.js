@@ -253,7 +253,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   // opacity: currentStepIndex === 2 ? 1 : 0.2,
                 }}
               >
-                <div className={'spacer'} />
+                {/*<div className={'spacer'} />*/}
                 {/* <div className={'scroll-title'}>
                   <h4 className={'mb-0 bold'}></h4>
                 </div> */}
@@ -289,7 +289,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   // opacity: currentStepIndex === 3 ? 1 : 0.2,
                 }}
               >
-                <div className={'spacer'} />
+                {/*<div className={'spacer'} />*/}
                 {/* <div className={'scroll-title'}>
                   <h4 className={'mb-0 bold'}></h4>
                 </div> */}
@@ -334,7 +334,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   // opacity: currentStepIndex === 4 ? 1 : 0.2,
                 }}
               >
-                <div className={'spacer'} />
+                {/*<div className={'spacer'} />*/}
                 {/* <div className={'scroll-title'}>
                   <h4 className={'mb-0 bold'}></h4>
                 </div> */}
@@ -380,6 +380,8 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               </div>
             </Step>
 
+          <div className={'spacer'} />
+
             <Step data={5} id={5}>
               <div
                 className={'scroll-body '}
@@ -387,7 +389,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   // opacity: currentStepIndex === 5 ? 1 : 0.2,
                 }}
               >
-                <div className={'spacer'} />
+                {/*<div className={'spacer'} />*/}
                 {/* <div className={'scroll-title'}>
                   <h4 className={'mb-0 bold'}></h4>
                 </div> */}
@@ -441,6 +443,8 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               </div>
             </Step>
 
+          <div className={'spacer'} />
+
             <Step data={6} id={6}>
               <div
                 className={'scroll-body'}
@@ -448,7 +452,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   // opacity: currentStepIndex === 6 ? 1 : 0.2,
                 }}
               >
-                <div className={'spacer'} />
+                {/*<div className={'spacer'} />*/}
                 {/* <div className={'scroll-title'}>
                   <h4 className={'mb-0 bold'}></h4>
                 </div> */}
@@ -522,6 +526,8 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               </div>
             </Step>
 
+          <div className={'spacer'} />
+
             <Step data={7} id={7}>
               <div
                 className={'scroll-body'}
@@ -529,7 +535,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   // opacity: currentStepIndex === 7 ? 1 : 0.2,
                 }}
               >
-                <div className={'spacer'} />
+                {/*<div className={'spacer'} />*/}
                 {/* <div className={'scroll-title'}>
                   <h4 className={'mb-0 bold'}></h4>
                 </div> */}
@@ -588,6 +594,8 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               </div>
             </Step>
 
+          <div className={'spacer'} />
+
             <Step id={8} data={8}>
               <div
                 className={'scroll-body'}
@@ -595,7 +603,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   // opacity: currentStepIndex === 8 ? 1 : 0.2,
                 }}
               >
-                <div className={'spacer'} />
+                {/*<div className={'spacer'} />*/}
                 {/* <div className={'scroll-title'}>
                   <h4 className={'mb-0 bold'}></h4>
                 </div> */}
@@ -677,6 +685,8 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
               </div>
             </Step>
 
+          <div className={'spacer'} />
+
             <Step data={9} id={9}>
               <div
                 className={'scroll-body'}
@@ -684,7 +694,7 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                   // opacity: currentStepIndex === 9 ? 1 : 0.2,
                 }}
               >
-                <div className={'spacer'} />
+                {/*<div className={'spacer'} />*/}
                 {/* <div className={'scroll-title'}>
                   <h4 className={'mb-0 bold'}></h4>
                 </div> */}
