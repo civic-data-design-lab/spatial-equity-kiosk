@@ -186,7 +186,10 @@ h5,
 h6,
 p {
     font-weight: 500;
+}
 
+h6 {
+    margin-bottom: 0rem !important;
 }
 
 small {
@@ -264,6 +267,21 @@ a:active {
 .nav-chapters:hover {
     background-color: black;
     color: white;
+}
+
+
+
+
+.nav-chapters:hover,
+.nav-chapters-active {
+    background-color: black;
+    color: white;
+    /* border-bottom: 2px solid white; */
+}
+
+.nav-chapters-active h6 {
+    color: white;
+    /* border-bottom: 2px solid white; */
 }
 
 .expanded-nav {
@@ -1969,21 +1987,28 @@ input:checked+.slider:before {
 }
 
 .spacer {
-    height: 50vh;
+    height: 65vh;
 }
 
-.scroll-body {
+/* .scroll-body {
     min-height: calc(100vh - 2.5rem);
-    width: 66%;
+    width: 67%;
     padding: 6em 2.5em 1.25em 2.5em;
     position: relative;
     left: 25vw;
     transition: opacity 1s;
-    /* display: inline; */
+} */
+
+.scroll-body {
+    width: calc(50vw);
+    /* position: relative; */
+    left: 50vw;
+    padding: 6em 2.5em 1.25em 2.5em;
+    z-index: 1;
 }
 
 .scroll-title {
-    width: calc(50vw - 10px);
+    width: calc(50vw);
     /* width: 50%; */
     padding: 2.5rem 2.5rem;
     height: 6em;
@@ -1994,7 +2019,6 @@ input:checked+.slider:before {
     /* background-color: red; */
     background-image: linear-gradient(180deg, white 70%, transparent);
     z-index: 1;
-    border: 2px;
 }
 
 .scroll-title-content {
@@ -2003,8 +2027,7 @@ input:checked+.slider:before {
     position: absolute;
     /* background-color: white; */
     /* width: calc(50%-5px); */
-    
-    
+       
 }
 
 .scroll-content {
@@ -2012,12 +2035,20 @@ input:checked+.slider:before {
     scroll-snap-align: start;
 }
 
+.scroll-title-box {
+    width: 50vw;
+    position: absolute;
+    left: 50vw;
+    z-index: 1;
+    padding: 1em 1.5em;
+}
+
 .about-link {
     text-decoration-line: none;
 }
 
 .about-link:hover {
-    color: black !important;
+    color: white !important;
 }
 
 .menu-item {
@@ -2036,6 +2067,58 @@ input:checked+.slider:before {
     justify-content: space-between;
     color: black;
     /* border: 2px red; */
+}
+
+.scroll-menu-box {
+    position: absolute;
+    width: 25%;
+    
+    /* left: 25vw;
+    width: 25%;
+    flex-direction: column;
+    justify-content: space-between;
+    color: black; */
+    /* border: 2px red !important; */
+}
+
+.border-box {
+    border-top: 2px solid #000;
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+    /* z-index: 5; */
+}
+
+.scroll-menu-chapters {
+    flex-grow: 1;
+    padding: 1em 1.5em;
+    transition: flex 1s, background-color 0.5s, color 0.5s, border-bottom-color 0.5s;
+    border: 2px solid white;
+    border-top: none;
+    min-height: 0;
+    cursor: pointer;
+}
+
+.scroll-menu-chapters:hover {
+    background-color: black;
+    color: white;
+    border-bottom: 2px solid black;
+}
+
+
+.scroll-menu-chapters:hover,
+.nav-chapters-active {
+    background-color: black;
+    color: white;
+    border-bottom: 2px solid black;
+    /* border-top: 2px solid black; */
+}
+
+.scroll-right-box {
+    width: calc(50vw);
+    position: relative;
+    left: 25vw;
+    z-index: ;
+    /* border-left: 2px #000; */
 }
 
 .video-container {
