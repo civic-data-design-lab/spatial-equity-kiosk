@@ -137,7 +137,7 @@ function Nav({
                     setSelectedChapter(2);
                   }}
                 >
-                  Browse citywide data{' '}
+                  Browse citywide data
                 </a>
               </span>{' '}
               or
@@ -150,9 +150,9 @@ function Nav({
                     setSelectedChapter(3);
                   }}
                 >
-                  search community profiles{' '}
+                  search community profiles
                 </a>
-              </span>
+              </span>{' '}
               to learn how decisions about the use of public space lead to
               unequal outcomes and what you can do about it.{' '}
             </h6>
