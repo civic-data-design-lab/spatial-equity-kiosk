@@ -131,6 +131,9 @@ const Histogram = ({
   setIsHovering,
   toggleDisplayMode,
   setToggleDisplayMode,
+
+  // mobile only
+  isMobile = false,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
@@ -1095,7 +1098,7 @@ const Histogram = ({
         style={{
           width: '100%',
           flexGrow: '1',
-          padding: toggleDisplayMode ? '0' : '0 1.5rem 0 1.5rem',
+          padding: toggleDisplayMode || isMobile ? '0' : '0 1.5rem 0 1.5rem',
         }}
       >
         <div

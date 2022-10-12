@@ -21,6 +21,7 @@ import Legend from '../Legend';
 import Histogram from '../Histogram';
 import IssuesGrid from '../IssuesGrid';
 import { autoType } from 'd3';
+import RightColumnFooter from '../RightColumnFooter';
 
 export default function CitywideData({
   selectedIssue,
@@ -102,6 +103,9 @@ export default function CitywideData({
   setShowLegend,
   isTouchinMapgMobile,
 }) {
+  const [useBoroughColor, setUseBoroughColor] = useState(false);
+  const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
+
   const health_issues = issues.issues_data['health'].specific_issues_ID.map(
     (id_) => {
       return issues.specific_issues_data[id_];
@@ -778,6 +782,8 @@ export default function CitywideData({
                     setCouncilPinned={setCouncilPinned}
                     setCommunitySearch={setCommunitySearch}
                     setSelectedChapter={setSelectedChapter}
+                    // mobile
+                    isMobile={true}
                   />
                 </div>
                 <IssueProfile
@@ -793,116 +799,141 @@ export default function CitywideData({
               </>
             )}
           </div>
-
           <div style={{ backgroundColor: 'white' }}>
-            {/* third grid child - bottom tray */}
-            <div
-              className={`mobile-demographics-toggle inactive-scheme`}
-              onClick={() => {
-                if (!showMap) {
-                  setShowDemographics(!showDemographics);
-                } else {
-                  setShowDemographics(true);
-                  setShowLegend(!showLegend);
-                  isTouchinMapgMobile.current = false;
-                }
-              }}
-            >
-              <div className="w-100 d-flex flex-column align-items-center">
-                <div
-                  style={{
-                    transition: '0.5s ease-in-out',
-                    backgroundColor: 'black',
-                    width: '8%',
-                    height: '6px',
-                    borderRadius: '1rem',
-                    marginBottom: '0.5rem',
-                  }}
-                ></div>
-
-                <Legend
-                  isMobile={true}
-                  mapDemographics={mapDemographics}
-                  demoColorRamp={demoColorRamp}
-                  demoLegendBins={demoLegendBins}
-                  demoLookup={demoLookup[demographic]}
-                  demographic={demographic}
-                  dataScale={dataScale}
-                  setdataScale={setdataScale}
+            {/* if non map mode */}
+            {!showMap ? (
+              <div>
+                <RightColumnFooter
+                  boundary={boundary}
                   issues={issues}
                   selectedSpecificIssue={selectedSpecificIssue}
-                  colorRamps={colorRamps}
-                  toggleUnderperformers={toggleUnderperformers}
-                  setToggleUnderperformers={setToggleUnderperformers}
-                  boundary={boundary}
-                  handleLegend={handleLegend}
-                  selectedIssue={selectedSpecificIssue}
-                  zoomToggle={zoomToggle}
-                  showMap={showMap}
-                  binList={binList}
-                  info={info}
-                  selectedChapter={selectedChapter}
+                  setSelectedChapter={setSelectedChapter}
+                  setSelectedSpecificIssue={setSelectedSpecificIssue}
+                  useBoroughColor={useBoroughColor}
+                  setUseBoroughColor={setUseBoroughColor}
+                  councilPinned={councilPinned}
+                  setCouncilPinned={setCouncilPinned}
+                  communityPinned={communityPinned}
+                  setCommunityPinned={setCommunityPinned}
+                  toggleDisplayMode={toggleDisplayMode}
+                  setToggleDisplayMode={setToggleDisplayMode}
                 />
               </div>
-            </div>
-
-            {/* fourth child */}
-            <div
-              className={'mobile-demographics-container'}
-              style={{
-                transition: '0.5s',
-                overflow: 'hidden',
-                maxHeight: showLegend || mapDemographics ? '100vh' : '0',
-              }}
-            >
-              <div
-                className={'d-flex flex-column justify-content-between'}
-                style={{
-                  padding: '1rem',
-                }}
-              >
-                {(showLegend || !mapDemographics) && (
-                  <p className={'small-font mb-1'}>Compare Demographics</p>
-                )}
-
+            ) : (
+              <div>
                 <div
-                  style={{ position: 'relative', zIndex: 1, height: '100%' }}
+                  className={`mobile-demographics-toggle inactive-scheme`}
+                  onClick={() => {
+                    if (!showMap) {
+                      setShowDemographics(!showDemographics);
+                    } else {
+                      setShowDemographics(true);
+                      setShowLegend(!showLegend);
+                      isTouchinMapgMobile.current = false;
+                    }
+                  }}
                 >
-                  <Demographics
-                    currentValue={demographic}
-                    setValue={setDemographic}
-                    selectedSpecificIssue={selectedSpecificIssue}
-                    setShowDemographics={setShowDemographics}
-                    showDemographics={showDemographics}
-                    communitySearch={communitySearch}
-                    compareSearch={compareSearch}
-                    mapDemographics={mapDemographics}
-                    setMapDemographics={setMapDemographics}
-                    boundary={boundary}
-                    communities={communities}
-                    councils={councils}
-                    selectedChapter={selectedChapter}
-                    toggleTransit={toggleTransit}
-                    setToggleTransit={setToggleTransit}
-                    toggleBike={toggleBike}
-                    setToggleBike={setToggleBike}
-                    toggleWalk={toggleWalk}
-                    setToggleWalk={setToggleWalk}
-                    colorRamps={colorRamps}
-                    demoColorRamp={demoColorRamp}
-                    demoLegendBins={demoLegendBins}
-                    setDemoColorRamp={setDemoColorRamp}
-                    setDemoLegendBins={setDemoLegendBins}
-                    demoLookup={demoLookup[demographic]}
-                    showMap={showMap}
-                    info={info}
-                    // mobile only
-                    isMobile={true}
-                    showLegend={showLegend}
-                  />
+                  <div className="w-100 d-flex flex-column align-items-center">
+                    <div
+                      style={{
+                        transition: '0.5s ease-in-out',
+                        backgroundColor: 'black',
+                        width: '8%',
+                        height: '6px',
+                        borderRadius: '1rem',
+                        marginBottom: '0.5rem',
+                      }}
+                    ></div>
+
+                    <Legend
+                      isMobile={true}
+                      mapDemographics={mapDemographics}
+                      demoColorRamp={demoColorRamp}
+                      demoLegendBins={demoLegendBins}
+                      demoLookup={demoLookup[demographic]}
+                      demographic={demographic}
+                      dataScale={dataScale}
+                      setdataScale={setdataScale}
+                      issues={issues}
+                      selectedSpecificIssue={selectedSpecificIssue}
+                      colorRamps={colorRamps}
+                      toggleUnderperformers={toggleUnderperformers}
+                      setToggleUnderperformers={setToggleUnderperformers}
+                      boundary={boundary}
+                      handleLegend={handleLegend}
+                      selectedIssue={selectedSpecificIssue}
+                      zoomToggle={zoomToggle}
+                      showMap={showMap}
+                      binList={binList}
+                      info={info}
+                      selectedChapter={selectedChapter}
+                    />
+                  </div>
+                </div>
+
+                {/*map mode - bottom tray details fourth child */}
+                <div
+                  className={'mobile-demographics-container'}
+                  style={{
+                    transition: '0.5s',
+                    overflow: 'hidden',
+                    maxHeight: showLegend || mapDemographics ? '100vh' : '0',
+                  }}
+                >
+                  <div
+                    className={'d-flex flex-column justify-content-between'}
+                    style={{
+                      padding: '1rem',
+                    }}
+                  >
+                    {(showLegend || !mapDemographics) && (
+                      <p className={'small-font mb-1'}>Compare Demographics</p>
+                    )}
+
+                    <div
+                      style={{
+                        position: 'relative',
+                        zIndex: 1,
+                        height: '100%',
+                      }}
+                    >
+                      <Demographics
+                        currentValue={demographic}
+                        setValue={setDemographic}
+                        selectedSpecificIssue={selectedSpecificIssue}
+                        setShowDemographics={setShowDemographics}
+                        showDemographics={showDemographics}
+                        communitySearch={communitySearch}
+                        compareSearch={compareSearch}
+                        mapDemographics={mapDemographics}
+                        setMapDemographics={setMapDemographics}
+                        boundary={boundary}
+                        communities={communities}
+                        councils={councils}
+                        selectedChapter={selectedChapter}
+                        toggleTransit={toggleTransit}
+                        setToggleTransit={setToggleTransit}
+                        toggleBike={toggleBike}
+                        setToggleBike={setToggleBike}
+                        toggleWalk={toggleWalk}
+                        setToggleWalk={setToggleWalk}
+                        colorRamps={colorRamps}
+                        demoColorRamp={demoColorRamp}
+                        demoLegendBins={demoLegendBins}
+                        setDemoColorRamp={setDemoColorRamp}
+                        setDemoLegendBins={setDemoLegendBins}
+                        demoLookup={demoLookup[demographic]}
+                        showMap={showMap}
+                        info={info}
+                        // mobile only
+                        isMobile={true}
+                        showLegend={showLegend}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}
