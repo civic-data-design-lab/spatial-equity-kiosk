@@ -49,6 +49,14 @@ export default function CommunitySearchBar({
   const [response, setResponse] = useState(null);
   const [firstMatchedRes, setFirstMatchedRes] = useState([]);
 
+  useEffect(()=>{
+    if (toggleValue) {
+      setValue(toggleValue)
+    } else {
+      setValue("")
+    }
+  }, [toggleValue])
+
   // console.log('!!!c', communitySearch, )
   // console.log('!!!s', selectedCoord)
   const forwardGeocoding = (address) => {
@@ -212,9 +220,9 @@ export default function CommunitySearchBar({
         className={
           'd-flex flex-row align-items-center mt-3 position-relative community-search-container'
         }
-        onClick={(e) => {
+       /* onClick={(e) => {
           e.stopPropagation();
-        }}
+        }}*/
         id={`${!forSearch ? 'remove-community' : ''}`}
       >
         <input
@@ -231,7 +239,6 @@ export default function CommunitySearchBar({
           }}
           onClick={(e) => {
             e.stopPropagation();
-            console.log('HERRE');
             setResize(true);
             setResizeIssues(false);
             callBack(null);
@@ -270,12 +277,12 @@ export default function CommunitySearchBar({
                     }}*/
           onChange={(e) => {
             e.stopPropagation();
-            callBack(null);
+            //callBack(null);
             setShowSearch(true);
             setValue(e.target.value);
             // console.log('userPOints ', userPoints);
           }}
-          value={toggleValue || value}
+          value={value}
         />
         <div
           className={`${

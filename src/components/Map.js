@@ -644,6 +644,7 @@ export default function DeckMap({
 
   function updateSearchEngine(searchEngine, searchEngineType) {
     //check if search engine is valid coordinates
+    console.log("search engine type ", searchEngineType)
 
     // PRIMARY COMMUNITY SEARCH
     if (searchEngineType === 0 && selectedChapter === 3) {
@@ -877,15 +878,15 @@ export default function DeckMap({
 
   const scale = useRef(boundary); //had to add this to check if the useEffect was coming from new scale or new boundary
   useEffect(() => {
-    // console.log('1');
-    if (!addCompare || !communitySearch || boundary !== scale.current) {
+    console.log('selectedCoord ', selectedCoord);
+    //if (!addCompare || !communitySearch || boundary !== scale.current) {
       updateSearchEngine(selectedCoord, 0);
-    }
+    //}
     scale.current = boundary;
   }, [selectedCoord, infoTransfer.selectedBoundary]);
 
   useEffect(() => {
-    // console.log('2');
+    console.log('2');
     if (addCompare) {
       updateSearchEngine(selectedCompareCoord, 1);
     }

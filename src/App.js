@@ -112,6 +112,8 @@ function App() {
   const [zoomToggle, setzoomToggle] = useState(0);
   const [handleLegend, sethandleLegend] = useState(0);
 
+  const [prevStates, setPrevStates] = useState([])
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     let createCoords = [[], []];
@@ -489,7 +491,6 @@ function App() {
     });
 
     if ('undefined' !== typeof window.history.pushState) {
-      console.log('replacing window history');
       try {
         window.history.replaceState(null, '', path);
       } catch (e) {
