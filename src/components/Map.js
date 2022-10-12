@@ -212,6 +212,16 @@ export default function DeckMap({
   setUserPoints,
   colorRamp,
   collapseMap,
+
+  // mobile only
+  isMobile = false,
+  showDropDown,
+  setShowDropDown,
+  showSubDropDown,
+  setShowSubDropDown,
+  showLegend,
+  setShowLegend,
+  isTouchinMapgMobile,
 }) {
   // map hooks
   /**
@@ -1329,7 +1339,6 @@ export default function DeckMap({
       fontFamily: 'Inter',
       characterSet: 'auto',
       sizeUnits: 'meters',
-      fontFamily: 'Roboto',
       fontWeight: '1000',
       getColor: infoTransfer.selectedMetric
         ? [255, 255, 255, 255]
@@ -1423,7 +1432,20 @@ export default function DeckMap({
   };
 
   return (
-    <div>
+    <div
+      onTouchMove={() => {
+        if (isMobile && showDropDown) setShowDropDown(false);
+        if (isMobile && showSubDropDown) setShowSubDropDown(false);
+        if (isMobile && showLegend) {
+          isTouchinMapgMobile.current = true;
+          setShowLegend(false);
+        }
+      }}
+      onTouchEnd={() => {
+        if (isMobile && !showLegend && isTouchinMapgMobile.current == true)
+          setShowLegend(true);
+      }}
+    >
       <div className="map-notable-container">
         {selectedCommunity && (
           <MapNotableIndicators

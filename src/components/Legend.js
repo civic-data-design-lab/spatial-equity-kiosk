@@ -38,6 +38,10 @@ export default function Legend({
   toggleBike,
   setSelectedChapter = null,
   setShowMap = null,
+
+  // mobile only
+  isMobile = false,
+  showLegend = false,
 }) {
   const communities = _COMMUNITIES;
   const councils = _COUNCILS;
@@ -234,15 +238,17 @@ export default function Legend({
           return (
             <>
               <>
-                <div>
+                <div className="w-100">
                   <p className={'small-font mb-1'}>
                     {issues.specific_issues_data[selectedSpecificIssue].units}{' '}
-                    <SourceInfo
-                      issues={issues}
-                      selectedSpecificIssue={selectedSpecificIssue}
-                      setSelectedChapter={setSelectedChapter}
-                      setShowMap={setShowMap}
-                    />
+                    {!isMobile && (
+                      <SourceInfo
+                        issues={issues}
+                        selectedSpecificIssue={selectedSpecificIssue}
+                        setSelectedChapter={setSelectedChapter}
+                        setShowMap={setShowMap}
+                      />
+                    )}
                   </p>
                   <div className={'placeholder-legend'}>
                     <div
@@ -314,7 +320,7 @@ export default function Legend({
                 </div>
               </>
 
-              {showMap && (
+              {showMap && !isMobile && (
                 <div
                   className={`big-button small-font ${
                     toggleUnderperformers
@@ -353,11 +359,9 @@ export default function Legend({
             return (
               <div className={'d-flex flex-column row-gap'} style={{ flex: 1 }}>
                 <div>
-                  {getDemoStatement(1)}
-
-                  {/* {demoLookup.name !== "Population Using Alternative Transportation" && <p className={"mb-3 small-font"}>
-                                    {demoLookup.metric_units}{" "}
-                                </p>}*/}
+                  {!isMobile || (isMobile && showLegend)
+                    ? getDemoStatement(1)
+                    : null}
                   {demoLookup.lookup !== 'F10_TrsBkW' ? (
                     <p className={'mb-1 small-font'}>{demoLookup.name}</p>
                   ) : (
