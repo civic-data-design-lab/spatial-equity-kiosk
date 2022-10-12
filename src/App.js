@@ -112,7 +112,7 @@ function App() {
   const [zoomToggle, setzoomToggle] = useState(0);
   const [handleLegend, sethandleLegend] = useState(0);
 
-  const [prevStates, setPrevStates] = useState([])
+  const [prevStates, setPrevStates] = useState([]);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -804,15 +804,17 @@ function App() {
                         : 'Take Action'}
                     </h4>
                   </div>
-                  {[2, 3].includes(selectedChapter) && (
-                    <MapToggle
-                      showToggle={true}
-                      showMap={showMap}
-                      setShowMap={setShowMap}
-                      boundary={boundary}
-                      isMobile={true}
-                    />
-                  )}
+                  {!showMenu &&
+                    (selectedChapter == 2 ||
+                      (selectedChapter == 3 && communitySearch)) && (
+                      <MapToggle
+                        showToggle={true}
+                        showMap={showMap}
+                        setShowMap={setShowMap}
+                        boundary={boundary}
+                        isMobile={true}
+                      />
+                    )}
 
                   <div
                     className={`${
@@ -842,6 +844,8 @@ function App() {
               setselectedCompareCoord={setselectedCompareCoord}
               badSearch={badSearch}
               setBadSearch={setBadSearch}
+              showMap={showMap}
+              setShowMap={setShowMap}
             />
           </div>
 
@@ -1141,8 +1145,6 @@ function App() {
               communities={communities}
               councils={councils}
               issue_categories={issue_categories}
-              /*   highlightFeature={highlightFeature}
-                                             sethighlightFeature={sethighlightFeature}*/
               selectedCoord={selectedCoord}
               setSelectedCoord={setSelectedCoord}
               selectedCompareCoord={selectedCompareCoord}

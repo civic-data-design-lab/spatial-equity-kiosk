@@ -768,7 +768,7 @@ export default function CitywideData({
                   </div>
                 )}
                 <div
-                  style={{ flex: 1, height: '85vh' }}
+                  style={{ flex: 1, height: toggleDisplayMode ? '' : '85vh' }}
                   className={'histogram-responsive-box'}
                 >
                   <Histogram
@@ -782,6 +782,10 @@ export default function CitywideData({
                     setCouncilPinned={setCouncilPinned}
                     setCommunitySearch={setCommunitySearch}
                     setSelectedChapter={setSelectedChapter}
+                    toggleDisplayMode={toggleDisplayMode}
+                    setToggleDisplayMode={setToggleDisplayMode}
+                    useBoroughColor={useBoroughColor}
+                    setUseBoroughColor={setUseBoroughColor}
                     // mobile
                     isMobile={true}
                   />
