@@ -12,12 +12,15 @@ export default function MapToggle({
   showMap,
   setShowMap,
   boundary,
+
+  // mobile only
+  isMobile = false,
 }) {
   const [hover, setHover] = useState(null);
 
   return (
     <>
-      {hover && (
+      {hover && !isMobile && (
         <div
           className={'d-inline-block toggle-tooltip'}
           style={{

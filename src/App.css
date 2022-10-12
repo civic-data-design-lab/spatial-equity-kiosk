@@ -2293,7 +2293,7 @@ input:checked+.slider:before {
     transition: height 0.5s;
     width: 100vw;
     display: grid;
-    grid-template-rows: auto 1fr auto auto;
+    grid-template-rows: auto 1fr auto;
     height: 100%;
 }
 
