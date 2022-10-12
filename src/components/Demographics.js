@@ -70,11 +70,28 @@ export default function Demographics({
 
   const getTransitToggles = () => {
     if (currentValue === '5') {
+      const mobileStyle = isMobile
+        ? {
+            border: '1px solid black',
+            padding: '0.5rem',
+          }
+        : {};
+      const buttonAlignment = {
+        display: 'flex',
+        alignItems: 'center',
+      };
       return (
-        <div className={'transit-toggle'}>
+        <div
+          className={`transit-toggle ${isMobile ? 'd-grid mb-3' : ''}`}
+          style={{
+            gridTemplateColumns: 'auto auto auto',
+            justifyContent: isMobile ? 'stretch' : '',
+          }}
+        >
           <div>
-            <Form>
+            <Form style={mobileStyle}>
               <Form.Check
+                style={buttonAlignment}
                 inline
                 type={'checkbox'}
                 id={`walk-check`}
@@ -87,8 +104,9 @@ export default function Demographics({
             </Form>
           </div>
           <div>
-            <Form>
+            <Form style={mobileStyle}>
               <Form.Check
+                style={buttonAlignment}
                 inline
                 type={'checkbox'}
                 id={`bike-check`}
@@ -101,8 +119,9 @@ export default function Demographics({
             </Form>
           </div>
           <div>
-            <Form>
+            <Form style={mobileStyle}>
               <Form.Check
+                style={buttonAlignment}
                 inline
                 type={'checkbox'}
                 id={`transit-check`}
@@ -158,7 +177,7 @@ export default function Demographics({
               <div
                 className={`${
                   showDropdownItems ? 'd-block' : 'd-none'
-                } dropdown-body position-absolute`}
+                } dropdown-body position-absolute w-100`}
               >
                 {Object.keys(demographics).map((key, index) => {
                   return (

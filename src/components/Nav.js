@@ -438,9 +438,9 @@ function Nav({
             selectedChapter === 4 ? 'nav-chapters-content-expanded' : ''
           } nav-chapters-content d-flex flex-column justify-content-end`}
         >
-          {selectedChapter == 4 && (
+          {/* {selectedChapter == 4 && (
             <ShareButton setShareExpanded={setShareExpanded} />
-          )}
+          )} */}
           <div className={'no-pointer'}>
             <div
               className={`${

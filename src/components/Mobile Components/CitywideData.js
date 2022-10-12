@@ -459,11 +459,13 @@ export default function CitywideData({
         </div>
       )}
 
+      {/* grid container for citywide data */}
       {(showMap || selectedSpecificIssue) && (
         <div
           className={'mobile-issues-profile-container'}
           style={{ zIndex: '1' }}
         >
+          {/* first grid child - metric dropdown menu */}
           <div className="position-relative">
             <div className={'mobile-citywide-nav'}>
               <div
@@ -491,10 +493,7 @@ export default function CitywideData({
                 />
               </div>
             </div>
-            <div
-              className={'position-absolute'}
-              // style={{ zIndex: '3', height: showDropDown ? '100vh' : '0vh' }}
-            >
+            <div className={'position-absolute'}>
               <div
                 className={`mobile-citywide-nav-dropdown-item
                         ${
@@ -727,18 +726,10 @@ export default function CitywideData({
                   );
                 }
               )}
-              {/* <div
-                className={' vh-100'}
-                style={{ zIndex: '25', backgroundColor: 'tomato' }}
-                onClick={() => {
-                  console.log('clicked');
-                  setShowDropDown(false);
-                  setShowSubDropDown(false);
-                }}
-              ></div> */}
             </div>
           </div>
 
+          {/* second grid child - body, including histogram */}
           <div
             className="citywide-non-map-content"
             style={{
@@ -803,120 +794,113 @@ export default function CitywideData({
             )}
           </div>
 
-          <div
-            className={`mobile-demographics-toggle inactive-scheme`}
-            onClick={() => {
-              if (!showMap) {
-                setShowDemographics(!showDemographics);
-              } else {
-                setShowDemographics(true);
-                setShowLegend(!showLegend);
-                isTouchinMapgMobile.current = false;
-              }
-            }}
-          >
-            <div className="w-100 d-flex flex-column align-items-center">
-              <div
-                style={{
-                  transition: '0.5s ease-in-out',
-                  backgroundColor: 'black',
-                  width: '8%',
-                  height: '6px',
-                  borderRadius: '1rem',
-                  marginBottom: '0.5rem',
-                }}
-              ></div>
-              {/* {!showMap && showDemographics
-                ? 'Hide U.S. Census Data'
-                : !showMap && !showDemographics
-                ? 'Show U.S. Census Data'
-                : showMap && showLegend
-                ? 'Hide Legend'
-                : 'Show Legend'} */}
-
-              {/* <FontAwesomeIcon
-              icon={
-                (!showMap && showDemographics) || (showMap && showLegend)
-                  ? faMinus
-                  : faPlus
-              }
-            /> */}
-              <Legend
-                isMobile={true}
-                mapDemographics={mapDemographics}
-                demoColorRamp={demoColorRamp}
-                demoLegendBins={demoLegendBins}
-                demoLookup={demoLookup[demographic]}
-                demographic={demographic}
-                dataScale={dataScale}
-                setdataScale={setdataScale}
-                issues={issues}
-                selectedSpecificIssue={selectedSpecificIssue}
-                colorRamps={colorRamps}
-                toggleUnderperformers={toggleUnderperformers}
-                setToggleUnderperformers={setToggleUnderperformers}
-                boundary={boundary}
-                handleLegend={handleLegend}
-                selectedIssue={selectedSpecificIssue}
-                zoomToggle={zoomToggle}
-                showMap={showMap}
-                binList={binList}
-                info={info}
-                selectedChapter={selectedChapter}
-              />
-            </div>
-          </div>
-          <div
-            className={'mobile-demographics-container'}
-            style={{
-              transition: '0.5s',
-              overflow: 'hidden',
-              maxHeight: showLegend || mapDemographics ? '100vh' : '0',
-            }}
-          >
+          <div style={{ backgroundColor: 'white' }}>
+            {/* third grid child - bottom tray */}
             <div
-              className={'d-flex flex-column justify-content-between'}
-              style={{
-                padding: '1rem',
+              className={`mobile-demographics-toggle inactive-scheme`}
+              onClick={() => {
+                if (!showMap) {
+                  setShowDemographics(!showDemographics);
+                } else {
+                  setShowDemographics(true);
+                  setShowLegend(!showLegend);
+                  isTouchinMapgMobile.current = false;
+                }
               }}
             >
-              {(showLegend || !mapDemographics) && (
-                <p className={'small-font mb-1'}>Compare Demographics</p>
-              )}
+              <div className="w-100 d-flex flex-column align-items-center">
+                <div
+                  style={{
+                    transition: '0.5s ease-in-out',
+                    backgroundColor: 'black',
+                    width: '8%',
+                    height: '6px',
+                    borderRadius: '1rem',
+                    marginBottom: '0.5rem',
+                  }}
+                ></div>
 
-              <div style={{ position: 'relative', zIndex: 1, height: '100%' }}>
-                <Demographics
-                  currentValue={demographic}
-                  setValue={setDemographic}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  setShowDemographics={setShowDemographics}
-                  showDemographics={showDemographics}
-                  communitySearch={communitySearch}
-                  compareSearch={compareSearch}
+                <Legend
+                  isMobile={true}
                   mapDemographics={mapDemographics}
-                  setMapDemographics={setMapDemographics}
-                  boundary={boundary}
-                  communities={communities}
-                  councils={councils}
-                  selectedChapter={selectedChapter}
-                  toggleTransit={toggleTransit}
-                  setToggleTransit={setToggleTransit}
-                  toggleBike={toggleBike}
-                  setToggleBike={setToggleBike}
-                  toggleWalk={toggleWalk}
-                  setToggleWalk={setToggleWalk}
-                  colorRamps={colorRamps}
                   demoColorRamp={demoColorRamp}
                   demoLegendBins={demoLegendBins}
-                  setDemoColorRamp={setDemoColorRamp}
-                  setDemoLegendBins={setDemoLegendBins}
                   demoLookup={demoLookup[demographic]}
+                  demographic={demographic}
+                  dataScale={dataScale}
+                  setdataScale={setdataScale}
+                  issues={issues}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  colorRamps={colorRamps}
+                  toggleUnderperformers={toggleUnderperformers}
+                  setToggleUnderperformers={setToggleUnderperformers}
+                  boundary={boundary}
+                  handleLegend={handleLegend}
+                  selectedIssue={selectedSpecificIssue}
+                  zoomToggle={zoomToggle}
                   showMap={showMap}
+                  binList={binList}
                   info={info}
-                  // mobile only
-                  isMobile={true}
-                  showLegend={showLegend}
+                  selectedChapter={selectedChapter}
                 />
+              </div>
+            </div>
+
+            {/* fourth child */}
+            <div
+              className={'mobile-demographics-container'}
+              style={{
+                transition: '0.5s',
+                overflow: 'hidden',
+                maxHeight: showLegend || mapDemographics ? '100vh' : '0',
+              }}
+            >
+              <div
+                className={'d-flex flex-column justify-content-between'}
+                style={{
+                  padding: '1rem',
+                }}
+              >
+                {(showLegend || !mapDemographics) && (
+                  <p className={'small-font mb-1'}>Compare Demographics</p>
+                )}
+
+                <div
+                  style={{ position: 'relative', zIndex: 1, height: '100%' }}
+                >
+                  <Demographics
+                    currentValue={demographic}
+                    setValue={setDemographic}
+                    selectedSpecificIssue={selectedSpecificIssue}
+                    setShowDemographics={setShowDemographics}
+                    showDemographics={showDemographics}
+                    communitySearch={communitySearch}
+                    compareSearch={compareSearch}
+                    mapDemographics={mapDemographics}
+                    setMapDemographics={setMapDemographics}
+                    boundary={boundary}
+                    communities={communities}
+                    councils={councils}
+                    selectedChapter={selectedChapter}
+                    toggleTransit={toggleTransit}
+                    setToggleTransit={setToggleTransit}
+                    toggleBike={toggleBike}
+                    setToggleBike={setToggleBike}
+                    toggleWalk={toggleWalk}
+                    setToggleWalk={setToggleWalk}
+                    colorRamps={colorRamps}
+                    demoColorRamp={demoColorRamp}
+                    demoLegendBins={demoLegendBins}
+                    setDemoColorRamp={setDemoColorRamp}
+                    setDemoLegendBins={setDemoLegendBins}
+                    demoLookup={demoLookup[demographic]}
+                    showMap={showMap}
+                    info={info}
+                    // mobile only
+                    isMobile={true}
+                    showLegend={showLegend}
+                  />
+                </div>
               </div>
             </div>
           </div>

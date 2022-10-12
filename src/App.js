@@ -809,6 +809,7 @@ function App() {
                       showMap={showMap}
                       setShowMap={setShowMap}
                       boundary={boundary}
+                      isMobile={true}
                     />
                   )}
 
