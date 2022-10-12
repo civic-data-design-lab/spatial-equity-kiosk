@@ -221,7 +221,7 @@ export default function DeckMap({
   setShowSubDropDown,
   showLegend,
   setShowLegend,
-  isTouchinMapgMobile,
+  isTouchingMapMobile,
 }) {
   // map hooks
   /**
@@ -644,7 +644,7 @@ export default function DeckMap({
 
   function updateSearchEngine(searchEngine, searchEngineType) {
     //check if search engine is valid coordinates
-    console.log("search engine type ", searchEngineType)
+    console.log('search engine type ', searchEngineType);
 
     // PRIMARY COMMUNITY SEARCH
     if (searchEngineType === 0 && selectedChapter === 3) {
@@ -880,7 +880,7 @@ export default function DeckMap({
   useEffect(() => {
     console.log('selectedCoord ', selectedCoord);
     //if (!addCompare || !communitySearch || boundary !== scale.current) {
-      updateSearchEngine(selectedCoord, 0);
+    updateSearchEngine(selectedCoord, 0);
     //}
     scale.current = boundary;
   }, [selectedCoord, infoTransfer.selectedBoundary]);
@@ -1438,12 +1438,12 @@ export default function DeckMap({
         if (isMobile && showDropDown) setShowDropDown(false);
         if (isMobile && showSubDropDown) setShowSubDropDown(false);
         if (isMobile && showLegend) {
-          isTouchinMapgMobile.current = true;
+          isTouchingMapMobile.current = true;
           setShowLegend(false);
         }
       }}
       onTouchEnd={() => {
-        if (isMobile && !showLegend && isTouchinMapgMobile.current == true)
+        if (isMobile && !showLegend && isTouchingMapMobile.current == true)
           setShowLegend(true);
       }}
     >

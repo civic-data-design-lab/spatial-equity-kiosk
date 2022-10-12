@@ -49,13 +49,13 @@ export default function CommunitySearchBar({
   const [response, setResponse] = useState(null);
   const [firstMatchedRes, setFirstMatchedRes] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (toggleValue) {
-      setValue(toggleValue)
+      setValue(toggleValue);
     } else {
-      setValue("")
+      setValue('');
     }
-  }, [toggleValue])
+  }, [toggleValue]);
 
   // console.log('!!!c', communitySearch, )
   // console.log('!!!s', selectedCoord)
@@ -220,7 +220,7 @@ export default function CommunitySearchBar({
         className={
           'd-flex flex-row align-items-center mt-3 position-relative community-search-container'
         }
-       /* onClick={(e) => {
+        /* onClick={(e) => {
           e.stopPropagation();
         }}*/
         id={`${!forSearch ? 'remove-community' : ''}`}
@@ -228,14 +228,17 @@ export default function CommunitySearchBar({
         <input
           type={'search'}
           id={forSearch ? 'community-search' : 'compare-search'}
-          className={`community-search w-100 ${isMobile ? `border-0` : ''}`}
+          className={`community-search w-100`}
           placeholder={'Search for a District, Neighborhood, or Address'}
           style={{
-            borderColor:
-              (badSearch[0] && primarySearch) ||
-              (badSearch[1] && !primarySearch)
-                ? 'yellow'
-                : '',
+            color: isMobile ? 'black' : 'white',
+            backgroundColor: isMobile ? 'white' : 'black',
+            border: isMobile
+              ? 'none'
+              : (badSearch[0] && primarySearch) ||
+                (badSearch[1] && !primarySearch)
+              ? '2px solid yellow'
+              : '2px solid black',
           }}
           onClick={(e) => {
             e.stopPropagation();

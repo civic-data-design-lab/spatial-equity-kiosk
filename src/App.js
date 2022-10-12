@@ -99,7 +99,7 @@ function App() {
   const [showDropDown, setShowDropDown] = useState(false);
   const [showSubDropDown, setShowSubDropDown] = useState(false);
   const [showLegend, setShowLegend] = useState(false);
-  const isTouchinMapgMobile = useRef(false);
+  const isTouchingMapMobile = useRef(false);
 
   // console.log(badSearch);
   // map hooks
@@ -983,6 +983,7 @@ function App() {
                   onClick={(e) => {
                     e.stopPropagation();
                     setSelectedChapter(3);
+                    setShowMap(true);
                   }}
                 >
                   <p
@@ -1120,7 +1121,7 @@ function App() {
               setShowSubDropDown={setShowSubDropDown}
               showLegend={showLegend}
               setShowLegend={setShowLegend}
-              isTouchinMapgMobile={isTouchinMapgMobile}
+              isTouchingMapMobile={isTouchingMapMobile}
             />
           ) : selectedChapter === 3 ? (
             <MobileCommunityProfile
@@ -1193,6 +1194,9 @@ function App() {
               handleLegend={handleLegend}
               dataScale={dataScale}
               setdataScale={setdataScale}
+              isTouchingMapMobile={isTouchingMapMobile}
+              showLegend={showLegend}
+              setShowLegend={setShowLegend}
             />
           ) : selectedChapter === 4 ? (
             <div
@@ -1281,7 +1285,7 @@ function App() {
               isMobile={true}
               showLegend={showLegend}
               setShowLegend={setShowLegend}
-              isTouchinMapgMobile={isTouchinMapgMobile}
+              isTouchingMapMobile={isTouchingMapMobile}
             />
           </div>
         </Container>
