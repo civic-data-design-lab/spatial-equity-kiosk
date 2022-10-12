@@ -233,7 +233,10 @@ export default function About({ issues, selectedAbout, setSelectedChapter }) {
                     and citywide.
                     <span>
                       {' '}
-                      <a style={{ textDecorationLine: 'underline' }}>
+                      <a 
+                        style={{ textDecorationLine: 'underline' }}
+                        href={'https://p2a.co/aCCqdtQ'}
+                        target={'_blank'}>
                         Click here to send a message to your elected leader
                       </a>
                       .
