@@ -447,7 +447,7 @@ function Nav({
                 selectedChapter !== 4 ? 'pe-none' : 'pe-auto'
               } mb-3 d-flex flex-row col-gap`}
             >
-              <div
+              {/* <div
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
@@ -488,7 +488,7 @@ function Nav({
                 >
                   <FontAwesomeIcon icon={faLinkedinIn} />
                 </a>
-              </div>
+              </div> */}
             </div>
             <p>
               Spatial Equity NYC is a project of Transportation Alternatives and
