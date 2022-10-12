@@ -16,6 +16,8 @@ export default function MobileNav({
   setselectedCompareCoord,
   badSearch,
   setBadSearch,
+  showMap,
+  setShowMap,
 }) {
   return (
     <div
@@ -117,6 +119,7 @@ export default function MobileNav({
           if (selectedChapter !== 3) {
             setSelectedChapter(3);
             setShowMenu(false);
+            setShowMap(true);
           } else {
             setSelectedChapter(null);
             setShowMenu(false);

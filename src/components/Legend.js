@@ -211,7 +211,10 @@ export default function Legend({
             : '.'}
         </div>
         {demoLookup.name === 'Commuters Who Bike, Walk, or Ride Transit' && (
-          <div>{transitToggles}.</div>
+          <div>
+            {transitToggles}
+            {!isMobile ? '.' : ''}
+          </div>
         )}
       </>
     );

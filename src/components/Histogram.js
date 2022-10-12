@@ -131,6 +131,9 @@ const Histogram = ({
   setIsHovering,
   toggleDisplayMode,
   setToggleDisplayMode,
+
+  // mobile only
+  isMobile = false,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
@@ -1079,7 +1082,7 @@ const Histogram = ({
       {!toggleDisplayMode && (
         <div
           className={'m-0 small-font d-inline-block'}
-          style={{ padding: '1rem 1.5rem 0 1.5rem' }}
+          style={{ padding: isMobile ? '' : '1rem 1.5rem 0 1.5rem' }}
         >
           {issues.specific_issues_data[selectedSpecificIssue].units}{' '}
           <SourceInfo
@@ -1095,7 +1098,7 @@ const Histogram = ({
         style={{
           width: '100%',
           flexGrow: '1',
-          padding: toggleDisplayMode ? '0' : '0 1.5rem 0 1.5rem',
+          padding: toggleDisplayMode || isMobile ? '0' : '0 1.5rem 0 1.5rem',
         }}
       >
         <div
@@ -1170,10 +1173,10 @@ const Histogram = ({
             style={{
               justifyContent: 'start',
               flexGrow: '1',
-              marginLeft: '3px',
-              marginRight: '30px',
+              marginLeft: isMobile ? '' : '3px',
+              marginRight: isMobile ? '' : '30px',
               flexWrap: 'wrap',
-              padding: '0 1.5rem 0 1.5rem',
+              padding: isMobile ? '' : '0 1.5rem 0 1.5rem',
             }}
           >
             <div className={'d-flex flex-row'}>

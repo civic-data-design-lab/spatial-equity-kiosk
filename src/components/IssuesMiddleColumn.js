@@ -149,8 +149,6 @@ export default function IssuesMiddleColumn({
     }
   });
 
-  console.log(environment_issues);
-
   return (
     <div
       className={'d-flex flex-column position-relative'}

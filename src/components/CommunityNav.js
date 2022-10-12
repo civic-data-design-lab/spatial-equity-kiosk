@@ -68,6 +68,7 @@ export default function CommunityNav({
                   /*setCommunitySearch(key);*/
                   setShowSearch(false);
                   setSearchSource('search');
+                  setCommunitySearch(key)
                   for (const [
                     index,
                     element,

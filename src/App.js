@@ -112,6 +112,8 @@ function App() {
   const [zoomToggle, setzoomToggle] = useState(0);
   const [handleLegend, sethandleLegend] = useState(0);
 
+  const [prevStates, setPrevStates] = useState([]);
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     let createCoords = [[], []];
@@ -489,7 +491,6 @@ function App() {
     });
 
     if ('undefined' !== typeof window.history.pushState) {
-      console.log('replacing window history');
       try {
         window.history.replaceState(null, '', path);
       } catch (e) {
@@ -776,7 +777,7 @@ function App() {
           </div>
         </Container>
       ) : (
-        <Container className={'p-0 vh-100 d-flex flex-column overflow-hidden'}>
+        <Container className={'p-0 h-100 d-flex flex-column overflow-hidden'}>
           <div
             className={`position-relative d-flex flex-column`}
             // style={{ zIndex: '10', pointerEvents: showMenu ? 'auto' : 'none' }}
@@ -803,14 +804,17 @@ function App() {
                         : 'Take Action'}
                     </h4>
                   </div>
-                  {[2, 3].includes(selectedChapter) && (
-                    <MapToggle
-                      showToggle={true}
-                      showMap={showMap}
-                      setShowMap={setShowMap}
-                      boundary={boundary}
-                    />
-                  )}
+                  {!showMenu &&
+                    (selectedChapter == 2 ||
+                      (selectedChapter == 3 && communitySearch)) && (
+                      <MapToggle
+                        showToggle={true}
+                        showMap={showMap}
+                        setShowMap={setShowMap}
+                        boundary={boundary}
+                        isMobile={true}
+                      />
+                    )}
 
                   <div
                     className={`${
@@ -840,6 +844,8 @@ function App() {
               setselectedCompareCoord={setselectedCompareCoord}
               badSearch={badSearch}
               setBadSearch={setBadSearch}
+              showMap={showMap}
+              setShowMap={setShowMap}
             />
           </div>
 
@@ -1139,8 +1145,6 @@ function App() {
               communities={communities}
               councils={councils}
               issue_categories={issue_categories}
-              /*   highlightFeature={highlightFeature}
-                                             sethighlightFeature={sethighlightFeature}*/
               selectedCoord={selectedCoord}
               setSelectedCoord={setSelectedCoord}
               selectedCompareCoord={selectedCompareCoord}

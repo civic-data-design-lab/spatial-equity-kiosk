@@ -190,10 +190,8 @@ export default function IssuesTileView({
                 selectedSpecificIssue={selectedSpecificIssue}
                 setSelectedChapter={setSelectedChapter}
                 setSelectedSpecificIssue={setSelectedSpecificIssue}
-                setMoreIssues={setMoreIssues}
                 useBoroughColor={useBoroughColor}
                 setUseBoroughColor={setUseBoroughColor}
-                isHovering={isHovering}
                 setIsHovering={setIsHovering}
                 councilPinned={councilPinned}
                 setCouncilPinned={setCouncilPinned}
