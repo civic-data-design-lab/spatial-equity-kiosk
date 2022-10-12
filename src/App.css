@@ -1959,7 +1959,7 @@ input:checked+.slider:before {
 
 
 #about-container {
-    padding: 1.25rem;
+    /* padding: 1.25rem; */
     height: 100%;
     overflow-Y: scroll;
     overflow-X: hidden;
@@ -1974,28 +1974,41 @@ input:checked+.slider:before {
 
 .scroll-body {
     min-height: calc(100vh - 2.5rem);
+    width: 66%;
+    padding: 6em 2.5em 1.25em 2.5em;
+    position: relative;
+    left: 25vw;
     transition: opacity 1s;
+    /* display: inline; */
 }
 
 .scroll-title {
-    width: calc(75% - 5rem);
-    padding: 2.5rem 2.5rem 0;
-    height: 6.5em;
-    background-image: linear-gradient(180deg, white 80%, transparent);
+    width: calc(50vw - 10px);
+    /* width: 50%; */
+    padding: 2.5rem 2.5rem;
+    height: 6em;
+    position: absolute;
+    left: 50vw;
+    /* display:inline-block; */
+    /* background-color: linear-gradient(180deg, white 80%, transparent); */
+    /* background-color: red; */
+    background-image: linear-gradient(180deg, white 70%, transparent);
+    z-index: 1;
+    border: 2px;
 }
 
 .scroll-title-content {
-    top: 2px;
-    left: calc(25vw);
+    /* top: 2px; */
+    left: 50vw;
     position: absolute;
     /* background-color: white; */
-    width: 50%;
+    /* width: calc(50%-5px); */
+    
+    
 }
 
 .scroll-content {
-    padding: 1.25em 3em 1.25em 1.25em;
-    /* padding-bottom: max(1.25rem, 7.25rem); */
-    width: calc(75% - 5rem);
+    position: inherit;
     scroll-snap-align: start;
 }
 
@@ -2011,10 +2024,9 @@ input:checked+.slider:before {
     cursor: pointer;
 }
 
-
 .scroll-menu {
     position: absolute;
-    right: 1.5rem;
+    left: 25vw;
     top: 5rem;
     bottom: 3.75rem;
     width: 25%;
@@ -2023,6 +2035,7 @@ input:checked+.slider:before {
     flex-direction: column;
     justify-content: space-between;
     color: black;
+    /* border: 2px red; */
 }
 
 .video-container {
@@ -2478,7 +2491,7 @@ input:checked+.slider:before {
     #about-container {
         width: 100vw;
         font-size: small;
-        padding: 1.25rem 0rem 1.25rem 0.5rem;
+        /* padding: 1.25rem 0rem 1.25rem 0.5rem; */
         display: flex;
         height: max-content;
         margin-bottom: 100px;
