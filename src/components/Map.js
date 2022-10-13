@@ -164,12 +164,6 @@ const defaultColors = [
   [95, 128, 236, 255], // mobility
 ];
 
-const font = new FontFace(
-  'Inter',
-  // 'url(./fonts/Inter-VariableFont_slnt,wght.ttf)'
-  'url(./fonts/GemunuLibre-VariableFont_wght.ttf)'
-);
-
 export default function DeckMap({
   issues,
   selectedIssue,
