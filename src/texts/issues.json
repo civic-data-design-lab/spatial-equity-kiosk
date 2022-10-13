@@ -594,7 +594,7 @@
       "json_id": "F14_TmpDev",
       "good_or_bad": 1,
       "issue_hi_low": ["highest", "lowest"],
-      "units": "Average Summer Deviation from Citywide Average",
+      "units": "Average Summer Deviation from Mean",
       "units_shorthand": "Average",
       "issue_highlight": "highest average summer surface temperatures",
       "histogram_bounds": ["Hottest", "Coolest"],
