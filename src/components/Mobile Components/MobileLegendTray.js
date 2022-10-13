@@ -41,7 +41,6 @@ export default function MobileLegendTray({
   setDemoColorRamp,
   setDemoLegendBins,
 }) {
-  console.log('showLegend', showLegend);
   return (
     <div style={{ backgroundColor: 'white', pointerEvents: 'auto' }}>
       <div>

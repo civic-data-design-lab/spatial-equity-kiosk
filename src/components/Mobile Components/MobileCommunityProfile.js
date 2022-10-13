@@ -292,83 +292,81 @@ export default function MobileCommunityProfile({
         }}
       >
         {/* child 1 - search bar and metric bar */}
-        <div className={''}>
+
+        <div
+          style={{
+            pointerEvents: 'auto',
+            width: '100%',
+            position: 'relative',
+          }}
+        >
+          {/* district title here- put up in top bar later*/}
           <div
             style={{
-              pointerEvents: 'auto',
-              width: '100%',
               position: 'relative',
+              width: '100%',
+            }}
+            onClick={(e) => {
+              setShowDropDown(false);
+              setShowSubDropDown(false);
             }}
           >
-            {/* district title here- put up in top bar later*/}
-            <div
-              style={{
-                position: 'relative',
-                width: '100%',
-                transition: 'width 0.5s',
-                height: '100%',
-              }}
-              onClick={(e) => {
-                setShowDropDown(false);
-                setShowSubDropDown(false);
-              }}
+            <CommunitySearchBar
+              setResize={setResize}
+              setResizeIssues={setResizeIssues}
+              selectedCompareCoord={selectedCompareCoord}
+              setselectedCompareCoord={setselectedCompareCoord}
+              toggleValue={
+                communitySearch
+                  ? (communities[communitySearch] &&
+                      communities[communitySearch].name) ||
+                    (councils[communitySearch] &&
+                      councils[communitySearch].name)
+                  : null
+              }
+              communitySearch={communitySearch}
+              callBack={setCommunitySearch}
+              selectedCoord={selectedCoord}
+              setSelectedCoord={setSelectedCoord}
+              setShowSearch={setShowSearch}
+              showSearch={showSearch}
+              setShowMap={setShowMap}
+              primarySearch={true}
+              badSearch={badSearch}
+              setBadSearch={setBadSearch}
+              setSearchSource={setSearchSource}
+              boundary={boundary}
+              info={info}
+              setCommunitySearch={setCommunitySearch}
+              setCompareSearch={setCompareSearch}
+              setAddCompare={setAddCompare}
+              setUserPoints={setUserPoints}
+              userPoints={userPoints}
+              // mobile only
+              isMobile={true}
             >
-              <CommunitySearchBar
-                setResize={setResize}
-                setResizeIssues={setResizeIssues}
-                selectedCompareCoord={selectedCompareCoord}
-                setselectedCompareCoord={setselectedCompareCoord}
-                toggleValue={
-                  communitySearch
-                    ? (communities[communitySearch] &&
-                        communities[communitySearch].name) ||
-                      (councils[communitySearch] &&
-                        councils[communitySearch].name)
-                    : null
-                }
-                communitySearch={communitySearch}
-                callBack={setCommunitySearch}
-                selectedCoord={selectedCoord}
-                setSelectedCoord={setSelectedCoord}
-                setShowSearch={setShowSearch}
-                showSearch={showSearch}
-                setShowMap={setShowMap}
-                primarySearch={true}
-                badSearch={badSearch}
-                setBadSearch={setBadSearch}
-                setSearchSource={setSearchSource}
-                boundary={boundary}
-                info={info}
-                setCommunitySearch={setCommunitySearch}
-                setCompareSearch={setCompareSearch}
-                setAddCompare={setAddCompare}
-                setUserPoints={setUserPoints}
-                userPoints={userPoints}
-                // mobile only
-                isMobile={true}
-              >
-                {getSearchItems(true, boundary)}
-              </CommunitySearchBar>
-            </div>
+              {getSearchItems(true, boundary)}
+            </CommunitySearchBar>
+          </div>
 
-            {/* metric dropdown menu */}
-            {communitySearch && showMap && (
-              <MobileDropdown
-                selectedIssue={selectedIssue}
-                setSelectedIssue={setSelectedIssue}
-                selectedSpecificIssue={selectedSpecificIssue}
-                setSelectedSpecificIssue={setSelectedSpecificIssue}
-                issues={issues}
-                issue_categories={issue_categories}
-                selectedChapter={selectedChapter}
-                showDropDown={showDropDown}
-                setShowDropDown={setShowDropDown}
-                showSubDropDown={showSubDropDown}
-                setShowSubDropDown={setShowSubDropDown}
-              />
-            )}
+          {/* metric dropdown menu */}
+          {communitySearch && showMap && (
+            <MobileDropdown
+              selectedIssue={selectedIssue}
+              setSelectedIssue={setSelectedIssue}
+              selectedSpecificIssue={selectedSpecificIssue}
+              setSelectedSpecificIssue={setSelectedSpecificIssue}
+              issues={issues}
+              issue_categories={issue_categories}
+              selectedChapter={selectedChapter}
+              showDropDown={showDropDown}
+              setShowDropDown={setShowDropDown}
+              showSubDropDown={showSubDropDown}
+              setShowSubDropDown={setShowSubDropDown}
+            />
+          )}
 
-            {/* {communitySearch && (
+          {/* {communitySearch && (
               <div
                 style={{
                   backgroundColor: 'white',
@@ -655,7 +653,6 @@ export default function MobileCommunityProfile({
                 </div>
               </div>
             )} */}
-          </div>
         </div>
 
         {/* main body of the page and grid */}

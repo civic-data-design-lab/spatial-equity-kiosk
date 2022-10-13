@@ -2,6 +2,7 @@ import ISSUES_CATEGORIES from '../../texts/issue_categories.json';
 import BoundaryToggle from '../BoundaryToggle';
 import ShareButton from '../ShareButton';
 import MapToggle from '../MapToggle';
+import MobileFixedHeader from './MobileFixedHeader';
 
 export default function MobileNav({
   setShowMenu,
@@ -21,6 +22,7 @@ export default function MobileNav({
   setShowMap,
 
   communitySearch,
+  showToggle,
 }) {
   return (
     <div
@@ -30,52 +32,20 @@ export default function MobileNav({
         pointerEvents: showMenu ? 'auto' : 'none',
       }}
     >
-      {' '}
-      {/* fixed header */}
       {selectedChapter && (
-        <div className={'mobile-nav-header'}>
-          <div>
-            <p className={'m-0 small-font'}>
-              {selectedChapter === 1
-                ? 'What is'
-                : selectedChapter < 4
-                ? 'Explore Spatial Equity by'
-                : 'Learn More'}
-            </p>
-            <h4 className={'m-0'}>
-              {selectedChapter === 1
-                ? 'Spatial Equity'
-                : selectedChapter === 2
-                ? 'Citywide Data'
-                : selectedChapter === 3
-                ? 'Community Profiles'
-                : 'Take Action'}
-            </h4>
-          </div>
-          {!showMenu &&
-            (selectedChapter == 2 ||
-              (selectedChapter == 3 && communitySearch)) && (
-              <MapToggle
-                showToggle={true}
-                showMap={showMap}
-                setShowMap={setShowMap}
-                boundary={boundary}
-                isMobile={true}
-              />
-            )}
-
-          <div
-            className={`${showMenu ? 'toggle-menu-active' : ''} toggle-menu`}
-            onClick={() => setShowMenu(!showMenu)}
-          >
-            <span
-              className={`${
-                showMenu ? 'toggle-menu-span-active' : ''
-              } toggle-menu-span`}
-            ></span>
-          </div>
-        </div>
+        <MobileFixedHeader
+          selectedChapter={selectedChapter}
+          showToggle={showToggle}
+          showMap={showMap}
+          setShowMap={setShowMap}
+          boundary={boundary}
+          isMobile={true}
+          setShowMenu={setShowMenu}
+          showMenu={showMenu}
+          communitySearch={communitySearch}
+        />
       )}
+
       <div
         className="height-transition d-flex flex-column overflow-hidden"
         style={{ height: showMenu ? '100%' : '0%' }}

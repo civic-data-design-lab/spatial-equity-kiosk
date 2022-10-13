@@ -228,17 +228,21 @@ export default function CommunitySearchBar({
         <input
           type={'search'}
           id={forSearch ? 'community-search' : 'compare-search'}
-          className={`community-search w-100`}
+          className={`community-search w-100 transition-color`}
           placeholder={'Search for a District, Neighborhood, or Address'}
           style={{
-            color: isMobile ? 'black' : 'white',
-            backgroundColor: isMobile ? 'white' : 'black',
-            border: isMobile
-              ? 'none'
-              : (badSearch[0] && primarySearch) ||
-                (badSearch[1] && !primarySearch)
-              ? '2px solid yellow'
-              : '2px solid white',
+            color: isMobile && !communitySearch ? 'black' : 'white',
+            backgroundColor: isMobile && !communitySearch ? 'white' : 'black',
+            border:
+              // isMobile
+              //   ? 'none'
+              //   :
+              (badSearch[0] && primarySearch) ||
+              (badSearch[1] && !primarySearch)
+                ? '2px solid yellow'
+                : isMobile
+                ? '2px solid black'
+                : '2px solid white',
           }}
           onClick={(e) => {
             e.stopPropagation();

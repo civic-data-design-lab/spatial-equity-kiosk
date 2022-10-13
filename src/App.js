@@ -30,6 +30,7 @@ import MobileCommunityProfile from './components/Mobile Components/MobileCommuni
 import MobileWhatIsSE from './components/Mobile Components/MobileWhatIsSE';
 import About from './components/About';
 import MapToggle from './components/MapToggle';
+import MobileFixedHeader from './components/Mobile Components/MobileFixedHeader';
 
 let siteProtection =
   process.env.REACT_APP_SITE_PROTECTION == 'false'
@@ -783,52 +784,18 @@ function App() {
           }
         >
           <div className={`d-flex flex-column`} style={{ zIndex: '10' }}>
-            {/* fixed header */}
             {selectedChapter && (
-              <div className={'mobile-nav-header'}>
-                <div>
-                  <p className={'m-0 small-font'}>
-                    {selectedChapter === 1
-                      ? 'What is'
-                      : selectedChapter < 4
-                      ? 'Explore Spatial Equity by'
-                      : 'Learn More'}
-                  </p>
-                  <h4 className={'m-0'}>
-                    {selectedChapter === 1
-                      ? 'Spatial Equity'
-                      : selectedChapter === 2
-                      ? 'Citywide Data'
-                      : selectedChapter === 3
-                      ? 'Community Profiles'
-                      : 'Take Action'}
-                  </h4>
-                </div>
-                {!showMenu &&
-                  (selectedChapter == 2 ||
-                    (selectedChapter == 3 && communitySearch)) && (
-                    <MapToggle
-                      showToggle={true}
-                      showMap={showMap}
-                      setShowMap={setShowMap}
-                      boundary={boundary}
-                      isMobile={true}
-                    />
-                  )}
-
-                <div
-                  className={`${
-                    showMenu ? 'toggle-menu-active' : ''
-                  } toggle-menu`}
-                  onClick={() => setShowMenu(!showMenu)}
-                >
-                  <span
-                    className={`${
-                      showMenu ? 'toggle-menu-span-active' : ''
-                    } toggle-menu-span`}
-                  ></span>
-                </div>
-              </div>
+              <MobileFixedHeader
+                selectedChapter={selectedChapter}
+                showToggle={showToggle}
+                showMap={showMap}
+                setShowMap={setShowMap}
+                boundary={boundary}
+                isMobile={true}
+                setShowMenu={setShowMenu}
+                showMenu={showMenu}
+                communitySearch={communitySearch}
+              />
             )}
             <MobileNav
               setShowMenu={setShowMenu}
@@ -846,6 +813,7 @@ function App() {
               showMap={showMap}
               setShowMap={setShowMap}
               communitySearch={communitySearch}
+              showToggle={showToggle}
             />
           </div>
 

@@ -12,11 +12,24 @@ export default function MapToggle({
   showMap,
   setShowMap,
   boundary,
+  showMenu,
+  selectedChapter,
+  communitySearch,
 
   // mobile only
   isMobile = false,
 }) {
   const [hover, setHover] = useState(null);
+
+  // disable map toggle on certain mobile conditions
+  const hideMapToggle =
+    isMobile && (showMenu || (selectedChapter !== 2 && selectedChapter !== 3))
+      ? true
+      : false;
+
+  console.log(isMobile, showMenu, selectedChapter);
+
+  console.log(hideMapToggle);
 
   return (
     <>
@@ -35,7 +48,11 @@ export default function MapToggle({
           {hover}
         </div>
       )}
-      <div className={`${showToggle ? '' : 'd-none'} map-toggle-container`}>
+      <div
+        className={`${showToggle ? '' : 'd-none'} map-toggle-container ${
+          hideMapToggle ? 'disabled' : ''
+        }`}
+      >
         <div
           className={`${!showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}
           onClick={() => {
