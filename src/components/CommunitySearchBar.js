@@ -238,7 +238,7 @@ export default function CommunitySearchBar({
               : (badSearch[0] && primarySearch) ||
                 (badSearch[1] && !primarySearch)
               ? '2px solid yellow'
-              : '2px solid black',
+              : '2px solid white',
           }}
           onClick={(e) => {
             e.stopPropagation();

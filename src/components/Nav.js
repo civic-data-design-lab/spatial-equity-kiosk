@@ -273,10 +273,12 @@ function Nav({
                     setCompareSearch(null);*/
             if (selectedChapter !== 3) {
               setSelectedChapter(3);
-              setCollapseMap(false);
+              setShowMap(true);
+
+              // setCollapseMap(false);
               //setSearchSource(null);
-              setUserPoints([], []);
-              setBadSearch([0, 0]);
+              // setUserPoints([], []);
+              // setBadSearch([0, 0]);
 
               selectedChapterCache.current = selectedSpecificIssue;
               //setSelectedSpecificIssue(null);

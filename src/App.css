@@ -2004,7 +2004,7 @@ input:checked+.slider:before {
     overflow-Y: scroll;
     overflow-X: hidden;
     scroll-behavior: smooth;
-    /* scroll-snap-type: y mandatory; */
+    scroll-snap-type: y mandatory;
     scroll-padding: 5rem;
 }
 
@@ -2140,7 +2140,7 @@ input:checked+.slider:before {
     width: calc(50vw);
     position: relative;
     left: 25vw;
-    z-index: ;
+    /* z-index: ; */
     /* border-left: 2px #000; */
 }
 

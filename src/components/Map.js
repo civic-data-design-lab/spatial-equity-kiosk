@@ -1566,7 +1566,7 @@ export default function DeckMap({
         controller={true}
         layers={[metricLayers, demoLayers, annoLayers]}
         getCursor={() => 'crosshair'}
-        getTooltip={getDeckGlTooltip}
+        getTooltip={!isMobile ? getDeckGlTooltip : null}
         layerFilter={layerFilter}
         ref={deckRef}
       >
