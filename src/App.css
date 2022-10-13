@@ -1078,7 +1078,7 @@ a:active {
     color: black;
     background-color: white;
     transition: 0.25s ease-in-out;
-    outline: 1px solid black;
+    outline: 2px solid black;
 
 }
 
