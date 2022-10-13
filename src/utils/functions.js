@@ -138,3 +138,15 @@ export function ordinalSuffixOf(i) {
   }
   return i + 'th';
 }
+
+/**
+ * Splits the given string at the hyphens and rejoins it with spaces.
+ *
+ * Example:
+ *    `splitHyphens("hello-world") -> "hello - world"`
+ *
+ * @param {string} str - The string to split.
+ */
+export function splitHyphens(str) {
+  return str.split('-').join(' - ');
+}

@@ -31,7 +31,12 @@ import _RANKINGS from '../data/rankings.json';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { project } from 'deck.gl';
 import MapTooltip from './MapTooltip';
-import { debounce, getTransportationModes, mapRange } from '../utils/functions';
+import {
+  debounce,
+  getTransportationModes,
+  mapRange,
+  splitHyphens,
+} from '../utils/functions';
 
 import MapNotableIndicators from './MapNotableIndicators';
 
@@ -1344,7 +1349,7 @@ export default function DeckMap({
       getColor: infoTransfer.selectedMetric
         ? [255, 255, 255, 255]
         : [0, 0, 0, 255],
-      getText: (d) => d.properties.NTAName.toUpperCase(),
+      getText: (d) => splitHyphens(d.properties.NTAName.toUpperCase()),
       getPosition: (d) => d.geometry.coordinates,
       getSize: 75,
       maxWidth: 600,
