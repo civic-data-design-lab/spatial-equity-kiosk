@@ -69,17 +69,56 @@ export default function CommunityProfile({
       {!compareSearch ? (
         <>
           <div>
-            <h6>Notable Indicators—</h6>
+            <h6 className="">Notable Indicators—</h6>
 
-            <p className={''}>
+            <p className={'py-0'}>
               {communitySearch
-                ? ` Below are the three worst spatial equity indicators in this 
+                ? `Below are the three worst spatial equity indicators in this 
                 ${boundary === 'council' ? 'district' : 'community board'}.`
                 : ``}
             </p>
-            <div className={'d-flex flex-column row-gap'}>
-              {(communities[communitySearch] &&
-                communities[communitySearch].least_performing_issues.map(
+          </div>
+          <div className={'d-flex flex-column row-gap cards-column'}>
+            {(communities[communitySearch] &&
+              communities[communitySearch].least_performing_issues.map(
+                (issue, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className={
+                        selectedSpecificIssue && selectedSpecificIssue !== issue
+                          ? 'opacity-50'
+                          : ''
+                      }
+                    >
+                      <IssuesCard
+                        setCompareSearch={setCompareSearch}
+                        addCompare={addCompare}
+                        target={
+                          selectedSpecificIssue &&
+                          selectedSpecificIssue !== issue
+                            ? false
+                            : true
+                        }
+                        setCommunitySearch={setCommunitySearch}
+                        communitySearch={communitySearch}
+                        compareSearch={compareSearch}
+                        selectedCommunity={selectedCommunity}
+                        boundary={boundary}
+                        selectedSpecificIssue={selectedSpecificIssue}
+                        setSelectedSpecificIssue={setSelectedSpecificIssue}
+                        issues={issues}
+                        specificIssue={issue}
+                        setModal={setModal}
+                        setSelectedChapter={setSelectedChapter}
+                        setSelectedAbout={setSelectedAbout}
+                      />
+                    </div>
+                  );
+                }
+              )) ||
+              (councils[communitySearch] &&
+                councils[communitySearch].least_performing_issues.map(
                   (issue, index) => {
                     return (
                       <div
@@ -116,58 +155,11 @@ export default function CommunityProfile({
                       </div>
                     );
                   }
-                )) ||
-                (councils[communitySearch] &&
-                  councils[communitySearch].least_performing_issues.map(
-                    (issue, index) => {
-                      return (
-                        <div
-                          key={index}
-                          className={
-                            selectedSpecificIssue &&
-                            selectedSpecificIssue !== issue
-                              ? 'opacity-50'
-                              : ''
-                          }
-                        >
-                          <IssuesCard
-                            setCompareSearch={setCompareSearch}
-                            addCompare={addCompare}
-                            target={
-                              selectedSpecificIssue &&
-                              selectedSpecificIssue !== issue
-                                ? false
-                                : true
-                            }
-                            setCommunitySearch={setCommunitySearch}
-                            communitySearch={communitySearch}
-                            compareSearch={compareSearch}
-                            selectedCommunity={selectedCommunity}
-                            boundary={boundary}
-                            selectedSpecificIssue={selectedSpecificIssue}
-                            setSelectedSpecificIssue={setSelectedSpecificIssue}
-                            issues={issues}
-                            specificIssue={issue}
-                            setModal={setModal}
-                            setSelectedChapter={setSelectedChapter}
-                            setSelectedAbout={setSelectedAbout}
-                          />
-                        </div>
-                      );
-                    }
-                  ))}
-            </div>
+                ))}
           </div>
 
-          <div className={''}>
-            <h6
-              className={'bold mt-3'}
-              // style={{
-              //   padding: '0.75em 0',
-              // }}
-            >
-              More Indicators
-            </h6>
+          <h6 className={'bold mt-3'}>More Indicators</h6>
+          <div className={'cards-column'}>
             <IssuesTags
               setCompareSearch={setCompareSearch}
               addCompare={addCompare}

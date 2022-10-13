@@ -9,6 +9,7 @@ import {
   faGlobe,
   faChartSimple,
   faList,
+  faCity,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default function MapToggle({
@@ -72,18 +73,24 @@ export default function MapToggle({
           }}
           onMouseEnter={() => {
             setHover(
-              `Chart ${
-                boundary === 'council'
-                  ? 'council districts'
-                  : 'community boards'
-              }`
+              selectedChapter == 2
+                ? `Chart ${
+                    boundary === 'council'
+                      ? 'Council Districts'
+                      : 'Community Boards'
+                  }`
+                : 'Show Community Profile'
             );
           }}
           onMouseLeave={() => {
             setHover(null);
           }}
         >
-          <FontAwesomeIcon icon={faChartSimple} />
+          {selectedChapter == 2 ? (
+            <FontAwesomeIcon icon={faChartSimple} />
+          ) : (
+            <FontAwesomeIcon icon={faCity} />
+          )}
         </div>
 
         {selectedChapter == 2 && selectedSpecificIssue && (
@@ -99,8 +106,8 @@ export default function MapToggle({
               setHover(
                 `List ${
                   boundary == 'council'
-                    ? 'council districts'
-                    : 'community boards'
+                    ? 'Council Districts'
+                    : 'Community Boards'
                 }`
               );
             }}

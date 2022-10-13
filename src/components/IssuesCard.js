@@ -8,6 +8,7 @@ import {
 import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import IssueHistogram from './IssueHistogram';
+import HistogramToggle from './HistogramToggle';
 import SourceInfo from './SourceInfo';
 
 export default function IssuesCard({
@@ -64,37 +65,19 @@ export default function IssuesCard({
           <p className={'m-0 smaller-text'} style={{ paddingRight: '0.5rem' }}>
             {issues.specific_issues_data[specificIssue].units}
           </p>
-        </div>
-        <div className={'issues-card-button-container small-col-gap'}>
-          {target && (
-            <div
-              className={`${
-                target && selectedSpecificIssue ? `d-flex` : `d-none`
-              } switch-container flex-row`}
-              style={{
-                alignContent: 'start',
-              }}
-            >
-              <p className={'m-0 d-inline-block smaller-text'}>
-                {toggleDisplayMode ? `Show Histogram` : `Show List`}
-              </p>
-              <label className="m-0 switch">
-                <input
-                  checked={toggleDisplayMode}
-                  type="checkbox"
-                  onChange={(e) => {
-                    setToggleDisplayMode(!toggleDisplayMode);
-                  }}
-                />
-                <span className="slider round m-0"></span>
-              </label>
-            </div>
-          )}
           <SourceInfo
             issues={issues}
             selectedSpecificIssue={selectedSpecificIssue}
             setSelectedChapter={setSelectedChapter}
           />
+        </div>
+        <HistogramToggle
+          target={target}
+          toggleDisplayMode={toggleDisplayMode}
+          setToggleDisplayMode={setToggleDisplayMode}
+        />
+
+        <div className={'issues-card-button-container small-col-gap x-mark'}>
           {forMoreIssues && (
             <FontAwesomeIcon
               style={{ cursor: 'pointer' }}

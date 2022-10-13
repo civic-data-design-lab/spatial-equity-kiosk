@@ -10,6 +10,7 @@ import { faChartSimple, faList } from '@fortawesome/free-solid-svg-icons';
 export default function HistogramToggle({
   toggleDisplayMode,
   setToggleDisplayMode,
+  target,
 }) {
   const [hover, setHover] = useState(null);
 
@@ -20,7 +21,7 @@ export default function HistogramToggle({
           className={'d-inline-block toggle-tooltip'}
           style={{
             position: 'absolute',
-            bottom: '4rem',
+            top: '4rem',
             right: '0.5rem',
             // right: '6.5rem',
             backgroundColor: 'black',
@@ -31,7 +32,14 @@ export default function HistogramToggle({
           {hover}
         </div>
       )}
-      <div className={`map-toggle-container`}>
+      <div
+        className={`map-toggle-container`}
+        style={{
+          gridTemplateColumns: '1fr 1fr',
+          width: '6em',
+          opacity: target ? '1' : '0',
+        }}
+      >
         <div
           className={`${
             !toggleDisplayMode ? 'active-tag' : 'inactive-tag'

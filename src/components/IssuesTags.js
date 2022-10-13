@@ -32,7 +32,7 @@ export default function IssuesTags({
     }, [])*/
 
   return (
-    <div className={'more-issues-container'}>
+    <div className={'more-issues-container cards-column'}>
       {moreIssues.length > 0 && (
         <div className={'d-flex flex-column row-gap'}>
           {moreIssues.map((issue, index) => {
