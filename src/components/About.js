@@ -765,16 +765,24 @@ export default function About({
               <div className={'scroll-content'} id={'content-9'}>
                 <h6 className={'bold'}> Methodology and Data Sources </h6>
                 <p>
-                  Methodology consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                  veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat. Ornare aenean euismod
-                  elementum nisi quis eleifend quam. Nisl purus in mollis nunc
-                  sed id semper. Ut enim ad minim veniam, quis nostrud
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat. Amet risus nullam eget felis. Viverra adipiscing at
-                  in tellus. Aliquet nibh praesent tristique magna sit amet
-                  purus.
+                  All of the data on Spatial Equity NYC was collected from
+                  existing open data sources; this project aims to make existing
+                  data more legible and accessible to the public. The data
+                  sources used in this project are listed below. The data was
+                  processed and analyzed using open-source GIS software and
+                  visualized using React, D3, DeckGL, and Mapbox.
+                </p>
+                <p>
+                  The administrative boundaries used in this analysis include
+                  the City Council, Community District Tabulation Areas, and the
+                  2020 Neighborhood Tabluation Areas (both are variants of
+                  Community Boards and Neighborhoods in New York that align with
+                  census boundaries). In all cases where data was available at
+                  all three scales, the direct data source was used. In
+                  situations where data was not available, which was often the
+                  case for the City Council scale, a standard proportional split
+                  method was used to aggregate the data from a smaller scale up
+                  to the missing scale.
                 </p>
 
                 <Table bordered>
