@@ -214,7 +214,7 @@ export default function MobileDropdown({
             }
           }}
         >
-          <div>Infrastructure</div>
+          <div>Mobility</div>
           <FontAwesomeIcon
             icon={showSubDropDown === 3 ? faCaretUp : faCaretDown}
           />
