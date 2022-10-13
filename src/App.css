@@ -397,7 +397,6 @@ a:active {
     height: fit-content;
     overflow-y: auto;
     border: 2px solid black;
-    border-right: 2px solid black;
     border-top: none;
     background-color: white;
     z-index: 3;
@@ -1104,10 +1103,8 @@ a:active {
 
 
 .map-toggle-container {
-    width: 6em;
     height: 3em;
     display: grid;
-    grid-template-columns: 1fr 1fr;
     cursor: pointer;
     overflow: hidden;
     gap: 2px;
@@ -2545,6 +2542,11 @@ input:checked+.slider:before {
         align-items: center;
     }
 
+    .map-zoom-toggle {
+        top: 10rem;
+        bottom: auto
+    }
+
     .share-button-container {
         position: relative;
         flex-direction: column-reverse;
@@ -2925,10 +2927,7 @@ input:checked+.slider:before {
     transition: background-color 0.5s;
 }
 
-.map-zoom-toggle {
-    top: 10rem;
-    bottom: auto
-}
+
 
 .mobile-community-search-screen {
     transition: height 0.5s, padding 0.4s;

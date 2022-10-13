@@ -55,6 +55,8 @@ export default function IssuesMiddleColumn({
   info,
   setSelectedChapter,
   setShowMap,
+  toggleDisplayMode,
+  setToggleDisplayMode,
 }) {
   const getHyperlinkText = (texts) => {
     return (
@@ -202,6 +204,10 @@ export default function IssuesMiddleColumn({
               : ''}
           </h6>
           <MapToggle
+            selectedSpecificIssue={selectedSpecificIssue}
+            selectedChapter={selectedChapter}
+            toggleDisplayMode={toggleDisplayMode}
+            setToggleDisplayMode={setToggleDisplayMode}
             showToggle={true}
             showMap={showMap}
             setShowMap={setShowMap}
@@ -237,6 +243,10 @@ export default function IssuesMiddleColumn({
             Health
           </h6>
           <MapToggle
+            selectedSpecificIssue={selectedSpecificIssue}
+            selectedChapter={selectedChapter}
+            toggleDisplayMode={toggleDisplayMode}
+            setToggleDisplayMode={setToggleDisplayMode}
             showToggle={selectedIssue === 1 && !communitySearch ? true : false}
             showMap={showMap}
             setShowMap={setShowMap}
@@ -364,6 +374,10 @@ export default function IssuesMiddleColumn({
             Environment
           </h6>
           <MapToggle
+            selectedSpecificIssue={selectedSpecificIssue}
+            selectedChapter={selectedChapter}
+            toggleDisplayMode={toggleDisplayMode}
+            setToggleDisplayMode={setToggleDisplayMode}
             showToggle={selectedIssue === 2 && !communitySearch ? true : false}
             showMap={showMap}
             setShowMap={setShowMap}
@@ -491,6 +505,10 @@ export default function IssuesMiddleColumn({
             Mobility
           </h6>
           <MapToggle
+            selectedSpecificIssue={selectedSpecificIssue}
+            selectedChapter={selectedChapter}
+            toggleDisplayMode={toggleDisplayMode}
+            setToggleDisplayMode={setToggleDisplayMode}
             showToggle={selectedIssue === 3 && !communitySearch ? true : false}
             showMap={showMap}
             setShowMap={setShowMap}

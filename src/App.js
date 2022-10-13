@@ -95,6 +95,7 @@ function App() {
   const [councilPinned, setCouncilPinned] = useState([]);
   const [collapseMap, setCollapseMap] = useState(false);
   const [collapseMapToggle, setCollapseMapToggle] = useState(false);
+  const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
 
   // mobile hooks
   const [showDropDown, setShowDropDown] = useState(false);
@@ -615,7 +616,7 @@ function App() {
             setMoreIssuesLength={setMoreIssuesLength}
             mapDemographics={mapDemographics}
             setMapDemographics={setMapDemographics}
-            colorRamps={colorRamps} //legendBins={legendBins}
+            colorRamps={colorRamps}
             toggleUnderperformers={toggleUnderperformers}
             setToggleUnderperformers={setToggleUnderperformers}
             toggleTransit={toggleTransit}
@@ -647,6 +648,8 @@ function App() {
             setSelectedCoord={setSelectedCoord}
             setSearchSource={setSearchSource}
             addCompare={addCompare}
+            toggleDisplayMode={toggleDisplayMode}
+            setToggleDisplayMode={setToggleDisplayMode}
           />
 
           <div className={`${showMap ? 'show-map' : 'hide-map'} map-container`}>
@@ -797,6 +800,9 @@ function App() {
                 setShowMenu={setShowMenu}
                 showMenu={showMenu}
                 communitySearch={communitySearch}
+                toggleDisplayMode={toggleDisplayMode}
+                setToggleDisplayMode={setToggleDisplayMode}
+                selectedSpecificIssue={selectedSpecificIssue}
               />
             )}
             <MobileNav
@@ -816,6 +822,9 @@ function App() {
               setShowMap={setShowMap}
               communitySearch={communitySearch}
               showToggle={showToggle}
+              toggleDisplayMode={toggleDisplayMode}
+              setToggleDisplayMode={setToggleDisplayMode}
+              selectedSpecificIssue={selectedSpecificIssue}
             />
           </div>
 
@@ -1092,6 +1101,8 @@ function App() {
               showLegend={showLegend}
               setShowLegend={setShowLegend}
               isTouchingMapMobile={isTouchingMapMobile}
+              toggleDisplayMode={toggleDisplayMode}
+              setToggleDisplayMode={setToggleDisplayMode}
             />
           ) : selectedChapter === 3 ? (
             <MobileCommunityProfile

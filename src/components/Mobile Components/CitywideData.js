@@ -66,9 +66,10 @@ export default function CitywideData({
   showLegend,
   setShowLegend,
   isTouchingMapMobile,
+  toggleDisplayMode,
+  setToggleDisplayMode,
 }) {
   const [useBoroughColor, setUseBoroughColor] = useState(false);
-  const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
 
   const health_issues = issues.issues_data['health'].specific_issues_ID.map(
     (id_) => {
@@ -521,7 +522,7 @@ export default function CitywideData({
 
           {/* third child - legend tray */}
           {/* if non map mode */}
-          {!showMap ? (
+          {!showMap && !toggleDisplayMode ? (
             <div>
               <RightColumnFooter
                 boundary={boundary}
@@ -539,7 +540,7 @@ export default function CitywideData({
                 setToggleDisplayMode={setToggleDisplayMode}
               />
             </div>
-          ) : (
+          ) : showMap ? (
             <MobileLegendTray
               showMap={showMap}
               boundary={boundary}
@@ -580,7 +581,7 @@ export default function CitywideData({
               setDemoColorRamp={setDemoColorRamp}
               setDemoLegendBins={setDemoLegendBins}
             />
-          )}
+          ) : null}
         </div>
       )}
     </div>

@@ -5,7 +5,11 @@ import { default as _TILE_WHITE } from '../img/tile_white.svg';
 import { default as _TILE_BLACK } from '../img/tile_black.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDatabase, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import {
+  faGlobe,
+  faChartSimple,
+  faList,
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function MapToggle({
   showToggle = false,
@@ -14,7 +18,9 @@ export default function MapToggle({
   boundary,
   showMenu,
   selectedChapter,
-  communitySearch,
+  toggleDisplayMode,
+  setToggleDisplayMode,
+  selectedSpecificIssue,
 
   // mobile only
   isMobile = false,
@@ -26,10 +32,6 @@ export default function MapToggle({
     isMobile && (showMenu || (selectedChapter !== 2 && selectedChapter !== 3))
       ? true
       : false;
-
-  console.log(isMobile, showMenu, selectedChapter);
-
-  console.log(hideMapToggle);
 
   return (
     <>
@@ -52,15 +54,25 @@ export default function MapToggle({
         className={`${showToggle ? '' : 'd-none'} map-toggle-container ${
           hideMapToggle ? 'disabled' : ''
         }`}
+        style={{
+          gridTemplateColumns:
+            selectedChapter == 2 && selectedSpecificIssue
+              ? '1fr 1fr 1fr'
+              : '1fr 1fr',
+          width: selectedChapter == 2 && selectedSpecificIssue ? '9em' : '6em',
+        }}
       >
         <div
-          className={`${!showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}
+          className={`${
+            !showMap && !toggleDisplayMode ? 'active-tag' : 'inactive-tag'
+          } map-toggle`}
           onClick={() => {
             setShowMap(false);
+            setToggleDisplayMode(false);
           }}
           onMouseEnter={() => {
             setHover(
-              `Rank ${
+              `Chart ${
                 boundary === 'council'
                   ? 'council districts'
                   : 'community boards'
@@ -71,8 +83,35 @@ export default function MapToggle({
             setHover(null);
           }}
         >
-          <FontAwesomeIcon icon={faDatabase} />
+          <FontAwesomeIcon icon={faChartSimple} />
         </div>
+
+        {selectedChapter == 2 && selectedSpecificIssue && (
+          <div
+            className={`${
+              !showMap && toggleDisplayMode ? 'active-tag' : 'inactive-tag'
+            } map-toggle`}
+            onClick={() => {
+              setShowMap(false);
+              setToggleDisplayMode(true);
+            }}
+            onMouseEnter={() => {
+              setHover(
+                `List ${
+                  boundary == 'council'
+                    ? 'council districts'
+                    : 'community boards'
+                }`
+              );
+            }}
+            onMouseLeave={() => {
+              setHover(null);
+            }}
+          >
+            <FontAwesomeIcon icon={faList} />
+          </div>
+        )}
+
         <div
           className={`${showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}
           onClick={() => {

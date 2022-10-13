@@ -73,11 +73,12 @@ export default function Content({
   setSelectedCoord,
   setSearchSource,
   addCompare,
+  toggleDisplayMode,
+  setToggleDisplayMode,
 }) {
   return (
     <div className={`d-flex flex-row col-9`}>
       <div
-
         className={`${!showMap ? `d-flex flex-column` : ''} middle-column
         middle-transition
         h-100 ${
@@ -117,7 +118,6 @@ export default function Content({
             boundary={boundary}
             communities={communities}
             councils={councils}
-            //legendBins={legendBins}
             colorRamps={colorRamps}
             toggleUnderperformers={toggleUnderperformers}
             setToggleUnderperformers={setToggleUnderperformers}
@@ -147,6 +147,8 @@ export default function Content({
             setUserPoints={setUserPoints}
             setSelectedChapter={setSelectedChapter}
             setShowMap={setShowMap}
+            toggleDisplayMode={toggleDisplayMode}
+            setToggleDisplayMode={setToggleDisplayMode}
           />
         )}
 
@@ -231,6 +233,8 @@ export default function Content({
             selectedCoord={selectedCoord}
             setSelectedCoord={setSelectedCoord}
             setSearchSource={setSearchSource}
+            toggleDisplayMode={toggleDisplayMode}
+            setToggleDisplayMode={setToggleDisplayMode}
           />
         )}
 

@@ -10,6 +10,9 @@ export default function MobileFixedHeader({
   setShowMenu,
   showMenu,
   communitySearch,
+  toggleDisplayMode,
+  setToggleDisplayMode,
+  selectedSpecificIssue,
 }) {
   return (
     <div className={'mobile-nav-header'}>
@@ -41,6 +44,9 @@ export default function MobileFixedHeader({
         showMenu={showMenu}
         communitySearch={communitySearch}
         selectedChapter={selectedChapter}
+        toggleDisplayMode={toggleDisplayMode}
+        setToggleDisplayMode={setToggleDisplayMode}
+        selectedSpecificIssue={selectedSpecificIssue}
       />
 
       <div

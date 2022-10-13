@@ -23,7 +23,7 @@ export default function RightColumnFooter({
         <div
           className="position-relative d-grid "
           style={{
-            gridTemplateColumns: '1fr auto auto',
+            gridTemplateColumns: '1fr auto',
             gridGap: '0.5rem',
             alignItems: 'center',
           }}
@@ -84,11 +84,11 @@ export default function RightColumnFooter({
               </p>
             </div> */}
 
-          <HistogramToggle
+          {/* <HistogramToggle
             boundary={boundary}
             toggleDisplayMode={toggleDisplayMode}
             setToggleDisplayMode={setToggleDisplayMode}
-          />
+          /> */}
         </div>
       </div>
     </div>

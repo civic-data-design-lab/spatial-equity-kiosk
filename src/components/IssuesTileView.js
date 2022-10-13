@@ -57,12 +57,13 @@ export default function IssuesTileView({
   selectedCoord,
   setSelectedCoord,
   setSearchSource,
+  toggleDisplayMode,
+  setToggleDisplayMode,
 }) {
   const [expand, setExpand] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
   const [useBoroughColor, setUseBoroughColor] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
 
   useEffect(() => {
     let index = getRandomInt(0, backgroundImages.length);
@@ -184,22 +185,24 @@ export default function IssuesTileView({
                   />
                 )}
               </div>
-              <RightColumnFooter
-                boundary={boundary}
-                issues={issues}
-                selectedSpecificIssue={selectedSpecificIssue}
-                setSelectedChapter={setSelectedChapter}
-                setSelectedSpecificIssue={setSelectedSpecificIssue}
-                useBoroughColor={useBoroughColor}
-                setUseBoroughColor={setUseBoroughColor}
-                setIsHovering={setIsHovering}
-                councilPinned={councilPinned}
-                setCouncilPinned={setCouncilPinned}
-                communityPinned={communityPinned}
-                setCommunityPinned={setCommunityPinned}
-                toggleDisplayMode={toggleDisplayMode}
-                setToggleDisplayMode={setToggleDisplayMode}
-              />
+              {!showMap && !toggleDisplayMode && (
+                <RightColumnFooter
+                  boundary={boundary}
+                  issues={issues}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  setSelectedChapter={setSelectedChapter}
+                  setSelectedSpecificIssue={setSelectedSpecificIssue}
+                  useBoroughColor={useBoroughColor}
+                  setUseBoroughColor={setUseBoroughColor}
+                  setIsHovering={setIsHovering}
+                  councilPinned={councilPinned}
+                  setCouncilPinned={setCouncilPinned}
+                  communityPinned={communityPinned}
+                  setCommunityPinned={setCommunityPinned}
+                  toggleDisplayMode={toggleDisplayMode}
+                  setToggleDisplayMode={setToggleDisplayMode}
+                />
+              )}
             </div>
 
             <div

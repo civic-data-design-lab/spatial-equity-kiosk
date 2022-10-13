@@ -9,7 +9,6 @@ export default function MobileNav({
   showMenu,
   selectedChapter,
   setSelectedChapter,
-
   boundary,
   setBoundary,
   setCompareSearch,
@@ -20,9 +19,12 @@ export default function MobileNav({
   setBadSearch,
   showMap,
   setShowMap,
-
   communitySearch,
   showToggle,
+
+  toggleDisplayMode,
+  setToggleDisplayMode,
+  selectedSpecificIssue,
 }) {
   return (
     <div
@@ -43,6 +45,9 @@ export default function MobileNav({
           setShowMenu={setShowMenu}
           showMenu={showMenu}
           communitySearch={communitySearch}
+          toggleDisplayMode={toggleDisplayMode}
+          setToggleDisplayMode={setToggleDisplayMode}
+          selectedSpecificIssue={selectedSpecificIssue}
         />
       )}
 
@@ -74,6 +79,7 @@ export default function MobileNav({
             if (selectedChapter !== 1) {
               setSelectedChapter(1);
               setShowMenu(false);
+              setShowMap(false);
             } else {
               setSelectedChapter(null);
               setShowMenu(false);
@@ -176,7 +182,7 @@ export default function MobileNav({
             if (selectedChapter !== 4) {
               setSelectedChapter(4);
               setShowMenu(false);
-              setShowMenu(false);
+              setShowMap(false);
             }
           }}
         >
