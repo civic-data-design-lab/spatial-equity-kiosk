@@ -684,6 +684,10 @@ a:active {
     height: 2em;
 }
 
+.issues-grid>* {
+    padding: 1.5rem
+}
+
 .floating-share {
     /* position: fixed; */
     /* bottom: 0; */

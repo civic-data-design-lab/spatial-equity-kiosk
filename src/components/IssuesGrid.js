@@ -38,7 +38,7 @@ export default function IssuesGrid({
     <>
       <div>
         <div
-          className={`d-flex flex-wrap`}
+          className={`d-flex flex-wrap issues-grid`}
           style={{
             textAlign: 'center',
             gap: '1rem',
@@ -61,7 +61,7 @@ export default function IssuesGrid({
                     flexGrow: '1',
                     minHeight: isMobile ? '6px' : '6px',
                     justifyContent: 'space-between',
-                    padding: '0.25rem 0.5rem',
+                    // padding: '0.25rem 0.5rem',
                   }}
                   onMouseDown={() => {
                     setShowDropdownItems(false);
@@ -93,7 +93,7 @@ export default function IssuesGrid({
                     flexGrow: '1',
                     minHeight: '6px',
                     justifyContent: 'space-between',
-                    padding: '0.25rem 0.5rem',
+                    // padding: '0.25rem 0.5rem',
                   }}
                   onMouseDown={() => {
                     setShowDropdownItems(false);
