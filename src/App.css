@@ -494,7 +494,7 @@ a:active {
 
 .add-community-btn {
     background-color: black;
-    border: 1.5px solid white;
+    border: 2px solid white;
     width: 100%;
     padding: 0.25em 0.5em;
 }
@@ -504,7 +504,6 @@ a:active {
     z-index: 1;
     right: 0;
     padding: 0.25em 0.5em;
-
 }
 
 .community-search {
