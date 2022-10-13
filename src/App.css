@@ -497,6 +497,7 @@ a:active {
     border: 2px solid white;
     width: 100%;
     padding: 0.25em 0.5em;
+    height: 2em;
 }
 
 .remove-community-btn {
