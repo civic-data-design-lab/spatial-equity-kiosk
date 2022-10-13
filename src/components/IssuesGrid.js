@@ -51,7 +51,7 @@ export default function IssuesGrid({
               return (
                 <div
                   key={index}
-                  className={`p-2 grid-item ${
+                  className={`p grid-item ${
                     currentValue === item.specific_issue_ID
                       ? 'grid-item-active'
                       : ''
@@ -59,8 +59,9 @@ export default function IssuesGrid({
                   style={{
                     border: '2px solid black',
                     flexGrow: '1',
-                    minHeight: isMobile ? '120px' : '60px',
+                    minHeight: isMobile ? '6px' : '6px',
                     justifyContent: 'space-between',
+                    padding: '0.25rem 0.5rem',
                   }}
                   onMouseDown={() => {
                     setShowDropdownItems(false);
@@ -82,7 +83,7 @@ export default function IssuesGrid({
               return (
                 <div
                   key={index}
-                  className={`p-2 grid-item ${
+                  className={`p grid-item ${
                     currentValue === item.specific_issue_ID
                       ? 'grid-item-active'
                       : ''
@@ -90,8 +91,9 @@ export default function IssuesGrid({
                   style={{
                     border: '2px solid black',
                     flexGrow: '1',
-                    minHeight: '60px',
+                    minHeight: '6px',
                     justifyContent: 'space-between',
+                    padding: '0.25rem 0.5rem',
                   }}
                   onMouseDown={() => {
                     setShowDropdownItems(false);
