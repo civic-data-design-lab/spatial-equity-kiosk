@@ -43,12 +43,7 @@ export default function MobileLegendTray({
 }) {
   console.log('showLegend', showLegend);
   return (
-    <div
-      style={{ backgroundColor: 'white' }}
-      onClick={() => {
-        console.log('legend toggled ya');
-      }}
-    >
+    <div style={{ backgroundColor: 'white', pointerEvents: 'auto' }}>
       <div>
         <div
           className={`mobile-demographics-toggle inactive-scheme`}
