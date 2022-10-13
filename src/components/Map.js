@@ -26,6 +26,7 @@ import _HATCH_ATLAS from '../data/triple_hatch_pattern.png';
 import _CHAPTER_COLORS from '../data/chapter_colors.json';
 import _ETHNICITY_COLORS from '../data/ethnicity_colors.json';
 import _RANKINGS from '../data/rankings.json';
+import nycBoundary from '../data/nyc_boundary.json';
 
 // mapbox style
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -1224,6 +1225,18 @@ export default function DeckMap({
   ];
 
   const annoLayers = [
+    new GeoJsonLayer({
+      id: 'nyc-boundaries',
+      data: nycBoundary.features,
+      stroked: true,
+      filled: true,
+      getFillColor: [255, 255, 255, 200],
+      getLineColor: [0, 0, 0, 255],
+      // lineWidthUnits: 'meters',
+      getLineWidth: 3,
+      lineWidthMinPixels: 1,
+    }),
+
     new GeoJsonLayer({
       id: 'administrative-boundaries',
       data: infoTransfer.selectedBoundary,
