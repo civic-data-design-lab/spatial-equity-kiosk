@@ -2064,12 +2064,13 @@ input:checked+.slider:before {
 .scroll-content {
     position: inherit;
     scroll-snap-align: start;
+    overflow-x: auto;
 }
 
 .scroll-title-box {
-    width: 50vw;
+    /* width: 50vw; */
     position: absolute;
-    left: 50vw;
+    /* left: 50vw; */
     z-index: 1;
     padding: 1em 1.5em;
 }

@@ -535,6 +535,8 @@ function App() {
   // console.log('siteProtection', siteProtection)
   // console.log('sha512', sha512)
 
+  const isMobile = useWindowSize().width >= 576 ? false : true;
+
   return (
     <Protect isEnabled={siteProtection} sha512={sha512}>
       {useWindowSize().width >= 576 ? (
@@ -1178,7 +1180,8 @@ function App() {
                 issues={issues}
                 selectedAbout={selectedAbout}
                 setSelectedChapter={setSelectedChapter}
-              ></About>
+                isMobile={isMobile}
+              />
             </div>
           ) : null}
 
