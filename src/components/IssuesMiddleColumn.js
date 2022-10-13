@@ -594,7 +594,7 @@ export default function IssuesMiddleColumn({
                   showDemographics ? 'bottom-border issues-chapters-active' : ''
                 } ${
           selectedIssue === 3 ? 'top-border' : ''
-        } issues-chapters border-0 `}
+        } issues-chapters no-bottom-border`}
         onClick={() => {
           if (selectedIssue) setShowDemographics(!showDemographics);
           if (showDemographics) {
