@@ -1388,6 +1388,7 @@ a:active {
     width: 1.25rem;
     /* height: 100%; */
     font-size: 2rem;
+    padding: 0 1rem;
 }
 
 .x-mark *:hover {
