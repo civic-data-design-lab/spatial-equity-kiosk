@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import _CHAPTER_COLORS from '../data/chapter_colors.json';
 import _BOROUGH_COLORS from '../data/borough_colors.json';
 import _RANKINGS from '../data/rankings.json';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
 import rankings from '../data/rankings.json';
 import { getNumber } from '../utils/functions';
 import RightColumnHeader from './RightColumnHeader';
-
 import _COUNCILDISTRICTS from '../data/council_districts.json';
 import _COMMUNITYBOARDS from '../data/community_boards.json';
 
@@ -30,7 +27,6 @@ const RankingTable = ({
 }) => {
   const [expand, setExpand] = useState(defaultOpen);
 
-  // console.log(displayModes, 'ranking', selectedSpecificIssue);
   return (
     <div
       style={{

@@ -1479,7 +1479,8 @@ a:active {
     color: black;
     padding: 0.25rem 0.5rem;
     z-index: 10;
-    max-width: 20rem;
+    /* width: 10rem; */
+    z-index: 1000;
 }
 
 
@@ -2839,6 +2840,7 @@ input:checked+.slider:before {
     flex-direction: column;
     justify-content: start;
     overflow: auto;
+    overflow-X: hidden;
 }
 
 .histogram-responsive-box>* {

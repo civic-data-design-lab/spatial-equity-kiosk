@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import SourceInfo from './SourceInfo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -6,17 +5,13 @@ import {
   faCaretUp,
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
-import HistogramToggle from './HistogramToggle';
 
 export default function RightColumnHeader({
   boundary,
   type = 'solutions',
   issues = null,
-
   specificIssue,
   target,
-  toggleDisplayMode,
-  setToggleDisplayMode,
   selectedSpecificIssue = null,
   setSelectedChapter,
   forMoreIssues,
@@ -111,19 +106,23 @@ export default function RightColumnHeader({
           >
             <div
               className="issues-card-title-container"
-              style={{ gridTemplateColumns: 'auto 1fr auto', gap: '0.5rem' }}
+              style={{
+                display: 'inline-grid',
+                gridTemplateColumns: 'auto 1fr',
+                gap: '0.5rem',
+              }}
             >
-              <h6 className="mb-0">
-                <strong>{getMetricDescription()}</strong>
-              </h6>
-              <p className={'m-0 smaller-text'}>
-                {issues.specific_issues_data[specificIssue].units}{' '}
-                <SourceInfo
-                  issues={issues}
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  setSelectedChapter={setSelectedChapter}
-                />
-              </p>
+              <h6 className="mb-0">{getMetricDescription()}</h6>
+              <div>
+                <span className={'m-0 smaller-text position-relative'}>
+                  {issues.specific_issues_data[specificIssue].units}{' '}
+                  <SourceInfo
+                    issues={issues}
+                    selectedSpecificIssue={selectedSpecificIssue}
+                    setSelectedChapter={setSelectedChapter}
+                  />
+                </span>
+              </div>
             </div>
 
             <div

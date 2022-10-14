@@ -189,25 +189,7 @@ export default function CommunityProfile({
         </>
       ) : (
         <>
-          <div className={'standard-padding'}>
-            {
-              <h6 className={'mb-3'}>
-                Compare Indicators in{' '}
-                {(communities[communitySearch] &&
-                  communities[communitySearch].name) ||
-                  (councils[communitySearch] &&
-                    councils[communitySearch].name)}{' '}
-                &{' '}
-                {(communities[compareSearch] &&
-                  communities[compareSearch].name) ||
-                  (councils[compareSearch] && councils[compareSearch].name)}
-              </h6>
-            }
-            <p className={'mt-3'}>
-              Choose one or more indicators to compare spatial equity in these{' '}
-              {boundary === 'council' ? 'districts' : 'community boards'}.
-            </p>
-
+          <div className={'cards-column'}>
             <IssuesTags
               displayModes={displayModes}
               setDisplayModes={setDisplayModes}
