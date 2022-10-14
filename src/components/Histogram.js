@@ -268,8 +268,10 @@ const Histogram = ({
       colorArray.push(
         d3.rgb(
           ...colorInterpolate(
-            colorRamps[colorRamps.length - 2],
-            colorRamps[0],
+            // colorRamps[colorRamps.length - 2],
+            // colorRamps[0],
+            colorRamps[2],
+            colorRamps[2],
             ascending
               ? 1 - i / (rawIssueData.length - 1)
               : i / (rawIssueData.length - 1)
