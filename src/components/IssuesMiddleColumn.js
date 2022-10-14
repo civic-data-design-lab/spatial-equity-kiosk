@@ -154,7 +154,7 @@ export default function IssuesMiddleColumn({
   return (
     <div
       className={'d-flex flex-column position-relative'}
-      style={{ height: '100vh' }}
+      style={{ height: '100%' }}
     >
       {/* SELECTED NEIGHBORHOOD BAR */}
       <div
