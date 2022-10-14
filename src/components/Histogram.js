@@ -259,17 +259,23 @@ const Histogram = ({
         )
       );
     } else {
-      colorArray.push(
-        d3.rgb(
-          ...colorInterpolate(
-            colorRamps[colorRamps.length - 1],
-            colorRamps[0],
-            ascending
-              ? 1 - i / (rawIssueData.length - 1)
-              : i / (rawIssueData.length - 1)
-          )
-        )
-      );
+      let indexColor = ascending
+        ? 1 - i / (rawIssueData.length - 1)
+        : i / (rawIssueData.length - 1);
+      //   colorArray.push(
+      //     d3.rgb(
+      //       ...colorInterpolate(
+      //         colorRamps[colorRamps.length - 1],
+      //         colorRamps[0],
+      //         ascending
+      //           ? 1 - i / (rawIssueData.length - 1)
+      //           : i / (rawIssueData.length - 1)
+      //       )
+      //     )
+      //   );
+    //   console.log(indexColor);
+      indexColor = indexColor == 1 ? 4 : Math.floor(indexColor * 5);
+      colorArray.push(d3.rgb(...colorRamps[indexColor]));
     }
   }
 
