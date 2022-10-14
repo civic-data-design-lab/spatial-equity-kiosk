@@ -488,7 +488,7 @@
       "json_id": "F29_Dis2Pa",
       "good_or_bad": 0,
       "issue_hi_low": ["most", "least"],
-      "units": "Percentage of residents in walking distance to a park (1/4 Mile to a Small Park or 1/2 Mile to a Large Park)",
+      "units": "Percentage of Residents in Walking Distance to a Park",
       "units_shorthand": "with Access",
       "issue_highlight": "the least park access",
       "histogram_bounds": ["Least Park Access", "Most Park Access"],

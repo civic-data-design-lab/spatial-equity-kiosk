@@ -21,6 +21,8 @@ export default function IssuesTags({
   setCommunitySearch,
   addCompare,
   setCompareSearch,
+  displayModes,
+  setDisplayModes,
 }) {
   // TODO: all tags when communitySearch && compareSearch
 
@@ -34,16 +36,16 @@ export default function IssuesTags({
   return (
     <div className={'more-issues-container cards-column'}>
       {moreIssues.length > 0 && (
-        <div className={'d-flex flex-column row-gap'}>
+        <div className={'d-flex flex-column'}>
           {moreIssues.map((issue, index) => {
             return (
               <div
                 key={index}
-                className={
-                  selectedSpecificIssue && selectedSpecificIssue !== issue
-                    ? 'opacity-50'
-                    : ''
-                }
+                // className={
+                //   selectedSpecificIssue && selectedSpecificIssue !== issue
+                //     ? 'opacity-50'
+                //     : ''
+                // }
               >
                 <IssuesCard
                   target={
@@ -68,6 +70,8 @@ export default function IssuesTags({
                   setCommunitySearch={setCommunitySearch}
                   addCompare={addCompare}
                   setCompareSearch={setCompareSearch}
+                  displayModes={displayModes}
+                  setDisplayModes={setDisplayModes}
                 />
               </div>
             );

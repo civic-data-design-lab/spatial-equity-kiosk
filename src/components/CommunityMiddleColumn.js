@@ -23,10 +23,10 @@ export default function CommunityMiddleColumn({
   setCommunitySearch,
   addCompare,
   setCompareSearch,
-
   showMap,
   setShowMap,
 }) {
+  const [displayModes, setDisplayModes] = useState({});
   return (
     <>
       {communitySearch && (
@@ -46,7 +46,7 @@ export default function CommunityMiddleColumn({
                   alignItems: 'center',
                 }}
               >
-                <h6 className="mb-0">
+                <h6 className="mb-0" style={{ cursor: 'default' }}>
                   {compareSearch ? 'Compare ' : ''}
                   {communitySearch
                     ? boundary == 'council'
@@ -82,6 +82,10 @@ export default function CommunityMiddleColumn({
                   showMap={showMap}
                   setShowMap={setShowMap}
                   boundary={boundary}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  displayModes={displayModes}
+                  setDisplayModes={setDisplayModes}
+                  isCommunityProfile={true}
                 />
               </div>
             </div>
@@ -106,6 +110,8 @@ export default function CommunityMiddleColumn({
             setCommunitySearch={setCommunitySearch}
             addCompare={addCompare}
             setCompareSearch={setCompareSearch}
+            displayModes={displayModes}
+            setDisplayModes={setDisplayModes}
           />
         </>
       )}

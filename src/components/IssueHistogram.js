@@ -80,7 +80,6 @@ const getDataToVis = (rawIssueData, rawIssueGoodBad) => {
 };
 
 const IssueHistogram = ({
-  colorRampsyType = 'health',
   issues,
   boundary,
   selectedSpecificIssue,
@@ -93,6 +92,8 @@ const IssueHistogram = ({
   specificIssue,
   setCompareSearch,
   addCompare,
+  displayModes,
+  setDisplayModes,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
@@ -218,10 +219,6 @@ const IssueHistogram = ({
     rawIssueData,
     rawIssueGoodBad
   );
-
-  // let selectedIndex = communitySearch
-  //   ? lookupArray.indexOf(communitySearch)
-  //   : 0;
 
   let selectedIndex = communitySearch
     ? rawIssueGoodBad
@@ -871,7 +868,7 @@ const IssueHistogram = ({
   return (
     <div>
       <div
-        style={{ display: toggleDisplayMode ? 'none' : '' }}
+        style={{ display: displayModes[selectedSpecificIssue] ? 'none' : '' }}
         className={'m-0 small-font px-4 py-3'}
       >
         {getRankingNarrative(issues.specific_issues_data[specificIssue], avg)}{' '}
@@ -884,7 +881,10 @@ const IssueHistogram = ({
           width: '100%',
         }}
       >
-        <svg style={{ display: toggleDisplayMode ? 'none' : '' }} ref={ref}>
+        <svg
+          style={{ display: displayModes[selectedSpecificIssue] ? 'none' : '' }}
+          ref={ref}
+        >
           {/* Main Chart */}
           <g />
 
@@ -920,9 +920,11 @@ const IssueHistogram = ({
           setSelectedChapter={setSelectedChapter}
           communitySearch={communitySearch}
           compareSearch={compareSearch}
-          toggleDisplayMode={toggleDisplayMode}
           setCompareSearch={setCompareSearch}
           addCompare={addCompare}
+          displayModes={displayModes}
+          setDisplayModes={setDisplayModes}
+          communityProfile={true}
         />
       </div>
     </div>

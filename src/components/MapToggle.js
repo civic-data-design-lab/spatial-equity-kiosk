@@ -19,14 +19,19 @@ export default function MapToggle({
   boundary,
   showMenu,
   selectedChapter,
-  toggleDisplayMode,
+  toggleDisplayMode = null,
   setToggleDisplayMode,
   selectedSpecificIssue,
+  displayModes = null,
+  setDisplayModes,
+  isCommunityProfile = false,
 
   // mobile only
   isMobile = false,
 }) {
   const [hover, setHover] = useState(null);
+
+  // console.log(selectedSpecificIssue, displayModes);
 
   // disable map toggle on certain mobile conditions
   const hideMapToggle =
@@ -55,53 +60,42 @@ export default function MapToggle({
         className={`${showToggle ? '' : 'd-none'} map-toggle-container ${
           hideMapToggle ? 'disabled' : ''
         }`}
-        style={{
-          gridTemplateColumns:
-            selectedChapter == 2 && selectedSpecificIssue
-              ? '1fr 1fr 1fr'
-              : '1fr 1fr',
-          width: selectedChapter == 2 && selectedSpecificIssue ? '9em' : '6em',
-          // marginRight: isMobile ? '0px' : '8px',
-        }}
+        style={
+          selectedSpecificIssue && !showMap
+            ? {
+                gridTemplateColumns: '1fr 1fr 1fr',
+                width: '9em',
+              }
+            : {
+                gridTemplateColumns: '1fr 1fr',
+                width: '6em',
+              }
+        }
       >
-        <div
-          className={`${
-            !showMap && !toggleDisplayMode ? 'active-tag' : 'inactive-tag'
-          } map-toggle`}
-          onClick={() => {
-            setShowMap(false);
-            setToggleDisplayMode(false);
-          }}
-          onMouseEnter={() => {
-            setHover(
-              selectedChapter == 2
-                ? `Chart ${
-                    boundary === 'council'
-                      ? 'Council Districts'
-                      : 'Community Boards'
-                  }`
-                : 'Show Community Profile'
-            );
-          }}
-          onMouseLeave={() => {
-            setHover(null);
-          }}
-        >
-          {selectedChapter == 2 ? (
-            <FontAwesomeIcon icon={faChartSimple} />
-          ) : (
-            <FontAwesomeIcon icon={faCity} />
-          )}
-        </div>
-
-        {selectedChapter == 2 && selectedSpecificIssue && (
+        {selectedSpecificIssue && !showMap && (
           <div
             className={`${
-              !showMap && toggleDisplayMode ? 'active-tag' : 'inactive-tag'
+              !showMap &&
+              ((isCommunityProfile && displayModes[selectedSpecificIssue]) ||
+                (!isCommunityProfile && toggleDisplayMode))
+                ? 'active-tag'
+                : 'inactive-tag'
             } map-toggle`}
             onClick={() => {
               setShowMap(false);
-              setToggleDisplayMode(true);
+              console.log('almost working');
+
+              if (!isCommunityProfile) {
+                console.log('working');
+                setToggleDisplayMode(true);
+              }
+
+              if (isCommunityProfile) {
+                setDisplayModes({
+                  ...displayModes,
+                  [selectedSpecificIssue]: true,
+                });
+              }
             }}
             onMouseEnter={() => {
               setHover(
@@ -121,6 +115,42 @@ export default function MapToggle({
         )}
 
         <div
+          className={`${
+            !showMap &&
+            ((isCommunityProfile && !displayModes[selectedSpecificIssue]) ||
+              (!isCommunityProfile && !toggleDisplayMode))
+              ? 'active-tag'
+              : 'inactive-tag'
+          } map-toggle`}
+          onClick={() => {
+            setShowMap(false);
+            if (!isCommunityProfile && toggleDisplayMode) {
+              setToggleDisplayMode(false);
+            }
+            if (isCommunityProfile) {
+              setDisplayModes({
+                ...displayModes,
+                [selectedSpecificIssue]: false,
+              });
+            }
+          }}
+          onMouseEnter={() => {
+            setHover(
+              `Chart ${
+                boundary === 'council'
+                  ? 'Council Districts'
+                  : 'Community Boards'
+              }`
+            );
+          }}
+          onMouseLeave={() => {
+            setHover(null);
+          }}
+        >
+          <FontAwesomeIcon icon={faChartSimple} />
+        </div>
+
+        <div
           className={`${showMap ? 'active-tag' : 'inactive-tag'} map-toggle`}
           onClick={() => {
             setShowMap(true);
@@ -128,7 +158,7 @@ export default function MapToggle({
           onMouseEnter={() => {
             setHover(
               `Map ${
-                boundary == 'council' ? 'council districts' : 'community boards'
+                boundary == 'council' ? 'Council Districts' : 'Community Boards'
               }`
             );
           }}

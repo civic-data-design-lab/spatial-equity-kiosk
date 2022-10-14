@@ -29,8 +29,9 @@ export default function IssuesCard({
   target = false,
   addCompare,
   setCompareSearch,
+  displayModes,
+  setDisplayModes,
 }) {
-  const [showInfo, setShowInfo] = useState(false);
   const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
 
   return (
@@ -76,6 +77,8 @@ export default function IssuesCard({
           specificIssue={specificIssue}
           addCompare={addCompare}
           setCompareSearch={setCompareSearch}
+          displayModes={displayModes}
+          setDisplayModes={setDisplayModes}
         />
       </div>
     </div>

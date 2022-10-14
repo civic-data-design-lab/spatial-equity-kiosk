@@ -21,6 +21,8 @@ export default function CommunityProfile({
   setCommunitySearch,
   addCompare,
   setCompareSearch,
+  displayModes,
+  setDisplayModes,
 }) {
   useEffect(() => {
     if (moreIssues && communitySearch && !compareSearch) {
@@ -69,22 +71,28 @@ export default function CommunityProfile({
     <div className={'community-profile-container'}>
       {!compareSearch ? (
         <>
-          <RightColumnHeader type="notable" />
+          <RightColumnHeader
+            type="notable"
+            displayModes={displayModes}
+            selectedSpecificIssue={selectedSpecificIssue}
+          />
 
-          <div className={'d-flex flex-column row-gap cards-column'}>
+          <div className={'d-flex flex-column cards-column'}>
             {(communities[communitySearch] &&
               communities[communitySearch].least_performing_issues.map(
                 (issue, index) => {
                   return (
                     <div
                       key={index}
-                      className={
-                        selectedSpecificIssue && selectedSpecificIssue !== issue
-                          ? 'opacity-50'
-                          : ''
-                      }
+                      // className={
+                      //   selectedSpecificIssue && selectedSpecificIssue !== issue
+                      //     ? 'opacity-50'
+                      //     : ''
+                      // }
                     >
                       <IssuesCard
+                        displayModes={displayModes}
+                        setDisplayModes={setDisplayModes}
                         setCompareSearch={setCompareSearch}
                         addCompare={addCompare}
                         target={
@@ -114,16 +122,10 @@ export default function CommunityProfile({
                 councils[communitySearch].least_performing_issues.map(
                   (issue, index) => {
                     return (
-                      <div
-                        key={index}
-                        className={
-                          selectedSpecificIssue &&
-                          selectedSpecificIssue !== issue
-                            ? 'opacity-50'
-                            : ''
-                        }
-                      >
+                      <div key={index}>
                         <IssuesCard
+                          displayModes={displayModes}
+                          setDisplayModes={setDisplayModes}
                           setCompareSearch={setCompareSearch}
                           addCompare={addCompare}
                           target={
@@ -156,6 +158,8 @@ export default function CommunityProfile({
           {/* <h6 className={'bold mt-3'}>More Indicators</h6> */}
           <div className={'cards-column'}>
             <IssuesTags
+              displayModes={displayModes}
+              setDisplayModes={setDisplayModes}
               setCompareSearch={setCompareSearch}
               addCompare={addCompare}
               issues={issues}
@@ -205,6 +209,8 @@ export default function CommunityProfile({
             </p>
 
             <IssuesTags
+              displayModes={displayModes}
+              setDisplayModes={setDisplayModes}
               setCompareSearch={setCompareSearch}
               addCompare={addCompare}
               issues={issues}
@@ -238,6 +244,8 @@ export default function CommunityProfile({
         <div className="modal-background">
           <div className={'modal-card'}>
             <IssuesCard
+              displayModes={displayModes}
+              setDisplayModes={setDisplayModes}
               setCompareSearch={setCompareSearch}
               addCompare={addCompare}
               target={true}

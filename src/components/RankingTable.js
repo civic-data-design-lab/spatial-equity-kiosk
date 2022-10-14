@@ -7,6 +7,7 @@ import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
 import rankings from '../data/rankings.json';
 import { getNumber } from '../utils/functions';
+import RightColumnHeader from './RightColumnHeader';
 
 import _COUNCILDISTRICTS from '../data/council_districts.json';
 import _COMMUNITYBOARDS from '../data/community_boards.json';
@@ -24,15 +25,26 @@ const RankingTable = ({
   defaultOpen = false,
   citywideTab = false,
   addCompare = false,
+  displayModes = null,
+  communityProfile = false,
 }) => {
   const [expand, setExpand] = useState(defaultOpen);
 
+  // console.log(displayModes, 'ranking', selectedSpecificIssue);
   return (
     <div
-      style={{ display: !toggleDisplayMode ? 'none' : '' }}
+      style={{
+        display:
+          (communityProfile &&
+            displayModes[selectedSpecificIssue] &&
+            displayModes[selectedSpecificIssue] == true) ||
+          (!communityProfile && toggleDisplayMode)
+            ? ''
+            : 'none',
+      }}
       className={'small-font'}
     >
-      <Table bordered style={{ border: '2px solid red !important' }}>
+      <Table bordered>
         <thead>
           <tr>
             <th>Rank</th>
@@ -213,15 +225,13 @@ ${
 
       {!citywideTab && (
         <div
-          className={'d-flex flex-row justify-content-center ranking-button'}
           style={
             expand
               ? {
-                  borderTop: '1px solid black',
+                  borderTop: '2px solid black',
                   background: 'white',
                   position: 'sticky',
                   bottom: '0em',
-                  outline: '2px solid white',
                 }
               : { borderTop: '1px solid black' }
           }
@@ -229,11 +239,7 @@ ${
             setExpand(!expand);
           }}
         >
-          {expand ? (
-            <FontAwesomeIcon icon={faCaretUp} />
-          ) : (
-            <FontAwesomeIcon icon={faCaretDown} />
-          )}
+          <RightColumnHeader type={'collapse'} expand={expand} />
         </div>
       )}
     </div>

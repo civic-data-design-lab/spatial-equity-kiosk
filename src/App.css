@@ -759,23 +759,6 @@ a:active {
     overflow: auto;
 }
 
-.issue-tile-viz>*:not(:first-child):not(.histogram-responsive-box) {
-    /* padding: 1.5rem; */
-}
-
-/* .issue-tile-viz .issues-chapters-active {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-    transition: 0.5s ease-in-out
-}
-
-.issue-tile-viz:hover .issues-chapters-active {
-    background-color: black;
-    color: white;
-    border: 1px solid black;
-} */
-
 
 .py-3 {
     padding-bottom: 0 !important;
@@ -791,7 +774,7 @@ a:active {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-bottom: 2px solid black;
+    /* border-bottom: 2px solid black; */
     /* border-left: 1px solid white; */
     cursor: pointer;
 }
@@ -801,9 +784,15 @@ a:active {
 }
 
 .issues-chapters>div>*:first-child {
-    padding: 1rem;
+    padding: 1rem 0;
     padding-left: 1.5rem;
     /* border: 2px solid red; */
+}
+
+
+.issues-chapters-inactive {
+    background-color: white;
+    color: black;
 }
 
 
@@ -811,7 +800,6 @@ a:active {
 .issues-chapters-active {
     background-color: black;
     color: white;
-    /* border-bottom: 2px solid white; */
 }
 
 .accordion-body {
@@ -1353,15 +1341,17 @@ a:active {
     display: flex;
     flex-direction: column;
     cursor: pointer;
+    border-bottom: 2px solid black;
 }
 
-/* .issues-card-container:hover {
-    transform: scale(1.02);
-} */
-
-.issues-card-header {
+.issues-card-container:hover .issues-chapters-inactive:not(.expand-toggle) {
     background-color: black;
     color: white;
+}
+
+.issues-card-header {
+    /* background-color: black; */
+    /* color: white; */
     /* padding: 0.25em 1.5rem; */
     /* padding-right: 0; */
     justify-content: space-between;
@@ -1373,7 +1363,11 @@ a:active {
 .issues-card-body {
     /* padding: 0.5em 0.75em; */
     background-color: white;
-    border: 2px solid black;
+    /* border: 2px solid black; */
+}
+
+.test * {
+    border: none !important;
 }
 
 .issues-card-title-container {
@@ -1395,7 +1389,7 @@ a:active {
     padding: 0 1rem;
 }
 
-.x-mark *:hover {
+.x-mark:hover {
     transform: scale(1.1);
 }
 
@@ -1668,7 +1662,6 @@ a:active {
 }
 
 .table {
-    /* border: 2px solid black !important; */
     border-spacing: 0 !important;
     margin-bottom: 0 !important;
 }

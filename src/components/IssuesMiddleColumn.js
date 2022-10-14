@@ -221,7 +221,9 @@ export default function IssuesMiddleColumn({
       <div
         className={`${selectedIssue === 1 ? 'issues-chapters-active' : ''} ${
           selectedIssue || showDemographics ? 'collapse-issue' : ''
-        } issues-chapters ${!communitySearch ? 'top-border' : ''}`}
+        } issues-chapters bottom-border ${
+          !communitySearch ? 'top-border' : ''
+        }`}
         onClick={() => {
           return selectedIssue !== 1 ? handleIssueTransition(1) : null;
         }}
@@ -350,7 +352,7 @@ export default function IssuesMiddleColumn({
             : selectedIssue === 1
             ? 'top-border'
             : ''
-        } ${
+        } bottom-border ${
           selectedIssue || showDemographics ? 'collapse-issue' : ''
         } issues-chapters`}
         onClick={() => {

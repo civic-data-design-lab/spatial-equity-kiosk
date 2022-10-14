@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import SourceInfo from './SourceInfo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import {
+  faXmark,
+  faCaretUp,
+  faCaretDown,
+} from '@fortawesome/free-solid-svg-icons';
 import HistogramToggle from './HistogramToggle';
 
 export default function RightColumnHeader({
@@ -19,6 +23,8 @@ export default function RightColumnHeader({
   moreIssues,
   setMoreIssues,
   setSelectedSpecificIssue,
+  displayModes = null,
+  expand,
 }) {
   const getIssueName = () => {
     const bounds =
@@ -44,11 +50,6 @@ export default function RightColumnHeader({
       <div className={'d-flex flex-column position-relative'}>
         <div
           className={`${'issues-chapters-active'} collapse-issue issues-chapters top-border transition-height`}
-          style={
-            {
-              // borderLeft: '2px solid white',
-            }
-          }
         >
           <div
             className="position-relative d-grid "
@@ -56,6 +57,7 @@ export default function RightColumnHeader({
               gridTemplateColumns: '1fr auto',
               gridGap: '0.33rem',
               alignItems: 'center',
+              cursor: 'default',
             }}
           >
             <h6 className="mb-0">Solutions</h6>
@@ -67,12 +69,7 @@ export default function RightColumnHeader({
     return (
       <div className={'d-flex flex-column position-relative'}>
         <div
-          className={`${'issues-chapters-active'} collapse-issue issues-chapters top-border transition-height`}
-          style={
-            {
-              // borderLeft: '2px solid white',
-            }
-          }
+          className={`issues-chapters-active collapse-issue issues-chapters top-border transition-height`}
         >
           <div
             className="position-relative d-grid "
@@ -80,14 +77,10 @@ export default function RightColumnHeader({
               gridTemplateColumns: '1fr auto',
               gridGap: '0.33rem',
               alignItems: 'center',
+              cursor: 'default',
             }}
           >
-            <h6
-              className={'mb-0'}
-              //   style={{ gridColumn: '1 / span 2', paddingBottom: '0rem' }}
-            >
-              {getIssueName()}
-            </h6>
+            <h6 className={'mb-0'}>{getIssueName()}</h6>
           </div>
         </div>
       </div>
@@ -97,13 +90,17 @@ export default function RightColumnHeader({
       <div
         className={'d-flex flex-column'}
         style={
-          target && toggleDisplayMode
+          target &&
+          displayModes != null &&
+          displayModes[selectedSpecificIssue] == true
             ? { position: 'sticky', top: '0', zIndex: '2' }
             : { position: 'relative' }
         }
       >
         <div
-          className={`issues-chapters-active collapse-issue issues-chapters top-border transition-height`}
+          className={`${
+            target ? 'issues-chapters-active' : 'issues-chapters-inactive'
+          } collapse-issue issues-chapters top-border transition-height`}
         >
           <div
             className="position-relative issues-card-header"
@@ -142,17 +139,11 @@ export default function RightColumnHeader({
                     let newMoreIssues = moreIssues.filter(
                       (issue) => issue !== specificIssue
                     );
-                    console.log('newMoreIssues ', newMoreIssues);
                     setMoreIssues(newMoreIssues);
                   }}
                 />
               )}
             </div>
-            <HistogramToggle
-              target={target}
-              toggleDisplayMode={toggleDisplayMode}
-              setToggleDisplayMode={setToggleDisplayMode}
-            />
           </div>
         </div>
       </div>
@@ -167,11 +158,12 @@ export default function RightColumnHeader({
           className={`issues-chapters-active collapse-issue issues-chapters top-border transition-height`}
         >
           <div
-            className="position-relative d-grid "
+            className="position-relative d-grid justify-content-start"
             style={{
               gridTemplateColumns: 'auto auto',
               gridGap: '0.33rem',
               alignItems: 'center',
+              cursor: 'default',
             }}
           >
             <h6 className="mb-0">Notable Indicators</h6>
@@ -198,9 +190,34 @@ export default function RightColumnHeader({
               gridTemplateColumns: '1fr auto',
               gridGap: '0.33rem',
               alignItems: 'center',
+              cursor: 'default',
             }}
           >
             <h6 className="mb-0">More Issues</h6>
+          </div>
+        </div>
+      </div>
+    );
+  } else if (type === 'collapse') {
+    return (
+      <div className={'d-flex flex-column position-relative'}>
+        <div
+          className={`${
+            target ? 'issues-chapters-active' : 'issues-chapters-inactive'
+          } issues-chapters transition-height expand-toggle`}
+        >
+          <div
+            className="position-relative d-grid "
+            style={{
+              gridGap: '0.33rem',
+              alignItems: 'center',
+              textAlign: 'center',
+              border: 'none',
+            }}
+          >
+            <h6>
+              <FontAwesomeIcon icon={!expand ? faCaretDown : faCaretUp} />
+            </h6>
           </div>
         </div>
       </div>
