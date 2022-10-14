@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import _CHAPTER_COLORS from '../data/chapter_colors.json';
 import _BOROUGH_COLORS from '../data/borough_colors.json';
-import _RANKINGS from '../data/rankings.json';
 import Table from 'react-bootstrap/Table';
 import rankings from '../data/rankings.json';
 import { getNumber } from '../utils/functions';
@@ -57,6 +56,13 @@ const RankingTable = ({
                 issues.specific_issues_data[selectedSpecificIssue]?.json_id
               ]
                 .map((entry, index) => {
+                  if (index == 0) {
+                    console.log(
+                      issues.specific_issues_data[selectedSpecificIssue]
+                        ?.json_id
+                    );
+                  }
+
                   return (
                     <tr
                       key={index}

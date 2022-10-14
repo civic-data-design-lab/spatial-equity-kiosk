@@ -759,7 +759,7 @@
       "json_id": "F17_GreInf",
       "good_or_bad": 0,
       "issue_hi_low": ["most", "least"],
-      "units": "Average Square Feet of Stormwater Greenstreets and Bioswales per Block",
+      "units": "Average Square Feet of Stormwater Greenstreets & Bioswales per Block",
       "units_shorthand": "Square Feet",
       "issue_highlight": "least permeable surface area",
       "histogram_bounds": ["Least Permeable", "Most Permeable"],
