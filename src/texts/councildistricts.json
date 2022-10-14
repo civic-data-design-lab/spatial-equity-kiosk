@@ -7,7 +7,7 @@
             "councilmember_name": "Christopher Marte",
             "councilmember_email": "District1@council.nyc.gov",
             "neighborhoods": "Neighborhoods: Battery Park, Chinatown, the Financial District, the Lower East Side, SoHo/Nolita, and TriBeCa",
-            "least_performing_issues": [2, 15, 12]
+            "least_performing_issues": [2, 5, 13]
         },
     "2":
         {   "json_lookup": "2",
@@ -17,7 +17,7 @@
             "councilmember_name": "Carlina Rivera",
             "councilmember_email": "District2@council.nyc.gov",
             "neighborhoods": "Neighborhoods: East Village, Gramercy Park, Lower East Side, Murray Hill, and Kips Bay/Rose Hill",
-            "least_performing_issues": [12, 10, 7]
+            "least_performing_issues": [2, 13, 14]
         },
     "3":
         {   "json_lookup": "3",
@@ -27,7 +27,7 @@
             "councilmember_name": "Erik Bottcher",
             "councilmember_email": "District3@council.nyc.gov",
             "neighborhoods": "Neighborhoods: Chelsea, Hell’s Kitchen, Greenwich Village, Times Square, the Garment District, Flatiron, and the Upper West Side",
-            "least_performing_issues": [10, 15, 4]
+            "least_performing_issues": [2, 15, 6]
         },
     "4":
         {   "json_lookup": "4",
@@ -37,7 +37,7 @@
             "councilmember_name": "Keith Powers",
             "councilmember_email": "district4@nyc.gov",
             "neighborhoods": "Neighborhoods: Upper East Side, Midtown, and Stuyvesant Town/Peter Cooper Village",
-            "least_performing_issues": [12, 10, 13]
+            "least_performing_issues": [2, 6, 15]
         },
     "5":
         {   "json_lookup": "5",
@@ -47,7 +47,7 @@
             "councilmember_name": "Julie Menin",
             "councilmember_email": "district5@nyc.gov",
             "neighborhoods": "Neighborhoods: Upper East Side, Midtown East, El Barrio, and Roosevelt Island",
-            "least_performing_issues": [12, 10, 6]
+            "least_performing_issues": [14, 2, 6]
         },
     "6":
         {   "json_lookup": "6",
@@ -57,7 +57,7 @@
             "councilmember_name": "Gale A. Brewer",
             "councilmember_email": "district6@nyc.gov",
             "neighborhoods": "Neighborhoods: Central Park, Lincoln Square, Upper West Side, and Clinton",
-            "least_performing_issues": [2, 6, 15]
+            "least_performing_issues": [2, 14, 5]
         },
     "7":
         {   "json_lookup": "7",
@@ -67,7 +67,7 @@
             "councilmember_name": "Shaun Abreu",
             "councilmember_email": "district7@nyc.gov",
             "neighborhoods": "Neighborhoods: Manhattan Valley, Manhattanville, Morningside Heights, and Hamilton Heights",
-            "least_performing_issues": [12, 6, 3]
+            "least_performing_issues": [5, 14, 6]
         },
     "8":
         {   "json_lookup": "8",
@@ -77,7 +77,7 @@
             "councilmember_name": "Diana Ayala",
             "councilmember_email": "district8@nyc.gov",
             "neighborhoods": "Neighborhoods: El Barrio/East Harlem, Mott Haven, Highbridge, Concourse, Longwood, and Port Morris",
-            "least_performing_issues": [7, 1, 15]
+            "least_performing_issues": [2, 15, 6]
         },
     "9":
         {   "json_lookup": "9",
@@ -87,7 +87,7 @@
             "councilmember_name": "Kristin Richardson Jordan",
             "councilmember_email": "district9@nyc.gov",
             "neighborhoods": "Neighborhoods: Central Harlem, Morningside Heights, Upper West Side, and East Harlem",
-            "least_performing_issues": [1, 12, 10]
+            "least_performing_issues": [7, 2, 13]
         },
     "10":
         {   "json_lookup": "10",
@@ -97,7 +97,7 @@
             "councilmember_name": "Carmen De La Rosa",
             "councilmember_email": "district10@nyc.gov",
             "neighborhoods": "Neighborhoods: Washington Heights, Inwood, and Marble Hill",
-            "least_performing_issues": [6, 2, 12]
+            "least_performing_issues": [5, 10, 6]
         },
     "11":
         {   "json_lookup": "11",
@@ -107,7 +107,7 @@
             "councilmember_name": "Eric Dinowitz",
             "councilmember_email": "district11@nyc.gov",
             "neighborhoods": "Neighborhoods: Bedford Park, Kingsbridge, Riverdale, Norwood, and Spuyten Duyvil",
-            "least_performing_issues": [2, 11, 9]
+            "least_performing_issues": [5, 12, 10]
         },
     "12":
         {   "json_lookup": "12",
@@ -117,7 +117,7 @@
             "councilmember_name": "Kevin C. Riley",
             "councilmember_email": "district12@nyc.gov",
             "neighborhoods": "Neighborhoods: Wakefield, Eastchester, Williamsbridge, and Co-op City",
-            "least_performing_issues": [3, 8, 9]
+            "least_performing_issues": [3, 8, 4]
         },
     "13":
         {   "json_lookup": "13",
@@ -127,7 +127,7 @@
             "councilmember_name": "Marjorie Velázquez",
             "councilmember_email": "district13@nyc.gov",
             "neighborhoods": "Neighborhoods: Allerton, City Island, Morris Park, Pelham Bay, Throggs Neck, Westchester Square",
-            "least_performing_issues": [13, 5, 11]
+            "least_performing_issues": [10, 8, 11]
         },
     "14":
         {   "json_lookup": "14",
@@ -137,7 +137,7 @@
             "councilmember_name": "Pierina Ana Sanchez",
             "councilmember_email": "district14@nyc.gov",
             "neighborhoods": "Neighborhoods: Morris Heights, University Heights, Fordham, and Kingsbridge",
-            "least_performing_issues": [6, 7, 1]
+            "least_performing_issues": [11, 6, 5]
         },
     "15":
         {   "json_lookup": "15",
@@ -147,7 +147,7 @@
             "councilmember_name": "Oswald Feliz",
             "councilmember_email": "district15@nyc.gov",
             "neighborhoods": "Neighborhoods: Fordham Heights, Belmont, East Tremont, Allerton, and Little Yemen",
-            "least_performing_issues":  [2, 9, 1]
+            "least_performing_issues":  [2, 9, 7]
         },
     "16":
         {   "json_lookup": "16",
@@ -157,7 +157,7 @@
             "councilmember_name": "Althea Stevens",
             "councilmember_email": "district16@nyc.gov",
             "neighborhoods": "Neighborhoods: Concourse Village, Highbridge, Morris Heights, Mount Eden, and Morrisania",
-            "least_performing_issues": [1, 2, 15]
+            "least_performing_issues": [13, 2, 14]
         },
     "17":
         {   "json_lookup": "17",
@@ -167,7 +167,7 @@
             "councilmember_name": "Rafael Salamanca Jr",
             "councilmember_email": "district17@nyc.gov",
             "neighborhoods": "Neighborhoods: Crotona Park East, Hunts Point, Longwood, Port Morris, and West Farms",
-            "least_performing_issues": [1, 13, 5]
+            "least_performing_issues": [15, 2, 12]
         },
     "18":
         {   "json_lookup": "18",
@@ -177,7 +177,7 @@
             "councilmember_name": "Amanda Farías",
             "councilmember_email": "district18@nyc.gov",
             "neighborhoods": "Neighborhoods: Soundview, Castle Hill, Parkchester, Clason Point, and Harding Park",
-            "least_performing_issues": [4, 5, 6]
+            "least_performing_issues": [11, 9, 2]
         },
     "19":
         {   "json_lookup": "19",
@@ -187,7 +187,7 @@
             "councilmember_name": "Vickie Paladino",
             "councilmember_email": "district19@nyc.gov",
             "neighborhoods": "Neighborhoods: Bayside, Douglaston, Flushing, Little Neck, and Whitestone",
-            "least_performing_issues": [11, 3, 7]
+            "least_performing_issues": [3, 13, 11]
         },
     "20":
         {   "json_lookup": "20",
@@ -197,7 +197,7 @@
             "councilmember_name": "Sandra Ung",
             "councilmember_email": "district20@nyc.gov",
             "neighborhoods": "Neighborhoods: Downtown Flushing, Murray Hill, and Queensboro Hill",
-            "least_performing_issues": [9, 8, 5]
+            "least_performing_issues": [9, 14, 11]
         },
     "21":
         {   "json_lookup": "21",
@@ -207,7 +207,7 @@
             "councilmember_name": "Francisco Moya",
             "councilmember_email": "district21@nyc.gov",
             "neighborhoods": "Neighborhoods: East Elmhurst, Elmhurst, Jackson Heights, and Corona",
-            "least_performing_issues": [15, 2, 4]
+            "least_performing_issues": [3, 15, 4]
         },
     "22":
         {   "json_lookup": "22",
@@ -217,7 +217,7 @@
             "councilmember_name": "Tiffany Cabán",
             "councilmember_email": "district22@nyc.gov",
             "neighborhoods": "Neighborhoods: Astoria, East Elmhurst, Jackson Heights, and Woodside",
-            "least_performing_issues": [15, 7, 10]
+            "least_performing_issues": [3, 4, 13]
         },
     "23":
         {   "json_lookup": "23",
@@ -227,7 +227,7 @@
             "councilmember_name": "Linda Lee",
             "councilmember_email": "district23@nyc.gov",
             "neighborhoods": "Neighborhoods: Bayside Hills, Floral Park, Fresh Meadows, Glen Oaks, Hollis Hills, Oakland Gardens",
-            "least_performing_issues": [11, 6, 9]
+            "least_performing_issues": [4, 9, 10]
         },
     "24":
         {   "json_lookup": "24",
@@ -237,7 +237,7 @@
             "councilmember_name": "James F. Gennaro",
             "councilmember_email": "district24@nyc.gov",
             "neighborhoods": "Neighborhoods: Kew Gardens Hills, Pomonok, Fresh Meadows, Jamaica Estates, and Briarwood",
-            "least_performing_issues": [9, 8, 5]
+            "least_performing_issues": [9, 8, 10]
         },
     "25":
         {   "json_lookup": "25",
@@ -247,7 +247,7 @@
             "councilmember_name": "Shekar Krishnan",
             "councilmember_email": "district25@nyc.gov",
             "neighborhoods": "Neighborhoods: Elmhurst and Jackson Heights",
-            "least_performing_issues": [4, 5, 10]
+            "least_performing_issues": [14, 13, 7]
         },
     "26":
         {   "json_lookup": "26",
@@ -257,7 +257,7 @@
             "councilmember_name": "Julie Won",
             "councilmember_email": "district26@nyc.gov",
             "neighborhoods": "Neighborhoods: Sunnyside, Woodside, Long Island City, Astoria, and Dutch Kills",
-            "least_performing_issues": [15, 4, 14]
+            "least_performing_issues": [3, 15, 4]
         },
     "27":
         {   "json_lookup": "27",
@@ -267,7 +267,7 @@
             "councilmember_name": "Nantasha Williams",
             "councilmember_email": "district27@nyc.gov",
             "neighborhoods": "Neighborhoods: Cambria Heights, Hollis, Jamaica, St. Albans, and Springfield Gardens",
-            "least_performing_issues": [5, 11, 14]
+            "least_performing_issues": [7, 11, 8]
         },
     "28":
         {   "json_lookup": "28",
@@ -277,7 +277,7 @@
             "councilmember_name": "Adrienne E. Adams",
             "councilmember_email": "district28@nyc.gov",
             "neighborhoods": "Neighborhoods: Jamaica, Richmond Hill, Rochdale Village, and South Ozone Park",
-            "least_performing_issues": [11, 9, 5]
+            "least_performing_issues": [11, 9, 3]
         },
     "29":
         {   "json_lookup": "29",
@@ -287,7 +287,7 @@
             "councilmember_name": "Lynn Schulman",
             "councilmember_email": "district29@nyc.gov",
             "neighborhoods": "Neighborhoods: Rego Park, Forest Hills, Kew Gardens, and Richmond Hill",
-            "least_performing_issues": [4, 12, 11]
+            "least_performing_issues": [13, 4, 7]
         },
     "30":
         {   "json_lookup": "30",
@@ -297,7 +297,7 @@
             "councilmember_name": "Robert F. Holden",
             "councilmember_email": "district30@nyc.gov",
             "neighborhoods": "Neighborhoods: Glendale, Maspeth, Middle Village, Ridgewood, Woodhaven, and Woodside",
-            "least_performing_issues": [9, 2, 11]
+            "least_performing_issues": [10, 8, 9]
         },
     "31":
         {   "json_lookup": "31",
@@ -307,7 +307,7 @@
             "councilmember_name": "Selvena N. Brooks-Powers",
             "councilmember_email": "district31@nyc.gov",
             "neighborhoods": "Neighborhoods: Brookville, Far Rockaway, Laurelton, Rosedale, and Springfield Gardens",
-            "least_performing_issues": [7, 14, 13]
+            "least_performing_issues": [8, 15, 4]
         },
     "32":
         {   "json_lookup": "32",
@@ -317,7 +317,7 @@
             "councilmember_name": "Joann Ariola",
             "councilmember_email": "district32@nyc.gov",
             "neighborhoods": "Neighborhoods: Broad Channel, Howard Beach, Ozone Park, Richmond Hill, and Rockaway Park",
-            "least_performing_issues": [13, 11, 5]
+            "least_performing_issues": [15, 4, 12]
         },
     "33":
         {   "json_lookup": "33",
@@ -327,7 +327,7 @@
             "councilmember_name": "Lincoln Restler",
             "councilmember_email": "district33@nyc.gov",
             "neighborhoods": "Neighborhoods: Boerum Hill, Brooklyn Heights, Downtown Brooklyn, Dumbo, Greenpoint, and Williamsburg",
-            "least_performing_issues": [15, 10, 12]
+            "least_performing_issues": [15, 2, 13]
         },
     "34":
         {   "json_lookup": "34",
@@ -337,7 +337,7 @@
             "councilmember_name": "Jennifer Gutiérrez",
             "councilmember_email": "district34@nyc.gov",
             "neighborhoods": "Neighborhoods: Williamsburg, Bushwick, and Ridgewood",
-            "least_performing_issues": [5, 10, 13]
+            "least_performing_issues": [3, 15, 7]
         },
     "35":
         {   "json_lookup": "35",
@@ -347,7 +347,7 @@
             "councilmember_name": "Crystal Hudson",
             "councilmember_email": "district35@nyc.gov",
             "neighborhoods": "Neighborhoods: Fort Greene, Clinton Hill, Crown Heights, Prospect Heights, and Bedford-Stuyvesant",
-            "least_performing_issues":  [12, 14, 1]
+            "least_performing_issues":  [7, 13, 5]
         },
     "36":
         {   "json_lookup": "36",
@@ -357,7 +357,7 @@
             "councilmember_name": "Chi Ossé",
             "councilmember_email": "district36@nyc.gov",
             "neighborhoods": "Neighborhoods: Bedford-Stuyvesant and Northern Crown Heights",
-            "least_performing_issues": [1, 4, 10]
+            "least_performing_issues": [11, 7, 8]
         },
     "37":
         {   "json_lookup": "37",
@@ -367,7 +367,7 @@
             "councilmember_name": "Sandy Nurse",
             "councilmember_email": "district37@nyc.gov",
             "neighborhoods": "Neighborhoods: Cypress Hills, Bushwick, City Line, Ocean Hill, Brownsville, and East New York",
-            "least_performing_issues": [3, 15, 9]
+            "least_performing_issues": [3, 12, 9]
         },
     "38":
         {   "json_lookup": "38",
@@ -377,7 +377,7 @@
             "councilmember_name": "Alexa Avilés",
             "councilmember_email": "district38@nyc.gov",
             "neighborhoods": "Neighborhoods: Red Hook, Sunset Park, Greenwood Heights, Dyker Heights, and Boro Park",
-            "least_performing_issues": [3, 2, 4]
+            "least_performing_issues": [3, 5, 10]
         },
     "39":
         {   "json_lookup": "39",
@@ -387,7 +387,7 @@
             "councilmember_name": "Shahana Hanif",
             "councilmember_email": "district39@nyc.gov",
             "neighborhoods": "Neighborhoods: Cobble Hill, Carroll Gardens, Gowanus, Park Slope, Windsor Terrace, Borough Park, and Kensington",
-            "least_performing_issues": [3, 2, 4]
+            "least_performing_issues": [7, 5, 2]
         },
     "40":
         {   "json_lookup": "40",
@@ -397,7 +397,7 @@
             "councilmember_name": "Rita Joseph",
             "councilmember_email": "district40@nyc.gov",
             "neighborhoods": "Neighborhoods: Crown Heights, East Flatbush, Flatbush, Kensington, Midwood, and Prospect Lefferts Gardens",
-            "least_performing_issues": [4, 1, 14]
+            "least_performing_issues": [13, 4, 12]
         },
     "41":
         {   "json_lookup": "41",
@@ -407,7 +407,7 @@
             "councilmember_name": "Darlene Mealy",
             "councilmember_email": "district41@nyc.gov",
             "neighborhoods": "Neighborhoods: Bedford-Stuyvesant, Ocean Hill-Brownsville, East Flatbush, and Crown Heights",
-            "least_performing_issues": [14, 1, 4]
+            "least_performing_issues": [8, 7, 11]
         },
     "42":
         {   "json_lookup": "42",
@@ -417,7 +417,7 @@
             "councilmember_name": "Charles Barron",
             "councilmember_email": "district42@nyc.gov",
             "neighborhoods": "Neighborhoods: East New York, New Lots, Remsen Village, Spring Creek, and Starrett City",
-            "least_performing_issues": [14, 3, 13]
+            "least_performing_issues": [7, 15, 12]
         },
     "43":
         {   "json_lookup": "43",
@@ -427,7 +427,7 @@
             "councilmember_name": "Justin Brannan",
             "councilmember_email": "district43@nyc.gov",
             "neighborhoods": "Neighborhoods: Bay Ridge, Dyker Heights, Bensonhurst, and Bath Beach",
-            "least_performing_issues": [13, 15, 8]
+            "least_performing_issues": [11, 7, 14]
         },
     "44":
         {   "json_lookup": "44",
@@ -437,7 +437,7 @@
             "councilmember_name": "Kalman Yeger",
             "councilmember_email": "district44@nyc.gov",
             "neighborhoods": "Neighborhoods: Bensonhurst, Borough Park, Midwood, and Ocean Parkway",
-            "least_performing_issues": [4, 3, 5]
+            "least_performing_issues": [11, 7, 14]
         },
     "45":
         {   "json_lookup": "45",
@@ -447,7 +447,7 @@
             "councilmember_name": "Farah N. Louis",
             "councilmember_email": "district45@nyc.gov",
             "neighborhoods": "Neighborhoods: Flatbush, East Flatbush, Midwood, Marine Park, Flatlands, and Kensington",
-            "least_performing_issues": [14, 5, 13]
+            "least_performing_issues": [11, 12, 4]
         },
     "46":
         {   "json_lookup": "46",
@@ -457,7 +457,7 @@
             "councilmember_name": "Mercedes Narcisse",
             "councilmember_email": "district46@nyc.gov",
             "neighborhoods": "Neighborhoods: Bergen Beach, Canarsie, Flatlands, Gerritsen Beach, Marine Park, Mill Basin, and Sheepshead Bay",
-            "least_performing_issues": [11, 13, 6]
+            "least_performing_issues": [10, 12, 7]
         },
     "47":
         {   "json_lookup": "47",
@@ -467,7 +467,7 @@
             "councilmember_name": "Ari Kagan",
             "councilmember_email": "district47@nyc.gov",
             "neighborhoods": "Neighborhoods: Bensonhurst, Coney Island, Gravesend, and Sea Gate",
-            "least_performing_issues": [3, 7, 6]
+            "least_performing_issues": [12, 15, 14]
         },
     "48":
         {   "json_lookup": "48",
@@ -477,7 +477,7 @@
             "councilmember_name": "Inna Vernikov",
             "councilmember_email": "district48@nyc.gov",
             "neighborhoods": "Neighborhoods: Brighton Beach, Manhattan Beach, Sheepshead Bay, Homecrest, and Midwood",
-            "least_performing_issues": [6, 13, 3]
+            "least_performing_issues": [6, 7, 5]
         },
     "49":
         {   "json_lookup": "49",
@@ -487,7 +487,7 @@
             "councilmember_name": "Kamillah Hanks",
             "councilmember_email": "district49@nyc.gov",
             "neighborhoods": "Neighborhoods: Clifton, Grymes Hill, Mariners Harbor, New Brighton, Port Richmond, Randall Manor, Rosebank, St. George, Stapleton, Sunnyside, West Brighton, and Tompkinsville",
-            "least_performing_issues": [6, 1, 9]
+            "least_performing_issues": [12, 6, 4]
         },
     "50":
         {   "json_lookup": "50",
@@ -497,7 +497,7 @@
             "councilmember_name": "David Carr",
             "councilmember_email": "district50@nyc.gov",
             "neighborhoods": "Neighborhoods: Bloomfield, Bulls Head, Castleton Corners, Dongan Hills, Fort Wadsworth, Grasmere, Grant City, Lighthouse Hill, Midland Beach, New Dorp, New Springville, Oakwood, Old Town, Richmondtown, South Beach, Todt Hill, Travis, and Westerleigh",
-            "least_performing_issues": [8, 9, 7]
+            "least_performing_issues": [12, 8, 4]
         },
     "51":
         {   "json_lookup": "51",
@@ -507,6 +507,6 @@
             "councilmember_name": "Joseph C. Borelli",
             "councilmember_email": "district51@nyc.gov",
             "neighborhoods": "Neighborhoods: Annadale, Arden Heights, Bay Terrace, Charleston, Eltingville, Great Kills, Huguenot, Pleasant Plains, Prince’s Bay, Richmond Valley, Tottenville, and Woodrow",
-            "least_performing_issues": [9, 8, 11]
+            "least_performing_issues": [9, 12, 8]
         }
 }

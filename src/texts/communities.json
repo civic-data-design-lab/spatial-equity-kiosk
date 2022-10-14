@@ -4,112 +4,112 @@
             "name": "Bronx 1",
             "neighborhoods": "Neighborhoods: Mott Haven, Port Morris, and Melrose",
             "description": "",
-            "least_performing_issues": [1, 5, 7]
+            "least_performing_issues": [15, 2, 8]
         },
     "BX02":
         {   "json_lookup": "BX02",
             "name": "Bronx 2",
             "neighborhoods": "Neighborhoods: Hunts Point, Longwood, and Morrisania",
             "description": "",
-            "least_performing_issues": [12, 2, 14]
+            "least_performing_issues": [15, 2, 12]
         },
     "BX03":
         {   "json_lookup": "BX03",
             "name": "Bronx 3",
             "neighborhoods": "Neighborhoods: Crotona Park, Claremont Village, and Concourse Village",
             "description": "",
-            "least_performing_issues": [1, 2, 15]
+            "least_performing_issues": [12, 2, 13]
         },
     "BX04":
         {   "json_lookup": "BX04",
             "name": "Bronx 4",
             "neighborhoods": "Neighborhoods: Highbridge, Mount Eden, and Concourse Village",
             "description": "",
-            "least_performing_issues": [1, 15, 12]
+            "least_performing_issues": [13, 2, 15]
         },
     "BX05":
         {   "json_lookup": "BX05",
             "name": "Bronx 5",
             "neighborhoods": "Neighborhoods: Fordham, University Heights, and Morris Heights",
             "description": "",
-            "least_performing_issues": [7, 1, 6]
+            "least_performing_issues": [11, 6, 15]
         },
     "BX06":
         {   "json_lookup": "BX06",
             "name": "Bronx 6",
             "neighborhoods": "Neighborhoods: Belmont, Bathgate, West Farms, East Tremont, and Bronx Park South",
             "description": "",
-            "least_performing_issues": [1, 13, 14]
+            "least_performing_issues": [9, 15, 2]
         },
     "BX07":
         {   "json_lookup": "BX07",
             "name": "Bronx 7",
             "neighborhoods": "Neighborhoods: Norwood, Fordham Heights, and Kingsbridge Heights",
             "description": "",
-            "least_performing_issues": [6, 1, 8]
+            "least_performing_issues": [6, 5, 8]
         },
     "BX08":
         {   "json_lookup": "BX08",
             "name": "Bronx 8",
             "neighborhoods": "Neighborhoods: Kingsbridge Heights, Riverdale, Spuyten Duyvil, and Van Cortlandt Village",
             "description": "",
-            "least_performing_issues": [11, 3, 6]
+            "least_performing_issues": [3, 5, 14]
         },
     "BX09":
         {   "json_lookup": "BX09",
             "name": "Bronx 9",
             "neighborhoods": "Neighborhoods: Parkchester, Soundview, Castle Hill, Harding Park, and Clason Point",
             "description": "",
-            "least_performing_issues": [9, 5, 1]
+            "least_performing_issues": [11, 9, 2]
         },
     "BX10":
         {   "json_lookup": "BX10",
             "name": "Bronx 10",
             "neighborhoods": "Neighborhoods: Co-op City, City Island, Throggs Neck, Westchester Square, Pelham Bay, and Eastchester Bay",
             "description": "",
-            "least_performing_issues": [11, 3, 6]
+            "least_performing_issues": [3, 14, 11]
         },
     "BX11":
         {   "json_lookup": "BX11",
             "name": "Bronx 11",
             "neighborhoods": "Neighborhoods: Allerton, Morris Park, Parkside, Pelham Gardens, and Pelham Parkway",
             "description": "",
-            "least_performing_issues": [8, 9, 11]
+            "least_performing_issues": [7, 8, 12]
         },
     "BX12":
         {   "json_lookup": "BX12",
             "name": "Bronx 12",
             "neighborhoods": "Neighborhoods: Wakefield, Williamsbridge, Woodlawn, Eastchester, and Baychester",
             "description": "",
-            "least_performing_issues": [9, 8, 1]
+            "least_performing_issues": [3, 8, 9]
         },
     "BK01":
         {   "json_lookup": "BK01",
             "name": "Brooklyn 1",
             "neighborhoods": "Neighborhoods: Williamsburg, Greenpoint, Northside, and Southside",
             "description": "",
-            "least_performing_issues": [3, 15, 5]
+            "least_performing_issues": [3, 15, 2]
         },
     "BK02":
         {   "json_lookup": "BK02",
             "name": "Brooklyn 2",
             "neighborhoods": "Neighborhoods: Brooklyn Heights, Boerum Hill, Fort Greene, and Clinton Hill",
             "description": "",
-            "least_performing_issues": [2, 3, 4]
+            "least_performing_issues": [2, 5, 13]
         },
     "BK03":
         {   "json_lookup": "BK03",
             "name": "Brooklyn 3",
             "neighborhoods": "Neighborhoods: Bedford-Stuyvesant, Stuyvesant Heights, and Ocean Hill",
             "description": "",
-            "least_performing_issues": [8, 1, 10]
+            "least_performing_issues": [11, 7, 8]
         },
     "BK04":
         {   "json_lookup": "BK04",
             "name": "Brooklyn 4",
             "neighborhoods": "Neighborhoods: Bushwick",
             "description": "",
-            "least_performing_issues": [4, 15, 3]
+            "least_performing_issues": [3, 11, 7]
         },
     "BK05":
         {   "json_lookup": "BK05",
@@ -123,84 +123,84 @@
             "name": "Brooklyn 6",
             "neighborhoods": "Neighborhoods: Red Hook, Carroll Gardens, Park Slope, Gowanus, and Cobble Hill",
             "description": "",
-            "least_performing_issues": [10, 7, 3]
+            "least_performing_issues": [3, 5, 15]
         },
     "BK07":
         {   "json_lookup": "BK07",
             "name": "Brooklyn 7",
             "neighborhoods": "Neighborhoods: Sunset Park and Windsor Terrace",
             "description": "",
-            "least_performing_issues": [2, 15, 4]
+            "least_performing_issues": [3, 5, 2]
         },
     "BK08":
         {   "json_lookup": "BK08",
             "name": "Brooklyn 8",
             "neighborhoods": "Neighborhoods: Crown Heights, Prospect Heights, Weeksville",
             "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
-            "least_performing_issues": [14, 1, 10]
+            "least_performing_issues": [11, 7, 5]
         },
     "BK09":
         {   "json_lookup": "BK09",
             "name": "Brooklyn 9",
             "neighborhoods": "Neighborhoods: Crown Heights, Prospect Lefferts Gardens, and Wingate",
             "description": "",
-            "least_performing_issues": [14, 4, 1]
+            "least_performing_issues": [11, 7, 4]
         },
     "BK10":
         {   "json_lookup": "BK10",
             "name": "Brooklyn 10",
             "neighborhoods": "Neighborhoods: Bay Ridge, Dyker Heights, and Fort Hamilton",
             "description": "",
-            "least_performing_issues": [13, 14, 8]
+            "least_performing_issues": [3, 5, 8]
         },
     "BK11":
         {   "json_lookup": "BK11",
             "name": "Brooklyn 11",
             "neighborhoods": "Neighborhoods: Bath Beach, Gravesend, Mapleton, and Bensonhurst",
             "description": "",
-            "least_performing_issues": [11, 4, 7]
+            "least_performing_issues": [10, 15, 5]
         },
     "BK12":
         {   "json_lookup": "BK12",
             "name": "Brooklyn 12",
             "neighborhoods": "Neighborhoods: Boro Park, Kensington, Ocean Parkway, and Midwood",
             "description": "",
-            "least_performing_issues": [4, 5, 11]
+            "least_performing_issues": [7, 14, 10]
         },
     "BK13":
         {   "json_lookup": "BK13",
             "name": "Brooklyn 13",
             "neighborhoods": "Neighborhoods: Coney Island, Brighton Beach, Bensonhurst, Gravesend, and Seagate",
             "description": "",
-            "least_performing_issues":[8, 6, 15]
+            "least_performing_issues":[3, 10, 8]
         },
     "BK14":
         {   "json_lookup": "BK14",
             "name": "Brooklyn 14",
             "neighborhoods": "Neighborhoods: Flatbush, Midwood, Kensington, and Ocean Parkway",
             "description": "",
-            "least_performing_issues": [6, 4, 5]
+            "least_performing_issues": [6, 4, 9]
         },
     "BK15":
         {   "json_lookup": "BK15",
             "name": "Brooklyn 15",
             "neighborhoods": "Neighborhoods: Sheepshead Bay, Manhattan Beach, Kings Bay, Gerritsen Beach, Kings Highway, East Gravesend, Madison, Homecrest, and Plumb Beach",
             "description": "",
-            "least_performing_issues": [6, 13, 11]
+            "least_performing_issues": [6, 10, 7]
         },
     "BK16":
         {   "json_lookup": "BK16",
             "name": "Brooklyn 16",
             "neighborhoods": "Neighborhoods: Brownsville and Ocean Hill",
             "description": "",
-            "least_performing_issues": [1, 14, 5]
+            "least_performing_issues": [3, 7, 2]
         },
     "BK17":
         {   "json_lookup": "BK17",
             "name": "Brooklyn 17",
             "neighborhoods": "Neighborhoods: East Flatbush, Remsen Village, Farragut, Rugby, Erasmus and Ditmas Village",
             "description": "",
-            "least_performing_issues": [4, 14, 8]
+            "least_performing_issues": [11, 8, 4]
         },
     "BK18":
         {   "json_lookup": "BK18",
@@ -214,7 +214,7 @@
             "name": "Manhattan 1",
             "neighborhoods": "Neighborhoods: Tribeca, Financial District, and Battery Park City",
             "description": "",
-            "least_performing_issues": [2, 6, 15]
+            "least_performing_issues": [6, 5, 13]
         },
     "MN02":
         {   "json_lookup": "MN02",
@@ -228,112 +228,112 @@
             "name": "Manhattan 3",
             "neighborhoods": "Neighborhoods: East Village, Lower East Side, Chinatown, and Two Bridges",
             "description": "",
-            "least_performing_issues": [12, 2, 10]
+            "least_performing_issues": [2, 13, 14]
         },
     "MN04":
         {   "json_lookup": "MN04",
             "name": "Manhattan 4",
             "neighborhoods": "Neighborhoods: Clinton and Chelsea",
             "description": "",
-            "least_performing_issues": [15, 2, 10]
+            "least_performing_issues": [2, 15, 9]
         },
     "MN05":
         {   "json_lookup": "MN05",
             "name": "Manhattan 5",
             "neighborhoods": "Neighborhood: Midtown",
             "description": "",
-            "least_performing_issues": [6, 14, 10]
+            "least_performing_issues": [6, 15, 2]
         },
     "MN06":
         {   "json_lookup": "MN06",
             "name": "Manhattan 6",
             "neighborhoods": "Neighborhoods: Stuyvesant Town/Peter Cooper Village, Murray Hill, Gramercy Park, and Kips Bay",
             "description": "",
-            "least_performing_issues": [12, 4, 10]
+            "least_performing_issues": [2, 13, 9]
         },
     "MN07":
         {   "json_lookup": "MN07",
             "name": "Manhattan 7",
             "neighborhoods": "Neighborhoods: Manhattan Valley, Upper West Side, and Lincoln Square",
             "description": "",
-            "least_performing_issues": [12, 7, 2]
+            "least_performing_issues": [14, 2, 5]
         },
     "MN08":
         {   "json_lookup": "MN08",
             "name": "Manhattan 8",
             "neighborhoods": "Neighborhoods: Upper East Side, LenoxHill, Yorkville, and Roosevelt Island",
             "description": "",
-            "least_performing_issues": [12, 6, 4]
+            "least_performing_issues": [6, 14, 2]
         },
     "MN09":
         {   "json_lookup": "MN09",
             "name": "Manhattan 9",
             "neighborhoods": "Neighborhoods: Hamilton Heights, Manhattanville, Morningside Heights, and West Harlem",
             "description": "",
-            "least_performing_issues": [12, 3, 6]
+            "least_performing_issues": [5, 6, 2]
         },
     "MN10":
         {   "json_lookup": "MN10",
             "name": "Manhattan 10",
             "neighborhoods": "Neighborhood: Central Harlem",
             "description": "",
-            "least_performing_issues":  [1, 10, 2]
+            "least_performing_issues":  [7, 2, 13]
         },
     "MN11":
         {   "json_lookup": "MN11",
             "name": "Manhattan 11",
             "neighborhoods": "Neighborhood: East Harlem",
             "description": "",
-            "least_performing_issues": [12, 1, 7]
+            "least_performing_issues": [2, 5, 14]
         },
     "MN12":
         {   "json_lookup": "MN12",
             "name": "Manhattan 12",
             "neighborhoods": "Neighborhoods: Inwood and Washington Heights",
             "description": "",
-            "least_performing_issues": [2, 6, 12]
+            "least_performing_issues": [5, 14, 13]
         },
     "QN01":
         {   "json_lookup": "QN01",
             "name": "Queens 1",
             "neighborhoods": "Neighborhoods: Astoria, Dutch Kills, Queensbridge, Ravenswood, and Woodside",
             "description": "are the at imperdiet dui accumsan sit amet. Diam donec adipiscing tristique risus nec feugiat in.",
-            "least_performing_issues": [3, 15, 6]
+            "least_performing_issues": [3, 4, 13]
         },
     "QN02":
         {   "json_lookup": "QN02",
             "name": "Queens 2",
             "neighborhoods": "Neighborhoods: Long Island City, Blissville, Woodside, and Sunnyside",
             "description": "",
-            "least_performing_issues":[3, 15, 13]
+            "least_performing_issues":[3, 15, 4]
         },
     "QN03":
         {   "json_lookup": "QN03",
             "name": "Queens 3",
             "neighborhoods": "Neighborhoods: Jackson Heights, East Elmhurst, North Corona, and LaGuardia Airport",
             "description": "",
-            "least_performing_issues": [7, 3, 5]
+            "least_performing_issues": [3, 11, 4]
         },
     "QN04":
         {   "json_lookup": "QN04",
             "name": "Queens 4",
             "neighborhoods": "Neighborhoods: Corona, Corona Heights, Elmhurst, and Newtown",
             "description": "",
-            "least_performing_issues": [5, 4, 10]
+            "least_performing_issues": [3, 11, 7]
         },
     "QN05":
         {   "json_lookup": "QN05",
             "name": "Queens 5",
             "neighborhoods": "Neighborhoods: Ridgewood, Glendale, Middle Village, and Maspeth",
             "description": "",
-            "least_performing_issues": [3, 9, 8]
+            "least_performing_issues": [8, 9, 14]
         },
     "QN06":
         {   "json_lookup": "QN06",
             "name": "Queens 6",
             "neighborhoods": "Neighborhoods: Forest Hills and Rego Park",
             "description": "",
-            "least_performing_issues": [12, 11, 4]
+            "least_performing_issues": [13, 7, 14]
         },
     "QN07":
         {   "json_lookup": "QN07",
@@ -347,69 +347,69 @@
             "name": "Queens 8",
             "neighborhoods": "Neighborhoods: Fresh Meadows, Pomonok Houses, Jamaica Estates, Holliswood, Kew Gardens Hills, and Briarwood",
             "description": "",
-            "least_performing_issues":[9, 8, 11]
+            "least_performing_issues":[9, 8, 4]
         },
     "QN09":
         {   "json_lookup": "QN09",
             "name": "Queens 9",
             "neighborhoods": "Neighborhoods: Richmond Hill, Woodhaven, Ozone Park, and Kew Gardens",
             "description": "",
-            "least_performing_issues": [4, 11, 5]
+            "least_performing_issues": [13, 4, 7]
         },
     "QN10":
         {   "json_lookup": "QN10",
             "name": "Queens 10",
             "neighborhoods": "Neighborhoods: Howard Beach, Ozone Park, South Ozone Park, Richmond Hill, and Lindenwood",
             "description": "",
-            "least_performing_issues": [5, 11, 13]
+            "least_performing_issues": [4, 10, 11]
         },
     "QN11":
         {   "json_lookup": "QN11",
             "name": "Queens 11",
             "neighborhoods": "Neighborhoods: Bayside, Douglaston, Little Neck, Auburndale, Oakland Gardens, and Hollis Hills",
             "description": "",
-            "least_performing_issues": [3, 11, 6]
+            "least_performing_issues": [3, 14, 13]
         },
     "QN12":
         {   "json_lookup": "QN12",
             "name": "Queens 12",
             "neighborhoods": "Neighborhoods: Jamaica, Hollis, St. Albans, Springfield Gardens, and Rochdale Village",
             "description": "",
-            "least_performing_issues": [5, 11, 8]
+            "least_performing_issues": [11, 8, 7]
         },
     "QN13":
         {   "json_lookup": "QN13",
             "name": "Queens 13",
             "neighborhoods": "Neighborhoods: Queens Village, Glen Oaks, Cambria Heights, Laurelton, and Rosedale",
             "description": "",
-            "least_performing_issues": [3, 14, 7]
+            "least_performing_issues": [3, 4, 9]
         },
     "QN14":
         {   "json_lookup": "QN14",
             "name": "Queens 14",
             "neighborhoods": "Neighborhoods: Breezy Point, Broad Channel, Edgemere, Rockaway Park, Rockaway, and Far Rockaway",
             "description": "",
-            "least_performing_issues": [15, 8, 6]
+            "least_performing_issues": [10, 12, 15]
         },
     "SI01":
         {   "json_lookup":"SI01",
             "name": "Staten Island 1",
             "neighborhoods": "Neighborhoods: Castleton Corners, Fort Wadsworth, Graniteville, Mariners Harbor, New Brighton, Port Richmond, Rosebank, St. George, Stapleton, Tompkinsville, West Brighton, and Westerleigh",
             "description": "",
-            "least_performing_issues": [3, 9, 6]
+            "least_performing_issues": [12, 4, 10]
         },
     "SI02":
         {   "json_lookup":"SI02",
             "name": "Staten Island 2",
             "neighborhoods": "Neighborhoods: Bulls Heads, Dongan Hills, Grant City, Grasmere, Midland Beach, New Dorp, New Springville, Oakwood, South Beach, Todt Hill, and Travis",
             "description": "",
-            "least_performing_issues": [8, 9, 11]
+            "least_performing_issues": [8, 10, 12]
         },
     "SI03":
         {   "json_lookup":"SI03",
             "name": "Staten Island 3",
             "neighborhoods": "Neighborhoods: Annadale, Arden Heights, Bay Terrace, Eltingville, Great Kills, Pleasant Plains, Prince's Bay, Richmondtown, Richmond Valley, and Tottenville",
             "description": "",
-            "least_performing_issues": [8, 9, 11]
+            "least_performing_issues": [8, 9, 10]
         }
 }
