@@ -100,7 +100,7 @@ export default function RightColumnHeader({
         <div
           className={`${
             target ? 'issues-chapters-active' : 'issues-chapters-inactive'
-          } collapse-issue issues-chapters top-border transition-height`}
+          } issues-chapters top-border transition-height`}
         >
           <div
             className="position-relative issues-card-header"
@@ -113,7 +113,9 @@ export default function RightColumnHeader({
               className="issues-card-title-container"
               style={{ gridTemplateColumns: 'auto 1fr auto', gap: '0.5rem' }}
             >
-              <h6 className="mb-0">{getMetricDescription()}</h6>
+              <h6 className="mb-0">
+                <strong>{getMetricDescription()}</strong>
+              </h6>
               <p className={'m-0 smaller-text'}>
                 {issues.specific_issues_data[specificIssue].units}{' '}
                 <SourceInfo
