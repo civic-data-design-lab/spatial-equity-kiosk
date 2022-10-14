@@ -31,8 +31,6 @@ export default function MapToggle({
 }) {
   const [hover, setHover] = useState(null);
 
-  // console.log(selectedSpecificIssue, displayModes);
-
   // disable map toggle on certain mobile conditions
   const hideMapToggle =
     isMobile && (showMenu || (selectedChapter !== 2 && selectedChapter !== 3))
@@ -83,10 +81,7 @@ export default function MapToggle({
             } map-toggle`}
             onClick={() => {
               setShowMap(false);
-              console.log('almost working');
-
               if (!isCommunityProfile) {
-                console.log('working');
                 setToggleDisplayMode(true);
               }
 
