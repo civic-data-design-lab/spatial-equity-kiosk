@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Table from 'react-bootstrap/Table';
 import { Scrollama, Step } from 'react-scrollama';
 import _CDDL from '../img/cddl_logo.svg';
@@ -17,6 +17,8 @@ const subheadings = [
   'About the Data',
 ];
 
+const HIDE_MENU_TIME = 1000; // ms, amount of time to wait until hiding menu
+
 export default function About({
   issues,
   selectedAbout,
@@ -29,11 +31,6 @@ export default function About({
   };
 
   // console.log(dataLayers, issues.all_issues_id);
-
-  // console.log(isMobile);
-  const mobileStyle = isMobile
-    ? { width: '75%', left: '25vw' }
-    : { width: '50vw', left: '50vw' };
 
   const dataJson = issues.specific_issues_data;
 
@@ -132,12 +129,61 @@ export default function About({
     }
   }, [selectedAbout]);
 
+  // States/refs for additional scroll features [mobile]
+  const [showMenu, setShowMenu] = useState(true);
+  const scrollOverTimer = useRef(null);
+  const aboutContainerRef = useRef(null);
+
+  const handleNavigation = () => {
+    // Detecting scroll end adapted from https://stackoverflow.com/a/4620986
+    if (scrollOverTimer.current !== null) {
+      clearTimeout(scrollOverTimer.current);
+    }
+
+    scrollOverTimer.current = setTimeout(() => {
+      // If the timer elapses, hide the menu
+      setShowMenu(false);
+    }, HIDE_MENU_TIME);
+
+    // If scrolling, always show menu
+    setShowMenu(true);
+  };
+
+  useEffect(() => {
+    // Scroll event listener code adapted from
+    // https://stackoverflow.com/a/62497293
+    if (!aboutContainerRef.current) {
+      return;
+    }
+
+    console.debug('adding event listener');
+    aboutContainerRef.current.addEventListener('scroll', handleNavigation);
+
+    return () => {
+      // Clear remaining timeouts and event listeners on unmount
+      console.debug('removing event listener');
+      if (aboutContainerRef.current) {
+        aboutContainerRef.current.removeEventListener(
+          'scroll',
+          handleNavigation
+        );
+      }
+
+      if (scrollOverTimer.current) {
+        clearTimeout(scrollOverTimer.current);
+      }
+    };
+  }, [aboutContainerRef]);
+
   // TODO: reformat about page
 
   return (
     // TODO: new about page
-    <div id={'about-container'}>
-      <div className={'scroll-menu-box h-100 flex-column border-box'}>
+    <div id={'about-container'} ref={aboutContainerRef}>
+      <div
+        className={'scroll-menu-box h-100 flex-column border-box'}
+        style={isMobile ? { right: showMenu ? 0 : '-25%' } : {}}
+      >
         <a
           href={'#content-1'}
           className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border ${
@@ -242,7 +288,6 @@ export default function About({
         className={
           'scroll-title-box issues-chapters-active collapse-issue issues-chapters top-border transition-height border-box'
         }
-        style={mobileStyle}
       >
         <h6 className={'mb-0'}>
           {currentStepIndex < 4

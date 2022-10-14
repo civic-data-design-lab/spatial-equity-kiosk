@@ -1180,20 +1180,12 @@ function App() {
               setShowLegend={setShowLegend}
             />
           ) : selectedChapter === 4 ? (
-            <div
-              style={{
-                height: '100vh',
-                backgroundColor: 'white',
-                overflowY: 'scroll',
-              }}
-            >
-              <About
-                issues={issues}
-                selectedAbout={selectedAbout}
-                setSelectedChapter={setSelectedChapter}
-                isMobile={isMobile}
-              />
-            </div>
+            <About
+              issues={issues}
+              selectedAbout={selectedAbout}
+              setSelectedChapter={setSelectedChapter}
+              isMobile={isMobile}
+            />
           ) : null}
 
           <div
