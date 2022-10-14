@@ -459,9 +459,7 @@ a:active {
     appearance: none;
     height: 10px;
     width: 10px;
-    background-color: white;
-    background-image: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg);
-    background-size: 10px 10px;
+    background-image: url("data:image/svg+xml,%3Csvg width='9' height='4' viewBox='0 0 9 4' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.35511 0.392045V3.27273H0.394886V0.392045H8.35511Z' fill='white'/%3E%3C/svg%3E%0A");    background-size: 10px 10px;
     background-repeat: no-repeat;
     margin-left: 10px;
     margin-right: 8px;
