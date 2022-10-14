@@ -459,7 +459,8 @@ a:active {
     appearance: none;
     height: 10px;
     width: 10px;
-    background-image: url("data:image/svg+xml,%3Csvg width='9' height='4' viewBox='0 0 9 4' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.35511 0.392045V3.27273H0.394886V0.392045H8.35511Z' fill='white'/%3E%3C/svg%3E%0A");    background-size: 10px 10px;
+    background-image: url("data:image/svg+xml,%3Csvg width='9' height='4' viewBox='0 0 9 4' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.35511 0.392045V3.27273H0.394886V0.392045H8.35511Z' fill='white'/%3E%3C/svg%3E%0A");
+    background-size: 10px 10px;
     background-repeat: no-repeat;
     margin-left: 10px;
     margin-right: 8px;
@@ -921,10 +922,14 @@ a:active {
     overflow: auto;
     background-color: white;
     overflow-y: scroll;
-    /* border: 1px solid black; */
 }
 
-.community-profile-container>:not(.cards-column) {
+.community-profile-container::-webkit-scrollbar {
+    display: none;
+}
+
+
+.community-profile-container>:not(.cards-column):not(.heading-block) {
     padding: 1.5em;
 }
 
@@ -1357,7 +1362,8 @@ a:active {
 .issues-card-header {
     background-color: black;
     color: white;
-    padding: 0.25em 0.75em;
+    /* padding: 0.25em 1.5rem; */
+    /* padding-right: 0; */
     justify-content: space-between;
     align-items: center;
     display: grid;
@@ -1371,9 +1377,9 @@ a:active {
 }
 
 .issues-card-title-container {
-    display: flex;
-    flex-direction: row;
     align-items: baseline;
+    display: grid;
+    grid-template-columns: auto 1fr;
 }
 
 .issues-card-button-container {

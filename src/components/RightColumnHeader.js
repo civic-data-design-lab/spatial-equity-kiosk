@@ -8,20 +8,18 @@ export default function RightColumnHeader({
   boundary,
   type = 'solutions',
   issues = null,
-  target = true,
+
+  specificIssue,
+  target,
+  toggleDisplayMode,
+  setToggleDisplayMode,
   selectedSpecificIssue = null,
-  setSelectedChapter = null,
-  setSelectedSpecificIssue = null,
-  setMoreIssues = null,
-
-  //   not sure
-  forMoreIssues = false,
-  moreIssues = null,
+  setSelectedChapter,
+  forMoreIssues,
+  moreIssues,
+  setMoreIssues,
+  setSelectedSpecificIssue,
 }) {
-  const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
-
-  //   console.log(issues.specific_issues_data[selectedSpecificIssue] || null);
-
   const getIssueName = () => {
     const bounds =
       boundary == 'council' ? 'Council Districts' : 'Community Boards';
@@ -33,6 +31,12 @@ export default function RightColumnHeader({
     ].join(' ');
 
     return sentence || null;
+  };
+
+  const getMetricDescription = () => {
+    return (
+      issues.specific_issues_data[specificIssue].specific_issue_name || null
+    );
   };
 
   if (type === 'solutions') {
@@ -84,47 +88,119 @@ export default function RightColumnHeader({
             >
               {getIssueName()}
             </h6>
-
-            {/* <div
-              className={'m-0 smaller-text'}
-              style={{
-                paddingRight: '0.5rem',
-                padding: '0 1.5rem',
-              }}
+          </div>
+        </div>
+      </div>
+    );
+  } else if (type === 'card') {
+    return (
+      <div
+        className={'d-flex flex-column'}
+        style={
+          target && toggleDisplayMode
+            ? { position: 'sticky', top: '0', zIndex: '2' }
+            : { position: 'relative' }
+        }
+      >
+        <div
+          className={`issues-chapters-active collapse-issue issues-chapters top-border transition-height`}
+        >
+          <div
+            className="position-relative issues-card-header"
+            style={{
+              gridGap: '0.33rem',
+              alignItems: 'center',
+            }}
+          >
+            <div
+              className="issues-card-title-container"
+              style={{ gridTemplateColumns: 'auto 1fr auto', gap: '0.5rem' }}
             >
-              {issues.specific_issues_data[selectedSpecificIssue]?.units}{' '}
-              <SourceInfo
-                issues={issues}
-                selectedSpecificIssue={selectedSpecificIssue}
-                setSelectedChapter={setSelectedChapter}
-              />
+              <h6 className="mb-0">{getMetricDescription()}</h6>
+              <p className={'m-0 smaller-text'}>
+                {issues.specific_issues_data[specificIssue].units}{' '}
+                <SourceInfo
+                  issues={issues}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  setSelectedChapter={setSelectedChapter}
+                />
+              </p>
+            </div>
 
-            </div> */}
-            {/* <div>
-              <div
-                className={`${
-                  target && selectedSpecificIssue ? `d-flex` : `d-none`
-                } switch-container flex-row`}
-                style={{
-                  alignContent: 'start',
-                  padding: '0 1.5rem',
-                }}
-              >
-                <p className={'m-0 d-inline-block smaller-text'}>
-                  {toggleDisplayMode ? `Show Histogram` : `Show List`}
-                </p>
-                <label className="m-0 switch">
-                  <input
-                    checked={toggleDisplayMode}
-                    type="checkbox"
-                    onChange={(e) => {
-                      setToggleDisplayMode(!toggleDisplayMode);
-                    }}
-                  />
-                  <span className="slider round m-0"></span>
-                </label>
-              </div>
-            </div> */}
+            <div
+              className={'issues-card-button-container small-col-gap x-mark'}
+            >
+              {forMoreIssues && (
+                <FontAwesomeIcon
+                  style={{ cursor: 'pointer' }}
+                  icon={faXmark}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (selectedSpecificIssue === specificIssue) {
+                      setSelectedSpecificIssue(null);
+                    }
+                    let newMoreIssues = moreIssues.filter(
+                      (issue) => issue !== specificIssue
+                    );
+                    console.log('newMoreIssues ', newMoreIssues);
+                    setMoreIssues(newMoreIssues);
+                  }}
+                />
+              )}
+            </div>
+            <HistogramToggle
+              target={target}
+              toggleDisplayMode={toggleDisplayMode}
+              setToggleDisplayMode={setToggleDisplayMode}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  } else if (type === 'notable') {
+    return (
+      <div
+        className={'heading-block d-flex flex-column'}
+        style={{ position: 'sticky', top: '0', zIndex: '1' }}
+      >
+        <div
+          className={`issues-chapters-active collapse-issue issues-chapters top-border transition-height`}
+        >
+          <div
+            className="position-relative d-grid "
+            style={{
+              gridTemplateColumns: 'auto auto',
+              gridGap: '0.33rem',
+              alignItems: 'center',
+            }}
+          >
+            <h6 className="mb-0">Notable Indicators</h6>
+            <p className={'m-0 smaller-text'}>
+              Below are the three worst spatial equity indicators in this{' '}
+              {boundary == 'council' ? 'district' : 'community board'}.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  } else if (type === 'more issues') {
+    return (
+      <div
+        className={'heading-block d-flex flex-column'}
+        style={{ position: 'sticky', top: '0', zIndex: '1' }}
+      >
+        <div
+          className={`issues-chapters-active collapse-issue issues-chapters top-border transition-height`}
+        >
+          <div
+            className="position-relative d-grid "
+            style={{
+              gridTemplateColumns: '1fr auto',
+              gridGap: '0.33rem',
+              alignItems: 'center',
+            }}
+          >
+            <h6 className="mb-0">More Issues</h6>
           </div>
         </div>
       </div>

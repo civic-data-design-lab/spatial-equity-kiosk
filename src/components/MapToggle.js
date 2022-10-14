@@ -61,6 +61,7 @@ export default function MapToggle({
               ? '1fr 1fr 1fr'
               : '1fr 1fr',
           width: selectedChapter == 2 && selectedSpecificIssue ? '9em' : '6em',
+          // marginRight: isMobile ? '0px' : '8px',
         }}
       >
         <div

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import IssuesCard from './IssuesCard';
 import IssuesTags from './IssuesTags';
+import RightColumnHeader from './RightColumnHeader';
 
 export default function CommunityProfile({
   selectedSpecificIssue,
@@ -68,16 +69,8 @@ export default function CommunityProfile({
     <div className={'community-profile-container'}>
       {!compareSearch ? (
         <>
-          <div>
-            <h6 className="">Notable Indicators—</h6>
+          <RightColumnHeader type="notable" />
 
-            <p className={'py-0'}>
-              {communitySearch
-                ? `Below are the three worst spatial equity indicators in this 
-                ${boundary === 'council' ? 'district' : 'community board'}.`
-                : ``}
-            </p>
-          </div>
           <div className={'d-flex flex-column row-gap cards-column'}>
             {(communities[communitySearch] &&
               communities[communitySearch].least_performing_issues.map(
@@ -158,7 +151,9 @@ export default function CommunityProfile({
                 ))}
           </div>
 
-          <h6 className={'bold mt-3'}>More Indicators</h6>
+          <RightColumnHeader type="more issues" />
+
+          {/* <h6 className={'bold mt-3'}>More Indicators</h6> */}
           <div className={'cards-column'}>
             <IssuesTags
               setCompareSearch={setCompareSearch}
