@@ -796,7 +796,7 @@ function App() {
             ) : (
                 <Container
                     className={
-                        'p-0 d-flex flex-column overflow-hidden position-relative container'
+                        'p-0 d-flex flex-column overflow-hidden position-relative container flex-grow-0'
                     }
                 >
                     <div className={`d-flex flex-column`} style={{zIndex: '10'}}>
@@ -843,8 +843,11 @@ function App() {
                         <div
                             id={'mobile-landing'}
                             style={{
-                                flexGrow: selectedChapter ? '0' : '2',
-                                height: selectedChapter ? 0 : '100%',
+                                zIndex: 3,
+                                flex: 1,
+                                minHeight: 0
+                                //flexGrow: selectedChapter ? '0' : '2',
+                                //height: selectedChapter ? 0 : '100%',
                             }}
                         >
                             <div
@@ -879,13 +882,13 @@ function App() {
                                             greenspaces — is designed, distributed, and accessed.
                                             Browse citywide data or search community profiles to learn
                                             how decisions about the use of public space lead to
-                                            unequal outcomes and what you can do about it. [testing4]
+                                            unequal outcomes and what you can do about it. [testing6]
                                         </p>
                                     </div>
                                 </div>
                                 <iframe
                                     className={'mobile-video'}
-                                    style={{height: selectedChapter ? '0' : '60vh'}}
+                                    style={{height: selectedChapter ? '0' : '100%'}}
                                     src="https://www.youtube.com/embed/tSGOYpNTc8k"
                                     title="YouTube video player"
                                     frameBorder="0"
