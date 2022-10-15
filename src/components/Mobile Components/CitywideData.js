@@ -270,7 +270,7 @@ export default function CitywideData({
   return (
     <div className={'mobile-citywide'}>
       {!showMap && !selectedSpecificIssue && (
-        <div className="h-100 d-flex flex-column">
+        <div className="h-100">
           <div
             className={`mobile-citywide-chapter
             ${
@@ -298,9 +298,7 @@ export default function CitywideData({
               }
             }}
           >
-            <div
-              className={`d-flex flex-row align-items-center justify-content-between`}
-            >
+
               <p
                 className={`mb-0 ${
                   !selectedSpecificIssue ? 'big-text' : 'no-text'
@@ -308,7 +306,6 @@ export default function CitywideData({
               >
                 Health
               </p>
-            </div>
             <p
               className={`mb-0 mobile-transition-font
                 ${
@@ -350,9 +347,7 @@ export default function CitywideData({
               }
             }}
           >
-            <div
-              className={`d-flex flex-row align-items-center justify-content-between`}
-            >
+
               <p
                 className={`mb-0 ${
                   !selectedSpecificIssue ? 'big-text' : 'no-text'
@@ -360,7 +355,6 @@ export default function CitywideData({
               >
                 Environment
               </p>
-            </div>
             <p
               className={`mb-0 mobile-transition-font
                 ${
@@ -401,9 +395,7 @@ export default function CitywideData({
               }
             }}
           >
-            <div
-              className={`d-flex flex-row align-items-center justify-content-between`}
-            >
+
               <p
                 className={`mb-0 ${
                   !selectedSpecificIssue ? 'big-text' : 'no-text'
@@ -411,7 +403,6 @@ export default function CitywideData({
               >
                 Infrastructure
               </p>
-            </div>
             <p
               className={`mb-0 mobile-transition-font
                 ${
