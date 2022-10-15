@@ -116,16 +116,16 @@ function App() {
     const [prevStates, setPrevStates] = useState([]);
 
 
-    useEffect(() => {
+/*    useEffect(() => {
         const documentHeight = () => {
-            const doc = document.documentElement
-            doc.style.setProperty(`--doc-height`, `${window.innerHeight}px`)
+            let html = document.getElementsByTagName('html')[0]
+            html.style.height = window.innerHeight + "px";
         }
         window.addEventListener('resize', documentHeight);
         return () => {
             window.removeEventListener('resize', documentHeight);
         }
-    }, []);
+    }, []);*/
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
@@ -882,7 +882,7 @@ function App() {
                                             greenspaces — is designed, distributed, and accessed.
                                             Browse citywide data or search community profiles to learn
                                             how decisions about the use of public space lead to
-                                            unequal outcomes and what you can do about it. [testing6]
+                                            unequal outcomes and what you can do about it. [testing7]
                                         </p>
                                     </div>
                                 </div>

@@ -10,7 +10,6 @@
     --health: #e85be8;
     --environment: #fc4b38;
     --infrastructure: #5080ea;
-    --doc-height: 100%;
 }
 
 ::selection {
@@ -18,19 +17,9 @@
     color: white
 }
 
-/*body {
-    height: 100%;
-}
-html {
-  height: 100%;
-}*/
 
-html, body {
-    padding: 0;
-    margin: 0;
-    height: 100vh;
-    height: var(--doc-height);
-}
+
+
 
 .container {
     height: 100%;
@@ -188,11 +177,22 @@ html, body {
 }
 
 /* Document */
+
+
+html {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+
 body {
     font-family: 'Inter', sans-serif !important;
     overflow: hidden;
-    height: 100vh;
     width: 100vw;
+    padding: 0;
+    margin: 0;
+    height: 100%;
 }
 
 #root {
