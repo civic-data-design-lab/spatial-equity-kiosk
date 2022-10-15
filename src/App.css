@@ -1737,7 +1737,12 @@ a:active {
     padding: 2rem 2rem 5rem 2rem;
 }
 
-.mobile-citywide,
+.mobile-citywide {
+    height: 100%;
+    overflow: hidden;
+    width: 100vw;
+}
+
 .mobile-community {
     display: flex;
     flex-direction: column;
@@ -2309,10 +2314,11 @@ input:checked+.slider:before {
 .mobile-citywide-chapter {
     display: flex;
     flex-direction: column;
-    flex-grow: 2;
+    flex: 0;
     cursor: pointer;
     transition: flex-grow 0.5s, padding 0.5s 0.5s, background-color 0.5s, color 0.5s, height 0.6s;
     background-color: white;
+
 }
 
 .mobile-citywide-content {

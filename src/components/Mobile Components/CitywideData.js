@@ -270,7 +270,7 @@ export default function CitywideData({
   return (
     <div className={'mobile-citywide'}>
       {!showMap && !selectedSpecificIssue && (
-        <div className="h-100 d-flex flex-column">
+        <div className="h-100">
           <div
             className={`mobile-citywide-chapter
             ${
