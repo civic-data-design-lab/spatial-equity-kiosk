@@ -22,9 +22,6 @@ const RankingTable = ({
                       }) => {
     const [expand, setExpand] = useState(defaultOpen);
 
-
-    console.log("ranking table ", issues.specific_issues_data[selectedSpecificIssue])
-
     return (
         <div
             style={{
@@ -55,10 +52,6 @@ const RankingTable = ({
                         issues.specific_issues_data[selectedSpecificIssue]?.json_id
                         ]
                         .map((entry, index) => {
-                            if (index == 0) {
-                                console.log("in 0 ", issues.specific_issues_data[selectedSpecificIssue].specific_issue_name)
-                            }
-
                             return (
                                 <tr
                                     key={index}
@@ -94,9 +87,6 @@ const RankingTable = ({
                         ]
 
                         .map((entry, index) => {
-                            if (index == 0) {
-                                console.log("in 1 ", issues.specific_issues_data[selectedSpecificIssue].specific_issue_name)
-                            }
                             return (
                                 <tr
                                     key={index}
