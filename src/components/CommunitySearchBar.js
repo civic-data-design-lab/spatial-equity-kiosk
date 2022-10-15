@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowRight,
-  faMinus,
-  faSleigh,
-} from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 import axios from 'axios';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';

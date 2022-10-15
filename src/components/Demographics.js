@@ -13,13 +13,10 @@ import Legend from './Legend';
 import IssuesGrid from './IssuesGrid';
 
 export default function Demographics({
-  selectedSpecificIssue,
   //  currentValue = null,
   currentValue = null,
-  items = null,
   setValue = null,
   showDemographics,
-  setShowDemographics,
   compareSearch,
   communitySearch,
   mapDemographics,
@@ -36,8 +33,6 @@ export default function Demographics({
   setToggleBike,
   demoLegendBins,
   demoColorRamp,
-  setDemoColorRamp,
-  setDemoLegendBins,
   demoLookup,
   showMap,
   info,

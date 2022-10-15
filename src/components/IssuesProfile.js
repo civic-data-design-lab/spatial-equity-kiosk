@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import categories from '../texts/issue_categories.json';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function IssueProfile({
   issues,

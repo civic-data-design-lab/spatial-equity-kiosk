@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useState } from 'react';
 import CommunityProfile from './CommunityProfile';
-
 import MapToggle from './MapToggle';
 
 export default function CommunityMiddleColumn({
@@ -19,7 +17,6 @@ export default function CommunityMiddleColumn({
   councils,
   setSelectedChapter,
   setSelectedAbout,
-  selectedCommunity,
   setCommunitySearch,
   addCompare,
   setCompareSearch,

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import _CHAPTER_COLORS from '../data/chapter_colors.json';
 import _RANKINGS from '../data/rankings.json';
@@ -94,6 +94,7 @@ const IssueHistogram = ({
   addCompare,
   displayModes,
   setDisplayModes,
+  target,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
@@ -925,6 +926,7 @@ const IssueHistogram = ({
           displayModes={displayModes}
           setDisplayModes={setDisplayModes}
           communityProfile={true}
+          target={target}
         />
       </div>
     </div>

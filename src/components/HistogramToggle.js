@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-import { default as _GLOBE_WHITE } from '../img/globe_white.svg';
-import { default as _GLOBE_BLACK } from '../img/globe_black.svg';
-import { default as _TILE_WHITE } from '../img/tile_white.svg';
-import { default as _TILE_BLACK } from '../img/tile_black.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartSimple, faList } from '@fortawesome/free-solid-svg-icons';

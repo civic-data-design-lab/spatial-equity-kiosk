@@ -4,11 +4,6 @@ import IssuesTileView from './IssuesTileView';
 import CommunityRightColumn from './CommunityRightColumn';
 import CommunityMiddleColumn from './CommunityMiddleColumn';
 import About from './About';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronLeft,
-  faChevronRight,
-} from '@fortawesome/free-solid-svg-icons';
 
 export default function Content({
   selectedChapter,
@@ -95,7 +90,11 @@ export default function Content({
             ? 'collapsed-middle-column'
             : 'col-4 no-top-border'
         }
-        ${selectedChapter === 3 && showMap ? "middle-transition-community" : "middle-transition"}
+        ${
+          selectedChapter === 3 && showMap
+            ? 'middle-transition-community'
+            : 'middle-transition'
+        }
         `}
       >
         {(selectedChapter === 2 ||
