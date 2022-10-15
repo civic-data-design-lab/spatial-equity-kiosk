@@ -17,13 +17,13 @@ export default function MobileFixedHeader({
   return (
     <div className={'mobile-nav-header'}>
       <div>
-        <p className={'m-0 small-font'}>
+        {/* <p className={'m-0 small-font'}>
           {selectedChapter === 1
             ? 'What is'
             : selectedChapter < 4
             ? 'Explore Spatial Equity by'
             : 'Learn More'}
-        </p>
+        </p> */}
         <h4 className={'m-0'}>
           {selectedChapter === 1
             ? 'Spatial Equity'

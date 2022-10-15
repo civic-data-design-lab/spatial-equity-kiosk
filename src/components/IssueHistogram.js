@@ -92,8 +92,8 @@ const IssueHistogram = ({
   specificIssue,
   setCompareSearch,
   addCompare,
-  displayModes,
-  setDisplayModes,
+  displayModes = null,
+  setDisplayModes = null,
   target,
 }) => {
   const ref = useRef();
@@ -869,7 +869,12 @@ const IssueHistogram = ({
   return (
     <div>
       <div
-        style={{ display: displayModes[selectedSpecificIssue] ? 'none' : '' }}
+        style={{
+          display:
+            displayModes != null && displayModes[selectedSpecificIssue]
+              ? 'none'
+              : '',
+        }}
         className={'m-0 small-font px-4 py-3'}
       >
         {getRankingNarrative(issues.specific_issues_data[specificIssue], avg)}{' '}
@@ -883,7 +888,12 @@ const IssueHistogram = ({
         }}
       >
         <svg
-          style={{ display: displayModes[selectedSpecificIssue] ? 'none' : '' }}
+          style={{
+            display:
+              displayModes != null && displayModes[selectedSpecificIssue]
+                ? 'none'
+                : '',
+          }}
           ref={ref}
         >
           {/* Main Chart */}

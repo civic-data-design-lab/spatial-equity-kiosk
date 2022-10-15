@@ -12,7 +12,7 @@ export default function BoundaryToggle({
   return (
     <div
       className={`${isMobile ? `m-0` : ''} w-100 boundary-toggle`}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: 'pointer', flexGrow: isMobile ? '2' : '' }}
     >
       <div
         className={`boundary-toggle-item ${

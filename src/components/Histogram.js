@@ -5,19 +5,10 @@ import _BOROUGH_COLORS from '../data/borough_colors.json';
 import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS_TEXTS from '../texts/councildistricts.json';
 import { useResizeObserver } from '../utils/useResizeObserver';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faMinus,
-  faPlus,
-  faXmark,
-  faCaretDown,
-  faCaretUp,
-} from '@fortawesome/free-solid-svg-icons';
 import RankingTable from './RankingTable';
 import _COUNCILDISTRICTS from '../data/council_districts.json';
 import _COMMUNITYBOARDS from '../data/community_boards.json';
 import SourceInfo from './SourceInfo';
-import HistogramToggle from './HistogramToggle';
 
 import { getNumber } from '../utils/functions';
 
@@ -28,12 +19,6 @@ const getRgb = (color) => {
     g,
     b,
   };
-};
-
-const getBbox = (selection) => {
-  selection.each(function (d) {
-    d.bbox = this.getBBox();
-  });
 };
 
 const unique = (arr) => {
@@ -122,23 +107,18 @@ const Histogram = ({
   compareSearch,
   userPoints,
   setUserPoints,
-  selectedCoord,
   setSelectedCoord,
   setSearchSource,
   useBoroughColor,
-  setUseBoroughColor,
-  isHovering,
-  setIsHovering,
   toggleDisplayMode,
-  setToggleDisplayMode,
+  expanded = false,
+  citywideTab = false,
 
   // mobile only
   isMobile = false,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
-
-  const [citywideExpand, setCitywideExpand] = useState(true);
 
   const getIssueStatement = (value, average) => {
     if (selectedSpecificIssue) {
@@ -1170,8 +1150,9 @@ const Histogram = ({
             communitySearch={communitySearch}
             compareSearch={compareSearch}
             toggleDisplayMode={toggleDisplayMode}
-            defaultOpen={citywideExpand}
-            citywideTab={true}
+            expanded={expanded}
+            citywideTab={citywideTab}
+            isMobile={isMobile}
           />
         </div>
       </div>
@@ -1284,98 +1265,6 @@ const Histogram = ({
           ''
         )}
       </div>
-
-      {/* <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr auto',
-          gap: '0.5rem',
-          alignContent: 'start',
-          padding: '0.5rem 1.5rem 0.5rem 1.5rem',
-          border: '2px solid black',
-          borderLeft: 'none',
-          borderRight: 'none',
-        }}
-      >
-        <div className={`d-flex switch-container flex-row `}>
-          <label className="switch">
-            <input
-              type="checkbox"
-              checked={toggleDisplayMode}
-              onChange={(e) => {
-                setToggleDisplayMode(!toggleDisplayMode);
-              }}
-            />
-            <span className="slider round"></span>
-          </label>
-
-          <p className={'small-font d-inline-block big-button m-0'}>
-            {toggleDisplayMode ? `Show Histogram` : `Show List`}
-          </p>
-        </div>
-
-        {!toggleDisplayMode && (
-          <div>
-            <div
-              className={`big-button ${
-                useBoroughColor ? 'big-button-active' : 'big-button-inactive'
-              } small-font`}
-              style={{
-                display: 'inline-block',
-                justifyContent: '',
-                width: 'auto',
-                whiteSpace: 'nowrap',
-              }}
-              onClick={() => {
-                setUseBoroughColor(!useBoroughColor);
-              }}
-            >
-              {useBoroughColor ? `Hide Borough ` : `Show Borough `}
-              {useBoroughColor ? (
-                <FontAwesomeIcon icon={faMinus} />
-              ) : (
-                <FontAwesomeIcon icon={faPlus} />
-              )}
-            </div>
-          </div>
-        )}
-
-        <div>
-          <div
-            className={`big-button ${
-              isHovering ? 'big-button-active' : 'big-button-inactive'
-            } small-font`}
-            style={{
-              justifyContent: '',
-              width: 'auto',
-              visibility:
-                (!toggleDisplayMode &&
-                  boundary == 'council' &&
-                  councilPinned.length > 0) ||
-                (!toggleDisplayMode &&
-                  boundary == 'community' &&
-                  communityPinned.length > 0)
-                  ? ''
-                  : 'hidden',
-            }}
-            onMouseOver={() => {
-              setIsHovering(true);
-            }}
-            onMouseLeave={() => {
-              setIsHovering(false);
-            }}
-            onClick={() => {
-              if (boundary == 'council') {
-                setCouncilPinned([]);
-              } else {
-                setCommunityPinned([]);
-              }
-            }}
-          >
-            Clear All <FontAwesomeIcon icon={faXmark} />
-          </div>
-        </div>
-      </div> */}
     </>
   );
 };

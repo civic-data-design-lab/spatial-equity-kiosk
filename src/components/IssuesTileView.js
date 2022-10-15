@@ -150,6 +150,7 @@ export default function IssuesTileView({
                     setIsHovering={setIsHovering}
                     toggleDisplayMode={toggleDisplayMode}
                     setToggleDisplayMode={setToggleDisplayMode}
+                    expanded={true}
                   />
                 )}
               </div>

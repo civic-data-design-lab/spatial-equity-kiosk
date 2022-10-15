@@ -799,8 +799,6 @@ a:active {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* border-bottom: 2px solid black; */
-    /* border-left: 1px solid white; */
     cursor: pointer;
 }
 
@@ -846,11 +844,6 @@ a:active {
     padding: 0;
 }
 
-.demo-body {
-    transition: height 0.5s, padding 0.4s;
-    overflow: scroll;
-}
-
 .invis {
     max-height: 0;
     opacity: 0;
@@ -882,7 +875,7 @@ a:active {
     margin: 0rem !important;
     padding: 1.5rem 1.5rem !important;
     pointer-events: all;
-    overflow-y: scroll;
+    overflow-y: overlay;
 }
 
 .expand-issue::-webkit-scrollbar {
@@ -2381,6 +2374,10 @@ input:checked+.slider:before {
     z-index: 1;
 }
 
+.citywide-non-map-content>*:not(.mobile-histogram) {
+    padding: 1rem;
+}
+
 .category-dropdown {
     height: 100%;
     display: flex;
@@ -2539,6 +2536,9 @@ input:checked+.slider:before {
 
 
 @media screen and (max-width: 576px) {
+    .big-button {
+        padding: 1rem
+    }
 
     .typewriter-container>* {
         /* padding: 1rem 0; */
@@ -2552,8 +2552,8 @@ input:checked+.slider:before {
 
 
     ::-webkit-scrollbar {
-        width: 8px;
-        /* display: none; */
+        /* width: 8px; */
+        display: none;
     }
 
     .small-text {

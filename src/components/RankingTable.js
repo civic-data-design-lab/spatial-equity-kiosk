@@ -14,21 +14,22 @@ const RankingTable = ({
   communitySearch,
   compareSearch,
   toggleDisplayMode,
-  defaultOpen = false,
+  expanded = false,
   citywideTab = false,
   addCompare = false,
   displayModes = null,
   communityProfile = false,
   target = null,
+  isMobile = false,
 }) => {
-  const [expand, setExpand] = useState(defaultOpen);
+  const [expand, setExpand] = useState(expanded);
 
   return (
     <div
       style={{
         display:
           (communityProfile &&
-            displayModes[selectedSpecificIssue] &&
+            displayModes &&
             displayModes[selectedSpecificIssue] == true) ||
           (!communityProfile && toggleDisplayMode)
             ? ''
@@ -222,7 +223,7 @@ ${
         </tbody>
       </Table>
 
-      {!citywideTab && (
+      {(!citywideTab || isMobile) && (
         <div
           style={
             expand
@@ -238,7 +239,14 @@ ${
             setExpand(!expand);
           }}
         >
-          {target && <RightColumnHeader type={'collapse'} expand={expand} />}
+          {(target || (citywideTab && isMobile)) && (
+            <RightColumnHeader
+              type={'collapse'}
+              expand={expand}
+              isMobile={isMobile}
+              citywideTab={citywideTab}
+            />
+          )}
         </div>
       )}
     </div>

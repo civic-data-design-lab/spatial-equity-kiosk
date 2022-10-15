@@ -125,11 +125,13 @@ export default function MapToggle({
           }}
           onMouseEnter={() => {
             setHover(
-              `Chart ${
-                boundary === 'council'
-                  ? 'Council Districts'
-                  : 'Community Boards'
-              }`
+              selectedChapter == 3 && showMap
+                ? 'View Community Profile'
+                : `Chart ${
+                    boundary === 'council'
+                      ? 'Council Districts'
+                      : 'Community Boards'
+                  }`
             );
           }}
           onMouseLeave={() => {
