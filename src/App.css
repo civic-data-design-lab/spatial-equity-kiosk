@@ -18,11 +18,15 @@
 }
 
 body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+    height: 100%;
 }
 html {
-  height: -webkit-fill-available;
+  height: 100%;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
 }
 
 /* site border */

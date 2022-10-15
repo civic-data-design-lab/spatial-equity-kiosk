@@ -785,7 +785,7 @@ function App() {
       ) : (
         <Container
           className={
-            'p-0 h-100 d-flex flex-column overflow-hidden position-relative'
+            'p-0 d-flex flex-column overflow-hidden position-relative container'
           }
         >
           <div className={`d-flex flex-column`} style={{ zIndex: '10' }}>
@@ -868,7 +868,7 @@ function App() {
                       greenspaces — is designed, distributed, and accessed.
                       Browse citywide data or search community profiles to learn
                       how decisions about the use of public space lead to
-                      unequal outcomes and what you can do about it. [testing]
+                      unequal outcomes and what you can do about it. [testing1]
                     </p>
                   </div>
                 </div>
