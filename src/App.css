@@ -17,6 +17,14 @@
     color: white
 }
 
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+html {
+  height: -webkit-fill-available;
+}
+
 /* site border */
 /* #border {
     position: fixed;
@@ -2250,7 +2258,7 @@ input:checked+.slider:before {
 }
 
 .mobile-landing-video {
-    height: 60vh;
+    height: 60%;
     position: relative;
 }
 

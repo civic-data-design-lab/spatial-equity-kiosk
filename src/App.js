@@ -833,7 +833,7 @@ function App() {
               id={'mobile-landing'}
               style={{
                 flexGrow: selectedChapter ? '0' : '2',
-                height: selectedChapter ? 0 : '100vh',
+                height: selectedChapter ? 0 : '100%',
               }}
             >
               <div
@@ -884,12 +884,12 @@ function App() {
               </div>
               <div
                 className={'mobile-landing-menu'}
-                style={{ height: selectedChapter ? '0' : '40vh' }}
+                style={{ height: selectedChapter ? '0' : '40%' }}
               >
                 <div
                   className={'mobile-landing-menu-item'}
                   style={{
-                    height: selectedChapter ? '0' : '10vh',
+                    height: selectedChapter ? '0' : '25%',
                     padding: selectedChapter ? 0 : '0.5rem 1rem',
                     borderBottom: selectedChapter ? 'none' : '1px solid black',
                   }}
@@ -922,7 +922,7 @@ function App() {
                 <div
                   className={'mobile-landing-menu-item'}
                   style={{
-                    height: selectedChapter ? '0' : '10vh',
+                    height: selectedChapter ? '0' : '25%',
                     padding: selectedChapter ? 0 : '0.5rem 1rem',
                     borderBottom: selectedChapter ? 0 : '1px solid black',
                   }}
@@ -955,7 +955,7 @@ function App() {
                 <div
                   className={'mobile-landing-menu-item'}
                   style={{
-                    height: selectedChapter ? '0' : '10vh',
+                    height: selectedChapter ? '0' : '25%',
                     padding: selectedChapter ? 0 : '0.5rem 1rem',
                     borderBottom: selectedChapter ? 0 : '1px solid black',
                   }}
@@ -989,7 +989,7 @@ function App() {
                 <div
                   className={'mobile-landing-menu-item'}
                   style={{
-                    height: selectedChapter ? '0' : '10vh',
+                    height: selectedChapter ? '0' : '25%',
                     padding: selectedChapter ? 0 : '0.5rem 1rem',
                     borderBottom: selectedChapter ? 0 : '1px solid black',
                   }}
