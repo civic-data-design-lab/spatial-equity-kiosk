@@ -13,6 +13,7 @@ const subheadings = [
   'Solutions',
   'About NYC 25x25',
   'Contact Us',
+  'Attribution',
   'Credits',
   'About the Data',
 ];
@@ -282,6 +283,18 @@ export default function About({
             {subheadings[8]}
           </h6>
         </a>
+
+        <a
+          href={'#content-10'}
+          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border ${
+            currentStepIndex == 10 ? 'nav-chapters-active' : ''
+          }`}
+        >
+          <h6 className={'menu-item'} id={'menu-9'}>
+            {subheadings[9]}
+          </h6>
+        </a>
+
       </div>
 
       <div
@@ -712,7 +725,33 @@ export default function About({
                   <h4 className={'mb-0 bold'}></h4>
                 </div> */}
               <div className={'scroll-content'} id={'content-8'}>
-                <h6 className={'bold'}>About Transportation Alternatives</h6>
+                <h6 className={'bold'}>Attribution</h6>
+                <p>
+                Reporters and researchers using Spatial Equity NYC as a source should credit: Spatial Equity NYC, a data tool from Transportation Alternatives and the Massachusetts Institute of Technology. Please link: spatialequity.nyc or the relevant page of this site. Reporters should also also reach out to press@transalt.org for a quote or additional media inquiries.
+                </p>
+
+              
+              </div>
+            </div>
+          </Step>
+
+          <div className={'spacer'} />
+
+          <Step data={9} id={9}>
+            <div
+              className={'scroll-body'}
+              style={
+                {
+                  // opacity: currentStepIndex === 9 ? 1 : 0.2,
+                }
+              }
+            >
+              {/*<div className={'spacer'} />*/}
+              {/* <div className={'scroll-title'}>
+                  <h4 className={'mb-0 bold'}></h4>
+                </div> */}
+              <div className={'scroll-content'} id={'content-9'}>
+                <h6 className={'bold'}> About Transportation Alternatives</h6>
                 <p>
                   Transportation Alternatives (TA) is a New York City-based
                   501(c)3 advocacy organization whose mission is to reclaim New
@@ -794,7 +833,7 @@ export default function About({
 
           <div className={'spacer'} />
 
-          <Step data={9} id={9}>
+          <Step data={10} id={10}>
             <div
               className={'scroll-body'}
               style={
@@ -807,7 +846,7 @@ export default function About({
               {/* <div className={'scroll-title'}>
                   <h4 className={'mb-0 bold'}></h4>
                 </div> */}
-              <div className={'scroll-content'} id={'content-9'}>
+              <div className={'scroll-content'} id={'content-10'}>
                 <h6 className={'bold'}> Methodology and Data Sources </h6>
                 <p>
                   All of the data on Spatial Equity NYC was collected from
@@ -878,6 +917,7 @@ export default function About({
               </div>
             </div>
           </Step>
+
         </Scrollama>
       </div>
     </div>
