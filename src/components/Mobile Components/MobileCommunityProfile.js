@@ -107,11 +107,11 @@ export default function MobileCommunityProfile({
   const getHyperlinkText = (texts) => {
     return (
       <p className={'mb-0 small-font'}>
-        {texts.map((texts) => {
+        {texts.map((textData) => {
           return (
-            <span key={texts.text} className={texts.bolded ? 'bold' : ''}>
-              {texts.text}
-              {texts.hyperlink && (
+            <span key={textData.text} className={textData.bolded ? 'bold' : ''}>
+              {textData.text}
+              {textData.hyperlink && (
                 <span
                   className={`${
                     categories.labels[
@@ -127,10 +127,10 @@ export default function MobileCommunityProfile({
                           .issue_type_ID
                       ]
                     }`}
-                    href={texts.source}
+                    href={textData.source}
                     target="_blank"
                   >
-                    {texts.hyperlink}
+                    {textData.hyperlink}
                   </a>
                 </span>
               )}
