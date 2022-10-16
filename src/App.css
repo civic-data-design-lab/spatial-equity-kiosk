@@ -1005,7 +1005,7 @@ a:active {
 }
 
 .map-pinned {
-    position: fixed;
+    position: absolute;
     width: max-content;
     transition: 0.5s ease-in-out;
     cursor: crosshair;
