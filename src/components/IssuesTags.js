@@ -23,6 +23,9 @@ export default function IssuesTags({
   setCompareSearch,
   displayModes,
   setDisplayModes,
+
+  // mobile only
+  isMobile = false,
 }) {
   // TODO: all tags when communitySearch && compareSearch
 
@@ -48,6 +51,7 @@ export default function IssuesTags({
                 // }
               >
                 <IssuesCard
+                  isMobile={isMobile}
                   target={
                     selectedSpecificIssue && selectedSpecificIssue !== issue
                       ? false

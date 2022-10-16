@@ -17,7 +17,7 @@ export default function MapToggle({
   setToggleDisplayMode,
   selectedSpecificIssue,
   displayModes = null,
-  setDisplayModes,
+  setDisplayModes = null,
   isCommunityProfile = false,
 
   // mobile only
@@ -79,7 +79,7 @@ export default function MapToggle({
                 setToggleDisplayMode(true);
               }
 
-              if (isCommunityProfile) {
+              if (isCommunityProfile || (selectedChapter === 3 && isMobile)) {
                 setDisplayModes({
                   ...displayModes,
                   [selectedSpecificIssue]: true,
@@ -116,7 +116,7 @@ export default function MapToggle({
             if (!isCommunityProfile && toggleDisplayMode) {
               setToggleDisplayMode(false);
             }
-            if (isCommunityProfile) {
+            if (isCommunityProfile || (selectedChapter === 3 && isMobile)) {
               setDisplayModes({
                 ...displayModes,
                 [selectedSpecificIssue]: false,

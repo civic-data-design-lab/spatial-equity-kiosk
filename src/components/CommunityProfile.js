@@ -23,6 +23,9 @@ export default function CommunityProfile({
   setCompareSearch,
   displayModes,
   setDisplayModes,
+
+  // mobile only
+  isMobile = false,
 }) {
   useEffect(() => {
     if (moreIssues && communitySearch && !compareSearch) {
@@ -75,6 +78,7 @@ export default function CommunityProfile({
             type="notable"
             displayModes={displayModes}
             selectedSpecificIssue={selectedSpecificIssue}
+            isMobile={isMobile}
           />
 
           <div className={'d-flex flex-column cards-column'}>
@@ -82,15 +86,9 @@ export default function CommunityProfile({
               communities[communitySearch].least_performing_issues.map(
                 (issue, index) => {
                   return (
-                    <div
-                      key={index}
-                      // className={
-                      //   selectedSpecificIssue && selectedSpecificIssue !== issue
-                      //     ? 'opacity-50'
-                      //     : ''
-                      // }
-                    >
+                    <div key={index}>
                       <IssuesCard
+                        isMobile={isMobile}
                         displayModes={displayModes}
                         setDisplayModes={setDisplayModes}
                         setCompareSearch={setCompareSearch}
@@ -124,6 +122,7 @@ export default function CommunityProfile({
                     return (
                       <div key={index}>
                         <IssuesCard
+                          isMobile={isMobile}
                           displayModes={displayModes}
                           setDisplayModes={setDisplayModes}
                           setCompareSearch={setCompareSearch}
@@ -153,11 +152,12 @@ export default function CommunityProfile({
                 ))}
           </div>
 
-          <RightColumnHeader type="more issues" />
+          <RightColumnHeader type="more issues" isMobile={isMobile} />
 
           {/* <h6 className={'bold mt-3'}>More Indicators</h6> */}
           <div className={'cards-column'}>
             <IssuesTags
+              isMobile={isMobile}
               displayModes={displayModes}
               setDisplayModes={setDisplayModes}
               setCompareSearch={setCompareSearch}
@@ -191,6 +191,7 @@ export default function CommunityProfile({
         <>
           <div className={'cards-column'}>
             <IssuesTags
+              isMobile={isMobile}
               displayModes={displayModes}
               setDisplayModes={setDisplayModes}
               setCompareSearch={setCompareSearch}
@@ -226,6 +227,7 @@ export default function CommunityProfile({
         <div className="modal-background">
           <div className={'modal-card'}>
             <IssuesCard
+              isMobile={isMobile}
               displayModes={displayModes}
               setDisplayModes={setDisplayModes}
               setCompareSearch={setCompareSearch}
