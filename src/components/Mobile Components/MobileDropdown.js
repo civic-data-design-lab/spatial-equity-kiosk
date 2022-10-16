@@ -2,7 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCaretDown,
   faCaretUp,
-  faChevronRight,
+  faCaretRight,
+  faPlay,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default function MobileDropdown({
@@ -30,7 +31,7 @@ export default function MobileDropdown({
               <div>
                 {selectedChapter && issue_categories.labels[selectedIssue]}
               </div>
-              <FontAwesomeIcon icon={faChevronRight} />
+              <FontAwesomeIcon icon={faPlay} />
               <div className={'ellipses'}>
                 {selectedSpecificIssue &&
                   issues.specific_issues_data[selectedSpecificIssue]
