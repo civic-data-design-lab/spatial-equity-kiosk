@@ -242,8 +242,8 @@ export default function CommunitySearchBar({
           }}
           onClick={(e) => {
             e.stopPropagation();
-            setResize(true);
-            setResizeIssues(false);
+            setResize && setResize(true);
+            setResizeIssues && setResizeIssues(false);
             callBack(null);
             if (forSearch) {
               setUserPoints([[], userPoints[1]]);
