@@ -183,7 +183,7 @@ export default function About({
     <div id={'about-container'} ref={aboutContainerRef}>
       <div
         className={'scroll-menu-box flex-column border-box'}
-        style={isMobile ? { right: showMenu ? 0 : '-25%' } : {}}
+        style={isMobile ? { right: showMenu ? 0 : '-33%' } : {}}
       >
         <a
           href={'#content-1'}
@@ -737,7 +737,6 @@ export default function About({
                 }`}
                 id={'content-8'}
               >
-                
                 <p>
                   Reporters and researchers using Spatial Equity NYC as a source
                   should credit: Spatial Equity NYC, a data tool from

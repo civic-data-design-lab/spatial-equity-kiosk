@@ -2664,9 +2664,10 @@ input:checked+.slider:before {
         position: fixed;
         top: calc(70px + 4rem);
         height: calc(100% - 70px - 4rem);
-        width: 25%;
+        width: 33%;
         border-top: none;
         border-right: none;
+        border-bottom: none;
         border-left: 2px solid black;
         z-index: 2;
         display: flex;
@@ -2674,8 +2675,8 @@ input:checked+.slider:before {
 
 
         /* Allow some readability underneath menu */
-        background-color: rgba(255, 255, 255, 0.25);
-        backdrop-filter: blur(1px);
+        background-color: rgba(255, 255, 255, 0.9);
+        /* backdrop-filter: blur(1px); */
 
         /* Animate the sliding in and out */
         transition: right 300ms ease-in-out;
