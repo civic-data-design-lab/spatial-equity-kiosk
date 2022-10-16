@@ -15,7 +15,9 @@ export default function MobileFixedHeader({
   selectedSpecificIssue,
 }) {
   return (
-    <div className={'mobile-nav-header'}>
+    <div className={'mobile-nav-header'}
+         style={{height:selectedChapter===4?"2.5rem":''}}
+    >
       <div>
         {/* <p className={'m-0 small-font'}>
           {selectedChapter === 1

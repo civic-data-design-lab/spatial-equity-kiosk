@@ -187,7 +187,7 @@ export default function About({
       >
         <a
           href={'#content-1'}
-          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border ${
+          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-center no-left-border no-right-border ${
             currentStepIndex == 1 ? 'nav-chapters-active' : ''
           }`}
         >
@@ -198,7 +198,7 @@ export default function About({
 
         <a
           href={'#content-2'}
-          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border ${
+          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-center no-left-border no-right-border ${
             currentStepIndex == 2 ? 'nav-chapters-active' : ''
           }`}
         >
@@ -209,7 +209,7 @@ export default function About({
 
         <a
           href={'#content-3'}
-          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border ${
+          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-center no-left-border no-right-border ${
             currentStepIndex == 3 ? 'nav-chapters-active' : ''
           }`}
         >
@@ -220,7 +220,7 @@ export default function About({
 
         <a
           href={'#content-4'}
-          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border ${
+          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-center no-left-border no-right-border ${
             currentStepIndex == 4 ? 'nav-chapters-active' : ''
           }`}
         >
@@ -231,7 +231,7 @@ export default function About({
 
         <a
           href={'#content-5'}
-          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border ${
+          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-center no-left-border no-right-border ${
             currentStepIndex == 5 ? 'nav-chapters-active' : ''
           }`}
         >
@@ -242,7 +242,7 @@ export default function About({
 
         <a
           href={'#content-6'}
-          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border ${
+          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-center no-left-border no-right-border ${
             currentStepIndex == 6 ? 'nav-chapters-active' : ''
           }`}
         >
@@ -253,7 +253,7 @@ export default function About({
 
         <a
           href={'#content-7'}
-          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border ${
+          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-center no-left-border no-right-border ${
             currentStepIndex == 7 ? 'nav-chapters-active' : ''
           }`}
         >
@@ -264,7 +264,7 @@ export default function About({
 
         <a
           href={'#content-8'}
-          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border  ${
+          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-center no-left-border no-right-border  ${
             currentStepIndex == 8 ? 'nav-chapters-active' : ''
           }`}
         >
@@ -275,7 +275,7 @@ export default function About({
 
         <a
           href={'#content-9'}
-          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border ${
+          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-center no-left-border no-right-border ${
             currentStepIndex == 9 ? 'nav-chapters-active' : ''
           }`}
         >
@@ -286,7 +286,7 @@ export default function About({
 
         <a
           href={'#content-10'}
-          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border ${
+          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-center no-left-border no-right-border ${
             currentStepIndex == 10 ? 'nav-chapters-active' : ''
           }`}
         >

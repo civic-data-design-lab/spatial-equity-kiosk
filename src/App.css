@@ -2166,6 +2166,7 @@ input:checked+.slider:before {
     border-top: none;
     min-height: 0;
     cursor: pointer;
+    font-size: 2vh;
 }
 
 .scroll-menu-chapters:hover {
@@ -2655,17 +2656,15 @@ input:checked+.slider:before {
     .scroll-menu-box {
         /* Align underneath title box */
         position: fixed;
-        top: 130px;
-
-        /* Prevent cutoff at bottom */
-        padding-bottom: 70px;
-
+        top: calc(70px + 2.5rem);
+        height: calc(100% - 70px - 2.5rem) ;
         width: 25%;
-        height: 100vh;
         border-top: none;
         border-right: none;
         border-left: 2px solid black;
         z-index: 2;
+        display: flex;
+        justify-content: space-between;
 
         /* Allow some readability underneath menu */
         background-color: rgba(255, 255, 255, 0.25);
