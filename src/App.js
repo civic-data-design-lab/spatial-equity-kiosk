@@ -1284,6 +1284,8 @@ function App() {
               colorRamp={colorRamps}
               collapseMap={collapseMap}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
+              communitySearch={communitySearch}
+              compareSearch={compareSearch}
               // mobile only
               showDropDown={showDropDown}
               setShowDropDown={setShowDropDown}

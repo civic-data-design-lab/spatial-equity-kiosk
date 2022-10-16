@@ -1184,11 +1184,6 @@ a:active {
     width: auto;
 }
 
-
-.map-notable-indicators {
-    /* border: 2px solid black; */
-}
-
 .map-notable-indicators>* {
     background: white;
     padding: 0.25em 0.5em;
@@ -1860,7 +1855,7 @@ a:active {
 }
 
 .transition-height {
-    transition: max-height 0.5s, font-size 0.5s, opacity 0.5s;
+    transition: height 0.5s, max-height 0.5s, font-size 0.5s, opacity 0.5s;
 }
 
 .transition-color {
@@ -2551,6 +2546,39 @@ input:checked+.slider:before {
 
 
 @media screen and (max-width: 576px) {
+
+
+    .map-notable-container {
+        position: absolute;
+        z-index: 3;
+        bottom: 10%;
+        left: 0rem;
+        width: 100vw;
+        display: block;
+        background-color: black;
+    }
+
+    .map-notable-indicators {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+
+    }
+
+    .map-notable-indicators>* {
+        padding: 0.5rem;
+        height: 100%;
+        width: 100%;
+    }
+
+    .map-notable-indicators>:first-child {
+        grid-column: 1 / span 3;
+    }
+
+    .map-notable-indicators>*:not(:first-child) {
+        border: none;
+    }
+
+
     .big-button {
         padding: 1rem
     }

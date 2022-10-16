@@ -36,7 +36,12 @@ const colorInterpolate = (colorA, colorB, intval) => {
   return [colorVal('r'), colorVal('g'), colorVal('b')];
 };
 
-const getDataToVis = (rawIssueData, rawIssueGoodBad) => {
+const getDataToVis = (
+  rawIssueData,
+  selectedSpecificIssue,
+  issues,
+  rawIssueGoodBad
+) => {
   let valueArray = [];
   let nameArray = [];
   let ascending;
@@ -50,9 +55,15 @@ const getDataToVis = (rawIssueData, rawIssueGoodBad) => {
     lookupArray.push(value.community_ID);
   }
 
+  const isTemperature =
+    issues.specific_issues_data[selectedSpecificIssue].json_id == 'F14_TmpDev'
+      ? true
+      : false;
+
   // get the corresponding index of average value
   let sum = valueArray.reduce((a, b) => a + b, 0);
-  let avg = Number(sum / valueArray.length);
+  // let avg = Number(sum / valueArray.length);
+  let avg = isTemperature ? 0 : Number(sum / valueArray.length);
   let avgIndex;
 
   for (let i = 0; i < valueArray.length - 1; i++) {
@@ -76,7 +87,15 @@ const getDataToVis = (rawIssueData, rawIssueGoodBad) => {
     avgIndex = valueArray.length - avgIndex;
   }
 
-  return [valueArray, nameArray, avg, avgIndex, ascending, lookupArray];
+  return [
+    valueArray,
+    nameArray,
+    avg,
+    avgIndex,
+    ascending,
+    lookupArray,
+    isTemperature,
+  ];
 };
 
 const IssueHistogram = ({
@@ -215,10 +234,8 @@ const IssueHistogram = ({
     ];
   let rawIssueGoodBad =
     issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
-  let [data, nameArray, avg, avgIndex, ascending, lookupArray] = getDataToVis(
-    rawIssueData,
-    rawIssueGoodBad
-  );
+  let [data, nameArray, avg, avgIndex, ascending, lookupArray, isTemperature] =
+    getDataToVis(rawIssueData, selectedSpecificIssue, issues, rawIssueGoodBad);
 
   let selectedIndex = communitySearch
     ? rawIssueGoodBad
@@ -587,9 +604,11 @@ const IssueHistogram = ({
       //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
-        `${getNumber(
-          data[Math.round(svg.select('#avgLine').attr('index'))]
-        )}${metricSymbol}`
+        `${
+          isTemperature
+            ? '98.6'
+            : getNumber(data[Math.round(svg.select('#avgLine').attr('index'))])
+        }${metricSymbol}`
       );
 
     // let showSelectedText = !(

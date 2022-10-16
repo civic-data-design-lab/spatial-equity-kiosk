@@ -244,6 +244,7 @@ export default function DeckMap({
   const [underperformers, setUnderperformers] = useState(null);
   const [transportationModesArray, setTransportationModesArray] = useState([]);
   const [highlightFeature, sethighlightFeature] = useState(null);
+  const [showNotable, setShowNotable] = useState(true);
 
   // console.log(tooltipCompData1, tooltipCompData2);
 
@@ -1317,6 +1318,12 @@ export default function DeckMap({
       stroked: true,
 
       getLineColor: (f) => {
+        console.log(
+          boundary == 'council' ? f.properties.CounDist : f.properties.CDTA2020,
+          communitySearch,
+          compareSearch
+        );
+        // return [255, 0, 0, 255];
         if (
           (boundary == 'council' &&
             (f.properties.CounDist == communitySearch ||
@@ -1453,13 +1460,18 @@ export default function DeckMap({
           isTouchingMapMobile.current = true;
           setShowLegend(false);
         }
+        if (isMobile && showNotable) setShowNotable(false);
       }}
       onTouchEnd={() => {
         if (isMobile && !showLegend && isTouchingMapMobile.current == true)
           setShowLegend(true);
+        setShowNotable(true);
       }}
     >
-      <div className="map-notable-container">
+      <div
+        className="map-notable-container transition-height overflow-hidden"
+        style={isMobile ? { maxHeight: showNotable ? '20vh' : '0' } : {}}
+      >
         {selectedCommunity && (
           <MapNotableIndicators
             selectedCommunity={selectedCommunity}

@@ -40,7 +40,7 @@ export default function Demographics({
   issue_categories,
 
   // mobile only
-  isMobile,
+  isMobile = false,
   showLegend = false,
 }) {
   const demographics = {
@@ -152,6 +152,7 @@ export default function Demographics({
           className={`demographics-container row-gap ${
             showDemographics ? 'expand-demographic' : 'collapse-demographic'
           }`}
+          style={{ paddingBottom: isMobile ? '0' : '' }}
         >
           {(!isMobile || (isMobile && showLegend)) && (
             <div className={'dropdown-container'}>
@@ -284,31 +285,35 @@ export default function Demographics({
                   toggleWalk={toggleWalk}
                   toggleTransit={toggleTransit}
                   toggleBike={toggleBike}
+                  // mobile only
+                  isMobile={isMobile}
+                  showLegend={showLegend}
                 />
-
-                <div
-                  className={`big-button ${
-                    mapDemographics
-                      ? 'big-button-active'
-                      : 'big-button-inactive'
-                  }`}
-                  onClick={() => {
-                    setMapDemographics(!mapDemographics);
-                  }}
-                >
-                  <div>
-                    <p className={'mb-0 small-font'}>
-                      {mapDemographics ? 'Remove from map' : 'Show on map'}
-                    </p>
+                {showMap && (!isMobile || (isMobile && showLegend)) && (
+                  <div
+                    className={`big-button ${
+                      mapDemographics
+                        ? 'big-button-active'
+                        : 'big-button-inactive'
+                    }`}
+                    onClick={() => {
+                      setMapDemographics(!mapDemographics);
+                    }}
+                  >
+                    <div>
+                      <p className={'mb-0 small-font'}>
+                        {mapDemographics ? 'Remove from map' : 'Show on map'}
+                      </p>
+                    </div>
+                    <div>
+                      {mapDemographics ? (
+                        <FontAwesomeIcon icon={faMinus} />
+                      ) : (
+                        <FontAwesomeIcon icon={faPlus} />
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    {mapDemographics ? (
-                      <FontAwesomeIcon icon={faMinus} />
-                    ) : (
-                      <FontAwesomeIcon icon={faPlus} />
-                    )}
-                  </div>
-                </div>
+                )}
               </>
             )}
 
@@ -344,6 +349,9 @@ export default function Demographics({
                       toggleWalk={toggleWalk}
                       toggleTransit={toggleTransit}
                       toggleBike={toggleBike}
+                      // mobile only
+                      isMobile={isMobile}
+                      showLegend={showLegend}
                     />
                   </div>
                   <div>
@@ -376,6 +384,9 @@ export default function Demographics({
                       toggleWalk={toggleWalk}
                       toggleTransit={toggleTransit}
                       toggleBike={toggleBike}
+                      // mobile only
+                      isMobile={isMobile}
+                      showLegend={showLegend}
                     />
                   </div>
                 </Slider>

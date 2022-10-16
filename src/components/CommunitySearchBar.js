@@ -236,8 +236,8 @@ export default function CommunitySearchBar({
           className={`community-search w-100 transition-color`}
           placeholder={`Search for a District, Neighborhood, or Address`}
           style={{
-            color: isMobile && !communitySearch ? 'black' : 'white',
-            backgroundColor: isMobile && !communitySearch ? 'white' : 'black',
+            color: 'white',
+            backgroundColor: 'black',
             border:
               (badSearch[0] && primarySearch) ||
               (badSearch[1] && !primarySearch)
@@ -294,8 +294,7 @@ export default function CommunitySearchBar({
               position: 'absolute',
               right: '0.5rem',
               pointerEvents: 'none',
-              color:
-                !isMobile || (isMobile && communitySearch) ? 'white' : 'black',
+              color: 'white',
             }}
             icon={faSearch}
             width={32}
