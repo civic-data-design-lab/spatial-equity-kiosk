@@ -522,33 +522,33 @@ export default function Legend({
           } else if (demoLookup.lookup == 'F10_TrsBkW') {
             if (!toggleWalk && !toggleTransit && !toggleBike) {
               gridColorRamps = [
-                `rgb(${demoLookup.colorRamp[2].join(',')})`,
-                `rgb(${demoLookup.colorRamp[0].join(',')})`,
+                `rgb(${demoLookup.colorRamp[3].join(',')})`,
+                `rgb(${demoLookup.colorRamp[1].join(',')})`,
               ];
             } else {
               gridColorRamps = [];
               if (toggleWalk)
                 gridColorRamps.push(
-                  `rgb(${demoLookup.colorRamp[3].join(',')})`
+                  `rgb(${demoLookup.colorRamp[4].join(',')})`
                 );
               if (toggleTransit)
                 gridColorRamps.push(
-                  `rgb(${demoLookup.colorRamp[2].join(',')})`
+                  `rgb(${demoLookup.colorRamp[3].join(',')})`
                 );
               if (toggleBike)
                 gridColorRamps.push(
-                  `rgb(${demoLookup.colorRamp[1].join(',')})`
+                  `rgb(${demoLookup.colorRamp[2].join(',')})`
                 );
-              gridColorRamps.push(`rgb(${demoLookup.colorRamp[0].join(',')})`);
+              gridColorRamps.push(`rgb(${demoLookup.colorRamp[1].join(',')})`);
             }
           } else {
             gridColorRamps = [
               // `rgb(${demoLookup.colorRamp[0].join(",")})`,
               // `rgb(${demoLookup.colorRamp[1].join(",")})`,
-              `rgb(${demoLookup.colorRamp[2].join(',')})`,
+              `rgb(${demoLookup.colorRamp[3].join(',')})`,
               // `rgb(${demoLookup.colorRamp[3].join(",")})`,
               // `rgb(${demoLookup.colorRamp[4].join(',')})`,
-              `rgb(${demoLookup.colorRamp[0].join(',')})`,
+              `rgb(${demoLookup.colorRamp[1].join(',')})`,
             ];
           }
           return (
