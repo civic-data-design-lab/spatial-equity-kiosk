@@ -737,7 +737,7 @@ export default function About({
                 }`}
                 id={'content-8'}
               >
-                <h6 className={'bold'}>Attribution</h6>
+                
                 <p>
                   Reporters and researchers using Spatial Equity NYC as a source
                   should credit: Spatial Equity NYC, a data tool from
