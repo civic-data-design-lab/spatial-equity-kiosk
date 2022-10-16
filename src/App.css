@@ -290,6 +290,7 @@ a:active {
     border: 2px solid black;
     border-top: none;
     min-height: 0;
+    background-color: white;
     /* cursor: pointer; */
 }
 
