@@ -182,7 +182,7 @@ export default function About({
     // TODO: new about page
     <div id={'about-container'} ref={aboutContainerRef}>
       <div
-        className={'scroll-menu-box h-100 flex-column border-box'}
+        className={'scroll-menu-box flex-column border-box'}
         style={isMobile ? { right: showMenu ? 0 : '-25%' } : {}}
       >
         <a

@@ -2142,7 +2142,8 @@ input:checked+.slider:before {
 .scroll-menu-box {
     position: absolute;
     width: 25%;
-
+    height: 100vh;
+    display: flex;
     /* left: 25vw;
     width: 25%;
     flex-direction: column;
@@ -2665,6 +2666,7 @@ input:checked+.slider:before {
         z-index: 2;
         display: flex;
         justify-content: space-between;
+
 
         /* Allow some readability underneath menu */
         background-color: rgba(255, 255, 255, 0.25);
