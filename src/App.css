@@ -70,7 +70,7 @@
 }
 
 .small-text {
-    font-size: 0.75rem;
+    font-size: 1.75vh;
 }
 
 .underline {
@@ -2564,9 +2564,6 @@ input:checked+.slider:before {
         display: none;
     }
 
-    .small-text {
-        font-size: 0.9rem;
-    }
 
     .dropdown-body {
         width: calc(100% - 2rem - 2px);

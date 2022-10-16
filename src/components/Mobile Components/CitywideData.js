@@ -287,7 +287,7 @@ export default function CitywideData({
                   : selectedSpecificIssue
                   ? '0vh'
                   : !selectedIssue
-                  ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
+                  ? 'calc(100% / 3)'
                   : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
             }}
             onClick={() => {
@@ -339,7 +339,7 @@ export default function CitywideData({
                   : selectedSpecificIssue
                   ? '0vh'
                   : !selectedIssue
-                  ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
+                  ? 'calc(100% / 3)'
                   : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
             }}
             onClick={() => {
@@ -390,7 +390,7 @@ export default function CitywideData({
                   : selectedSpecificIssue
                   ? '0vh'
                   : !selectedIssue
-                  ? 'calc((100vh - 4.025rem - 0.3vw) / 3)'
+                  ? 'calc(100% / 3)'
                   : 'calc((100vh - 4.025rem - 0.3vw) - 2 * (1.375rem + 1.5vw + 3rem)',
             }}
             onClick={() => {
