@@ -23,7 +23,7 @@ export default function MobileFixedHeader({
       <div>
         <h4 className={'m-0'}>
           {selectedChapter === 1
-            ? 'Spatial Equity'
+            ? 'Spatial Equity NYC'
             : selectedChapter === 2
             ? 'Citywide Data'
             : selectedChapter === 3

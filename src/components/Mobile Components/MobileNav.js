@@ -101,7 +101,7 @@ export default function MobileNav({
             }`}
           >
             {' '}
-            Spatial Equity{' '}
+            Spatial Equity NYC{' '}
           </p>
         </div>
         {/* chapter 2 */}
