@@ -63,9 +63,6 @@ function Nav({
              }
              ${selectedChapter === 2 ? 'bottom-highlight' : ''}`}
         onClick={() => {
-          setMoreIssuesLength(0);
-          setMoreIssues([]);
-          setMapDemographics(false);
           if (selectedChapter === 3) {
             selectedCoordsCache.current = userPoints;
             selectedCommunitiesCache.current = [communitySearch, compareSearch];
@@ -73,12 +70,13 @@ function Nav({
           }
           if (selectedChapter !== 1) {
             setSelectedChapter(1);
-            setShowMap(false);
-            setCollapseMap(false);
-          } else if (!shareExpanded) {
-            setSelectedChapter(null);
-            setShowMap(false);
+            setMoreIssuesLength(0);
+            setMoreIssues([]);
           }
+          // else if (selectedChapter == 1 && !shareExpanded) {
+          //   setSelectedChapter(null);
+          //   setShowMap(false);
+          // }
         }}
       >
         <div>
@@ -158,30 +156,30 @@ function Nav({
              }
              ${selectedChapter === 3 ? 'bottom-highlight' : ''}`}
         onClick={() => {
-          setMapDemographics(false);
-          setMoreIssuesLength(0);
-          setMoreIssues([]);
-          setCollapseMap(false);
-          setSearchSource(null);
-          setBadSearch([0, 0]);
-          setCommunitySearch(null);
-          setCompareSearch(null);
           if (selectedChapter === 3) {
             selectedCoordsCache.current = userPoints;
             selectedCommunitiesCache.current = [communitySearch, compareSearch];
             viewStateCache.current = viewState;
           }
-          setCommunitySearch(null);
-          setCompareSearch(null);
-          setShowMap(false);
+
           if (selectedChapter !== 2) {
             setSelectedChapter(2);
-            setUserPoints([], []);
+            // setUserPoints([], []);
+            // setMapDemographics(false);
+            setMoreIssuesLength(0);
+            // setMoreIssues([]);
+            setCollapseMap(false);
+            // setSearchSource(null);
+            setBadSearch([0, 0]);
+            // setCommunitySearch(null);
+            // setCompareSearch(null);
+            setShowMap(false);
             if (selectedChapterCache.current)
               setSelectedSpecificIssue(selectedChapterCache.current);
-          } else if (!shareExpanded) {
-            setSelectedChapter(null);
           }
+          // else if (selectedChapter == 2 && !shareExpanded) {
+          //   setSelectedChapter(null);
+          // }
         }}
       >
         <div>
@@ -241,17 +239,17 @@ function Nav({
              }
              ${selectedChapter === 4 ? 'bottom-highlight' : ''}`}
         onClick={() => {
-          setMapDemographics(false);
-          setCollapseMap(false);
-          setSearchSource(null);
-          setUserPoints([], []);
-          setCommunitySearch(null);
-          setCompareSearch(null);
-          setBadSearch([0, 0]);
-          setAddCompare(false);
+          // setMapDemographics(false);
+          // setCollapseMap(false);
+          // setSearchSource(null);
+          // setUserPoints([], []);
+          // setCommunitySearch(null);
+          // setCompareSearch(null);
+          // setAddCompare(false);
           if (selectedChapter !== 3) {
             setSelectedChapter(3);
             setShowMap(true);
+            setBadSearch([0, 0]);
 
             selectedChapterCache.current = selectedSpecificIssue;
             if (selectedCoordsCache?.current) {
@@ -262,12 +260,13 @@ function Nav({
                 setCompareSearch(selectedCommunitiesCache?.current[1]);
             }
             if (viewStateCache?.current) setViewState(viewStateCache.current);
-          } else if (!shareExpanded) {
-            setSelectedChapter(null);
-            selectedCoordsCache.current = userPoints;
-            selectedCommunitiesCache.current = [communitySearch, compareSearch];
-            viewStateCache.current = viewState;
           }
+          // else if (selectedChapter == 3 && !shareExpanded) {
+          //   setSelectedChapter(null);
+          //   selectedCoordsCache.current = userPoints;
+          //   selectedCommunitiesCache.current = [communitySearch, compareSearch];
+          //   viewStateCache.current = viewState;
+          // }
         }}
       >
         <div>
@@ -362,13 +361,11 @@ function Nav({
           if (selectedChapter !== 4) {
             setSelectedChapter(4);
             setCollapseMap(false);
-            setUserPoints([], []);
-            setCommunitySearch(null);
-            setCompareSearch(null);
             setBadSearch([0, 0]);
-          } else if (!shareExpanded) {
-            setSelectedChapter(null);
           }
+          // else if (selectedChapter == 4 && !shareExpanded) {
+          //   setSelectedChapter(null);
+          // }
         }}
       >
         <div>

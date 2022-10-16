@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faMinus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRight,
+  faXmark,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons';
 
 import axios from 'axios';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
@@ -20,10 +24,7 @@ export default function CommunitySearchBar({
   setAddCompare = null,
   selectedCoord,
   setSelectedCoord,
-  showSearch,
   setShowSearch,
-  setShowMap,
-  selectedCompareCoord,
   setselectedCompareCoord,
   primarySearch,
   badSearch,
@@ -32,11 +33,10 @@ export default function CommunitySearchBar({
   info,
   boundary,
   setCompareSearch,
-  setCommunitySearch,
-  setUserPoints,
-  userPoints,
   setResize = null,
   setResizeIssues = null,
+  setUserPoints,
+  userPoints,
 }) {
   const [value, setValue] = useState('');
   const [focus, setFocus] = useState(false);
@@ -44,6 +44,7 @@ export default function CommunitySearchBar({
   const [loading, setloading] = useState(true);
   const [response, setResponse] = useState(null);
   const [firstMatchedRes, setFirstMatchedRes] = useState([]);
+  const [hover, setHover] = useState(false);
 
   useEffect(() => {
     if (toggleValue) {
@@ -220,19 +221,24 @@ export default function CommunitySearchBar({
           e.stopPropagation();
         }}*/
         id={`${!forSearch ? 'remove-community' : ''}`}
+        onMouseEnter={() => {
+          if (communitySearch) {
+            setHover(true);
+          }
+        }}
+        onMouseLeave={() => {
+          setHover(false);
+        }}
       >
         <input
           type={'search'}
           id={forSearch ? 'community-search' : 'compare-search'}
           className={`community-search w-100 transition-color`}
-          placeholder={'Search for a District, Neighborhood, or Address'}
+          placeholder={`Search for a District, Neighborhood, or Address`}
           style={{
             color: isMobile && !communitySearch ? 'black' : 'white',
             backgroundColor: isMobile && !communitySearch ? 'white' : 'black',
             border:
-              // isMobile
-              //   ? 'none'
-              //   :
               (badSearch[0] && primarySearch) ||
               (badSearch[1] && !primarySearch)
                 ? '2px solid yellow'
@@ -244,12 +250,7 @@ export default function CommunitySearchBar({
             e.stopPropagation();
             setResize && setResize(true);
             setResizeIssues && setResizeIssues(false);
-            callBack(null);
-            if (forSearch) {
-              setUserPoints([[], userPoints[1]]);
-            } else {
-              setUserPoints([userPoints[0], []]);
-            }
+            //callBack(null); // naughty function
           }}
           onFocus={(e) => {
             e.stopPropagation();
@@ -287,19 +288,44 @@ export default function CommunitySearchBar({
           }}
           value={value}
         />
+        {(!hover || (forSearch && !communitySearch)) && (
+          <FontAwesomeIcon
+            style={{
+              position: 'absolute',
+              right: '0.5rem',
+              pointerEvents: 'none',
+              color:
+                !isMobile || (isMobile && communitySearch) ? 'white' : 'black',
+            }}
+            icon={faSearch}
+            width={32}
+          />
+        )}
         <div
           className={`${
-            !forSearch ? 'position-absolute' : 'd-none'
+            hover && ((forSearch && communitySearch) || !forSearch)
+              ? 'position-absolute'
+              : 'd-none'
           } remove-community-btn`}
           onClick={(e) => {
             e.stopPropagation();
-            setAddCompare(false);
             setselectedCompareCoord([]);
             callBack(null);
             setBadSearch([badSearch[0], 0]);
+            setAddCompare(false);
+
+            if (forSearch) {
+              setUserPoints([[], []]);
+            } else {
+              setUserPoints([userPoints[0], []]);
+            }
           }}
         >
-          <FontAwesomeIcon icon={faMinus} width={32} />
+          <FontAwesomeIcon
+            style={{ padding: '0.25em 0.5em' }}
+            icon={faXmark}
+            width={32}
+          />
         </div>
       </div>
       {/* {focus && getSearchItems().length > 0 && <div>
