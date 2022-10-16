@@ -151,6 +151,7 @@ export default function MobileDropdown({
         {issues.issues_data.environment.specific_issues_ID.map((id) => {
           return (
             <div
+              key={id}
               className={`mobile-citywide-nav-dropdown-item
                     ${
                       showDropDown && showSubDropDown === 2
