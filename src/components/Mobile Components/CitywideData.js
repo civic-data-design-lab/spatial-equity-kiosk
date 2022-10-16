@@ -183,7 +183,7 @@ export default function CitywideData({
                   : 'none',
             }}
             onClick={(e) => {
-              console.log('fired onClick');
+              // console.log('fired onClick');
               e.stopPropagation();
             }}
           >
@@ -241,7 +241,6 @@ export default function CitywideData({
         : selectedIssue === 2
         ? environment_issues
         : infrastructure_issues;
-    console.log(specific_issues);
     return specific_issues.map((issue, index) => {
       return (
         <div

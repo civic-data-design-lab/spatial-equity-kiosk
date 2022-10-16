@@ -119,7 +119,6 @@ const MapTooltip = ({
     )?.rank;
 
     if (!ranking) {
-      console.log('Could not find a ranking with this boundary');
       return;
     }
 
@@ -129,7 +128,6 @@ const MapTooltip = ({
     const selectedIssue = issues.specific_issues_data[selectedSpecificIssue];
 
     if (!selectedIssue) {
-      console.log('User unselected the issue.');
       return;
     }
 

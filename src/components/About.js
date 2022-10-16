@@ -126,7 +126,7 @@ export default function About({
         behavior: 'smooth',
       });
 
-      console.log('selectedAbout ', selectedAbout);
+      // console.log('selectedAbout ', selectedAbout);
     }
   }, [selectedAbout]);
 
