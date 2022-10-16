@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
-export default function MapTooltip({
+export default function SourceInfo({
   issues,
   selectedSpecificIssue,
   setSelectedChapter,
@@ -22,7 +22,7 @@ export default function MapTooltip({
         e.stopPropagation();
         // setSelectedAbout(9);
         setSelectedChapter(4);
-        setShowMap(false);
+        setShowMap && setShowMap(false);
       }}
       className={'d-inline-block'}
     >
