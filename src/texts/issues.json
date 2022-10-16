@@ -185,7 +185,7 @@
       "issue_units_symbol": "mph",
       "methodology_warning": "",
       "related": [9, 3, 12],
-      "specific_issue_source": "Bus Turnaround",
+      "specific_issue_source": "Bus Turnaround Coalition",
       "link": "http://busturnaround.nyc/",
       "year": "2019",
       "image_ids": ["F27_BusSpe_1.jpg"],
@@ -1112,7 +1112,7 @@
       "related": [11, 12, 14],
       "specific_issue_source": "Department of Transportation (DOT)",
       "link": "https://data.cityofnewyork.us/Transportation/Bicycle-Parking/yh4a-g3fj",
-      "year": "2020",
+      "year": "2021",
       "image_ids": ["F22_BikRac_1.jpg"],
       "specific_issue_description": [
         {
@@ -1542,7 +1542,7 @@
       "related": [12, 13, 14],
       "specific_issue_source": "Department of Transportation (DOT)",
       "link": "https://data.cityofnewyork.us/Environment/DEP-Green-Infrastructure/spjh-pz7h",
-      "year": "2020",
+      "year": "2021",
       "image_ids": ["F24_BikLan_1.jpg"],
       "specific_issue_description": [
         {
