@@ -49,6 +49,8 @@ export default function IssuesTileView({
   setSearchSource,
   toggleDisplayMode,
   setToggleDisplayMode,
+  displayModes,
+  setDisplayModes,
 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const [useBoroughColor, setUseBoroughColor] = useState(false);
@@ -148,13 +150,16 @@ export default function IssuesTileView({
                     setUseBoroughColor={setUseBoroughColor}
                     isHovering={isHovering}
                     setIsHovering={setIsHovering}
-                    toggleDisplayMode={toggleDisplayMode}
-                    setToggleDisplayMode={setToggleDisplayMode}
+                    // toggleDisplayMode={toggleDisplayMode}
+                    // setToggleDisplayMode={setToggleDisplayMode}
                     expanded={true}
+                    displayModes={displayModes}
+                    setDisplayModes={setDisplayModes}
+                    citywideTab={true}
                   />
                 )}
               </div>
-              {!showMap && !toggleDisplayMode && (
+              {!showMap && !displayModes[selectedSpecificIssue] && (
                 <RightColumnFooter
                   boundary={boundary}
                   issues={issues}
@@ -168,8 +173,7 @@ export default function IssuesTileView({
                   setCouncilPinned={setCouncilPinned}
                   communityPinned={communityPinned}
                   setCommunityPinned={setCommunityPinned}
-                  toggleDisplayMode={toggleDisplayMode}
-                  setToggleDisplayMode={setToggleDisplayMode}
+                  // setToggleDisplayMode={setToggleDisplayMode}
                 />
               )}
             </div>

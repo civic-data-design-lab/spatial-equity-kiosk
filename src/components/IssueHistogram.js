@@ -88,7 +88,6 @@ const IssueHistogram = ({
   setSelectedChapter,
   communitySearch,
   compareSearch = null,
-  toggleDisplayMode,
   specificIssue,
   setCompareSearch,
   addCompare,

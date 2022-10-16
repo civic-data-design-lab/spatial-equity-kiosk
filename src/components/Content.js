@@ -151,6 +151,8 @@ export default function Content({
             setShowMap={setShowMap}
             toggleDisplayMode={toggleDisplayMode}
             setToggleDisplayMode={setToggleDisplayMode}
+            displayModes={displayModes}
+            setDisplayModes={setDisplayModes}
           />
         )}
 
@@ -239,6 +241,8 @@ export default function Content({
             setSearchSource={setSearchSource}
             toggleDisplayMode={toggleDisplayMode}
             setToggleDisplayMode={setToggleDisplayMode}
+            displayModes={displayModes}
+            setDisplayModes={setDisplayModes}
           />
         )}
 

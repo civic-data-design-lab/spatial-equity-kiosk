@@ -13,12 +13,10 @@ export default function MapToggle({
   boundary,
   showMenu,
   selectedChapter,
-  toggleDisplayMode = null,
-  setToggleDisplayMode,
   selectedSpecificIssue,
   displayModes = null,
   setDisplayModes = null,
-  isCommunityProfile = false,
+  isCommunityProfile = true,
 
   // mobile only
   isMobile = false,
@@ -64,27 +62,21 @@ export default function MapToggle({
               }
         }
       >
+        {/* enable table */}
         {selectedSpecificIssue && !showMap && (
           <div
             className={`${
-              !showMap &&
-              ((isCommunityProfile && displayModes[selectedSpecificIssue]) ||
-                (!isCommunityProfile && toggleDisplayMode))
+              !showMap && displayModes[selectedSpecificIssue]
                 ? 'active-tag'
                 : 'inactive-tag'
             } map-toggle`}
             onClick={() => {
               setShowMap(false);
-              if (!isCommunityProfile) {
-                setToggleDisplayMode(true);
-              }
 
-              if (isCommunityProfile || (selectedChapter === 3 && isMobile)) {
-                setDisplayModes({
-                  ...displayModes,
-                  [selectedSpecificIssue]: true,
-                });
-              }
+              setDisplayModes({
+                ...displayModes,
+                [selectedSpecificIssue]: true,
+              });
             }}
             onMouseEnter={() => {
               setHover(
@@ -103,25 +95,20 @@ export default function MapToggle({
           </div>
         )}
 
+        {/* enable chart */}
         <div
           className={`${
-            !showMap &&
-            ((isCommunityProfile && !displayModes[selectedSpecificIssue]) ||
-              (!isCommunityProfile && !toggleDisplayMode))
+            !showMap && !displayModes[selectedSpecificIssue]
               ? 'active-tag'
               : 'inactive-tag'
           } map-toggle`}
           onClick={() => {
             setShowMap(false);
-            if (!isCommunityProfile && toggleDisplayMode) {
-              setToggleDisplayMode(false);
-            }
-            if (isCommunityProfile || (selectedChapter === 3 && isMobile)) {
-              setDisplayModes({
-                ...displayModes,
-                [selectedSpecificIssue]: false,
-              });
-            }
+
+            setDisplayModes({
+              ...displayModes,
+              [selectedSpecificIssue]: false,
+            });
           }}
           onMouseEnter={() => {
             setHover(

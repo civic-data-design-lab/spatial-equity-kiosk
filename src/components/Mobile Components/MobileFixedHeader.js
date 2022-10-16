@@ -10,8 +10,8 @@ export default function MobileFixedHeader({
   setShowMenu,
   showMenu,
   communitySearch,
-  toggleDisplayMode,
-  setToggleDisplayMode,
+  // toggleDisplayMode,
+  // setToggleDisplayMode,
   selectedSpecificIssue,
   displayModes,
   setDisplayModes,
@@ -41,8 +41,8 @@ export default function MobileFixedHeader({
         showMenu={showMenu}
         communitySearch={communitySearch}
         selectedChapter={selectedChapter}
-        toggleDisplayMode={toggleDisplayMode}
-        setToggleDisplayMode={setToggleDisplayMode}
+        // toggleDisplayMode={toggleDisplayMode}
+        // setToggleDisplayMode={setToggleDisplayMode}
         selectedSpecificIssue={selectedSpecificIssue}
         displayModes={displayModes}
         setDisplayModes={setDisplayModes}

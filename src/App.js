@@ -849,6 +849,8 @@ function App() {
               toggleDisplayMode={toggleDisplayMode}
               setToggleDisplayMode={setToggleDisplayMode}
               selectedSpecificIssue={selectedSpecificIssue}
+              displayModes={displayModes}
+              setDisplayModes={setDisplayModes}
             />
           </div>
 
@@ -1130,6 +1132,8 @@ function App() {
               isTouchingMapMobile={isTouchingMapMobile}
               toggleDisplayMode={toggleDisplayMode}
               setToggleDisplayMode={setToggleDisplayMode}
+              displayModes={displayModes}
+              setDisplayModes={setDisplayModes}
             />
           ) : selectedChapter === 3 ? (
             <MobileCommunityProfile
