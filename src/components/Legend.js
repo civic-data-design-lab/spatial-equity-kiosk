@@ -242,7 +242,7 @@ export default function Legend({
             <>
               <>
                 <div className="w-100">
-                  <p className={'small-font mb-1'}>
+                  <div className={'small-font mb-1'}>
                     {issues.specific_issues_data[selectedSpecificIssue].units}{' '}
                     {!isMobile && (
                       <SourceInfo
@@ -252,7 +252,7 @@ export default function Legend({
                         setShowMap={setShowMap}
                       />
                     )}
-                  </p>
+                  </div>
                   <div className={'placeholder-legend'}>
                     <div
                       className={'legend-scale'}
