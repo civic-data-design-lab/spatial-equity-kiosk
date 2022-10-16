@@ -467,7 +467,7 @@ function Nav({
               <a target="_blank" href={'https://lcau.mit.edu/'}>
                 <img src={_LCAU} height={40} />
               </a>
-              <a target="_blank" href={'civicdatadesignlab.mit.edu'}>
+              <a target="_blank" href={'https://civicdatadesignlab.mit.edu'}>
                 <img src={_CDDL} height={25} />
               </a>
             </div>
