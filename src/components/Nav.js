@@ -254,12 +254,13 @@ function Nav({
             setShowMap(true);
 
             selectedChapterCache.current = selectedSpecificIssue;
-            if (selectedCoordsCache?.current)
+            if (selectedCoordsCache?.current) {
               setUserPoints(selectedCoordsCache.current);
-            if (selectedCommunitiesCache?.current[0])
-              setCommunitySearch(selectedCommunitiesCache?.current[0]);
-            if (selectedCommunitiesCache?.current[1])
-              setCompareSearch(selectedCommunitiesCache?.current[1]);
+              if (selectedCommunitiesCache?.current[0])
+                setCommunitySearch(selectedCommunitiesCache?.current[0]);
+              if (selectedCommunitiesCache?.current[1])
+                setCompareSearch(selectedCommunitiesCache?.current[1]);
+            }
             if (viewStateCache?.current) setViewState(viewStateCache.current);
           } else if (!shareExpanded) {
             setSelectedChapter(null);
