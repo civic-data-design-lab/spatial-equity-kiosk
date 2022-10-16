@@ -68,9 +68,9 @@ export default function IssueProfile({
       selectedSpecificIssue
     ].specific_issue_solutions.solutions_list.map((solution, index) => {
       return (
-        <p key={index} style={{ paddingTop: '1rem' }}>
+        <div key={index} style={{ paddingTop: '1rem' }}>
           {getHyperlinkText(solution)}
-        </p>
+        </div>
       );
     });
   };

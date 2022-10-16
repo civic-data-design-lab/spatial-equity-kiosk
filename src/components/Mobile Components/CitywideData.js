@@ -198,6 +198,7 @@ export default function CitywideData({
                 {issues.issues_data[category].specific_issues_ID.map((id_) => {
                   return (
                     <tr
+                      key={id_}
                       className={`${
                         selectedSpecificIssue === id_
                           ? 'active-scheme'
