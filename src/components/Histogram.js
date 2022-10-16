@@ -110,9 +110,10 @@ const Histogram = ({
   setSelectedCoord,
   setSearchSource,
   useBoroughColor,
-  toggleDisplayMode,
   expanded = false,
   citywideTab = false,
+  displayModes,
+  setDisplayModes,
 
   // mobile only
   isMobile = false,
@@ -1071,7 +1072,7 @@ const Histogram = ({
 
   return (
     <>
-      {!toggleDisplayMode && (
+      {!displayModes[selectedSpecificIssue] && (
         <div
           className={'m-0 small-font d-inline-block'}
           style={{ padding: isMobile ? '' : '1rem 1.5rem 0 1.5rem' }}
@@ -1090,7 +1091,10 @@ const Histogram = ({
         style={{
           width: '100%',
           flexGrow: '1',
-          padding: toggleDisplayMode || isMobile ? '0' : '0 1.5rem 0 1.5rem',
+          padding:
+            displayModes[selectedSpecificIssue] || isMobile
+              ? '0'
+              : '0 1.5rem 0 1.5rem',
         }}
       >
         <div
@@ -1106,7 +1110,7 @@ const Histogram = ({
         <div
           ref={containerRef}
           style={
-            !toggleDisplayMode
+            !displayModes[selectedSpecificIssue]
               ? {
                   width: '100%',
                   flexGrow: 1,
@@ -1115,7 +1119,10 @@ const Histogram = ({
           }
           className={'position-relative'}
         >
-          <svg display={toggleDisplayMode ? 'none' : ''} ref={ref}>
+          <svg
+            display={displayModes[selectedSpecificIssue] ? 'none' : ''}
+            ref={ref}
+          >
             {/* Main Chart */}
             <g />
 
@@ -1149,16 +1156,17 @@ const Histogram = ({
             setSelectedChapter={setSelectedChapter}
             communitySearch={communitySearch}
             compareSearch={compareSearch}
-            toggleDisplayMode={toggleDisplayMode}
             expanded={expanded}
             citywideTab={citywideTab}
             isMobile={isMobile}
+            displayModes={displayModes}
+            setDisplayModes={setDisplayModes}
           />
         </div>
       </div>
 
       <div>
-        {!toggleDisplayMode ? (
+        {!displayModes[selectedSpecificIssue] ? (
           <div
             className={`${
               useBoroughColor ? '' : 'invisible'

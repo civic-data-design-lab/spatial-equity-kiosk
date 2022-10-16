@@ -66,8 +66,8 @@ export default function CitywideData({
   showLegend,
   setShowLegend,
   isTouchingMapMobile,
-  toggleDisplayMode,
-  setToggleDisplayMode,
+  displayModes,
+  setDisplayModes,
 }) {
   const [useBoroughColor, setUseBoroughColor] = useState(false);
 
@@ -484,7 +484,10 @@ export default function CitywideData({
                   </div>
                 )}
                 <div
-                  style={{ flex: 1, height: toggleDisplayMode ? '' : '85vh' }}
+                  style={{
+                    flex: 1,
+                    height: displayModes[selectedSpecificIssue] ? '' : '85vh',
+                  }}
                   className={'histogram-responsive-box'}
                 >
                   <Histogram
@@ -498,10 +501,12 @@ export default function CitywideData({
                     setCouncilPinned={setCouncilPinned}
                     setCommunitySearch={setCommunitySearch}
                     setSelectedChapter={setSelectedChapter}
-                    toggleDisplayMode={toggleDisplayMode}
-                    setToggleDisplayMode={setToggleDisplayMode}
+                    // toggleDisplayMode={toggleDisplayMode}
+                    // setToggleDisplayMode={setToggleDisplayMode}
                     useBoroughColor={useBoroughColor}
                     setUseBoroughColor={setUseBoroughColor}
+                    displayModes={displayModes}
+                    setDisplayModes={setDisplayModes}
                     // mobile
                     isMobile={true}
                   />
@@ -522,7 +527,7 @@ export default function CitywideData({
 
           {/* third child - legend tray */}
           {/* if non map mode */}
-          {!showMap && !toggleDisplayMode ? (
+          {!showMap && displayModes[selectedSpecificIssue] ? (
             <div>
               <RightColumnFooter
                 boundary={boundary}
@@ -536,8 +541,8 @@ export default function CitywideData({
                 setCouncilPinned={setCouncilPinned}
                 communityPinned={communityPinned}
                 setCommunityPinned={setCommunityPinned}
-                toggleDisplayMode={toggleDisplayMode}
-                setToggleDisplayMode={setToggleDisplayMode}
+                // toggleDisplayMode={toggleDisplayMode}
+                // setToggleDisplayMode={setToggleDisplayMode}
               />
             </div>
           ) : showMap ? (

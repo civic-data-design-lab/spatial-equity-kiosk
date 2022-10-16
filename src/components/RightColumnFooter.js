@@ -10,8 +10,8 @@ export default function RightColumnFooter({
   setCouncilPinned,
   communityPinned,
   setCommunityPinned,
-  toggleDisplayMode,
-  setToggleDisplayMode,
+  // toggleDisplayMode,
+  // setToggleDisplayMode,
 
   isMobile,
   citywideTab,
@@ -31,6 +31,7 @@ export default function RightColumnFooter({
             gridTemplateColumns: '1fr 1fr',
             gridGap: '0.5rem',
             alignItems: 'center',
+            cursor: 'default',
           }}
         >
           <h6
@@ -41,33 +42,27 @@ export default function RightColumnFooter({
                       ? 'big-button-active'
                       : 'big-button-inactive'
                   }`
-                : ''
+                : 'hover-underline'
             }`}
             onClick={() => {
               setUseBoroughColor(!useBoroughColor);
             }}
-            style={{
-              visibility: !toggleDisplayMode ? 'visible' : 'hidden',
-            }}
+            style={{ cursor: 'pointer' }}
           >
             {useBoroughColor ? `Hide Borough` : `Show Borough`}{' '}
             <FontAwesomeIcon icon={useBoroughColor ? faMinus : faPlus} />
           </h6>
 
           <h6
-            className={`mb-0 ${isMobile ? 'big-button' : ''}`}
+            className={`mb-0 ${isMobile ? 'big-button' : 'hover-underline'}`}
             style={{
-              // padding: '0 1.5rem',
               visibility:
-                (!toggleDisplayMode &&
-                  boundary == 'council' &&
-                  councilPinned.length > 0) ||
-                (!toggleDisplayMode &&
-                  boundary == 'community' &&
-                  communityPinned.length > 0)
+                (boundary == 'council' && councilPinned.length > 0) ||
+                (boundary == 'community' && communityPinned.length > 0)
                   ? ''
                   : 'hidden',
               border: isMobile ? '2px solid black' : '',
+              cursor: 'pointer',
             }}
             onClick={() => {
               if (boundary == 'council') {

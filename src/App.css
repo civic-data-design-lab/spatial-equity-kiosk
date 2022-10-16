@@ -78,6 +78,11 @@
     text-decoration-thickness: 1px;
 }
 
+.hover-underline:hover {
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+}
+
 .bold {
     font-weight: bold;
 }

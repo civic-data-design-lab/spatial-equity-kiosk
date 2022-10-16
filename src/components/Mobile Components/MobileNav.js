@@ -21,9 +21,8 @@ export default function MobileNav({
   setShowMap,
   communitySearch,
   showToggle,
-
-  toggleDisplayMode,
-  setToggleDisplayMode,
+  displayModes,
+  setDisplayModes,
   selectedSpecificIssue,
 }) {
   return (
@@ -45,9 +44,11 @@ export default function MobileNav({
           setShowMenu={setShowMenu}
           showMenu={showMenu}
           communitySearch={communitySearch}
-          toggleDisplayMode={toggleDisplayMode}
-          setToggleDisplayMode={setToggleDisplayMode}
+          // toggleDisplayMode={toggleDisplayMode}
+          // setToggleDisplayMode={setToggleDisplayMode}
           selectedSpecificIssue={selectedSpecificIssue}
+          displayModes={displayModes}
+          setDisplayModes={setDisplayModes}
         />
       )}
 

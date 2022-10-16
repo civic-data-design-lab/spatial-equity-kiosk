@@ -13,12 +13,10 @@ const RankingTable = ({
   setSelectedChapter,
   communitySearch,
   compareSearch,
-  toggleDisplayMode,
   expanded = false,
   citywideTab = false,
   addCompare = false,
   displayModes = null,
-  communityProfile = false,
   target = null,
   isMobile = false,
 }) => {
@@ -28,10 +26,7 @@ const RankingTable = ({
     <div
       style={{
         display:
-          (communityProfile &&
-            displayModes &&
-            displayModes[selectedSpecificIssue] == true) ||
-          (!communityProfile && toggleDisplayMode)
+          displayModes && displayModes[selectedSpecificIssue] == true
             ? ''
             : 'none',
       }}

@@ -55,7 +55,7 @@ export default function IssuesCard({
 
       <div
         className={'issues-card-body'}
-        style={toggleDisplayMode ? { padding: '0', border: '0' } : {}}
+        // style={toggleDisplayMode ? { padding: '0', border: '0' } : {}}
       >
         <IssueHistogram
           colorRampsyType={'health'}
