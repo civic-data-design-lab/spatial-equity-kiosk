@@ -2078,7 +2078,7 @@ input:checked+.slider:before {
 }
 
 .about-mobile-padding>*:not(.table) {
-    padding: 0 2.5em;
+    padding: 0 2.5rem;
 }
 
 .scroll-title {
@@ -2258,7 +2258,7 @@ input:checked+.slider:before {
 }
 
 .mobile-nav-header:first-child {
-    padding: 0.5rem 0.5rem;
+    padding: 0.5rem 0rem 0.5rem 1rem;
 }
 
 #mobile-landing {
