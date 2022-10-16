@@ -109,7 +109,10 @@ Public health, mobility, and the environment are affected by local policies abou
               />
             </a>
             {linkCopied && (
-              <div className={'position-absolute url-copied'} style={{}}>
+              <div
+                className={'position-absolute url-copied'}
+                style={{ color: isMobile ? 'black' : 'white' }}
+              >
                 Link copied!
               </div>
             )}
