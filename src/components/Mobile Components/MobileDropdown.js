@@ -76,6 +76,7 @@ export default function MobileDropdown({
         {issues.issues_data.health.specific_issues_ID.map((id) => {
           return (
             <div
+              id={id}
               className={`mobile-citywide-nav-dropdown-item
                     ${
                       showDropDown && showSubDropDown === 1
