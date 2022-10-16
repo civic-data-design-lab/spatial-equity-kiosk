@@ -6,6 +6,10 @@ import {
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
 
+const mobilePadding = {
+  paddingLeft: '0.5rem',
+};
+
 export default function RightColumnHeader({
   boundary,
   type = 'solutions',
@@ -114,6 +118,7 @@ export default function RightColumnHeader({
                 display: 'inline-grid',
                 gridTemplateColumns: isMobile ? 'auto' : 'auto 1fr',
                 gap: '0.5rem',
+                paddingLeft: isMobile ? mobilePadding.paddingLeft : '',
               }}
             >
               <h6 className="mb-0">{getMetricDescription()}</h6>
@@ -169,12 +174,19 @@ export default function RightColumnHeader({
               gridGap: '0.33rem',
               alignItems: 'center',
               cursor: 'default',
+              border: isMobile ? 'none' : '',
+              backgroundColor: isMobile ? 'white' : '',
+              color: isMobile ? 'black' : '',
             }}
           >
-            <h6 className="mb-0">Notable Indicators</h6>
+            <h6 className="mb-0" style={isMobile ? mobilePadding : {}}>
+              Notable Indicators
+            </h6>
             <p
               className={'m-0 smaller-text'}
-              style={{ padding: isMobile ? '0 1.5rem 0.5rem' : '' }}
+              style={
+                isMobile ? { ...mobilePadding, paddingBottom: '1.5rem' } : {}
+              }
             >
               Below are the three worst spatial equity indicators in this{' '}
               {boundary == 'council' ? 'district' : 'community board'}.
@@ -199,9 +211,13 @@ export default function RightColumnHeader({
               gridGap: '0.33rem',
               alignItems: 'center',
               cursor: 'default',
+              backgroundColor: isMobile ? 'white' : '',
+              color: isMobile ? 'black' : '',
             }}
           >
-            <h6 className="mb-0">More Issues</h6>
+            <h6 className="mb-0" style={isMobile ? mobilePadding : {}}>
+              More Issues
+            </h6>
           </div>
         </div>
       </div>

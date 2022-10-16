@@ -211,11 +211,11 @@ export default function CommunitySearchBar({
   };
 
   return (
-    <div>
+    <>
       <div
-        className={
-          'd-flex flex-row align-items-center mt-3 position-relative community-search-container'
-        }
+        className={`d-flex flex-row align-items-center mt-3 position-relative community-search-container ${
+          isMobile ? 'h-100' : ''
+        }`}
         /* onClick={(e) => {
           e.stopPropagation();
         }}*/
@@ -316,6 +316,6 @@ export default function CommunitySearchBar({
           </ul>
         </div>
       )}
-    </div>
+    </>
   );
 }

@@ -486,7 +486,11 @@ export default function CitywideData({
                     flex: 1,
                     height: displayModes[selectedSpecificIssue] ? '' : '90%',
                   }}
-                  className={'histogram-responsive-box mobile-histogram'}
+                  className={`histogram-responsive-box ${
+                    displayModes[selectedSpecificIssue]
+                      ? 'mobile-histogram'
+                      : ''
+                  }`}
                 >
                   <Histogram
                     colorRampsyType={colorRamps}

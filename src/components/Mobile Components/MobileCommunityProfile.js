@@ -276,11 +276,21 @@ export default function MobileCommunityProfile({
     <div className={'mobile-community'}>
       {/* grid access - assign 3 children */}
       <div
-        className={'mobile-community-search-screen'}
+        className={'mobile-community-search-screen align-items-start'}
         style={{
           zIndex: '1',
         }}
       >
+        {/* <div
+          className="test"
+          style={{
+            backgroundColor: 'blue',
+            border: '2px solid green',
+            height: '50px',
+            width: '100%',
+            zIndex: '10',
+          }}
+        /> */}
         {/* child 1 - search bar and metric bar */}
 
         <div
