@@ -2714,6 +2714,11 @@ input:checked+.slider:before {
         width: 100%;
     }
 
+    /* min 16px font size prevents autozoom on ios */
+    #community-search {
+        font-size: 16px;
+    }
+
 
     /* MOBILE END */
 }
