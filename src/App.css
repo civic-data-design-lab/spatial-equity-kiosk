@@ -1005,7 +1005,8 @@ a:active {
 }
 
 .map-pinned {
-    position: absolute;
+    position: fixed;
+    width: max-content;
     transition: 0.5s ease-in-out;
     cursor: crosshair;
     transition: all 100ms ease-in-out;
@@ -1013,7 +1014,6 @@ a:active {
 }
 
 .map-tooltip {
-    width: auto;
     background-color: white !important;
 }
 
