@@ -22,8 +22,9 @@ export default function CommunityMiddleColumn({
   setCompareSearch,
   showMap,
   setShowMap,
+  displayModes,
+  setDisplayModes,
 }) {
-  const [displayModes, setDisplayModes] = useState({});
   return (
     <>
       {communitySearch && (

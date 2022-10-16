@@ -23,6 +23,7 @@ export default function IssuesCard({
   setCompareSearch,
   displayModes,
   setDisplayModes,
+  isMobile = false,
 }) {
   const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
 
@@ -49,6 +50,7 @@ export default function IssuesCard({
         moreIssues={moreIssues}
         setMoreIssues={setMoreIssues}
         setSelectedSpecificIssue={setSelectedSpecificIssue}
+        isMobile={isMobile}
       />
 
       <div

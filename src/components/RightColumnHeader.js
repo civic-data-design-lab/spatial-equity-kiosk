@@ -112,7 +112,7 @@ export default function RightColumnHeader({
               className="issues-card-title-container"
               style={{
                 display: 'inline-grid',
-                gridTemplateColumns: 'auto 1fr',
+                gridTemplateColumns: isMobile ? 'auto' : 'auto 1fr',
                 gap: '0.5rem',
               }}
             >
@@ -157,7 +157,7 @@ export default function RightColumnHeader({
     return (
       <div
         className={'heading-block d-flex flex-column'}
-        style={{ position: 'sticky', top: '0', zIndex: '1' }}
+        style={{ position: isMobile ? '' : 'sticky', top: '0', zIndex: '1' }}
       >
         <div
           className={`issues-chapters-active collapse-issue issues-chapters top-border transition-height`}
@@ -165,14 +165,17 @@ export default function RightColumnHeader({
           <div
             className="position-relative d-grid justify-content-start"
             style={{
-              gridTemplateColumns: 'auto auto',
+              gridTemplateColumns: isMobile ? 'auto' : 'auto auto',
               gridGap: '0.33rem',
               alignItems: 'center',
               cursor: 'default',
             }}
           >
             <h6 className="mb-0">Notable Indicators</h6>
-            <p className={'m-0 smaller-text'}>
+            <p
+              className={'m-0 smaller-text'}
+              style={{ padding: isMobile ? '0 1.5rem 0.5rem' : '' }}
+            >
               Below are the three worst spatial equity indicators in this{' '}
               {boundary == 'council' ? 'district' : 'community board'}.
             </p>
@@ -184,7 +187,7 @@ export default function RightColumnHeader({
     return (
       <div
         className={'heading-block d-flex flex-column'}
-        style={{ position: 'sticky', top: '0', zIndex: '1' }}
+        style={{ position: isMobile ? '' : 'sticky', top: '0', zIndex: '1' }}
       >
         <div
           className={`issues-chapters-active collapse-issue issues-chapters top-border transition-height`}

@@ -13,17 +13,12 @@ export default function MobileFixedHeader({
   toggleDisplayMode,
   setToggleDisplayMode,
   selectedSpecificIssue,
+  displayModes,
+  setDisplayModes,
 }) {
   return (
     <div className={'mobile-nav-header'}>
       <div>
-        {/* <p className={'m-0 small-font'}>
-          {selectedChapter === 1
-            ? 'What is'
-            : selectedChapter < 4
-            ? 'Explore Spatial Equity by'
-            : 'Learn More'}
-        </p> */}
         <h4 className={'m-0'}>
           {selectedChapter === 1
             ? 'Spatial Equity'
@@ -47,6 +42,9 @@ export default function MobileFixedHeader({
         toggleDisplayMode={toggleDisplayMode}
         setToggleDisplayMode={setToggleDisplayMode}
         selectedSpecificIssue={selectedSpecificIssue}
+        displayModes={displayModes}
+        setDisplayModes={setDisplayModes}
+        isMobile={isMobile}
       />
 
       <div

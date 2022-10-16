@@ -70,6 +70,8 @@ export default function Content({
   addCompare,
   toggleDisplayMode,
   setToggleDisplayMode,
+  displayModes,
+  setDisplayModes,
 }) {
   return (
     <div className={`d-flex flex-row col-9`}>
@@ -174,6 +176,8 @@ export default function Content({
             setCompareSearch={setCompareSearch}
             showMap={showMap}
             setShowMap={setShowMap}
+            displayModes={displayModes}
+            setDisplayModes={setDisplayModes}
           />
         )}
       </div>
