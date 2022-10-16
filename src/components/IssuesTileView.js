@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import MapToggle from './MapToggle';
-import ShareButton from './ShareButton';
 import IssueProfile from './IssuesProfile';
 import Histogram from './Histogram';
-import SourceInfo from './SourceInfo';
 import RightColumnHeader from './RightColumnHeader';
 import RightColumnFooter from './RightColumnFooter';
 
@@ -27,20 +24,13 @@ function getRandomInt(min, max) {
 export default function IssuesTileView({
   selectedSpecificIssue,
   issues,
-  showToggle,
   showMap,
-  setShowMap,
   selectedIssue,
   selectedChapter,
   communitySearch,
   compareSearch,
   boundary,
-  demographic,
-  showDemographics,
-  moreIssues,
   setMoreIssues,
-  moreIssuesLength,
-  setMoreIssuesLength,
   setSelectedSpecificIssue,
   colorRamps,
   setCommunitySearch,
@@ -60,7 +50,6 @@ export default function IssuesTileView({
   toggleDisplayMode,
   setToggleDisplayMode,
 }) {
-  const [expand, setExpand] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
   const [useBoroughColor, setUseBoroughColor] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
@@ -71,7 +60,6 @@ export default function IssuesTileView({
     while (index === imageIndex && counter <= 5) {
       counter++;
       index = getRandomInt(0, backgroundImages.length);
-      console.log(counter);
     }
     setImageIndex(index);
   }, [selectedChapter, selectedIssue]);
@@ -87,26 +75,6 @@ export default function IssuesTileView({
           alt={''}
         />
       </div>
-    );
-  };
-
-  const getIssueName = () => {
-    const bounds =
-      boundary == 'council' ? 'Council Districts' : 'Community Boards';
-
-    const sentence = [
-      bounds,
-      'Ranked by',
-      issues.specific_issues_data[selectedSpecificIssue].specific_issue_title,
-    ].join(' ');
-
-    return sentence || null;
-  };
-
-  const getIssueSolutions = () => {
-    return (
-      issues.specific_issues_data[selectedSpecificIssue]
-        .specific_issue_solutions || null
     );
   };
 
@@ -182,6 +150,7 @@ export default function IssuesTileView({
                     setIsHovering={setIsHovering}
                     toggleDisplayMode={toggleDisplayMode}
                     setToggleDisplayMode={setToggleDisplayMode}
+                    expanded={true}
                   />
                 )}
               </div>

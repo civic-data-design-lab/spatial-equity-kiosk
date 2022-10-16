@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRight,
   faMinus,
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import ShareButton from './ShareButton';
 
 import CommunitySearchBar from './CommunitySearchBar';
 import Typewriter from 'typewriter-effect';
@@ -68,7 +67,7 @@ export default function CommunityNav({
                   /*setCommunitySearch(key);*/
                   setShowSearch(false);
                   setSearchSource('search');
-                  setCommunitySearch(key)
+                  setCommunitySearch(key);
                   for (const [
                     index,
                     element,

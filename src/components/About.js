@@ -13,6 +13,7 @@ const subheadings = [
   'Solutions',
   'About NYC 25x25',
   'Contact Us',
+  'Attribution',
   'Credits',
   'About the Data',
 ];
@@ -282,6 +283,17 @@ export default function About({
             {subheadings[8]}
           </h6>
         </a>
+
+        <a
+          href={'#content-10'}
+          className={`about-link scroll-menu-chapters d-flex flex-column justify-content-between no-left-border no-right-border ${
+            currentStepIndex == 10 ? 'nav-chapters-active' : ''
+          }`}
+        >
+          <h6 className={'menu-item'} id={'menu-9'}>
+            {subheadings[9]}
+          </h6>
+        </a>
       </div>
 
       <div
@@ -300,18 +312,16 @@ export default function About({
         <Scrollama offset={0.5} onStepEnter={onStepEnter}>
           <Step data={1} key={1}>
             <div
-              className={'scroll-body'}
-              style={
-                {
-                  // opacity: currentStepIndex === 1 ? 1 : 0.2,
-                }
-              }
+              className={`scroll-body ${
+                !isMobile ? 'scroll-body-desktop' : ''
+              }`}
             >
-              {/* <div className={'spacer'} /> */}
-              {/* <div className={'scroll-title'}>
-                  <h4 className={'mb-0 bold'}></h4>
-                </div> */}
-              <div className={'scroll-content'} id={'content-1'}>
+              <div
+                className={`scroll-content ${
+                  isMobile ? 'about-mobile-padding' : ''
+                }`}
+                id={'content-1'}
+              >
                 <p>
                   Are you a New Yorker ready to challenge spatial inequities in
                   your community? Take action now by sending a message to your
@@ -336,18 +346,16 @@ export default function About({
 
           <Step data={2} key={2}>
             <div
-              className={'scroll-body'}
-              style={
-                {
-                  // opacity: currentStepIndex === 2 ? 1 : 0.2,
-                }
-              }
+              className={`scroll-body ${
+                !isMobile ? 'scroll-body-desktop' : ''
+              }`}
             >
-              {/*<div className={'spacer'} />*/}
-              {/* <div className={'scroll-title'}>
-                  <h4 className={'mb-0 bold'}></h4>
-                </div> */}
-              <div className={'scroll-content'} id={'content-2'}>
+              <div
+                className={`scroll-content ${
+                  isMobile ? 'about-mobile-padding' : ''
+                }`}
+                id={'content-2'}
+              >
                 <p>
                   Does your City Council member or community board member know
                   about the spatial inequities in your community? Spread the
@@ -374,18 +382,21 @@ export default function About({
 
           <Step data={3} key={3}>
             <div
-              className={'scroll-body'}
+              className={`scroll-body ${
+                !isMobile ? 'scroll-body-desktop' : ''
+              }`}
               style={
                 {
                   // opacity: currentStepIndex === 3 ? 1 : 0.2,
                 }
               }
             >
-              {/*<div className={'spacer'} />*/}
-              {/* <div className={'scroll-title'}>
-                  <h4 className={'mb-0 bold'}></h4>
-                </div> */}
-              <div className={'scroll-content'} id={'content-3'}>
+              <div
+                className={`scroll-content ${
+                  isMobile ? 'about-mobile-padding' : ''
+                }`}
+                id={'content-3'}
+              >
                 <p>
                   Achieving spatial equity is a local battle that starts with
                   reshaping streets in your own neighborhood. Transportation
@@ -421,18 +432,21 @@ export default function About({
 
           <Step data={4} key={4}>
             <div
-              className={'scroll-body'}
+              className={`scroll-body ${
+                !isMobile ? 'scroll-body-desktop' : ''
+              }`}
               style={
                 {
                   // opacity: currentStepIndex === 4 ? 1 : 0.2,
                 }
               }
             >
-              {/*<div className={'spacer'} />*/}
-              {/* <div className={'scroll-title'}>
-                  <h4 className={'mb-0 bold'}></h4>
-                </div> */}
-              <div className={'scroll-content'} id={'content-4'}>
+              <div
+                className={`scroll-content ${
+                  isMobile ? 'about-mobile-padding' : ''
+                }`}
+                id={'content-4'}
+              >
                 <p>
                   Spatial equity is a way to understand how public space is
                   distributed and restricted, used and made unusable, and the
@@ -478,19 +492,21 @@ export default function About({
 
           <Step data={5} id={5}>
             <div
-              className={'scroll-body '}
+              className={`scroll-body ${
+                !isMobile ? 'scroll-body-desktop' : ''
+              }`}
               style={
                 {
                   // opacity: currentStepIndex === 5 ? 1 : 0.2,
                 }
               }
             >
-              {/*<div className={'spacer'} />*/}
-              {/* <div className={'scroll-title'}>
-                  <h4 className={'mb-0 bold'}></h4>
-                </div> */}
-
-              <div className={'scroll-content'} id={'content-5'}>
+              <div
+                className={`scroll-content ${
+                  isMobile ? 'about-mobile-padding' : ''
+                }`}
+                id={'content-5'}
+              >
                 <p>
                   The goal of Spatial Equity NYC is to empower New Yorkers with
                   data about local disparities in public health, environmental
@@ -543,18 +559,21 @@ export default function About({
 
           <Step data={6} id={6}>
             <div
-              className={'scroll-body'}
+              className={`scroll-body ${
+                !isMobile ? 'scroll-body-desktop' : ''
+              }`}
               style={
                 {
                   // opacity: currentStepIndex === 6 ? 1 : 0.2,
                 }
               }
             >
-              {/*<div className={'spacer'} />*/}
-              {/* <div className={'scroll-title'}>
-                  <h4 className={'mb-0 bold'}></h4>
-                </div> */}
-              <div className={'scroll-content'} id={'content-6'}>
+              <div
+                className={`scroll-content ${
+                  isMobile ? 'about-mobile-padding' : ''
+                }`}
+                id={'content-6'}
+              >
                 <p>
                   In early 2021, Transportation Alternatives launched
                   <span>
@@ -628,19 +647,22 @@ export default function About({
 
           <Step data={7} id={7}>
             <div
-              className={'scroll-body'}
+              className={`scroll-body ${
+                !isMobile ? 'scroll-body-desktop' : ''
+              }`}
               style={
                 {
                   // opacity: currentStepIndex === 7 ? 1 : 0.2,
                 }
               }
             >
-              {/*<div className={'spacer'} />*/}
-              {/* <div className={'scroll-title'}>
-                  <h4 className={'mb-0 bold'}></h4>
-                </div> */}
-              <div className={'scroll-content'} id={'content-7'}>
-                <h6 className={'bold'}> Request Additional Analysis </h6>
+              <div
+                className={`scroll-content ${
+                  isMobile ? 'about-mobile-padding' : ''
+                }`}
+                id={'content-7'}
+              >
+                <h6 className={'bold'}>Request Additional Analysis</h6>
                 <p>
                   Local stakeholders can request additional and detailed
                   analyses of any citywide or community data on this site.
@@ -700,18 +722,53 @@ export default function About({
 
           <Step id={8} data={8}>
             <div
-              className={'scroll-body'}
+              className={`scroll-body ${
+                !isMobile ? 'scroll-body-desktop' : ''
+              }`}
               style={
                 {
                   // opacity: currentStepIndex === 8 ? 1 : 0.2,
                 }
               }
             >
-              {/*<div className={'spacer'} />*/}
-              {/* <div className={'scroll-title'}>
-                  <h4 className={'mb-0 bold'}></h4>
-                </div> */}
-              <div className={'scroll-content'} id={'content-8'}>
+              <div
+                className={`scroll-content ${
+                  isMobile ? 'about-mobile-padding' : ''
+                }`}
+                id={'content-8'}
+              >
+                <h6 className={'bold'}>Attribution</h6>
+                <p>
+                  Reporters and researchers using Spatial Equity NYC as a source
+                  should credit: Spatial Equity NYC, a data tool from
+                  Transportation Alternatives and the Massachusetts Institute of
+                  Technology. Please link: spatialequity.nyc or the relevant
+                  page of this site. Reporters should also also reach out to
+                  press@transalt.org for a quote or additional media inquiries.
+                </p>
+              </div>
+            </div>
+          </Step>
+
+          <div className={'spacer'} />
+
+          <Step data={9} id={9}>
+            <div
+              className={`scroll-body ${
+                !isMobile ? 'scroll-body-desktop' : ''
+              }`}
+              style={
+                {
+                  // opacity: currentStepIndex === 9 ? 1 : 0.2,
+                }
+              }
+            >
+              <div
+                className={`scroll-content ${
+                  isMobile ? 'about-mobile-padding' : ''
+                }`}
+                id={'content-9'}
+              >
                 <h6 className={'bold'}>About Transportation Alternatives</h6>
                 <p>
                   Transportation Alternatives (TA) is a New York City-based
@@ -794,21 +851,24 @@ export default function About({
 
           <div className={'spacer'} />
 
-          <Step data={9} id={9}>
+          <Step data={10} id={10}>
             <div
-              className={'scroll-body'}
+              className={`scroll-body ${
+                !isMobile ? 'scroll-body-desktop' : ''
+              }`}
               style={
                 {
                   // opacity: currentStepIndex === 9 ? 1 : 0.2,
                 }
               }
             >
-              {/*<div className={'spacer'} />*/}
-              {/* <div className={'scroll-title'}>
-                  <h4 className={'mb-0 bold'}></h4>
-                </div> */}
-              <div className={'scroll-content'} id={'content-9'}>
-                <h6 className={'bold'}> Methodology and Data Sources </h6>
+              <div
+                className={`scroll-content ${
+                  isMobile ? 'about-mobile-padding' : ''
+                }`}
+                id={'content-10'}
+              >
+                <h6 className={'bold'}>Methodology and Data Sources</h6>
                 <p>
                   All of the data on Spatial Equity NYC was collected from
                   existing open data sources; this project aims to make existing
@@ -833,7 +893,6 @@ export default function About({
                 <Table bordered>
                   <thead>
                     <tr>
-                      <th>#</th>
                       <th>Data Layers</th>
                       <th>Source</th>
                       <th>Year</th>
@@ -843,9 +902,6 @@ export default function About({
                     {dataLayers.map((id, index) => {
                       return (
                         <tr key={index} className="about-table-row">
-                          <td>
-                            {issues.specific_issues_data[id]?.specific_issue_ID}
-                          </td>
                           <td>
                             {
                               issues.specific_issues_data[id]

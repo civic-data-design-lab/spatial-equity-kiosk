@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 
 export default function IssuesGrid({
   isMobile = false,
@@ -8,31 +6,24 @@ export default function IssuesGrid({
   currentValue = null,
   items,
   setValue = null,
-  issues,
-  issue_categories,
-  showDemographics,
   setDemoToggleText = false,
 }) {
-  const [showDropdownItems, setShowDropdownItems] = useState(true);
-  const [toggleText, setToggleText] = useState(
-    'Select an indicator to explore'
-  );
-  const [included, setIncluded] = useState(false);
+  // const [showDropdownItems, setShowDropdownItems] = useState(true);
+  // const [toggleText, setToggleText] = useState(
+  //   'Select an indicator to explore'
+  // );
 
-  useEffect(() => {
-    let changed = false;
-    items.map((item) => {
-      if (item.specific_issue_ID === currentValue) {
-        setToggleText(item.specific_issue_name);
-        changed = true;
-        setIncluded(true);
-      }
-    });
-    if (!changed) {
-      setToggleText('Select an indicator to explore');
-      setIncluded(false);
-    }
-  });
+  // useEffect(() => {
+  //   let changed = false;
+  //   items.map((item) => {
+  //     if (item.specific_issue_ID === currentValue) {
+  //       changed = true;
+  //     }
+  //   });
+  //   if (!changed) {
+  //     setToggleText('Select an indicator to explore');
+  //   }
+  // });
 
   return (
     <>
@@ -64,11 +55,11 @@ export default function IssuesGrid({
                     // padding: '0.25rem 0.5rem',
                   }}
                   onMouseDown={() => {
-                    setShowDropdownItems(false);
-                    setToggleText(item.specific_issue_name);
+                    // setShowDropdownItems(false);
+                    // setToggleText(item.specific_issue_name);
                     if (currentValue === item.specific_issue_ID) {
                       setValue(false);
-                      setToggleText('Select an indicator to explore');
+                      // setToggleText('Select an indicator to explore');
                     } else {
                       setValue(item.specific_issue_ID);
                     }
@@ -96,7 +87,7 @@ export default function IssuesGrid({
                     // padding: '0.25rem 0.5rem',
                   }}
                   onMouseDown={() => {
-                    setShowDropdownItems(false);
+                    // setShowDropdownItems(false);
                     setDemoToggleText(item);
                     setValue(String(index + 1));
                   }}

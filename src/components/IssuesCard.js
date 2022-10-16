@@ -1,15 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCircleInfo,
-  faArrowsUpDownLeftRight,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from 'react';
 import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import IssueHistogram from './IssueHistogram';
-import HistogramToggle from './HistogramToggle';
-import SourceInfo from './SourceInfo';
 import RightColumnHeader from './RightColumnHeader';
 
 export default function IssuesCard({
@@ -79,6 +71,7 @@ export default function IssuesCard({
           setCompareSearch={setCompareSearch}
           displayModes={displayModes}
           setDisplayModes={setDisplayModes}
+          target={target}
         />
       </div>
     </div>

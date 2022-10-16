@@ -31,7 +31,7 @@ export default function IssuesMiddleColumn({
   councils,
   colorRamps,
   toggleUnderperformers,
-  setToggleUnderperformers, //legendBins,
+  setToggleUnderperformers,
   selectedChapter,
   issue_categories,
   toggleWalk,

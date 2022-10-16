@@ -1,12 +1,5 @@
 import BoundaryToggle from './BoundaryToggle';
 import CommunityNav from './CommunityNav';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faInstagram,
-  faLinkedinIn,
-  faSquareFacebook,
-  faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
 import _CDDL from '../img/cddl_logo_white.svg';
 import _LCAU from '../img/Logo_LCAU logo_white.svg';
 import _MIT from '../img/MIT-logo-white.svg';
@@ -18,13 +11,10 @@ function Nav({
   selectedChapter,
   setSelectedChapter,
   selectedIssue,
-  issue_categories,
   boundary,
   setBoundary,
   selectedSpecificIssue,
   setSelectedSpecificIssue,
-  issues,
-  setSelectedIssue,
   communities,
   communitySearch,
   compareSearch,
@@ -82,7 +72,6 @@ function Nav({
             viewStateCache.current = viewState;
           }
           if (selectedChapter !== 1) {
-            console.log('Chapter 1 clicked');
             setSelectedChapter(1);
             setShowMap(false);
             setCollapseMap(false);
@@ -186,7 +175,6 @@ function Nav({
           setCompareSearch(null);
           setShowMap(false);
           if (selectedChapter !== 2) {
-            console.log('Chapter 2 clicked');
             setSelectedChapter(2);
             setUserPoints([], []);
             if (selectedChapterCache.current)
@@ -262,7 +250,6 @@ function Nav({
           setBadSearch([0, 0]);
           setAddCompare(false);
           if (selectedChapter !== 3) {
-            console.log('Chapter 3 clicked');
             setSelectedChapter(3);
             setShowMap(true);
 
@@ -372,7 +359,6 @@ function Nav({
             viewStateCache.current = viewState;
           }
           if (selectedChapter !== 4) {
-            console.log('Chapter 4 clicked');
             setSelectedChapter(4);
             setCollapseMap(false);
             setUserPoints([], []);

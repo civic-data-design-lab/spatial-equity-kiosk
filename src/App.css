@@ -799,8 +799,6 @@ a:active {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* border-bottom: 2px solid black; */
-    /* border-left: 1px solid white; */
     cursor: pointer;
 }
 
@@ -846,11 +844,6 @@ a:active {
     padding: 0;
 }
 
-.demo-body {
-    transition: height 0.5s, padding 0.4s;
-    overflow: scroll;
-}
-
 .invis {
     max-height: 0;
     opacity: 0;
@@ -882,7 +875,7 @@ a:active {
     margin: 0rem !important;
     padding: 1.5rem 1.5rem !important;
     pointer-events: all;
-    overflow-y: scroll;
+    overflow-y: overlay;
 }
 
 .expand-issue::-webkit-scrollbar {
@@ -1093,10 +1086,11 @@ a:active {
     place-content: center center;
     text-align: center;
     z-index: 10;
+    gap: 0.5rem
 }
 
 .map-zoom-buttons-container>* {
-    font-size: 1.33rem;
+    font-size: 2rem;
     padding: 0.3rem;
     color: black;
     background-color: white;
@@ -1693,8 +1687,8 @@ a:active {
 }
 
 .table>thead {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
     border-color: black;
 }
 
@@ -1813,9 +1807,9 @@ a:active {
     height: calc(5vh - 1px);
 }
 
-.mobile-community-search-screen .community-profile-container {
+/* .mobile-community-search-screen .community-profile-container {
     padding: 1rem;
-}
+} */
 
 
 .Typewriter__wrapper {
@@ -2070,9 +2064,16 @@ input:checked+.slider:before {
     width: calc(50vw);
     /* position: relative; */
     right: 0;
-    padding: 6em 2.5em 1.25em 2.5em;
     z-index: 1;
     min-height: 100vh;
+}
+
+.scroll-body-desktop {
+    padding: 6em 2.5em 1.25em 2.5em;
+}
+
+.about-mobile-padding>*:not(.table) {
+    padding: 0 2.5em;
 }
 
 .scroll-title {
@@ -2381,6 +2382,10 @@ input:checked+.slider:before {
     z-index: 1;
 }
 
+.citywide-non-map-content>*:not(.mobile-histogram) {
+    padding: 1rem;
+}
+
 .category-dropdown {
     height: 100%;
     display: flex;
@@ -2539,6 +2544,9 @@ input:checked+.slider:before {
 
 
 @media screen and (max-width: 576px) {
+    .big-button {
+        padding: 1rem
+    }
 
     .typewriter-container>* {
         /* padding: 1rem 0; */
@@ -2552,8 +2560,8 @@ input:checked+.slider:before {
 
 
     ::-webkit-scrollbar {
-        width: 8px;
-        /* display: none; */
+        /* width: 8px; */
+        display: none;
     }
 
     .small-text {

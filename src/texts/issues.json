@@ -609,7 +609,7 @@
       "image_ids": ["F14_TmpDev_1.jpg"],
       "specific_issue_description": [
         {
-          "text": "Exposure to higher-than-average temperatures ",
+          "text": "Exposure to excessive temperatures ",
           "hyperlink": "can lead to",
           "source": "https://www.nytimes.com/2022/06/13/climate/extreme-heat-wave-health.html"
         },
@@ -1685,7 +1685,7 @@
       "image_ids": ["F28_Trf_De_1.jpg"],
       "specific_issue_description": [
         {
-          "text": "The density of car and truck traffic on a street or passing through a neighborhood directly amplifies the harm caused by traffic, including air pollution, noise pollution, asthma, excess heat, injury, and death. ",
+          "text": "The volume of cars and trucks on a street or passing through a neighborhood directly amplifies the harm caused by traffic, such as air pollution, noise pollution, asthma, excess heat, injury, and death. ",
           "hyperlink": "Fewer than half",
           "source": "https://edc.nyc/article/new-yorkers-and-their-cars"
         },
@@ -2162,7 +2162,7 @@
       "histogram_item": "tree canopy cover",
       "tooltip_fragment": "percent of total land covered",
       "issue_units_symbol": "%",
-      "methodology_warning": "The source data does not include large parks such as Central Park, Prospect Park, or Pelham Bay Park. Similarly, it does not include cemeteries",
+      "methodology_warning": "",
       "related": [10, 1, 5],
       "specific_issue_source": "Treglia, M.L., Acosta-Morel, M., Crabtree, D., Galbo, K., Lin-Moges, T., Van Slooten, A., Maxwell, E.N. 2021. The State of the Urban Forest in New York City - Supplemental Datasets. The Nature Conservancy. doi: 10.5281/zenodo.5210261 and Treglia, M.L., Acosta-Morel, M., Crabtree, D., Galbo, K., Lin-Moges, T., Van Slooten, A., Maxwell, E.N. 2021. The State of the Urban Forest in New York City. The Nature Conservancy. doi: 10.5281/zenodo.5532876",
       "link": "https://doi.org/10.5281/zenodo.5210261",

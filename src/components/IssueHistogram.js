@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import _CHAPTER_COLORS from '../data/chapter_colors.json';
 import _RANKINGS from '../data/rankings.json';
@@ -92,8 +92,9 @@ const IssueHistogram = ({
   specificIssue,
   setCompareSearch,
   addCompare,
-  displayModes,
-  setDisplayModes,
+  displayModes = null,
+  setDisplayModes = null,
+  target,
 }) => {
   const ref = useRef();
   const containerRef = useRef();
@@ -868,7 +869,12 @@ const IssueHistogram = ({
   return (
     <div>
       <div
-        style={{ display: displayModes[selectedSpecificIssue] ? 'none' : '' }}
+        style={{
+          display:
+            displayModes != null && displayModes[selectedSpecificIssue]
+              ? 'none'
+              : '',
+        }}
         className={'m-0 small-font px-4 py-3'}
       >
         {getRankingNarrative(issues.specific_issues_data[specificIssue], avg)}{' '}
@@ -882,7 +888,12 @@ const IssueHistogram = ({
         }}
       >
         <svg
-          style={{ display: displayModes[selectedSpecificIssue] ? 'none' : '' }}
+          style={{
+            display:
+              displayModes != null && displayModes[selectedSpecificIssue]
+                ? 'none'
+                : '',
+          }}
           ref={ref}
         >
           {/* Main Chart */}
@@ -925,6 +936,7 @@ const IssueHistogram = ({
           displayModes={displayModes}
           setDisplayModes={setDisplayModes}
           communityProfile={true}
+          target={target}
         />
       </div>
     </div>

@@ -298,14 +298,13 @@ export default function CitywideData({
               }
             }}
           >
-
-              <p
-                className={`mb-0 ${
-                  !selectedSpecificIssue ? 'big-text' : 'no-text'
-                } mobile-transition-font`}
-              >
-                Health
-              </p>
+            <p
+              className={`mb-0 ${
+                !selectedSpecificIssue ? 'big-text' : 'no-text'
+              } mobile-transition-font`}
+            >
+              Health
+            </p>
             <p
               className={`mb-0 mobile-transition-font
                 ${
@@ -347,14 +346,13 @@ export default function CitywideData({
               }
             }}
           >
-
-              <p
-                className={`mb-0 ${
-                  !selectedSpecificIssue ? 'big-text' : 'no-text'
-                } mobile-transition-font`}
-              >
-                Environment
-              </p>
+            <p
+              className={`mb-0 ${
+                !selectedSpecificIssue ? 'big-text' : 'no-text'
+              } mobile-transition-font`}
+            >
+              Environment
+            </p>
             <p
               className={`mb-0 mobile-transition-font
                 ${
@@ -395,14 +393,13 @@ export default function CitywideData({
               }
             }}
           >
-
-              <p
-                className={`mb-0 ${
-                  !selectedSpecificIssue ? 'big-text' : 'no-text'
-                } mobile-transition-font`}
-              >
-                Infrastructure
-              </p>
+            <p
+              className={`mb-0 ${
+                !selectedSpecificIssue ? 'big-text' : 'no-text'
+              } mobile-transition-font`}
+            >
+              Infrastructure
+            </p>
             <p
               className={`mb-0 mobile-transition-font
                 ${
@@ -448,7 +445,6 @@ export default function CitywideData({
               opacity: showMap ? 0 : 1,
               pointerEvents: showMap ? 'none' : 'auto',
               transition: 'height 0.5s',
-              padding: '1rem',
               overflow: 'auto',
               position: 'relative',
               height: '100%',
@@ -475,8 +471,8 @@ export default function CitywideData({
                   </div>
                 )}
                 <div
-                  style={{ flex: 1, height: toggleDisplayMode ? '' : '85vh' }}
-                  className={'histogram-responsive-box'}
+                  style={{ flex: 1, height: toggleDisplayMode ? '' : '100%' }}
+                  className={'histogram-responsive-box mobile-histogram'}
                 >
                   <Histogram
                     colorRampsyType={colorRamps}
@@ -493,10 +489,32 @@ export default function CitywideData({
                     setToggleDisplayMode={setToggleDisplayMode}
                     useBoroughColor={useBoroughColor}
                     setUseBoroughColor={setUseBoroughColor}
+                    expanded={false}
                     // mobile
                     isMobile={true}
+                    citywideTab={true}
                   />
                 </div>
+                {/* if non map mode */}
+                {!showMap && !toggleDisplayMode && (
+                  <RightColumnFooter
+                    boundary={boundary}
+                    issues={issues}
+                    selectedSpecificIssue={selectedSpecificIssue}
+                    setSelectedChapter={setSelectedChapter}
+                    setSelectedSpecificIssue={setSelectedSpecificIssue}
+                    useBoroughColor={useBoroughColor}
+                    setUseBoroughColor={setUseBoroughColor}
+                    councilPinned={councilPinned}
+                    setCouncilPinned={setCouncilPinned}
+                    communityPinned={communityPinned}
+                    setCommunityPinned={setCommunityPinned}
+                    toggleDisplayMode={toggleDisplayMode}
+                    setToggleDisplayMode={setToggleDisplayMode}
+                    isMobile={true}
+                    citywideTab={true}
+                  />
+                )}
                 <IssueProfile
                   issues={issues}
                   selectedSpecificIssue={selectedSpecificIssue}
@@ -512,26 +530,7 @@ export default function CitywideData({
           </div>
 
           {/* third child - legend tray */}
-          {/* if non map mode */}
-          {!showMap && !toggleDisplayMode ? (
-            <div>
-              <RightColumnFooter
-                boundary={boundary}
-                issues={issues}
-                selectedSpecificIssue={selectedSpecificIssue}
-                setSelectedChapter={setSelectedChapter}
-                setSelectedSpecificIssue={setSelectedSpecificIssue}
-                useBoroughColor={useBoroughColor}
-                setUseBoroughColor={setUseBoroughColor}
-                councilPinned={councilPinned}
-                setCouncilPinned={setCouncilPinned}
-                communityPinned={communityPinned}
-                setCommunityPinned={setCommunityPinned}
-                toggleDisplayMode={toggleDisplayMode}
-                setToggleDisplayMode={setToggleDisplayMode}
-              />
-            </div>
-          ) : showMap ? (
+          {showMap && (
             <MobileLegendTray
               showMap={showMap}
               boundary={boundary}
@@ -572,7 +571,7 @@ export default function CitywideData({
               setDemoColorRamp={setDemoColorRamp}
               setDemoLegendBins={setDemoLegendBins}
             />
-          ) : null}
+          )}
         </div>
       )}
     </div>

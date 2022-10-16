@@ -20,6 +20,10 @@ export default function RightColumnHeader({
   setSelectedSpecificIssue,
   displayModes = null,
   expand,
+
+  // mobile
+  isMobile = false,
+  citywideTab = false,
 }) {
   const getIssueName = () => {
     const bounds =
@@ -204,7 +208,9 @@ export default function RightColumnHeader({
       <div className={'d-flex flex-column position-relative'}>
         <div
           className={`${
-            target ? 'issues-chapters-active' : 'issues-chapters-inactive'
+            isMobile && citywideTab
+              ? 'issues-chapters-inactive'
+              : 'issues-chapters-active'
           } issues-chapters transition-height expand-toggle`}
         >
           <div
@@ -214,9 +220,10 @@ export default function RightColumnHeader({
               alignItems: 'center',
               textAlign: 'center',
               border: 'none',
+              padding: '0',
             }}
           >
-            <h6>
+            <h6 style={{ paddingLeft: '0' }}>
               <FontAwesomeIcon icon={!expand ? faCaretDown : faCaretUp} />
             </h6>
           </div>
