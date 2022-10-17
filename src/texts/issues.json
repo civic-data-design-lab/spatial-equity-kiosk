@@ -26,7 +26,7 @@
       "units": "Percentage of Adults",
       "units_shorthand": "",
       "issue_highlight": "highest asthma percentage",
-      "histogram_bounds": ["Most Cases", "Least Cases"],
+      "histogram_bounds": ["Most Cases", "Fewest Cases"],
       "histogram_item": "of adults have asthma",
       "tooltip_fragment": "of adults with asthma",
       "issue_units_symbol": "%",
@@ -348,7 +348,7 @@
           "source": "https://www.scribd.com/document/58801416/European-Parking-U-Turn-ITDP"
         },
         {
-          "text": " and reduce ",
+          "text": ", and reduce ",
           "hyperlink": "travel times",
           "source": "https://gothamist.com/news/analysis-shows-14th-street-busway-has-slashed-commute-times-notoriously-congested-route"
         },
@@ -420,7 +420,7 @@
               "source": "https://nacto.org/publication/transit-street-design-guide/introduction/why/designing-move-people/"
             },
             {
-              "text": " more people per hour than a street for cars only. The 14h Street busway in Manhattan improved bus speed improved by as much as ",
+              "text": " more people per hour than a street for cars only. The 14th Street busway in Manhattan improved bus speeds by as much as ",
               "hyperlink": "47 percent",
               "source": "https://gothamist.com/news/analysis-shows-14th-street-busway-has-slashed-commute-times-notoriously-congested-route"
             },
@@ -514,7 +514,7 @@
         },
         {
           "text": " smaller than parks in wealthy neighborhoods, and parks in neighborhoods with more Black residents are ",
-          "hyperlink": "73 percents",
+          "hyperlink": "73 percent",
           "source": "https://www.nytimes.com/2020/07/15/nyregion/nyc-parks-access-governors-island.html"
         },
         {
@@ -1176,7 +1176,7 @@
               "source": "https://www1.nyc.gov/html/dot/html/bicyclists/bike-corrals.shtml"
             },
             {
-              "text": "will reduce ",
+              "text": " will reduce ",
               "hyperlink": "speeding",
               "source": "https://nacto.org/wp-content/uploads/2015/04/chicanes_and_speed_humps_marek.pdf"
             },
@@ -1187,11 +1187,11 @@
             },
             {
               "text": " for turning drivers, ",
-              "hyperlink": "protect pedestrians and cyclists ",
+              "hyperlink": "protect pedestrians and cyclists",
               "source": "https://www.youtube.com/watch?v=MFf92sisynw"
             },
             {
-              "text": "from turning cars, and add as many as ten bike parking spaces in the space of one car parking space."
+              "text": " from turning cars, and add as many as ten bike parking spaces in the space of one car parking space."
             }
           ],
           [
@@ -1538,7 +1538,7 @@
       "histogram_item": "with bike lanes",
       "tooltip_fragment": "of street miles with a protected bike lane",
       "issue_units_symbol": "%",
-      "methodology_warning": "Does not include greenways",
+      "methodology_warning": "",
       "related": [12, 13, 14],
       "specific_issue_source": "Department of Transportation (DOT)",
       "link": "https://data.cityofnewyork.us/Environment/DEP-Green-Infrastructure/spjh-pz7h",
@@ -1796,7 +1796,7 @@
               "source": "https://nacto.org/publication/transit-street-design-guide/introduction/why/designing-move-people/"
             },
             {
-              "text": ", and a busway on a car-free street",
+              "text": ", and a busway on a car-free street ",
               "hyperlink": "25,000 people",
               "source": "https://nacto.org/publication/transit-street-design-guide/introduction/why/designing-move-people/"
             },
@@ -1807,7 +1807,7 @@
             },
             {
               "text": " of London road space but carries ",
-              "hyperlink": "a35 percent",
+              "hyperlink": "a 35 percent",
               "source": "https://ggwash.org/view/80846/london-calling-what-car-free-lanes-and-cameras-can-do-for-bus-service"
             },
             {
@@ -1988,7 +1988,7 @@
       "units": "Per 10,000 Residents from 2014 to 2022",
       "units_shorthand": "Injuries",
       "issue_highlight": "most traffic injuries",
-      "histogram_bounds": ["Most Injuries", "Least Injuries"],
+      "histogram_bounds": ["Most Injuries", "Fewest Injuries"],
       "histogram_item": "traffic injuries per 10,000 residents (2014-2022)",
       "tooltip_fragment": "injuries per 10,000 residents from 2014-2022",
       "issue_units_symbol": "",
@@ -2073,7 +2073,7 @@
               "source": "https://nacto.org/wp-content/uploads/2015/04/chicanes_and_speed_humps_marek.pdf"
             },
             {
-              "text": ". A one mile per hour reduction in driving speed results in ",
+              "text": ". A one mile per hour reduction in driving speed results in a ",
               "hyperlink": "four to six percent",
               "source": "https://usa.streetsblog.org/2018/05/16/20-mph-speed-limits-might-become-the-new-normal-in-scotland/"
             },
@@ -2257,7 +2257,7 @@
               "bolded": true
             },
             {
-              "text": "to shift trips out of cars in low-tree canopy districts by replacing one lane of car parking with a widened sidewalk lined with street trees or by closing a ",
+              "text": " to shift trips out of cars in low-tree canopy districts by replacing one lane of car parking with a widened sidewalk lined with street trees or by closing a ",
               "hyperlink": "slip lane",
               "source": "https://twitter.com/NACTO/status/1404848999757238280"
             },
@@ -2277,7 +2277,7 @@
               "source": "https://medium.com/sidewalk-talk/the-strongest-evidence-yet-that-parking-spaces-cause-more-driving-fb530aec9165"
             },
             {
-              "text": " , replacing parking with trees will also reduce air pollution in the long term."
+              "text": ", replacing parking with trees will also reduce air pollution in the long term."
             }
           ],
           [
