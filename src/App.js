@@ -30,6 +30,7 @@ import MobileCommunityProfile from './components/Mobile Components/MobileCommuni
 import MobileWhatIsSE from './components/Mobile Components/MobileWhatIsSE';
 import About from './components/About';
 import MobileFixedHeader from './components/Mobile Components/MobileFixedHeader';
+import ReactGA from 'react-ga4';
 
 let siteProtection =
   process.env.REACT_APP_SITE_PROTECTION == 'false'
@@ -37,6 +38,8 @@ let siteProtection =
     : process.env.REACT_APP_SITE_PROTECTION == 'true'
     ? true
     : undefined;
+    
+siteProtection = false;
 let sha512 = process.env.REACT_APP_SITE_PWD;
 
 // map data imports
@@ -283,6 +286,25 @@ function App() {
   /* useEffect(()=>{
           console.log("user points ", userPoints)
         })*/
+
+  useEffect(() => {
+    // Multiple products (previously known as trackers)
+    ReactGA.initialize([
+      {
+        trackingId: 'G-Z9DJKK9FQY',
+      },
+    //   {
+    //     trackingId: 'G-589ZW1S0M4',
+    //   },
+    ]);
+
+    ReactGA.event({
+        category: "PageView",
+        action: "Init View",
+        label: "View",
+        // value: 99, 
+      });
+  }, []);
 
   const selectedBoundary = useMemo(() => {
     if (boundary === 'council') {
