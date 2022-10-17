@@ -38,6 +38,8 @@ export default function Demographics({
   info,
   issues,
   issue_categories,
+  setSelectedChapter,
+  setShowMap,
 
   // mobile only
   isMobile = false,
@@ -145,6 +147,7 @@ export default function Demographics({
           issue_categories={issue_categories}
           showDemographics={showDemographics}
           setDemoToggleText={setDemoToggleText}
+          setMapDemographics={setMapDemographics}
         />
       )}
       {currentValue && (
@@ -189,6 +192,7 @@ export default function Demographics({
                           setValue(key);
                         } else {
                           setValue(null);
+                          setMapDemographics(false);
                           setDemoToggleText('Select an indicator to explore');
                         }
                       }}
@@ -204,6 +208,7 @@ export default function Demographics({
           {currentValue && selectedChapter === 2 && (
             <>
               <Legend
+                setShowMap={setShowMap}
                 mapDemographics={mapDemographics}
                 demoColorRamp={demoColorRamp}
                 demoLegendBins={demoLegendBins}
@@ -222,6 +227,7 @@ export default function Demographics({
                 toggleWalk={toggleWalk}
                 toggleTransit={toggleTransit}
                 toggleBike={toggleBike}
+                setSelectedChapter={setSelectedChapter}
                 // mobile only
                 isMobile={isMobile}
                 showLegend={showLegend}
@@ -261,6 +267,7 @@ export default function Demographics({
             selectedChapter === 3 && (
               <>
                 <Legend
+                  setShowMap={setShowMap}
                   mapDemographics={mapDemographics}
                   demoColorRamp={demoColorRamp}
                   demoLegendBins={demoLegendBins}
@@ -285,6 +292,7 @@ export default function Demographics({
                   toggleWalk={toggleWalk}
                   toggleTransit={toggleTransit}
                   toggleBike={toggleBike}
+                  setSelectedChapter={setSelectedChapter}
                   // mobile only
                   isMobile={isMobile}
                   showLegend={showLegend}
@@ -325,6 +333,7 @@ export default function Demographics({
                 <Slider>
                   <div>
                     <Legend
+                      setShowMap={setShowMap}
                       mapDemographics={mapDemographics}
                       demoColorRamp={demoColorRamp}
                       demoLegendBins={demoLegendBins}
@@ -349,6 +358,7 @@ export default function Demographics({
                       toggleWalk={toggleWalk}
                       toggleTransit={toggleTransit}
                       toggleBike={toggleBike}
+                      setSelectedChapter={setSelectedChapter}
                       // mobile only
                       isMobile={isMobile}
                       showLegend={showLegend}
@@ -360,6 +370,7 @@ export default function Demographics({
                     ></div>
 
                     <Legend
+                      setShowMap={setShowMap}
                       mapDemographics={mapDemographics}
                       demoColorRamp={demoColorRamp}
                       demoLegendBins={demoLegendBins}
@@ -384,6 +395,7 @@ export default function Demographics({
                       toggleWalk={toggleWalk}
                       toggleTransit={toggleTransit}
                       toggleBike={toggleBike}
+                      setSelectedChapter={setSelectedChapter}
                       // mobile only
                       isMobile={isMobile}
                       showLegend={showLegend}

@@ -8,6 +8,7 @@ export default function SourceInfo({
   setSelectedChapter,
   setShowMap,
   verticalHistogram = false,
+  type,
 }) {
   const [showInfo, setShowInfo] = useState(false);
   return (
@@ -30,6 +31,7 @@ export default function SourceInfo({
         style={
           showInfo
             ? {
+                display: 'inline-block',
                 fontSize: '1rem',
                 cursor: 'pointer',
                 transform: 'scale(1.1)',
@@ -38,26 +40,38 @@ export default function SourceInfo({
         }
         icon={faCircleInfo}
       />
-      <div
-        className={`${
-          showInfo ? '' : 'd-none'
-        } position-absolute info-tooltip smaller-text ${
-          verticalHistogram ? '' : 'end-0'
-        }`}
-      >
-        <p className={'m-0'}>
-          {`Source: ${issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_source}. ${issues.specific_issues_data[selectedSpecificIssue]?.year}.
+      {type == 'demographic' && (
+        <div
+          className={`${
+            showInfo ? '' : 'd-none'
+          } position-absolute info-tooltip smaller-text`}
+        >
+          <p className={'m-0'}>Click to learn more about U.S Census Data.</p>
+        </div>
+      )}
+
+      {type !== 'demographic' && (
+        <div
+          className={`${
+            showInfo ? '' : 'd-none'
+          } position-absolute info-tooltip smaller-text ${
+            verticalHistogram ? '' : 'end-0'
+          }`}
+        >
+          <p className={'m-0'}>
+            {`Source: ${issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_source}. ${issues.specific_issues_data[selectedSpecificIssue]?.year}.
             `}
-        </p>
-        <span className="text-secondary fst-italic fw-light">
-          {issues.specific_issues_data[selectedSpecificIssue]
-            ?.methodology_warning
-            ? `*
+          </p>
+          <span className="text-secondary fst-italic fw-light">
+            {issues.specific_issues_data[selectedSpecificIssue]
+              ?.methodology_warning
+              ? `*
            ${issues.specific_issues_data[selectedSpecificIssue]?.methodology_warning}.
            Click to learn more.`
-            : 'Click to learn more.'}
-        </span>
-      </div>
+              : 'Click to learn more.'}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

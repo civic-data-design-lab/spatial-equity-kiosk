@@ -164,15 +164,15 @@ function Nav({
 
           if (selectedChapter !== 2) {
             setSelectedChapter(2);
-            // setUserPoints([], []);
+            setUserPoints([], []);
             // setMapDemographics(false);
             setMoreIssuesLength(0);
-            // setMoreIssues([]);
+            setMoreIssues([]);
             setCollapseMap(false);
-            // setSearchSource(null);
+            setSearchSource(null);
             setBadSearch([0, 0]);
-            // setCommunitySearch(null);
-            // setCompareSearch(null);
+            setCommunitySearch(null);
+            setCompareSearch(null);
             setShowMap(false);
             if (selectedChapterCache.current)
               setSelectedSpecificIssue(selectedChapterCache.current);

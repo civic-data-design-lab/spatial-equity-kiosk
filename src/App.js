@@ -101,6 +101,7 @@ function App() {
   const [showDropDown, setShowDropDown] = useState(false);
   const [showSubDropDown, setShowSubDropDown] = useState(false);
   const [showLegend, setShowLegend] = useState(false);
+  const [showNotableTray, setShowNotableTray] = useState(true);
   const isTouchingMapMobile = useRef(false);
 
   // console.log(badSearch);
@@ -115,6 +116,22 @@ function App() {
   const [handleLegend, sethandleLegend] = useState(0);
 
   const [prevStates, setPrevStates] = useState([]);
+
+  const selectedCommunity = useMemo(() => {
+    return communitySearch
+      ? boundary == 'council'
+        ? councils[communitySearch]
+        : communities[communitySearch]
+      : null;
+  }, [boundary, communitySearch]);
+
+  const selectedCompareCommunity = useMemo(() => {
+    return compareSearch
+      ? boundary == 'council'
+        ? councils[compareSearch]
+        : communities[compareSearch]
+      : null;
+  }, [boundary, compareSearch]);
 
   useEffect(() => {
     let body = document.getElementsByTagName('body')[0];
@@ -799,6 +816,8 @@ function App() {
                   colorRamp={colorRamps}
                   collapseMap={collapseMap}
                   setSelectedSpecificIssue={setSelectedSpecificIssue}
+                  selectedCommunity={selectedCommunity}
+                  selectedCompareCommunity={selectedCompareCommunity}
                 />
               </div>
             </div>
@@ -827,6 +846,11 @@ function App() {
                 selectedSpecificIssue={selectedSpecificIssue}
                 displayModes={displayModes}
                 setDisplayModes={setDisplayModes}
+                setUserPoints={setUserPoints}
+                setMoreIssuesLength={setMoreIssuesLength}
+                setCollapseMap={setCollapseMap}
+                setSearchSource={setSearchSource}
+                setMoreIssues={setMoreIssues}
               />
             )}
             <MobileNav
@@ -851,6 +875,11 @@ function App() {
               selectedSpecificIssue={selectedSpecificIssue}
               displayModes={displayModes}
               setDisplayModes={setDisplayModes}
+              setUserPoints={setUserPoints}
+              setMoreIssuesLength={setMoreIssuesLength}
+              setCollapseMap={setCollapseMap}
+              setSearchSource={setSearchSource}
+              setMoreIssues={setMoreIssues}
             />
           </div>
 
@@ -1211,6 +1240,10 @@ function App() {
               setShowLegend={setShowLegend}
               displayModes={displayModes}
               setDisplayModes={setDisplayModes}
+              selectedCommunity={selectedCommunity}
+              selectedCompareCommunity={selectedCompareCommunity}
+              showNotableTray={showNotableTray}
+              setShowNotableTray={setShowNotableTray}
             />
           ) : selectedChapter === 4 ? (
             <About
@@ -1286,6 +1319,8 @@ function App() {
               setSelectedSpecificIssue={setSelectedSpecificIssue}
               communitySearch={communitySearch}
               compareSearch={compareSearch}
+              selectedCommunity={selectedCommunity}
+              selectedCompareCommunity={selectedCompareCommunity}
               // mobile only
               showDropDown={showDropDown}
               setShowDropDown={setShowDropDown}
@@ -1295,6 +1330,8 @@ function App() {
               showLegend={showLegend}
               setShowLegend={setShowLegend}
               isTouchingMapMobile={isTouchingMapMobile}
+              showNotableTray={showNotableTray}
+              setShowNotableTray={setShowNotableTray}
             />
           </div>
         </Container>

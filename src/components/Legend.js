@@ -189,8 +189,8 @@ export default function Legend({
         <div
           className={
             demoLookup.lookup == 'F10_TrsBkW'
-              ? 'mb-1 small-font'
-              : 'mb-3 small-font'
+              ? 'mb-1 small-font d-inline-block'
+              : 'mb-3 small-font d-inline-block'
           }
         >
           {getNumber(100 - percList[percList.length - 1])}% of
@@ -211,11 +211,16 @@ export default function Legend({
             : '.'}
         </div>
         {demoLookup.name === 'Commuters Who Bike, Walk, or Ride Transit' && (
-          <div>
+          <div className={'d-inline-block'}>
             {transitToggles}
             {!isMobile ? '.' : ''}
           </div>
-        )}
+        )}{' '}
+        <SourceInfo
+          type={'demographic'}
+          setSelectedChapter={setSelectedChapter}
+          setShowMap={setShowMap}
+        />
       </>
     );
   };

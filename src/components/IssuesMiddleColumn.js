@@ -655,7 +655,7 @@ export default function IssuesMiddleColumn({
       <div
         className={`${showDemographics ? 'expand-issue' : ''} accordion-body`}
       >
-        <div className={'h-100 position-relative'}>
+        <div className={'d-flex position-relative'}>
           <Demographics
             currentValue={demographic}
             setValue={setDemographic}
@@ -686,6 +686,8 @@ export default function IssuesMiddleColumn({
             info={info}
             issues={issues}
             issue_categories={issue_categories}
+            setSelectedChapter={setSelectedChapter}
+            setShowMap={setShowMap}
           />
         </div>
       </div>

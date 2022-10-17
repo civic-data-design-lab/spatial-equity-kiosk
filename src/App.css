@@ -2346,7 +2346,7 @@ input:checked+.slider:before {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-bottom: 1.5rem;
+    /* padding-bottom: 1.5rem; */
 
 }
 
@@ -2561,7 +2561,7 @@ input:checked+.slider:before {
 
     .map-notable-indicators {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: auto auto auto;
 
     }
 

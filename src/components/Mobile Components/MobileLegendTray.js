@@ -1,5 +1,6 @@
 import Legend from '../Legend';
 import Demographics from '../Demographics';
+import MapNotableIndicators from '../MapNotableIndicators';
 
 export default function MobileLegendTray({
   showMap,
@@ -40,6 +41,10 @@ export default function MobileLegendTray({
   setToggleWalk,
   setDemoColorRamp,
   setDemoLegendBins,
+  selectedCommunity,
+  setSelectedSpecificIssue,
+  showNotableTray,
+  setShowNotableTray,
 }) {
   return (
     <div style={{ backgroundColor: 'white', pointerEvents: 'auto' }}>
@@ -93,6 +98,23 @@ export default function MobileLegendTray({
             />
           </div>
         </div>
+        {!mapDemographics && (
+          <MapNotableIndicators
+            isMobile={true}
+            selectedCommunity={selectedCommunity}
+            communitySearch={communitySearch}
+            councils={councils}
+            communities={communities}
+            setSelectedSpecificIssue={setSelectedSpecificIssue}
+            issues={issues}
+            boundary={boundary}
+            selectedSpecificIssue={selectedSpecificIssue}
+            isTouchingMapMobile={isTouchingMapMobile}
+            showLegend={showLegend}
+            showNotableTray={showNotableTray}
+            setShowNotableTray={setShowNotableTray}
+          />
+        )}
 
         {/*map mode - bottom tray details fourth child */}
         <div

@@ -1,5 +1,5 @@
 // dependencies
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import DeckGL from '@deck.gl/react';
 import { Map, Popup } from 'react-map-gl';
 import { GeoJsonLayer, ScatterplotLayer, TextLayer } from '@deck.gl/layers';
@@ -222,6 +222,10 @@ export default function DeckMap({
   showLegend,
   setShowLegend,
   isTouchingMapMobile,
+  selectedCommunity,
+  selectedCompareCommunity,
+  showNotableTray,
+  setShowNotableTray,
 }) {
   // map hooks
   /**
@@ -244,7 +248,6 @@ export default function DeckMap({
   const [underperformers, setUnderperformers] = useState(null);
   const [transportationModesArray, setTransportationModesArray] = useState([]);
   const [highlightFeature, sethighlightFeature] = useState(null);
-  const [showNotable, setShowNotable] = useState(true);
 
   // console.log(tooltipCompData1, tooltipCompData2);
 
@@ -257,17 +260,18 @@ export default function DeckMap({
     debounce(updateTooltipPositions, 750)();
   }, [deckRef.current?.deck.width, collapseMap, viewStateLocal]);
 
-  const selectedCommunity = communitySearch
-    ? boundary == 'council'
-      ? councils[communitySearch]
-      : communities[communitySearch]
-    : null;
+  // both of these should be hooks they are being re-rendered on every frame - made them memo and then moved to app.js
+  // const selectedCommunity = communitySearch
+  //   ? boundary == 'council'
+  //     ? councils[communitySearch]
+  //     : communities[communitySearch]
+  //   : null;
 
-  const selectedCompareCommunity = compareSearch
-    ? boundary == 'council'
-      ? councils[compareSearch]
-      : communities[compareSearch]
-    : null;
+  // const selectedCompareCommunity = compareSearch
+  //   ? boundary == 'council'
+  //     ? councils[compareSearch]
+  //     : communities[compareSearch]
+  //   : null;
 
   /**
    * If global view state changes, change the local view state. This is done to
@@ -1318,12 +1322,6 @@ export default function DeckMap({
       stroked: true,
 
       getLineColor: (f) => {
-        console.log(
-          boundary == 'council' ? f.properties.CounDist : f.properties.CDTA2020,
-          communitySearch,
-          compareSearch
-        );
-        // return [255, 0, 0, 255];
         if (
           (boundary == 'council' &&
             (f.properties.CounDist == communitySearch ||
@@ -1457,46 +1455,51 @@ export default function DeckMap({
         if (isMobile && showDropDown) setShowDropDown(false);
         if (isMobile && showSubDropDown) setShowSubDropDown(false);
         if (isMobile && showLegend) {
-          isTouchingMapMobile.current = true;
+          isTouchingMapMobile.current = 1;
           setShowLegend(false);
         }
-        if (isMobile && showNotable) setShowNotable(false);
+        if (isMobile && showNotableTray) {
+          isTouchingMapMobile.current = 2;
+          setShowNotableTray(false);
+        }
       }}
       onTouchEnd={() => {
-        if (isMobile && !showLegend && isTouchingMapMobile.current == true)
+        if (isMobile && !showLegend && isTouchingMapMobile.current == 1) {
           setShowLegend(true);
-        setShowNotable(true);
+        }
+        if (isMobile && !showNotableTray && isTouchingMapMobile.current == 2) {
+          setShowNotableTray(true);
+        }
       }}
     >
-      <div
-        className="map-notable-container transition-height overflow-hidden"
-        style={isMobile ? { maxHeight: showNotable ? '20vh' : '0' } : {}}
-      >
-        {selectedCommunity && (
-          <MapNotableIndicators
-            selectedCommunity={selectedCommunity}
-            communitySearch={communitySearch}
-            councils={councils}
-            communities={communities}
-            setSelectedSpecificIssue={setSelectedSpecificIssue}
-            issues={issues}
-            boundary={boundary}
-            selectedSpecificIssue={selectedSpecificIssue}
-          />
-        )}
-        {compareSearch && addCompare && (
-          <MapNotableIndicators
-            selectedCommunity={selectedCompareCommunity}
-            communitySearch={compareSearch}
-            councils={councils}
-            communities={communities}
-            setSelectedSpecificIssue={setSelectedSpecificIssue}
-            issues={issues}
-            boundary={boundary}
-            selectedSpecificIssue={selectedSpecificIssue}
-          />
-        )}
-      </div>
+      {!isMobile && (
+        <div className="map-notable-container transition-height overflow-hidden">
+          {selectedCommunity && (
+            <MapNotableIndicators
+              selectedCommunity={selectedCommunity}
+              communitySearch={communitySearch}
+              councils={councils}
+              communities={communities}
+              setSelectedSpecificIssue={setSelectedSpecificIssue}
+              issues={issues}
+              boundary={boundary}
+              selectedSpecificIssue={selectedSpecificIssue}
+            />
+          )}
+          {compareSearch && addCompare && (
+            <MapNotableIndicators
+              selectedCommunity={selectedCompareCommunity}
+              communitySearch={compareSearch}
+              councils={councils}
+              communities={communities}
+              setSelectedSpecificIssue={setSelectedSpecificIssue}
+              issues={issues}
+              boundary={boundary}
+              selectedSpecificIssue={selectedSpecificIssue}
+            />
+          )}
+        </div>
+      )}
       {showMap && (
         <div className="map-zoom-toggle map-zoom-buttons-container">
           <FontAwesomeIcon onClick={zoomIn} icon={faPlus} />

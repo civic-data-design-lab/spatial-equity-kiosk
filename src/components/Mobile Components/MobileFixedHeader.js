@@ -10,15 +10,14 @@ export default function MobileFixedHeader({
   setShowMenu,
   showMenu,
   communitySearch,
-  // toggleDisplayMode,
-  // setToggleDisplayMode,
   selectedSpecificIssue,
   displayModes,
   setDisplayModes,
 }) {
   return (
-    <div className={'mobile-nav-header'}
-         style={{height:selectedChapter===4?"4rem":''}}
+    <div
+      className={'mobile-nav-header'}
+      style={{ height: selectedChapter === 4 ? '4rem' : '' }}
     >
       <div>
         <h4 className={'m-0'}>

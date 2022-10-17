@@ -10,6 +10,11 @@ export default function MapNotableIndicators({
   boundary,
   comparison = false,
   selectedSpecificIssue,
+  isMobile = false,
+  isTouchingMapMobile,
+  showLegend,
+  showNotableTray,
+  setShowNotableTray,
 }) {
   const [notableIndicators, setNotableIndicators] = useState(['', '', '']);
 
@@ -35,17 +40,39 @@ export default function MapNotableIndicators({
   };
 
   return (
-    <div className="map-notable-indicators">
-      <div>
-        {getBoundaryName()}
-        <br></br>Notable Indicators
+    <div
+      className="map-notable-indicators"
+      style={
+        isMobile
+          ? {
+              maxHeight: showNotableTray ? '20vh' : '0',
+            }
+          : {}
+      }
+    >
+      <div
+        style={
+          isMobile
+            ? {
+                backgroundColor: 'white',
+                color: 'black',
+                padding: '0.25rem 1rem',
+              }
+            : {}
+        }
+      >
+        {!isMobile ? `${getBoundaryName()} ` : ''}
+        Notable Indicators
       </div>
       {notableIndicators.map((indicatorIndex, index) => (
         <div
           key={index}
           style={
             selectedSpecificIssue == indicatorIndex
-              ? { backgroundColor: 'black', color: 'white' }
+              ? {
+                  backgroundColor: 'black',
+                  color: 'white',
+                }
               : {}
           }
           onClick={() => setSelectedSpecificIssue(indicatorIndex)}

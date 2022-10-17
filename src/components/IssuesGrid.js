@@ -7,6 +7,7 @@ export default function IssuesGrid({
   items,
   setValue = null,
   setDemoToggleText = false,
+  setMapDemographics,
 }) {
   // const [showDropdownItems, setShowDropdownItems] = useState(true);
   // const [toggleText, setToggleText] = useState(
@@ -90,6 +91,7 @@ export default function IssuesGrid({
                     // setShowDropdownItems(false);
                     setDemoToggleText(item);
                     setValue(String(index + 1));
+                    setMapDemographics(true);
                   }}
                 >
                   <p className={'small-font-vh mb-0'}>{item}</p>

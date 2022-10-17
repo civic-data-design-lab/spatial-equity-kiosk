@@ -90,6 +90,10 @@ export default function MobileCommunityProfile({
   setShowLegend,
   displayModes,
   setDisplayModes,
+  selectedCommunity,
+  selectedCompareCommunity,
+  showNotableTray,
+  setShowNotableTray,
 }) {
   const [showCompareSearch, setShowCompareSearch] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
@@ -500,6 +504,11 @@ export default function MobileCommunityProfile({
             setToggleWalk={setToggleWalk}
             setDemoColorRamp={setDemoColorRamp}
             setDemoLegendBins={setDemoLegendBins}
+            selectedCommunity={selectedCommunity}
+            selectedCompareCommunity={selectedCompareCommunity}
+            setSelectedSpecificIssue={setSelectedSpecificIssue}
+            showNotableTray={showNotableTray}
+            setShowNotableTray={setShowNotableTray}
           />
         )}
       </div>

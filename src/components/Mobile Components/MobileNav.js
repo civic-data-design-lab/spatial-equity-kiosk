@@ -24,6 +24,12 @@ export default function MobileNav({
   displayModes,
   setDisplayModes,
   selectedSpecificIssue,
+
+  setUserPoints,
+  setMoreIssuesLength,
+  setCollapseMap,
+  setSearchSource,
+  setMoreIssues,
 }) {
   return (
     <div
@@ -115,6 +121,15 @@ export default function MobileNav({
             if (selectedChapter !== 2) {
               setSelectedChapter(2);
               setShowMenu(false);
+              setUserPoints([], []);
+              setMoreIssuesLength(0);
+              setMoreIssues([]);
+              setCollapseMap(false);
+              setSearchSource(null);
+              setBadSearch([0, 0]);
+              setCommunitySearch(null);
+              setCompareSearch(null);
+              setShowMap(false);
             } else {
               setSelectedChapter(null);
               setShowMenu(false);
