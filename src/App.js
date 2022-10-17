@@ -38,7 +38,7 @@ let siteProtection =
     : process.env.REACT_APP_SITE_PROTECTION == 'true'
     ? true
     : undefined;
-    
+
 siteProtection = false;
 let sha512 = process.env.REACT_APP_SITE_PWD;
 
@@ -288,23 +288,67 @@ function App() {
         })*/
 
   useEffect(() => {
-    // Multiple products (previously known as trackers)
     ReactGA.initialize([
       {
         trackingId: 'G-Z9DJKK9FQY',
       },
-    //   {
-    //     trackingId: 'G-589ZW1S0M4',
-    //   },
+      //   {
+      //     trackingId: 'G-589ZW1S0M4',
+      //   },
     ]);
-
     ReactGA.event({
-        category: "PageView",
-        action: "Init View",
-        label: "View",
-        // value: 99, 
-      });
+      category: 'PageView',
+      action: 'Init View',
+      label: 'View',
+    });
   }, []);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Route',
+      label: 'View',
+      value: location.search,
+    });
+  }, [location.search]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'Function',
+      action: 'Select Coord',
+      label: 'Function',
+      value: selectedCoord,
+    });
+  }, [selectedCoord]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'Function',
+      action: 'Compare Coord',
+      label: 'Function',
+      value: selectedCompareCoord,
+    });
+  }, [selectedCompareCoord]);
+
+  useEffect(() => {
+    if (showMap)
+      ReactGA.event({
+        category: 'Function',
+        action: 'Show Map',
+        label: 'Function',
+        value: showMap,
+      });
+  }, [showMap]);
+
+  useEffect(() => {
+    if (showToggle)
+      ReactGA.event({
+        category: 'Function',
+        action: 'Show Toggle',
+        label: 'Function',
+        value: showToggle,
+      });
+  }, [showToggle]);
 
   const selectedBoundary = useMemo(() => {
     if (boundary === 'council') {
