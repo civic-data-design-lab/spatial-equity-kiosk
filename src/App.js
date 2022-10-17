@@ -30,6 +30,7 @@ import MobileCommunityProfile from './components/Mobile Components/MobileCommuni
 import MobileWhatIsSE from './components/Mobile Components/MobileWhatIsSE';
 import About from './components/About';
 import MobileFixedHeader from './components/Mobile Components/MobileFixedHeader';
+import ReactGA from 'react-ga4';
 
 let siteProtection =
   process.env.REACT_APP_SITE_PROTECTION == 'false'
@@ -37,6 +38,8 @@ let siteProtection =
     : process.env.REACT_APP_SITE_PROTECTION == 'true'
     ? true
     : undefined;
+
+siteProtection = false;
 let sha512 = process.env.REACT_APP_SITE_PWD;
 
 // map data imports
@@ -283,6 +286,154 @@ function App() {
   /* useEffect(()=>{
           console.log("user points ", userPoints)
         })*/
+
+  // GA4 hooks
+  useEffect(() => {
+    ReactGA.initialize([
+        {
+          trackingId: 'G-589ZW1S0M4',
+        },
+    ]);
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Init View',
+      label: 'View',
+    });
+  }, []);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Route params',
+      label: location.search,
+    });
+  }, [location.search]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'Regions of Interests',
+      action: 'Select Coord',
+      label: selectedCoord,
+    });
+  }, [selectedCoord]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'Regions of Interests',
+      action: 'Compare Coord',
+      label: selectedCompareCoord,
+    });
+  }, [selectedCompareCoord]);
+
+  useEffect(() => {
+    if (showMap)
+      ReactGA.event({
+        category: 'Function',
+        action: 'Show Map',
+        label: showMap,
+      });
+  }, [showMap]);
+
+  useEffect(() => {
+    if (showToggle)
+      ReactGA.event({
+        category: 'Function',
+        action: 'Show Toggle',
+        label: showToggle,
+      });
+  }, [showToggle]);
+
+  useEffect(() => {
+    if (showDemographics)
+      ReactGA.event({
+        category: 'Function',
+        action: 'Show Demographics',
+        label: showDemographics,
+      });
+  }, [showDemographics]);
+
+  useEffect(() => {
+    if (mapDemographics)
+      ReactGA.event({
+        category: 'Function',
+        action: 'Show Demographics on map',
+        label: mapDemographics,
+      });
+  }, [mapDemographics]);
+
+  useEffect(() => {
+    if (addCompare)
+      ReactGA.event({
+        category: 'Function',
+        action: 'Use compare',
+        label: addCompare,
+      });
+  }, [addCompare]);
+
+  useEffect(() => {
+    if (toggleUnderperformers)
+      ReactGA.event({
+        category: 'Function',
+        action: 'Toggle Underperformers',
+        label: toggleUnderperformers,
+      });
+  }, [toggleUnderperformers]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Select Chapter',
+      label: selectedChapter,
+    });
+  }, [selectedChapter]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Select Issue',
+      label: selectedIssue,
+    });
+  }, [selectedIssue]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Select Specific Issue',
+      label: selectedSpecificIssue,
+    });
+  }, [selectedSpecificIssue]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Switch boundary',
+      label: boundary,
+    });
+  }, [boundary]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Select About',
+      label: selectedAbout,
+    });
+  }, [selectedAbout]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'Regions of Interests',
+      action: 'Community Pinned',
+      label: communityPinned,
+    });
+  }, [communityPinned]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'Regions of Interests',
+      action: 'Council Pinned',
+      label: councilPinned,
+    });
+  }, [councilPinned]);
 
   const selectedBoundary = useMemo(() => {
     if (boundary === 'council') {
