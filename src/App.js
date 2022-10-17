@@ -566,7 +566,7 @@ function App() {
 
   // console.log('siteProtection', process.env.REACT_APP_SITE_PROTECTION)
   // console.log('sha512', process.env.REACT_APP_SITE_PWD)
-  if (typeof siteProtection == 'undefined') siteProtection = true;
+  if (typeof siteProtection == 'undefined') siteProtection = false;
   if (typeof sha512 == 'undefined')
     sha512 =
       'EE26B0DD4AF7E749AA1A8EE3C10AE9923F618980772E473F8819A5D4940E0DB27AC185F8A0E1D5F84F88BC887FD67B143732C304CC5FA9AD8E6F57F50028A8FF';
@@ -1318,7 +1318,6 @@ function App() {
               collapseMap={collapseMap}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
               communitySearch={communitySearch}
-              compareSearch={compareSearch}
               selectedCommunity={selectedCommunity}
               selectedCompareCommunity={selectedCompareCommunity}
               // mobile only

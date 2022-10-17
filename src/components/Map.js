@@ -205,7 +205,7 @@ export default function DeckMap({
   searchSource,
   setSearchSource,
   setErrorCode,
-  infoTransfer,
+  infoTransfer = null,
   setShowMap,
   showMap,
   userPoints,
@@ -349,13 +349,17 @@ export default function DeckMap({
   // 01.4 Color Scale function
 
   const COLOR_SCALE =
-    dataScale == 'equal'
-      ? scaleThreshold()
-          .domain(infoTransfer.binList)
-          .range(_CHAPTER_COLORS[colorRamp])
-      : scaleQuantile()
-          .domain(infoTransfer.uniqueValueArray)
-          .range(_CHAPTER_COLORS[colorRamp]); //quantile bins
+    infoTransfer != null
+      ? dataScale == 'equal'
+        ? scaleThreshold()
+            .domain(infoTransfer != null ? infoTransfer?.binList : [0, 1])
+            .range(_CHAPTER_COLORS[colorRamp])
+        : scaleQuantile()
+            .domain(
+              infoTransfer != null ? infoTransfer?.uniqueValueArray : [0, 1]
+            )
+            .range(_CHAPTER_COLORS[colorRamp])
+      : null; //quantile bins
 
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 
@@ -363,11 +367,11 @@ export default function DeckMap({
   // 02.1 Get low performers and ignore parks/graveyards/airports
 
   // REPLACE MAP SCALE WITH BOUNDARY SCALE
-  // console.log(infoTransfer.mapScale);
+  // console.log(infoTransfer?.mapScale);
 
   useEffect(() => {
-    if (toggleUnderperformers && infoTransfer.selectedMetric) {
-      const performanceBar = infoTransfer.mapScale.features
+    if (toggleUnderperformers && infoTransfer?.selectedMetric) {
+      const performanceBar = infoTransfer?.mapScale.features
         .map((value) => {
           if (
             (!zoomToggle && value.properties.AnsUnt_YN == 'Y') ||
@@ -376,13 +380,13 @@ export default function DeckMap({
               value.properties.Data_YN == 'Y') ||
             (zoomToggle && boundary == 'council')
           ) {
-            return value.properties[infoTransfer.selectedMetric];
+            return value.properties[infoTransfer?.selectedMetric];
           }
         })
         .sort(function (a, b) {
           // return the sorted list of values depending if you want the highest scores or lowest scores of a given metric
-          if (typeof infoTransfer.metricGoodorBad == 'number') {
-            return infoTransfer.metricGoodorBad == 1
+          if (typeof infoTransfer?.metricGoodorBad == 'number') {
+            return infoTransfer?.metricGoodorBad == 1
               ? b - a // highest scores
               : a - b; // lowest scores
           }
@@ -458,10 +462,12 @@ export default function DeckMap({
   }
 
   // demographic array for the analysis scale
-  getDemoArray(infoTransfer.selectedBoundary, selectedDemoArray);
+  if (infoTransfer !== null) {
+    getDemoArray(infoTransfer?.selectedBoundary, selectedDemoArray);
+    getDemoArray(_NEIGHBORHOODS, neighborhoodDemoArray);
+  }
 
   // demographic array for the neighborhood scale
-  getDemoArray(_NEIGHBORHOODS, neighborhoodDemoArray);
 
   const sortedDemoArray = [
     ...(!zoomToggle ? neighborhoodDemoArray : selectedDemoArray),
@@ -624,7 +630,7 @@ export default function DeckMap({
     for (const [
       index,
       element,
-    ] of infoTransfer.selectedBoundary.features.entries()) {
+    ] of infoTransfer?.selectedBoundary.features.entries()) {
       if (
         element &&
         booleanPointInPolygon(point(coord), element) &&
@@ -895,14 +901,14 @@ export default function DeckMap({
     updateSearchEngine(selectedCoord, 0);
     //}
     scale.current = boundary;
-  }, [selectedCoord, infoTransfer.selectedBoundary]);
+  }, [selectedCoord, infoTransfer?.selectedBoundary]);
 
   useEffect(() => {
     // console.log('2');
     if (addCompare) {
       updateSearchEngine(selectedCompareCoord, 1);
     }
-  }, [selectedCompareCoord, infoTransfer.selectedBoundary]);
+  }, [selectedCompareCoord, infoTransfer?.selectedBoundary]);
 
   useEffect(() => {
     if (!addCompare) {
@@ -912,14 +918,14 @@ export default function DeckMap({
 
   // 06 Render lifecycle
   useEffect(() => {
-    /*if (infoTransfer.binList.length > 0) {
+    /*if (infoTransfer?.binList.length > 0) {
               setColorRamps(colorRamp);
             }*/
     setDemoLegendBins(demoBinList);
   }, [
     selectedSpecificIssue,
     zoomToggle,
-    infoTransfer.selectedBoundary,
+    infoTransfer?.selectedBoundary,
     selectedDemographic,
     toggleTransit,
     toggleBike,
@@ -935,13 +941,13 @@ export default function DeckMap({
       stroked: false,
       filled: true,
       getFillColor: (f) => {
-        let fillValue = parseFloat(f.properties[infoTransfer.selectedMetric]);
+        let fillValue = parseFloat(f.properties[infoTransfer?.selectedMetric]);
 
         if (f.properties.AnsUnt_YN == 'Y') {
           if (isNaN(fillValue)) {
             return [0, 0, 0, 0];
           } else {
-            return COLOR_SCALE(f.properties[infoTransfer.selectedMetric]);
+            return COLOR_SCALE(f.properties[infoTransfer?.selectedMetric]);
           }
         } else {
           return [0, 0, 0, 0];
@@ -952,16 +958,16 @@ export default function DeckMap({
       visible: !zoomToggle,
       // update triggers
       updateTriggers: {
-        getFillColor: [infoTransfer.selectedMetric],
+        getFillColor: [infoTransfer?.selectedMetric],
       },
     }),
 
     new GeoJsonLayer({
       id: 'administrative-choropleth',
-      data: infoTransfer.selectedBoundary,
+      data: infoTransfer?.selectedBoundary,
       filled: true,
       getFillColor: (f) => {
-        let fillValue = parseFloat(f.properties[infoTransfer.selectedMetric]);
+        let fillValue = parseFloat(f.properties[infoTransfer?.selectedMetric]);
         if (
           isNaN(fillValue) ||
           (boundary == 'community' && f.properties.Data_YN == 'N')
@@ -969,7 +975,7 @@ export default function DeckMap({
           return [0, 0, 0, 0];
         } else {
           // return [255, 0, 0, 255];
-          return COLOR_SCALE(f.properties[infoTransfer.selectedMetric]);
+          return COLOR_SCALE(f.properties[infoTransfer?.selectedMetric]);
         }
       },
       getTextSize: 320,
@@ -977,26 +983,26 @@ export default function DeckMap({
       visible: zoomToggle,
 
       updateTriggers: {
-        getFillColor: [infoTransfer.selectedMetric, addCompare],
+        getFillColor: [infoTransfer?.selectedMetric, addCompare],
       },
     }),
 
     new GeoJsonLayer({
       id: 'administrative-choropleth-highlights',
-      data: infoTransfer.selectedBoundary,
+      data: infoTransfer?.selectedBoundary,
       filled: true,
       stroked: true,
 
       getLineWidth: (w) => {
         let boundaryValue = parseFloat(
-          w.properties[infoTransfer.selectedMetric]
+          w.properties[infoTransfer?.selectedMetric]
         );
         if (
           toggleUnderperformers === true &&
           (boundary == 'council' ||
             (boundary == 'community' && w.properties.Data_YN == 'Y'))
         ) {
-          if (infoTransfer.metricGoodorBad == 1) {
+          if (infoTransfer?.metricGoodorBad == 1) {
             return boundaryValue >= underperformers ? 100 : 0;
           } else {
             return boundaryValue <= underperformers ? 100 : 0;
@@ -1013,13 +1019,13 @@ export default function DeckMap({
       fillPatternAtlas: _HATCH_ATLAS,
       fillPatternMapping: _FILL_PATTERN,
       getFillPattern: (f) => {
-        let fillValue = parseFloat(f.properties[infoTransfer.selectedMetric]);
+        let fillValue = parseFloat(f.properties[infoTransfer?.selectedMetric]);
         if (
           toggleUnderperformers === true &&
           (boundary == 'council' ||
             (boundary == 'community' && f.properties.Data_YN == 'Y'))
         ) {
-          if (infoTransfer.metricGoodorBad == 1) {
+          if (infoTransfer?.metricGoodorBad == 1) {
             return fillValue >= underperformers
               ? 'hatch-pattern'
               : 'hatch-solid';
@@ -1050,10 +1056,10 @@ export default function DeckMap({
 
       getLineWidth: (w) => {
         let boundaryValue = parseFloat(
-          w.properties[infoTransfer.selectedMetric]
+          w.properties[infoTransfer?.selectedMetric]
         );
         if (toggleUnderperformers === true && w.properties.AnsUnt_YN == 'Y') {
-          if (infoTransfer.metricGoodorBad == 1) {
+          if (infoTransfer?.metricGoodorBad == 1) {
             return boundaryValue >= underperformers ? 50 : 0;
           } else {
             return boundaryValue <= underperformers ? 50 : 0;
@@ -1070,9 +1076,9 @@ export default function DeckMap({
       fillPatternAtlas: _HATCH_ATLAS,
       fillPatternMapping: _FILL_PATTERN,
       getFillPattern: (f) => {
-        let fillValue = parseFloat(f.properties[infoTransfer.selectedMetric]);
+        let fillValue = parseFloat(f.properties[infoTransfer?.selectedMetric]);
         if (toggleUnderperformers === true && f.properties.AnsUnt_YN == 'Y') {
-          if (infoTransfer.metricGoodorBad == 1) {
+          if (infoTransfer?.metricGoodorBad == 1) {
             return fillValue >= underperformers ? 'hatch-small' : 'hatch-solid';
           } else {
             return fillValue <= underperformers ? 'hatch-small' : 'hatch-solid';
@@ -1144,7 +1150,7 @@ export default function DeckMap({
 
     new GeoJsonLayer({
       id: 'administrative-demographics',
-      data: infoTransfer.selectedBoundary,
+      data: infoTransfer?.selectedBoundary,
       stroked: false,
       filled: true,
       getFillColor: (f) => {
@@ -1245,7 +1251,7 @@ export default function DeckMap({
 
     new GeoJsonLayer({
       id: 'administrative-boundaries',
-      data: infoTransfer.selectedBoundary,
+      data: infoTransfer?.selectedBoundary,
       stroked: true,
       filled: true,
       getFillColor: [255, 255, 255, 0],
@@ -1324,7 +1330,7 @@ export default function DeckMap({
 
     new GeoJsonLayer({
       id: 'administrative-selected',
-      data: infoTransfer.selectedBoundary,
+      data: infoTransfer?.selectedBoundary,
       filled: false,
       stroked: true,
 
@@ -1349,7 +1355,7 @@ export default function DeckMap({
       getLineWidth: 100,
       updateTriggers: {
         getLineColor: [
-          infoTransfer.selectedMetric,
+          infoTransfer?.selectedMetric,
           addCompare,
           communitySearch,
           compareSearch,
@@ -1365,7 +1371,7 @@ export default function DeckMap({
       characterSet: 'auto',
       sizeUnits: 'meters',
       fontWeight: '1000',
-      getColor: infoTransfer.selectedMetric
+      getColor: infoTransfer?.selectedMetric
         ? [255, 255, 255, 255]
         : [0, 0, 0, 255],
       getText: (d) => splitHyphens(d.properties.NTAName.toUpperCase()),
