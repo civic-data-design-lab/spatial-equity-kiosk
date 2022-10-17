@@ -535,6 +535,8 @@ export default function CitywideData({
                     citywideTab={true}
                   />
                 )}
+                <h5 className="mt-2 pb-0">Solutions</h5>
+
                 <IssueProfile
                   issues={issues}
                   selectedSpecificIssue={selectedSpecificIssue}
