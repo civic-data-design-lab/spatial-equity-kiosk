@@ -719,14 +719,16 @@ export default function DeckMap({
       });
 
       if (!compareSearch) {
-        setViewStateLocal({
-          ...viewStateLocal,
-          longitude: selectedCoord[0],
-          latitude: selectedCoord[1],
-          zoom: ZOOM_MAX - 0.5,
-          transitionDuration: 500,
-          transitionInerpolator: new LinearInterpolator(),
-        });
+        if (!isMobile) {
+          setViewStateLocal({
+            ...viewStateLocal,
+            longitude: selectedCoord[0],
+            latitude: selectedCoord[1],
+            zoom: ZOOM_MAX - 0.5,
+            transitionDuration: 500,
+            transitionInerpolator: new LinearInterpolator(),
+          });
+        }
 
         return;
       }
