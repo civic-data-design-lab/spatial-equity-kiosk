@@ -1988,7 +1988,7 @@
       "units": "Per 10,000 Residents from 2014 to 2022",
       "units_shorthand": "Injuries",
       "issue_highlight": "most traffic injuries",
-      "histogram_bounds": ["Most Injuries", "Fewest Injuries"],
+      "histogram_bounds": ["Most Cases", "Fewest Cases"],
       "histogram_item": "traffic injuries per 10,000 residents (2014-2022)",
       "tooltip_fragment": "injuries per 10,000 residents from 2014-2022",
       "issue_units_symbol": "",
