@@ -248,6 +248,7 @@ export default function DeckMap({
   const [underperformers, setUnderperformers] = useState(null);
   const [transportationModesArray, setTransportationModesArray] = useState([]);
   const [highlightFeature, sethighlightFeature] = useState(null);
+  const [renderBaseMap, setRenderBaseMap] = useState(true);
 
   // console.log(tooltipCompData1, tooltipCompData2);
 
@@ -272,6 +273,12 @@ export default function DeckMap({
   //     ? councils[compareSearch]
   //     : communities[compareSearch]
   //   : null;
+
+  const handleDeckRenderError = (e) => {
+    console.error(e);
+    console.error('COULD NOT RENDER MAP');
+    setRenderBaseMap(false);
+  };
 
   /**
    * If global view state changes, change the local view state. This is done to
@@ -1591,40 +1598,42 @@ export default function DeckMap({
         getTooltip={!isMobile ? getDeckGlTooltip : null}
         layerFilter={layerFilter}
         ref={deckRef}
+        onError={handleDeckRenderError}
       >
-        {(!mapDemographics || (mapDemographics && !selectedSpecificIssue)) && (
-          <MapView id="primary">
-            <Map
-              key={'map-key'}
-              ref={mapRef}
-              reuseMaps
-              mapStyle={MAP_STYLE}
-              preventStyleDiffing={true}
-              mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-              attributionControl={false}
-              logoPosition="top-right"
-            />
-            {collapseMap && (selectedSpecificIssue || mapDemographics) && (
-              <div key={'map-header'} style={SPLIT_SCREEN_POSITIONING}>
-                <div style={SPLIT_SCREEN_HEADER}>
-                  {issues.specific_issues_data[selectedSpecificIssue]
-                    ?.specific_issue_name ||
-                    `${
-                      demoLookup[demographic].lookup == 'F10_TrsBkW'
-                        ? `Commuters Who ${getTransportationModes(
-                            transportationModesArray
-                          )}`
-                        : demoLookup[demographic].name
-                    }`}{' '}
-                  by{' '}
-                  {boundary == 'community'
-                    ? 'Community Board'
-                    : 'City Council Districts'}
+        {renderBaseMap &&
+          (!mapDemographics || (mapDemographics && !selectedSpecificIssue)) && (
+            <MapView id="primary">
+              <Map
+                key={'map-key'}
+                ref={mapRef}
+                reuseMaps
+                mapStyle={MAP_STYLE}
+                preventStyleDiffing={true}
+                mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+                attributionControl={false}
+                logoPosition="top-right"
+              />
+              {collapseMap && (selectedSpecificIssue || mapDemographics) && (
+                <div key={'map-header'} style={SPLIT_SCREEN_POSITIONING}>
+                  <div style={SPLIT_SCREEN_HEADER}>
+                    {issues.specific_issues_data[selectedSpecificIssue]
+                      ?.specific_issue_name ||
+                      `${
+                        demoLookup[demographic].lookup == 'F10_TrsBkW'
+                          ? `Commuters Who ${getTransportationModes(
+                              transportationModesArray
+                            )}`
+                          : demoLookup[demographic].name
+                      }`}{' '}
+                    by{' '}
+                    {boundary == 'community'
+                      ? 'Community Board'
+                      : 'City Council Districts'}
+                  </div>
                 </div>
-              </div>
-            )}
-          </MapView>
-        )}
+              )}
+            </MapView>
+          )}
 
         {mapDemographics && selectedSpecificIssue && (
           <MapView id="splitLeft">
