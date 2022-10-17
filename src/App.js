@@ -308,8 +308,7 @@ function App() {
     ReactGA.event({
       category: 'PageView',
       action: 'Route params',
-      label: 'View',
-      value: location.search,
+      label: location.search,
     });
   }, [location.search]);
 
@@ -317,8 +316,7 @@ function App() {
     ReactGA.event({
       category: 'Regions of Interests',
       action: 'Select Coord',
-      label: 'Regions',
-      value: selectedCoord,
+      label: selectedCoord,
     });
   }, [selectedCoord]);
 
@@ -326,8 +324,7 @@ function App() {
     ReactGA.event({
       category: 'Regions of Interests',
       action: 'Compare Coord',
-      label: 'Regions',
-      value: selectedCompareCoord,
+      label: selectedCompareCoord,
     });
   }, [selectedCompareCoord]);
 
@@ -336,8 +333,7 @@ function App() {
       ReactGA.event({
         category: 'Function',
         action: 'Show Map',
-        label: 'Function',
-        value: showMap,
+        label: showMap,
       });
   }, [showMap]);
 
@@ -346,8 +342,7 @@ function App() {
       ReactGA.event({
         category: 'Function',
         action: 'Show Toggle',
-        label: 'Function',
-        value: showToggle,
+        label: showToggle,
       });
   }, [showToggle]);
 
@@ -356,8 +351,7 @@ function App() {
       ReactGA.event({
         category: 'Function',
         action: 'Show Demographics',
-        label: 'Function',
-        value: showDemographics,
+        label: showDemographics,
       });
   }, [showDemographics]);
 
@@ -366,8 +360,7 @@ function App() {
       ReactGA.event({
         category: 'Function',
         action: 'Show Demographics on map',
-        label: 'Function',
-        value: mapDemographics,
+        label: mapDemographics,
       });
   }, [mapDemographics]);
 
@@ -376,8 +369,7 @@ function App() {
       ReactGA.event({
         category: 'Function',
         action: 'Use compare',
-        label: 'Function',
-        value: addCompare,
+        label: addCompare,
       });
   }, [addCompare]);
 
@@ -386,8 +378,7 @@ function App() {
       ReactGA.event({
         category: 'Function',
         action: 'Toggle Underperformers',
-        label: 'Function',
-        value: toggleUnderperformers,
+        label: toggleUnderperformers,
       });
   }, [toggleUnderperformers]);
 
@@ -395,8 +386,7 @@ function App() {
     ReactGA.event({
       category: 'PageView',
       action: 'Select Chapter',
-      label: 'View',
-      value: selectedChapter,
+      label: selectedChapter,
     });
   }, [selectedChapter]);
 
@@ -404,8 +394,7 @@ function App() {
     ReactGA.event({
       category: 'PageView',
       action: 'Select Issue',
-      label: 'View',
-      value: selectedIssue,
+      label: selectedIssue,
     });
   }, [selectedIssue]);
 
@@ -413,8 +402,7 @@ function App() {
     ReactGA.event({
       category: 'PageView',
       action: 'Select Specific Issue',
-      label: 'View',
-      value: selectedSpecificIssue,
+      label: selectedSpecificIssue,
     });
   }, [selectedSpecificIssue]);
 
@@ -422,8 +410,7 @@ function App() {
     ReactGA.event({
       category: 'PageView',
       action: 'Switch boundary',
-      label: 'View',
-      value: boundary,
+      label: boundary,
     });
   }, [boundary]);
 
@@ -431,8 +418,7 @@ function App() {
     ReactGA.event({
       category: 'PageView',
       action: 'Select About',
-      label: 'View',
-      value: selectedAbout,
+      label: selectedAbout,
     });
   }, [selectedAbout]);
 
@@ -440,8 +426,7 @@ function App() {
     ReactGA.event({
       category: 'Regions of Interests',
       action: 'Community Pinned',
-      label: 'Regions',
-      value: communityPinned,
+      label: communityPinned,
     });
   }, [communityPinned]);
 
@@ -449,8 +434,7 @@ function App() {
     ReactGA.event({
       category: 'Regions of Interests',
       action: 'Council Pinned',
-      label: 'Regions',
-      value: councilPinned,
+      label: councilPinned,
     });
   }, [councilPinned]);
 
