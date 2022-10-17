@@ -342,8 +342,10 @@ const IssueHistogram = ({
         rawIssueGoodBad
           ? d3.rgb(
               ...colorInterpolate(
-                colorRamps[0],
-                colorRamps[colorRamps.length - 1],
+                // colorRamps[0],
+                // colorRamps[colorRamps.length - 1],
+                colorRamps[2],
+                colorRamps[2],
                 !ascending
                   ? 1 - i / (rawIssueData.length - 1)
                   : i / (rawIssueData.length - 1)
@@ -351,8 +353,10 @@ const IssueHistogram = ({
             )
           : d3.rgb(
               ...colorInterpolate(
-                colorRamps[colorRamps.length - 1],
-                colorRamps[0],
+                // colorRamps[colorRamps.length - 1],
+                // colorRamps[0],
+                colorRamps[2],
+                colorRamps[2],
                 !ascending
                   ? 1 - i / (rawIssueData.length - 1)
                   : i / (rawIssueData.length - 1)
