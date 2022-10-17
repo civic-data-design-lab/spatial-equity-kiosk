@@ -287,6 +287,7 @@ function App() {
           console.log("user points ", userPoints)
         })*/
 
+  // GA4 hooks
   useEffect(() => {
     ReactGA.initialize([
       {
@@ -306,7 +307,7 @@ function App() {
   useEffect(() => {
     ReactGA.event({
       category: 'PageView',
-      action: 'Route',
+      action: 'Route params',
       label: 'View',
       value: location.search,
     });
@@ -314,18 +315,18 @@ function App() {
 
   useEffect(() => {
     ReactGA.event({
-      category: 'Function',
+      category: 'Regions of Interests',
       action: 'Select Coord',
-      label: 'Function',
+      label: 'Regions',
       value: selectedCoord,
     });
   }, [selectedCoord]);
 
   useEffect(() => {
     ReactGA.event({
-      category: 'Function',
+      category: 'Regions of Interests',
       action: 'Compare Coord',
-      label: 'Function',
+      label: 'Regions',
       value: selectedCompareCoord,
     });
   }, [selectedCompareCoord]);
@@ -349,6 +350,109 @@ function App() {
         value: showToggle,
       });
   }, [showToggle]);
+
+  useEffect(() => {
+    if (showDemographics)
+      ReactGA.event({
+        category: 'Function',
+        action: 'Show Demographics',
+        label: 'Function',
+        value: showDemographics,
+      });
+  }, [showDemographics]);
+
+  useEffect(() => {
+    if (mapDemographics)
+      ReactGA.event({
+        category: 'Function',
+        action: 'Show Demographics on map',
+        label: 'Function',
+        value: mapDemographics,
+      });
+  }, [mapDemographics]);
+
+  useEffect(() => {
+    if (addCompare)
+      ReactGA.event({
+        category: 'Function',
+        action: 'Use compare',
+        label: 'Function',
+        value: addCompare,
+      });
+  }, [addCompare]);
+
+  useEffect(() => {
+    if (toggleUnderperformers)
+      ReactGA.event({
+        category: 'Function',
+        action: 'Toggle Underperformers',
+        label: 'Function',
+        value: toggleUnderperformers,
+      });
+  }, [toggleUnderperformers]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Select Chapter',
+      label: 'View',
+      value: selectedChapter,
+    });
+  }, [selectedChapter]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Select Issue',
+      label: 'View',
+      value: selectedIssue,
+    });
+  }, [selectedIssue]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Select Specific Issue',
+      label: 'View',
+      value: selectedSpecificIssue,
+    });
+  }, [selectedSpecificIssue]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Switch boundary',
+      label: 'View',
+      value: boundary,
+    });
+  }, [boundary]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Select About',
+      label: 'View',
+      value: selectedAbout,
+    });
+  }, [selectedAbout]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'Regions of Interests',
+      action: 'Community Pinned',
+      label: 'Regions',
+      value: communityPinned,
+    });
+  }, [communityPinned]);
+
+  useEffect(() => {
+    ReactGA.event({
+      category: 'Regions of Interests',
+      action: 'Council Pinned',
+      label: 'Regions',
+      value: councilPinned,
+    });
+  }, [councilPinned]);
 
   const selectedBoundary = useMemo(() => {
     if (boundary === 'council') {
