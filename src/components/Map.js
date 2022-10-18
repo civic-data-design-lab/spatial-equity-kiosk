@@ -1616,15 +1616,11 @@ export default function DeckMap({
               style={{
                 transform: 'translate(-50%,-50%)',
                 pointerEvents: 'all',
+                zIndex: '2',
               }}
               coordinates={tooltipCompData1.coords}
             >
-              <div
-                className="map-tooltip map-pinned noselect"
-                style={{
-                  zIndex: '2',
-                }}
-              >
+              <div className="map-tooltip map-pinned noselect">
                 <MapTooltip
                   infoTransfer={infoTransfer}
                   boundary={boundary}
@@ -1655,21 +1651,17 @@ export default function DeckMap({
               style={{
                 transform: 'translate(-50%,-50%)',
                 pointerEvents: 'all',
+                zIndex: tooltipCompData2.zIndex || '1',
               }}
+              onMouseOver={() =>
+                setTooltipCompData2((data) => ({ ...data, zIndex: '2' }))
+              }
+              onMouseOut={() =>
+                setTooltipCompData2((data) => ({ ...data, zIndex: '1' }))
+              }
               coordinates={tooltipCompData2.coords}
             >
-              <div
-                className="map-tooltip map-pinned noselect"
-                style={{
-                  zIndex: tooltipCompData2.zIndex || '1',
-                }}
-                onMouseOver={() =>
-                  setTooltipCompData2((data) => ({ ...data, zIndex: '2' }))
-                }
-                onMouseOut={() =>
-                  setTooltipCompData2((data) => ({ ...data, zIndex: '1' }))
-                }
-              >
+              <div className="map-tooltip map-pinned noselect">
                 <MapTooltip
                   infoTransfer={infoTransfer}
                   boundary={boundary}
