@@ -259,10 +259,6 @@ export default function DeckMap({
   const dataScale = useRef('q'); //set to "equal" for equal binning, "q" for quantile binning
   // const [searchPoint, setSearchPoint] = useState([[], []]);
 
-  useEffect(() => {
-    debounce(updateTooltipPositions, 750)();
-  }, [deckRef.current?.deck.width, collapseMap, viewStateLocal]);
-
   // both of these should be hooks they are being re-rendered on every frame - made them memo and then moved to app.js
   // const selectedCommunity = communitySearch
   //   ? boundary == 'council'
@@ -317,36 +313,6 @@ export default function DeckMap({
 
     setTransportationModesArray(modes);
   }, [toggleTransit, toggleBike, toggleWalk]);
-
-  const getStaticTooltipPos = (coords) => {
-    const projection = mapRef.current?.getMap()?.project(coords);
-    if (!projection) {
-      return;
-    }
-    // Add an offset of 15 pixels from the left and top
-    projection.x += viewStateLocal.zoom;
-    projection.y += viewStateLocal.zoom;
-    return projection;
-  };
-
-  const updateTooltipPositions = () => {
-    // Update tooltip 1
-    // console.log('Updating tooltip pos', tooltipCompData1?.coords);
-    if (tooltipCompData1?.coords) {
-      const projection = getStaticTooltipPos(tooltipCompData1.coords);
-      if (projection !== tooltipCompData1.pos) {
-        setTooltipCompData1({ ...tooltipCompData1, pos: projection });
-      }
-    }
-
-    // Update tooltip 2
-    if (tooltipCompData2?.coords) {
-      const projection = getStaticTooltipPos(tooltipCompData2.coords);
-      if (projection !== tooltipCompData2.pos) {
-        setTooltipCompData2({ ...tooltipCompData2, pos: projection });
-      }
-    }
-  };
 
   // 01.4 Color Scale function
 
@@ -554,11 +520,9 @@ export default function DeckMap({
       setzoomToggle(1);
       sethandleLegend(1);
     }
-    debounce(updateTooltipPositions, 50)();
   };
 
   const zoomIn = ({}) => {
-    updateTooltipPositions();
 
     setViewStateLocal({
       ...viewStateLocal,
@@ -569,7 +533,6 @@ export default function DeckMap({
   };
 
   const zoomOut = ({}) => {
-    updateTooltipPositions();
 
     setViewStateLocal({
       ...viewStateLocal,
@@ -698,7 +661,6 @@ export default function DeckMap({
           setTooltipCompData1({
             ...pickingInfo,
             coords: searchEngine, // Search engine gives the position of the dots
-            pos: getStaticTooltipPos(searchEngine),
           });
           setUserPoints([searchEngine, userPoints[1]]);
           return;
@@ -717,7 +679,6 @@ export default function DeckMap({
       setTooltipCompData1({
         ...pickingInfo,
         coords: searchEngine, // Search engine gives the position of the dots
-        pos: getStaticTooltipPos(searchEngine),
       });
 
       if (!compareSearch) {
@@ -862,7 +823,6 @@ export default function DeckMap({
           setTooltipCompData1({
             ...pickingInfo,
             coords: searchEngine, // Search engine gives the position of the dots
-            pos: getStaticTooltipPos(searchEngine),
           });
           setUserPoints([searchEngine, userPoints[1]]);
 
