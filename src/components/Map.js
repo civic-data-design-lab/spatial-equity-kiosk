@@ -10,6 +10,8 @@ import { max, min } from 'd3-array';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import * as ReactDOMServer from 'react-dom/server';
+import HtmlOverlay from './HtmlOverlay';
+import HtmlOverlayItem from './HtmlOverlayItem';
 
 // geospatial dependencies
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
@@ -1522,7 +1524,7 @@ export default function DeckMap({
         </div>
       )}
       {/* Static tooltip 1 */}
-      {tooltipCompData1?.pos && (
+      {/* {tooltipCompData1?.pos && (
         <div
           className="map-tooltip map-pinned noselect"
           style={{
@@ -1554,9 +1556,9 @@ export default function DeckMap({
             toggleTooltip={setTooltipCompData1}
           />
         </div>
-      )}
+      )} */}
       {/* Static tooltip 2 */}
-      {tooltipCompData2?.pos && (
+      {/* {tooltipCompData2?.pos && (
         <div
           className="map-tooltip map-pinned noselect"
           style={{
@@ -1594,7 +1596,7 @@ export default function DeckMap({
             toggleTooltip={setTooltipCompData2}
           />
         </div>
-      )}
+      )} */}
       <DeckGL
         style={{ backgroundColor: 'black' }}
         viewState={viewStateLocal}
@@ -1608,6 +1610,92 @@ export default function DeckMap({
         ref={deckRef}
         onError={handleDeckRenderError}
       >
+        <HtmlOverlay>
+          {tooltipCompData1?.coords && (
+            <HtmlOverlayItem
+              style={{
+                transform: 'translate(-50%,-50%)',
+                pointerEvents: 'all',
+              }}
+              coordinates={tooltipCompData1.coords}
+            >
+              <div
+                className="map-tooltip map-pinned noselect"
+                style={{
+                  zIndex: '2',
+                }}
+              >
+                <MapTooltip
+                  infoTransfer={infoTransfer}
+                  boundary={boundary}
+                  selectedChapter={selectedChapter}
+                  selectedCoord={selectedCoord}
+                  issues={issues}
+                  selectedDemographic={selectedDemographic}
+                  toggleTransit={toggleTransit}
+                  toggleBike={toggleBike}
+                  toggleWalk={toggleWalk}
+                  demographic={demographic}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  demoLookup={demoLookup}
+                  transportationModesArray={transportationModesArray}
+                  selectedDemoArray={selectedDemoArray}
+                  ethnicityColors={ethnicityColors}
+                  tooltipProperties={tooltipCompData1?.properties}
+                  pickingInfoObject={tooltipCompData1?.object}
+                  pickingInfoIndex={tooltipCompData1?.index}
+                  exit={true}
+                  toggleTooltip={setTooltipCompData1}
+                />
+              </div>
+            </HtmlOverlayItem>
+          )}
+          {tooltipCompData2?.coords && (
+            <HtmlOverlayItem
+              style={{
+                transform: 'translate(-50%,-50%)',
+                pointerEvents: 'all',
+              }}
+              coordinates={tooltipCompData2.coords}
+            >
+              <div
+                className="map-tooltip map-pinned noselect"
+                style={{
+                  zIndex: tooltipCompData2.zIndex || '1',
+                }}
+                onMouseOver={() =>
+                  setTooltipCompData2((data) => ({ ...data, zIndex: '2' }))
+                }
+                onMouseOut={() =>
+                  setTooltipCompData2((data) => ({ ...data, zIndex: '1' }))
+                }
+              >
+                <MapTooltip
+                  infoTransfer={infoTransfer}
+                  boundary={boundary}
+                  selectedChapter={selectedChapter}
+                  selectedCoord={selectedCoord}
+                  issues={issues}
+                  selectedDemographic={selectedDemographic}
+                  toggleTransit={toggleTransit}
+                  toggleBike={toggleBike}
+                  toggleWalk={toggleWalk}
+                  demographic={demographic}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  demoLookup={demoLookup}
+                  transportationModesArray={transportationModesArray}
+                  selectedDemoArray={selectedDemoArray}
+                  ethnicityColors={ethnicityColors}
+                  tooltipProperties={tooltipCompData2?.properties}
+                  pickingInfoObject={tooltipCompData2?.object}
+                  pickingInfoIndex={tooltipCompData2?.index}
+                  exit={true}
+                  toggleTooltip={setTooltipCompData2}
+                />
+              </div>
+            </HtmlOverlayItem>
+          )}
+        </HtmlOverlay>
         {renderBaseMap &&
           (!mapDemographics || (mapDemographics && !selectedSpecificIssue)) && (
             <MapView id="primary">
