@@ -1523,80 +1523,6 @@ export default function DeckMap({
           <FontAwesomeIcon onClick={zoomOut} icon={faMinus} />
         </div>
       )}
-      {/* Static tooltip 1 */}
-      {/* {tooltipCompData1?.pos && (
-        <div
-          className="map-tooltip map-pinned noselect"
-          style={{
-            zIndex: '2',
-            left: tooltipCompData1.pos.x,
-            top: tooltipCompData1.pos.y,
-          }}
-        >
-          <MapTooltip
-            infoTransfer={infoTransfer}
-            boundary={boundary}
-            selectedChapter={selectedChapter}
-            selectedCoord={selectedCoord}
-            issues={issues}
-            selectedDemographic={selectedDemographic}
-            toggleTransit={toggleTransit}
-            toggleBike={toggleBike}
-            toggleWalk={toggleWalk}
-            demographic={demographic}
-            selectedSpecificIssue={selectedSpecificIssue}
-            demoLookup={demoLookup}
-            transportationModesArray={transportationModesArray}
-            selectedDemoArray={selectedDemoArray}
-            ethnicityColors={ethnicityColors}
-            tooltipProperties={tooltipCompData1?.properties}
-            pickingInfoObject={tooltipCompData1?.object}
-            pickingInfoIndex={tooltipCompData1?.index}
-            exit={true}
-            toggleTooltip={setTooltipCompData1}
-          />
-        </div>
-      )} */}
-      {/* Static tooltip 2 */}
-      {/* {tooltipCompData2?.pos && (
-        <div
-          className="map-tooltip map-pinned noselect"
-          style={{
-            zIndex: tooltipCompData2.zIndex || '1',
-            left: tooltipCompData2.pos.x,
-            top: tooltipCompData2.pos.y,
-          }}
-          onMouseOver={() =>
-            setTooltipCompData2((data) => ({ ...data, zIndex: '2' }))
-          }
-          onMouseOut={() =>
-            setTooltipCompData2((data) => ({ ...data, zIndex: '1' }))
-          }
-        >
-          <MapTooltip
-            infoTransfer={infoTransfer}
-            boundary={boundary}
-            selectedChapter={selectedChapter}
-            selectedCoord={selectedCoord}
-            issues={issues}
-            selectedDemographic={selectedDemographic}
-            toggleTransit={toggleTransit}
-            toggleBike={toggleBike}
-            toggleWalk={toggleWalk}
-            demographic={demographic}
-            selectedSpecificIssue={selectedSpecificIssue}
-            demoLookup={demoLookup}
-            transportationModesArray={transportationModesArray}
-            selectedDemoArray={selectedDemoArray}
-            ethnicityColors={ethnicityColors}
-            tooltipProperties={tooltipCompData2?.properties}
-            pickingInfoObject={tooltipCompData2?.object}
-            pickingInfoIndex={tooltipCompData2?.index}
-            exit={true}
-            toggleTooltip={setTooltipCompData2}
-          />
-        </div>
-      )} */}
       <DeckGL
         style={{ backgroundColor: 'black' }}
         viewState={viewStateLocal}
@@ -1611,6 +1537,7 @@ export default function DeckMap({
         onError={handleDeckRenderError}
       >
         <HtmlOverlay>
+          {/* Static tooltip 1 */}
           {tooltipCompData1?.coords && (
             <HtmlOverlayItem
               style={{
@@ -1646,6 +1573,7 @@ export default function DeckMap({
               </div>
             </HtmlOverlayItem>
           )}
+          {/* Static tooltip 2 */}
           {tooltipCompData2?.coords && (
             <HtmlOverlayItem
               style={{
