@@ -682,11 +682,13 @@ export default function DeckMap({
       }
       const ptA = selectedCoord;
       const ptB = selectedCompareCoord;
+      if (!selectedCompareCoord.length) {
+        return;
+      }
+      
       const maxDistance = !mapDemographics ? 25 : 15;
-      const ptCompareDistance =
-        distance(point(ptA), point(ptB)) < maxDistance
-          ? distance(point(ptA), point(ptB))
-          : maxDistance;
+      const distance = distance(point(ptA), point(ptB));
+      const ptCompareDistance = distance < maxDistance ? distance : maxDistance;
 
       const remapZoom = !mapDemographics
         ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
@@ -705,6 +707,7 @@ export default function DeckMap({
         transitionDuration: 500,
         transitionInerpolator: new LinearInterpolator(),
       });
+      return;
     }
 
     // SELECT COMPARISON COMMUNITY
