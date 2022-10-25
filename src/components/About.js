@@ -40,8 +40,8 @@ export default function About({
     specific_issue_ID: 16,
     link: 'https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page.page',
     specific_issue_source:
-      'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
-    year: '2016-2020',
+      'U.S. Census Bureau, 2015-2019 American Community Survey 5-Year Estimates',
+    year: '2015-2019',
   };
   dataJson[17] = {
     specific_issue_name: 'Poverty Level',
