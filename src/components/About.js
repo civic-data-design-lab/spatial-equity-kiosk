@@ -426,6 +426,21 @@ export default function About({
                   </span>
                   .
                 </p>
+                <h6 className={'bold'}>Read the Report Card</h6>
+                <p>
+                In October 2022, Transportation Alternatives published a report card examining spatial inequity in New York City Council districts, based on the most up-to-date data on Spatial Equity NYC at the time. 
+                  <span>
+                    {' '}
+                    <a
+                      style={{ textDecorationLine: 'underline' }}
+                      href={'https://www.transalt.org/spatial-equity-2022-report-card'}
+                      target={'_blank'}
+                    >
+                      Read the report card
+                    </a>
+                  </span>
+                  .
+                </p>
               </div>
             </div>
           </Step>
