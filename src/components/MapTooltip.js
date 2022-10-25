@@ -155,7 +155,7 @@ const MapTooltip = ({
 
     return (
       <>
-        {boroughName} {tooltipBounds} {boroughData.boundaryNumber} Ranks{' '}
+        {boroughName} {tooltipBounds} {boroughData.boundaryNumber} ranks{' '}
         <strong>
           {ordinalSuffixOf(ranking)} out of {maxRanking}
         </strong>{' '}
