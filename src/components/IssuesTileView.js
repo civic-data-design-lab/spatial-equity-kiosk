@@ -104,7 +104,8 @@ export default function IssuesTileView({
                 ],
                 autoStart: true,
                 loop: true,
-                pauseFor: 2000,
+                pauseFor: 1500,
+                delay: 40,
               }}
             />
           </div>
