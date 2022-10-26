@@ -259,19 +259,6 @@ export default function DeckMap({
   const dataScale = useRef('q'); //set to "equal" for equal binning, "q" for quantile binning
   // const [searchPoint, setSearchPoint] = useState([[], []]);
 
-  // both of these should be hooks they are being re-rendered on every frame - made them memo and then moved to app.js
-  // const selectedCommunity = communitySearch
-  //   ? boundary == 'council'
-  //     ? councils[communitySearch]
-  //     : communities[communitySearch]
-  //   : null;
-
-  // const selectedCompareCommunity = compareSearch
-  //   ? boundary == 'council'
-  //     ? councils[compareSearch]
-  //     : communities[compareSearch]
-  //   : null;
-
   const handleDeckRenderError = (e) => {
     console.error(e);
     console.error('COULD NOT RENDER MAP');
@@ -523,7 +510,6 @@ export default function DeckMap({
   };
 
   const zoomIn = ({}) => {
-
     setViewStateLocal({
       ...viewStateLocal,
       zoom: min([ZOOM_MAX, viewStateLocal.zoom + BUTTON_ZOOM_STEP]),
@@ -533,7 +519,6 @@ export default function DeckMap({
   };
 
   const zoomOut = ({}) => {
-
     setViewStateLocal({
       ...viewStateLocal,
       zoom: max([ZOOM_MIN, viewStateLocal.zoom - BUTTON_ZOOM_STEP]),
@@ -682,7 +667,7 @@ export default function DeckMap({
       });
 
       if (!compareSearch) {
-        if (!isMobile) {
+        if (!isMobile || searchSource == 'search') {
           setViewStateLocal({
             ...viewStateLocal,
             longitude: selectedCoord[0],

@@ -290,9 +290,9 @@ function App() {
   // GA4 hooks
   useEffect(() => {
     ReactGA.initialize([
-        {
-          trackingId: 'G-589ZW1S0M4',
-        },
+      {
+        trackingId: 'G-589ZW1S0M4',
+      },
     ]);
     ReactGA.event({
       category: 'PageView',
