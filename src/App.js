@@ -70,7 +70,7 @@ function App() {
   const [colorRamps, setColorRamps] = useState(null);
   const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
   const [coordinateLookup, setCoordinateLookup] = useState(null);
-  const location = useLocation();
+  // const location = useLocation();
   const [toggleTransit, setToggleTransit] = useState(true);
   const [toggleBike, setToggleBike] = useState(false);
   const [toggleWalk, setToggleWalk] = useState(false);
@@ -157,6 +157,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const location = window.location;
     const queryParams = new URLSearchParams(location.search);
     let createCoords = [[], []];
     let createViewState = { ...DEFAULT_VIEW_STATE };
@@ -302,12 +303,13 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const location = window.location;
     ReactGA.event({
       category: 'PageView',
       action: 'Route params',
       label: location.search,
     });
-  }, [location.search]);
+  }, [window.location.search]);
 
   useEffect(() => {
     ReactGA.event({
@@ -910,7 +912,6 @@ function App() {
                     {collapseMap ? 'Show Panel' : 'Collapse Panel'}
                   </div>
                 </div>
-
                 <Map
                   issues={issues}
                   selectedIssue={selectedIssue}
