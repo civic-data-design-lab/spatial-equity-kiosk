@@ -1399,7 +1399,6 @@ function App() {
             />
           ) : selectedChapter === 4 ? (
             <About
-              issues={issues}
               selectedAbout={selectedAbout}
               setSelectedChapter={setSelectedChapter}
               isMobile={isMobile}
