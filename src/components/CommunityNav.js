@@ -41,6 +41,7 @@ export default function CommunityNav({
   const [notClickable, setNotClickable] = useState(false);
 
   const getSearchItems = (forSearch, boundary) => {
+    console.time('searchItems');
     let searchItems = [];
     let boundaryData;
     if (boundary === 'community') {
@@ -48,119 +49,126 @@ export default function CommunityNav({
     } else {
       boundaryData = _COUNCILS;
     }
-    switch (forSearch) {
-      case true:
-        for (let [key, value] of Object.entries(boundaryData)) {
-          if (key !== compareSearch) {
-            searchItems.push(
+
+    if (forSearch) {
+      for (let [key, value] of Object.entries(boundaryData)) {
+        if (key === compareSearch) {
+          continue;
+        }
+        searchItems.push(
+          <div
+            key={key}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className={`${
+              communitySearch && communitySearch.startsWith(key)
+                ? 'search-item-active'
+                : 'search-item-inactive'
+            } col search-item p-2`}
+            onMouseDown={(e) => {
+              e.stopPropagation(e);
+              /*setCommunitySearch(key);*/
+              setShowSearch(false);
+              setSearchSource('search');
+              setCommunitySearch(key);
+
+              console.log(info.selectedBoundary.features.entries());
+              const targetElement = info.selectedBoundary.features
+                .entries()
+                .find(
+                  (element) =>
+                    element.properties.CDTA2020?.toString() === key ||
+                    element.properties.CounDist?.toString() === key
+                );
+
+              if (targetElement) {
+                setSelectedCoord([
+                  targetElement.properties.X_Cent,
+                  targetElement.properties.Y_Cent,
+                ]);
+              }
+
+              e.target.blur();
+            }}
+          >
+            <div className={'row w-100 p-0 m-0'}>
+              <div className={'col-10 m-0 p-0'}>
+                <span style={{ fontWeight: 'bold' }}>{value.name}</span>{' '}
+                {value.neighborhoods}
+              </div>
               <div
-                key={key}
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
                 className={`${
                   communitySearch && communitySearch.startsWith(key)
-                    ? 'search-item-active'
-                    : 'search-item-inactive'
-                } col search-item p-2`}
-                onMouseDown={(e) => {
-                  e.stopPropagation(e);
-                  /*setCommunitySearch(key);*/
-                  setShowSearch(false);
-                  setSearchSource('search');
-                  setCommunitySearch(key);
-                  for (const [
-                    index,
-                    element,
-                  ] of info.selectedBoundary.features.entries()) {
-                    if (
-                      element.properties.CDTA2020?.toString() === key ||
-                      element.properties.CounDist?.toString() === key
-                    ) {
-                      setSelectedCoord([
-                        element.properties.X_Cent,
-                        element.properties.Y_Cent,
-                      ]);
-                      break;
-                    }
-                  }
-                  e.target.blur();
-                }}
+                    ? 'visible'
+                    : 'invisible'
+                } d-flex col-2 p-0 flex-row justify-content-center align-items-center`}
               >
-                <div className={'row w-100 p-0 m-0'}>
-                  <div className={'col-10 m-0 p-0'}>
-                    <span style={{ fontWeight: 'bold' }}>{value.name}</span>{' '}
-                    {value.neighborhoods}
-                  </div>
-                  <div
-                    className={`${
-                      communitySearch && communitySearch.startsWith(key)
-                        ? 'visible'
-                        : 'invisible'
-                    } d-flex col-2 p-0 flex-row justify-content-center align-items-center`}
-                  >
-                    <FontAwesomeIcon icon={faArrowRight} />
-                  </div>
-                </div>
+                <FontAwesomeIcon icon={faArrowRight} />
               </div>
-            );
-          }
-        }
-        break;
-      case false:
-        for (let [key, value] of Object.entries(boundaryData)) {
-          if (key !== communitySearch) {
-            searchItems.push(
-              <div
-                key={key}
-                className={`${
-                  compareSearch && compareSearch.startsWith(key)
-                    ? 'search-item-active'
-                    : 'search-item-inactive'
-                } col search-item p-2`}
-                onMouseDown={(e) => {
-                  e.stopPropagation();
-                  setCompareSearch(key);
-                  setShowCompareSearch(false);
-                  setSearchSource('search');
-                  for (const [
-                    index,
-                    element,
-                  ] of info.selectedBoundary.features.entries()) {
-                    if (
-                      element.properties.CDTA2020?.toString() === key ||
-                      element.properties.CounDist?.toString() === key
-                    ) {
-                      setselectedCompareCoord([
-                        element.properties.X_Cent,
-                        element.properties.Y_Cent,
-                      ]);
-                      break;
-                    }
-                  }
-                  e.target.blur();
-                }}
-              >
-                <div className={'row w-100 p-0 m-0'}>
-                  <div className={'col-10 m-0 p-0'}>
-                    <span style={{ fontWeight: 'bold' }}>{value.name}</span>{' '}
-                    {value.neighborhoods}
-                  </div>
-                  <div
-                    className={`${
-                      compareSearch && compareSearch.startsWith(key)
-                        ? 'visible'
-                        : 'invisible'
-                    } d-flex col-2 p-0 flex-row justify-content-center align-items-center`}
-                  >
-                    <FontAwesomeIcon icon={faArrowRight} />
-                  </div>
-                </div>
-              </div>
-            );
-          }
-        }
+            </div>
+          </div>
+        );
+      }
+      console.timeEnd('searchItems');
+      return searchItems;
     }
+
+    for (let [key, value] of Object.entries(boundaryData)) {
+      if (key === communitySearch) {
+        continue;
+      }
+      searchItems.push(
+        <div
+          key={key}
+          className={`${
+            compareSearch && compareSearch.startsWith(key)
+              ? 'search-item-active'
+              : 'search-item-inactive'
+          } col search-item p-2`}
+          onMouseDown={(e) => {
+            e.stopPropagation();
+            setCompareSearch(key);
+            setShowCompareSearch(false);
+            setSearchSource('search');
+            for (const [
+              index,
+              element,
+            ] of info.selectedBoundary.features.entries()) {
+              if (
+                element.properties.CDTA2020?.toString() === key ||
+                element.properties.CounDist?.toString() === key
+              ) {
+                setselectedCompareCoord([
+                  element.properties.X_Cent,
+                  element.properties.Y_Cent,
+                ]);
+                break;
+              }
+            }
+            e.target.blur();
+          }}
+        >
+          <div className={'row w-100 p-0 m-0'}>
+            <div className={'col-10 m-0 p-0'}>
+              <span style={{ fontWeight: 'bold' }}>{value.name}</span>{' '}
+              {value.neighborhoods}
+            </div>
+            <div
+              className={`${
+                compareSearch && compareSearch.startsWith(key)
+                  ? 'visible'
+                  : 'invisible'
+              } d-flex col-2 p-0 flex-row justify-content-center align-items-center`}
+            >
+              <FontAwesomeIcon icon={faArrowRight} />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    console.timeEnd('searchItems');
 
     return searchItems;
   };
