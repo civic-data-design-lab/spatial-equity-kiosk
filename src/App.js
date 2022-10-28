@@ -453,13 +453,13 @@ function App() {
     if (selectedSpecificIssue) {
       // console.log("case 1 ", selectedSpecificIssue)
       selectedRamp =
-        issues.specific_issues_data[selectedSpecificIssue].issue_type_ID === 1
+        _ISSUES.specific_issues_data[selectedSpecificIssue].issue_type_ID === 1
           ? 'health'
-          : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
-            2
+          : _ISSUES.specific_issues_data[selectedSpecificIssue]
+              .issue_type_ID === 2
           ? 'env'
-          : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
-            3
+          : _ISSUES.specific_issues_data[selectedSpecificIssue]
+              .issue_type_ID === 3
           ? 'infra'
           : 'troubleshoot';
     } else {
@@ -507,10 +507,10 @@ function App() {
         isNaN(selectedSpecificIssue) === false
       ) {
         selectedMetric =
-          issues.specific_issues_data[selectedSpecificIssue].json_id;
+          _ISSUES.specific_issues_data[selectedSpecificIssue].json_id;
 
         metricGoodBad =
-          issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
+          _ISSUES.specific_issues_data[selectedSpecificIssue].good_or_bad;
       }
     }
 
@@ -707,7 +707,7 @@ function App() {
   useEffect(() => {
     if (selectedSpecificIssue) {
       setSelectedIssue(
-        issues.specific_issues_data[selectedSpecificIssue].issue_type_ID
+        _ISSUES.specific_issues_data[selectedSpecificIssue].issue_type_ID
       );
     }
   }, [selectedSpecificIssue]);
@@ -913,7 +913,6 @@ function App() {
                   </div>
                 </div>
                 <Map
-                  issues={issues}
                   selectedIssue={selectedIssue}
                   selectedSpecificIssue={selectedSpecificIssue}
                   boundary={boundary}
@@ -1416,7 +1415,6 @@ function App() {
             }}
           >
             <Map
-              issues={issues}
               selectedIssue={selectedIssue}
               selectedSpecificIssue={selectedSpecificIssue}
               boundary={boundary}

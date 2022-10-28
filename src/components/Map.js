@@ -19,7 +19,6 @@ import { point } from '@turf/helpers';
 import { distance } from '@turf/turf';
 
 // data
-// import _ISSUES from "../texts/issues.json";
 import _NEIGHBORHOODS from '../data/neighborhoods.json';
 import _NEIGHBORHOOD_NAMES from '../data/neighborhood_names.json';
 import _ETHNICITY from '../data/ethnicity.json';
@@ -29,6 +28,7 @@ import _CHAPTER_COLORS from '../data/chapter_colors.json';
 import _ETHNICITY_COLORS from '../data/ethnicity_colors.json';
 import _RANKINGS from '../data/rankings.json';
 import nycBoundary from '../data/nyc_boundary.json';
+import _ISSUES from '../texts/issues.json';
 
 // mapbox style
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -167,7 +167,6 @@ const defaultColors = [
 ];
 
 export default function DeckMap({
-  issues,
   selectedIssue,
   selectedSpecificIssue,
   setSelectedSpecificIssue,
@@ -539,7 +538,6 @@ export default function DeckMap({
         boundary={boundary}
         selectedChapter={selectedChapter}
         selectedCoord={selectedCoord}
-        issues={issues}
         selectedDemographic={selectedDemographic}
         toggleTransit={toggleTransit}
         toggleBike={toggleBike}
@@ -685,7 +683,7 @@ export default function DeckMap({
       if (!selectedCompareCoord.length) {
         return;
       }
-      
+
       const maxDistance = !mapDemographics ? 25 : 15;
       const distance = distance(point(ptA), point(ptB));
       const ptCompareDistance = distance < maxDistance ? distance : maxDistance;
@@ -1446,7 +1444,6 @@ export default function DeckMap({
               councils={councils}
               communities={communities}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
-              issues={issues}
               boundary={boundary}
               selectedSpecificIssue={selectedSpecificIssue}
             />
@@ -1458,7 +1455,6 @@ export default function DeckMap({
               councils={councils}
               communities={communities}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
-              issues={issues}
               boundary={boundary}
               selectedSpecificIssue={selectedSpecificIssue}
             />
@@ -1501,7 +1497,6 @@ export default function DeckMap({
                   boundary={boundary}
                   selectedChapter={selectedChapter}
                   selectedCoord={selectedCoord}
-                  issues={issues}
                   selectedDemographic={selectedDemographic}
                   toggleTransit={toggleTransit}
                   toggleBike={toggleBike}
@@ -1543,7 +1538,6 @@ export default function DeckMap({
                   boundary={boundary}
                   selectedChapter={selectedChapter}
                   selectedCoord={selectedCoord}
-                  issues={issues}
                   selectedDemographic={selectedDemographic}
                   toggleTransit={toggleTransit}
                   toggleBike={toggleBike}
@@ -1580,7 +1574,7 @@ export default function DeckMap({
               {collapseMap && (selectedSpecificIssue || mapDemographics) && (
                 <div key={'map-header'} style={SPLIT_SCREEN_POSITIONING}>
                   <div style={SPLIT_SCREEN_HEADER}>
-                    {issues.specific_issues_data[selectedSpecificIssue]
+                    {_ISSUES.specific_issues_data[selectedSpecificIssue]
                       ?.specific_issue_name ||
                       `${
                         demoLookup[demographic].lookup == 'F10_TrsBkW'
@@ -1615,7 +1609,7 @@ export default function DeckMap({
               <div key={'map-header-left'} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
                   {
-                    issues.specific_issues_data[selectedSpecificIssue]
+                    _ISSUES.specific_issues_data[selectedSpecificIssue]
                       .specific_issue_name
                   }{' '}
                   by{' '}

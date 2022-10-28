@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import _ISSUES from '../texts/issues.json';
 
 export default function MapNotableIndicators({
   selectedCommunity,
@@ -6,7 +7,6 @@ export default function MapNotableIndicators({
   communitySearch,
   communities,
   setSelectedSpecificIssue,
-  issues,
   boundary,
   selectedSpecificIssue,
   isMobile = false,
@@ -76,7 +76,7 @@ export default function MapNotableIndicators({
             onClick={() => setSelectedSpecificIssue(indicatorIndex)}
           >
             {
-              issues.specific_issues_data[String(indicatorIndex)]
+              _ISSUES.specific_issues_data[String(indicatorIndex)]
                 ?.specific_issue_name
             }
           </div>
