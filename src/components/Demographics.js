@@ -12,8 +12,10 @@ import Slider from './Carousel';
 import Legend from './Legend';
 import IssuesGrid from './IssuesGrid';
 
+import _COUNCILS from '../texts/councildistricts.json';
+import _COMMUNITIES from '../texts/communities.json';
+
 export default function Demographics({
-  //  currentValue = null,
   currentValue = null,
   setValue = null,
   showDemographics,
@@ -22,8 +24,6 @@ export default function Demographics({
   mapDemographics,
   setMapDemographics,
   boundary,
-  communities,
-  councils,
   selectedChapter,
   toggleWalk,
   toggleTransit,
@@ -33,10 +33,8 @@ export default function Demographics({
   setToggleBike,
   demoLegendBins,
   demoColorRamp,
-  demoLookup,
   showMap,
   info,
-  issues,
   issue_categories,
   setSelectedChapter,
   setShowMap,
@@ -143,7 +141,6 @@ export default function Demographics({
           items={Object.values(demographics)}
           currentValue={currentValue}
           setValue={setValue}
-          issues={issues}
           issue_categories={issue_categories}
           showDemographics={showDemographics}
           setDemoToggleText={setDemoToggleText}
@@ -212,8 +209,7 @@ export default function Demographics({
                 mapDemographics={mapDemographics}
                 demoColorRamp={demoColorRamp}
                 demoLegendBins={demoLegendBins}
-                demoLookup={demoLookup}
-                demographic={demographic}
+                demographic={currentValue}
                 legendBins={demoLegendBins}
                 colorRamps={demoColorRamp}
                 boundary={boundary}
@@ -271,8 +267,7 @@ export default function Demographics({
                   mapDemographics={mapDemographics}
                   demoColorRamp={demoColorRamp}
                   demoLegendBins={demoLegendBins}
-                  demoLookup={demoLookup}
-                  demographic={demographic}
+                  demographic={currentValue}
                   legendBins={demoLegendBins}
                   colorRamps={demoColorRamp}
                   boundary={boundary}
@@ -283,10 +278,10 @@ export default function Demographics({
                   selectedChapter={selectedChapter}
                   info={info}
                   neighborhoodName={
-                    (councils[communitySearch] &&
-                      councils[communitySearch].name) ||
-                    (communities[communitySearch] &&
-                      communities[communitySearch].name)
+                    (_COUNCILS[communitySearch] &&
+                      _COUNCILS[communitySearch].name) ||
+                    (_COMMUNITIES[communitySearch] &&
+                      _COMMUNITIES[communitySearch].name)
                   }
                   neighborhoodID={communitySearch}
                   toggleWalk={toggleWalk}
@@ -337,7 +332,6 @@ export default function Demographics({
                       mapDemographics={mapDemographics}
                       demoColorRamp={demoColorRamp}
                       demoLegendBins={demoLegendBins}
-                      demoLookup={demoLookup}
                       demographic={demographic}
                       legendBins={demoLegendBins}
                       colorRamps={demoColorRamp}
@@ -349,10 +343,10 @@ export default function Demographics({
                       selectedChapter={selectedChapter}
                       info={info}
                       neighborhoodName={
-                        (councils[communitySearch] &&
-                          councils[communitySearch].name) ||
-                        (communities[communitySearch] &&
-                          communities[communitySearch].name)
+                        (_COUNCILS[communitySearch] &&
+                          _COUNCILS[communitySearch].name) ||
+                        (_COMMUNITIES[communitySearch] &&
+                          _COMMUNITIES[communitySearch].name)
                       }
                       neighborhoodID={communitySearch}
                       toggleWalk={toggleWalk}
@@ -374,8 +368,7 @@ export default function Demographics({
                       mapDemographics={mapDemographics}
                       demoColorRamp={demoColorRamp}
                       demoLegendBins={demoLegendBins}
-                      demoLookup={demoLookup}
-                      demographic={demographic}
+                      demographic={currentValue}
                       legendBins={demoLegendBins}
                       colorRamps={demoColorRamp}
                       boundary={boundary}
@@ -386,10 +379,10 @@ export default function Demographics({
                       selectedChapter={selectedChapter}
                       info={info}
                       neighborhoodName={
-                        (councils[compareSearch] &&
-                          councils[compareSearch].name) ||
-                        (communities[compareSearch] &&
-                          communities[compareSearch].name)
+                        (_COUNCILS[compareSearch] &&
+                          _COUNCILS[compareSearch].name) ||
+                        (_COMMUNITIES[compareSearch] &&
+                          _COMMUNITIES[compareSearch].name)
                       }
                       neighborhoodID={compareSearch}
                       toggleWalk={toggleWalk}

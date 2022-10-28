@@ -140,7 +140,6 @@ export default function Content({
             setColorRamps={setColorRamps}
             handleLegend={handleLegend}
             zoomToggle={zoomToggle}
-            demoLookup={demoLookup}
             showMap={showMap}
             info={info}
             setCollapseMap={setCollapseMap}
