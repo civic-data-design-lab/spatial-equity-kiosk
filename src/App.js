@@ -704,19 +704,6 @@ function App() {
         }*/
   });
 
-  useEffect(() => {
-    if (selectedSpecificIssue) {
-      setSelectedIssue(
-        _ISSUES.specific_issues_data[selectedSpecificIssue].issue_type_ID
-      );
-    }
-  }, [selectedSpecificIssue]);
-
-  useEffect(() => {
-    // console.log('selectdCompareCoord ', selectedCompareCoord);
-    // console.log('userpoints ', userPoints);
-  }, [selectedCompareCoord, userPoints]);
-
   // console.log('siteProtection', process.env.REACT_APP_SITE_PROTECTION)
   // console.log('sha512', process.env.REACT_APP_SITE_PWD)
   if (typeof siteProtection == 'undefined') siteProtection = false;
