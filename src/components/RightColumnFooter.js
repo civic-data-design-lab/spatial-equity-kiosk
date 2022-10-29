@@ -12,7 +12,6 @@ export default function RightColumnFooter({
   setCommunityPinned,
   // toggleDisplayMode,
   // setToggleDisplayMode,
-
   isMobile,
   citywideTab,
 }) {

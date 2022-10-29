@@ -5,10 +5,9 @@ import IssueHistogram from './IssueHistogram';
 import RightColumnHeader from './RightColumnHeader';
 
 export default function IssuesCard({
-  issues,
   selectedSpecificIssue,
   setSelectedSpecificIssue,
-  specificIssue,
+  issue,
   moreIssues,
   forMoreIssues = false,
   setMoreIssues = null,
@@ -31,19 +30,18 @@ export default function IssuesCard({
     <div
       className={'issues-card-container'}
       onClick={() => {
-        if (selectedSpecificIssue === specificIssue) {
+        if (selectedSpecificIssue === issue) {
         } else {
-          setSelectedSpecificIssue(specificIssue);
+          setSelectedSpecificIssue(issue);
         }
       }}
     >
       <RightColumnHeader
         type="card"
-        specificIssue={specificIssue}
+        issue={issue}
         target={target}
         toggleDisplayMode={toggleDisplayMode}
         setToggleDisplayMode={setToggleDisplayMode}
-        issues={issues}
         selectedSpecificIssue={selectedSpecificIssue}
         setSelectedChapter={setSelectedChapter}
         forMoreIssues={forMoreIssues}
@@ -59,16 +57,15 @@ export default function IssuesCard({
       >
         <IssueHistogram
           colorRampsyType={'health'}
-          issues={issues}
           boundary={boundary}
-          selectedSpecificIssue={specificIssue}
+          selectedSpecificIssue={issue}
           selectedCommunity={selectedCommunity}
           setCommunitySearch={setCommunitySearch}
           setSelectedChapter={setSelectedChapter}
           communitySearch={communitySearch}
           compareSearch={compareSearch}
           toggleDisplayMode={toggleDisplayMode}
-          specificIssue={specificIssue}
+          issue={issue}
           addCompare={addCompare}
           setCompareSearch={setCompareSearch}
           displayModes={displayModes}

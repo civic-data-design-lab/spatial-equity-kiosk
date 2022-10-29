@@ -6,6 +6,8 @@ import {
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
 
+import _ISSUES from '../texts/issues.json';
+
 const mobilePadding = {
   paddingLeft: '0.5rem',
 };
@@ -13,7 +15,6 @@ const mobilePadding = {
 export default function RightColumnHeader({
   boundary,
   type = 'solutions',
-  issues = null,
   specificIssue,
   target,
   selectedSpecificIssue = null,
@@ -36,7 +37,7 @@ export default function RightColumnHeader({
     const sentence = [
       bounds,
       'Ranked by',
-      issues.specific_issues_data[selectedSpecificIssue].specific_issue_title,
+      _ISSUES.specific_issues_data[selectedSpecificIssue].specific_issue_title,
     ].join(' ');
 
     return sentence || null;
@@ -44,7 +45,7 @@ export default function RightColumnHeader({
 
   const getMetricDescription = () => {
     return (
-      issues.specific_issues_data[specificIssue].specific_issue_name || null
+      _ISSUES.specific_issues_data[specificIssue].specific_issue_name || null
     );
   };
 
@@ -124,10 +125,11 @@ export default function RightColumnHeader({
               <h6 className="mb-0">{getMetricDescription()}</h6>
               <div>
                 <span className={'m-0 smaller-text position-relative'}>
-                  {issues.specific_issues_data[specificIssue].units}{' '}
+                  {_ISSUES.specific_issues_data[specificIssue].units}{' '}
                   <SourceInfo
-                    issues={issues}
-                    selectedSpecificIssue={selectedSpecificIssue}
+                    specificIssue={
+                      _ISSUES.specific_issues_data[selectedSpecificIssue]
+                    }
                     setSelectedChapter={setSelectedChapter}
                   />
                 </span>

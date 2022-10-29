@@ -17,11 +17,6 @@ import _COUNCILS from '../texts/councildistricts.json';
 import _DEMOGRAPHICS from '../texts/demographics.json';
 
 export default function IssuesMiddleColumn({
-  // issues,
-  // communities,
-  // councils,
-  // demoLookup,
-  // issue_categories,
   selectedIssue,
   setSelectedIssue,
   selectedSpecificIssue,

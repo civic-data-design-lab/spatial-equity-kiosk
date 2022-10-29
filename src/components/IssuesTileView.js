@@ -23,7 +23,7 @@ function getRandomInt(min, max) {
 
 export default function IssuesTileView({
   selectedSpecificIssue,
-  issues,
+  specificIssue,
   showMap,
   selectedIssue,
   selectedChapter,
@@ -35,8 +35,6 @@ export default function IssuesTileView({
   colorRamps,
   setCommunitySearch,
   setSelectedChapter,
-  communities,
-  councils,
   communityPinned,
   setCommunityPinned,
   councilPinned,
@@ -121,7 +119,6 @@ export default function IssuesTileView({
               <RightColumnHeader
                 type={'histogram header'}
                 boundary={boundary}
-                issues={issues}
                 selectedSpecificIssue={selectedSpecificIssue}
                 setSelectedChapter={setSelectedChapter}
                 setSelectedSpecificIssue={setSelectedSpecificIssue}
@@ -131,7 +128,7 @@ export default function IssuesTileView({
                 {!collapseMap && (
                   <Histogram
                     colorRampsyType={colorRamps}
-                    issues={issues}
+                    specificIssue={specificIssue}
                     boundary={boundary}
                     selectedSpecificIssue={selectedSpecificIssue}
                     communityPinned={communityPinned}
@@ -163,7 +160,6 @@ export default function IssuesTileView({
               {!showMap && !displayModes[selectedSpecificIssue] && (
                 <RightColumnFooter
                   boundary={boundary}
-                  issues={issues}
                   selectedSpecificIssue={selectedSpecificIssue}
                   setSelectedChapter={setSelectedChapter}
                   setSelectedSpecificIssue={setSelectedSpecificIssue}
@@ -187,14 +183,12 @@ export default function IssuesTileView({
                 <>
                   <RightColumnHeader />
                   <IssueProfile
-                    issues={issues}
+                    specificIssue={specificIssue}
                     selectedSpecificIssue={selectedSpecificIssue}
                     boundary={boundary}
                     setSelectedSpecificIssue={setSelectedSpecificIssue}
                     setCommunitySearch={setCommunitySearch}
                     setSelectedChapter={setSelectedChapter}
-                    councils={councils}
-                    communities={communities}
                     communitySearch={communitySearch}
                     compareSearch={compareSearch}
                   />

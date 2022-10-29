@@ -6,12 +6,17 @@ import { default as _TILE_WHITE } from '../../img/tile_white.svg';
 import { default as _TILE_BLACK } from '../../img/tile_black.svg';
 
 import IssueProfile from '../IssuesProfile';
-import categories from '../../texts/issue_categories.json';
 import Histogram from '../Histogram';
 import IssuesGrid from '../IssuesGrid';
 import RightColumnFooter from '../RightColumnFooter';
 import MobileLegendTray from './MobileLegendTray';
 import MobileDropdown from './MobileDropdown';
+
+// File imports
+import _ISSUE_CATEGORIES from '../../texts/issue_categories.json';
+import _ISSUES from '../../texts/issues.json';
+import _COMMUNITIES from '../../texts/communities.json';
+import _COUNCILS from '../../texts/councildistricts.json';
 
 export default function CitywideData({
   selectedIssue,
@@ -19,8 +24,6 @@ export default function CitywideData({
   selectedSpecificIssue,
   setSelectedSpecificIssue,
   setShowDemographics,
-  issues,
-  issue_categories,
   boundary,
   showMap,
   colorRamps,
@@ -29,8 +32,6 @@ export default function CitywideData({
   setDemographic,
   mapDemographics,
   setMapDemographics,
-  communities,
-  councils,
   selectedChapter,
   toggleTransit,
   setToggleTransit,
@@ -71,22 +72,22 @@ export default function CitywideData({
 }) {
   const [useBoroughColor, setUseBoroughColor] = useState(false);
 
-  const health_issues = issues.issues_data['health'].specific_issues_ID.map(
+  const health_issues = _ISSUES.issues_data['health'].specific_issues_ID.map(
     (id_) => {
-      return issues.specific_issues_data[id_];
+      return _ISSUES.specific_issues_data[id_];
     }
   );
 
-  const environment_issues = issues.issues_data[
+  const environment_issues = _ISSUES.issues_data[
     'environment'
   ].specific_issues_ID.map((id_) => {
-    return issues.specific_issues_data[id_];
+    return _ISSUES.specific_issues_data[id_];
   });
 
-  const infrastructure_issues = issues.issues_data[
+  const infrastructure_issues = _ISSUES.issues_data[
     'infrastructure'
   ].specific_issues_ID.map((id_) => {
-    return issues.specific_issues_data[id_];
+    return _ISSUES.specific_issues_data[id_];
   });
 
   const getHyperlinkText = (texts) => {
@@ -103,16 +104,16 @@ export default function CitywideData({
               {textData.hyperlink && (
                 <span
                   className={`${
-                    categories.labels[
-                      issues.specific_issues_data[selectedSpecificIssue]
+                    _ISSUE_CATEGORIES.labels[
+                      _ISSUES.specific_issues_data[selectedSpecificIssue]
                         .issue_type_ID
                     ]
                   }`}
                 >
                   <a
                     className={`hyperlink ${
-                      categories.labels[
-                        issues.specific_issues_data[selectedSpecificIssue]
+                      _ISSUE_CATEGORIES.labels[
+                        _ISSUES.specific_issues_data[selectedSpecificIssue]
                           .issue_type_ID
                       ]
                     }`}
@@ -131,7 +132,7 @@ export default function CitywideData({
   };
 
   const getRelatedIssues = () => {
-    return issues.specific_issues_data[selectedSpecificIssue].related.map(
+    return _ISSUES.specific_issues_data[selectedSpecificIssue].related.map(
       (issue, index) => {
         return (
           <span key={index}>
@@ -142,7 +143,7 @@ export default function CitywideData({
                 setSelectedSpecificIssue(issue);
               }}
             >
-              {issues.specific_issues_data[issue].specific_issue_name}
+              {_ISSUES.specific_issues_data[issue].specific_issue_name}
             </a>
             {index === 2 ? '.' : ','}
           </span>
@@ -160,8 +161,6 @@ export default function CitywideData({
             items={issueType}
             currentValue={selectedSpecificIssue}
             setValue={setSelectedSpecificIssue}
-            issues={issues}
-            issue_categories={issue_categories}
             showDemographics={showDemographics}
           />
         );
@@ -199,7 +198,7 @@ export default function CitywideData({
               }`}
             >
               <tbody>
-                {issues.issues_data[category].specific_issues_ID.map((id_) => {
+                {_ISSUES.issues_data[category].specific_issues_ID.map((id_) => {
                   return (
                     <tr
                       key={id_}
@@ -223,7 +222,7 @@ export default function CitywideData({
                             : 'no-text no-padding opacity-0'
                         } mobile-issue-dropdown-item`}
                       >
-                        {issues.specific_issues_data[id_].specific_issue_name}
+                        {_ISSUES.specific_issues_data[id_].specific_issue_name}
                       </td>
                     </tr>
                   );
@@ -322,7 +321,7 @@ export default function CitywideData({
                     : 'no-text'
                 }`}
             >
-              {issue_categories.descriptions['1']}
+              {_ISSUE_CATEGORIES.descriptions['1']}
             </p>
 
             {getSelectionIssues('health', 1, health_issues)}
@@ -374,7 +373,7 @@ export default function CitywideData({
                     : 'no-text'
                 }`}
             >
-              {issue_categories.descriptions['2']}
+              {_ISSUE_CATEGORIES.descriptions['2']}
             </p>
             {getSelectionIssues('environment', 2, environment_issues)}
           </div>
@@ -425,7 +424,7 @@ export default function CitywideData({
                     : 'no-text'
                 }`}
             >
-              {issue_categories.descriptions['3']}
+              {_ISSUE_CATEGORIES.descriptions['3']}
             </p>
             {getSelectionIssues('infrastructure', 3, infrastructure_issues)}
           </div>
@@ -444,8 +443,6 @@ export default function CitywideData({
             setSelectedIssue={setSelectedIssue}
             selectedSpecificIssue={selectedSpecificIssue}
             setSelectedSpecificIssue={setSelectedSpecificIssue}
-            issues={issues}
-            issue_categories={issue_categories}
             selectedChapter={selectedChapter}
             showDropDown={showDropDown}
             setShowDropDown={setShowDropDown}
@@ -477,7 +474,7 @@ export default function CitywideData({
                   <div>
                     <div className={'pb-3'}>
                       {getHyperlinkText(
-                        issues.specific_issues_data[selectedSpecificIssue]
+                        _ISSUES.specific_issues_data[selectedSpecificIssue]
                           .specific_issue_description
                       )}
                     </div>
@@ -498,8 +495,10 @@ export default function CitywideData({
                   }`}
                 >
                   <Histogram
+                    specificIssue={
+                      _ISSUES.specific_issues_data[selectedSpecificIssue]
+                    }
                     colorRampsyType={colorRamps}
-                    issues={issues}
                     boundary={boundary}
                     selectedSpecificIssue={selectedSpecificIssue}
                     communityPinned={communityPinned}
@@ -521,7 +520,6 @@ export default function CitywideData({
                 {!showMap && !displayModes[selectedSpecificIssue] && (
                   <RightColumnFooter
                     boundary={boundary}
-                    issues={issues}
                     selectedSpecificIssue={selectedSpecificIssue}
                     setSelectedChapter={setSelectedChapter}
                     setSelectedSpecificIssue={setSelectedSpecificIssue}
@@ -538,14 +536,11 @@ export default function CitywideData({
                 <h5 className="mt-2 pb-0">Solutions</h5>
 
                 <IssueProfile
-                  issues={issues}
                   selectedSpecificIssue={selectedSpecificIssue}
                   boundary={boundary}
                   setSelectedSpecificIssue={setSelectedSpecificIssue}
                   setCommunitySearch={setCommunitySearch}
                   setSelectedChapter={setSelectedChapter}
-                  councils={councils}
-                  communities={communities}
                 />
               </>
             )}
@@ -557,7 +552,6 @@ export default function CitywideData({
             <MobileLegendTray
               showMap={showMap}
               boundary={boundary}
-              issues={issues}
               selectedSpecificIssue={selectedSpecificIssue}
               setShowDemographics={setShowDemographics}
               showDemographics={showDemographics}
@@ -583,8 +577,6 @@ export default function CitywideData({
               communitySearch={communitySearch}
               compareSearch={compareSearch}
               setMapDemographics={setMapDemographics}
-              communities={communities}
-              councils={councils}
               toggleTransit={toggleTransit}
               setToggleTransit={setToggleTransit}
               toggleBike={toggleBike}

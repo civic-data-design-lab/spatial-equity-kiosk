@@ -3,10 +3,11 @@ import IssuesCard from './IssuesCard';
 import IssuesTags from './IssuesTags';
 import RightColumnHeader from './RightColumnHeader';
 
+import _COUNCILS from '../texts/councildistricts.json';
+import _COMMUNITIES from '../texts/communities.json';
+
 export default function CommunityProfile({
   selectedSpecificIssue,
-  issues,
-  communities,
   communitySearch,
   setSelectedSpecificIssue,
   compareSearch,
@@ -15,7 +16,6 @@ export default function CommunityProfile({
   moreIssues,
   setMoreIssuesLength,
   boundary,
-  councils,
   setSelectedChapter,
   setSelectedAbout,
   setCommunitySearch,
@@ -30,8 +30,8 @@ export default function CommunityProfile({
   useEffect(() => {
     if (moreIssues && communitySearch && !compareSearch) {
       let leastPerfIssues =
-        councils[communitySearch]?.least_performing_issues ||
-        communities[communitySearch]?.least_performing_issues;
+        _COUNCILS[communitySearch]?.least_performing_issues ||
+        _COMMUNITIES[communitySearch]?.least_performing_issues;
 
       let newMoreIssues = moreIssues.filter(
         (issue) => !leastPerfIssues.includes(issue)
@@ -43,8 +43,8 @@ export default function CommunityProfile({
     if (selectedSpecificIssue && communitySearch) {
       if (moreIssues) {
         let leastPerfIssues =
-          councils[communitySearch]?.least_performing_issues ||
-          communities[communitySearch]?.least_performing_issues;
+          _COUNCILS[communitySearch]?.least_performing_issues ||
+          _COMMUNITIES[communitySearch]?.least_performing_issues;
         if (
           !leastPerfIssues.includes(selectedSpecificIssue) &&
           moreIssues &&
@@ -66,8 +66,8 @@ export default function CommunityProfile({
 
   const selectedCommunity = communitySearch
     ? boundary == 'council'
-      ? councils[communitySearch]
-      : communities[communitySearch]
+      ? _COUNCILS[communitySearch]
+      : _COMMUNITIES[communitySearch]
     : null;
 
   return (
@@ -82,8 +82,8 @@ export default function CommunityProfile({
           />
 
           <div className={'d-flex flex-column cards-column'}>
-            {(communities[communitySearch] &&
-              communities[communitySearch].least_performing_issues.map(
+            {(_COMMUNITIES[communitySearch] &&
+              _COMMUNITIES[communitySearch].least_performing_issues.map(
                 (issue, index) => {
                   return (
                     <div key={index}>
@@ -106,8 +106,7 @@ export default function CommunityProfile({
                         boundary={boundary}
                         selectedSpecificIssue={selectedSpecificIssue}
                         setSelectedSpecificIssue={setSelectedSpecificIssue}
-                        issues={issues}
-                        specificIssue={issue}
+                        issue={issue}
                         setModal={setModal}
                         setSelectedChapter={setSelectedChapter}
                         setSelectedAbout={setSelectedAbout}
@@ -116,8 +115,8 @@ export default function CommunityProfile({
                   );
                 }
               )) ||
-              (councils[communitySearch] &&
-                councils[communitySearch].least_performing_issues.map(
+              (_COUNCILS[communitySearch] &&
+                _COUNCILS[communitySearch].least_performing_issues.map(
                   (issue, index) => {
                     return (
                       <div key={index}>
@@ -140,7 +139,6 @@ export default function CommunityProfile({
                           boundary={boundary}
                           selectedSpecificIssue={selectedSpecificIssue}
                           setSelectedSpecificIssue={setSelectedSpecificIssue}
-                          issues={issues}
                           specificIssue={issue}
                           setModal={setModal}
                           setSelectedChapter={setSelectedChapter}
@@ -162,16 +160,14 @@ export default function CommunityProfile({
               setDisplayModes={setDisplayModes}
               setCompareSearch={setCompareSearch}
               addCompare={addCompare}
-              issues={issues}
               leastPerforming={
-                (communities[communitySearch] &&
-                  communities[communitySearch].least_performing_issues) ||
-                (councils[communitySearch] &&
-                  councils[communitySearch].least_performing_issues)
+                (_COMMUNITIES[communitySearch] &&
+                  _COMMUNITIES[communitySearch].least_performing_issues) ||
+                (_COUNCILS[communitySearch] &&
+                  _COUNCILS[communitySearch].least_performing_issues)
               }
               setSelectedSpecificIssue={setSelectedSpecificIssue}
               selectedSpecificIssue={selectedSpecificIssue}
-              councils={councils}
               setModal={setModal}
               moreIssues={moreIssues}
               setMoreIssues={setMoreIssues}
@@ -196,14 +192,12 @@ export default function CommunityProfile({
               setDisplayModes={setDisplayModes}
               setCompareSearch={setCompareSearch}
               addCompare={addCompare}
-              issues={issues}
               leastPerforming={
-                (communities[communitySearch] &&
-                  communities[communitySearch].least_performing_issues) ||
-                (councils[communitySearch] &&
-                  councils[communitySearch].least_performing_issues)
+                (_COMMUNITIES[communitySearch] &&
+                  _COMMUNITIES[communitySearch].least_performing_issues) ||
+                (_COUNCILS[communitySearch] &&
+                  _COUNCILS[communitySearch].least_performing_issues)
               }
-              communities={communities}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
               selectedSpecificIssue={selectedSpecificIssue}
               setModal={setModal}
@@ -240,7 +234,6 @@ export default function CommunityProfile({
               boundary={boundary}
               selectedSpecificIssue={selectedSpecificIssue}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
-              issues={issues}
               specificIssue={modal}
               setModal={setModal}
               modalVersion={true}

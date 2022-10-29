@@ -38,7 +38,6 @@ export default function Content({
   colorRamps,
   toggleUnderperformers,
   setToggleUnderperformers,
-  issue_categories,
   toggleTransit,
   toggleBike,
   toggleWalk,
@@ -54,7 +53,6 @@ export default function Content({
   setColorRamps,
   handleLegend,
   zoomToggle,
-  demoLookup,
   info,
   communityPinned,
   setCommunityPinned,
@@ -106,7 +104,6 @@ export default function Content({
           <IssuesMiddleColumn
             selectedIssue={selectedIssue}
             setSelectedIssue={setSelectedIssue}
-            issues={issues}
             selectedSpecificIssue={selectedSpecificIssue}
             setSelectedSpecificIssue={setSelectedSpecificIssue}
             demographic={demographic}
@@ -118,13 +115,10 @@ export default function Content({
             mapDemographics={mapDemographics}
             setMapDemographics={setMapDemographics}
             boundary={boundary}
-            communities={communities}
-            councils={councils}
             colorRamps={colorRamps}
             toggleUnderperformers={toggleUnderperformers}
             setToggleUnderperformers={setToggleUnderperformers}
             selectedChapter={selectedChapter}
-            issue_categories={issue_categories}
             toggleTransit={toggleTransit}
             setToggleTransit={setToggleTransit}
             toggleWalk={toggleWalk}
@@ -207,7 +201,7 @@ export default function Content({
         {selectedChapter === 2 && (
           <IssuesTileView
             selectedSpecificIssue={selectedSpecificIssue}
-            issues={issues}
+            specificIssue={issues.specific_issues_data[selectedSpecificIssue]}
             showToggle={showToggle}
             showMap={showMap}
             setShowMap={setShowMap}

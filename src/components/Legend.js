@@ -287,6 +287,7 @@ export default function Legend({
           </div>
         )}{' '}
         <SourceInfo
+          specificIssue={_ISSUES.specific_issues_data[selectedSpecificIssue]}
           type={'demographic'}
           setSelectedChapter={setSelectedChapter}
           setShowMap={setShowMap}
@@ -320,7 +321,9 @@ export default function Legend({
                 {_ISSUES.specific_issues_data[selectedSpecificIssue].units}{' '}
                 {!isMobile && (
                   <SourceInfo
-                    selectedSpecificIssue={selectedSpecificIssue}
+                    specificIssues={
+                      _ISSUES.specific_issues_data[selectedSpecificIssue]
+                    }
                     setSelectedChapter={setSelectedChapter}
                     setShowMap={setShowMap}
                   />
