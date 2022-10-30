@@ -103,8 +103,8 @@ export default function MobileLegendTray({
             isMobile={true}
             selectedCommunity={selectedCommunity}
             communitySearch={communitySearch}
-            councils={councils}
-            communities={communities}
+            councilData={councils[communitySearch]}
+            communities={communities[communitySearch]}
             setSelectedSpecificIssue={setSelectedSpecificIssue}
             issues={issues}
             boundary={boundary}

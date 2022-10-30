@@ -443,7 +443,6 @@ export default function DeckMap({
   // demographic array for the neighborhood scale
 
   const [demoBinList, DEMO_COLOR_SCALE] = useMemo(() => {
-    console.log('updating');
     const sortedDemoArray = [
       ...(!zoomToggle ? neighborhoodDemoArray : selectedDemoArray),
     ].sort((a, b) => a - b);
@@ -494,16 +493,6 @@ export default function DeckMap({
 
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
   const onViewStateChange = ({ viewState }) => {
-    // console.log('viewstate', viewState, 'newViewState', newViewState);
-    // console.debug('Updating view state');
-
-    // if (!mapDemographics) {
-    //   setViewStateLocal(() => ({
-    //     primary: viewState,
-    //     splitLeft: viewState,
-    //     splitRight: viewState,
-    //   }));
-    // }
     // 04.1 set constraints on view state
 
     const newViewStateProps = {};
@@ -1442,22 +1431,28 @@ export default function DeckMap({
   return (
     <div
       onTouchMove={() => {
-        if (isMobile && showDropDown) setShowDropDown(false);
-        if (isMobile && showSubDropDown) setShowSubDropDown(false);
-        if (isMobile && showLegend) {
+        if (!isMobile) {
+          return;
+        }
+        if (showDropDown) setShowDropDown(false);
+        if (showSubDropDown) setShowSubDropDown(false);
+        if (showLegend) {
           isTouchingMapMobile.current = 1;
           setShowLegend(false);
         }
-        if (isMobile && showNotableTray) {
+        if (showNotableTray) {
           isTouchingMapMobile.current = 2;
           setShowNotableTray(false);
         }
       }}
       onTouchEnd={() => {
-        if (isMobile && !showLegend && isTouchingMapMobile.current == 1) {
+        if (!isMobile) {
+          return;
+        }
+        if (!showLegend && isTouchingMapMobile.current == 1) {
           setShowLegend(true);
         }
-        if (isMobile && !showNotableTray && isTouchingMapMobile.current == 2) {
+        if (!showNotableTray && isTouchingMapMobile.current == 2) {
           setShowNotableTray(true);
         }
       }}

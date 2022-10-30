@@ -22,6 +22,11 @@ export default function MapNotableIndicators({
           ? councilData?.least_performing_issues
           : communityData?.least_performing_issues;
 
+      if (!issueIndex) {
+        setNotableIndicators(['', '', '']);
+        return;
+      }
+
       const uniqueIssues = [...new Set(issueIndex.flat())];
       setNotableIndicators(uniqueIssues);
     }
