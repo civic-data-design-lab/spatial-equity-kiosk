@@ -6,8 +6,6 @@ import {
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
 
-import _ISSUES from '../texts/issues.json';
-
 const mobilePadding = {
   paddingLeft: '0.5rem',
 };
@@ -15,9 +13,10 @@ const mobilePadding = {
 export default function RightColumnHeader({
   boundary,
   type = 'solutions',
-  specificIssue,
+  issue,
+  issueIdx,
+  selectedIssueIdx,
   target,
-  selectedSpecificIssue = null,
   setSelectedChapter,
   forMoreIssues,
   moreIssues,
@@ -30,23 +29,28 @@ export default function RightColumnHeader({
   isMobile = false,
   citywideTab = false,
 }) {
+  if (type === 'card') {
+    console.debug(type);
+    console.debug(issue);
+    console.debug(issueIdx);
+    console.debug(selectedIssueIdx);
+  }
+  if (type === 'histogram header') {
+    console.debug(issue);
+  }
   const getIssueName = () => {
     const bounds =
       boundary == 'council' ? 'Council Districts' : 'Community Boards';
 
-    const sentence = [
-      bounds,
-      'Ranked by',
-      _ISSUES.specific_issues_data[selectedSpecificIssue].specific_issue_title,
-    ].join(' ');
+    const sentence = [bounds, 'Ranked by', issue.specific_issue_title].join(
+      ' '
+    );
 
     return sentence || null;
   };
 
   const getMetricDescription = () => {
-    return (
-      _ISSUES.specific_issues_data[specificIssue].specific_issue_name || null
-    );
+    return issue.specific_issue_name || null;
   };
 
   if (type === 'solutions') {
@@ -96,7 +100,7 @@ export default function RightColumnHeader({
         style={
           target &&
           displayModes != null &&
-          displayModes[selectedSpecificIssue] == true
+          displayModes[selectedIssueIdx] == true
             ? { position: 'sticky', top: '0', zIndex: '2' }
             : { position: 'relative' }
         }
@@ -125,11 +129,9 @@ export default function RightColumnHeader({
               <h6 className="mb-0">{getMetricDescription()}</h6>
               <div>
                 <span className={'m-0 smaller-text position-relative'}>
-                  {_ISSUES.specific_issues_data[specificIssue].units}{' '}
+                  {issue.units}{' '}
                   <SourceInfo
-                    specificIssue={
-                      _ISSUES.specific_issues_data[selectedSpecificIssue]
-                    }
+                    specificIssue={issue}
                     setSelectedChapter={setSelectedChapter}
                   />
                 </span>
@@ -145,11 +147,11 @@ export default function RightColumnHeader({
                   icon={faXmark}
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (selectedSpecificIssue === specificIssue) {
+                    if (selectedIssueIdx === issueIdx) {
                       setSelectedSpecificIssue(null);
                     }
                     let newMoreIssues = moreIssues.filter(
-                      (issue) => issue !== specificIssue
+                      (issue) => issue !== issueIdx
                     );
                     setMoreIssues(newMoreIssues);
                   }}

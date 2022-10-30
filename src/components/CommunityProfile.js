@@ -77,7 +77,6 @@ export default function CommunityProfile({
           <RightColumnHeader
             type="notable"
             displayModes={displayModes}
-            selectedSpecificIssue={selectedSpecificIssue}
             isMobile={isMobile}
           />
 
@@ -88,6 +87,7 @@ export default function CommunityProfile({
                   return (
                     <div key={index}>
                       <IssuesCard
+                        issueIdx={issue}
                         isMobile={isMobile}
                         displayModes={displayModes}
                         setDisplayModes={setDisplayModes}
@@ -106,7 +106,6 @@ export default function CommunityProfile({
                         boundary={boundary}
                         selectedSpecificIssue={selectedSpecificIssue}
                         setSelectedSpecificIssue={setSelectedSpecificIssue}
-                        issue={issue}
                         setModal={setModal}
                         setSelectedChapter={setSelectedChapter}
                         setSelectedAbout={setSelectedAbout}
@@ -121,6 +120,7 @@ export default function CommunityProfile({
                     return (
                       <div key={index}>
                         <IssuesCard
+                          issueIdx={issue}
                           isMobile={isMobile}
                           displayModes={displayModes}
                           setDisplayModes={setDisplayModes}
@@ -139,7 +139,6 @@ export default function CommunityProfile({
                           boundary={boundary}
                           selectedSpecificIssue={selectedSpecificIssue}
                           setSelectedSpecificIssue={setSelectedSpecificIssue}
-                          specificIssue={issue}
                           setModal={setModal}
                           setSelectedChapter={setSelectedChapter}
                           setSelectedAbout={setSelectedAbout}
@@ -221,6 +220,7 @@ export default function CommunityProfile({
         <div className="modal-background">
           <div className={'modal-card'}>
             <IssuesCard
+              issueIdx={modal}
               isMobile={isMobile}
               displayModes={displayModes}
               setDisplayModes={setDisplayModes}
@@ -234,7 +234,6 @@ export default function CommunityProfile({
               boundary={boundary}
               selectedSpecificIssue={selectedSpecificIssue}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
-              specificIssue={modal}
               setModal={setModal}
               modalVersion={true}
               setSelectedAbout={setSelectedAbout}

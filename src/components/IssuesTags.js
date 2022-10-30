@@ -52,6 +52,7 @@ export default function IssuesTags({
                 // }
               >
                 <IssuesCard
+                  issueIdx={issue}
                   isMobile={isMobile}
                   target={
                     selectedSpecificIssue && selectedSpecificIssue !== issue

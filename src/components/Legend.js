@@ -321,7 +321,7 @@ export default function Legend({
                 {_ISSUES.specific_issues_data[selectedSpecificIssue].units}{' '}
                 {!isMobile && (
                   <SourceInfo
-                    specificIssues={
+                    specificIssue={
                       _ISSUES.specific_issues_data[selectedSpecificIssue]
                     }
                     setSelectedChapter={setSelectedChapter}

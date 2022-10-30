@@ -117,6 +117,7 @@ export default function IssuesTileView({
               style={{ outline: '1px solid black' }}
             >
               <RightColumnHeader
+                issue={specificIssue}
                 type={'histogram header'}
                 boundary={boundary}
                 selectedSpecificIssue={selectedSpecificIssue}
