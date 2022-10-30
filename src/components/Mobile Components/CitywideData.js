@@ -5,7 +5,7 @@ import { default as _GLOBE_BLACK } from '../../img/globe_black.svg';
 import { default as _TILE_WHITE } from '../../img/tile_white.svg';
 import { default as _TILE_BLACK } from '../../img/tile_black.svg';
 
-import IssueProfile from '../IssuesProfile';
+import IssueProfile from '../IssueProfile';
 import Histogram from '../Histogram';
 import IssuesGrid from '../IssuesGrid';
 import RightColumnFooter from '../RightColumnFooter';
@@ -536,11 +536,7 @@ export default function CitywideData({
                 <h5 className="mt-2 pb-0">Solutions</h5>
 
                 <IssueProfile
-                  selectedSpecificIssue={selectedSpecificIssue}
-                  boundary={boundary}
-                  setSelectedSpecificIssue={setSelectedSpecificIssue}
-                  setCommunitySearch={setCommunitySearch}
-                  setSelectedChapter={setSelectedChapter}
+                  issue={_ISSUES.specific_issues_data[selectedSpecificIssue]}
                 />
               </>
             )}

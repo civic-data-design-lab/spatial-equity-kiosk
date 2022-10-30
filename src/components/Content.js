@@ -244,7 +244,6 @@ export default function Content({
             communitySearch={communitySearch}
             compareSearch={compareSearch}
             selectedSpecificIssue={selectedSpecificIssue}
-            issues={issues}
             showMap={showMap}
             setShowMap={setShowMap}
             showToggle={showToggle}

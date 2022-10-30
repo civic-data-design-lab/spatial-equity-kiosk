@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import IssueProfile from './IssuesProfile';
+import IssueProfile from './IssueProfile';
 import Histogram from './Histogram';
 import RightColumnHeader from './RightColumnHeader';
 import RightColumnFooter from './RightColumnFooter';
@@ -183,16 +183,7 @@ export default function IssuesTileView({
               {!collapseMap && (
                 <>
                   <RightColumnHeader />
-                  <IssueProfile
-                    specificIssue={specificIssue}
-                    selectedSpecificIssue={selectedSpecificIssue}
-                    boundary={boundary}
-                    setSelectedSpecificIssue={setSelectedSpecificIssue}
-                    setCommunitySearch={setCommunitySearch}
-                    setSelectedChapter={setSelectedChapter}
-                    communitySearch={communitySearch}
-                    compareSearch={compareSearch}
-                  />
+                  <IssueProfile issue={specificIssue} />
                 </>
               )}
             </div>
