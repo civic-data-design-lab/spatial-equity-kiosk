@@ -908,7 +908,6 @@ function App() {
                   demographic={demographic}
                   setColorRamps={setColorRamps}
                   toggleUnderperformers={toggleUnderperformers}
-                  demoLookup={demoLookup}
                   selectedChapter={selectedChapter}
                   setSelectedChapter={setSelectedChapter}
                   communitySearch={communitySearch}
@@ -919,8 +918,6 @@ function App() {
                   setCompareSearch={setCompareSearch}
                   showMap={showMap}
                   setShowMap={setShowMap}
-                  communities={communities}
-                  councils={councils}
                   viewState={viewState}
                   setViewState={setViewState}
                   mapSelection={mapSelection}

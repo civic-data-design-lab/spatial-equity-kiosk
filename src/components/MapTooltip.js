@@ -22,7 +22,6 @@ const MapTooltip = ({
   toggleBike,
   toggleWalk,
   selectedSpecificIssue,
-  demoLookup,
   infoTransfer,
   // v State from Map.js v
   transportationModesArray,

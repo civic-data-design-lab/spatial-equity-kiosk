@@ -3,9 +3,9 @@ import _ISSUES from '../texts/issues.json';
 
 export default function MapNotableIndicators({
   selectedCommunity,
-  councils,
   communitySearch,
-  communities,
+  councilData,
+  communityData,
   setSelectedSpecificIssue,
   boundary,
   selectedSpecificIssue,
@@ -19,8 +19,8 @@ export default function MapNotableIndicators({
     if (selectedCommunity) {
       const issueIndex =
         boundary === 'council'
-          ? councils[communitySearch]?.least_performing_issues
-          : communities[communitySearch]?.least_performing_issues;
+          ? councilData?.least_performing_issues
+          : communityData?.least_performing_issues;
 
       const uniqueIssues = [...new Set(issueIndex.flat())];
       setNotableIndicators(uniqueIssues);
@@ -30,8 +30,8 @@ export default function MapNotableIndicators({
   const getBoundaryName = () => {
     const bounds =
       boundary === 'council'
-        ? councils[communitySearch]?.name || ''
-        : communities[communitySearch]?.name || '';
+        ? councilData?.name || ''
+        : communityData?.name || '';
     return `${bounds}`;
   };
 

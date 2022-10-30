@@ -29,13 +29,14 @@ import _ETHNICITY_COLORS from '../data/ethnicity_colors.json';
 import _RANKINGS from '../data/rankings.json';
 import nycBoundary from '../data/nyc_boundary.json';
 import _ISSUES from '../texts/issues.json';
+import _DEMOGRAPHICS from '../texts/demographics.json';
+import _COMMUNITIES from '../texts/communities.json';
+import _COUNCILS from '../texts/councildistricts.json';
 
 // mapbox style
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { project } from 'deck.gl';
 import MapTooltip from './MapTooltip';
 import {
-  debounce,
   getTransportationModes,
   mapRange,
   splitHyphens,
@@ -176,7 +177,6 @@ export default function DeckMap({
   demographic,
   setColorRamps,
   toggleUnderperformers,
-  demoLookup,
   selectedChapter,
   setSelectedChapter,
   communitySearch,
@@ -185,8 +185,6 @@ export default function DeckMap({
   setCommunitySearch,
   compareSearch,
   setCompareSearch,
-  communities,
-  councils,
   viewState,
   setViewState,
   zoomToggle,
@@ -302,18 +300,21 @@ export default function DeckMap({
 
   // 01.4 Color Scale function
 
-  const COLOR_SCALE =
-    infoTransfer != null
-      ? dataScale == 'equal'
-        ? scaleThreshold()
-            .domain(infoTransfer != null ? infoTransfer?.binList : [0, 1])
-            .range(_CHAPTER_COLORS[colorRamp])
-        : scaleQuantile()
-            .domain(
-              infoTransfer != null ? infoTransfer?.uniqueValueArray : [0, 1]
-            )
-            .range(_CHAPTER_COLORS[colorRamp])
-      : null; //quantile bins
+  const COLOR_SCALE = useMemo(() => {
+    if (infoTransfer == null) {
+      return null; // quantile bine
+    }
+
+    if (dataScale === 'equal') {
+      return scaleThreshold()
+        .domain(infoTransfer != null ? infoTransfer?.binList : [0, 1])
+        .range(_CHAPTER_COLORS[colorRamp]);
+    }
+
+    return scaleQuantile()
+      .domain(infoTransfer != null ? infoTransfer?.uniqueValueArray : [0, 1])
+      .range(_CHAPTER_COLORS[colorRamp]);
+  }, [infoTransfer, colorRamp]);
 
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 
@@ -359,25 +360,36 @@ export default function DeckMap({
   // 03 DEMOGRAPHICS ----------------------------------------------------------------------------------------------
   //variables for scale thresholds
   const ethnicityColors = _ETHNICITY_COLORS;
-  let selectedDemographic;
-  let toggleScatterPlot = false; //scatter plot viz
-  let toggleDemChoropleth = false; //standard choropleth viz but for demographics
-  const selectedDemoArray = []; // a clean array of values for the color ramp with no NaN and no Null values
-  const neighborhoodDemoArray = []; // a clean array of values for the color ramp with no NaN and no Null values
-  const demoBinList = []; // derived from the selectedDemoArray array, this is the list of bins for the legend
+
+  const selectedDemographic = useMemo(
+    () => _DEMOGRAPHICS[demographic]?.lookup,
+    [demographic]
+  );
+
+  /**
+   * `toggleScatterPlot` - scatter plot viz
+   * `toggleDemChoropleth` - standard choropleth viz but for demographics
+   */
+  const [toggleScatterPlot, toggleDemChoropleth] = useMemo(() => {
+    if (!showDemographics) {
+      return [false, false];
+    }
+
+    // Default values
+    let toggleScatterPlot = false;
+    let toggleDemChoropleth = false;
+
+    if (demographic === '1') {
+      // Race and ethnicity
+      toggleScatterPlot = true;
+    } else if (parseFloat(demographic) > 1) {
+      toggleDemChoropleth = true;
+    }
+
+    return [toggleScatterPlot, toggleDemChoropleth];
+  }, [showDemographics, demographic]);
 
   // 03.1 toggle demographics on off and pick which to display
-  if (showDemographics) {
-    selectedDemographic = demoLookup[demographic]?.lookup;
-    if (demographic === '1' && toggleScatterPlot === false) {
-      toggleScatterPlot = true;
-    } else if (parseFloat(demographic) > 1 && toggleDemChoropleth === false) {
-      toggleDemChoropleth = true;
-    } else {
-      toggleScatterPlot = false;
-      toggleDemChoropleth = false;
-    }
-  }
 
   // 03.2 get an array of all the values for the selected demographic
   function getDemoArray(analysisScale, outputArray) {
@@ -415,52 +427,68 @@ export default function DeckMap({
     }
   }
 
-  // demographic array for the analysis scale
-  if (infoTransfer !== null) {
-    getDemoArray(infoTransfer?.selectedBoundary, selectedDemoArray);
-    getDemoArray(_NEIGHBORHOODS, neighborhoodDemoArray);
-  }
+  /**
+   * A clean array of values for the color ramp with no NaN and no Null values
+   */
+  const [selectedDemoArray, neighborhoodDemoArray] = useMemo(() => {
+    const selectedDemo = [];
+    const neighborhoodDemo = [];
+    if (infoTransfer !== null) {
+      getDemoArray(infoTransfer?.selectedBoundary, selectedDemo);
+      getDemoArray(_NEIGHBORHOODS, neighborhoodDemo);
+    }
+    return [selectedDemo, neighborhoodDemo];
+  }, [infoTransfer]);
 
   // demographic array for the neighborhood scale
 
-  const sortedDemoArray = [
-    ...(!zoomToggle ? neighborhoodDemoArray : selectedDemoArray),
-  ].sort(function (a, b) {
-    return a - b;
-  });
+  const [demoBinList, DEMO_COLOR_SCALE] = useMemo(() => {
+    console.log('updating');
+    const sortedDemoArray = [
+      ...(!zoomToggle ? neighborhoodDemoArray : selectedDemoArray),
+    ].sort((a, b) => a - b);
 
-  const uniqueDemoArray = [...new Set(sortedDemoArray)];
+    const uniqueDemos = [...new Set(sortedDemoArray)];
 
-  // 03.3 break the demographic array into bins and get the bin list
-  for (let i = 0; i < BIN_SIZE; i++) {
-    if (dataScale === 'equal') {
-      const legendScale = !zoomToggle
-        ? neighborhoodDemoArray
-        : selectedDemoArray;
-      const threshold = (max(legendScale) - min(legendScale)) / (BIN_SIZE + 1);
-      demoBinList.push(
-        Math.round((threshold * (i + 1) + min(legendScale)) * 100) / 100
-      );
-    } else {
-      const interval = Math.floor(
-        ((uniqueDemoArray.length - 1) / BIN_SIZE) * (i + 1)
-      );
-      //  quantile breaks
-      demoBinList.push(uniqueDemoArray[interval]);
+    // Derived from the selectedDemoArray array, this is the list of bins for
+    // the legend
+    const demoBinList = [];
+
+    // 03.3 break the demographic array into bins and get the bin list
+    for (let i = 0; i < BIN_SIZE; i++) {
+      if (dataScale === 'equal') {
+        const legendScale = !zoomToggle
+          ? neighborhoodDemoArray
+          : selectedDemoArray;
+        const threshold =
+          (max(legendScale) - min(legendScale)) / (BIN_SIZE + 1);
+        demoBinList.push(
+          Math.round((threshold * (i + 1) + min(legendScale)) * 100) / 100
+        );
+      } else {
+        const interval = Math.floor(
+          ((uniqueDemos.length - 1) / BIN_SIZE) * (i + 1)
+        );
+        //  quantile breaks
+        demoBinList.push(uniqueDemos[interval]);
+      }
     }
-  }
 
-  // 03.4 select the color ramp from the json lookup for demographics and create a default to "1" to avoid errors
-  let selectedDemoRamp =
-    demoLookup[demographic] !== undefined
-      ? demoLookup[demographic].colorRamp
-      : demoLookup['default'].colorRamp;
+    // 03.4 select the color ramp from the json lookup for demographics and create
+    // a default to "1" to avoid errors
+    const selectedDemoRamp = _DEMOGRAPHICS[demographic]
+      ? _DEMOGRAPHICS[demographic].colorRamp
+      : _DEMOGRAPHICS['default'].colorRamp;
 
-  // 03.4 function for demographics scale
-  const DEMO_COLOR_SCALE =
-    dataScale == 'equal'
-      ? scaleThreshold().domain(demoBinList).range(selectedDemoRamp)
-      : scaleQuantile().domain(uniqueDemoArray).range(selectedDemoRamp);
+    // 03.4 function for demographics scale
+    let colorScale = null;
+    if (dataScale === 'equal') {
+      colorScale = scaleThreshold().domain(demoBinList).range(selectedDemoRamp);
+    }
+    colorScale = scaleQuantile().domain(uniqueDemos).range(selectedDemoRamp);
+
+    return [demoBinList, colorScale];
+  }, [demographic, dataScale, selectedDemoArray, neighborhoodDemoArray]);
 
   // 03 DEMOGRAPHICS END ----------------------------------------------------------------------------------------------
 
@@ -544,7 +572,6 @@ export default function DeckMap({
         toggleWalk={toggleWalk}
         demographic={demographic}
         selectedSpecificIssue={selectedSpecificIssue}
-        demoLookup={demoLookup}
         transportationModesArray={transportationModesArray}
         selectedDemoArray={selectedDemoArray}
         ethnicityColors={ethnicityColors}
@@ -1441,8 +1468,8 @@ export default function DeckMap({
             <MapNotableIndicators
               selectedCommunity={selectedCommunity}
               communitySearch={communitySearch}
-              councils={councils}
-              communities={communities}
+              councilData={_COUNCILS[communitySearch]}
+              communityData={_COMMUNITIES[communitySearch]}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
               boundary={boundary}
               selectedSpecificIssue={selectedSpecificIssue}
@@ -1452,8 +1479,8 @@ export default function DeckMap({
             <MapNotableIndicators
               selectedCommunity={selectedCompareCommunity}
               communitySearch={compareSearch}
-              councils={councils}
-              communities={communities}
+              councilData={_COUNCILS[communitySearch]}
+              communityData={_COMMUNITIES[communitySearch]}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
               boundary={boundary}
               selectedSpecificIssue={selectedSpecificIssue}
@@ -1503,7 +1530,6 @@ export default function DeckMap({
                   toggleWalk={toggleWalk}
                   demographic={demographic}
                   selectedSpecificIssue={selectedSpecificIssue}
-                  demoLookup={demoLookup}
                   transportationModesArray={transportationModesArray}
                   selectedDemoArray={selectedDemoArray}
                   ethnicityColors={ethnicityColors}
@@ -1544,7 +1570,6 @@ export default function DeckMap({
                   toggleWalk={toggleWalk}
                   demographic={demographic}
                   selectedSpecificIssue={selectedSpecificIssue}
-                  demoLookup={demoLookup}
                   transportationModesArray={transportationModesArray}
                   selectedDemoArray={selectedDemoArray}
                   ethnicityColors={ethnicityColors}
@@ -1577,11 +1602,11 @@ export default function DeckMap({
                     {_ISSUES.specific_issues_data[selectedSpecificIssue]
                       ?.specific_issue_name ||
                       `${
-                        demoLookup[demographic].lookup == 'F10_TrsBkW'
+                        _DEMOGRAPHICS[demographic].lookup == 'F10_TrsBkW'
                           ? `Commuters Who ${getTransportationModes(
                               transportationModesArray
                             )}`
-                          : demoLookup[demographic].name
+                          : _DEMOGRAPHICS[demographic].name
                       }`}{' '}
                     by{' '}
                     {boundary == 'community'
@@ -1636,11 +1661,11 @@ export default function DeckMap({
             {demographic && (
               <div key={'map-header-right'} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
-                  {demoLookup[demographic].lookup == 'F10_TrsBkW'
+                  {_DEMOGRAPHICS[demographic].lookup == 'F10_TrsBkW'
                     ? `Commuters Who ${getTransportationModes(
                         transportationModesArray
                       )}`
-                    : demoLookup[demographic].name}
+                    : _DEMOGRAPHICS[demographic].name}
                 </div>
               </div>
             )}
