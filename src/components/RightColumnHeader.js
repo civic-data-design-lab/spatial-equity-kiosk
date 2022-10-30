@@ -29,15 +29,6 @@ export default function RightColumnHeader({
   isMobile = false,
   citywideTab = false,
 }) {
-  if (type === 'card') {
-    console.debug(type);
-    console.debug(issue);
-    console.debug(issueIdx);
-    console.debug(selectedIssueIdx);
-  }
-  if (type === 'histogram header') {
-    console.debug(issue);
-  }
   const getIssueName = () => {
     const bounds =
       boundary == 'council' ? 'Council Districts' : 'Community Boards';

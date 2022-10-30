@@ -28,8 +28,6 @@ export default function IssuesCard({
 }) {
   const [toggleDisplayMode, setToggleDisplayMode] = useState(false);
 
-  console.debug("ISSUES CARD:", issueIdx);
-
   return (
     <div
       className={'issues-card-container'}
