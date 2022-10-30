@@ -332,7 +332,7 @@ export default function Demographics({
                       mapDemographics={mapDemographics}
                       demoColorRamp={demoColorRamp}
                       demoLegendBins={demoLegendBins}
-                      demographic={demographic}
+                      demographic={currentValue}
                       legendBins={demoLegendBins}
                       colorRamps={demoColorRamp}
                       boundary={boundary}
