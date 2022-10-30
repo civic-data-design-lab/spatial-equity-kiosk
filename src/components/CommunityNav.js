@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRight,
@@ -40,8 +40,9 @@ export default function CommunityNav({
   const [showCompareSearch, setShowCompareSearch] = useState(false);
   const [notClickable, setNotClickable] = useState(false);
 
-  const getSearchItems = (forSearch, boundary) => {
-    console.time('searchItems');
+  const getSearchItems = (forSearch) => {
+    // console.time('searchItems');
+
     let searchItems = [];
     let boundaryData;
     if (boundary === 'community') {
@@ -73,14 +74,11 @@ export default function CommunityNav({
               setSearchSource('search');
               setCommunitySearch(key);
 
-              console.log(info.selectedBoundary.features.entries());
-              const targetElement = info.selectedBoundary.features
-                .entries()
-                .find(
-                  (element) =>
-                    element.properties.CDTA2020?.toString() === key ||
-                    element.properties.CounDist?.toString() === key
-                );
+              const targetElement = info.selectedBoundary.features.find(
+                (element) =>
+                  element.properties.CDTA2020?.toString() === key ||
+                  element.properties.CounDist?.toString() === key
+              );
 
               if (targetElement) {
                 setSelectedCoord([
@@ -110,7 +108,7 @@ export default function CommunityNav({
           </div>
         );
       }
-      console.timeEnd('searchItems');
+      // console.timeEnd('searchItems');
       return searchItems;
     }
 
@@ -131,21 +129,20 @@ export default function CommunityNav({
             setCompareSearch(key);
             setShowCompareSearch(false);
             setSearchSource('search');
-            for (const [
-              index,
-              element,
-            ] of info.selectedBoundary.features.entries()) {
-              if (
+
+            const targetElement = info.selectedBoundary.features.find(
+              (element) =>
                 element.properties.CDTA2020?.toString() === key ||
                 element.properties.CounDist?.toString() === key
-              ) {
-                setselectedCompareCoord([
-                  element.properties.X_Cent,
-                  element.properties.Y_Cent,
-                ]);
-                break;
-              }
+            );
+
+            if (targetElement) {
+              setselectedCompareCoord([
+                targetElement.properties.X_Cent,
+                targetElement.properties.Y_Cent,
+              ]);
             }
+
             e.target.blur();
           }}
         >
@@ -168,10 +165,19 @@ export default function CommunityNav({
       );
     }
 
-    console.timeEnd('searchItems');
+    // console.timeEnd('searchItems');
 
     return searchItems;
   };
+
+  const searchItems = useMemo(
+    () => getSearchItems(true),
+    [boundary, communitySearch, compareSearch]
+  );
+  const compareSearchItems = useMemo(
+    () => getSearchItems(false),
+    [boundary, communitySearch, compareSearch]
+  );
 
   return (
     <div
@@ -212,7 +218,7 @@ export default function CommunityNav({
           setUserPoints={setUserPoints}
           userPoints={userPoints}
         >
-          {getSearchItems(true, boundary)}
+          {searchItems}
         </CommunitySearchBar>
 
         <div className={'community-nav-text'}>
@@ -290,7 +296,7 @@ export default function CommunityNav({
             userPoints={userPoints}
             setCompareSearch={setCompareSearch}
           >
-            {getSearchItems(false, boundary)}
+            {compareSearchItems}
           </CommunitySearchBar>
         )}
 

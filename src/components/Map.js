@@ -685,8 +685,8 @@ export default function DeckMap({
       }
 
       const maxDistance = !mapDemographics ? 25 : 15;
-      const distance = distance(point(ptA), point(ptB));
-      const ptCompareDistance = distance < maxDistance ? distance : maxDistance;
+      const dist = distance(point(ptA), point(ptB));
+      const ptCompareDistance = dist < maxDistance ? dist : maxDistance;
 
       const remapZoom = !mapDemographics
         ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
