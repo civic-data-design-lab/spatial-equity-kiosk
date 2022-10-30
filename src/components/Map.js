@@ -438,7 +438,13 @@ export default function DeckMap({
       getDemoArray(_NEIGHBORHOODS, neighborhoodDemo);
     }
     return [selectedDemo, neighborhoodDemo];
-  }, [infoTransfer]);
+  }, [
+    infoTransfer,
+    selectedDemographic,
+    toggleWalk,
+    toggleBike,
+    toggleTransit,
+  ]);
 
   // demographic array for the neighborhood scale
 
