@@ -263,7 +263,7 @@ export default function Legend({
               : 'mb-3 small-font d-inline-block'
           }
         >
-          {getNumber(100 - percList[percList.length - 1])}% of
+          {percList && getNumber(100 - percList[percList.length - 1])}% of
           {demoData.name === 'Households Living Below the Poverty Line' ||
           demoData.name === 'Households Without a Car'
             ? ' households '
