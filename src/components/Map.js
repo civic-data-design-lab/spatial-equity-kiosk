@@ -1208,6 +1208,33 @@ export default function DeckMap({
     }),
   ];
 
+  /**
+   * Assumes the boundary is either 'council' or 'community' and that the
+   * feature has data (f.properties.Data_YN === 'Y').
+   *
+   * @param {object} f - The feature
+   * @returns {boolean} Whether or not the feature is the selected boundary
+   */
+  const featureIsSelectedBoundary = (f) => {
+    if (boundary === 'council') {
+      return (
+        f.properties.CounDist == communitySearch ||
+        f.properties.CounDist == compareSearch
+      );
+    }
+    return (
+      f.properties.CDTA2020 == communitySearch ||
+      f.properties.CDTA2020 == compareSearch
+    );
+  };
+
+  const isValidFeature = (f) => {
+    return (
+      boundary == 'council' ||
+      (boundary == 'community' && f.properties.Data_YN == 'Y')
+    );
+  };
+
   const annoLayers = [
     new GeoJsonLayer({
       id: 'nyc-boundaries',
@@ -1220,40 +1247,50 @@ export default function DeckMap({
       getLineWidth: 3,
       lineWidthMinPixels: 1,
     }),
-
     new GeoJsonLayer({
-      id: 'administrative-boundaries',
+      id: 'administrative-selected',
       data: infoTransfer?.selectedBoundary,
       stroked: true,
       filled: true,
       getFillColor: [255, 255, 255, 0],
       getLineColor: (f) => {
-        if (
-          boundary == 'council' ||
-          (boundary == 'community' && f.properties.Data_YN == 'Y')
-        ) {
-          if (f.id == highlightFeature) {
-            return [0, 0, 0, 255];
-          } else {
-            return [67, 67, 67, 100];
-          }
+        if (!isValidFeature(f)) {
+          return [0, 0, 0, 0];
         }
-        return [0, 0, 0, 0];
-      },
-      lineWidthUnits: 'meters',
-      getLineWidth: (w) => {
-        if (
-          boundary == 'council' ||
-          (boundary == 'community' && w.properties.Data_YN == 'Y')
-        ) {
-          if (w.id == highlightFeature) {
-            return zoomToggle ? 100 : 50;
+
+        // Check if boundary is a selected one
+        if (featureIsSelectedBoundary(f)) {
+          if (selectedSpecificIssue) {
+            return [255, 255, 255, 255];
           }
-          return zoomToggle ? 50 : 25;
+          if (selectedIssue) {
+            return defaultColors[selectedIssue - 1];
+          }
+
+          return [255, 0, 0, 255];
         }
-        return 0;
+
+        // Otherwise check it's highlight status
+        if (f.id == highlightFeature) {
+          return [0, 0, 0, 255];
+        }
+        return [67, 67, 67, 100];
       },
-      lineWidthMinPixels: 1,
+      // getLineWidth: 100,
+      getLineWidth: (f) => {
+        if (!isValidFeature(f)) {
+          return 0;
+        }
+
+        if (featureIsSelectedBoundary(f)) {
+          return 100;
+        }
+
+        if (f.id == highlightFeature) {
+          return zoomToggle ? 100 : 50;
+        }
+        return zoomToggle ? 50 : 25;
+      },
       pickable: true,
       autoHighlight: true,
       highlightColor: (info) => {
@@ -1264,67 +1301,28 @@ export default function DeckMap({
       },
       onClick: (info) => {
         const obj = info.object;
-
+        console.log('clicked');
         // change selected boundary
-        const lookup =
-          boundary == 'council'
-            ? String(obj.properties.CounDist)
-            : boundary == 'community' && obj.properties.Data_YN == 'Y'
-            ? obj.properties.CDTA2020
-            : null;
+        if (!isValidFeature(obj)) {
+          console.log('invalid feature');
+          return;
+        }
 
-        if (
-          (boundary == 'community' && obj.properties.Data_YN == 'Y') ||
-          boundary == 'council'
-        ) {
-          setSearchSource('click'); //set search source to click
-          // change chapter
-          if (selectedChapter !== 3) {
-            setSelectedChapter(3);
-          }
+        setSearchSource('click'); //set search source to click
+        // change chapter
+        if (selectedChapter !== 3) {
+          setSelectedChapter(3);
+        }
 
-          // add clicked object to chapter 3 searchbar and highlight single selection on map
-          if (communitySearch == null || addCompare == false) {
-            // updateSearchEngine(info.coordinate, 0);
-            setSelectedCoord(info.coordinate);
-          }
+        // add clicked object to chapter 3 searchbar and highlight single selection on map
+        if (communitySearch == null || addCompare == false) {
+          // updateSearchEngine(info.coordinate, 0);
+          setSelectedCoord(info.coordinate);
+        } else {
           // double selection functionality
-          else {
-            setSelectedCompareCoord(info.coordinate);
-          }
+          setSelectedCompareCoord(info.coordinate);
         }
       },
-      updateTriggers: {
-        getLineColor: [highlightFeature],
-        getLineWidth: [highlightFeature, zoomToggle],
-      },
-    }),
-
-    new GeoJsonLayer({
-      id: 'administrative-selected',
-      data: infoTransfer?.selectedBoundary,
-      filled: false,
-      stroked: true,
-
-      getLineColor: (f) => {
-        if (
-          (boundary == 'council' &&
-            (f.properties.CounDist == communitySearch ||
-              f.properties.CounDist == compareSearch)) ||
-          (boundary == 'community' &&
-            f.properties.Data_YN == 'Y' &&
-            (f.properties.CDTA2020 == communitySearch ||
-              f.properties.CDTA2020 == compareSearch))
-        ) {
-          return selectedSpecificIssue
-            ? [255, 255, 255, 255]
-            : selectedIssue
-            ? defaultColors[selectedIssue - 1]
-            : [255, 0, 0, 255];
-        }
-        return [0, 0, 0, 0];
-      },
-      getLineWidth: 100,
       updateTriggers: {
         getLineColor: [
           infoTransfer?.selectedMetric,
@@ -1332,7 +1330,9 @@ export default function DeckMap({
           communitySearch,
           compareSearch,
           selectedIssue,
+          highlightFeature,
         ],
+        getLineWidth: [highlightFeature, zoomToggle],
       },
     }),
 
@@ -1350,7 +1350,7 @@ export default function DeckMap({
       getPosition: (d) => d.geometry.coordinates,
       getSize: 75,
       maxWidth: 600,
-      opacity: !zoomToggle,
+      visible: !zoomToggle,
     }),
 
     new ScatterplotLayer({
@@ -1368,61 +1368,45 @@ export default function DeckMap({
     }),
   ];
 
-  const layerFilter = useCallback(({ layer, viewport }) => {
-    if (!showMap && selectedSpecificIssue) return false;
+  const layerFilter = useCallback(
+    ({ layer, viewport }) => {
+      if (!showMap && selectedSpecificIssue) return false;
 
-    const metricList = [];
-    const annoList = [];
-    const demoList = [];
+      const metricList = [];
+      const annoList = [];
+      const demoList = [];
 
-    for (let i = 0; i < metricLayers.length; i++) {
-      metricList.push(metricLayers[i].id);
-    }
-    for (let i = 0; i < annoLayers.length; i++) {
-      annoList.push(annoLayers[i].id);
-    }
-    for (let i = 0; i < demoLayers.length; i++) {
-      demoList.push(demoLayers[i].id);
-    }
+      for (let i = 0; i < metricLayers.length; i++) {
+        metricList.push(metricLayers[i].id);
+      }
+      for (let i = 0; i < annoLayers.length; i++) {
+        annoList.push(annoLayers[i].id);
+      }
+      for (let i = 0; i < demoLayers.length; i++) {
+        demoList.push(demoLayers[i].id);
+      }
 
-    // case 1: single view
-    if (
-      annoList.includes(layer.id) ||
-      (metricList.includes(layer.id) &&
-        !mapDemographics &&
-        selectedSpecificIssue) ||
-      (demoList.includes(layer.id) && mapDemographics && !selectedSpecificIssue)
-    ) {
-      return true;
-      // case 2: split screen left
-    } else if (metricList.includes(layer.id) && selectedSpecificIssue) {
-      return viewport.id == 'splitLeft';
-      // case 2: split screen right
-    } else if (demoList.includes(layer.id) && mapDemographics) {
-      return viewport.id == 'splitRight';
-    }
-
-    // case 2: split screen
-
-    // else if (metricList.includes(layer.id) && viewport.id !== 'splitRight') {
-    //   return true;
-    // }
-    // else if (
-    //   demoList.includes(layer.id) &&
-    //   mapDemographics &&
-    //   !selectedSpecificIssue &&
-    //   viewport.id !== 'splitRight'
-    // ) {
-    //   return true;
-    // } else if (
-    //   demoList.includes(layer.id) &&
-    //   mapDemographics &&
-    //   selectedSpecificIssue &&
-    //   viewport.id == 'splitRight'
-    // ) {
-    //   return true;
-    // }
-  });
+      // case 1: single view
+      if (
+        annoList.includes(layer.id) ||
+        (metricList.includes(layer.id) &&
+          !mapDemographics &&
+          selectedSpecificIssue) ||
+        (demoList.includes(layer.id) &&
+          mapDemographics &&
+          !selectedSpecificIssue)
+      ) {
+        return true;
+        // case 2: split screen left
+      } else if (metricList.includes(layer.id) && selectedSpecificIssue) {
+        return viewport.id == 'splitLeft';
+        // case 2: split screen right
+      } else if (demoList.includes(layer.id) && mapDemographics) {
+        return viewport.id == 'splitRight';
+      }
+    },
+    [mapDemographics, selectedSpecificIssue, showMap]
+  );
 
   const getCurrentMapViews = () => {
     if (!showMap && (showMap || selectedSpecificIssue)) {
