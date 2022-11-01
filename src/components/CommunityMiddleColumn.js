@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import CommunityProfile from './CommunityProfile';
 import MapToggle from './MapToggle';
 
+import _COMMUNITIES from '../texts/communities.json';
+import _COUNCILS from '../texts/councildistricts.json';
+
 export default function CommunityMiddleColumn({
   communitySearch,
   compareSearch,
-  issues,
   selectedSpecificIssue,
-  communities,
   setSelectedSpecificIssue,
   moreIssuesLength,
   setMoreIssues,
   moreIssues,
   setMoreIssuesLength,
   boundary,
-  councils,
   setSelectedChapter,
   setSelectedAbout,
   setCommunitySearch,
@@ -48,30 +48,30 @@ export default function CommunityMiddleColumn({
                   {compareSearch ? 'Compare ' : ''}
                   {communitySearch
                     ? boundary == 'council'
-                      ? councils[communitySearch]
-                        ? `City Council ${councils[communitySearch].name}`
+                      ? _COUNCILS[communitySearch]
+                        ? `City Council ${_COUNCILS[communitySearch].name}`
                         : ''
-                      : communities[communitySearch]
+                      : _COMMUNITIES[communitySearch]
                       ? !compareSearch
-                        ? `${communities[communitySearch].name
+                        ? `${_COMMUNITIES[communitySearch].name
                             .split(' ')
                             .slice(0, -1)
-                            .join(' ')} Community Board ${communities[
+                            .join(' ')} Community Board ${_COMMUNITIES[
                             communitySearch
                           ].name
                             .split(' ')
                             .slice(-1)}`
-                        : `${communities[communitySearch].name}`
+                        : `${_COMMUNITIES[communitySearch].name}`
                       : ''
                     : ''}
                   {compareSearch ? ' & ' : ''}
                   {compareSearch
                     ? boundary == 'council'
-                      ? councils[compareSearch]
-                        ? `${councils[compareSearch].name}`
+                      ? _COUNCILS[compareSearch]
+                        ? `${_COUNCILS[compareSearch].name}`
                         : ''
-                      : communities[compareSearch]
-                      ? `${communities[compareSearch].name}`
+                      : _COMMUNITIES[compareSearch]
+                      ? `${_COMMUNITIES[compareSearch].name}`
                       : ''
                     : ''}
                 </h6>
@@ -90,9 +90,7 @@ export default function CommunityMiddleColumn({
           </div>
 
           <CommunityProfile
-            issues={issues}
             selectedSpecificIssue={selectedSpecificIssue}
-            communities={communities}
             communitySearch={communitySearch}
             setSelectedSpecificIssue={setSelectedSpecificIssue}
             compareSearch={compareSearch}
@@ -101,7 +99,6 @@ export default function CommunityMiddleColumn({
             moreIssuesLength={moreIssuesLength}
             setMoreIssuesLength={setMoreIssuesLength}
             boundary={boundary}
-            councils={councils}
             setSelectedChapter={setSelectedChapter}
             setSelectedAbout={setSelectedAbout}
             selectedCommunity={communitySearch}

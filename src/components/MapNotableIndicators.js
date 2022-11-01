@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
+import _ISSUES from '../texts/issues.json';
 
 export default function MapNotableIndicators({
   selectedCommunity,
-  councils,
   communitySearch,
-  communities,
+  councilData,
+  communityData,
   setSelectedSpecificIssue,
-  issues,
   boundary,
   selectedSpecificIssue,
   isMobile = false,
@@ -19,8 +19,13 @@ export default function MapNotableIndicators({
     if (selectedCommunity) {
       const issueIndex =
         boundary === 'council'
-          ? councils[communitySearch]?.least_performing_issues
-          : communities[communitySearch]?.least_performing_issues;
+          ? councilData?.least_performing_issues
+          : communityData?.least_performing_issues;
+
+      if (!issueIndex) {
+        setNotableIndicators(['', '', '']);
+        return;
+      }
 
       const uniqueIssues = [...new Set(issueIndex.flat())];
       setNotableIndicators(uniqueIssues);
@@ -30,8 +35,8 @@ export default function MapNotableIndicators({
   const getBoundaryName = () => {
     const bounds =
       boundary === 'council'
-        ? councils[communitySearch]?.name || ''
-        : communities[communitySearch]?.name || '';
+        ? councilData?.name || ''
+        : communityData?.name || '';
     return `${bounds}`;
   };
 
@@ -76,7 +81,7 @@ export default function MapNotableIndicators({
             onClick={() => setSelectedSpecificIssue(indicatorIndex)}
           >
             {
-              issues.specific_issues_data[String(indicatorIndex)]
+              _ISSUES.specific_issues_data[String(indicatorIndex)]
                 ?.specific_issue_name
             }
           </div>

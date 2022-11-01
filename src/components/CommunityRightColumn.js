@@ -1,20 +1,16 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import IssueProfile from './IssuesProfile';
+import IssueProfile from './IssueProfile';
 import RightColumnHeader from './RightColumnHeader';
 import { useEffect } from 'react';
 
+import _ISSUES from '../texts/issues.json';
+
 export default function CommunityRightColumn({
   communitySearch,
-  compareSearch,
   selectedSpecificIssue,
-  issues,
   showMap,
-  boundary,
-  setSelectedSpecificIssue,
-  setSelectedChapter,
-  setCommunitySearch,
 }) {
   useEffect(() => {
     if (selectedSpecificIssue) {
@@ -50,16 +46,8 @@ export default function CommunityRightColumn({
           {communitySearch && (
             <div className={'issue-writeup'}>
               <IssueProfile
-                issues={issues}
-                selectedSpecificIssue={selectedSpecificIssue}
-                rankingProse={true}
-                boundary={boundary}
-                setSelectedSpecificIssue={setSelectedSpecificIssue}
-                setSelectedChapter={setSelectedChapter}
-                setCommunitySearch={setCommunitySearch}
+                issue={_ISSUES.specific_issues_data[selectedSpecificIssue]}
                 showMap={showMap}
-                compareSearch={compareSearch}
-                communitySearch={communitySearch}
               />
             </div>
           )}

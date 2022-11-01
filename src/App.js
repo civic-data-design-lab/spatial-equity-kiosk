@@ -70,7 +70,7 @@ function App() {
   const [colorRamps, setColorRamps] = useState(null);
   const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
   const [coordinateLookup, setCoordinateLookup] = useState(null);
-  const location = useLocation();
+  // const location = useLocation();
   const [toggleTransit, setToggleTransit] = useState(true);
   const [toggleBike, setToggleBike] = useState(false);
   const [toggleWalk, setToggleWalk] = useState(false);
@@ -157,6 +157,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const location = window.location;
     const queryParams = new URLSearchParams(location.search);
     let createCoords = [[], []];
     let createViewState = { ...DEFAULT_VIEW_STATE };
@@ -302,12 +303,13 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const location = window.location;
     ReactGA.event({
       category: 'PageView',
       action: 'Route params',
       label: location.search,
     });
-  }, [location.search]);
+  }, [window.location.search]);
 
   useEffect(() => {
     ReactGA.event({
@@ -451,13 +453,13 @@ function App() {
     if (selectedSpecificIssue) {
       // console.log("case 1 ", selectedSpecificIssue)
       selectedRamp =
-        issues.specific_issues_data[selectedSpecificIssue].issue_type_ID === 1
+        _ISSUES.specific_issues_data[selectedSpecificIssue].issue_type_ID === 1
           ? 'health'
-          : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
-            2
+          : _ISSUES.specific_issues_data[selectedSpecificIssue]
+              .issue_type_ID === 2
           ? 'env'
-          : issues.specific_issues_data[selectedSpecificIssue].issue_type_ID ===
-            3
+          : _ISSUES.specific_issues_data[selectedSpecificIssue]
+              .issue_type_ID === 3
           ? 'infra'
           : 'troubleshoot';
     } else {
@@ -505,10 +507,10 @@ function App() {
         isNaN(selectedSpecificIssue) === false
       ) {
         selectedMetric =
-          issues.specific_issues_data[selectedSpecificIssue].json_id;
+          _ISSUES.specific_issues_data[selectedSpecificIssue].json_id;
 
         metricGoodBad =
-          issues.specific_issues_data[selectedSpecificIssue].good_or_bad;
+          _ISSUES.specific_issues_data[selectedSpecificIssue].good_or_bad;
       }
     }
 
@@ -701,19 +703,6 @@ function App() {
           setShowMap(true);
         }*/
   });
-
-  useEffect(() => {
-    if (selectedSpecificIssue) {
-      setSelectedIssue(
-        issues.specific_issues_data[selectedSpecificIssue].issue_type_ID
-      );
-    }
-  }, [selectedSpecificIssue]);
-
-  useEffect(() => {
-    // console.log('selectdCompareCoord ', selectedCompareCoord);
-    // console.log('userpoints ', userPoints);
-  }, [selectedCompareCoord, userPoints]);
 
   // console.log('siteProtection', process.env.REACT_APP_SITE_PROTECTION)
   // console.log('sha512', process.env.REACT_APP_SITE_PWD)
@@ -910,9 +899,7 @@ function App() {
                     {collapseMap ? 'Show Panel' : 'Collapse Panel'}
                   </div>
                 </div>
-
                 <Map
-                  issues={issues}
                   selectedIssue={selectedIssue}
                   selectedSpecificIssue={selectedSpecificIssue}
                   boundary={boundary}
@@ -921,7 +908,6 @@ function App() {
                   demographic={demographic}
                   setColorRamps={setColorRamps}
                   toggleUnderperformers={toggleUnderperformers}
-                  demoLookup={demoLookup}
                   selectedChapter={selectedChapter}
                   setSelectedChapter={setSelectedChapter}
                   communitySearch={communitySearch}
@@ -932,8 +918,6 @@ function App() {
                   setCompareSearch={setCompareSearch}
                   showMap={showMap}
                   setShowMap={setShowMap}
-                  communities={communities}
-                  councils={councils}
                   viewState={viewState}
                   setViewState={setViewState}
                   mapSelection={mapSelection}
@@ -1398,7 +1382,6 @@ function App() {
             />
           ) : selectedChapter === 4 ? (
             <About
-              issues={issues}
               selectedAbout={selectedAbout}
               setSelectedChapter={setSelectedChapter}
               isMobile={isMobile}
@@ -1416,7 +1399,6 @@ function App() {
             }}
           >
             <Map
-              issues={issues}
               selectedIssue={selectedIssue}
               selectedSpecificIssue={selectedSpecificIssue}
               boundary={boundary}

@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 export default function SourceInfo({
-  issues,
-  selectedSpecificIssue,
+  specificIssue,
   setSelectedChapter,
   setShowMap,
   verticalHistogram = false,
@@ -59,14 +58,13 @@ export default function SourceInfo({
           }`}
         >
           <p className={'m-0'}>
-            {`Source: ${issues.specific_issues_data[selectedSpecificIssue]?.specific_issue_source}. ${issues.specific_issues_data[selectedSpecificIssue]?.year}.
+            {`Source: ${specificIssue?.specific_issue_source}. ${specificIssue?.year}.
             `}
           </p>
           <span className="text-secondary fst-italic fw-light">
-            {issues.specific_issues_data[selectedSpecificIssue]
-              ?.methodology_warning
+            {specificIssue?.methodology_warning
               ? `*
-           ${issues.specific_issues_data[selectedSpecificIssue]?.methodology_warning}.
+           ${specificIssue?.methodology_warning}.
            Click to learn more.`
               : 'Click to learn more.'}
           </span>

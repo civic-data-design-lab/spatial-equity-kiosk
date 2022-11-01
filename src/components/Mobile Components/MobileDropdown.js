@@ -6,13 +6,14 @@ import {
   faPlay,
 } from '@fortawesome/free-solid-svg-icons';
 
+import _ISSUES from '../../texts/issues.json';
+import _CATEGORIES from '../../texts/issue_categories.json';
+
 export default function MobileDropdown({
   selectedIssue,
   setSelectedIssue,
   selectedSpecificIssue,
   setSelectedSpecificIssue,
-  issues,
-  issue_categories,
   selectedChapter,
   showDropDown,
   setShowDropDown,
@@ -28,13 +29,11 @@ export default function MobileDropdown({
         >
           {selectedSpecificIssue ? (
             <div className={'mobile-citywide-nav-text'}>
-              <div>
-                {selectedChapter && issue_categories.labels[selectedIssue]}
-              </div>
+              <div>{selectedChapter && _CATEGORIES.labels[selectedIssue]}</div>
               <FontAwesomeIcon icon={faPlay} />
               <div className={'ellipses'}>
                 {selectedSpecificIssue &&
-                  issues.specific_issues_data[selectedSpecificIssue]
+                  _ISSUES.specific_issues_data[selectedSpecificIssue]
                     .specific_issue_name}
               </div>
             </div>
@@ -73,7 +72,7 @@ export default function MobileDropdown({
           />
         </div>
 
-        {issues.issues_data.health.specific_issues_ID.map((id) => {
+        {_ISSUES.issues_data.health.specific_issues_ID.map((id) => {
           return (
             <div
               key={id}
@@ -113,7 +112,7 @@ export default function MobileDropdown({
                     transition: 'font-size 0.2s, opacity 0.3s',
                   }}
                 >
-                  {issues.specific_issues_data[id].specific_issue_name}
+                  {_ISSUES.specific_issues_data[id].specific_issue_name}
                 </p>
               </div>
             </div>
@@ -148,7 +147,7 @@ export default function MobileDropdown({
           />
         </div>
 
-        {issues.issues_data.environment.specific_issues_ID.map((id) => {
+        {_ISSUES.issues_data.environment.specific_issues_ID.map((id) => {
           return (
             <div
               key={id}
@@ -188,7 +187,7 @@ export default function MobileDropdown({
                     transition: 'font-size 0.2s, opacity 0.3s',
                   }}
                 >
-                  {issues.specific_issues_data[id].specific_issue_name}
+                  {_ISSUES.specific_issues_data[id].specific_issue_name}
                 </p>
               </div>
             </div>
@@ -223,7 +222,7 @@ export default function MobileDropdown({
           />
         </div>
 
-        {issues.issues_data.infrastructure.specific_issues_ID.map((id) => {
+        {_ISSUES.issues_data.infrastructure.specific_issues_ID.map((id) => {
           return (
             <div
               key={id}
@@ -263,7 +262,7 @@ export default function MobileDropdown({
                     transition: 'font-size 0.s, opacity 0.3s',
                   }}
                 >
-                  {issues.specific_issues_data[id].specific_issue_name}
+                  {_ISSUES.specific_issues_data[id].specific_issue_name}
                 </p>
               </div>
             </div>

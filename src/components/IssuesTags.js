@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import IssuesCard from './IssuesCard';
 
+import _ISSUES from '../texts/issues.json';
+
 export default function IssuesTags({
-  issues,
   leastPerforming,
   setSelectedSpecificIssue,
   selectedSpecificIssue,
@@ -51,6 +52,7 @@ export default function IssuesTags({
                 // }
               >
                 <IssuesCard
+                  issueIdx={issue}
                   isMobile={isMobile}
                   target={
                     selectedSpecificIssue && selectedSpecificIssue !== issue
@@ -59,7 +61,6 @@ export default function IssuesTags({
                   }
                   selectedSpecificIssue={selectedSpecificIssue}
                   specificIssue={issue}
-                  issues={issues}
                   setSelectedSpecificIssue={setSelectedSpecificIssue}
                   setModal={setModal}
                   forMoreIssues={true}
@@ -85,7 +86,7 @@ export default function IssuesTags({
 
       {!compareSearch ? (
         <div className={'issue-tags-container'}>
-          {issues.all_issues_id
+          {_ISSUES.all_issues_id
             .filter(
               (id) =>
                 leastPerforming &&
@@ -120,8 +121,8 @@ export default function IssuesTags({
                 >
                   <p className={'m-0 small-font'}>
                     {id !== 6 && id !== 5
-                      ? issues.specific_issues_data[id].specific_issue_name
-                      : issues.specific_issues_data[id].specific_issue_ID === 6
+                      ? _ISSUES.specific_issues_data[id].specific_issue_name
+                      : _ISSUES.specific_issues_data[id].specific_issue_ID === 6
                       ? 'Permeable Surface Area'
                       : 'Surface Temperature'}
                   </p>
@@ -136,7 +137,7 @@ export default function IssuesTags({
         </div>
       ) : (
         <div className={'issue-tags-container'}>
-          {issues.all_issues_id
+          {_ISSUES.all_issues_id
             .filter((id) => moreIssues && !moreIssues.includes(id))
             .map((id, index) => {
               return (
@@ -165,8 +166,8 @@ export default function IssuesTags({
                 >
                   <p className={'m-0 small-font'}>
                     {id !== 6 && id !== 5
-                      ? issues.specific_issues_data[id].specific_issue_name
-                      : issues.specific_issues_data[id].specific_issue_ID === 6
+                      ? _ISSUES.specific_issues_data[id].specific_issue_name
+                      : _ISSUES.specific_issues_data[id].specific_issue_ID === 6
                       ? 'Permeable Surface Area'
                       : 'Surface Temperature'}
                   </p>

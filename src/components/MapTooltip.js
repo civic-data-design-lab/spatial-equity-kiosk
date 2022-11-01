@@ -1,4 +1,5 @@
 import _RANKINGS from '../data/rankings.json';
+import _ISSUES from '../texts/issues.json';
 import {
   getBoroughName,
   getTooltipBounds,
@@ -15,14 +16,12 @@ const MapTooltip = ({
   boundary,
   selectedChapter,
   selectedCoord,
-  issues,
   selectedDemographic,
   toggleTransit,
   demographic,
   toggleBike,
   toggleWalk,
   selectedSpecificIssue,
-  demoLookup,
   infoTransfer,
   // v State from Map.js v
   transportationModesArray,
@@ -125,7 +124,7 @@ const MapTooltip = ({
     //get total number of boundaries
     const maxRanking = metricCheck.length;
 
-    const selectedIssue = issues.specific_issues_data[selectedSpecificIssue];
+    const selectedIssue = _ISSUES.specific_issues_data[selectedSpecificIssue];
 
     if (!selectedIssue) {
       return;

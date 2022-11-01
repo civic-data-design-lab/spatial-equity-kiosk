@@ -7,6 +7,7 @@ import RightColumnHeader from './RightColumnHeader';
 const RankingTable = ({
   issues,
   boundary,
+  specificIssue,
   selectedSpecificIssue,
   setCommunitySearch,
   setCompareSearch,
@@ -39,16 +40,13 @@ const RankingTable = ({
             <th>
               {boundary == 'council' ? 'City Council' : 'Community Board'}
             </th>
-            <th>{issues.specific_issues_data[selectedSpecificIssue].units}</th>
+            <th>{specificIssue.units}</th>
           </tr>
         </thead>
         <tbody>
           {/* 01 - JUST FIRST 5 ITEMS */}
-          {issues.specific_issues_data[selectedSpecificIssue].good_or_bad ===
-            0 && !citywideTab
-            ? rankings[boundary][
-                issues.specific_issues_data[selectedSpecificIssue]?.json_id
-              ]
+          {specificIssue.good_or_bad === 0 && !citywideTab
+            ? rankings[boundary][specificIssue?.json_id]
                 .map((entry, index) => {
                   return (
                     <tr
@@ -81,9 +79,7 @@ const RankingTable = ({
                 })
                 .reverse()
                 .slice(0, 5)
-            : rankings[boundary][
-                issues.specific_issues_data[selectedSpecificIssue]?.json_id
-              ]
+            : rankings[boundary][specificIssue?.json_id]
 
                 .map((entry, index) => {
                   return (
@@ -114,8 +110,7 @@ const RankingTable = ({
                       </td>
                       <td>
                         {getNumber(Number(entry.data))}
-                        {issues.specific_issues_data[selectedSpecificIssue]
-                          .json_id === 'F28_Trf_De'
+                        {specificIssue.json_id === 'F28_Trf_De'
                           ? ' milion'
                           : ''}
                       </td>
@@ -125,14 +120,8 @@ const RankingTable = ({
                 .slice(0, 5)}
 
           {/* 02 - FULL MENU ITEMS */}
-          {expand &&
-          target &&
-          issues.specific_issues_data[selectedSpecificIssue].good_or_bad ===
-            0 &&
-          !citywideTab
-            ? rankings[boundary][
-                issues.specific_issues_data[selectedSpecificIssue].json_id
-              ]
+          {expand && target && specificIssue.good_or_bad === 0 && !citywideTab
+            ? rankings[boundary][specificIssue.json_id]
                 .map((entry, index) => {
                   return (
                     <tr
@@ -162,8 +151,7 @@ ${
                       </td>
                       <td>
                         {getNumber(Number(entry.data))}
-                        {issues.specific_issues_data[selectedSpecificIssue]
-                          .json_id === 'F28_Trf_De'
+                        {specificIssue.json_id === 'F28_Trf_De'
                           ? ' milion'
                           : ''}
                       </td>
@@ -172,13 +160,8 @@ ${
                 })
                 .reverse()
                 .slice(5)
-            : expand &&
-              (issues.specific_issues_data[selectedSpecificIssue]
-                .good_or_bad === 1 ||
-                citywideTab)
-            ? rankings[boundary][
-                issues.specific_issues_data[selectedSpecificIssue].json_id
-              ]
+            : expand && (specificIssue.good_or_bad === 1 || citywideTab)
+            ? rankings[boundary][specificIssue.json_id]
                 .map((entry, index) => {
                   return (
                     <tr
@@ -205,8 +188,7 @@ ${
                       </td>
                       <td>
                         {getNumber(Number(entry.data))}
-                        {issues.specific_issues_data[selectedSpecificIssue]
-                          .json_id === 'F28_Trf_De'
+                        {specificIssue.json_id === 'F28_Trf_De'
                           ? ' milion'
                           : ''}
                       </td>

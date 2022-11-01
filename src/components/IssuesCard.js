@@ -4,11 +4,12 @@ import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import IssueHistogram from './IssueHistogram';
 import RightColumnHeader from './RightColumnHeader';
 
+import _ISSUES from '../texts/issues.json';
+
 export default function IssuesCard({
-  issues,
   selectedSpecificIssue,
   setSelectedSpecificIssue,
-  specificIssue,
+  issueIdx,
   moreIssues,
   forMoreIssues = false,
   setMoreIssues = null,
@@ -31,19 +32,20 @@ export default function IssuesCard({
     <div
       className={'issues-card-container'}
       onClick={() => {
-        if (selectedSpecificIssue === specificIssue) {
+        if (selectedSpecificIssue === issueIdx) {
         } else {
-          setSelectedSpecificIssue(specificIssue);
+          setSelectedSpecificIssue(issueIdx);
         }
       }}
     >
       <RightColumnHeader
         type="card"
-        specificIssue={specificIssue}
+        issue={_ISSUES.specific_issues_data[issueIdx]}
+        selectedIssueIdx={selectedSpecificIssue}
+        issueIdx={issueIdx}
         target={target}
         toggleDisplayMode={toggleDisplayMode}
         setToggleDisplayMode={setToggleDisplayMode}
-        issues={issues}
         selectedSpecificIssue={selectedSpecificIssue}
         setSelectedChapter={setSelectedChapter}
         forMoreIssues={forMoreIssues}
@@ -59,16 +61,15 @@ export default function IssuesCard({
       >
         <IssueHistogram
           colorRampsyType={'health'}
-          issues={issues}
           boundary={boundary}
-          selectedSpecificIssue={specificIssue}
+          selectedSpecificIssue={issueIdx}
           selectedCommunity={selectedCommunity}
           setCommunitySearch={setCommunitySearch}
           setSelectedChapter={setSelectedChapter}
           communitySearch={communitySearch}
           compareSearch={compareSearch}
           toggleDisplayMode={toggleDisplayMode}
-          specificIssue={specificIssue}
+          issue={issueIdx}
           addCompare={addCompare}
           setCompareSearch={setCompareSearch}
           displayModes={displayModes}

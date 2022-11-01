@@ -13,10 +13,10 @@ const mobilePadding = {
 export default function RightColumnHeader({
   boundary,
   type = 'solutions',
-  issues = null,
-  specificIssue,
+  issue,
+  issueIdx,
+  selectedIssueIdx,
   target,
-  selectedSpecificIssue = null,
   setSelectedChapter,
   forMoreIssues,
   moreIssues,
@@ -33,19 +33,15 @@ export default function RightColumnHeader({
     const bounds =
       boundary == 'council' ? 'Council Districts' : 'Community Boards';
 
-    const sentence = [
-      bounds,
-      'Ranked by',
-      issues.specific_issues_data[selectedSpecificIssue].specific_issue_title,
-    ].join(' ');
+    const sentence = [bounds, 'Ranked by', issue.specific_issue_title].join(
+      ' '
+    );
 
     return sentence || null;
   };
 
   const getMetricDescription = () => {
-    return (
-      issues.specific_issues_data[specificIssue].specific_issue_name || null
-    );
+    return issue.specific_issue_name || null;
   };
 
   if (type === 'solutions') {
@@ -95,7 +91,7 @@ export default function RightColumnHeader({
         style={
           target &&
           displayModes != null &&
-          displayModes[selectedSpecificIssue] == true
+          displayModes[selectedIssueIdx] == true
             ? { position: 'sticky', top: '0', zIndex: '2' }
             : { position: 'relative' }
         }
@@ -124,10 +120,9 @@ export default function RightColumnHeader({
               <h6 className="mb-0">{getMetricDescription()}</h6>
               <div>
                 <span className={'m-0 smaller-text position-relative'}>
-                  {issues.specific_issues_data[specificIssue].units}{' '}
+                  {issue.units}{' '}
                   <SourceInfo
-                    issues={issues}
-                    selectedSpecificIssue={selectedSpecificIssue}
+                    specificIssue={issue}
                     setSelectedChapter={setSelectedChapter}
                   />
                 </span>
@@ -143,11 +138,11 @@ export default function RightColumnHeader({
                   icon={faXmark}
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (selectedSpecificIssue === specificIssue) {
+                    if (selectedIssueIdx === issueIdx) {
                       setSelectedSpecificIssue(null);
                     }
                     let newMoreIssues = moreIssues.filter(
-                      (issue) => issue !== specificIssue
+                      (issue) => issue !== issueIdx
                     );
                     setMoreIssues(newMoreIssues);
                   }}

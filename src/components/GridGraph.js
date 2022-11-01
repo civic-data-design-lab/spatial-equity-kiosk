@@ -12,6 +12,10 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
   const [width, height] = useResizeObserver(containerRef, optionalCallback);
 
   useEffect(() => {
+    if (!percList) {
+      return;
+    }
+
     // build SVG
     let svg = d3.select(svgRef.current);
     svg.attr('width', '100%');

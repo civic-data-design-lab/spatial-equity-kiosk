@@ -8,7 +8,7 @@ import ShareButton from '../ShareButton';
 import CommunityProfile from '../CommunityProfile';
 import Histogram from '../Histogram';
 import categories from '../../texts/issue_categories.json';
-import IssueProfile from '../IssuesProfile';
+import IssueProfile from '../IssueProfile';
 import Demographics from '../Demographics';
 import Carousel from '../Carousel';
 import Legend from '../Legend';

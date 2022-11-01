@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import categories from '../texts/issue_categories.json';
 
-export default function IssueProfile({
-  issues,
-  selectedSpecificIssue,
-  showMap,
-}) {
+export default function IssueProfile({ issue, showMap }) {
   const getImages = () => {
-    const ids = issues.specific_issues_data[selectedSpecificIssue].image_ids;
+    const ids = issue.image_ids;
     if (ids) {
       return (
         <div>
@@ -34,20 +30,10 @@ export default function IssueProfile({
             <span key={index} className={texts.bolded ? 'bold' : ''}>
               {texts.text}
               {texts.hyperlink && (
-                <span
-                  className={`${
-                    categories.labels[
-                      issues.specific_issues_data[selectedSpecificIssue]
-                        .issue_type_ID
-                    ]
-                  }`}
-                >
+                <span className={`${categories.labels[issue.issue_type_ID]}`}>
                   <a
                     className={`hyperlink ${
-                      categories.labels[
-                        issues.specific_issues_data[selectedSpecificIssue]
-                          .issue_type_ID
-                      ]
+                      categories.labels[issue.issue_type_ID]
                     }`}
                     href={texts.source}
                     target="_blank"
@@ -64,15 +50,15 @@ export default function IssueProfile({
   };
 
   const getListSolution = () => {
-    return issues.specific_issues_data[
-      selectedSpecificIssue
-    ].specific_issue_solutions.solutions_list.map((solution, index) => {
-      return (
-        <div key={index} style={{ paddingTop: '1rem' }}>
-          {getHyperlinkText(solution)}
-        </div>
-      );
-    });
+    return issue.specific_issue_solutions.solutions_list.map(
+      (solution, index) => {
+        return (
+          <div key={index} style={{ paddingTop: '1rem' }}>
+            {getHyperlinkText(solution)}
+          </div>
+        );
+      }
+    );
   };
 
   return (
@@ -81,10 +67,7 @@ export default function IssueProfile({
         <div className={'issues-tile-text-container'}>
           <div className={'issues-tile-solutions issues-tile-text'}>
             <div className="">
-              {getHyperlinkText(
-                issues.specific_issues_data[selectedSpecificIssue]
-                  .specific_issue_solutions.base_text
-              )}
+              {getHyperlinkText(issue.specific_issue_solutions.base_text)}
               <div className={''}>{getImages()}</div>
               <div className={'smaller-font'}>
                 Image: National Association of City Transportation Officials

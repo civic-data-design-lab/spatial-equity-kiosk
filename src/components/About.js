@@ -4,6 +4,7 @@ import { Scrollama, Step } from 'react-scrollama';
 import _CDDL from '../img/cddl_logo.svg';
 import _LCAU from '../img/Logo_LCAU logo .svg';
 import _MIT from '../img/MIT-logo-black54x28.svg';
+import _ISSUES from '../texts/issues.json';
 
 const subheadings = [
   'Contact Your City Council Member',
@@ -21,83 +22,87 @@ const subheadings = [
 const HIDE_MENU_TIME = 1000; // ms, amount of time to wait until hiding menu
 
 export default function About({
-  issues,
   selectedAbout,
   setSelectedChapter,
   isMobile = false,
 }) {
   const [currentStepIndex, setCurrentStepIndex] = useState(null);
+  const [dataLayers, setDataLayers] = useState([]);
+
   const onStepEnter = ({ data }) => {
     setCurrentStepIndex(data);
   };
 
-  // console.log(dataLayers, issues.all_issues_id);
+  /**
+   * Perform the appropriate updates to the issues JSON file before rendering it
+   */
+  useEffect(() => {
+    const dataJson = _ISSUES.specific_issues_data;
 
-  const dataJson = issues.specific_issues_data;
+    dataJson[16] = {
+      specific_issue_name: 'Race & Ethnicity',
+      specific_issue_ID: 16,
+      link: 'https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page.page',
+      specific_issue_source:
+        'U.S. Census Bureau, 2015-2019 American Community Survey 5-Year Estimates',
+      year: '2015-2019',
+    };
+    dataJson[17] = {
+      specific_issue_name: 'Poverty Level',
+      specific_issue_ID: 17,
+      link: 'https://data.census.gov/cedsci/table?q=s1701&tid=ACSST5Y2020.S1701',
+      specific_issue_source:
+        'U.S. Census Bureau, 2015-2019 American Community Survey 5-Year Estimates',
+      year: '2015-2019',
+    };
+    dataJson[18] = {
+      specific_issue_name: 'Vehicle Ownership',
+      specific_issue_ID: 18,
+      link: 'https://data.census.gov/cedsci/table?q=B08201&g=0100000US_1600000US3651000&tid=ACSDT5Y2020.B08201',
+      specific_issue_source:
+        'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
+      year: ' 2016-2020',
+    };
+    dataJson[19] = {
+      specific_issue_name: 'Drive Alone to Work',
+      specific_issue_ID: 19,
+      link: 'https://data.census.gov/cedsci/table?q=b08301&g=0100000US&tid=ACSDT5Y2020.B08301',
+      specific_issue_source:
+        'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
+      year: '2016-2020',
+    };
+    dataJson[20] = {
+      specific_issue_name: 'Walk, Bike, or Ride Transit',
+      specific_issue_ID: 20,
+      link: 'https://data.census.gov/cedsci/table?q=b08301&g=0100000US&tid=ACSDT5Y2020.B08301',
+      specific_issue_source:
+        'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
+      year: '2016-2020',
+    };
+    dataJson[21] = {
+      specific_issue_name: 'City Council Districts',
+      specific_issue_ID: 21,
+      link: 'https://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page',
+      specific_issue_source: 'NYC Department of City Planning (DCP)',
+      year: '2022',
+    };
+    dataJson[22] = {
+      specific_issue_name: 'Community Districts',
+      specific_issue_ID: 22,
+      link: 'https://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page',
+      specific_issue_source: 'NYC Department of City Planning (DCP)',
+      year: '2022',
+    };
+    dataJson[23] = {
+      specific_issue_name: 'Neighborhood Tabulation Areas',
+      specific_issue_ID: 23,
+      link: 'https://www1.nyc.gov/site/planning/data-maps/open-data/census-download-metadata.page',
+      specific_issue_source: 'NYC Department of City Planning (DCP)',
+      year: '2020',
+    };
 
-  dataJson[16] = {
-    specific_issue_name: 'Race & Ethnicity',
-    specific_issue_ID: 16,
-    link: 'https://www1.nyc.gov/site/planning/planning-level/nyc-population/american-community-survey.page.page',
-    specific_issue_source:
-      'U.S. Census Bureau, 2015-2019 American Community Survey 5-Year Estimates',
-    year: '2015-2019',
-  };
-  dataJson[17] = {
-    specific_issue_name: 'Poverty Level',
-    specific_issue_ID: 17,
-    link: 'https://data.census.gov/cedsci/table?q=s1701&tid=ACSST5Y2020.S1701',
-    specific_issue_source:
-      'U.S. Census Bureau, 2015-2019 American Community Survey 5-Year Estimates',
-    year: '2015-2019',
-  };
-  dataJson[18] = {
-    specific_issue_name: 'Vehicle Ownership',
-    specific_issue_ID: 18,
-    link: 'https://data.census.gov/cedsci/table?q=B08201&g=0100000US_1600000US3651000&tid=ACSDT5Y2020.B08201',
-    specific_issue_source:
-      'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
-    year: ' 2016-2020',
-  };
-  dataJson[19] = {
-    specific_issue_name: 'Drive Alone to Work',
-    specific_issue_ID: 19,
-    link: 'https://data.census.gov/cedsci/table?q=b08301&g=0100000US&tid=ACSDT5Y2020.B08301',
-    specific_issue_source:
-      'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
-    year: '2016-2020',
-  };
-  dataJson[20] = {
-    specific_issue_name: 'Walk, Bike, or Ride Transit',
-    specific_issue_ID: 20,
-    link: 'https://data.census.gov/cedsci/table?q=b08301&g=0100000US&tid=ACSDT5Y2020.B08301',
-    specific_issue_source:
-      'U.S. Census Bureau, 2016-2020 American Community Survey 5-Year Estimates',
-    year: '2016-2020',
-  };
-  dataJson[21] = {
-    specific_issue_name: 'City Council Districts',
-    specific_issue_ID: 21,
-    link: 'https://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page',
-    specific_issue_source: 'NYC Department of City Planning (DCP)',
-    year: '2022',
-  };
-  dataJson[22] = {
-    specific_issue_name: 'Community Districts',
-    specific_issue_ID: 22,
-    link: 'https://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page',
-    specific_issue_source: 'NYC Department of City Planning (DCP)',
-    year: '2022',
-  };
-  dataJson[23] = {
-    specific_issue_name: 'Neighborhood Tabulation Areas',
-    specific_issue_ID: 23,
-    link: 'https://www1.nyc.gov/site/planning/data-maps/open-data/census-download-metadata.page',
-    specific_issue_source: 'NYC Department of City Planning (DCP)',
-    year: '2020',
-  };
-
-  const dataLayers = Object.keys(dataJson);
+    setDataLayers(Object.keys(dataJson));
+  }, []);
 
   const toTop = () => {
     let div = document.getElementById('about-container');
@@ -428,12 +433,17 @@ export default function About({
                 </p>
                 <h6 className={'bold'}>Read the Report Card</h6>
                 <p>
-                In October 2022, Transportation Alternatives published a report card examining spatial inequity in New York City Council districts, based on the most up-to-date data on Spatial Equity NYC at the time. 
+                  In October 2022, Transportation Alternatives published a
+                  report card examining spatial inequity in New York City
+                  Council districts, based on the most up-to-date data on
+                  Spatial Equity NYC at the time.
                   <span>
                     {' '}
                     <a
                       style={{ textDecorationLine: 'underline' }}
-                      href={'https://www.transalt.org/spatial-equity-2022-report-card'}
+                      href={
+                        'https://www.transalt.org/spatial-equity-2022-report-card'
+                      }
                       target={'_blank'}
                     >
                       Read the report card
@@ -918,22 +928,22 @@ export default function About({
                         <tr key={index} className="about-table-row">
                           <td>
                             {
-                              issues.specific_issues_data[id]
+                              _ISSUES.specific_issues_data[id]
                                 ?.specific_issue_name
                             }
                           </td>
                           <td>
                             <a
                               target={'_blank'}
-                              href={issues.specific_issues_data[id]?.link}
+                              href={_ISSUES.specific_issues_data[id]?.link}
                             >
                               {
-                                issues.specific_issues_data[id]
+                                _ISSUES.specific_issues_data[id]
                                   ?.specific_issue_source
                               }
                             </a>
                           </td>
-                          <td>{issues.specific_issues_data[id]?.year}</td>
+                          <td>{_ISSUES.specific_issues_data[id]?.year}</td>
                         </tr>
                       );
                     })}

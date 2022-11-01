@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRight,
@@ -9,14 +9,15 @@ import {
 import CommunitySearchBar from './CommunitySearchBar';
 import Typewriter from 'typewriter-effect';
 
+import _COMMUNITIES from '../texts/communities.json';
+import _COUNCILS from '../texts/councildistricts.json';
+
 export default function CommunityNav({
-  communities,
   communitySearch,
   compareSearch,
   setCommunitySearch,
   setCompareSearch,
   boundary,
-  councils,
   addCompare,
   setAddCompare,
   selectedCoord,
@@ -39,130 +40,144 @@ export default function CommunityNav({
   const [showCompareSearch, setShowCompareSearch] = useState(false);
   const [notClickable, setNotClickable] = useState(false);
 
-  const getSearchItems = (forSearch, boundary) => {
+  const getSearchItems = (forSearch) => {
+    // console.time('searchItems');
+
     let searchItems = [];
     let boundaryData;
     if (boundary === 'community') {
-      boundaryData = communities;
+      boundaryData = _COMMUNITIES;
     } else {
-      boundaryData = councils;
+      boundaryData = _COUNCILS;
     }
-    switch (forSearch) {
-      case true:
-        for (let [key, value] of Object.entries(boundaryData)) {
-          if (key !== compareSearch) {
-            searchItems.push(
+
+    if (forSearch) {
+      for (let [key, value] of Object.entries(boundaryData)) {
+        if (key === compareSearch) {
+          continue;
+        }
+        searchItems.push(
+          <div
+            key={key}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className={`${
+              communitySearch && communitySearch.startsWith(key)
+                ? 'search-item-active'
+                : 'search-item-inactive'
+            } col search-item p-2`}
+            onMouseDown={(e) => {
+              e.stopPropagation(e);
+              /*setCommunitySearch(key);*/
+              setShowSearch(false);
+              setSearchSource('search');
+              setCommunitySearch(key);
+
+              const targetElement = info.selectedBoundary.features.find(
+                (element) =>
+                  element.properties.CDTA2020?.toString() === key ||
+                  element.properties.CounDist?.toString() === key
+              );
+
+              if (targetElement) {
+                setSelectedCoord([
+                  targetElement.properties.X_Cent,
+                  targetElement.properties.Y_Cent,
+                ]);
+              }
+
+              e.target.blur();
+            }}
+          >
+            <div className={'row w-100 p-0 m-0'}>
+              <div className={'col-10 m-0 p-0'}>
+                <span style={{ fontWeight: 'bold' }}>{value.name}</span>{' '}
+                {value.neighborhoods}
+              </div>
               <div
-                key={key}
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
                 className={`${
                   communitySearch && communitySearch.startsWith(key)
-                    ? 'search-item-active'
-                    : 'search-item-inactive'
-                } col search-item p-2`}
-                onMouseDown={(e) => {
-                  e.stopPropagation(e);
-                  /*setCommunitySearch(key);*/
-                  setShowSearch(false);
-                  setSearchSource('search');
-                  setCommunitySearch(key);
-                  for (const [
-                    index,
-                    element,
-                  ] of info.selectedBoundary.features.entries()) {
-                    if (
-                      element.properties.CDTA2020?.toString() === key ||
-                      element.properties.CounDist?.toString() === key
-                    ) {
-                      setSelectedCoord([
-                        element.properties.X_Cent,
-                        element.properties.Y_Cent,
-                      ]);
-                      break;
-                    }
-                  }
-                  e.target.blur();
-                }}
+                    ? 'visible'
+                    : 'invisible'
+                } d-flex col-2 p-0 flex-row justify-content-center align-items-center`}
               >
-                <div className={'row w-100 p-0 m-0'}>
-                  <div className={'col-10 m-0 p-0'}>
-                    <span style={{ fontWeight: 'bold' }}>{value.name}</span>{' '}
-                    {value.neighborhoods}
-                  </div>
-                  <div
-                    className={`${
-                      communitySearch && communitySearch.startsWith(key)
-                        ? 'visible'
-                        : 'invisible'
-                    } d-flex col-2 p-0 flex-row justify-content-center align-items-center`}
-                  >
-                    <FontAwesomeIcon icon={faArrowRight} />
-                  </div>
-                </div>
+                <FontAwesomeIcon icon={faArrowRight} />
               </div>
-            );
-          }
-        }
-        break;
-      case false:
-        for (let [key, value] of Object.entries(boundaryData)) {
-          if (key !== communitySearch) {
-            searchItems.push(
-              <div
-                key={key}
-                className={`${
-                  compareSearch && compareSearch.startsWith(key)
-                    ? 'search-item-active'
-                    : 'search-item-inactive'
-                } col search-item p-2`}
-                onMouseDown={(e) => {
-                  e.stopPropagation();
-                  setCompareSearch(key);
-                  setShowCompareSearch(false);
-                  setSearchSource('search');
-                  for (const [
-                    index,
-                    element,
-                  ] of info.selectedBoundary.features.entries()) {
-                    if (
-                      element.properties.CDTA2020?.toString() === key ||
-                      element.properties.CounDist?.toString() === key
-                    ) {
-                      setselectedCompareCoord([
-                        element.properties.X_Cent,
-                        element.properties.Y_Cent,
-                      ]);
-                      break;
-                    }
-                  }
-                  e.target.blur();
-                }}
-              >
-                <div className={'row w-100 p-0 m-0'}>
-                  <div className={'col-10 m-0 p-0'}>
-                    <span style={{ fontWeight: 'bold' }}>{value.name}</span>{' '}
-                    {value.neighborhoods}
-                  </div>
-                  <div
-                    className={`${
-                      compareSearch && compareSearch.startsWith(key)
-                        ? 'visible'
-                        : 'invisible'
-                    } d-flex col-2 p-0 flex-row justify-content-center align-items-center`}
-                  >
-                    <FontAwesomeIcon icon={faArrowRight} />
-                  </div>
-                </div>
-              </div>
-            );
-          }
-        }
+            </div>
+          </div>
+        );
+      }
+      // console.timeEnd('searchItems');
+      return searchItems;
     }
+
+    for (let [key, value] of Object.entries(boundaryData)) {
+      if (key === communitySearch) {
+        continue;
+      }
+      searchItems.push(
+        <div
+          key={key}
+          className={`${
+            compareSearch && compareSearch.startsWith(key)
+              ? 'search-item-active'
+              : 'search-item-inactive'
+          } col search-item p-2`}
+          onMouseDown={(e) => {
+            e.stopPropagation();
+            setCompareSearch(key);
+            setShowCompareSearch(false);
+            setSearchSource('search');
+
+            const targetElement = info.selectedBoundary.features.find(
+              (element) =>
+                element.properties.CDTA2020?.toString() === key ||
+                element.properties.CounDist?.toString() === key
+            );
+
+            if (targetElement) {
+              setselectedCompareCoord([
+                targetElement.properties.X_Cent,
+                targetElement.properties.Y_Cent,
+              ]);
+            }
+
+            e.target.blur();
+          }}
+        >
+          <div className={'row w-100 p-0 m-0'}>
+            <div className={'col-10 m-0 p-0'}>
+              <span style={{ fontWeight: 'bold' }}>{value.name}</span>{' '}
+              {value.neighborhoods}
+            </div>
+            <div
+              className={`${
+                compareSearch && compareSearch.startsWith(key)
+                  ? 'visible'
+                  : 'invisible'
+              } d-flex col-2 p-0 flex-row justify-content-center align-items-center`}
+            >
+              <FontAwesomeIcon icon={faArrowRight} />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // console.timeEnd('searchItems');
 
     return searchItems;
   };
+
+  const searchItems = useMemo(
+    () => getSearchItems(true),
+    [boundary, communitySearch, compareSearch]
+  );
+  const compareSearchItems = useMemo(
+    () => getSearchItems(false),
+    [boundary, communitySearch, compareSearch]
+  );
 
   return (
     <div
@@ -179,9 +194,9 @@ export default function CommunityNav({
           setselectedCompareCoord={setselectedCompareCoord}
           toggleValue={
             communitySearch
-              ? (communities[communitySearch] &&
-                  communities[communitySearch].name) ||
-                (councils[communitySearch] && councils[communitySearch].name)
+              ? (_COMMUNITIES[communitySearch] &&
+                  _COMMUNITIES[communitySearch].name) ||
+                (_COUNCILS[communitySearch] && _COUNCILS[communitySearch].name)
               : null
           }
           communitySearch={communitySearch}
@@ -203,7 +218,7 @@ export default function CommunityNav({
           setUserPoints={setUserPoints}
           userPoints={userPoints}
         >
-          {getSearchItems(true, boundary)}
+          {searchItems}
         </CommunitySearchBar>
 
         <div className={'community-nav-text'}>
@@ -212,10 +227,10 @@ export default function CommunityNav({
               {boundary == 'council' && (
                 <p className={'m-0 community-description'}>
                   <span>
-                    {(communities[communitySearch] &&
-                      communities[communitySearch].name) ||
-                      (councils[communitySearch] &&
-                        councils[communitySearch].text)}
+                    {(_COMMUNITIES[communitySearch] &&
+                      _COMMUNITIES[communitySearch].name) ||
+                      (_COUNCILS[communitySearch] &&
+                        _COUNCILS[communitySearch].text)}
 
                     <a
                       className={'underline'}
@@ -223,29 +238,29 @@ export default function CommunityNav({
                         e.stopPropagation();
                       }}
                       href={`mailto:${
-                        (councils[communitySearch] &&
-                          councils[communitySearch].councilmember_email) ||
+                        (_COUNCILS[communitySearch] &&
+                          _COUNCILS[communitySearch].councilmember_email) ||
                         null
                       }`}
                     >
-                      {(councils[communitySearch] &&
-                        councils[communitySearch].councilmember_name) ||
+                      {(_COUNCILS[communitySearch] &&
+                        _COUNCILS[communitySearch].councilmember_name) ||
                         null}
                     </a>
                   </span>
-                  {councils[communitySearch] && '.'}{' '}
-                  {(communities[communitySearch] &&
-                    communities[communitySearch].description) ||
-                    (councils[communitySearch] &&
-                      councils[communitySearch].description)}
+                  {_COUNCILS[communitySearch] && '.'}{' '}
+                  {(_COMMUNITIES[communitySearch] &&
+                    _COMMUNITIES[communitySearch].description) ||
+                    (_COUNCILS[communitySearch] &&
+                      _COUNCILS[communitySearch].description)}
                 </p>
               )}
 
               <p className={'m-0 small-font pt-3'}>
-                {(communities[communitySearch] &&
-                  communities[communitySearch].neighborhoods) ||
-                  (councils[communitySearch] &&
-                    councils[communitySearch].neighborhoods)}
+                {(_COMMUNITIES[communitySearch] &&
+                  _COMMUNITIES[communitySearch].neighborhoods) ||
+                  (_COUNCILS[communitySearch] &&
+                    _COUNCILS[communitySearch].neighborhoods)}
               </p>
             </>
           )}
@@ -257,9 +272,9 @@ export default function CommunityNav({
             setselectedCompareCoord={setselectedCompareCoord}
             toggleValue={
               compareSearch
-                ? (communities[compareSearch] &&
-                    communities[compareSearch].name) ||
-                  (councils[compareSearch] && councils[compareSearch].name)
+                ? (_COMMUNITIES[compareSearch] &&
+                    _COMMUNITIES[compareSearch].name) ||
+                  (_COUNCILS[compareSearch] && _COUNCILS[compareSearch].name)
                 : null
             }
             communitySearch={communitySearch}
@@ -281,7 +296,7 @@ export default function CommunityNav({
             userPoints={userPoints}
             setCompareSearch={setCompareSearch}
           >
-            {getSearchItems(false, boundary)}
+            {compareSearchItems}
           </CommunitySearchBar>
         )}
 
@@ -291,11 +306,11 @@ export default function CommunityNav({
               ? `${
                   communitySearch
                     ? boundary === 'council'
-                      ? councils[communitySearch]
-                        ? councils[communitySearch].name
+                      ? _COUNCILS[communitySearch]
+                        ? _COUNCILS[communitySearch].name
                         : ''
-                      : communities[communitySearch]
-                      ? communities[communitySearch].name
+                      : _COMMUNITIES[communitySearch]
+                      ? _COMMUNITIES[communitySearch].name
                       : ''
                     : ''
                 } is already selected!`
@@ -371,7 +386,7 @@ export default function CommunityNav({
             style={{ padding: boundary == 'council' ? '' : '0' }}
           >
             <span>
-              {councils[compareSearch] && councils[compareSearch].text}
+              {_COUNCILS[compareSearch] && _COUNCILS[compareSearch].text}
 
               <a
                 className={'underline'}
@@ -379,26 +394,27 @@ export default function CommunityNav({
                   e.stopPropagation();
                 }}
                 href={`mailto:${
-                  (councils[compareSearch] &&
-                    councils[compareSearch].councilmember_email) ||
+                  (_COUNCILS[compareSearch] &&
+                    _COUNCILS[compareSearch].councilmember_email) ||
                   null
                 }`}
               >
-                {(councils[compareSearch] &&
-                  councils[compareSearch].councilmember_name) ||
+                {(_COUNCILS[compareSearch] &&
+                  _COUNCILS[compareSearch].councilmember_name) ||
                   null}
               </a>
             </span>{' '}
-            {(communities[compareSearch] &&
-              communities[compareSearch].description) ||
-              (councils[compareSearch] && councils[compareSearch].description)}
+            {(_COMMUNITIES[compareSearch] &&
+              _COMMUNITIES[compareSearch].description) ||
+              (_COUNCILS[compareSearch] &&
+                _COUNCILS[compareSearch].description)}
           </p>
 
           <p className={'m-0 small-font pt-3'}>
-            {(communities[compareSearch] &&
-              communities[compareSearch].neighborhoods) ||
-              (councils[compareSearch] &&
-                councils[compareSearch].neighborhoods)}
+            {(_COMMUNITIES[compareSearch] &&
+              _COMMUNITIES[compareSearch].neighborhoods) ||
+              (_COUNCILS[compareSearch] &&
+                _COUNCILS[compareSearch].neighborhoods)}
           </p>
         </div>
       </div>
