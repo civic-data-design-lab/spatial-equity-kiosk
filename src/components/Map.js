@@ -1236,17 +1236,17 @@ export default function DeckMap({
   };
 
   const annoLayers = [
-    // new GeoJsonLayer({
-    //   id: 'nyc-boundaries',
-    //   data: nycBoundary.features,
-    //   stroked: true,
-    //   filled: true,
-    //   getFillColor: [255, 255, 255, 200],
-    //   getLineColor: [0, 0, 0, 255],
-    //   // lineWidthUnits: 'meters',
-    //   getLineWidth: 3,
-    //   lineWidthMinPixels: 1,
-    // }),
+    new GeoJsonLayer({
+      id: 'nyc-boundaries',
+      data: nycBoundary.features,
+      stroked: true,
+      filled: true,
+      getFillColor: [255, 255, 255, 200],
+      getLineColor: [0, 0, 0, 255],
+      // lineWidthUnits: 'meters',
+      getLineWidth: 3,
+      lineWidthMinPixels: 1,
+    }),
     new GeoJsonLayer({
       id: 'administrative-selected',
       data: infoTransfer?.selectedBoundary,
