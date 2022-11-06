@@ -217,9 +217,6 @@ export default function CommunitySearchBar({
         className={`d-flex flex-row align-items-center mt-3 position-relative community-search-container ${
           isMobile ? 'h-100' : ''
         }`}
-        /* onClick={(e) => {
-          e.stopPropagation();
-        }}*/
         id={`${!forSearch ? 'remove-community' : ''}`}
         onMouseEnter={() => {
           if (communitySearch) {
@@ -316,7 +313,7 @@ export default function CommunitySearchBar({
             if (forSearch) {
               setUserPoints([[], []]);
             } else {
-              setUserPoints([userPoints[0], []]);
+              setUserPoints([userPoints[0]?userPoints[0].toFixed(6):userPoints[0], []]);
             }
           }}
         >
