@@ -124,7 +124,7 @@
 }
 
 .height-transition {
-    transition: height 1s;
+    transition: height 1s, max-height 1s;
 
 }
 
@@ -530,7 +530,7 @@ a:active {
 }
 
 .remove-community-btn {
-    /* color: white; */
+    color: white;
     z-index: 1;
     right: 0;
     cursor: pointer;
@@ -745,9 +745,7 @@ a:active {
     border-left: none;
 }
 
-.issues-tile-body>* {
-    /* padding: 0 1.5rem; */
-}
+
 
 .issues-tile-text-container {
     display: flex;
@@ -1193,23 +1191,10 @@ a:active {
     font-size: 0.8rem;
 }
 
-.map-notable-indicators>*:first-child {
-    background: black;
-    color: white;
-    cursor: default;
 
-}
-
-.map-notable-indicators>*:not(:first-child) {
+.map-notable-indicators>* {
     border: 2px solid black;
     border-top: 0px;
-}
-
-.map-notable-indicators>*:hover:not(:first-child) {
-    background-color: black;
-    color: white;
-    cursor: pointer;
-
 }
 
 
@@ -1290,9 +1275,6 @@ a:active {
     align-items: center;
 }
 
-.share-icon-container a {
-    /* color: white !important; */
-}
 
 .share-icons {
     z-index: 6;
@@ -1480,12 +1462,6 @@ a:active {
 
 /* Misc */
 
-.fade-out {
-    /* height: 20vh; */
-    /* width: calc(75% - 5rem); */
-    /* background-color: red; */
-    /* background-image: linear-gradient(180deg, red, transparent); */
-}
 
 
 .more-issues-container {
@@ -1874,13 +1850,6 @@ a:active {
 }
 
 
-.switch-container {
-    /*position: absolute;*/
-    /* top: 1.5rem; */
-    /* right: 1.5rem; */
-    /* z-index: 2; */
-    /* column-gap: 5px; */
-}
 
 
 /* The switch - the box around the slider */
@@ -2254,7 +2223,7 @@ input:checked+.slider:before {
 }
 
 .mobile-nav-header:first-child {
-    padding: 0.5rem 0rem 0.5rem 1rem;
+    padding: 0.5rem 0rem 0.5rem 0.5rem;
 }
 
 #mobile-landing {
@@ -2478,7 +2447,6 @@ input:checked+.slider:before {
     background-color: white;
 }
 
-.mobile-community-search-screen .mobile-citywide-nav-dropdown {}
 
 .mobile-citywide-nav-dropdown-item {
     display: flex;
@@ -2562,23 +2530,18 @@ input:checked+.slider:before {
     .map-notable-indicators {
         display: grid;
         grid-template-columns: auto auto auto;
-
+        background-color: black;
+        gap: 1px;
+        border: 1px solid black;
     }
 
     .map-notable-indicators>* {
         padding: 0.5rem;
         height: 100%;
         width: 100%;
+        border: none !important;
+        text-align: center;
     }
-
-    .map-notable-indicators>:first-child {
-        grid-column: 1 / span 3;
-    }
-
-    .map-notable-indicators>*:not(:first-child) {
-        border: none;
-    }
-
 
     .big-button {
         padding: 1rem
@@ -2916,10 +2879,6 @@ input:checked+.slider:before {
 
 .histogram-responsive-box>* {
     cursor: pointer
-}
-
-.histogram-responsive-box * {
-    /* border: none !important; */
 }
 
 /*ANIMATED HAMBURGER MENU*/

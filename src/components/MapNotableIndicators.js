@@ -1,20 +1,16 @@
 import { useState, useEffect } from 'react';
+import _ISSUES from '../texts/issues.json';
 
 export default function MapNotableIndicators({
   selectedCommunity,
-  councils,
   communitySearch,
-  communities,
+  councilData,
+  communityData,
   setSelectedSpecificIssue,
-  issues,
   boundary,
-  comparison = false,
   selectedSpecificIssue,
   isMobile = false,
-  isTouchingMapMobile,
-  showLegend,
   showNotableTray,
-  setShowNotableTray,
 }) {
   const [notableIndicators, setNotableIndicators] = useState(['', '', '']);
 
@@ -23,8 +19,13 @@ export default function MapNotableIndicators({
     if (selectedCommunity) {
       const issueIndex =
         boundary === 'council'
-          ? councils[communitySearch]?.least_performing_issues
-          : communities[communitySearch]?.least_performing_issues;
+          ? councilData?.least_performing_issues
+          : communityData?.least_performing_issues;
+
+      if (!issueIndex) {
+        setNotableIndicators(['', '', '']);
+        return;
+      }
 
       const uniqueIssues = [...new Set(issueIndex.flat())];
       setNotableIndicators(uniqueIssues);
@@ -34,58 +35,58 @@ export default function MapNotableIndicators({
   const getBoundaryName = () => {
     const bounds =
       boundary === 'council'
-        ? councils[communitySearch]?.name || ''
-        : communities[communitySearch]?.name || '';
+        ? councilData?.name || ''
+        : communityData?.name || '';
     return `${bounds}`;
   };
 
   return (
     <div
-      className="map-notable-indicators"
+      className="height-transition overflow-hidden"
       style={
         isMobile
           ? {
-              maxHeight: showNotableTray ? '20vh' : '0',
+              maxHeight: showNotableTray && communitySearch ? '20vh' : '0vh',
+              paddingBottom: '0.5rem',
             }
-          : {}
+          : { paddingBottom: '0.5rem' }
       }
     >
       <div
-        style={
-          isMobile
-            ? {
-                backgroundColor: 'white',
-                color: 'black',
-                padding: '0.25rem 1rem',
-              }
-            : {}
-        }
+        className={isMobile ? 'small-font' : ''}
+        style={{
+          backgroundColor: isMobile ? 'white' : 'black',
+          color: isMobile ? 'black' : 'white',
+          padding: isMobile ? '0.25rem 1rem' : '0.25rem 0.5rem',
+        }}
       >
-        {!isMobile ? `${getBoundaryName()} ` : ''}
-        Notable Indicators
+        {!isMobile ? getBoundaryName() : ''} {!isMobile ? <br></br> : ''}Notable
+        Indicators
       </div>
-      {notableIndicators.map((indicatorIndex, index) => (
-        <div
-          key={index}
-          style={
-            selectedSpecificIssue == indicatorIndex
-              ? {
-                  backgroundColor: 'black',
-                  color: 'white',
-                }
-              : {}
-          }
-          onClick={() => setSelectedSpecificIssue(indicatorIndex)}
-        >
-          <span key={indicatorIndex}>
+      <div
+        className="map-notable-indicators"
+        style={{ margin: isMobile ? '0 1rem' : '0' }}
+      >
+        {notableIndicators.map((indicatorIndex, index) => (
+          <div
+            key={index}
+            style={
+              selectedSpecificIssue == indicatorIndex
+                ? {
+                    backgroundColor: 'black',
+                    color: 'white',
+                  }
+                : {}
+            }
+            onClick={() => setSelectedSpecificIssue(indicatorIndex)}
+          >
             {
-              issues.specific_issues_data[String(indicatorIndex)]
+              _ISSUES.specific_issues_data[String(indicatorIndex)]
                 ?.specific_issue_name
             }
-          </span>
-          <span style={{ marginLeft: '0.25rem', float: 'right' }}>+</span>
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

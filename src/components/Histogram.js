@@ -33,13 +33,13 @@ const colorInterpolate = (colorA, colorB, intval) => {
   return [colorVal('r'), colorVal('g'), colorVal('b')];
 };
 
-const getDataToVis = (rawIssueData, selectedSpecificIssue, issues) => {
+const getDataToVis = (rawIssueData, specificIssue) => {
   let valueArray = [];
   let nameArray = [];
   let ascending;
   let lookupArray = [];
 
-  if (issues.specific_issues_data[selectedSpecificIssue].good_or_bad > 0) {
+  if (specificIssue.good_or_bad > 0) {
     rawIssueData.sort((a, b) => a.rank - b.rank);
   } else {
     rawIssueData.sort((a, b) => b.rank - a.rank);
@@ -51,10 +51,7 @@ const getDataToVis = (rawIssueData, selectedSpecificIssue, issues) => {
     lookupArray.push(value.community_ID);
   }
 
-  const isTemperature =
-    issues.specific_issues_data[selectedSpecificIssue].json_id == 'F14_TmpDev'
-      ? true
-      : false;
+  const isTemperature = specificIssue.json_id == 'F14_TmpDev' ? true : false;
 
   // get the corresponding index of average value
   let sum = valueArray.reduce((a, b) => a + b, 0);
@@ -94,7 +91,8 @@ const getDataToVis = (rawIssueData, selectedSpecificIssue, issues) => {
 
 const Histogram = ({
   colorRampsyType,
-  issues,
+  // issues,
+  specificIssue,
   boundary,
   selectedSpecificIssue,
   communityPinned,
@@ -124,13 +122,9 @@ const Histogram = ({
   const getIssueStatement = (value, average) => {
     if (selectedSpecificIssue) {
       let words =
-        issues.specific_issues_data[selectedSpecificIssue].units_shorthand != ''
-          ? issues.specific_issues_data[
-              selectedSpecificIssue
-            ].units_shorthand.split(' ')
-          : issues.specific_issues_data[
-              selectedSpecificIssue
-            ].histogram_item.split(' ');
+        specificIssue.units_shorthand != ''
+          ? specificIssue.units_shorthand.split(' ')
+          : specificIssue.histogram_item.split(' ');
 
       const ignoreCapitalization = ['the', 'of', 'an', 'a', 'by'];
 
@@ -149,18 +143,11 @@ const Histogram = ({
       let sentence = words.join(' ');
 
       // special case where just the symbol is sufficient
-      if (
-        ['F27_BusSpe'].includes(
-          issues.specific_issues_data[selectedSpecificIssue].json_id
-        )
-      ) {
+      if (['F27_BusSpe'].includes(specificIssue.json_id)) {
         return '';
       }
 
-      if (
-        issues.specific_issues_data[selectedSpecificIssue].json_id ==
-        'F14_TmpDev'
-      ) {
+      if (specificIssue.json_id == 'F14_TmpDev') {
         sentence = `${
           value > average ? 'Above' : value == average ? '' : 'Below'
         } ${sentence}`;
@@ -172,12 +159,9 @@ const Histogram = ({
   };
 
   const getBoundingStatement = (minMax) => {
-    const bounds =
-      issues.specific_issues_data[selectedSpecificIssue].histogram_bounds;
+    const bounds = specificIssue.histogram_bounds;
 
-    const lookup = Number(
-      issues.specific_issues_data[selectedSpecificIssue].good_or_bad
-    );
+    const lookup = Number(specificIssue.good_or_bad);
 
     if (minMax == 'max') {
       return `${bounds[Number(!lookup)]}`;
@@ -186,7 +170,7 @@ const Histogram = ({
     }
   };
 
-  // console.log(issues.specific_issues_data[selectedSpecificIssue].units)
+  // console.log(specificIssue.units)
 
   // svg attr
   const textWidth = 50;
@@ -206,10 +190,7 @@ const Histogram = ({
   };
 
   let colorRamps = _CHAPTER_COLORS[colorRampsyType];
-  let rawIssueData =
-    _RANKINGS[boundary][
-      issues.specific_issues_data[selectedSpecificIssue]?.json_id
-    ];
+  let rawIssueData = _RANKINGS[boundary][specificIssue?.json_id];
   let [
     data,
     nameArray,
@@ -219,7 +200,7 @@ const Histogram = ({
     ascending,
     lookupArray,
     isTemperature,
-  ] = getDataToVis(rawIssueData, selectedSpecificIssue, issues);
+  ] = getDataToVis(rawIssueData, specificIssue);
 
   let colorArray = [];
 
@@ -328,15 +309,13 @@ const Histogram = ({
     let minValueMargin = 0.05 * (d3.max(data) - d3.min(data));
     let longestBarPadding = 0;
 
-    let [hiStatement, lowStatement] =
-      issues.specific_issues_data[selectedSpecificIssue].issue_hi_low;
+    let [hiStatement, lowStatement] = specificIssue.issue_hi_low;
     hiStatement = hiStatement.charAt(0).toUpperCase() + hiStatement.slice(1);
     lowStatement = lowStatement.charAt(0).toUpperCase() + lowStatement.slice(1);
 
     const metricSymbol =
-      issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol !==
-      ''
-        ? issues.specific_issues_data[selectedSpecificIssue].issue_units_symbol
+      specificIssue.issue_units_symbol !== ''
+        ? specificIssue.issue_units_symbol
         : '';
 
     let xscale = d3
@@ -1077,10 +1056,9 @@ const Histogram = ({
           className={'m-0 small-font d-inline-block'}
           style={{ padding: isMobile ? '' : '1rem 1.5rem 0 1.5rem' }}
         >
-          {issues.specific_issues_data[selectedSpecificIssue].units}{' '}
+          {specificIssue.units}{' '}
           <SourceInfo
-            issues={issues}
-            selectedSpecificIssue={selectedSpecificIssue}
+            specificIssue={specificIssue}
             setSelectedChapter={setSelectedChapter}
             verticalHistogram={true}
           />
@@ -1149,7 +1127,7 @@ const Histogram = ({
           </svg>
 
           <RankingTable
-            issues={issues}
+            specificIssue={specificIssue}
             boundary={boundary}
             selectedSpecificIssue={selectedSpecificIssue}
             setCommunitySearch={setCommunitySearch}

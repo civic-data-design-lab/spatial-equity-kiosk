@@ -10,6 +10,8 @@ import { max, min } from 'd3-array';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import * as ReactDOMServer from 'react-dom/server';
+import HtmlOverlay from './HtmlOverlay';
+import HtmlOverlayItem from './HtmlOverlayItem';
 
 // geospatial dependencies
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
@@ -17,7 +19,6 @@ import { point } from '@turf/helpers';
 import { distance } from '@turf/turf';
 
 // data
-// import _ISSUES from "../texts/issues.json";
 import _NEIGHBORHOODS from '../data/neighborhoods.json';
 import _NEIGHBORHOOD_NAMES from '../data/neighborhood_names.json';
 import _ETHNICITY from '../data/ethnicity.json';
@@ -27,13 +28,15 @@ import _CHAPTER_COLORS from '../data/chapter_colors.json';
 import _ETHNICITY_COLORS from '../data/ethnicity_colors.json';
 import _RANKINGS from '../data/rankings.json';
 import nycBoundary from '../data/nyc_boundary.json';
+import _ISSUES from '../texts/issues.json';
+import _DEMOGRAPHICS from '../texts/demographics.json';
+import _COMMUNITIES from '../texts/communities.json';
+import _COUNCILS from '../texts/councildistricts.json';
 
 // mapbox style
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { project } from 'deck.gl';
 import MapTooltip from './MapTooltip';
 import {
-  debounce,
   getTransportationModes,
   mapRange,
   splitHyphens,
@@ -165,7 +168,6 @@ const defaultColors = [
 ];
 
 export default function DeckMap({
-  issues,
   selectedIssue,
   selectedSpecificIssue,
   setSelectedSpecificIssue,
@@ -175,7 +177,6 @@ export default function DeckMap({
   demographic,
   setColorRamps,
   toggleUnderperformers,
-  demoLookup,
   selectedChapter,
   setSelectedChapter,
   communitySearch,
@@ -184,8 +185,6 @@ export default function DeckMap({
   setCommunitySearch,
   compareSearch,
   setCompareSearch,
-  communities,
-  councils,
   viewState,
   setViewState,
   zoomToggle,
@@ -257,23 +256,6 @@ export default function DeckMap({
   const dataScale = useRef('q'); //set to "equal" for equal binning, "q" for quantile binning
   // const [searchPoint, setSearchPoint] = useState([[], []]);
 
-  useEffect(() => {
-    debounce(updateTooltipPositions, 750)();
-  }, [deckRef.current?.deck.width, collapseMap, viewStateLocal]);
-
-  // both of these should be hooks they are being re-rendered on every frame - made them memo and then moved to app.js
-  // const selectedCommunity = communitySearch
-  //   ? boundary == 'council'
-  //     ? councils[communitySearch]
-  //     : communities[communitySearch]
-  //   : null;
-
-  // const selectedCompareCommunity = compareSearch
-  //   ? boundary == 'council'
-  //     ? councils[compareSearch]
-  //     : communities[compareSearch]
-  //   : null;
-
   const handleDeckRenderError = (e) => {
     console.error(e);
     console.error('COULD NOT RENDER MAP');
@@ -316,50 +298,23 @@ export default function DeckMap({
     setTransportationModesArray(modes);
   }, [toggleTransit, toggleBike, toggleWalk]);
 
-  const getStaticTooltipPos = (coords) => {
-    const projection = mapRef.current?.getMap()?.project(coords);
-    if (!projection) {
-      return;
-    }
-    // Add an offset of 15 pixels from the left and top
-    projection.x += viewStateLocal.zoom;
-    projection.y += viewStateLocal.zoom;
-    return projection;
-  };
-
-  const updateTooltipPositions = () => {
-    // Update tooltip 1
-    // console.log('Updating tooltip pos', tooltipCompData1?.coords);
-    if (tooltipCompData1?.coords) {
-      const projection = getStaticTooltipPos(tooltipCompData1.coords);
-      if (projection !== tooltipCompData1.pos) {
-        setTooltipCompData1({ ...tooltipCompData1, pos: projection });
-      }
-    }
-
-    // Update tooltip 2
-    if (tooltipCompData2?.coords) {
-      const projection = getStaticTooltipPos(tooltipCompData2.coords);
-      if (projection !== tooltipCompData2.pos) {
-        setTooltipCompData2({ ...tooltipCompData2, pos: projection });
-      }
-    }
-  };
-
   // 01.4 Color Scale function
 
-  const COLOR_SCALE =
-    infoTransfer != null
-      ? dataScale == 'equal'
-        ? scaleThreshold()
-            .domain(infoTransfer != null ? infoTransfer?.binList : [0, 1])
-            .range(_CHAPTER_COLORS[colorRamp])
-        : scaleQuantile()
-            .domain(
-              infoTransfer != null ? infoTransfer?.uniqueValueArray : [0, 1]
-            )
-            .range(_CHAPTER_COLORS[colorRamp])
-      : null; //quantile bins
+  const COLOR_SCALE = useMemo(() => {
+    if (infoTransfer == null) {
+      return null; // quantile bine
+    }
+
+    if (dataScale === 'equal') {
+      return scaleThreshold()
+        .domain(infoTransfer != null ? infoTransfer?.binList : [0, 1])
+        .range(_CHAPTER_COLORS[colorRamp]);
+    }
+
+    return scaleQuantile()
+      .domain(infoTransfer != null ? infoTransfer?.uniqueValueArray : [0, 1])
+      .range(_CHAPTER_COLORS[colorRamp]);
+  }, [infoTransfer, colorRamp]);
 
   // 01 CREATE METRIC COLOR RAMPS END ---------------------------------------------------------------------------
 
@@ -405,25 +360,36 @@ export default function DeckMap({
   // 03 DEMOGRAPHICS ----------------------------------------------------------------------------------------------
   //variables for scale thresholds
   const ethnicityColors = _ETHNICITY_COLORS;
-  let selectedDemographic;
-  let toggleScatterPlot = false; //scatter plot viz
-  let toggleDemChoropleth = false; //standard choropleth viz but for demographics
-  const selectedDemoArray = []; // a clean array of values for the color ramp with no NaN and no Null values
-  const neighborhoodDemoArray = []; // a clean array of values for the color ramp with no NaN and no Null values
-  const demoBinList = []; // derived from the selectedDemoArray array, this is the list of bins for the legend
+
+  const selectedDemographic = useMemo(
+    () => _DEMOGRAPHICS[demographic]?.lookup,
+    [demographic]
+  );
+
+  /**
+   * `toggleScatterPlot` - scatter plot viz
+   * `toggleDemChoropleth` - standard choropleth viz but for demographics
+   */
+  const [toggleScatterPlot, toggleDemChoropleth] = useMemo(() => {
+    if (!showDemographics) {
+      return [false, false];
+    }
+
+    // Default values
+    let toggleScatterPlot = false;
+    let toggleDemChoropleth = false;
+
+    if (demographic === '1') {
+      // Race and ethnicity
+      toggleScatterPlot = true;
+    } else if (parseFloat(demographic) > 1) {
+      toggleDemChoropleth = true;
+    }
+
+    return [toggleScatterPlot, toggleDemChoropleth];
+  }, [showDemographics, demographic]);
 
   // 03.1 toggle demographics on off and pick which to display
-  if (showDemographics) {
-    selectedDemographic = demoLookup[demographic]?.lookup;
-    if (demographic === '1' && toggleScatterPlot === false) {
-      toggleScatterPlot = true;
-    } else if (parseFloat(demographic) > 1 && toggleDemChoropleth === false) {
-      toggleDemChoropleth = true;
-    } else {
-      toggleScatterPlot = false;
-      toggleDemChoropleth = false;
-    }
-  }
 
   // 03.2 get an array of all the values for the selected demographic
   function getDemoArray(analysisScale, outputArray) {
@@ -461,67 +427,78 @@ export default function DeckMap({
     }
   }
 
-  // demographic array for the analysis scale
-  if (infoTransfer !== null) {
-    getDemoArray(infoTransfer?.selectedBoundary, selectedDemoArray);
-    getDemoArray(_NEIGHBORHOODS, neighborhoodDemoArray);
-  }
+  /**
+   * A clean array of values for the color ramp with no NaN and no Null values
+   */
+  const [selectedDemoArray, neighborhoodDemoArray] = useMemo(() => {
+    const selectedDemo = [];
+    const neighborhoodDemo = [];
+    if (infoTransfer !== null) {
+      getDemoArray(infoTransfer?.selectedBoundary, selectedDemo);
+      getDemoArray(_NEIGHBORHOODS, neighborhoodDemo);
+    }
+    return [selectedDemo, neighborhoodDemo];
+  }, [
+    infoTransfer,
+    selectedDemographic,
+    toggleWalk,
+    toggleBike,
+    toggleTransit,
+  ]);
 
   // demographic array for the neighborhood scale
 
-  const sortedDemoArray = [
-    ...(!zoomToggle ? neighborhoodDemoArray : selectedDemoArray),
-  ].sort(function (a, b) {
-    return a - b;
-  });
+  const [demoBinList, DEMO_COLOR_SCALE] = useMemo(() => {
+    const sortedDemoArray = [
+      ...(!zoomToggle ? neighborhoodDemoArray : selectedDemoArray),
+    ].sort((a, b) => a - b);
 
-  const uniqueDemoArray = [...new Set(sortedDemoArray)];
+    const uniqueDemos = [...new Set(sortedDemoArray)];
 
-  // 03.3 break the demographic array into bins and get the bin list
-  for (let i = 0; i < BIN_SIZE; i++) {
-    if (dataScale === 'equal') {
-      const legendScale = !zoomToggle
-        ? neighborhoodDemoArray
-        : selectedDemoArray;
-      const threshold = (max(legendScale) - min(legendScale)) / (BIN_SIZE + 1);
-      demoBinList.push(
-        Math.round((threshold * (i + 1) + min(legendScale)) * 100) / 100
-      );
-    } else {
-      const interval = Math.floor(
-        ((uniqueDemoArray.length - 1) / BIN_SIZE) * (i + 1)
-      );
-      //  quantile breaks
-      demoBinList.push(uniqueDemoArray[interval]);
+    // Derived from the selectedDemoArray array, this is the list of bins for
+    // the legend
+    const demoBinList = [];
+
+    // 03.3 break the demographic array into bins and get the bin list
+    for (let i = 0; i < BIN_SIZE; i++) {
+      if (dataScale === 'equal') {
+        const legendScale = !zoomToggle
+          ? neighborhoodDemoArray
+          : selectedDemoArray;
+        const threshold =
+          (max(legendScale) - min(legendScale)) / (BIN_SIZE + 1);
+        demoBinList.push(
+          Math.round((threshold * (i + 1) + min(legendScale)) * 100) / 100
+        );
+      } else {
+        const interval = Math.floor(
+          ((uniqueDemos.length - 1) / BIN_SIZE) * (i + 1)
+        );
+        //  quantile breaks
+        demoBinList.push(uniqueDemos[interval]);
+      }
     }
-  }
 
-  // 03.4 select the color ramp from the json lookup for demographics and create a default to "1" to avoid errors
-  let selectedDemoRamp =
-    demoLookup[demographic] !== undefined
-      ? demoLookup[demographic].colorRamp
-      : demoLookup['default'].colorRamp;
+    // 03.4 select the color ramp from the json lookup for demographics and create
+    // a default to "1" to avoid errors
+    const selectedDemoRamp = _DEMOGRAPHICS[demographic]
+      ? _DEMOGRAPHICS[demographic].colorRamp
+      : _DEMOGRAPHICS['default'].colorRamp;
 
-  // 03.4 function for demographics scale
-  const DEMO_COLOR_SCALE =
-    dataScale == 'equal'
-      ? scaleThreshold().domain(demoBinList).range(selectedDemoRamp)
-      : scaleQuantile().domain(uniqueDemoArray).range(selectedDemoRamp);
+    // 03.4 function for demographics scale
+    let colorScale = null;
+    if (dataScale === 'equal') {
+      colorScale = scaleThreshold().domain(demoBinList).range(selectedDemoRamp);
+    }
+    colorScale = scaleQuantile().domain(uniqueDemos).range(selectedDemoRamp);
+
+    return [demoBinList, colorScale];
+  }, [demographic, dataScale, selectedDemoArray, neighborhoodDemoArray]);
 
   // 03 DEMOGRAPHICS END ----------------------------------------------------------------------------------------------
 
   // 04 VIEWSTATE CONTROL ----------------------------------------------------------------------------------------------
   const onViewStateChange = ({ viewState }) => {
-    // console.log('viewstate', viewState, 'newViewState', newViewState);
-    // console.debug('Updating view state');
-
-    // if (!mapDemographics) {
-    //   setViewStateLocal(() => ({
-    //     primary: viewState,
-    //     splitLeft: viewState,
-    //     splitRight: viewState,
-    //   }));
-    // }
     // 04.1 set constraints on view state
 
     const newViewStateProps = {};
@@ -552,12 +529,9 @@ export default function DeckMap({
       setzoomToggle(1);
       sethandleLegend(1);
     }
-    debounce(updateTooltipPositions, 50)();
   };
 
   const zoomIn = ({}) => {
-    updateTooltipPositions();
-
     setViewStateLocal({
       ...viewStateLocal,
       zoom: min([ZOOM_MAX, viewStateLocal.zoom + BUTTON_ZOOM_STEP]),
@@ -567,8 +541,6 @@ export default function DeckMap({
   };
 
   const zoomOut = ({}) => {
-    updateTooltipPositions();
-
     setViewStateLocal({
       ...viewStateLocal,
       zoom: max([ZOOM_MIN, viewStateLocal.zoom - BUTTON_ZOOM_STEP]),
@@ -589,14 +561,12 @@ export default function DeckMap({
         boundary={boundary}
         selectedChapter={selectedChapter}
         selectedCoord={selectedCoord}
-        issues={issues}
         selectedDemographic={selectedDemographic}
         toggleTransit={toggleTransit}
         toggleBike={toggleBike}
         toggleWalk={toggleWalk}
         demographic={demographic}
         selectedSpecificIssue={selectedSpecificIssue}
-        demoLookup={demoLookup}
         transportationModesArray={transportationModesArray}
         selectedDemoArray={selectedDemoArray}
         ethnicityColors={ethnicityColors}
@@ -701,7 +671,6 @@ export default function DeckMap({
           setTooltipCompData1({
             ...pickingInfo,
             coords: searchEngine, // Search engine gives the position of the dots
-            pos: getStaticTooltipPos(searchEngine),
           });
           setUserPoints([searchEngine, userPoints[1]]);
           return;
@@ -720,11 +689,10 @@ export default function DeckMap({
       setTooltipCompData1({
         ...pickingInfo,
         coords: searchEngine, // Search engine gives the position of the dots
-        pos: getStaticTooltipPos(searchEngine),
       });
 
       if (!compareSearch) {
-        if (!isMobile) {
+        if (!isMobile || searchSource == 'search') {
           setViewStateLocal({
             ...viewStateLocal,
             longitude: selectedCoord[0],
@@ -739,11 +707,13 @@ export default function DeckMap({
       }
       const ptA = selectedCoord;
       const ptB = selectedCompareCoord;
+      if (!selectedCompareCoord.length) {
+        return;
+      }
+
       const maxDistance = !mapDemographics ? 25 : 15;
-      const ptCompareDistance =
-        distance(point(ptA), point(ptB)) < maxDistance
-          ? distance(point(ptA), point(ptB))
-          : maxDistance;
+      const dist = distance(point(ptA), point(ptB));
+      const ptCompareDistance = dist < maxDistance ? dist : maxDistance;
 
       const remapZoom = !mapDemographics
         ? mapRange(ptCompareDistance, 0.3, maxDistance, ZOOM_MAX, ZOOM_MIN)
@@ -762,6 +732,7 @@ export default function DeckMap({
         transitionDuration: 500,
         transitionInerpolator: new LinearInterpolator(),
       });
+      return;
     }
 
     // SELECT COMPARISON COMMUNITY
@@ -865,7 +836,6 @@ export default function DeckMap({
           setTooltipCompData1({
             ...pickingInfo,
             coords: searchEngine, // Search engine gives the position of the dots
-            pos: getStaticTooltipPos(searchEngine),
           });
           setUserPoints([searchEngine, userPoints[1]]);
 
@@ -1243,6 +1213,33 @@ export default function DeckMap({
     }),
   ];
 
+  /**
+   * Assumes the boundary is either 'council' or 'community' and that the
+   * feature has data (f.properties.Data_YN === 'Y').
+   *
+   * @param {object} f - The feature
+   * @returns {boolean} Whether or not the feature is the selected boundary
+   */
+  const featureIsSelectedBoundary = (f) => {
+    if (boundary === 'council') {
+      return (
+        f.properties.CounDist == communitySearch ||
+        f.properties.CounDist == compareSearch
+      );
+    }
+    return (
+      f.properties.CDTA2020 == communitySearch ||
+      f.properties.CDTA2020 == compareSearch
+    );
+  };
+
+  const isValidFeature = (f) => {
+    return (
+      boundary == 'council' ||
+      (boundary == 'community' && f.properties.Data_YN == 'Y')
+    );
+  };
+
   const annoLayers = [
     new GeoJsonLayer({
       id: 'nyc-boundaries',
@@ -1255,40 +1252,50 @@ export default function DeckMap({
       getLineWidth: 3,
       lineWidthMinPixels: 1,
     }),
-
     new GeoJsonLayer({
-      id: 'administrative-boundaries',
+      id: 'administrative-selected',
       data: infoTransfer?.selectedBoundary,
       stroked: true,
       filled: true,
       getFillColor: [255, 255, 255, 0],
       getLineColor: (f) => {
-        if (
-          boundary == 'council' ||
-          (boundary == 'community' && f.properties.Data_YN == 'Y')
-        ) {
-          if (f.id == highlightFeature) {
-            return [0, 0, 0, 255];
-          } else {
-            return [67, 67, 67, 100];
-          }
+        if (!isValidFeature(f)) {
+          return [0, 0, 0, 0];
         }
-        return [0, 0, 0, 0];
-      },
-      lineWidthUnits: 'meters',
-      getLineWidth: (w) => {
-        if (
-          boundary == 'council' ||
-          (boundary == 'community' && w.properties.Data_YN == 'Y')
-        ) {
-          if (w.id == highlightFeature) {
-            return zoomToggle ? 100 : 50;
+
+        // Check if boundary is a selected one
+        if (featureIsSelectedBoundary(f)) {
+          if (selectedSpecificIssue) {
+            return [255, 255, 255, 255];
           }
-          return zoomToggle ? 50 : 25;
+          if (selectedIssue) {
+            return defaultColors[selectedIssue - 1];
+          }
+
+          return [255, 0, 0, 255];
         }
-        return 0;
+
+        // Otherwise check it's highlight status
+        if (f.id == highlightFeature) {
+          return [0, 0, 0, 255];
+        }
+        return [67, 67, 67, 100];
       },
-      lineWidthMinPixels: 1,
+      // getLineWidth: 100,
+      getLineWidth: (f) => {
+        if (!isValidFeature(f)) {
+          return 0;
+        }
+
+        if (featureIsSelectedBoundary(f)) {
+          return 100;
+        }
+
+        if (f.id == highlightFeature) {
+          return zoomToggle ? 100 : 50;
+        }
+        return zoomToggle ? 50 : 25;
+      },
       pickable: true,
       autoHighlight: true,
       highlightColor: (info) => {
@@ -1299,67 +1306,28 @@ export default function DeckMap({
       },
       onClick: (info) => {
         const obj = info.object;
-
+        console.log('clicked');
         // change selected boundary
-        const lookup =
-          boundary == 'council'
-            ? String(obj.properties.CounDist)
-            : boundary == 'community' && obj.properties.Data_YN == 'Y'
-            ? obj.properties.CDTA2020
-            : null;
+        if (!isValidFeature(obj)) {
+          console.log('invalid feature');
+          return;
+        }
 
-        if (
-          (boundary == 'community' && obj.properties.Data_YN == 'Y') ||
-          boundary == 'council'
-        ) {
-          setSearchSource('click'); //set search source to click
-          // change chapter
-          if (selectedChapter !== 3) {
-            setSelectedChapter(3);
-          }
+        setSearchSource('click'); //set search source to click
+        // change chapter
+        if (selectedChapter !== 3) {
+          setSelectedChapter(3);
+        }
 
-          // add clicked object to chapter 3 searchbar and highlight single selection on map
-          if (communitySearch == null || addCompare == false) {
-            // updateSearchEngine(info.coordinate, 0);
-            setSelectedCoord(info.coordinate);
-          }
+        // add clicked object to chapter 3 searchbar and highlight single selection on map
+        if (communitySearch == null || addCompare == false) {
+          // updateSearchEngine(info.coordinate, 0);
+          setSelectedCoord(info.coordinate);
+        } else {
           // double selection functionality
-          else {
-            setSelectedCompareCoord(info.coordinate);
-          }
+          setSelectedCompareCoord(info.coordinate);
         }
       },
-      updateTriggers: {
-        getLineColor: [highlightFeature],
-        getLineWidth: [highlightFeature, zoomToggle],
-      },
-    }),
-
-    new GeoJsonLayer({
-      id: 'administrative-selected',
-      data: infoTransfer?.selectedBoundary,
-      filled: false,
-      stroked: true,
-
-      getLineColor: (f) => {
-        if (
-          (boundary == 'council' &&
-            (f.properties.CounDist == communitySearch ||
-              f.properties.CounDist == compareSearch)) ||
-          (boundary == 'community' &&
-            f.properties.Data_YN == 'Y' &&
-            (f.properties.CDTA2020 == communitySearch ||
-              f.properties.CDTA2020 == compareSearch))
-        ) {
-          return selectedSpecificIssue
-            ? [255, 255, 255, 255]
-            : selectedIssue
-            ? defaultColors[selectedIssue - 1]
-            : [255, 0, 0, 255];
-        }
-        return [0, 0, 0, 0];
-      },
-      getLineWidth: 100,
       updateTriggers: {
         getLineColor: [
           infoTransfer?.selectedMetric,
@@ -1367,7 +1335,9 @@ export default function DeckMap({
           communitySearch,
           compareSearch,
           selectedIssue,
+          highlightFeature,
         ],
+        getLineWidth: [highlightFeature, zoomToggle],
       },
     }),
 
@@ -1385,7 +1355,7 @@ export default function DeckMap({
       getPosition: (d) => d.geometry.coordinates,
       getSize: 75,
       maxWidth: 600,
-      opacity: !zoomToggle,
+      visible: !zoomToggle,
     }),
 
     new ScatterplotLayer({
@@ -1403,61 +1373,45 @@ export default function DeckMap({
     }),
   ];
 
-  const layerFilter = useCallback(({ layer, viewport }) => {
-    if (!showMap && selectedSpecificIssue) return false;
+  const layerFilter = useCallback(
+    ({ layer, viewport }) => {
+      if (!showMap && selectedSpecificIssue) return false;
 
-    const metricList = [];
-    const annoList = [];
-    const demoList = [];
+      const metricList = [];
+      const annoList = [];
+      const demoList = [];
 
-    for (let i = 0; i < metricLayers.length; i++) {
-      metricList.push(metricLayers[i].id);
-    }
-    for (let i = 0; i < annoLayers.length; i++) {
-      annoList.push(annoLayers[i].id);
-    }
-    for (let i = 0; i < demoLayers.length; i++) {
-      demoList.push(demoLayers[i].id);
-    }
+      for (let i = 0; i < metricLayers.length; i++) {
+        metricList.push(metricLayers[i].id);
+      }
+      for (let i = 0; i < annoLayers.length; i++) {
+        annoList.push(annoLayers[i].id);
+      }
+      for (let i = 0; i < demoLayers.length; i++) {
+        demoList.push(demoLayers[i].id);
+      }
 
-    // case 1: single view
-    if (
-      annoList.includes(layer.id) ||
-      (metricList.includes(layer.id) &&
-        !mapDemographics &&
-        selectedSpecificIssue) ||
-      (demoList.includes(layer.id) && mapDemographics && !selectedSpecificIssue)
-    ) {
-      return true;
-      // case 2: split screen left
-    } else if (metricList.includes(layer.id) && selectedSpecificIssue) {
-      return viewport.id == 'splitLeft';
-      // case 2: split screen right
-    } else if (demoList.includes(layer.id) && mapDemographics) {
-      return viewport.id == 'splitRight';
-    }
-
-    // case 2: split screen
-
-    // else if (metricList.includes(layer.id) && viewport.id !== 'splitRight') {
-    //   return true;
-    // }
-    // else if (
-    //   demoList.includes(layer.id) &&
-    //   mapDemographics &&
-    //   !selectedSpecificIssue &&
-    //   viewport.id !== 'splitRight'
-    // ) {
-    //   return true;
-    // } else if (
-    //   demoList.includes(layer.id) &&
-    //   mapDemographics &&
-    //   selectedSpecificIssue &&
-    //   viewport.id == 'splitRight'
-    // ) {
-    //   return true;
-    // }
-  });
+      // case 1: single view
+      if (
+        annoList.includes(layer.id) ||
+        (metricList.includes(layer.id) &&
+          !mapDemographics &&
+          selectedSpecificIssue) ||
+        (demoList.includes(layer.id) &&
+          mapDemographics &&
+          !selectedSpecificIssue)
+      ) {
+        return true;
+        // case 2: split screen left
+      } else if (metricList.includes(layer.id) && selectedSpecificIssue) {
+        return viewport.id == 'splitLeft';
+        // case 2: split screen right
+      } else if (demoList.includes(layer.id) && mapDemographics) {
+        return viewport.id == 'splitRight';
+      }
+    },
+    [mapDemographics, selectedSpecificIssue, showMap]
+  );
 
   const getCurrentMapViews = () => {
     if (!showMap && (showMap || selectedSpecificIssue)) {
@@ -1472,22 +1426,28 @@ export default function DeckMap({
   return (
     <div
       onTouchMove={() => {
-        if (isMobile && showDropDown) setShowDropDown(false);
-        if (isMobile && showSubDropDown) setShowSubDropDown(false);
-        if (isMobile && showLegend) {
+        if (!isMobile) {
+          return;
+        }
+        if (showDropDown) setShowDropDown(false);
+        if (showSubDropDown) setShowSubDropDown(false);
+        if (showLegend) {
           isTouchingMapMobile.current = 1;
           setShowLegend(false);
         }
-        if (isMobile && showNotableTray) {
+        if (showNotableTray) {
           isTouchingMapMobile.current = 2;
           setShowNotableTray(false);
         }
       }}
       onTouchEnd={() => {
-        if (isMobile && !showLegend && isTouchingMapMobile.current == 1) {
+        if (!isMobile) {
+          return;
+        }
+        if (!showLegend && isTouchingMapMobile.current == 1) {
           setShowLegend(true);
         }
-        if (isMobile && !showNotableTray && isTouchingMapMobile.current == 2) {
+        if (!showNotableTray && isTouchingMapMobile.current == 2) {
           setShowNotableTray(true);
         }
       }}
@@ -1498,10 +1458,9 @@ export default function DeckMap({
             <MapNotableIndicators
               selectedCommunity={selectedCommunity}
               communitySearch={communitySearch}
-              councils={councils}
-              communities={communities}
+              councilData={_COUNCILS[communitySearch]}
+              communityData={_COMMUNITIES[communitySearch]}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
-              issues={issues}
               boundary={boundary}
               selectedSpecificIssue={selectedSpecificIssue}
             />
@@ -1510,10 +1469,9 @@ export default function DeckMap({
             <MapNotableIndicators
               selectedCommunity={selectedCompareCommunity}
               communitySearch={compareSearch}
-              councils={councils}
-              communities={communities}
+              councilData={_COUNCILS[communitySearch]}
+              communityData={_COMMUNITIES[communitySearch]}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
-              issues={issues}
               boundary={boundary}
               selectedSpecificIssue={selectedSpecificIssue}
             />
@@ -1524,80 +1482,6 @@ export default function DeckMap({
         <div className="map-zoom-toggle map-zoom-buttons-container">
           <FontAwesomeIcon onClick={zoomIn} icon={faPlus} />
           <FontAwesomeIcon onClick={zoomOut} icon={faMinus} />
-        </div>
-      )}
-      {/* Static tooltip 1 */}
-      {tooltipCompData1?.pos && (
-        <div
-          className="map-tooltip map-pinned noselect"
-          style={{
-            zIndex: '2',
-            left: tooltipCompData1.pos.x,
-            top: tooltipCompData1.pos.y,
-          }}
-        >
-          <MapTooltip
-            infoTransfer={infoTransfer}
-            boundary={boundary}
-            selectedChapter={selectedChapter}
-            selectedCoord={selectedCoord}
-            issues={issues}
-            selectedDemographic={selectedDemographic}
-            toggleTransit={toggleTransit}
-            toggleBike={toggleBike}
-            toggleWalk={toggleWalk}
-            demographic={demographic}
-            selectedSpecificIssue={selectedSpecificIssue}
-            demoLookup={demoLookup}
-            transportationModesArray={transportationModesArray}
-            selectedDemoArray={selectedDemoArray}
-            ethnicityColors={ethnicityColors}
-            tooltipProperties={tooltipCompData1?.properties}
-            pickingInfoObject={tooltipCompData1?.object}
-            pickingInfoIndex={tooltipCompData1?.index}
-            exit={true}
-            toggleTooltip={setTooltipCompData1}
-          />
-        </div>
-      )}
-      {/* Static tooltip 2 */}
-      {tooltipCompData2?.pos && (
-        <div
-          className="map-tooltip map-pinned noselect"
-          style={{
-            zIndex: tooltipCompData2.zIndex || '1',
-            left: tooltipCompData2.pos.x,
-            top: tooltipCompData2.pos.y,
-          }}
-          onMouseOver={() =>
-            setTooltipCompData2((data) => ({ ...data, zIndex: '2' }))
-          }
-          onMouseOut={() =>
-            setTooltipCompData2((data) => ({ ...data, zIndex: '1' }))
-          }
-        >
-          <MapTooltip
-            infoTransfer={infoTransfer}
-            boundary={boundary}
-            selectedChapter={selectedChapter}
-            selectedCoord={selectedCoord}
-            issues={issues}
-            selectedDemographic={selectedDemographic}
-            toggleTransit={toggleTransit}
-            toggleBike={toggleBike}
-            toggleWalk={toggleWalk}
-            demographic={demographic}
-            selectedSpecificIssue={selectedSpecificIssue}
-            demoLookup={demoLookup}
-            transportationModesArray={transportationModesArray}
-            selectedDemoArray={selectedDemoArray}
-            ethnicityColors={ethnicityColors}
-            tooltipProperties={tooltipCompData2?.properties}
-            pickingInfoObject={tooltipCompData2?.object}
-            pickingInfoIndex={tooltipCompData2?.index}
-            exit={true}
-            toggleTooltip={setTooltipCompData2}
-          />
         </div>
       )}
       <DeckGL
@@ -1613,6 +1497,82 @@ export default function DeckMap({
         ref={deckRef}
         onError={handleDeckRenderError}
       >
+        <HtmlOverlay>
+          {/* Static tooltip 1 */}
+          {tooltipCompData1?.coords && (
+            <HtmlOverlayItem
+              style={{
+                transform: 'translate(-50%,-50%)',
+                pointerEvents: 'all',
+                zIndex: '2',
+              }}
+              coordinates={tooltipCompData1.coords}
+            >
+              <div className="map-tooltip map-pinned noselect">
+                <MapTooltip
+                  infoTransfer={infoTransfer}
+                  boundary={boundary}
+                  selectedChapter={selectedChapter}
+                  selectedCoord={selectedCoord}
+                  selectedDemographic={selectedDemographic}
+                  toggleTransit={toggleTransit}
+                  toggleBike={toggleBike}
+                  toggleWalk={toggleWalk}
+                  demographic={demographic}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  transportationModesArray={transportationModesArray}
+                  selectedDemoArray={selectedDemoArray}
+                  ethnicityColors={ethnicityColors}
+                  tooltipProperties={tooltipCompData1?.properties}
+                  pickingInfoObject={tooltipCompData1?.object}
+                  pickingInfoIndex={tooltipCompData1?.index}
+                  exit={true}
+                  toggleTooltip={setTooltipCompData1}
+                />
+              </div>
+            </HtmlOverlayItem>
+          )}
+          {/* Static tooltip 2 */}
+          {tooltipCompData2?.coords && (
+            <HtmlOverlayItem
+              style={{
+                transform: 'translate(-50%,-50%)',
+                pointerEvents: 'all',
+                zIndex: tooltipCompData2.zIndex || '1',
+              }}
+              onMouseOver={() =>
+                setTooltipCompData2((data) => ({ ...data, zIndex: '2' }))
+              }
+              onMouseOut={() =>
+                setTooltipCompData2((data) => ({ ...data, zIndex: '1' }))
+              }
+              coordinates={tooltipCompData2.coords}
+            >
+              <div className="map-tooltip map-pinned noselect">
+                <MapTooltip
+                  infoTransfer={infoTransfer}
+                  boundary={boundary}
+                  selectedChapter={selectedChapter}
+                  selectedCoord={selectedCoord}
+                  selectedDemographic={selectedDemographic}
+                  toggleTransit={toggleTransit}
+                  toggleBike={toggleBike}
+                  toggleWalk={toggleWalk}
+                  demographic={demographic}
+                  selectedSpecificIssue={selectedSpecificIssue}
+                  transportationModesArray={transportationModesArray}
+                  selectedDemoArray={selectedDemoArray}
+                  ethnicityColors={ethnicityColors}
+                  tooltipProperties={tooltipCompData2?.properties}
+                  pickingInfoObject={tooltipCompData2?.object}
+                  pickingInfoIndex={tooltipCompData2?.index}
+                  exit={true}
+                  toggleTooltip={setTooltipCompData2}
+                />
+              </div>
+            </HtmlOverlayItem>
+          )}
+        </HtmlOverlay>
         {renderBaseMap &&
           (!mapDemographics || (mapDemographics && !selectedSpecificIssue)) && (
             <MapView id="primary">
@@ -1629,14 +1589,14 @@ export default function DeckMap({
               {collapseMap && (selectedSpecificIssue || mapDemographics) && (
                 <div key={'map-header'} style={SPLIT_SCREEN_POSITIONING}>
                   <div style={SPLIT_SCREEN_HEADER}>
-                    {issues.specific_issues_data[selectedSpecificIssue]
+                    {_ISSUES.specific_issues_data[selectedSpecificIssue]
                       ?.specific_issue_name ||
                       `${
-                        demoLookup[demographic].lookup == 'F10_TrsBkW'
+                        _DEMOGRAPHICS[demographic].lookup == 'F10_TrsBkW'
                           ? `Commuters Who ${getTransportationModes(
                               transportationModesArray
                             )}`
-                          : demoLookup[demographic].name
+                          : _DEMOGRAPHICS[demographic].name
                       }`}{' '}
                     by{' '}
                     {boundary == 'community'
@@ -1664,7 +1624,7 @@ export default function DeckMap({
               <div key={'map-header-left'} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
                   {
-                    issues.specific_issues_data[selectedSpecificIssue]
+                    _ISSUES.specific_issues_data[selectedSpecificIssue]
                       .specific_issue_name
                   }{' '}
                   by{' '}
@@ -1691,11 +1651,11 @@ export default function DeckMap({
             {demographic && (
               <div key={'map-header-right'} style={SPLIT_SCREEN_POSITIONING}>
                 <div style={SPLIT_SCREEN_HEADER}>
-                  {demoLookup[demographic].lookup == 'F10_TrsBkW'
+                  {_DEMOGRAPHICS[demographic].lookup == 'F10_TrsBkW'
                     ? `Commuters Who ${getTransportationModes(
                         transportationModesArray
                       )}`
-                    : demoLookup[demographic].name}
+                    : _DEMOGRAPHICS[demographic].name}
                 </div>
               </div>
             )}

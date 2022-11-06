@@ -309,13 +309,11 @@ function Nav({
             />
           </div>
           <CommunityNav
-            communities={communities}
             communitySearch={communitySearch}
             compareSearch={compareSearch}
             setCommunitySearch={setCommunitySearch}
             setCompareSearch={setCompareSearch}
             boundary={boundary}
-            councils={councils}
             addCompare={addCompare}
             setAddCompare={setAddCompare}
             selectedCoord={selectedCoord}

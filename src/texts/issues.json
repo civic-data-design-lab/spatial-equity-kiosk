@@ -55,7 +55,7 @@
         {
           "text": " in low-income Black and Latino neighborhoods. Neighborhoods with larger ",
           "hyperlink": "tree canopies",
-          "source": "hhttps://www.ncbi.nlm.nih.gov/pmc/articles/PMC8036821/"
+          "source": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8036821/"
         },
         {
           "text": " and lower traffic volume have lower ",
@@ -1550,12 +1550,7 @@
           "source": "https://www1.nyc.gov/html/dot/downloads/pdf/bike-safety-study-fullreport2017.pdf"
         },
         {
-          "text": " cyclist fatalities in New York City occur on streets without dedicated space for bicycles. Black, Latino, and Asian New Yorkers are ",
-          "hyperlink": "disproportionately killed",
-          "source": "https://www.nyc.gov/html/dot/downloads/pdf/bike-safety-study-fullreport2017.pdf"
-        },
-        {
-          "text": " while riding bikes. New Yorkers who are killed on bicycles are, ",
+          "text": " cyclist fatalities in New York City occur on streets without dedicated space for bicycles. New Yorkers who are killed on bicycles are, ",
           "hyperlink": "on average",
           "source": "https://www.nyc.gov/html/dot/downloads/pdf/bike-safety-study-fullreport2017.pdf"
         },
@@ -2104,7 +2099,7 @@
             {
               "text": ". After the City of New York eliminated through traffic on the ",
               "hyperlink": "34th Avenue Open Street",
-              "source": "hhttps://twitter.com/34_ave"
+              "source": "https://twitter.com/34_ave"
             },
             {
               "text": " in Queens, injuries fell by ",

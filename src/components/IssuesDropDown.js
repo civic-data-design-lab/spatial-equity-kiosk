@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
+import _ISSUES from '../texts/issues.json';
+import _ISSUE_CATEGORIES from '../texts/issue_categories.json';
 
 export default function IssuesDropDown({
   currentValue = null,
   items,
   setValue = null,
   setShowDemographics,
-  issues,
-  issue_categories,
   showDemographics,
 }) {
   const [showDropdownItems, setShowDropdownItems] = useState(false);
@@ -39,8 +39,8 @@ export default function IssuesDropDown({
           className={`${
             included && currentValue
               ? `dropdown-bar-${
-                  issue_categories.labels[
-                    issues.specific_issues_data[currentValue].issue_type_ID
+                  _ISSUE_CATEGORIES.labels[
+                    _ISSUES.specific_issues_data[currentValue].issue_type_ID
                   ]
                 }`
               : 'dropdown-bar-black'

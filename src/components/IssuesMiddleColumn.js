@@ -11,9 +11,12 @@ import categories from '../texts/issue_categories.json';
 import MapToggle from './MapToggle';
 
 import _ISSUE_CATEGORIES from '../texts/issue_categories.json';
+import _ISSUES from '../texts/issues.json';
+import _COMMUNITIES from '../texts/communities.json';
+import _COUNCILS from '../texts/councildistricts.json';
+import _DEMOGRAPHICS from '../texts/demographics.json';
 
 export default function IssuesMiddleColumn({
-  issues,
   selectedIssue,
   setSelectedIssue,
   selectedSpecificIssue,
@@ -27,13 +30,10 @@ export default function IssuesMiddleColumn({
   mapDemographics,
   setMapDemographics,
   boundary,
-  communities,
-  councils,
   colorRamps,
   toggleUnderperformers,
   setToggleUnderperformers,
   selectedChapter,
-  issue_categories,
   toggleWalk,
   setToggleWalk,
   toggleTransit,
@@ -49,7 +49,6 @@ export default function IssuesMiddleColumn({
   handleLegend,
   zoomToggle,
   setColorRamps,
-  demoLookup,
   showMap,
   binList,
   info,
@@ -71,7 +70,7 @@ export default function IssuesMiddleColumn({
                 <span
                   className={`${
                     categories.labels[
-                      issues.specific_issues_data[selectedSpecificIssue]
+                      _ISSUES.specific_issues_data[selectedSpecificIssue]
                         .issue_type_ID
                     ]
                   }`}
@@ -79,7 +78,7 @@ export default function IssuesMiddleColumn({
                   <a
                     className={`hyperlink ${
                       categories.labels[
-                        issues.specific_issues_data[selectedSpecificIssue]
+                        _ISSUES.specific_issues_data[selectedSpecificIssue]
                           .issue_type_ID
                       ]
                     }`}
@@ -97,7 +96,7 @@ export default function IssuesMiddleColumn({
     );
   };
   const getRelatedIssues = () => {
-    return issues.specific_issues_data[selectedSpecificIssue].related.map(
+    return _ISSUES.specific_issues_data[selectedSpecificIssue].related.map(
       (issue, index) => {
         return (
           <span key={index}>
@@ -108,7 +107,7 @@ export default function IssuesMiddleColumn({
                 setSelectedSpecificIssue(issue);
               }}
             >
-              {issues.specific_issues_data[issue].specific_issue_name}
+              {_ISSUES.specific_issues_data[issue].specific_issue_name}
             </a>
             {index === 2 ? '.' : ','}
           </span>
@@ -129,22 +128,22 @@ export default function IssuesMiddleColumn({
   };
   // console.log("demoLegend in issuesmiddle ", demoLegendBins)
 
-  const health_issues = issues.issues_data['health'].specific_issues_ID.map(
+  const health_issues = _ISSUES.issues_data['health'].specific_issues_ID.map(
     (id_) => {
-      return issues.specific_issues_data[id_];
+      return _ISSUES.specific_issues_data[id_];
     }
   );
 
-  const environment_issues = issues.issues_data[
+  const environment_issues = _ISSUES.issues_data[
     'environment'
   ].specific_issues_ID.map((id_) => {
-    return issues.specific_issues_data[id_];
+    return _ISSUES.specific_issues_data[id_];
   });
 
-  const infrastructure_issues = issues.issues_data[
+  const infrastructure_issues = _ISSUES.issues_data[
     'infrastructure'
   ].specific_issues_ID.map((id_) => {
-    return issues.specific_issues_data[id_];
+    return _ISSUES.specific_issues_data[id_];
   });
 
   useEffect(() => {
@@ -178,30 +177,30 @@ export default function IssuesMiddleColumn({
             {compareSearch ? 'Compare ' : ''}
             {communitySearch
               ? boundary == 'council'
-                ? councils[communitySearch]
-                  ? `City Council ${councils[communitySearch].name}`
+                ? _COUNCILS[communitySearch]
+                  ? `City Council ${_COUNCILS[communitySearch].name}`
                   : ''
-                : communities[communitySearch]
+                : _COMMUNITIES[communitySearch]
                 ? !compareSearch
-                  ? `${communities[communitySearch].name
+                  ? `${_COMMUNITIES[communitySearch].name
                       .split(' ')
                       .slice(0, -1)
-                      .join(' ')} Community Board ${communities[
+                      .join(' ')} Community Board ${_COMMUNITIES[
                       communitySearch
                     ].name
                       .split(' ')
                       .slice(-1)}`
-                  : `${communities[communitySearch].name}`
+                  : `${_COMMUNITIES[communitySearch].name}`
                 : ''
               : ''}
             {compareSearch ? ' & ' : ''}
             {compareSearch
               ? boundary == 'council'
-                ? councils[compareSearch]
-                  ? `${councils[compareSearch].name}`
+                ? _COUNCILS[compareSearch]
+                  ? `${_COUNCILS[compareSearch].name}`
                   : ''
-                : communities[compareSearch]
-                ? `${communities[compareSearch].name}`
+                : _COMMUNITIES[compareSearch]
+                ? `${_COMMUNITIES[compareSearch].name}`
                 : ''
               : ''}
           </h6>
@@ -265,7 +264,7 @@ export default function IssuesMiddleColumn({
           className={` ${selectedIssue ? 'invis' : 'vis'} mb-0 small-font-vh`}
           style={{ padding: !selectedIssue ? '1rem' : '0rem' }}
         >
-          {issue_categories.descriptions[selectedIssue]}
+          {_ISSUE_CATEGORIES.descriptions[selectedIssue]}
         </p>
       </div>
 
@@ -281,8 +280,6 @@ export default function IssuesMiddleColumn({
               items={health_issues}
               currentValue={selectedSpecificIssue}
               setValue={setSelectedSpecificIssue}
-              issues={issues}
-              issue_categories={issue_categories}
               showDemographics={showDemographics}
             />
           )}
@@ -292,8 +289,6 @@ export default function IssuesMiddleColumn({
               currentValue={selectedSpecificIssue}
               setValue={setSelectedSpecificIssue}
               setShowDemographics={setShowDemographics}
-              issues={issues}
-              issue_categories={issue_categories}
               showDemographics={showDemographics}
             />
           )}
@@ -301,13 +296,13 @@ export default function IssuesMiddleColumn({
             <div>
               {!selectedSpecificIssue ? (
                 <p className="small-font-vh">
-                  {issue_categories.descriptions[selectedIssue]}
+                  {_ISSUE_CATEGORIES.descriptions[selectedIssue]}
                 </p>
               ) : (
                 <div>
                   <div>
                     {getHyperlinkText(
-                      issues.specific_issues_data[selectedSpecificIssue]
+                      _ISSUES.specific_issues_data[selectedSpecificIssue]
                         .specific_issue_description
                     )}
                   </div>
@@ -326,11 +321,9 @@ export default function IssuesMiddleColumn({
               mapDemographics={mapDemographics}
               demoColorRamp={demoColorRamp}
               demoLegendBins={demoLegendBins}
-              demoLookup={demoLookup}
               demographic={demographic}
               dataScale={dataScale}
               setdataScale={setdataScale}
-              issues={issues}
               selectedSpecificIssue={selectedSpecificIssue}
               colorRamps={colorRamps}
               toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
@@ -399,7 +392,7 @@ export default function IssuesMiddleColumn({
           className={`${selectedIssue ? 'invis' : 'vis'} mb-0 small-font-vh`}
           style={{ padding: !selectedIssue ? '1rem' : '0rem' }}
         >
-          {issue_categories.descriptions[selectedIssue]}
+          {_ISSUE_CATEGORIES.descriptions[selectedIssue]}
         </p>
       </div>
       {/* ENVIRO BAR EXPANDED */}
@@ -414,8 +407,6 @@ export default function IssuesMiddleColumn({
               items={environment_issues}
               currentValue={selectedSpecificIssue}
               setValue={setSelectedSpecificIssue}
-              issues={issues}
-              issue_categories={issue_categories}
               showDemographics={showDemographics}
             />
           )}
@@ -425,8 +416,6 @@ export default function IssuesMiddleColumn({
               currentValue={selectedSpecificIssue}
               setValue={setSelectedSpecificIssue}
               setShowDemographics={setShowDemographics}
-              issues={issues}
-              issue_categories={issue_categories}
               showDemographics={showDemographics}
             />
           )}
@@ -435,13 +424,13 @@ export default function IssuesMiddleColumn({
             <div className={''}>
               {!selectedSpecificIssue ? (
                 <p className="small-font-vh">
-                  {issue_categories.descriptions[selectedIssue]}
+                  {_ISSUE_CATEGORIES.descriptions[selectedIssue]}
                 </p>
               ) : (
                 <div>
                   <div>
                     {getHyperlinkText(
-                      issues.specific_issues_data[selectedSpecificIssue]
+                      _ISSUES.specific_issues_data[selectedSpecificIssue]
                         .specific_issue_description
                     )}
                   </div>
@@ -460,11 +449,9 @@ export default function IssuesMiddleColumn({
               mapDemographics={mapDemographics}
               demoColorRamp={demoColorRamp}
               demoLegendBins={demoLegendBins}
-              demoLookup={demoLookup}
               demographic={demographic}
               dataScale={dataScale}
               setdataScale={setdataScale}
-              issues={issues}
               selectedSpecificIssue={selectedSpecificIssue}
               colorRamps={colorRamps}
               toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
@@ -531,7 +518,7 @@ export default function IssuesMiddleColumn({
           className={`${selectedIssue ? 'invis' : 'vis'} mb-0 small-font-vh `}
           style={{ padding: !selectedIssue ? '1rem' : '0rem' }}
         >
-          {issue_categories.descriptions[selectedIssue]}
+          {_ISSUE_CATEGORIES.descriptions[selectedIssue]}
         </p>
       </div>
       {/* MOBILITY BAR EXPANDED */}
@@ -546,8 +533,6 @@ export default function IssuesMiddleColumn({
               items={infrastructure_issues}
               currentValue={selectedSpecificIssue}
               setValue={setSelectedSpecificIssue}
-              issues={issues}
-              issue_categories={issue_categories}
               showDemographics={showDemographics}
             />
           )}
@@ -557,8 +542,6 @@ export default function IssuesMiddleColumn({
               currentValue={selectedSpecificIssue}
               setValue={setSelectedSpecificIssue}
               setShowDemographics={setShowDemographics}
-              issues={issues}
-              issue_categories={issue_categories}
               showDemographics={showDemographics}
             />
           )}
@@ -567,13 +550,13 @@ export default function IssuesMiddleColumn({
             <div className={''}>
               {!selectedSpecificIssue ? (
                 <p className="small-font-vh">
-                  {issue_categories.descriptions[selectedIssue]}
+                  {_ISSUE_CATEGORIES.descriptions[selectedIssue]}
                 </p>
               ) : (
                 <div>
                   <div>
                     {getHyperlinkText(
-                      issues.specific_issues_data[selectedSpecificIssue]
+                      _ISSUES.specific_issues_data[selectedSpecificIssue]
                         .specific_issue_description
                     )}
                   </div>
@@ -592,11 +575,9 @@ export default function IssuesMiddleColumn({
               mapDemographics={mapDemographics}
               demoColorRamp={demoColorRamp}
               demoLegendBins={demoLegendBins}
-              demoLookup={demoLookup}
               demographic={demographic}
               dataScale={dataScale}
               setdataScale={setdataScale}
-              issues={issues}
               selectedSpecificIssue={selectedSpecificIssue}
               colorRamps={colorRamps}
               toggleUnderperformers={toggleUnderperformers} //legendBins={legendBins}
@@ -667,8 +648,6 @@ export default function IssuesMiddleColumn({
             mapDemographics={mapDemographics}
             setMapDemographics={setMapDemographics}
             boundary={boundary}
-            communities={communities}
-            councils={councils}
             selectedChapter={selectedChapter}
             toggleTransit={toggleTransit}
             setToggleTransit={setToggleTransit}
@@ -681,11 +660,8 @@ export default function IssuesMiddleColumn({
             demoLegendBins={demoLegendBins}
             setDemoColorRamp={setDemoColorRamp}
             setDemoLegendBins={setDemoLegendBins}
-            demoLookup={demoLookup}
             showMap={showMap}
             info={info}
-            issues={issues}
-            issue_categories={issue_categories}
             setSelectedChapter={setSelectedChapter}
             setShowMap={setShowMap}
           />
