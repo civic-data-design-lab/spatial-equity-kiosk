@@ -64,6 +64,18 @@ export default function IssuesTileView({
     setImageIndex(index);
   }, [selectedChapter, selectedIssue]);
 
+    useEffect(() => {
+    if (selectedSpecificIssue) {
+      let div = document.getElementsByClassName('issues-tile-text-container')[0];
+      if (div) {
+        div.scrollBy({
+          top: -div.scrollHeight,
+          behavior: 'smooth',
+        });
+      }
+    }
+  }, [selectedSpecificIssue]);
+
   const getBackgroundImage = () => {
     const randomImage = backgroundImages[imageIndex];
 

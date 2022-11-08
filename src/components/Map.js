@@ -634,6 +634,11 @@ export default function DeckMap({
     //check if search engine is valid coordinates
     // console.log('search engine type ', searchEngineType);
 
+
+  /*  if (searchEngine.length>0) {
+      searchEngine = searchEngine.map((coord)=>{return coord.toFixed(3)})
+    }*/
+
     // PRIMARY COMMUNITY SEARCH
     if (searchEngineType === 0 && selectedChapter === 3) {
       if (selectedCoord.length !== 2) {

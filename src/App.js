@@ -66,7 +66,6 @@ function App() {
   const [moreIssuesLength, setMoreIssuesLength] = useState(0);
   const [mapDemographics, setMapDemographics] = useState(false);
   const [addCompare, setAddCompare] = useState(false);
-  //const [legendBins, setLegendBins] = useState([1, [1, 1, 1, 1, 1]]);
   const [colorRamps, setColorRamps] = useState(null);
   const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
   const [coordinateLookup, setCoordinateLookup] = useState(null);
@@ -75,7 +74,6 @@ function App() {
   const [toggleBike, setToggleBike] = useState(false);
   const [toggleWalk, setToggleWalk] = useState(false);
   const [dataScale, setdataScale] = useState(false);
-  // const [highlightFeature, sethighlightFeature] = useState(null);
   const [demoColorRamp, setDemoColorRamp] = useState(
     [255, 0, 0],
     [0, 255, 0],
@@ -107,7 +105,6 @@ function App() {
   const [showNotableTray, setShowNotableTray] = useState(true);
   const isTouchingMapMobile = useRef(false);
 
-  // console.log(badSearch);
   // map hooks
 
   // map starting position and view state constraints
@@ -164,10 +161,10 @@ function App() {
     for (let pair of queryParams.entries()) {
       switch (pair[0]) {
         case 'swM':
-          setShowMap(pair[1] === 'true');
+          setShowMap(pair[1] === 't');
           break;
-        case 'swT':
-          setShowToggle(pair[1] === 'true');
+/*        case 'swT':
+          setShowToggle(pair[1] === 'true');*/
           break;
         case 'sdC':
           setSelectedChapter(parseInt(pair[1]));
@@ -205,7 +202,7 @@ function App() {
           setDemographic(pair[1]);
           break;
         case 'swD':
-          setShowDemographics(pair[1] === 'true');
+          setShowDemographics(pair[1] === 't');
           break;
         case 'mI':
           setMoreIssues(
@@ -220,10 +217,10 @@ function App() {
           );
           break;
         case 'mD':
-          setMapDemographics(pair[1] === 'true');
+          setMapDemographics(pair[1] === 't');
           break;
         case 'aC':
-          setAddCompare(pair[1] === 'true');
+          setAddCompare(pair[1] === 't');
           break;
         case 'cR':
           setColorRamps(pair[1]);
@@ -270,23 +267,22 @@ function App() {
         case 'sS':
           setSearchSource(pair[1]);
           break;
-
-        /*  case "uP":
-                                                    console.log("pair[1] ", pair[1])
-                                                    setUserPoints(
-                                                        JSON.parse(pair[1]).map((item) => {
-                                                            return parseInt(item);
-                                                        })
-                                                    )*/
+        case 'tT':
+          setToggleTransit(pair[1]==='t')
+          break;
+        case 'tB':
+          setToggleBike(pair[1]==='t')
+          break;
+        case 'tW':
+          setToggleWalk(pair[1]==='t')
+          break;
       }
     }
     setViewState(createViewState);
     setUserPoints(createCoords);
   }, []);
 
-  /* useEffect(()=>{
-          console.log("user points ", userPoints)
-        })*/
+
 
   // GA4 hooks
   useEffect(() => {
@@ -448,10 +444,8 @@ function App() {
   }, [boundary]);
 
   const getColorRamp = () => {
-    // console.log("get color ramp triggered")
     let selectedRamp;
     if (selectedSpecificIssue) {
-      // console.log("case 1 ", selectedSpecificIssue)
       selectedRamp =
         _ISSUES.specific_issues_data[selectedSpecificIssue].issue_type_ID === 1
           ? 'health'
@@ -487,6 +481,8 @@ function App() {
     toggleBike,
     toggleWalk,
   ]);
+
+
 
   useEffect(() => {
     // SELECT BOUNDARY ------------------------------------------------------------
@@ -594,43 +590,9 @@ function App() {
   }, [boundary, selectedSpecificIssue, selectedIssue, zoomToggle]);
 
   useEffect(() => {
-    // console.log("userPoints ", userPoints)
-    // console.log("demoLookup ", demoLookup);
-    // console.log("HERE ARE THE STATES")
-    // console.log("selectedChapter ", selectedChapter)
-    // console.log("selectedIssue ", selectedIssue)
-    // console.log("selectedSpecficIssue ", selectedSpecificIssue)
-    // console.log("showMap ", showMap)
-    // console.log("show toggle ", showToggle)
-    // console.log("add Compare ", addCompare)
-    // console.log("councils", councils)
-    // console.log("communities", communities)
-    // console.log("community search ", communitySearch)
-    // console.log("compare search ", compareSearch)
-    // console.log("boundary ", boundary)
-    // console.log("selectedAbout ", selectedAbout)
-    // console.log("demographic", demographic)
-    //  console.log("colorRamps", colorRamps)
-    // console.log("selectedCoord", selectedCoord)
-    // console.log("info", info)
-    // console.log("-------------------------------------------")
-
-    /* if (!selectedSpecificIssue) {
-                                         setSelectedIssue(1)
-                                         setSelectedSpecificIssue(1)
-                                     }
-                                     if (!selectedSpecificIssue) {
-                                         setSelectedSpecificIssue(1)
-                                     }*/
-
-    // console.log("demoLookup ", demoLookup)
-
-    // console.log("updating browser history")
-
     const params = [];
-
-    if (showMap !== null) params.push(`swM=${showMap.toString()}`);
-    if (showToggle !== null) params.push(`swT=${showToggle.toString()}`);
+    if (showMap !== null) params.push(`swM=${showMap?"t":"f"}`);
+    //if (showToggle !== null) params.push(`swT=${showToggle.toString()}`);
     if (communitySearch !== null) params.push(`ctS=${communitySearch}`);
     if (compareSearch !== null) params.push(`cpS=${compareSearch}`);
     if (selectedChapter !== null)
@@ -642,39 +604,30 @@ function App() {
     if (demographic !== null) params.push(`d=${demographic.toString()}`);
     if (moreIssues.length > 0) params.push(`mI=[${moreIssues.toString()}]`);
     if (showDemographics !== null)
-      params.push(`swD=${showDemographics.toString()}`);
+      params.push(`swD=${showDemographics?"t":"f"}`);
     if (mapDemographics !== null)
-      params.push(`mD=${mapDemographics.toString()}`);
-    if (addCompare !== null) params.push(`aC=${addCompare.toString()}`);
+      params.push(`mD=${mapDemographics?"t":"f"}`);
+    if (addCompare !== null) params.push(`aC=${addCompare?"t":"f"}`);
     if (colorRamps !== null) params.push(`cR=${colorRamps}`);
 
-    // TODO: save these states
     if (zoomToggle !== null) {
       params.push(`zT=${zoomToggle}`);
     }
-
     if (viewState.primary && viewState.primary.latitude !== null)
       params.push(`lat=${viewState.primary.latitude}`);
     if (viewState.primary && viewState.primary.longitude !== null)
       params.push(`lon=${viewState.primary.longitude}`);
     if (viewState.primary && viewState.primary.zoom !== null)
       params.push(`z=${viewState.primary.zoom}`);
-
-    //if (searchSource!==null) params.push(`sS=${searchSource}`)
-
-    /* if (viewState !== null) {
-                         params.push(`lat=${viewState.primary.latitude}`)
-                         params.push(`lon=${viewState.primary.longitude}`)
-                         params.push(`z=${viewState.primary.zoom}`)
-                     }*/
-
     if (userPoints && userPoints[0]?.length > 0) {
-      params.push(`ctC=[${userPoints[0][0]},${userPoints[0][1]}]`);
+      params.push(`ctC=[${userPoints[0][0].toFixed(3)},${userPoints[0][1].toFixed(3)}]`);
     }
-
     if (userPoints && userPoints[1]?.length > 0) {
-      params.push(`cpC=[${userPoints[1][0]},${userPoints[1][1]}]`);
+      params.push(`cpC=[${userPoints[1][0].toFixed(3)},${userPoints[1][1].toFixed(3)}]`);
     }
+    if (toggleTransit !== null) {params.push(`tT=${toggleTransit?'t':'f'}`)};
+    if (toggleBike !== null) {params.push(`tB=${toggleBike?'t':'f'}`)};
+    if (toggleWalk !== null) {params.push(`tW=${toggleWalk?'t':'f'}`)};
 
     let path = window.location.href.split('?')[0];
     path = path.concat('?');
@@ -698,11 +651,18 @@ function App() {
     if ((selectedChapter === 3 && communitySearch) || selectedChapter === 2) {
       setShowToggle(true);
     }
-
-    /*if (selectedChapter === 3 && !communitySearch && window.innerWidth > 576) {
-          setShowMap(true);
-        }*/
   });
+
+
+
+  useEffect(() => {
+    if (selectedSpecificIssue) {
+      setSelectedIssue(
+        issues.specific_issues_data[selectedSpecificIssue].issue_type_ID
+      );
+    }
+  }, [selectedSpecificIssue]);
+
 
   // console.log('siteProtection', process.env.REACT_APP_SITE_PROTECTION)
   // console.log('sha512', process.env.REACT_APP_SITE_PWD)
