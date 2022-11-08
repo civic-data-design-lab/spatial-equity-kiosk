@@ -477,7 +477,8 @@ const Histogram = ({
 
     svg
       .select('#avgLine')
-      .attr('x1', margin.left)
+      //   .attr('x1', margin.left)
+      .attr('x1', margin.left + xscale(0))
       .attr('y1', yscale(avgIndex + 1))
       .attr('x2', width - margin.right)
       .attr('y2', yscale(avgIndex + 1))
@@ -533,8 +534,10 @@ const Histogram = ({
       .attr('y', 0)
       .attr('x', margin.left)
       .attr('fill', d3.rgb(0, 0, 0, 0))
-      .on('mousemove', function (event, d) {
-        let pt = d3.pointer(event);
+      .on('mousemove touchmove', function (event, d) {
+        event.stopPropagation();
+        let pt = d3.pointers(event)[0];
+        // let pt = d3.pointer(event);
 
         let ycood = pt[1];
         if (ycood < yscale(0.5)) return;
@@ -553,6 +556,7 @@ const Histogram = ({
           .attr('y1', ycood)
           .attr('y2', ycood)
           //   .attr('x1', margin.left)
+          .attr('x1', margin.left + xscale(0))
           .attr('x2', width - margin.right)
           .attr('lookupID', lookupArray[rectID])
           .style('stroke', 'black')
@@ -604,6 +608,7 @@ const Histogram = ({
       .attr('y1', (d, i) => yscale(i + 1))
       .attr('y2', (d, i) => yscale(i + 1))
       .attr('x1', margin.left)
+      //   .attr('x1', margin.left + xscale(0))
       .attr('x2', width - margin.right)
       .attr('visibility', 'hidden')
       .attr('lookupID', (d, i) => lookupArray[i])
@@ -1027,8 +1032,8 @@ const Histogram = ({
             .attr('stroke', '#000000')
             .style('stroke-width', '2px');
           d3.select(this).raise();
-          svg.select('#mouseLine').attr('x1', d3.select(this).attr('x'));
-          svg.select('#avgLine').attr('x1', d3.select(this).attr('x'));
+          //   svg.select('#mouseLine').attr('x1', d3.select(this).attr('x'));
+          //   svg.select('#avgLine').attr('x1', d3.select(this).attr('x'));
         } else {
           d3.select(this).style('stroke-width', '0px');
           d3.select(this).style(
@@ -1100,6 +1105,7 @@ const Histogram = ({
           <svg
             display={displayModes[selectedSpecificIssue] ? 'none' : ''}
             ref={ref}
+            style={{ touchAction: 'none' }}
           >
             {/* Main Chart */}
             <g />
