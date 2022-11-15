@@ -72,11 +72,9 @@ function Nav({
             setSelectedChapter(1);
             setMoreIssuesLength(0);
             setMoreIssues([]);
+            setShowMap(false);
           }
-          // else if (selectedChapter == 1 && !shareExpanded) {
-          //   setSelectedChapter(null);
-          //   setShowMap(false);
-          // }
+
         }}
       >
         <div>
