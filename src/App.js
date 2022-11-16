@@ -278,6 +278,7 @@ function App() {
           break;
       }
     }
+    console.log("createCoords ", createCoords);
     setViewState(createViewState);
     setUserPoints(createCoords);
   }, []);

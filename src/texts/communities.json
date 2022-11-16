@@ -46,7 +46,7 @@
             "name": "Bronx 7",
             "neighborhoods": "Neighborhoods: Norwood, Fordham Heights, and Kingsbridge Heights",
             "description": "",
-            "least_performing_issues": [6, 5, 8]
+            "least_performing_issues": [6, 8, 11]
         },
     "BX08":
         {   "json_lookup": "BX08",
@@ -60,7 +60,7 @@
             "name": "Bronx 9",
             "neighborhoods": "Neighborhoods: Parkchester, Soundview, Castle Hill, Harding Park, and Clason Point",
             "description": "",
-            "least_performing_issues": [11, 9, 7]
+            "least_performing_issues": [7, 11, 9]
         },
     "BX10":
         {   "json_lookup": "BX10",
@@ -123,7 +123,7 @@
             "name": "Brooklyn 6",
             "neighborhoods": "Neighborhoods: Red Hook, Carroll Gardens, Park Slope, Gowanus, and Cobble Hill",
             "description": "",
-            "least_performing_issues": [3, 10, 15]
+            "least_performing_issues": [10, 3, 15]
         },
     "BK07":
         {   "json_lookup": "BK07",
@@ -221,7 +221,7 @@
             "name": "Manhattan 2",
             "neighborhoods": "Neighborhoods: Greenwich Village, West Village, SoHo/Nolita, Lower East Side, and Chinatown",
             "description": "",
-            "least_performing_issues": [10, 2, 6]
+            "least_performing_issues": [2, 10, 6]
         },
     "MN03":
         {   "json_lookup": "MN03",
@@ -249,7 +249,7 @@
             "name": "Manhattan 6",
             "neighborhoods": "Neighborhoods: Stuyvesant Town/Peter Cooper Village, Murray Hill, Gramercy Park, and Kips Bay",
             "description": "",
-            "least_performing_issues": [2, 12, 7]
+            "least_performing_issues": [12, 2, 7]
         },
     "MN07":
         {   "json_lookup": "MN07",
@@ -375,7 +375,7 @@
             "name": "Queens 12",
             "neighborhoods": "Neighborhoods: Jamaica, Hollis, St. Albans, Springfield Gardens, and Rochdale Village",
             "description": "",
-            "least_performing_issues": [11, 8, 5]
+            "least_performing_issues": [5, 11, 8]
         },
     "QN13":
         {   "json_lookup": "QN13",
