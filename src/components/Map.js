@@ -1469,8 +1469,8 @@ export default function DeckMap({
             <MapNotableIndicators
               selectedCommunity={selectedCompareCommunity}
               communitySearch={compareSearch}
-              councilData={_COUNCILS[communitySearch]}
-              communityData={_COMMUNITIES[communitySearch]}
+              councilData={_COUNCILS[compareSearch]}
+              communityData={_COMMUNITIES[compareSearch]}
               setSelectedSpecificIssue={setSelectedSpecificIssue}
               boundary={boundary}
               selectedSpecificIssue={selectedSpecificIssue}
