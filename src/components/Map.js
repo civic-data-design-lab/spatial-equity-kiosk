@@ -8,7 +8,7 @@ import { scaleQuantile, scaleThreshold } from 'd3-scale';
 import { FillStyleExtension } from '@deck.gl/extensions';
 import { max, min } from 'd3-array';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import * as ReactDOMServer from 'react-dom/server';
 import { HtmlOverlay, HtmlOverlayItem } from '@nebula.gl/overlays';
 
@@ -252,8 +252,14 @@ export default function DeckMap({
 
   const deckRef = useRef(null);
   const mapRef = useRef(null);
+  const overlay1Ref = useRef(null);
   const dataScale = useRef('q'); //set to "equal" for equal binning, "q" for quantile binning
   // const [searchPoint, setSearchPoint] = useState([[], []]);
+
+  // Attempt to duct-tape a working close button to the map tooltips, failed :(
+  const overlay1Pos = useMemo(() => {
+    return overlay1Ref.current?.props;
+  }, [overlay1Ref.current?.props]);
 
   const handleDeckRenderError = (e) => {
     console.error(e);
@@ -1482,6 +1488,33 @@ export default function DeckMap({
           <FontAwesomeIcon onClick={zoomOut} icon={faMinus} />
         </div>
       )}
+      {/* {tooltipCompData1 && (
+        <div
+          style={{
+            position: 'absolute',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginTop: '5px',
+            width: '250px',
+            zIndex: '3',
+            left: overlay1Pos?.x,
+            top: overlay1Pos?.y,
+          }}
+        >
+          <FontAwesomeIcon
+            icon={faXmark}
+            className={'close-icon'}
+            style={{
+              display: 'inline-block',
+              float: 'right',
+              padding: '0 0.5rem 0 1rem',
+              fontSize: '1.5rem',
+              color: 'white',
+            }}
+            onClick={() => setTooltipCompData1(null)}
+          />
+        </div>
+      )} */}
       <DeckGL
         style={{ backgroundColor: 'black' }}
         viewState={viewStateLocal}
@@ -1499,6 +1532,7 @@ export default function DeckMap({
           {/* Static tooltip 1 */}
           {tooltipCompData1?.coords && (
             <HtmlOverlayItem
+              ref={overlay1Ref}
               style={{
                 transform: 'translate(-50%,-50%)',
                 pointerEvents: 'all',
@@ -1533,6 +1567,7 @@ export default function DeckMap({
           {/* Static tooltip 2 */}
           {tooltipCompData2?.coords && (
             <HtmlOverlayItem
+              key={1}
               style={{
                 transform: 'translate(-50%,-50%)',
                 pointerEvents: 'all',
