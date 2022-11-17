@@ -1558,7 +1558,7 @@ export default function DeckMap({
                   tooltipProperties={tooltipCompData1?.properties}
                   pickingInfoObject={tooltipCompData1?.object}
                   pickingInfoIndex={tooltipCompData1?.index}
-                  exit={true}
+                  exit={false}
                   toggleTooltip={setTooltipCompData1}
                 />
               </div>
@@ -1599,7 +1599,7 @@ export default function DeckMap({
                   tooltipProperties={tooltipCompData2?.properties}
                   pickingInfoObject={tooltipCompData2?.object}
                   pickingInfoIndex={tooltipCompData2?.index}
-                  exit={true}
+                  exit={false}
                   toggleTooltip={setTooltipCompData2}
                 />
               </div>
