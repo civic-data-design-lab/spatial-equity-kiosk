@@ -10,8 +10,7 @@ import { max, min } from 'd3-array';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import * as ReactDOMServer from 'react-dom/server';
-import HtmlOverlay from './HtmlOverlay';
-import HtmlOverlayItem from './HtmlOverlayItem';
+import { HtmlOverlay, HtmlOverlayItem } from '@nebula.gl/overlays';
 
 // geospatial dependencies
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
@@ -634,8 +633,7 @@ export default function DeckMap({
     //check if search engine is valid coordinates
     // console.log('search engine type ', searchEngineType);
 
-
-  /*  if (searchEngine.length>0) {
+    /*  if (searchEngine.length>0) {
       searchEngine = searchEngine.map((coord)=>{return coord.toFixed(3)})
     }*/
 
