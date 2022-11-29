@@ -9,22 +9,6 @@ export default function IssuesGrid({
   setDemoToggleText = false,
   setMapDemographics,
 }) {
-  // const [showDropdownItems, setShowDropdownItems] = useState(true);
-  // const [toggleText, setToggleText] = useState(
-  //   'Select an indicator to explore'
-  // );
-
-  // useEffect(() => {
-  //   let changed = false;
-  //   items.map((item) => {
-  //     if (item.specific_issue_ID === currentValue) {
-  //       changed = true;
-  //     }
-  //   });
-  //   if (!changed) {
-  //     setToggleText('Select an indicator to explore');
-  //   }
-  // });
 
   return (
     <>

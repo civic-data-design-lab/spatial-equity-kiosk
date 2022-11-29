@@ -604,11 +604,7 @@ export default function Legend({
       }
     } else {
       gridColorRamps = [
-        // `rgb(${demoData.colorRamp[0].join(",")})`,
-        // `rgb(${demoData.colorRamp[1].join(",")})`,
         `rgb(${demoData.colorRamp[3].join(',')})`,
-        // `rgb(${demoData.colorRamp[3].join(",")})`,
-        // `rgb(${demoData.colorRamp[4].join(',')})`,
         `rgb(${demoData.colorRamp[1].join(',')})`,
       ];
     }

@@ -74,7 +74,6 @@ function Nav({
             setMoreIssues([]);
             setShowMap(false);
           }
-
         }}
       >
         <div>
@@ -163,7 +162,6 @@ function Nav({
           if (selectedChapter !== 2) {
             setSelectedChapter(2);
             setUserPoints([], []);
-            // setMapDemographics(false);
             setMoreIssuesLength(0);
             setMoreIssues([]);
             setCollapseMap(false);
@@ -175,9 +173,6 @@ function Nav({
             if (selectedChapterCache.current)
               setSelectedSpecificIssue(selectedChapterCache.current);
           }
-          // else if (selectedChapter == 2 && !shareExpanded) {
-          //   setSelectedChapter(null);
-          // }
         }}
       >
         <div>
@@ -237,13 +232,6 @@ function Nav({
              }
              ${selectedChapter === 4 ? 'bottom-highlight' : ''}`}
         onClick={() => {
-          // setMapDemographics(false);
-          // setCollapseMap(false);
-          // setSearchSource(null);
-          // setUserPoints([], []);
-          // setCommunitySearch(null);
-          // setCompareSearch(null);
-          // setAddCompare(false);
           if (selectedChapter !== 3) {
             setSelectedChapter(3);
             setShowMap(true);
@@ -259,12 +247,6 @@ function Nav({
             }
             if (viewStateCache?.current) setViewState(viewStateCache.current);
           }
-          // else if (selectedChapter == 3 && !shareExpanded) {
-          //   setSelectedChapter(null);
-          //   selectedCoordsCache.current = userPoints;
-          //   selectedCommunitiesCache.current = [communitySearch, compareSearch];
-          //   viewStateCache.current = viewState;
-          // }
         }}
       >
         <div>
@@ -359,9 +341,6 @@ function Nav({
             setCollapseMap(false);
             setBadSearch([0, 0]);
           }
-          // else if (selectedChapter == 4 && !shareExpanded) {
-          //   setSelectedChapter(null);
-          // }
         }}
       >
         <div>
@@ -387,58 +366,12 @@ function Nav({
             selectedChapter === 4 ? 'nav-chapters-content-expanded' : ''
           } nav-chapters-content d-flex flex-column justify-content-end`}
         >
-          {/* {selectedChapter == 4 && (
-            <ShareButton setShareExpanded={setShareExpanded} />
-          )} */}
           <div className={'no-pointer'}>
             <div
               className={`${
                 selectedChapter !== 4 ? 'pe-none' : 'pe-auto'
               } mb-3 d-flex flex-row col-gap`}
-            >
-              {/* <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <a target="_blank" href={`//www.twitter.com/transalt`}>
-                  <FontAwesomeIcon icon={faSquareFacebook} />
-                </a>
-              </div>
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <a
-                  target="_blank"
-                  href={`//www.instagram.com/transportationalternatives/`}
-                >
-                  <FontAwesomeIcon icon={faInstagram} />
-                </a>
-              </div>
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <a target="_blank" href={`//www.twitter.com/transalt`}>
-                  <FontAwesomeIcon icon={faTwitter} />
-                </a>
-              </div>
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <a
-                  target="_blank"
-                  href={`//www.linkedin.com/company/transportation-alternatives`}
-                >
-                  <FontAwesomeIcon icon={faLinkedinIn} />
-                </a>
-              </div> */}
-            </div>
+            ></div>
             <p>
               Spatial Equity NYC is a project of Transportation Alternatives and
               MIT.

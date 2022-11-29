@@ -1,37 +1,43 @@
+// import style sheets
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+// import React and React Hooks
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import functions
 import { useLocation } from 'react-router-dom';
+import { max, min } from 'd3-array';
 
+// import components
 import Container from 'react-bootstrap/Container';
-
 import Nav from './components/Nav';
 import Content from './components/Content';
 import Map, { DEFAULT_VIEW_STATE } from './components/Map';
-/*import BaseMap from "./components/BaseMap";*/
 import MobileNav from './components/Mobile Components/MobileNav';
 import CitywideData from './components/Mobile Components/CitywideData';
-import { max, min } from 'd3-array';
+import MobileCommunityProfile from './components/Mobile Components/MobileCommunityProfile';
+import MobileWhatIsSE from './components/Mobile Components/MobileWhatIsSE';
+import About from './components/About';
+import MobileFixedHeader from './components/Mobile Components/MobileFixedHeader';
 
+// import fonts
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import Protect from './utils/react-app-protect';
+import ReactGA from 'react-ga4';
+
+// import data and text
 import _ISSUE_CATEGORIES from './texts/issue_categories.json';
 import _ISSUES from './texts/issues.json';
 import _COMMUNITIES from './texts/communities.json';
 import _COUNCILS from './texts/councildistricts.json';
 import _DEMOGRAPHICS from './texts/demographics.json';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import _COUNCIL_DISTRICTS from './data/council_districts.json';
 import _COMMUNITY_BOARDS from './data/community_boards.json';
 import _NEIGHBORHOODS from './data/neighborhoods.json';
 
-import Protect from './utils/react-app-protect';
-import MobileCommunityProfile from './components/Mobile Components/MobileCommunityProfile';
-import MobileWhatIsSE from './components/Mobile Components/MobileWhatIsSE';
-import About from './components/About';
-import MobileFixedHeader from './components/Mobile Components/MobileFixedHeader';
-import ReactGA from 'react-ga4';
-
+// site protection
 let siteProtection =
   process.env.REACT_APP_SITE_PROTECTION == 'false'
     ? false
@@ -43,7 +49,6 @@ siteProtection = false;
 let sha512 = process.env.REACT_APP_SITE_PWD;
 
 // map data imports
-
 const issue_categories = _ISSUE_CATEGORIES;
 const issues = _ISSUES;
 const communities = _COMMUNITIES;
@@ -51,29 +56,67 @@ const councils = _COUNCILS;
 const demoLookup = _DEMOGRAPHICS;
 
 function App() {
+
+  // [bool] true if map is showing
   const [showMap, setShowMap] = useState(false);
+
+  // [bool] true if toggle between dataview and mapview is showing
   const [showToggle, setShowToggle] = useState(false);
+
+  // [int] which section of the webapp the user is currently on (either 1, 2, 3, or 4
   const [selectedChapter, setSelectedChapter] = useState(null);
+
+  // [int] which category of issues is currently selected (either 1, 2 or 3 => Health, Environment or Mobility)
   const [selectedIssue, setSelectedIssue] = useState(null);
+
+  // [int] which metric is currently actively selected
   const [selectedSpecificIssue, setSelectedSpecificIssue] = useState(null);
+
+  // [str] which primary community the user has queried
   const [communitySearch, setCommunitySearch] = useState(null);
+
+  // [str] which secondary community the user has queried for comparison
   const [compareSearch, setCompareSearch] = useState(null);
+
+  // [str] either 'council' or 'community', represents which administrative boundary the user has selected
   const [boundary, setBoundary] = useState('council');
+
+  // [int] which demographic type the user has selected 
   const [demographic, setDemographic] = useState(null);
+
+  // [int] which section of the about page to scroll to immediately
   const [selectedAbout, setSelectedAbout] = useState(null);
+
+  // [bool] true if the demographics tab is expanded
   const [showDemographics, setShowDemographics] = useState(null);
+
+  // [int[]] list of integers representing 'more issues' to display
   const [moreIssues, setMoreIssues] = useState([]);
   const [moreIssuesLength, setMoreIssuesLength] = useState(0);
+
+  // [bool] true if the user selects to display the demographics on the map
   const [mapDemographics, setMapDemographics] = useState(false);
+
+  // [bool] true if compare mode is on
   const [addCompare, setAddCompare] = useState(false);
+
   const [colorRamps, setColorRamps] = useState(null);
+
+  // [bool] true if user chooses to highlight underperforming areas
   const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
+
+  // 
   const [coordinateLookup, setCoordinateLookup] = useState(null);
-  // const location = useLocation();
+
+  // [bool] true if user checks to include Transit, Bike, or Walk in alternative commute to work
   const [toggleTransit, setToggleTransit] = useState(true);
   const [toggleBike, setToggleBike] = useState(false);
   const [toggleWalk, setToggleWalk] = useState(false);
+
+
   const [dataScale, setdataScale] = useState(false);
+
+
   const [demoColorRamp, setDemoColorRamp] = useState(
     [255, 0, 0],
     [0, 255, 0],
@@ -81,15 +124,36 @@ function App() {
     [255, 255, 0],
     [255, 0, 255]
   );
+
+  // [int[]] represent bins for demographic legend
   const [demoLegendBins, setDemoLegendBins] = useState([1, 1, 1, 1, 1]);
+
+  // [str] whether source of communitySearch is from the map or search bar (either 'search' or 'click')
   const [searchSource, setSearchSource] = useState('search');
+  
+  // [Float[]] Array of two floats representing location of selected community search
   const [selectedCoord, setSelectedCoord] = useState([]);
+
+  // [Float[]] Array of two floats representing location of selected compare search
   const [selectedCompareCoord, setselectedCompareCoord] = useState([]);
+
+  // state hooks for setting errors
   const [badSearch, setBadSearch] = useState([0, 0]);
   const [errorCode, setErrorCode] = useState(null);
+
+  // [bool]
   const [showMenu, setShowMenu] = useState(false);
+
+  // [object] calculated map info -- contains information calculated in App.js (binList, mapScale, metricGoodorBad, seletedBoundary, selectedMetric, selectedMetricArray, sortedSelectedMetricArray, uniqueValueArray)
   const [info, setInfo] = useState(null);
+
+  // [Array[]] an array of two arrays, the first which represented the coordinates of the primary community lookup and the second which represents the coordinates of the secondary community lookup
   const [userPoints, setUserPoints] = useState([], []);
+
+
+  useEffect(()=>{
+    console.log(communityPinned);
+  })
 
   const [communityPinned, setCommunityPinned] = useState([]);
   const [councilPinned, setCouncilPinned] = useState([]);
@@ -139,6 +203,9 @@ function App() {
     body.style.height = window.innerHeight + 'px';
     html.style.height = window.innerHeight + 'px';
   });
+
+
+ 
 
   useEffect(() => {
     const documentHeight = () => {

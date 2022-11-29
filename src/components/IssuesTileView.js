@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+// import React and React hooks
+import React, { useState, useEffect } from 'react';
+
+//import components
 import IssueProfile from './IssueProfile';
 import Histogram from './Histogram';
 import RightColumnHeader from './RightColumnHeader';
 import RightColumnFooter from './RightColumnFooter';
 
+// import packages
 import Typewriter from 'typewriter-effect';
-import { useEffect } from 'react';
 
 const backgroundImages = [
   'access-square.jpg',
@@ -20,6 +23,37 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
 }
+
+/**
+ * IssuesTileView.js renders the rightmost column of the dataview of the Citywide data section 
+ * Selected props
+ * @property {int} selectedSpecificIssue - integer representing the current actively toggled metric
+ * @property {Object} specificIssue - Object of info relating to the current actively toggled metric
+ * @property {boolean} showMap - if the user is on map view
+ * @property {int} selectedIssue - integer representing the chosen category of indicators (either 1, 2 or 3)
+ * @property {int} selectedChapter - integer representing the current actively toggled section of the app (either 1, 2, 3 or 4)
+ * @param {string} communitySearch - user's query for community (primary)
+ * @param {string} compareSearch - user's query for community they want to compare the primary search with
+ * @param {string} boundary - string representing the toggled active boundary (either 'council' or 'community').
+ * @param {Function} setMoreIssues - update the app's more issues state
+ * @param {Function} setSelectedSpecificIssue - callback function updates the app's state of what indicator is currently actively toggled
+ * @param {} colorRamps -
+ * @param {Function} setCommunitySearch - function to set the app's current (primary) community search
+ * @param {Function} setSelectedChapter -function to set the current active chapter of the web app (either 1, 2, 3, or 4).
+ * @param {} communityPinned - 
+ * @param {} setCommunityPinned -
+ * @param {} councilPinned - 
+ * @param {} setCouncilPinned -
+ * @param {boolean} collapseMap - whether the map is expanded to fill entire 2/3rd of screen
+ * @param {Array[]} userPoints - an array of two arrays, the first which represented the coordinates of the primary community lookup and the second which represents the coordinates of the secondary community lookup
+ * @param {Function} setUserPoints - callback function which updates app's userPoints state
+ * @param {} selectedCoord
+ * @param {Function} setSelectedCoord - 
+ * @param {Function} setSearchSource - update where the source is coming from (either from the map "click" or from the search bar "search")
+ * @param {} displayModes - 
+ * @param {} setDisplayModes -
+ * 
+ */
 
 export default function IssuesTileView({
   selectedSpecificIssue,
@@ -45,11 +79,12 @@ export default function IssuesTileView({
   selectedCoord,
   setSelectedCoord,
   setSearchSource,
-  toggleDisplayMode,
-  setToggleDisplayMode,
   displayModes,
   setDisplayModes,
 }) {
+
+
+  // current background image
   const [imageIndex, setImageIndex] = useState(0);
   const [useBoroughColor, setUseBoroughColor] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
@@ -64,9 +99,11 @@ export default function IssuesTileView({
     setImageIndex(index);
   }, [selectedChapter, selectedIssue]);
 
-    useEffect(() => {
+  useEffect(() => {
     if (selectedSpecificIssue) {
-      let div = document.getElementsByClassName('issues-tile-text-container')[0];
+      let div = document.getElementsByClassName(
+        'issues-tile-text-container'
+      )[0];
       if (div) {
         div.scrollBy({
           top: -div.scrollHeight,
@@ -161,8 +198,6 @@ export default function IssuesTileView({
                     setUseBoroughColor={setUseBoroughColor}
                     isHovering={isHovering}
                     setIsHovering={setIsHovering}
-                    // toggleDisplayMode={toggleDisplayMode}
-                    // setToggleDisplayMode={setToggleDisplayMode}
                     expanded={true}
                     displayModes={displayModes}
                     setDisplayModes={setDisplayModes}
@@ -183,7 +218,6 @@ export default function IssuesTileView({
                   setCouncilPinned={setCouncilPinned}
                   communityPinned={communityPinned}
                   setCommunityPinned={setCommunityPinned}
-                  // setToggleDisplayMode={setToggleDisplayMode}
                 />
               )}
             </div>

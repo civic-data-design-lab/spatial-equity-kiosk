@@ -1,7 +1,20 @@
+// import React and React hooks
 import React, { useState } from 'react';
+
+// import text and/or data
 import categories from '../texts/issue_categories.json';
 
+/**
+ * IssueProfile.js correctly formats and displays media and text associated with each indicator.
+ * @param {Object} issue - entry from issues.json for the current selected indicator; with media and text info
+ * @param {boolean} showMap - if the user is on map view
+ */
+
+
+
 export default function IssueProfile({ issue, showMap }) {
+
+  // get image
   const getImages = () => {
     const ids = issue.image_ids;
     if (ids) {
@@ -22,6 +35,7 @@ export default function IssueProfile({ issue, showMap }) {
     }
   };
 
+  // function for correctly formatting and color-coding text with hyperlinks
   const getHyperlinkText = (texts) => {
     return (
       <p>
@@ -49,6 +63,8 @@ export default function IssueProfile({ issue, showMap }) {
     );
   };
 
+
+  // get list of solutions for issue 
   const getListSolution = () => {
     return issue.specific_issue_solutions.solutions_list.map(
       (solution, index) => {

@@ -1,9 +1,17 @@
+// import React and React hooks
 import React from 'react';
+
+// import components
 import IssuesMiddleColumn from './IssuesMiddleColumn';
 import IssuesTileView from './IssuesTileView';
 import CommunityRightColumn from './CommunityRightColumn';
 import CommunityMiddleColumn from './CommunityMiddleColumn';
 import About from './About';
+
+/**
+ * Content.js renders the right-2 columns of the spatial equity web app
+ */
+
 
 export default function Content({
   selectedChapter,

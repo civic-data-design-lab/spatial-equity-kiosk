@@ -1,15 +1,44 @@
+// import React and React hooks
 import React from 'react';
+
+// import icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
+// import components
 import IssuesCard from './IssuesCard';
 
+// import data and / or text
 import _ISSUES from '../texts/issues.json';
+
+
+/**
+ * IssuesTags.js renders the section of tags.
+ * @constructor
+ * @param {int[]} leastPerforming - list of integers representing the least performing issues of the current selected community
+ * @param {Function} setSelectedSpecificIssue - callback function that updates app's selectedSpecificIssue state
+ * @param {int} selectedSpecificIssue - integer representing the current actively toggled metric
+ * @param {number} moreIssuesLength - how many items are in the moreIssues state
+ * @param {Function} setMoreIssues - update the app's more issues state
+ * @param {int[]} moreIssues - list of integers which represent the non-notable indicators user has toggled for display 
+ * @param {Function} moreIssuesLength - update the app's more issues length state
+ * @param {string} compareSearch - user's query for community they want to compare the primary search with
+ * @param {string} communitySearch - user's query for community (primary)
+ * @param {string} boundary - string representing the toggled active boundary (either 'council' or 'community').
+ * @param {Object} selectedCommunity - Object of info for current community search
+ * @param {Function} setSelectedChapter - function to set the current active chapter of the web app (either 1, 2, 3, or 4).
+ * @param {Function} setSelectedAbout - function to set the section of the About page which to scroll to when navigating there 
+ * @param {Function} setCommunitySearch - function to set the app's current (primary) community search
+ * @param {boolean} addCompare - whether or not the user has compare mode on
+ * @param {Function} setCompareSearch - function to set the app's current (secondary) compare search 
+ * 
+ */
+
 
 export default function IssuesTags({
   leastPerforming,
   setSelectedSpecificIssue,
   selectedSpecificIssue,
-  setModal,
   moreIssues,
   setMoreIssues,
   setMoreIssuesLength,
@@ -28,28 +57,19 @@ export default function IssuesTags({
   // mobile only
   isMobile = false,
 }) {
-  // TODO: all tags when communitySearch && compareSearch
 
-  /*useEffect(() => {
-        if (selectedSpecificIssue && !leastPerforming.includes(selectedSpecificIssue)) {
-            setMoreIssues([selectedSpecificIssue])
-            setMoreIssuesLength(1)
-        }
-    }, [])*/
 
   return (
     <div className={'more-issues-container cards-column'}>
+
+      {/* selected tags become cards */}
+
       {moreIssues.length > 0 && (
         <div className={'d-flex flex-column'}>
           {moreIssues.map((issue, index) => {
             return (
               <div
                 key={index}
-                // className={
-                //   selectedSpecificIssue && selectedSpecificIssue !== issue
-                //     ? 'opacity-50'
-                //     : ''
-                // }
               >
                 <IssuesCard
                   issueIdx={issue}
@@ -62,7 +82,6 @@ export default function IssuesTags({
                   selectedSpecificIssue={selectedSpecificIssue}
                   specificIssue={issue}
                   setSelectedSpecificIssue={setSelectedSpecificIssue}
-                  setModal={setModal}
                   forMoreIssues={true}
                   setMoreIssues={setMoreIssues}
                   moreIssues={moreIssues}

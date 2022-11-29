@@ -16,7 +16,6 @@ export default function MapToggle({
   selectedSpecificIssue,
   displayModes = null,
   setDisplayModes = null,
-  isCommunityProfile = true,
 
   // mobile only
   isMobile = false,

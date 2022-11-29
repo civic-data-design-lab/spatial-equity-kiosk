@@ -251,23 +251,6 @@ const IssueHistogram = ({
       ? `${_ISSUES.specific_issues_data[selectedSpecificIssue].issue_units_symbol} ${_ISSUES.specific_issues_data[selectedSpecificIssue].units_shorthand}`
       : '';
 
-  //   console.log('------');
-  //   console.log('specificIssue', selectedSpecificIssue);
-  //   console.log('issues', issues);
-  //   console.log('issues', _ISSUES.issues_data['environment'].specific_issues_ID);
-  //   console.log('issues type', getIssueType(issues, selectedSpecificIssue));
-  //   console.log('boundary', boundary);
-  //   console.log(
-  //     'json_id',
-  //     _ISSUES.specific_issues_data[selectedSpecificIssue].json_id
-  //   );
-  //   console.log('_RANKINGS', _RANKINGS[boundary]);
-  //   console.log('selectedCommunity', selectedCommunity);
-  //   console.log('communitySearch', communitySearch);
-  //   console.log('compareSearch', compareSearch);
-  //   console.log('selectedCommunity.json_lookup', selectedCommunity.json_lookup);
-  //   console.log('rank', selectedIndex);
-  //   console.log('------');
 
   useEffect(() => {
     const height = containerHeight ? containerHeight : 0;
@@ -454,85 +437,53 @@ const IssueHistogram = ({
           : data[index] > 0
           ? yscale(data[index]) - yscale(0)
           : yscale(0) - yscale(data[index]);
-
-      //   d3.select(this).attr(
-      //     'y1',
-      //     d3.min(data) >= 0
-      //       ? height - length - margin.bottom
-      //       : data[index] > 0
-      //       ? height - length - margin.bottom - yscale(0)
-      //       : height - length - margin.bottom - yscale(data[index])
-      //   );
-      //   d3.select(this).attr('y2', Number(d3.select(this).attr('y1')) + length);
-
-      // svg.append('text')
-      //     .attr('class', 'smaller-text')
-      //     .attr('x', d3.select(this).attr('x1'))
-      //     .attr('y', d3.select(this).attr('y1') - 5)
-      //     .attr("style", "font-family:Inter")
-      //     .attr("font-size", "14")
-      //     .attr("fill", "#000000")
-      //     .attr("text-anchor", "middle")
-      //     .text(`${data[index]}`)
     });
 
     svg
       .select('#minTextDown')
       .attr('x', xscale(0.5))
-      //   .attr('y', height - margin.bottom + 5)
-      // .attr('y', svg.select('#maxLine').attr('y1') - 5)
       .attr('y', height - margin.bottom + 15)
       .attr('class', 'smaller-text')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('font-weight', '500')
       .attr('fill', '#000000')
-      //  .attr('text-anchor', 'end')
       .attr('text-anchor', 'start')
-      //   .text((!ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
       .text(
         rawIssueGoodBad
           ? `${getBoundingStatement('max')}`
           : `${getBoundingStatement('min')}`
       );
-    //   .text(!ascending ? ${hiStatement} ` : `${lowStatement} `);
 
     svg
       .select('#maxTextDown')
       .attr('x', xscale(data.length + 0.5))
-      //   .attr('y', height - margin.bottom + 5)
-      // .attr('y', svg.select('#maxLine').attr('y1') - 5)
       .attr('y', height - margin.bottom + 15)
       .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
       .attr('text-anchor', 'end')
-      //   .text((ascending ? `${hiStatement} ${getIssueStatement()} ${d3.max(data)}` : `${lowStatement} ${getIssueStatement()} ${d3.min(data)} `));
       .text(
         !rawIssueGoodBad
           ? `${getBoundingStatement('max')}`
           : `${getBoundingStatement('min')}`
       );
-    //   .text(ascending ? `${hiStatement} ` : `${lowStatement} `);
 
     svg
       .select('#avgTextDown')
       .attr('x', svg.select('#avgLine').attr('x1'))
-      // .attr('y', height - margin.bottom + 15)
       .attr('y', svg.select('#avgLine').attr('y1') - 14)
       .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
       .attr('text-anchor', 'end')
-      // .attr('visibility', 'hidden')
       .text('Citywide Average');
 
     svg
       .select('#selectedTextDown')
       .attr('x', svg.select('#selectedLine').attr('x1'))
-      // .attr('y', height - margin.bottom + 15)
       .attr('y', svg.select('#selectedLine').attr('y1') - 14)
       .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
@@ -545,7 +496,6 @@ const IssueHistogram = ({
       svg
         .select('#compareTextDown')
         .attr('x', svg.select('#compareLine').attr('x1'))
-        // .attr('y', height - margin.bottom + 15)
         .attr('y', svg.select('#compareLine').attr('y1') - 14)
         .attr('class', 'small-font')
         .attr('style', 'font-family:Inter')
@@ -560,16 +510,13 @@ const IssueHistogram = ({
     svg
       .select('#minTextUp')
       .attr('x', xscale(0.5))
-      //   .attr('y', svg.select('#minLine').attr('y1') - 5)
       .attr('y', height - margin.bottom + 12)
       .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
-      //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
       .text(`${getNumber(data[0])}${metricSymbol}`)
-      // .attr('visibility', showMinText ? 'visible' : 'hidden');
       .attr('visibility', 'hidden');
 
     let showMaxText = !(
@@ -580,29 +527,23 @@ const IssueHistogram = ({
     svg
       .select('#maxTextUp')
       .attr('x', xscale(data.length + 0.5))
-      //   .attr('y', svg.select('#maxLine').attr('y1') - 5)
       .attr('y', height - margin.bottom + 12)
       .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
-      //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'middle')
       .text(`${getNumber(data[data.length - 1])}${metricSymbol}`)
-      // .attr('visibility', showMaxText ? 'visible' : 'hidden');
       .attr('visibility', 'hidden');
 
     svg
       .select('#avgTextUp')
       .attr('x', svg.select('#avgLine').attr('x1'))
-      // .attr('y', svg.select('#avgLine').attr('y1') - 5)
-      // .attr('y', height - margin.bottom + 12)
       .attr('y', svg.select('#selectedLine').attr('y1'))
       .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
-      //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
         `${
@@ -612,58 +553,37 @@ const IssueHistogram = ({
         }${metricSymbol}`
       );
 
-    // let showSelectedText = !(
-    //   Number(svg.select('#selectedLine').attr('index')) ==
-    //   data.length - 1
-    // );
+
     svg
       .select('#selectedTextUp')
       .attr('x', svg.select('#selectedLine').attr('x1'))
       .attr('y', svg.select('#selectedLine').attr('y1'))
-      // .attr('y', height - margin.bottom + 12)
       .attr('class', 'small-font')
       .attr('style', 'font-family:Inter')
       .attr('font-size', '14')
       .attr('fill', '#000000')
-      //   .attr('text-anchor', !ascending ? 'start ' : 'end')
       .attr('text-anchor', 'end')
       .text(
         `${getNumber(
           data[Math.round(svg.select('#selectedLine').attr('index'))]
         )}${metricSymbol}`
       );
-    //   .text(
-    //     `${
-    //       showSelectedText
-    //         ? data[Math.round(svg.select('#selectedLine').attr('index'))]
-    //         : ``
-    //     }`
-    //   );
 
     if (compareSearch) {
       svg
         .select('#compareTextUp')
         .attr('x', svg.select('#compareLine').attr('x1'))
         .attr('y', svg.select('#compareLine').attr('y1'))
-        // .attr('y', height - margin.bottom + 12)
         .attr('class', 'small-font')
         .attr('style', 'font-family:Inter')
         .attr('font-size', '14')
         .attr('fill', '#000000')
-        //   .attr('text-anchor', !ascending ? 'start ' : 'end')
         .attr('text-anchor', 'end')
         .text(
           `${getNumber(
             data[Math.round(svg.select('#compareLine').attr('index'))]
           )}${metricSymbol}`
         );
-      //   .text(
-      //     `${
-      //       showSelectedText
-      //         ? data[Math.round(svg.select('#selectedLine').attr('index'))]
-      //         : ``
-      //     }`
-      //   );
     }
 
     // avoid overlapping between selected text and avg text

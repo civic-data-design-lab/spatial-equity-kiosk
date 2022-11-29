@@ -1,17 +1,32 @@
-import React from 'react';
+// import React and React Hooks
+import React, { useEffect } from 'react';
+
+// import icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
+// import components
 import IssueProfile from './IssueProfile';
 import RightColumnHeader from './RightColumnHeader';
-import { useEffect } from 'react';
 
+// import data and/or text
 import _ISSUES from '../texts/issues.json';
+
+/**
+ * CommunityRightColumn.js is responsible for rendering the issue profile if a indicator is selected
+ * @constructor
+ * @param {string} communitySearch - user's query for community (primary)
+ * @param {int} selectedSpecificIssue - integer representing the current actively toggled metric
+ * @param {boolean} showMap - if the user is on map view
+ *
+ */
 
 export default function CommunityRightColumn({
   communitySearch,
   selectedSpecificIssue,
   showMap,
 }) {
+  // scroll the issue profile back up every time a new one is selected
   useEffect(() => {
     if (selectedSpecificIssue) {
       let div = document.getElementById('issue-container');
@@ -27,6 +42,9 @@ export default function CommunityRightColumn({
   return (
     <>
       <RightColumnHeader type="solutions" />
+
+      {/* if there is no indicator selected, prompt the user to select one */}
+
       {!selectedSpecificIssue && (
         <div className={'d-flex flex-row h-100 col-gap standard-padding'}>
           <div className={'d-flex flex-row col-gap prompt'}>
@@ -37,6 +55,8 @@ export default function CommunityRightColumn({
           </div>
         </div>
       )}
+
+      {/* if there is an indicator selected, render the issue profile */}
 
       {selectedSpecificIssue && (
         <div

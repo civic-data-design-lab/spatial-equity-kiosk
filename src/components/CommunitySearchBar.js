@@ -1,4 +1,7 @@
+// import React and React hooks
 import React, { useEffect, useState } from 'react';
+
+// import fonts
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRight,
@@ -6,6 +9,7 @@ import {
   faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 
+// import packages
 import axios from 'axios';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import { point } from '@turf/helpers';
@@ -13,6 +17,34 @@ import { point } from '@turf/helpers';
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 const NYC_BBOX = '-74.25,40.5,-73.7,40.9';
+
+
+/**
+ * CommunitySearchBar.js renders the community search bars which are used for the primary community search and the secondary community search 
+ * when compare mode is active. Handles forward geocoding, displaying search options and behavior for when an option is selected
+ * 
+ * @constructor
+ * @param {boolean} isMobile - whether to display the mobile or web version, based on inner width and inner height of screen.
+ * @param {string} toggleValue - value inside the search bar
+ * @param {Function} callBack - callback function for setting toggleValue state, changing what text is displayed in search bar
+ * @param {string} communitySearch - user's query for community (primary)
+ * @param {boolean} forSearch - whether the component is used for searching purposes
+ * @param {Element[]} children - a list of children for dropdown list, elements ready to be displayed
+ * @param {Function} setAddCompare - callback to update whether the app's addCompare state
+ * @param {} selectedCoord - TODO
+ * @param {Function} setSelectedCoord - TODO
+ * @param {Function} setShowSearch - whether to display the dropdown items
+ * @param {Function} setselectedCompareCoord - TODO
+ * @param {boolean} primarySearch - if the search box is used for community search or compare search
+ * @param {} badSearch - TODO
+ * @param {Function} setSearchSource - update where the source is coming from (either from the map "click" or from the search bar "search")
+ * @param {Object} info - contains information calculated in App.js (binList, mapScale, metricGoodorBad, seletedBoundary, selectedMetric, selectedMetricArray, sortedSelectedMetricArray, uniqueValueArray)
+ * @param {string} boundary - string representing the toggled active boundary (either 'council' or 'community').
+ * @param {Function} setCompareSearch - function to set the app's current (secondary) compare search 
+ * @param {Array[]} userPoints - an array of two arrays, the first which represented the coordinates of the primary community lookup and the second which represents the coordinates of the secondary community lookup
+ * @param {Function} setUserPoints - callback function which updates app's userPoints state
+ */
+
 
 export default function CommunitySearchBar({
   isMobile = false,
@@ -38,13 +70,20 @@ export default function CommunitySearchBar({
   setUserPoints,
   userPoints,
 }) {
-  const [value, setValue] = useState('');
+
+  // value of input (searchbar)
+  const [value, setValue] = useState(''); 
+  // whether to show dropdown items or not
   const [focus, setFocus] = useState(false);
+  // list of objects of search items from forward geocoding transformed into divs
   const [searchItems, setSearchItems] = useState([]);
+  // loader
   const [loading, setloading] = useState(true);
+  // response from forward geocoding
   const [response, setResponse] = useState(null);
   const [firstMatchedRes, setFirstMatchedRes] = useState([]);
   const [hover, setHover] = useState(false);
+
 
   useEffect(() => {
     if (toggleValue) {
@@ -54,9 +93,14 @@ export default function CommunitySearchBar({
     }
   }, [toggleValue]);
 
-  // console.log('!!!c', communitySearch, )
-  // console.log('!!!s', selectedCoord)
-  const forwardGeocoding = (address) => {
+
+  useEffect(() => {
+    forwardGeocoding(value);
+  }, [value]); // monitor at inputValues
+
+  
+  // forward geocoding to get address lookups using mapbox API
+  const forwardGeocoding = () => {
     const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${MAPBOX_ACCESS_TOKEN}&autocomplete=false&limit=5&bbox=${NYC_BBOX}`;
     axios
       .get(endpoint, {
@@ -65,7 +109,6 @@ export default function CommunitySearchBar({
         },
       })
       .then((res) => {
-        // console.log(res.data.features);
         setResponse(res);
       })
       .catch((err) => {
@@ -76,6 +119,8 @@ export default function CommunitySearchBar({
       });
   };
 
+
+  // function takes a pair of coordinates and a boundary and returns a list of names that match
   const getCommunitySearch = (coord, b) => {
     const searchItemFound = [];
     for (const [index, element] of info.selectedBoundary.features.entries()) {
@@ -96,18 +141,15 @@ export default function CommunitySearchBar({
       }
     }
 
-    // console.log(searchItemFound);
     return searchItemFound;
   };
 
-  useEffect(() => {
-    forwardGeocoding(value);
-  }, [value]); // monitor at inputValues
 
   useEffect(() => {
     if (!response) return;
     if (response.data.features.length == 0) return;
 
+    // take results from geocoding and get elements to display in dropdown
     let firstItem = true;
     let resItems = [];
     for (const v of response.data.features) {
@@ -168,17 +210,11 @@ export default function CommunitySearchBar({
               }
               e.target.blur();
             }
-
-            // console.log([v.center[0].toFixed(3), v.center[1].toFixed(3)])
-            // console.log(selectedCoord)
           }}
         >
           <div className={'row w-100 p-0 m-0'}>
             <div className={'col-10 m-0 p-0'}>
-              <span style={{ fontWeight: 'bold' }}>
-                {/* {v.center[0].toFixed(3) + " " + v.center[1].toFixed(3)} */}
-              </span>{' '}
-              {v.place_name}
+              <span style={{ fontWeight: 'bold' }}></span> {v.place_name}
             </div>
             <div
               className={`${
@@ -198,6 +234,9 @@ export default function CommunitySearchBar({
     setSearchItems(resItems);
   }, [response, selectedCoord]); // monitor at response and selectedCoord updates
 
+
+
+  // function that gets prebaked search and filters appropriately based on query
   const getSearchItems = () => {
     return React.Children.toArray(children).filter(
       (child) =>
@@ -257,31 +296,11 @@ export default function CommunitySearchBar({
             e.stopPropagation();
             setFocus(false);
           }}
-          /*onKeyUp={(e) => {
-                        // if (e.keyCode == 13) forwardGeocoding(value);
-                        e.stopPropagation()
-                        if (e.key === "Escape") setFocus(false);
-
-                        if (e.key === "Enter" && focus && searchItems.length > 0) {
-                            // console.log(firstMatchedRes);
-
-                            if (primarySearch) {
-                                setSelectedCoord(firstMatchedRes);
-                                setShowSearch(false);
-                                e.target.blur();
-                            } else {
-                                setselectedCompareCoord(firstMatchedRes);
-                                setShowSearch(false);
-                                e.target.blur();
-                            }
-                        }
-                    }}*/
           onChange={(e) => {
             e.stopPropagation();
             //callBack(null);
             setShowSearch(true);
             setValue(e.target.value);
-            // console.log('userPOints ', userPoints);
           }}
           value={value}
         />
@@ -313,7 +332,10 @@ export default function CommunitySearchBar({
             if (forSearch) {
               setUserPoints([[], []]);
             } else {
-              setUserPoints([userPoints[0]?userPoints[0].toFixed(6):userPoints[0], []]);
+              setUserPoints([
+                userPoints[0] ? userPoints[0].toFixed(6) : userPoints[0],
+                [],
+              ]);
             }
           }}
         >
@@ -324,14 +346,8 @@ export default function CommunitySearchBar({
           />
         </div>
       </div>
-      {/* {focus && getSearchItems().length > 0 && <div>
-                <ul className={`list-unstyled community-dropdown`}>
-                    {getSearchItems()}
-                </ul>
-            </div>} */}
       {focus && searchItems.length > 0 && (
         <div>
-          {/* {searchItems.length > 0 && showSearch && <div> */}
           <ul className={`list-unstyled community-dropdown`}>
             {getSearchItems()}
             {searchItems}

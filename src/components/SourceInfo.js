@@ -20,7 +20,6 @@ export default function SourceInfo({
       }}
       onClick={(e) => {
         e.stopPropagation();
-        // setSelectedAbout(9);
         setSelectedChapter(4);
         setShowMap && setShowMap(false);
       }}

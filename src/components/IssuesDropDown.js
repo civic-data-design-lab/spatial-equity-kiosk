@@ -4,20 +4,32 @@ import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import _ISSUES from '../texts/issues.json';
 import _ISSUE_CATEGORIES from '../texts/issue_categories.json';
 
+/**
+ * IssuesDropdown.js renders the dropdown component from which the user can toggle the current active indicator
+ * @param {int} currentValue - integer representing the current active indicator
+ * @param {Object[]} items - list of objects representing indicators of the same category (Health, Environment, Mobility) to display within the dropdown
+ * @param {boolean} showDemographics - whether to expand demographics tab or not
+ */
+
 export default function IssuesDropDown({
   currentValue = null,
   items,
   setValue = null,
-  setShowDemographics,
   showDemographics,
 }) {
+  // display dropdown items or not
   const [showDropdownItems, setShowDropdownItems] = useState(false);
+
+  // value in dropdown toggle
   const [toggleText, setToggleText] = useState(
     'Select an indicator to explore'
   );
+
+  // if the selected specific issue is within this dropdown
   const [included, setIncluded] = useState(false);
 
   useEffect(() => {
+    // check if selected specific issue is within this dropdown
     let changed = false;
     items.map((item) => {
       if (item.specific_issue_ID === currentValue) {
@@ -77,10 +89,8 @@ export default function IssuesDropDown({
                   if (currentValue === item.specific_issue_ID) {
                     setValue(false);
                     setToggleText('Select an indicator to explore');
-                    // setShowDemographics(false)
                   } else {
                     setValue(item.specific_issue_ID);
-                    // setShowDemographics(true)
                   }
                 }}
               >

@@ -21,8 +21,6 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
     svg.attr('width', '100%');
     svg.attr('height', (svgRef.current.clientWidth * 1) / 4);
 
-    // let width = dimensions.width ? dimensions.width : 0;
-    // let height = dimensions.height ? dimensions.height : 150;
     let width = svgRef.current.clientWidth;
     let height = (1 / 4) * width;
 
@@ -85,8 +83,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
 
     let gridData = getGridData();
     let gridText = getGridText();
-    // console.log(currentDemographics)
-    // console.log(gridData)
+
 
     svg
       .selectAll('.gridSquare')
@@ -110,10 +107,7 @@ const GridGraph = ({ colorRamps, percList, textList }) => {
       .append('text')
       .attr('class', 'small-font gridText')
       .merge(d3.select(textRef.current).selectAll('.gridText').data(gridText))
-      // .attr("x", (d) => (d.x))
-      // .attr("y", (d) => (d.y))
       .attr('style', 'font-family:Inter')
-      // .attr("style", "font-weight:bold")
       .style('color', (d) => d.color)
       .text((d) => d.text);
 

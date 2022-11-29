@@ -19,18 +19,46 @@ const subheadings = [
   'About the Data',
 ];
 
-const HIDE_MENU_TIME = 1000; // ms, amount of time to wait until hiding menu
+const HIDE_MENU_TIME = 1000; // ms, amount of time to wait until hiding menu for the mobile version of the web app
+
+
+/**
+ * About.js renders the Learn More & Take Action section.
+   Scrollama is used for the scrolling effect.
+ * @constructor
+ * @param {number} selectedAbout - which section of the the About page to scroll to.
+ * @param {Function} setSelectedChapter - function to set the current active chapter of the web app.
+ * @param {boolean} isMobile - whether to display the mobile or web version, based on inner width and hinner height of screen.
+ */
+
 
 export default function About({
   selectedAbout,
   setSelectedChapter,
   isMobile = false,
 }) {
+
+  // which step the user is currently scrolled on  
   const [currentStepIndex, setCurrentStepIndex] = useState(null);
+
+  // data layers to display in data sources table
   const [dataLayers, setDataLayers] = useState([]);
 
   const onStepEnter = ({ data }) => {
     setCurrentStepIndex(data);
+  };
+
+  const toTop = () => {
+    let div = document.getElementById('about-container');
+    div.scrollBy({
+      top: -div.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
+
+  const localSolutions = () => {
+    // Jump to CitiWide Data tab
+    setSelectedChapter(2);
   };
 
   /**
@@ -104,36 +132,22 @@ export default function About({
     setDataLayers(Object.keys(dataJson));
   }, []);
 
-  const toTop = () => {
-    let div = document.getElementById('about-container');
-    div.scrollBy({
-      top: -div.scrollHeight,
-      behavior: 'smooth',
-    });
-  };
-
-  const localSolutions = () => {
-    // Jump to CitiWide Data tab
-    setSelectedChapter(2);
-  };
 
   useEffect(() => {
     if (selectedAbout) {
       let content = document.getElementById(`content-${selectedAbout}`);
       let topPos = content.offsetTop;
 
-      /*
-      document.getElementById('about-container').scrollTop = topPos;
-*/
       document.getElementById('about-container').scroll({
         top: topPos,
         left: 0,
         behavior: 'smooth',
       });
-
-      // console.log('selectedAbout ', selectedAbout);
     }
   }, [selectedAbout]);
+
+
+/* MOBILE MENU BEHAVIOR */
 
   // States/refs for additional scroll features [mobile]
   const [showMenu, setShowMenu] = useState(true);
@@ -181,10 +195,7 @@ export default function About({
     };
   }, [aboutContainerRef]);
 
-  // TODO: reformat about page
-
   return (
-    // TODO: new about page
     <div id={'about-container'} ref={aboutContainerRef}>
       <div
         className={'scroll-menu-box flex-column border-box'}
@@ -390,11 +401,6 @@ export default function About({
               className={`scroll-body ${
                 !isMobile ? 'scroll-body-desktop' : ''
               }`}
-              style={
-                {
-                  // opacity: currentStepIndex === 3 ? 1 : 0.2,
-                }
-              }
             >
               <div
                 className={`scroll-content ${
@@ -460,11 +466,6 @@ export default function About({
               className={`scroll-body ${
                 !isMobile ? 'scroll-body-desktop' : ''
               }`}
-              style={
-                {
-                  // opacity: currentStepIndex === 4 ? 1 : 0.2,
-                }
-              }
             >
               <div
                 className={`scroll-content ${
@@ -520,11 +521,6 @@ export default function About({
               className={`scroll-body ${
                 !isMobile ? 'scroll-body-desktop' : ''
               }`}
-              style={
-                {
-                  // opacity: currentStepIndex === 5 ? 1 : 0.2,
-                }
-              }
             >
               <div
                 className={`scroll-content ${
@@ -587,11 +583,6 @@ export default function About({
               className={`scroll-body ${
                 !isMobile ? 'scroll-body-desktop' : ''
               }`}
-              style={
-                {
-                  // opacity: currentStepIndex === 6 ? 1 : 0.2,
-                }
-              }
             >
               <div
                 className={`scroll-content ${
@@ -781,11 +772,6 @@ export default function About({
               className={`scroll-body ${
                 !isMobile ? 'scroll-body-desktop' : ''
               }`}
-              style={
-                {
-                  // opacity: currentStepIndex === 9 ? 1 : 0.2,
-                }
-              }
             >
               <div
                 className={`scroll-content ${
@@ -880,11 +866,6 @@ export default function About({
               className={`scroll-body ${
                 !isMobile ? 'scroll-body-desktop' : ''
               }`}
-              style={
-                {
-                  // opacity: currentStepIndex === 9 ? 1 : 0.2,
-                }
-              }
             >
               <div
                 className={`scroll-content ${
@@ -949,7 +930,6 @@ export default function About({
                     })}
                   </tbody>
                 </Table>
-
                 <div
                   className={
                     'w-100 d-flex flex-row align-items-center big-col-gap justify-content-center pt-3 mb-3'

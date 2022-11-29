@@ -1,4 +1,7 @@
+// import React and React hooks
 import React, { useEffect, useState } from 'react';
+
+// import fonts
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCaretDown,
@@ -7,13 +10,41 @@ import {
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 
+// import components
 import Form from 'react-bootstrap/Form';
 import Slider from './Carousel';
 import Legend from './Legend';
 import IssuesGrid from './IssuesGrid';
 
+// import data and/or text
 import _COUNCILS from '../texts/councildistricts.json';
 import _COMMUNITIES from '../texts/communities.json';
+
+
+/**
+ * Demographics.js
+ * 
+ * @constructor
+ * @param {int} currentValue - represents which demographics item is chosen.
+ * @param {Function} setValue- update demographics item.
+ * @param {boolean} showDemographics - whether to expand demographics tab or not
+ * @param {string} compareSearch - user's query for community they want to compare the primary search with
+ * @param {string} communitySearch - user's query for community (primary)
+ * @param {boolean} mapDemographics - whether to display demographic information on the map or not
+ * @param {Function} setMapDemographics - callback to update app's mapDemographics state
+ * @param {string} boundary - string representing the toggled active boundary (either 'council' or 'community').
+ * @param {int} selectedChapter - represents the current active section of the web app (either 1, 2, 3 or 4)
+ * @param {boolean} toggleTransit - whether to include transit in alternative commute to work data layer
+ * @param {boolean} toggleBike - whether to include bike in alternative commute to work data layer
+ * @param {boolean} toggleWalk - whether to include walk in alternative commute to work data layer
+ * @param {Float32Array[]} demoLegendBins - binning values for the legend (Array of 5 floats representing upper value of each bin )
+ * @param {Int[]} demoColorRamp - color for legend
+ * @param {boolean} showMap - if the user is on map view
+ * @param {Object} info - contains information calculated in App.js (binList, mapScale, metricGoodorBad, seletedBoundary, selectedMetric, selectedMetricArray, sortedSelectedMetricArray, uniqueValueArray)
+ * @param {Object} issue_categories - categories of demographics to display for IssueGrid.js
+ * @param {Function} setSelectedChapter -function to set the current active chapter of the web app (either 1, 2, 3, or 4).
+ * @param {Function} setShowMap - update the app's showMap state
+ */
 
 export default function Demographics({
   currentValue = null,
@@ -43,6 +74,8 @@ export default function Demographics({
   isMobile = false,
   showLegend = false,
 }) {
+
+  // demographic dropdown items
   const demographics = {
     1: 'Race & Ethnicity',
     2: 'Poverty Level',
@@ -51,18 +84,23 @@ export default function Demographics({
     5: 'Walk, Bike, or Ride Transit',
   };
 
+  // state for keeping track of whether to display dropdown items or not
   const [showDropdownItems, setShowDropdownItems] = useState(false);
+
+  // state for keeping track of what text to put in drop down toggle
   const [demoToggleText, setDemoToggleText] = useState(
     'Select a demographic to explore'
   );
-  const [demographic, setDemographic] = useState(null);
 
+  // make sure text inside dropdown toggle matches what has been selected
   useEffect(() => {
     if (currentValue) {
       setDemoToggleText(demographics[currentValue]);
     }
   }, []);
 
+
+  // get three checkboxes for Transit, Bike and Walk to work 
   const getTransitToggles = () => {
     if (currentValue === '5') {
       const mobileStyle = isMobile
@@ -133,8 +171,13 @@ export default function Demographics({
     }
   };
 
+
+
+
   return (
     <>
+
+    {/* if nothing is chosen from the demographics dropdown, display the issues grid which lets users choose */}
       {!currentValue && (
         <IssuesGrid
           type={'demographics'}
@@ -147,6 +190,9 @@ export default function Demographics({
           setMapDemographics={setMapDemographics}
         />
       )}
+
+
+      {/* if a demographics is chosedn from the dropdown */}
       {currentValue && (
         <div
           className={`demographics-container row-gap ${
@@ -154,6 +200,8 @@ export default function Demographics({
           }`}
           style={{ paddingBottom: isMobile ? '0' : '' }}
         >
+
+          {/* show dropdown */}
           {(!isMobile || (isMobile && showLegend)) && (
             <div className={'dropdown-container'}>
               <div
@@ -229,6 +277,8 @@ export default function Demographics({
                 showLegend={showLegend}
               />
 
+              
+               {/* Show on map button  */}
               {showMap && (!isMobile || (isMobile && showLegend)) && (
                 <div
                   className={`big-button ${
@@ -320,6 +370,7 @@ export default function Demographics({
               </>
             )}
 
+          {/* Carousel ver. */}
           {currentValue &&
             communitySearch &&
             compareSearch &&

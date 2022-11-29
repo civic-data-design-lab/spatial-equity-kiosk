@@ -170,13 +170,8 @@ const Histogram = ({
     }
   };
 
-  // console.log(specificIssue.units)
 
-  // svg attr
   const textWidth = 50;
-
-  // const [communityPinned, setCommunityPinned] = useState([])
-  // const [councilPinned, setCouncilPinned] = useState([])
   const [currentHoveredCommunityID, setCurrentHoveredCommunityID] =
     useState('');
 
@@ -209,7 +204,6 @@ const Histogram = ({
       boundary == 'council'
         ? _COUNCILDISTRICTS_TEXTS[lookupArray[i]].borough[0].split(' ')[0]
         : nameArray[i].split(' ')[0];
-    // console.log(boroughName)
     if (useBoroughColor) {
       colorArray.push(
         d3.rgb(
@@ -221,17 +215,9 @@ const Histogram = ({
         )
       );
     } else {
-      // commentng this out, i think there was a communication error
-      // let indexColor = ascending
-      //   ? 1 - i / (rawIssueData.length - 1)
-      //   : i / (rawIssueData.length - 1);
-
-      // putting this back in, sorry for the communication error
       colorArray.push(
         d3.rgb(
           ...colorInterpolate(
-            // colorRamps[colorRamps.length - 2],
-            // colorRamps[0],
             colorRamps[2],
             colorRamps[2],
             ascending
@@ -240,25 +226,9 @@ const Histogram = ({
           )
         )
       );
-
-      //   console.log(indexColor);
-      // indexColor = indexColor == 1 ? 4 : Math.floor(indexColor * 5);
-      // colorArray.push(d3.rgb(...colorRamps[indexColor]));
     }
   }
 
-  // console.log(avg)
-
-  // console.log(lookupArray)
-  // console.log(rawIssueData)
-  // console.log(avgIndex);
-  // console.log(data);
-
-  // console.log(rawIssueData);
-  // console.log("colorRamps", colorRamps)
-  // console.log("issues", issues)
-  // console.log("boundary", boundary)
-  // console.log("selectedSpecificIssue", selectedSpecificIssue)
 
   useEffect(() => {
     let svg = d3.select(ref.current);
@@ -768,42 +738,6 @@ const Histogram = ({
     });
 
     svg.selectAll('.cancelButtonText').data(data).exit().remove();
-
-    // draw goTo button
-    // svg
-    //   .selectAll('.goToButton')
-    //   .data(data)
-    //   .enter()
-    //   .append('text')
-    //   .attr('class', 'goToButton')
-    //   .merge(svg.selectAll('.goToButton').data(data))
-    //   .attr('y', (d, i) => yscale(i + 1) + 10)
-    //   .attr('x', width - 25)
-    //   .attr('text-anchor', 'end')
-    //   .attr('visibility', 'hidden')
-    //   .style('font-weight', 'bold')
-    //   .attr('fill', '#000000')
-    //   .attr('font-size', '32')
-    //   .attr('stroke-width', '0.5px')
-    //   .text('🞂')
-    //   .attr('lookupID', (d, i) => lookupArray[i]);
-
-    // svg.selectAll('.goToButton').each(function (d, i) {
-    //   d3.select(this).on('click', (e, d) => {
-    //     setSelectedChapter(3);
-    //     setCommunitySearch(d3.select(this).attr('lookupID'));
-    //   });
-    //   d3.select(this).on('mouseover', (e, d) => {
-    //     d3.select(this)
-    //       .attr('fill', 'rgb(255,255,255,0)')
-    //       .attr('stroke', '#000000');
-    //   });
-    //   d3.select(this).on('mouseout', (e, d) => {
-    //     d3.select(this).attr('fill', '#000000');
-    //   });
-    // });
-
-    // svg.selectAll('.goToButton').data(data).exit().remove();
 
     // move the interaction layer to front
     svg.select('#histBg').raise();

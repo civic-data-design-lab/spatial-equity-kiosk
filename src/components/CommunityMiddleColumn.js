@@ -5,6 +5,31 @@ import MapToggle from './MapToggle';
 import _COMMUNITIES from '../texts/communities.json';
 import _COUNCILS from '../texts/councildistricts.json';
 
+/**
+ * CommunityMiddleColumn.js renders the middle column that appears when a user
+ * has put in a community search. The column displays the queried community's name, map toggle and the query's community's profile
+ * 
+ * @constructor
+ * @param {string} communitySearch - user's query for community (primary)
+ * @param {string} compareSearch - user's query for community they want to compare the primary search with
+ * @param {number} selectedSpecificIssue - user's actively selected metric
+ * @param {Function} setSelectedSpecificIssue - callback to update app's metric state
+ * @param {number} moreIssuesLength - how many items are in the moreIssues state
+ * @param {Function} setMoreIssues - update the app's more issues state
+ * @param {int[]} moreIssues - list of integers which represent the non-notable indicators user has toggled for display 
+ * @param {Function} moreIssuesLength - update the app's more issues length state
+ * @param {string} boundary - string representing the toggled active boundary (either 'council' or 'community').
+ * @param {Function} setSelectedChapter - function to set the current active chapter of the web app (either 1, 2, 3, or 4).
+ * @param {Function} setSelectedAbout - function to set the section of the About page which to scroll to when navigating there 
+ * @param {Function} setCommunitySearch - function to set the app's current (primary) community search
+ * @param {boolean} addCompare - whether or not the user has compare mode on
+ * @param {Function} setCompareSearch - function to set the app's current (secondary) compare search 
+ * @param {boolean} showMap - if the user is on map view
+ * @param {Function} setShowMap - update the app's showMap state
+ * @param {} displayModes - TODO;
+ * @param {} setDisplayModes - TODO;
+ */
+
 export default function CommunityMiddleColumn({
   communitySearch,
   compareSearch,

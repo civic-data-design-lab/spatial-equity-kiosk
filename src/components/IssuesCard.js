@@ -1,10 +1,19 @@
+// import React and React Hooks
 import React, { useState } from 'react';
-import _RANKINGS from '../data/rankings.json';
-import _COUNCILDISTRICTS from '../texts/councildistricts.json';
+
+// import components
 import IssueHistogram from './IssueHistogram';
 import RightColumnHeader from './RightColumnHeader';
 
+// import data and / or text
+import _RANKINGS from '../data/rankings.json';
+import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import _ISSUES from '../texts/issues.json';
+
+
+/**
+ * IssuesCard.js renders the individual issue cards in the Community Profiles section
+ */
 
 export default function IssuesCard({
   selectedSpecificIssue,
@@ -55,10 +64,7 @@ export default function IssuesCard({
         isMobile={isMobile}
       />
 
-      <div
-        className={'issues-card-body'}
-        // style={toggleDisplayMode ? { padding: '0', border: '0' } : {}}
-      >
+      <div className={'issues-card-body'}>
         <IssueHistogram
           colorRampsyType={'health'}
           boundary={boundary}

@@ -1,20 +1,32 @@
+// import React and React hooks
 import React, { useEffect } from 'react';
+
+// import components
 import IssuesDropDown from './IssuesDropDown';
 import IssuesGrid from './IssuesGrid';
 import Demographics from './Demographics';
 import Legend from './Legend';
+import MapToggle from './MapToggle';
+
+// import icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+
+// import data and text
 import _RANKINGS from '../data/rankings.json';
 import _COUNCILDISTRICTS from '../texts/councildistricts.json';
 import categories from '../texts/issue_categories.json';
-import MapToggle from './MapToggle';
-
 import _ISSUE_CATEGORIES from '../texts/issue_categories.json';
 import _ISSUES from '../texts/issues.json';
 import _COMMUNITIES from '../texts/communities.json';
 import _COUNCILS from '../texts/councildistricts.json';
 import _DEMOGRAPHICS from '../texts/demographics.json';
+
+/**
+ * IssuesMiddleColumn.js renders the middle column in the Citywide data section 
+ * and the middle column in the Community Profiles section when the map view is toggled.
+ * Refer to App.js for info on props
+ */
 
 export default function IssuesMiddleColumn({
   selectedIssue,
@@ -54,11 +66,10 @@ export default function IssuesMiddleColumn({
   info,
   setSelectedChapter,
   setShowMap,
-  toggleDisplayMode,
-  setToggleDisplayMode,
   displayModes,
   setDisplayModes,
 }) {
+  // function for correctly formatting text and hyperlinks
   const getHyperlinkText = (texts) => {
     return (
       <p>
@@ -95,6 +106,8 @@ export default function IssuesMiddleColumn({
       </p>
     );
   };
+
+  // get top three related issues
   const getRelatedIssues = () => {
     return _ISSUES.specific_issues_data[selectedSpecificIssue].related.map(
       (issue, index) => {
@@ -126,26 +139,29 @@ export default function IssuesMiddleColumn({
       setShowDemographics(null);
     }
   };
-  // console.log("demoLegend in issuesmiddle ", demoLegendBins)
 
+  // items for health dropdown
   const health_issues = _ISSUES.issues_data['health'].specific_issues_ID.map(
     (id_) => {
       return _ISSUES.specific_issues_data[id_];
     }
   );
 
+  // items for environment dropdown
   const environment_issues = _ISSUES.issues_data[
     'environment'
   ].specific_issues_ID.map((id_) => {
     return _ISSUES.specific_issues_data[id_];
   });
 
+  // items for mobility dropdown
   const infrastructure_issues = _ISSUES.issues_data[
     'infrastructure'
   ].specific_issues_ID.map((id_) => {
     return _ISSUES.specific_issues_data[id_];
   });
 
+  // if none of the categories are opened, close demographics tab
   useEffect(() => {
     if (!selectedIssue) {
       setShowDemographics(false);
@@ -209,8 +225,6 @@ export default function IssuesMiddleColumn({
             setDisplayModes={setDisplayModes}
             selectedSpecificIssue={selectedSpecificIssue}
             selectedChapter={selectedChapter}
-            // toggleDisplayMode={toggleDisplayMode}
-            // setToggleDisplayMode={setToggleDisplayMode}
             showToggle={true}
             showMap={showMap}
             setShowMap={setShowMap}
@@ -252,8 +266,6 @@ export default function IssuesMiddleColumn({
             setDisplayModes={setDisplayModes}
             selectedSpecificIssue={selectedSpecificIssue}
             selectedChapter={selectedChapter}
-            // toggleDisplayMode={toggleDisplayMode}
-            // setToggleDisplayMode={setToggleDisplayMode}
             showToggle={selectedIssue === 1 && !communitySearch ? true : false}
             showMap={showMap}
             setShowMap={setShowMap}
@@ -379,8 +391,6 @@ export default function IssuesMiddleColumn({
             setDisplayModes={setDisplayModes}
             selectedSpecificIssue={selectedSpecificIssue}
             selectedChapter={selectedChapter}
-            // toggleDisplayMode={toggleDisplayMode}
-            // setToggleDisplayMode={setToggleDisplayMode}
             showToggle={selectedIssue === 2 && !communitySearch ? true : false}
             showMap={showMap}
             setShowMap={setShowMap}
@@ -506,8 +516,6 @@ export default function IssuesMiddleColumn({
             setDisplayModes={setDisplayModes}
             selectedSpecificIssue={selectedSpecificIssue}
             selectedChapter={selectedChapter}
-            // toggleDisplayMode={toggleDisplayMode}
-            // setToggleDisplayMode={setToggleDisplayMode}
             showToggle={selectedIssue === 3 && !communitySearch ? true : false}
             showMap={showMap}
             setShowMap={setShowMap}
@@ -568,7 +576,6 @@ export default function IssuesMiddleColumn({
             </div>
           )}
 
-          {/*{!showDemographics && <p className={"small-font m-0"}></p>}*/}
           {showMap && (
             <Legend
               setShowMap={setShowMap}

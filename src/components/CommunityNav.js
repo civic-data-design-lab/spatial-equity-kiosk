@@ -1,4 +1,7 @@
+// import React and React hooks
 import React, { useMemo, useState } from 'react';
+
+// import icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRight,
@@ -6,11 +9,42 @@ import {
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 
+// import components
 import CommunitySearchBar from './CommunitySearchBar';
+
+// import npm packages
 import Typewriter from 'typewriter-effect';
 
+// import text and/or data
 import _COMMUNITIES from '../texts/communities.json';
 import _COUNCILS from '../texts/councildistricts.json';
+
+/**
+ * CommunityNav.js renders the Community Profiles section of the navigation 
+ * which includes the community and compare search box as well as the typewriter effect
+ * @constructor
+ * @param {string} communitySearch - user's query for community (primary)
+ * @param {string} compareSearch - user's query for community they want to compare the primary search with
+ * @param {Function} setCommunitySearch - callback function to set the community search query of the app.
+ * @param {Function} setCompareSearch - callback function to set the compare search query of the app.
+ * @param {string} boundary - string representing the toggled active boundary (either 'council' or 'community').
+ * @param {boolean} addCompare - whether or not the user has compare mode on
+ * @param {Function} setAddCompare - callback to update whether the app's addCompare state
+ * @param {Function} setShowMap - update the app's showMap state
+ * @param {} selectedCoord - TODO
+ * @param {Function} setSelectedCoord - TODO
+ * @param {} selectedCompareCoord - TODO
+ * @param {Function} setselectedCompareCoord - TODO
+ * @param {} badSearch - TODO
+ * @param {Function} setBadSearch - TODO
+ * @param {Function} setSearchSource - update where the source is coming from (either from the map "click" or from the search bar "search")
+ * @param {} errorCode - TODO
+ * @param {Object} info - contains information calculated in App.js (binList, mapScale, metricGoodorBad, seletedBoundary, selectedMetric, selectedMetricArray, sortedSelectedMetricArray, uniqueValueArray)
+ * @param {Function} setUserPoints - updates the app's userPoints state of coordinates for the primary and secondary community lookups
+ * @param {Array[]} userPoints - an array of two arrays, the first which represented the coordinates of the primary community lookup and the second which represents the coordinates of the secondary community lookup
+ * @param {Function} setSelectedChapter -function to set the current active chapter of the web app (either 1, 2, 3, or 4).
+  * 
+ */
 
 export default function CommunityNav({
   communitySearch,
@@ -20,17 +54,15 @@ export default function CommunityNav({
   boundary,
   addCompare,
   setAddCompare,
+  setShowMap,
   selectedCoord,
   setSelectedCoord,
-  showMap,
-  setShowMap,
   selectedCompareCoord,
   setselectedCompareCoord,
   badSearch,
   setBadSearch,
   setSearchSource,
   errorCode,
-  setErrorCode,
   info,
   setUserPoints,
   userPoints,
@@ -38,11 +70,10 @@ export default function CommunityNav({
 }) {
   const [showSearch, setShowSearch] = useState(false);
   const [showCompareSearch, setShowCompareSearch] = useState(false);
-  const [notClickable, setNotClickable] = useState(false);
 
+
+  // pre-baked search using imported geojson data 
   const getSearchItems = (forSearch) => {
-    // console.time('searchItems');
-
     let searchItems = [];
     let boundaryData;
     if (boundary === 'community') {
@@ -68,8 +99,9 @@ export default function CommunityNav({
                 : 'search-item-inactive'
             } col search-item p-2`}
             onMouseDown={(e) => {
+
+              // match council district or community board search to data and get centroid
               e.stopPropagation(e);
-              /*setCommunitySearch(key);*/
               setShowSearch(false);
               setSearchSource('search');
               setCommunitySearch(key);
@@ -108,7 +140,6 @@ export default function CommunityNav({
           </div>
         );
       }
-      // console.timeEnd('searchItems');
       return searchItems;
     }
 
@@ -164,8 +195,6 @@ export default function CommunityNav({
         </div>
       );
     }
-
-    // console.timeEnd('searchItems');
 
     return searchItems;
   };
