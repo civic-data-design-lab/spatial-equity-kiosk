@@ -1,6 +1,37 @@
 # NYC Spatial Equity Tool
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository is where the code for the NYC Spatial Equity Tool is maintained and documented. In collaboration with the MIT Norman B. Leventhal Center for Advanced Urbanism (LCAU) and community organization Transit Alternatives (TA), the tool is an interactive database of maps and information about inequities in New York City’s public spaces.
+
+## Project Setup
+
+This digital platform is made using the React framework. It was bootstrapped with create-react-app.
+
+### File Structure
+The diagram below shows a high-level view of the file structure. Not all files are shown.
+
+📦spatial-equity
+ ┣ 📂.github
+ ┣ 📂.idea
+ ┣ 📂build
+ ┣ 📂node_modules
+ ┣ 📂public
+ ┣ 📂src
+ ┃ ┣ 📂components
+ ┃ ┣ 📂data
+ ┃ ┣ 📂fonts
+ ┃ ┣ 📂img
+ ┃ ┣ 📂texts
+ ┃ ┣ 📂utils
+ ┃ ┣ 📜App.css
+ ┃ ┗ 📜App.js
+ ┣ 📜procfile
+ ┗ 📜package.json
+
+* `📂components` contains the React components for the frontend.
+* `📂data` contains the pre-processed data anlysis used to render visualizations. Files include `council_districts.json` and `community_bourds.json` which contain data for all metrics across al council districts and community boards. JSON files in this directory will need to be updated accordingly.
+* `📂fonts` contains ttf files of fonts for the web app
+* `📂img` contains media such as organization and institution logos
+* `📜package.json` defines the dependencies and start scripts.
 
 ## Available Scripts
 
@@ -39,32 +70,6 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
