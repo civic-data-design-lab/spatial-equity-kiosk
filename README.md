@@ -9,6 +9,7 @@ This digital platform is made using the React framework. It was bootstrapped wit
 ### File Structure
 The diagram below shows a high-level view of the file structure. Not all files are shown.
 
+```
 📦spatial-equity
  ┣ 📂.github
  ┣ 📂.idea
@@ -26,6 +27,7 @@ The diagram below shows a high-level view of the file structure. Not all files a
  ┃ ┗ 📜App.js
  ┣ 📜procfile
  ┗ 📜package.json
+ ```
 
 * `📂components` contains the React components for the frontend.
 * `📂data` contains the pre-processed data anlysis used to render visualizations. Files include `council_districts.json` and `community_bourds.json` which contain data for all metrics across al council districts and community boards. JSON files in this directory will need to be updated accordingly.
