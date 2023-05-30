@@ -56,7 +56,6 @@ const councils = _COUNCILS;
 const demoLookup = _DEMOGRAPHICS;
 
 function App() {
-
   // [bool] true if map is showing
   const [showMap, setShowMap] = useState(false);
 
@@ -81,7 +80,7 @@ function App() {
   // [str] either 'council' or 'community', represents which administrative boundary the user has selected
   const [boundary, setBoundary] = useState('council');
 
-  // [int] which demographic type the user has selected 
+  // [int] which demographic type the user has selected
   const [demographic, setDemographic] = useState(null);
 
   // [int] which section of the about page to scroll to immediately
@@ -105,7 +104,7 @@ function App() {
   // [bool] true if user chooses to highlight underperforming areas
   const [toggleUnderperformers, setToggleUnderperformers] = useState(false);
 
-  // 
+  //
   const [coordinateLookup, setCoordinateLookup] = useState(null);
 
   // [bool] true if user checks to include Transit, Bike, or Walk in alternative commute to work
@@ -113,9 +112,7 @@ function App() {
   const [toggleBike, setToggleBike] = useState(false);
   const [toggleWalk, setToggleWalk] = useState(false);
 
-
   const [dataScale, setdataScale] = useState(false);
-
 
   const [demoColorRamp, setDemoColorRamp] = useState(
     [255, 0, 0],
@@ -130,7 +127,7 @@ function App() {
 
   // [str] whether source of communitySearch is from the map or search bar (either 'search' or 'click')
   const [searchSource, setSearchSource] = useState('search');
-  
+
   // [Float[]] Array of two floats representing location of selected community search
   const [selectedCoord, setSelectedCoord] = useState([]);
 
@@ -150,10 +147,9 @@ function App() {
   // [Array[]] an array of two arrays, the first which represented the coordinates of the primary community lookup and the second which represents the coordinates of the secondary community lookup
   const [userPoints, setUserPoints] = useState([], []);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     console.log(communityPinned);
-  })
+  });
 
   const [communityPinned, setCommunityPinned] = useState([]);
   const [councilPinned, setCouncilPinned] = useState([]);
@@ -204,9 +200,6 @@ function App() {
     html.style.height = window.innerHeight + 'px';
   });
 
-
- 
-
   useEffect(() => {
     const documentHeight = () => {
       let body = document.getElementsByTagName('body')[0];
@@ -230,7 +223,7 @@ function App() {
         case 'swM':
           setShowMap(pair[1] === 't');
           break;
-/*        case 'swT':
+          /*        case 'swT':
           setShowToggle(pair[1] === 'true');*/
           break;
         case 'sdC':
@@ -335,22 +328,20 @@ function App() {
           setSearchSource(pair[1]);
           break;
         case 'tT':
-          setToggleTransit(pair[1]==='t')
+          setToggleTransit(pair[1] === 't');
           break;
         case 'tB':
-          setToggleBike(pair[1]==='t')
+          setToggleBike(pair[1] === 't');
           break;
         case 'tW':
-          setToggleWalk(pair[1]==='t')
+          setToggleWalk(pair[1] === 't');
           break;
       }
     }
-    console.log("createCoords ", createCoords);
+    console.log('createCoords ', createCoords);
     setViewState(createViewState);
     setUserPoints(createCoords);
   }, []);
-
-
 
   // GA4 hooks
   useEffect(() => {
@@ -550,8 +541,6 @@ function App() {
     toggleWalk,
   ]);
 
-
-
   useEffect(() => {
     // SELECT BOUNDARY ------------------------------------------------------------
     // toggle between council districts and community boards
@@ -659,7 +648,7 @@ function App() {
 
   useEffect(() => {
     const params = [];
-    if (showMap !== null) params.push(`swM=${showMap?"t":"f"}`);
+    if (showMap !== null) params.push(`swM=${showMap ? 't' : 'f'}`);
     //if (showToggle !== null) params.push(`swT=${showToggle.toString()}`);
     if (communitySearch !== null) params.push(`ctS=${communitySearch}`);
     if (compareSearch !== null) params.push(`cpS=${compareSearch}`);
@@ -672,10 +661,10 @@ function App() {
     if (demographic !== null) params.push(`d=${demographic.toString()}`);
     if (moreIssues.length > 0) params.push(`mI=[${moreIssues.toString()}]`);
     if (showDemographics !== null)
-      params.push(`swD=${showDemographics?"t":"f"}`);
+      params.push(`swD=${showDemographics ? 't' : 'f'}`);
     if (mapDemographics !== null)
-      params.push(`mD=${mapDemographics?"t":"f"}`);
-    if (addCompare !== null) params.push(`aC=${addCompare?"t":"f"}`);
+      params.push(`mD=${mapDemographics ? 't' : 'f'}`);
+    if (addCompare !== null) params.push(`aC=${addCompare ? 't' : 'f'}`);
     if (colorRamps !== null) params.push(`cR=${colorRamps}`);
 
     if (zoomToggle !== null) {
@@ -688,14 +677,24 @@ function App() {
     if (viewState.primary && viewState.primary.zoom !== null)
       params.push(`z=${viewState.primary.zoom}`);
     if (userPoints && userPoints[0]?.length > 0) {
-      params.push(`ctC=[${userPoints[0][0].toFixed(3)},${userPoints[0][1].toFixed(3)}]`);
+      params.push(
+        `ctC=[${userPoints[0][0].toFixed(3)},${userPoints[0][1].toFixed(3)}]`
+      );
     }
     if (userPoints && userPoints[1]?.length > 0) {
-      params.push(`cpC=[${userPoints[1][0].toFixed(3)},${userPoints[1][1].toFixed(3)}]`);
+      params.push(
+        `cpC=[${userPoints[1][0].toFixed(3)},${userPoints[1][1].toFixed(3)}]`
+      );
     }
-    if (toggleTransit !== null) {params.push(`tT=${toggleTransit?'t':'f'}`)};
-    if (toggleBike !== null) {params.push(`tB=${toggleBike?'t':'f'}`)};
-    if (toggleWalk !== null) {params.push(`tW=${toggleWalk?'t':'f'}`)};
+    if (toggleTransit !== null) {
+      params.push(`tT=${toggleTransit ? 't' : 'f'}`);
+    }
+    if (toggleBike !== null) {
+      params.push(`tB=${toggleBike ? 't' : 'f'}`);
+    }
+    if (toggleWalk !== null) {
+      params.push(`tW=${toggleWalk ? 't' : 'f'}`);
+    }
 
     let path = window.location.href.split('?')[0];
     path = path.concat('?');
@@ -721,8 +720,6 @@ function App() {
     }
   });
 
-
-
   useEffect(() => {
     if (selectedSpecificIssue) {
       setSelectedIssue(
@@ -730,7 +727,6 @@ function App() {
       );
     }
   }, [selectedSpecificIssue]);
-
 
   // console.log('siteProtection', process.env.REACT_APP_SITE_PROTECTION)
   // console.log('sha512', process.env.REACT_APP_SITE_PWD)
@@ -1093,7 +1089,7 @@ function App() {
                     </p>
                   </div>
                 </div>
-                <iframe
+                {/* <iframe
                   className={'mobile-video'}
                   style={{ height: selectedChapter ? '0' : '100%' }}
                   src="https://www.youtube.com/embed/tSGOYpNTc8k"
@@ -1101,6 +1097,12 @@ function App() {
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
+                ></iframe> */}
+                <iframe
+                  src="https://player.vimeo.com/video/764327090?h=daa89e38e4&color=ffffff&title=0&byline=0&portrait=0"
+                  frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowfullscreen
                 ></iframe>
               </div>
               <div

@@ -12,7 +12,6 @@ import About from './About';
  * Content.js renders the right-2 columns of the spatial equity web app
  */
 
-
 export default function Content({
   selectedChapter,
   selectedIssue,
@@ -197,12 +196,12 @@ export default function Content({
       >
         {(!selectedChapter || selectedChapter === 1) && (
           <iframe
-            className={'video'}
-            src="https://www.youtube.com/embed/tSGOYpNTc8k"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
+            src="https://player.vimeo.com/video/764327090?h=daa89e38e4&color=ffffff&title=0&byline=0&portrait=0"
+            width="1150"
+            height="760"
+            frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowfullscreen
           ></iframe>
         )}
 

@@ -10,10 +10,7 @@ import categories from '../texts/issue_categories.json';
  * @param {boolean} showMap - if the user is on map view
  */
 
-
-
 export default function IssueProfile({ issue, showMap }) {
-
   // get image
   const getImages = () => {
     const ids = issue.image_ids;
@@ -49,8 +46,6 @@ export default function IssueProfile({ issue, showMap }) {
                     className={`hyperlink ${
                       categories.labels[issue.issue_type_ID]
                     }`}
-                    href={texts.source}
-                    target="_blank"
                   >
                     {texts.hyperlink}
                   </a>
@@ -63,8 +58,7 @@ export default function IssueProfile({ issue, showMap }) {
     );
   };
 
-
-  // get list of solutions for issue 
+  // get list of solutions for issue
   const getListSolution = () => {
     return issue.specific_issue_solutions.solutions_list.map(
       (solution, index) => {

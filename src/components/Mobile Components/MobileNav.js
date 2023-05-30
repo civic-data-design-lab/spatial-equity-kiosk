@@ -224,9 +224,7 @@ export default function MobileNav({
           className={`mobile-nav-chapter
             big-padding ${showMenu ? 'regular-border' : 'shrink border-none'}
             active-scheme`}
-        >
-          <ShareButton isMobile={true} />
-        </div>
+        ></div>
       </div>
     </div>
   );

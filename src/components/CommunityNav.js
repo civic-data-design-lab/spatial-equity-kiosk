@@ -20,7 +20,7 @@ import _COMMUNITIES from '../texts/communities.json';
 import _COUNCILS from '../texts/councildistricts.json';
 
 /**
- * CommunityNav.js renders the Community Profiles section of the navigation 
+ * CommunityNav.js renders the Community Profiles section of the navigation
  * which includes the community and compare search box as well as the typewriter effect
  * @constructor
  * @param {string} communitySearch - user's query for community (primary)
@@ -43,7 +43,7 @@ import _COUNCILS from '../texts/councildistricts.json';
  * @param {Function} setUserPoints - updates the app's userPoints state of coordinates for the primary and secondary community lookups
  * @param {Array[]} userPoints - an array of two arrays, the first which represented the coordinates of the primary community lookup and the second which represents the coordinates of the secondary community lookup
  * @param {Function} setSelectedChapter -function to set the current active chapter of the web app (either 1, 2, 3, or 4).
-  * 
+ *
  */
 
 export default function CommunityNav({
@@ -71,8 +71,7 @@ export default function CommunityNav({
   const [showSearch, setShowSearch] = useState(false);
   const [showCompareSearch, setShowCompareSearch] = useState(false);
 
-
-  // pre-baked search using imported geojson data 
+  // pre-baked search using imported geojson data
   const getSearchItems = (forSearch) => {
     let searchItems = [];
     let boundaryData;
@@ -99,7 +98,6 @@ export default function CommunityNav({
                 : 'search-item-inactive'
             } col search-item p-2`}
             onMouseDown={(e) => {
-
               // match council district or community board search to data and get centroid
               e.stopPropagation(e);
               setShowSearch(false);
@@ -260,22 +258,6 @@ export default function CommunityNav({
                       _COMMUNITIES[communitySearch].name) ||
                       (_COUNCILS[communitySearch] &&
                         _COUNCILS[communitySearch].text)}
-
-                    <a
-                      className={'underline'}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                      href={`mailto:${
-                        (_COUNCILS[communitySearch] &&
-                          _COUNCILS[communitySearch].councilmember_email) ||
-                        null
-                      }`}
-                    >
-                      {(_COUNCILS[communitySearch] &&
-                        _COUNCILS[communitySearch].councilmember_name) ||
-                        null}
-                    </a>
                   </span>
                   {_COUNCILS[communitySearch] && '.'}{' '}
                   {(_COMMUNITIES[communitySearch] &&
@@ -416,22 +398,6 @@ export default function CommunityNav({
           >
             <span>
               {_COUNCILS[compareSearch] && _COUNCILS[compareSearch].text}
-
-              <a
-                className={'underline'}
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                href={`mailto:${
-                  (_COUNCILS[compareSearch] &&
-                    _COUNCILS[compareSearch].councilmember_email) ||
-                  null
-                }`}
-              >
-                {(_COUNCILS[compareSearch] &&
-                  _COUNCILS[compareSearch].councilmember_name) ||
-                  null}
-              </a>
             </span>{' '}
             {(_COMMUNITIES[compareSearch] &&
               _COMMUNITIES[compareSearch].description) ||

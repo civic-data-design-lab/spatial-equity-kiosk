@@ -21,7 +21,6 @@ const subheadings = [
 
 const HIDE_MENU_TIME = 1000; // ms, amount of time to wait until hiding menu for the mobile version of the web app
 
-
 /**
  * About.js renders the Learn More & Take Action section.
    Scrollama is used for the scrolling effect.
@@ -31,14 +30,12 @@ const HIDE_MENU_TIME = 1000; // ms, amount of time to wait until hiding menu for
  * @param {boolean} isMobile - whether to display the mobile or web version, based on inner width and hinner height of screen.
  */
 
-
 export default function About({
   selectedAbout,
   setSelectedChapter,
   isMobile = false,
 }) {
-
-  // which step the user is currently scrolled on  
+  // which step the user is currently scrolled on
   const [currentStepIndex, setCurrentStepIndex] = useState(null);
 
   // data layers to display in data sources table
@@ -132,7 +129,6 @@ export default function About({
     setDataLayers(Object.keys(dataJson));
   }, []);
 
-
   useEffect(() => {
     if (selectedAbout) {
       let content = document.getElementById(`content-${selectedAbout}`);
@@ -146,8 +142,7 @@ export default function About({
     }
   }, [selectedAbout]);
 
-
-/* MOBILE MENU BEHAVIOR */
+  /* MOBILE MENU BEHAVIOR */
 
   // States/refs for additional scroll features [mobile]
   const [showMenu, setShowMenu] = useState(true);
@@ -344,17 +339,6 @@ export default function About({
                   City Council member, asking them to push for policies that
                   address the inequitable use of public space in your
                   neighborhood and citywide.
-                  <span>
-                    {' '}
-                    <a
-                      style={{ textDecorationLine: 'underline' }}
-                      href={'https://p2a.co/aCCqdtQ'}
-                      target={'_blank'}
-                    >
-                      Click here to send a message to your elected leader
-                    </a>
-                    .
-                  </span>
                 </p>
               </div>
             </div>
@@ -416,24 +400,12 @@ export default function About({
                   local streets.
                   <span>
                     {' '}
-                    <a
-                      style={{ textDecorationLine: 'underline' }}
-                      href={'https://www.transalt.org/committees'}
-                      target={'_blank'}
-                    >
-                      Join an activist committee where you live
-                    </a>
+                    <a>Join an activist committee where you live</a>
                   </span>{' '}
                   or
                   <span>
                     {' '}
-                    <a
-                      style={{ textDecorationLine: 'underline' }}
-                      href={'https://www.transalt.org/membership'}
-                      target={'_blank'}
-                    >
-                      become a TA member
-                    </a>
+                    <a>become a TA member</a>
                   </span>
                   .
                 </p>
@@ -443,19 +415,6 @@ export default function About({
                   report card examining spatial inequity in New York City
                   Council districts, based on the most up-to-date data on
                   Spatial Equity NYC at the time.
-                  <span>
-                    {' '}
-                    <a
-                      style={{ textDecorationLine: 'underline' }}
-                      href={
-                        'https://www.transalt.org/spatial-equity-2022-report-card'
-                      }
-                      target={'_blank'}
-                    >
-                      Read the report card
-                    </a>
-                  </span>
-                  .
                 </p>
               </div>
             </div>
@@ -594,11 +553,7 @@ export default function About({
                   In early 2021, Transportation Alternatives launched
                   <span>
                     {' '}
-                    <a
-                      style={{ textDecorationLine: 'underline' }}
-                      href={'https://nyc25x25.org/25x25report.html'}
-                      target={'_blank'}
-                    >
+                    <a>
                       NYC 25x25: A Challenge to New York City’s Next Leaders to
                       Give Streets Back to People.
                     </a>{' '}
@@ -638,23 +593,6 @@ export default function About({
                   space for people to benefit our health, our environment, and
                   the very accessibility of our city.
                 </p>
-
-                <p>
-                  If you are an elected official or represent a community
-                  organization in New York City, you can join the NYC 25x25
-                  Coalition{' '}
-                  <span>
-                    {' '}
-                    <a
-                      style={{ textDecorationLine: 'underline' }}
-                      href={'https://nyc25x25.org/coalition.html'}
-                      target={'_blank'}
-                    >
-                      here
-                    </a>
-                  </span>
-                  .
-                </p>
               </div>
             </div>
           </Step>
@@ -684,11 +622,7 @@ export default function About({
                   analyses of any citywide or community data on this site.
                   <span>
                     {' '}
-                    <a
-                      style={{ textDecorationLine: 'underline' }}
-                      href={'mailto:philip.miatkowski@transalt.org'}
-                      target={'_blank'}
-                    >
+                    <a>
                       Contact Transportation Alternatives’ director of research
                     </a>
                   </span>
@@ -701,11 +635,7 @@ export default function About({
                   community.
                   <span>
                     {' '}
-                    <a
-                      style={{ textDecorationLine: 'underline' }}
-                      href={'mailto:elizabeth.adams@transalt.org'}
-                      target={'_blank'}
-                    >
+                    <a>
                       Contact Transportation Alternatives’ director of
                       organizing
                     </a>
@@ -720,13 +650,7 @@ export default function About({
                   or town,
                   <span>
                     {' '}
-                    <a
-                      style={{ textDecorationLine: 'underline' }}
-                      href={'mailto:info@transalt.org'}
-                      target={'_blank'}
-                    >
-                      contact Transportation Alternatives
-                    </a>
+                    <a>contact Transportation Alternatives</a>
                   </span>
                   .
                 </p>
@@ -841,9 +765,7 @@ export default function About({
 
                 <h6 className={'bold mt-4'}>About Buck Design</h6>
                 <p>
-                  <a href={'https://buck.co/'} target={'_blank'}>
-                    BUCK
-                  </a>
+                  <a>BUCK</a>
                   &nbsp;is a talent-driven, global, creative company with
                   offices in New York, Los Angeles, Sydney and Amsterdam.
                   Founded in 2004, BUCK has built a reputation for outstanding
@@ -914,10 +836,7 @@ export default function About({
                             }
                           </td>
                           <td>
-                            <a
-                              target={'_blank'}
-                              href={_ISSUES.specific_issues_data[id]?.link}
-                            >
+                            <a>
                               {
                                 _ISSUES.specific_issues_data[id]
                                   ?.specific_issue_source

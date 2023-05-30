@@ -23,7 +23,7 @@ import _COUNCILS from '../texts/councildistricts.json';
 import _DEMOGRAPHICS from '../texts/demographics.json';
 
 /**
- * IssuesMiddleColumn.js renders the middle column in the Citywide data section 
+ * IssuesMiddleColumn.js renders the middle column in the Citywide data section
  * and the middle column in the Community Profiles section when the map view is toggled.
  * Refer to App.js for info on props
  */
@@ -93,8 +93,6 @@ export default function IssuesMiddleColumn({
                           .issue_type_ID
                       ]
                     }`}
-                    href={texts.source}
-                    target="_blank"
                   >
                     {texts.hyperlink}
                   </a>

@@ -117,8 +117,6 @@ export default function CitywideData({
                           .issue_type_ID
                       ]
                     }`}
-                    href={textData.source}
-                    target="_blank"
                   >
                     {textData.hyperlink}
                   </a>

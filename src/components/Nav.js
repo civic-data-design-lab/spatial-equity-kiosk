@@ -135,9 +135,6 @@ function Nav({
               unequal outcomes and what you can do about it.{' '}
             </h6>
           </div>
-          {selectedChapter === 1 && (
-            <ShareButton setShareExpanded={setShareExpanded} />
-          )}
         </div>
       </div>
 
@@ -214,9 +211,6 @@ function Nav({
               setBadSearch={setBadSearch}
             />
           </div>
-          {selectedChapter == 2 && (
-            <ShareButton setShareExpanded={setShareExpanded} />
-          )}
         </div>
       </div>
 
@@ -310,9 +304,6 @@ function Nav({
             userPoints={userPoints}
             selectedChapter={selectedChapter}
           />
-          {selectedChapter == 3 && (
-            <ShareButton setShareExpanded={setShareExpanded} />
-          )}
         </div>
       </div>
 
@@ -384,16 +375,16 @@ function Nav({
                 e.stopPropagation();
               }}
             >
-              <a href={`https://www.transalt.org/`} target={'_blank'}>
+              <a>
                 <img src={_TA} height={40} />
               </a>
-              <a target="_blank" href={'https://www.mit.edu/'}>
+              <a>
                 <img src={_MIT} height={25} />
               </a>
-              <a target="_blank" href={'https://lcau.mit.edu/'}>
+              <a>
                 <img src={_LCAU} height={40} />
               </a>
-              <a target="_blank" href={'https://civicdatadesignlab.mit.edu'}>
+              <a>
                 <img src={_CDDL} height={25} />
               </a>
             </div>
