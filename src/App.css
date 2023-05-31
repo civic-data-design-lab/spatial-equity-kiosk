@@ -2175,8 +2175,10 @@ input:checked+.slider:before {
 }
 
 .video {
-    width: 100%;
+    /* changed the width to 125% for full width but if a thumbnail is available then this can be removed */
+    width: 125%;
     height: 100%;
+    background-color: white;
 }
 
 .mobile-video {

@@ -197,12 +197,12 @@ export default function Content({
       >
         {(!selectedChapter || selectedChapter === 1) && (
           <iframe
-            className={'video'}
             src="https://player.vimeo.com/video/764327090?h=daa89e38e4&color=ffffff&title=0&byline=0&portrait=0"
             height="100%"
             frameborder="0"
             controls="0"
-            background="true"
+            fullscreen="0"
+            className={'video'}
           ></iframe>
         )}
 

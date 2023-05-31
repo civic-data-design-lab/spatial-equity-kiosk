@@ -1089,19 +1089,10 @@ function App() {
                     </p>
                   </div>
                 </div>
-                {/* <iframe
-                  className={'mobile-video'}
-                  style={{ height: selectedChapter ? '0' : '100%' }}
-                  src="https://www.youtube.com/embed/tSGOYpNTc8k"
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe> */}
+
                 <iframe
                   src="https://player.vimeo.com/video/764327090?h=daa89e38e4&color=ffffff&title=0&byline=0&portrait=0"
-                  width="100%"
-                  height="760"
+                  height="100%"
                   frameborder="0"
                   controls="0"
                   fullscreen="0"
