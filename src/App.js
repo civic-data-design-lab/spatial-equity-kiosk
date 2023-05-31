@@ -1100,9 +1100,11 @@ function App() {
                 ></iframe> */}
                 <iframe
                   src="https://player.vimeo.com/video/764327090?h=daa89e38e4&color=ffffff&title=0&byline=0&portrait=0"
+                  width="100%"
+                  height="760"
                   frameborder="0"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowfullscreen
+                  controls="0"
+                  fullscreen="0"
                 ></iframe>
               </div>
               <div

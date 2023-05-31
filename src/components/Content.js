@@ -193,15 +193,16 @@ export default function Content({
             : 'white-bg'
         }`}
         id="right-column"
+        style={{ border: '2px solid black' }}
       >
         {(!selectedChapter || selectedChapter === 1) && (
           <iframe
+            className={'video'}
             src="https://player.vimeo.com/video/764327090?h=daa89e38e4&color=ffffff&title=0&byline=0&portrait=0"
-            width="1150"
-            height="760"
+            height="100%"
             frameborder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowfullscreen
+            controls="0"
+            background="true"
           ></iframe>
         )}
 
